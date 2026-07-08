@@ -23,7 +23,7 @@
 - **But** : produire un artefact **réellement utile** (candidatures de stage) tout en pratiquant Markdown + ligne de commande + git + sécurité.
 - **Contenu** :
   1. CV en Markdown à partir d'un template ([markdown-cv](https://github.com/tompollard/markdown-cv)).
-  2. Rendu PDF : `pandoc cv.md -o cv.pdf --template=…`.
+  2. Rendu PDF **sans LaTeX** : `pandoc cv.md -o cv.pdf --pdf-engine=typst` (binaire unique, Windows-friendly ; cf. annexe H).
   3. **Sécurité** : données perso réelles (adresse, tél, nom complet) dans un fichier **non versionné** (`.gitignore`) ; vérif `git status` / `git check-ignore`. L'historique public est permanent.
   4. Option publication : GitHub Pages.
 - **Outils** : Markdown, `pandoc` (CLI), git, `.gitignore`, (SSH pour push).
@@ -34,6 +34,8 @@
 - **But** : le meilleur vecteur pour enseigner git collaboratif — **tout le monde édite le même fichier index** → **conflit de merge réel**.
 - **Contenu** : dépôt commun amorcé (`awesome-geomatique-outils.md`, tableau Markdown) ; chaque étudiant ajoute une entrée via **branche + PR** ; au moins un conflit à résoudre.
 - **Outils** : git branches, forge, PR, résolution de conflit, revue par les pairs.
+- **Échauffement ludique** : [Learn Git Branching](https://learngitbranching.js.org/) en amont (cf. annexe I).
+- **Variante à évaluer (ne remplace pas l'EX4)** : « livre-jeu » collectif en Markdown via PR (modèle Udacity) — même workflow, plus ludique. À comparer sur prototype, cf. annexe I.
 - **Livrable** : PR fusionnée de chaque étudiant, historique du dépôt commun.
 
 ## EX5 — Carnet de terrain (ancrage géomatique)

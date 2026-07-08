@@ -20,6 +20,8 @@ Dossier de conception — **v0** (2026-07-08). Support : Python langage principa
 - [E — Culture informatique](annexes/annexe_E_culture_info.md)
 - [F — Sécurité (SSH, clés, secrets)](annexes/annexe_F_securite.md)
 - [G — Pont MyST / algo](annexes/annexe_G_myst_pont_algo.md)
+- [H — Ressources & rendu du CV (Markdown/Typst)](annexes/annexe_H_ressources_rendu_cv.md)
+- [I — Apprentissage ludique (jeux git, livre-jeu Markdown)](annexes/annexe_I_apprentissage_ludique.md)
 
 ## Exercices
 
