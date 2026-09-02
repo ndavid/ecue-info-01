@@ -1,0 +1,40 @@
+# Environnement du module « Introduction à l'informatique ».
+#
+#   conda env create -f environment.yml
+#   conda activate info01
+#
+# Mise à jour après modification de ce fichier :
+#   conda env update -f environment.yml --prune
+name: info01
+
+channels:
+  - conda-forge
+
+dependencies:
+  # --- Socle ---
+  - python=3.12
+
+  # --- Notebooks & book (cours 1) ---
+  - jupyterlab          # interface notebook
+  - jupytext            # conversion .ipynb <-> MyST Markdown
+  # Book : Sphinx + myst-nb produit du HTML à chemins **relatifs**, ouvrable
+  # par double-clic (file://) et sans connexion — contrainte de distribution
+  # aux étudiants. mystmd/Jupyter Book 2 génère une application web qui exige
+  # un serveur : écarté pour cette raison (et Node n'est donc pas nécessaire).
+  - sphinx
+  - myst-nb             # Markdown MyST + exécution des cellules
+  - sphinx-book-theme
+  - sphinx-design
+  - sphinx-autobuild    # aperçu live pendant la rédaction
+
+  # --- Documents & diapositives ---
+  - typst               # diapositives (src/cours<n>/diapo/*.typ)
+  - pandoc              # conversions de documents (.md -> .odt/.pdf/.html)
+
+  # --- Calcul & images (cours 6, TD 4 et 7) ---
+  - numpy
+  - pillow
+
+  # --- Outils externes pilotés par subprocess (cours 3, TD 4) ---
+  - ffmpeg              # assemblage vidéo
+  - imagemagick         # dessin et conversion d'images

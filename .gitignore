@@ -1,0 +1,13 @@
+# Données de cours : on versionne la recette (make_data.py), pas les textes
+# téléchargés ni les fichiers qu'on en dérive.
+data/*/textes_sources/
+data/*/genere/
+
+# Environnement & outillage
+__pycache__/
+.ipynb_checkpoints/
+_build/
+.venv/
+
+# Sorties typst
+*.pdf

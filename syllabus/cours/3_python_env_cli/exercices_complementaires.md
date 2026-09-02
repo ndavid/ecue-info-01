@@ -1,6 +1,7 @@
-# Exercices complémentaires — Cours 1 : Formats & environnement
+# Exercices complémentaires — Cours 3 : Binaire, données & CLI
 
-> Un exercice = **Objectif · Prérequis · Énoncé · Plancher/Plafond · Critères**. Pour étudiants rapides ou en autonomie.
+> Un exercice = **Objectif · Prérequis · Énoncé · Plancher/Plafond · Critères**.
+> Les deux premiers viennent du cours 1 (v1), déplacés avec le bloc binaire.
 
 ## Ex. 1 — ASCII ↔ texte (aller-retour)
 
@@ -18,7 +19,7 @@
 - **Plancher / Plafond** : *plancher* — gris 0/255 ; *plafond* — niveaux intermédiaires, ou passer en couleur `P6` (3 octets/pixel).
 - **Critères** : le motif dessiné correspond à l'aperçu.
 
-## Ex. 3 — (à ajouter)
+## Ex. 3 — (à ajouter : `subprocess` / `argparse`)
 
 - **Objectif** :
 - **Prérequis** :
