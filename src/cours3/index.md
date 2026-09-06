@@ -1,22 +1,11 @@
 ---
-title: "Binaire, données & construction d'une CLI (CM)"
-subtitle: Séance 3 — support à rédiger
-jupytext:
-  text_representation:
-    extension: .md
-    format_name: myst
-kernelspec:
-  name: python3
-  display_name: Python 3
+title: "Séance 3 — Binaire, données et construction d'une CLI"
 ---
 
-:::{note} Gabarit
-Support non rédigé. Le plan ci-dessous est recopié du
-syllabus (`syllabus/01_syllabus_v1.md`) ; le déroulé fin vit dans
-`syllabus/cours/3_python_env_cli/`.
-
-Le cours 1 (`src/cours1/notebook/`) sert de modèle de
-mise en forme (`code-cell`, `admonition`, `list-table`).
+:::{note} Page à rédiger
+Le plan ci-dessous est repris du syllabus (`syllabus/01_syllabus_v1.md`) ; le
+déroulé détaillé est dans `syllabus/cours/3_python_env_cli/`.
+La séance 1 (`src/cours1/`) sert de modèle de mise en forme.
 :::
 
 Objectif : voir ce qu'il y a *vraiment* dans un fichier binaire, puis écrire un petit outil Python qui **orchestre des commandes**.

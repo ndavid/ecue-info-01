@@ -1,22 +1,11 @@
 ---
-title: "Ligne de commande & git local (CM)"
-subtitle: Séance 2 — support à rédiger
-jupytext:
-  text_representation:
-    extension: .md
-    format_name: myst
-kernelspec:
-  name: python3
-  display_name: Python 3
+title: "Séance 2 — Ligne de commande et git local"
 ---
 
-:::{note} Gabarit
-Support non rédigé. Le plan ci-dessous est recopié du
-syllabus (`syllabus/01_syllabus_v1.md`) ; le déroulé fin vit dans
-`syllabus/cours/2_cli_git_local/`.
-
-Le cours 1 (`src/cours1/notebook/`) sert de modèle de
-mise en forme (`code-cell`, `admonition`, `list-table`).
+:::{note} Page à rédiger
+Le plan ci-dessous est repris du syllabus (`syllabus/01_syllabus_v1.md`) ; le
+déroulé détaillé est dans `syllabus/cours/2_cli_git_local/`.
+La séance 1 (`src/cours1/`) sert de modèle de mise en forme.
 :::
 
 Objectif : lancer des outils au terminal (sans dépendre de l'OS) et versionner son travail en local.

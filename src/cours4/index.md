@@ -1,22 +1,11 @@
 ---
-title: "Studio d'automatisation (animation vidéo)"
-subtitle: Séance 4 — support à rédiger
-jupytext:
-  text_representation:
-    extension: .md
-    format_name: myst
-kernelspec:
-  name: python3
-  display_name: Python 3
+title: "Séance 4 — Studio d'automatisation (animation vidéo)"
 ---
 
-:::{note} Gabarit
-Support non rédigé. Le plan ci-dessous est recopié du
-syllabus (`syllabus/01_syllabus_v1.md`) ; le déroulé fin vit dans
-`syllabus/cours/4_td_animation/`.
-
-Le cours 1 (`src/cours1/notebook/`) sert de modèle de
-mise en forme (`code-cell`, `admonition`, `list-table`).
+:::{note} Page à rédiger
+Le plan ci-dessous est repris du syllabus (`syllabus/01_syllabus_v1.md`) ; le
+déroulé détaillé est dans `syllabus/cours/4_td_animation/`.
+La séance 1 (`src/cours1/`) sert de modèle de mise en forme.
 :::
 
 Objectif : appliquer `subprocess`/`argparse` (cours 3) et git local en produisant une **courte vidéo animée** — l'orchestration d'outils, pas de la programmation compliquée.

@@ -1,22 +1,11 @@
 ---
-title: "Matériel & réseau ; SSH, clés, secrets (CM)"
-subtitle: Séance 5 — support à rédiger
-jupytext:
-  text_representation:
-    extension: .md
-    format_name: myst
-kernelspec:
-  name: python3
-  display_name: Python 3
+title: "Séance 5 — Matériel, réseau, SSH et secrets"
 ---
 
-:::{note} Gabarit
-Support non rédigé. Le plan ci-dessous est recopié du
-syllabus (`syllabus/01_syllabus_v1.md`) ; le déroulé fin vit dans
-`syllabus/cours/5_materiel_reseau_ssh/`.
-
-Le cours 1 (`src/cours1/notebook/`) sert de modèle de
-mise en forme (`code-cell`, `admonition`, `list-table`).
+:::{note} Page à rédiger
+Le plan ci-dessous est repris du syllabus (`syllabus/01_syllabus_v1.md`) ; le
+déroulé détaillé est dans `syllabus/cours/5_materiel_reseau_ssh/`.
+La séance 1 (`src/cours1/`) sert de modèle de mise en forme.
 :::
 
 Deux moitiés indépendantes ; la 2ᵉ prépare directement la forge (cours 6).
