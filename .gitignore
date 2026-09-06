@@ -11,3 +11,12 @@ _build/
 
 # Sorties typst
 *.pdf
+
+# Manipulation « trajet » du cours 1 : on versionne la recette, pas le rendu
+data/cours1/trajet/tuiles/
+data/cours1/trajet/carte.png
+data/cours1/trajet/carte.json
+data/cours1/trajet/etape_*.png
+data/cours1/trajet/montage.txt
+data/cours1/trajet/trajet.srt
+data/cours1/trajet/trajet.mp4
