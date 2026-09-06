@@ -17,36 +17,52 @@ Un même contenu ne s'écrit pas pareil selon qui le lit et quand.
 
 L'erreur à ne pas refaire : écrire les diapositives comme la page de cours.
 
-## Diapositives : assertion-evidence
+## Diapositives
 
-Le modèle est celui de Michael Alley (Penn State), validé expérimentalement :
-à discours identique, l'auditoire qui voit des diapositives assertion-evidence
-comprend et retient mieux que celui qui voit des listes à puces.
+La structure suit le modèle *assertion-evidence* de Michael Alley (Penn State),
+validé expérimentalement : à discours identique, un auditoire retient mieux une
+diapositive portant une idée et une preuve visuelle qu'une liste à puces.
+Le titre, en revanche, reste **descriptif** — un groupe nominal, pas une
+assertion compressée.
 
-**Trois règles :**
+**Quatre règles :**
 
-1. **Le titre de la diapositive est une phrase complète** qui énonce ce que la
-   diapositive démontre — pas un thème.
-   *Pas* « Formats & extensions », mais « L'extension ne change pas le contenu
-   du fichier ».
-2. **Le corps est une preuve visuelle** : un schéma, une sortie de commande, un
-   extrait de code, une comparaison. Pas une liste à puces.
-3. **Les phrases d'explication se disent, elles ne s'écrivent pas.** Ce que
-   l'enseignant va prononcer n'a pas à figurer à l'écran (principe de redondance
-   de Mayer : texte à l'écran + même texte dit à voix haute dégrade
-   l'apprentissage).
+1. **Le titre nomme le sujet de la diapositive.** « Extension et contenu »,
+   « Le système d'exploitation », « Contenu de la séance ». Pas de slogan, pas
+   de tournure à contraste (« X, pas Y »), pas de formule qui cherche l'effet.
+2. **Une phrase d'annonce sous le titre** (`#annonce[…]`) énonce l'idée quand
+   elle ne se lit pas d'elle-même sur la preuve. Une à deux phrases, au
+   présent, sans emphase.
+3. **Le corps est une preuve visuelle** : un schéma, une sortie de commande, un
+   extrait de code, une comparaison. Pas de liste à puces.
+4. **Ce que l'enseignant dit n'est pas écrit** (principe de redondance de
+   Mayer : texte affiché plus même texte prononcé dégrade l'apprentissage). Le
+   commentaire va dans `#notes[…]`, visible avec `--input notes=true`.
 
 **Conséquences pratiques :**
 
-- Une idée par diapositive. Si le titre contient « et », il y a deux diapositives.
-- Pas de liste à puces. Une énumération de 5 items est le signe qu'il manque un
-  schéma ou un tableau.
-- Un tableau de comparaison **est** une preuve visuelle : il est autorisé quand
-  la comparaison est le propos.
-- Le texte de commentaire va en **notes de présentation** (`#notes[…]`), pas sur
-  la diapositive.
-- Principe de cohérence (Mayer) : tout élément qui n'est pas nécessaire nuit.
-  Pas d'emoji décoratif, pas de couleur qui ne code rien, pas de « fun fact ».
+- Une idée par diapositive. Un titre contenant « et » qui relie deux sujets
+  distincts signale qu'il en faut deux.
+- Une énumération de cinq items est le signe qu'il manque un schéma ou un
+  tableau.
+- Un tableau de comparaison est une preuve visuelle : il est légitime quand la
+  comparaison est le propos.
+- Des diapositives de séparation (`#separateur(…)`) marquent le passage d'une
+  partie à l'autre.
+- Principe de cohérence (Mayer) : tout élément qui ne sert pas nuit. Pas
+  d'emoji décoratif, pas de couleur qui ne code rien.
+
+**Formulations à éviter**, relevées sur une première version de ce deck :
+
+| Écrit | À écrire |
+|-------|----------|
+| « Ce module enseigne les gestes que les autres cours supposent acquis » | Titre : « Objectif du cours ». Annonce : « Consolider ou acquérir les bases informatiques nécessaires aux autres enseignements. » |
+| « Ce module traite la forme des projets, pas l'algorithmique » | Titre : « Objectif pour la programmation », suivi de ce que cela recouvre. |
+| « La séance répond à quatre questions qui s'enchaînent » | « Contenu de la séance » |
+| « Un `.odt` est une archive ZIP de fichiers XML » | Titre : « Structure d'un fichier `.odt` ». L'affirmation passe en annonce. |
+
+Les titres des sections des pages de cours suivent la même règle, pour que les
+deux supports se répondent.
 
 ## Prose (pages de cours, syllabus, README)
 

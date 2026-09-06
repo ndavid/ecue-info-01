@@ -1,8 +1,8 @@
-#import "theme.typ": diapos, d, notes, legende, face-a-face, panneau, accent, estompe
+#import "theme.typ": diapos, d, separateur, annonce, notes, legende, face-a-face, panneau, accent, estompe
 
 #show: diapos.with(
-  titre: "Logiciel, programmation et formats de fichier",
-  sous-titre: "Cours 1 — Introduction à l'informatique",
+  titre: "Introduction à l'informatique",
+  sous-titre: "Cours 1",
   auteur: "1re année géomatique",
   date: "15 septembre",
 )
@@ -22,46 +22,226 @@
 
 #let fleche = align(horizon + center, text(size: 26pt, fill: accent)[→])
 
-// ---------------------------------------------------------------------------
+// =============================== Introduction ===============================
 
-#d("La séance répond à quatre questions qui s'enchaînent")[
+#separateur("Le module info01", annonce: "Objectifs, contenu et organisation des sept séances")
+
+#d("Objectif du cours")[
+  #annonce[
+    Consolider ou acquérir les bases informatiques nécessaires aux autres
+    enseignements, en particulier ceux de programmation et les TD utilisant
+    Python.
+  ]
+
+  #table(
+    columns: (1fr, 1fr),
+    inset: 8pt,
+    align: left + horizon,
+    stroke: (x, y) => if y > 0 { (top: 0.5pt + estompe.lighten(50%)) },
+    [Demandé dans les autres cours], [Ce qui est enseigné ici],
+    [« installez Python et numpy »], [créer un environnement et le réinstaller ailleurs],
+    [« ouvrez le projet fourni »], [travailler dans un éditeur de code, lire une arborescence],
+    [« rendez votre code »], [versionner avec git, partager un dépôt],
+    [« le script lit `donnees.csv` »], [manipuler des fichiers depuis Python],
+  )
+
+  #notes[
+    Ces gestes sont attendus mais rarement enseignés. C'est le temps perdu
+    dessus que le module vise à supprimer.
+  ]
+]
+
+#d("Objectif pour la programmation")[
+  #annonce[
+    Maîtriser les bonnes pratiques de gestion d'un projet de code :
+    documentation (`README`), organisation des fichiers, et usage des
+    bibliothèques permettant d'écrire un programme facile à utiliser et à
+    reprendre.
+  ]
+
+  #table(
+    columns: (1.7fr, 0.8fr, 1fr),
+    inset: 10pt,
+    align: (left + horizon, center + horizon, center + horizon),
+    stroke: (x, y) => if y > 0 { (top: 0.5pt + estompe.lighten(50%)) },
+    [], [ce cours], [cours de programmation],
+    [Quel algorithme choisir ?], [], [oui],
+    [Comment écrire cette boucle ?], [], [oui],
+    [Où mettre ce fichier ?], [oui], [],
+    [Comment lancer le script ailleurs ?], [oui], [],
+  )
+
+  #notes[
+    L'algorithmique relève du cours de programmation, qui se déroule en
+    parallèle. Ajouter oralement : « retrouver la version qui marchait » relève
+    aussi de ce module.
+  ]
+]
+
+#d("Les quatre domaines abordés")[
+  #grid(
+    columns: (1fr, 1fr),
+    rows: (86pt, 86pt),
+    gutter: 14pt,
+    bloc("Outils d'édition", "éditeur de code, arborescence de projet"),
+    bloc("Versionnement", "git : enregistrer, revenir, partager"),
+    bloc("Forme d'un projet", "README, environnement, fichiers, ligne de commande"),
+    bloc("Culture générale", "ordres de grandeur, sécurité, outils du terminal"),
+  )
+
+  #notes[
+    Les trois premiers sont les fils rouges du module. Le quatrième arrive par
+    apartés, au fil des séances.
+  ]
+]
+
+#d("Organisation : sept séances de deux heures")[
+  #annonce[
+    Chaque séance alterne des explications courtes et des manipulations faites
+    sur votre machine.
+  ]
+
+  #table(
+    columns: (auto, 1fr, auto),
+    inset: 8pt,
+    align: (center + horizon, left + horizon, center + horizon),
+    stroke: (x, y) => if y > 0 { (top: 0.5pt + estompe.lighten(50%)) },
+    [], [Sujet], [Type],
+    [1], [Logiciel, programmation et formats de fichier], [cours],
+    [2], [Ligne de commande et git local], [cours],
+    [3], [Binaire, données et construction d'une CLI], [cours],
+    [4], [Studio d'automatisation (animation vidéo)], [TD],
+    [5], [Matériel, réseau, SSH et secrets], [cours],
+    [6], [Forge, git en équipe, outil « trajectoire »], [cours],
+    [7], [Benchmark image et rapport], [TD],
+  )
+
+  #notes[
+    Les deux TD appliquent ce qui précède sur un livrable complet.
+  ]
+]
+
+// ================================ Séance 1 ==================================
+
+#separateur(
+  "Cours 1 — Logiciel, programmation et formats de fichier",
+  annonce: "Première partie du module",
+)
+
+#d("Contenu de la séance")[
   #table(
     columns: (auto, 1fr, auto),
     inset: 10pt,
     align: (left + horizon, left + horizon, right + horizon),
     stroke: (x, y) => if y > 0 { (top: 0.5pt + estompe.lighten(50%)) },
-    [Qu'est-ce qu'un logiciel ?], [entrée, traitement, sortie], [12′],
-    [D'où vient-il ?], [d'un texte écrit par un humain], [10′],
-    [Dans quel fichier écrit-on ce texte ?], [formats, extensions, mise en forme], [40′],
-    [Avec quels outils ?], [éditeur, environnement, notebook], [43′],
+    [À quoi sert un programme], [faire faire à la machine ce qu'on ferait à la main], [12′],
+    [De quoi il est fait], [de fichiers texte, écrits dans un éditeur], [10′],
+    [Ce que contient un fichier], [des octets, que l'extension ne décrit pas], [40′],
+    [Les outils de travail], [un éditeur, un environnement, un notebook], [43′],
   )
 
   #notes[
-    Annoncer que chaque question naît de la réponse précédente : rien n'est
-    introduit sans avoir été rendu nécessaire. Les deux dernières lignes sont
-    des manipulations, pas de l'exposé.
+    Chaque point naît du précédent. Les deux dernières lignes sont des
+    manipulations, pas de l'exposé.
   ]
 ]
 
-#d("Un logiciel transforme des données d'entrée en données de sortie")[
+#d("Programmes et applications")[
+  #annonce[
+    Un programme exécute une tâche répétitive plus vite qu'à la main, et de la
+    même façon à chaque exécution.
+  ]
+
+  #table(
+    columns: (1.1fr, 1fr, 1fr),
+    inset: 11pt,
+    align: left + horizon,
+    stroke: (x, y) => if y > 0 { (top: 0.5pt + estompe.lighten(50%)) },
+    [Renommer 300 photos par date], [À la main], [Par programme],
+    [Durée], [une soirée], [quelques secondes],
+    [Deuxième exécution], [à refaire entièrement], [identique, sans effort],
+    [Erreur de recopie], [invisible], [systématique, donc repérable],
+  )
+
+  #notes[
+    Une application est un programme muni d'une interface ; beaucoup de
+    programmes n'en ont pas et se lancent depuis un terminal.
+  ]
+]
+
+#d("Le système d'exploitation")[
+  #annonce[
+    Un programme ne s'adresse pas directement au matériel : il demande au
+    système d'ouvrir un fichier, de réserver de la mémoire ou d'accéder au
+    réseau.
+  ]
+
+  #grid(
+    columns: 1fr,
+    rows: (56pt, 56pt, 56pt),
+    gutter: 9pt,
+    bloc("Votre programme", "ouvre un fichier, réserve de la mémoire", plein: true),
+    bloc("Système d'exploitation", "Windows, macOS, Linux : arbitre et donne accès"),
+    bloc("Matériel", "processeur, mémoire, disque, réseau"),
+  )
+
+  #notes[
+    Conséquence pratique : les chemins de fichiers ne s'écrivent pas pareil et
+    les outils installés diffèrent. Le matériel est repris au cours 5.
+  ]
+]
+
+#d("Entrées, sorties et code source")[
+  #annonce[
+    Un programme lit des fichiers et en produit d'autres. Son code est
+    lui-même un fichier texte.
+  ]
+
   #grid(
     columns: (1fr, 42pt, 1fr, 42pt, 1fr),
-    rows: 108pt,
-    bloc("Entrée", "un fichier, un clic, un relevé GPS"),
+    rows: 92pt,
+    bloc("Entrée", "relevé GPS, image, tableau de mesures"),
     fleche,
-    bloc("Traitement", "une suite d'instructions", plein: true),
+    bloc("Traitement", "le code, lui aussi un fichier texte", plein: true),
     fleche,
-    bloc("Sortie", "un fichier, une image, une action"),
+    bloc("Sortie", "un fichier, un affichage"),
   )
 
+  #legende[
+    Trois fichiers en jeu : les données d'entrée, le résultat, et le code.
+  ]
+
   #notes[
-    Schéma réutilisé toute la séance et tout le semestre. Le TD final est
-    exactement ce schéma : une image en entrée, un calcul, une image en sortie.
-    Ne pas entrer dans l'architecture machine, c'est le cours 5.
+    C'est la raison pour laquelle le module commence par les fichiers et non par
+    le langage.
   ]
 ]
 
-#d("Le fichier exécuté est binaire, mais il a été écrit en texte")[
+#d("Trois compétences préalables")[
+  #table(
+    columns: (auto, 1fr, auto),
+    inset: 11pt,
+    align: left + horizon,
+    stroke: (x, y) => if y > 0 { (top: 0.5pt + estompe.lighten(50%)) },
+    [Fichiers et dossiers], [ce qu'un fichier contient, ce qu'une extension signifie], [séances 1 et 3],
+    [Édition de code], [ce qui distingue un éditeur d'un traitement de texte], [séance 1],
+    [Environnement], [installer Python, et décrire l'installation pour la reproduire], [séance 1],
+  )
+
+  #notes[
+    Annoncer l'ordre : la suite observe un même texte sous quatre formes de
+    fichier, puis on installe l'environnement.
+  ]
+]
+
+// ---------------------------------------------------------------------------
+
+#d("Code source et fichier exécutable")[
+  #annonce[
+    Le fichier que le processeur exécute est illisible pour un humain. Il a
+    pourtant été produit à partir d'un texte écrit au clavier.
+  ]
+
   #face-a-face(
     panneau("Ce qu'a écrit un humain")[
       ```python
@@ -89,7 +269,12 @@
   ]
 ]
 
-#d("Python lit le texte au fil de l'exécution, C le traduit d'abord")[
+#d("Langages interprétés et langages compilés")[
+  #annonce[
+    Deux façons de passer du texte à l'exécution. Python relève de la
+    première.
+  ]
+
   #table(
     columns: (auto, 1fr, 1fr),
     inset: 11pt,
@@ -109,7 +294,12 @@
   ]
 ]
 
-#d("L'extension ne change pas le contenu du fichier")[
+#d("Extension et contenu")[
+  #annonce[
+    L'extension indique au système quel logiciel proposer. Elle n'agit pas
+    sur les octets du fichier.
+  ]
+
   ```python
   a = Path("raven_une_ligne.txt").read_bytes()
   b = Path("raven_une_ligne.donnees").read_bytes()
@@ -128,7 +318,12 @@
   ]
 ]
 
-#d("Un fichier texte contient des caractères, pas des lignes")[
+#d("Ce que contient un fichier texte")[
+  #annonce[
+    Un fichier texte contient des caractères. Le saut de ligne en est un :
+    sans lui, le texte n'est pas découpé.
+  ]
+
   ```python
   brut = Path("raven_une_ligne.txt").read_text(encoding="utf-8")
   print(len(brut), "caractères,", brut.count("\n"), "saut de ligne")
@@ -150,7 +345,12 @@
   ]
 ]
 
-#d[Un fichier `.odt` est une archive ZIP de fichiers XML][
+#d[Structure d'un fichier `.odt`][
+  #annonce[
+    Un document LibreOffice est une archive ZIP contenant des fichiers XML.
+    Les formats `.docx`, `.xlsx` et `.epub` sont construits de même.
+  ]
+
   ```python
   with zipfile.ZipFile("raven.odt") as archive:
       print(archive.namelist())
@@ -172,7 +372,12 @@
   ]
 ]
 
-#d("Le navigateur ignore les sauts de ligne du fichier source")[
+#d("Structure d'une page HTML")[
+  #annonce[
+    Le navigateur ignore les sauts de ligne du fichier source. La structure
+    se déclare avec des balises.
+  ]
+
   #face-a-face(
     panneau[Fichier `.html`][
       ```html
@@ -199,7 +404,12 @@
   ]
 ]
 
-#d("Une feuille de style change l'apparence sans toucher au contenu")[
+#d("Contenu et présentation")[
+  #annonce[
+    Le contenu est dans le fichier `.html`, la présentation dans un fichier
+    `.css` distinct. L'un change sans l'autre.
+  ]
+
   #face-a-face(
     panneau[`raven_brut.html`][
       #block(inset: 10pt, radius: 4pt, stroke: 0.8pt + estompe.lighten(50%), width: 100%)[
@@ -231,7 +441,12 @@
   ]
 ]
 
-#d("Un environnement conda fige les outils du module")[
+#d("L'environnement de développement")[
+  #annonce[
+    Un environnement réunit une version de Python et les outils choisis, dans
+    un dossier isolé que l'on peut recréer ailleurs.
+  ]
+
   ```bash
   conda create -n info01 -c conda-forge python=3.12 \
       jupyterlab numpy pillow pandoc typst ffmpeg imagemagick
@@ -255,7 +470,12 @@
   ]
 ]
 
-#d("Dans un notebook, l'état vit dans le noyau, pas dans le fichier")[
+#d("Interface et noyau d'un notebook")[
+  #annonce[
+    L'interface affiche le texte et les résultats. Le noyau exécute le code
+    et conserve les variables entre les cellules.
+  ]
+
   #grid(
     columns: (1fr, 88pt, 1fr),
     rows: 110pt,
@@ -277,7 +497,12 @@
   ]
 ]
 
-#d[Un `.ipynb` enregistre ses résultats, un fichier MyST ne les enregistre pas][
+#d("Deux formats de notebook")[
+  #annonce[
+    Un `.ipynb` enregistre les résultats dans le fichier. Un fichier MyST ne
+    garde que le code, et les résultats sont recalculés.
+  ]
+
   #table(
     columns: (1fr, auto, auto),
     inset: 11pt,
@@ -300,7 +525,7 @@
   ]
 ]
 
-#d("Ce qu'il faut retenir de cette séance")[
+#d("À retenir")[
   #table(
     columns: (auto, 1fr),
     inset: 10pt,

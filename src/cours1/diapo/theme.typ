@@ -1,8 +1,8 @@
 // Thème de diapositives du module.
 //
-// Structure « assertion-evidence » (M. Alley) : le titre de chaque diapositive
-// est une phrase complète énonçant ce que la diapositive démontre, et le corps
-// est une preuve visuelle. Voir STYLE.md à la racine du dépôt.
+// Chaque diapositive porte un titre descriptif, une phrase d'annonce si elle
+// est nécessaire, puis une preuve visuelle (schéma, sortie, comparaison).
+// Pas de liste à puces. Voir STYLE.md à la racine du dépôt.
 //
 // Aucune dépendance externe et uniquement des polices embarquées dans typst :
 // `typst compile` fonctionne hors ligne, à l'identique sur tous les postes.
@@ -48,12 +48,12 @@
   corps
 }
 
-// Une diapositive. `assertion` est une phrase complète, pas un thème.
-#let d(assertion, corps) = {
+// Une diapositive : un titre descriptif, puis le corps.
+#let d(titre-diapo, corps) = {
   block(below: 1.1em, width: 100%)[
     #set text(size: 25pt, fill: accent, weight: "bold")
     #set par(leading: 0.5em)
-    #assertion
+    #titre-diapo
     #v(0.35em)
     #line(length: 100%, stroke: 0.8pt + accent.lighten(55%))
   ]
@@ -64,6 +64,27 @@
   v(1fr)
   pagebreak(weak: true)
 }
+
+// Diapositive de séparation, entre deux parties de la séance.
+#let separateur(titre-partie, annonce: none) = {
+  set page(footer: none)
+  align(horizon + left)[
+    #line(length: 28%, stroke: 2pt + accent)
+    #v(0.6em)
+    #text(size: 32pt, fill: accent, weight: "bold")[#titre-partie]
+    #if annonce != none [
+      #v(0.4em)
+      #text(size: 19pt, fill: estompe)[#annonce]
+    ]
+  ]
+  pagebreak(weak: true)
+}
+
+// Phrase d'annonce placée entre le titre et la preuve visuelle.
+#let annonce(corps) = block(width: 100%, below: 0.8em)[
+  #set text(size: 17pt)
+  #corps
+]
 
 // Notes de conduite : ce que l'enseignant dit, et qui n'a donc pas à être
 // projeté. Masquées par défaut (voir --input notes=true en tête de fichier).

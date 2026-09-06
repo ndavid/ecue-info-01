@@ -18,7 +18,7 @@ rejoint le cours 3, où il précède l'introduction de `numpy` et le traitement
 d'image.
 :::
 
-## Le problème que résout un environnement
+## L'environnement de développement
 
 Vous allez installer Python, puis `numpy`, puis `ffmpeg`, puis `pandoc`, sur un
 poste de laboratoire, sur votre portable, peut-être sous un autre système
@@ -145,7 +145,7 @@ print(f"En couleur, non compressée : {pixels * 3 / 1_000_000:.1f} Mo")
 Le second chiffre resservira au cours 5, consacré aux ordres de grandeur, et au
 TD 7 : une image est un tableau de nombres, et sa taille se calcule.
 
-## Où tourne le code d'un notebook
+## Interface et noyau
 
 Un notebook n'exécute rien par lui-même. Deux composants se répartissent le
 travail.
@@ -205,7 +205,7 @@ début.
 Prenez l'habitude de relancer un notebook depuis le début avant de le partager.
 :::
 
-## Deux formats pour un même travail
+## Deux formats de notebook
 
 ```{code-cell} python
 # Un .ipynb est un fichier JSON : du texte, mais du texte destiné à un programme.

@@ -21,7 +21,7 @@ typst watch src/cours1/diapo/cours1.typ
 - `theme.typ` — mise en page, couleurs, polices, et les helpers `d` (une
   diapositive), `notes` (ce que l'enseignant dit et qui n'est pas projeté),
   `legende`, `face-a-face`, `panneau`.
-- `cours1.typ` — 13 diapositives.
+- `cours1.typ` — 23 pages : titre, introduction au module, puis la séance.
 
 Aucune dépendance externe : pas de paquet importé, et uniquement des polices
 embarquées dans typst. La compilation est identique sur tous les postes et

@@ -42,7 +42,7 @@ Deux textes sont disponibles : *The Raven* d'Edgar Allan Poe (1845) et
 *Auld Lang Syne* de Robert Burns (1788). La suite prend le poème ; refaites
 ensuite les mêmes opérations avec la chanson.
 
-## Un fichier texte contient des caractères, pas des lignes
+## Ce que contient un fichier texte
 
 ```{code-cell} python
 brut = (DONNEES / "raven_une_ligne.txt").read_text(encoding="utf-8")
@@ -68,7 +68,7 @@ qu'il ne contenait pas : sa structure. Elle n'était pas déductible
 automatiquement.
 :::
 
-## L'extension est une convention de nommage
+## Extension et contenu
 
 ```{code-cell} python
 a = (DONNEES / "raven_une_ligne.txt").read_bytes()
@@ -99,7 +99,7 @@ fichier contient est de regarder ses octets, ce que nous ferons au cours 3 avec
 un éditeur hexadécimal.
 :::
 
-## Un `.odt` est une archive de fichiers texte
+## Structure d'un fichier `.odt`
 
 Un `.txt` ne contient que des caractères ; il n'a aucun endroit où noter qu'un
 mot est en gras. Un `.odt`, le format de LibreOffice Writer, le peut. La cellule
@@ -126,7 +126,7 @@ Copiez-le ensuite sous le nom `raven.zip`, ouvrez-le comme une archive, et lisez
 `content.xml` dans VSCode.
 :::
 
-## Le HTML sépare le contenu de sa présentation
+## Contenu et présentation en HTML
 
 En HTML, le contenu porte des balises qui décrivent sa structure. La
 présentation est décrite ailleurs, dans une feuille de style CSS.
