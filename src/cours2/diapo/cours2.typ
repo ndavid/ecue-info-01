@@ -1,11 +1,16 @@
-#import "../../cours1/diapo/theme.typ": diapos, d, retenir, expose, manip
+#import "../../cours1/diapo/theme.typ": diapos, d, page-titre, separateur, separateur-td, separateur-manip, annonce, notes, legende, tableau
 
 // Gabarit — contenu à rédiger. Plan recopié du syllabus.
 // Modèle : src/cours1/diapo/cours1.typ
 
 #show: diapos.with(
-  titre: "Ligne de commande & git local (CM)",
-  sous-titre: "Cours 2 — Introduction à l'informatique",
+  titre-court: "Introduction à l'informatique",
+  auteur-court: "1re année géomatique",
+)
+
+#page-titre(
+  titre: "Cours 2",
+  sous-titre: "Ligne de commande et git local",
   auteur: "1re année géomatique",
   date: "",
 )

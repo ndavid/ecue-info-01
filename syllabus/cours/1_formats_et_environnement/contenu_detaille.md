@@ -3,7 +3,7 @@
 Vue d'ensemble : [../../01_syllabus_v1.md](../../01_syllabus_v1.md) (section « Cours 1 »).
 Inversion C1↔C3 : [../../inversion_c1_c3.md](../../inversion_c1_c3.md).
 
-**Supports** : [`src/cours1/notebook/`](../../../src/cours1/notebook/) (MyST, 3 pages) et [`src/cours1/diapo/`](../../../src/cours1/diapo/) (typst, 13 diapositives en assertion-evidence ; `--input notes=true` pour la version annotée).
+**Supports** : [`src/cours1/notebook/`](../../../src/cours1/notebook/) (MyST, 3 pages) et [`src/cours1/diapo/`](../../../src/cours1/diapo/) (typst, 51 diapositives en assertion-evidence ; `--input notes=true` pour la version annotée).
 Conventions d'écriture : [`STYLE.md`](../../../STYLE.md).
 **Données** : [`data/cours1/`](../../../data/cours1/) — générées par `make_data.py`.
 
@@ -14,20 +14,53 @@ Objectif : comprendre ce qu'est un logiciel, pourquoi programmer revient à écr
 La séance est construite comme une chaîne de questions, chacune amenant la suivante :
 
 > *Qu'est-ce qu'un logiciel ?* → entrée/traitement/sortie, et c'est un fichier.
-> *D'où vient ce fichier ?* → de **texte** écrit par un humain.
-> *Alors dans quoi écrit-on ce texte, et sous quelle forme ?* → **formats de fichier**.
-> *Et avec quels outils ?* → **IDE**, **environnement**, **notebooks**.
+> *Comment le pilote-t-on ?* → une **interface**, graphique ou textuelle.
+> *Que manipule-t-il ?* → des **fichiers**, que l'extension nomme sans les décrire.
+> *D'où vient le logiciel lui-même ?* → de **texte** écrit par un humain.
+> *Et avec quels outils travaille-t-on ?* → **IDE**, **environnement**, **notebooks**.
 
 Aucune notion n'est introduite sans que la précédente l'ait rendue nécessaire.
+
+Les diapositives suivent ce découpage en trois parties, séparées par des
+diapositives de séparation : *logiciels et interfaces*, *programmation*,
+*formats de fichier et outils de travail*.
 
 ## Déroulé détaillé
 
 ### 🎓 12′ — Qu'est-ce qu'un logiciel (haut niveau)
 
-- Schéma unique et réutilisé tout le semestre : **entrée → traitement → sortie (ou action)**.
+- Schéma unique et réutilisé tout le semestre : **entrée → traitement → sortie**. Distinguer deux sortes de sorties : celle **qui reste** (un fichier) et celle **qui passe** (un périphérique : écran, son). Le module s'intéresse surtout à la première, parce que c'est elle qui se relit, se compare et se versionne.
 - Un logiciel installé = **des fichiers**, rien de plus. Double-cliquer = demander au système de lire un fichier et de l'exécuter.
 - Ce fichier est **binaire** (illisible pour un humain) — mais il n'a pas été écrit comme ça, il a été *produit*.
 - *Ne pas entrer* dans l'architecture machine (registres, mémoire) : c'est le cours 5.
+
+### 🎓 6′ — Logiciel, application, app
+
+- **Le vocabulaire d'abord**, parce qu'il est flottant : *logiciel* est le terme général ; un *logiciel d'application* sert une tâche de l'utilisateur ; *application*, *appli* et *app* en sont des synonymes ou des abréviations, pas d'autres objets.
+- Définitions de référence : « logiciel », vocabulaire de l'informatique publié au *Journal officiel* du 22 septembre 2000 ; « logiciel d'application », Grand dictionnaire terminologique de l'OQLF.
+- **Deux questions posées à la salle**, réponses à l'oral :
+  1. *Quel système d'exploitation tourne sur votre téléphone ?* — attendu Android ou iOS (ordre de grandeur mondial : ~70 % / ~30 %, StatCounter 2026). Personne ne dit « Linux » alors qu'Android en est un : c'est le point à relever.
+  2. *Qu'est-ce qu'une application web, une « webapp » ? Citez-en une que vous utilisez.* — laisser venir « un site où on fait des choses », « ça marche sans installer », sans corriger. Les exemples viennent seuls : messagerie, documents partagés, retouche d'image, cartes.
+- Le schéma des couches (programmes → système → matériel) se lit dans la foulée : le système d'exploitation est justement le *logiciel de base* de la définition.
+
+> Ne pas citer Android ni iOS avant la question 1, ni les logiciels que les étudiants ne connaissent pas encore en début d'année (QGIS arrive plus tard dans le cursus). Les exemples des diapositives précédentes ont été choisis dans ce sens.
+
+### 🎓 5′ — L'application web, et où le calcul se fait
+
+Réponse à la question 2, en deux diapositives. L'enjeu n'est pas le vocabulaire : il est de faire remarquer que des tâches qui demandaient un logiciel installé se font aujourd'hui dans un navigateur, et que le lieu du calcul, donc celui des fichiers, a changé sans qu'on le dise.
+
+- **Définition** : « application fonctionnant dynamiquement avec le concours d'un navigateur web » (Grand dictionnaire terminologique de l'OQLF). Pas d'installation : le code est téléchargé à chaque visite et exécuté par le navigateur, dans un environnement isolé.
+- **Le navigateur fait le travail d'un système d'exploitation** : il charge du code, l'exécute dans une machine virtuelle, lui donne du stockage et un accès réseau, et l'empêche de toucher au reste de la machine. La documentation de Mozilla emploie littéralement le mot « machine virtuelle » pour le moteur qui exécute JavaScript et WebAssembly, ce dernier tournant à une vitesse *proche du natif*. Ne pas entrer dans les technologies.
+- **Deux endroits pour le calcul**, et c'est la conséquence qui compte :
+
+| | Calcul dans le navigateur | Calcul sur un serveur |
+|---|---|---|
+| Votre fichier | ne quitte pas la machine | part sur le réseau |
+| Sans connexion | peut continuer | s'arrête |
+| Qui calcule | votre processeur | celui du service |
+| Exemples | retouche d'image en ligne | traduction, IA générative |
+
+- **Rattachement** : l'outil en ligne proposé pour la manipulation vidéo annonce que le rendu se fait sur l'appareil, ce qui explique qu'il n'exige ni compte ni connexion permanente. La phrase « ce qu'on dépose quelque part y reste » est semée ici et reprise au cours 5 avec les secrets.
 
 ### 🎓 10′ — Qu'est-ce que programmer
 
@@ -36,12 +69,90 @@ Aucune notion n'est introduite sans que la précédente l'ait rendue nécessaire
 - **Interpréteur vs compilateur**, tableau à 3 lignes. Python est interprété.
 - **Graine explicite** : « exécution plus lente » → cours 6 (boucle vs numpy) et TD7 (×100–1000).
 
-### 🎓 10′ — Formats & extensions
+### 🎓 6′ — Fichier, extension, type de fichier
 
-- Formats par usage : rapport `.odt`/`.docx`/`.pdf`, archive `.zip`, image `.png`, vidéo `.mp4`, texte `.txt`/`.md`/`.html`.
-- **L'extension est une convention de nommage**, pas une nature — annonce la manipulation qui suit.
+- **Anatomie d'un nom de fichier** : le nom, puis l'extension après le dernier point. L'extension décide quel logiciel le système lance au double-clic ; elle ne modifie aucun octet.
 - **Fichiers et dossiers cachés** : nom commençant par `.` (`.gitignore`, dossier `.git/`) ; comment les afficher. *Prérequis du cours 2* — ne pas sauter.
-- Faire activer **l'affichage des extensions** dans l'explorateur (masquées par défaut sous Windows/macOS) : à faire une fois, utile tout le semestre.
+- Faire activer **l'affichage des extensions** dans l'explorateur (masquées par défaut sous Windows/macOS) : à faire une fois, utile tout le semestre, et **indispensable à la manipulation suivante**.
+
+### 🎓 4′ — Reconnaître un format à son extension
+
+Grille de seize extensions (`.mp3` `.flac` `.mp4` `.mkv` `.jpg` `.png` `.svg` `.tif` `.pdf` `.odt` `.xlsx` `.csv` `.zip` `.7z` `.py` `.exe`), interrogation rapide de la salle, puis la même grille avec les réponses.
+
+Les trois qui font débat : `.svg` (une image, mais du texte XML), `.csv` (du texte, pas un fichier Excel) et `.7z` (une archive comme `.zip`, mais d'un autre outil). **Trois des seize sont du texte** : ce sont ceux qu'on peut ouvrir dans un éditeur, comparer ligne à ligne et versionner — la conclusion qui prépare le cours 2.
+
+> `.geojson` a été retiré de la grille : les étudiants ne l'ont pas encore rencontré en début d'année.
+
+### 🎓 6′ — Chemins de fichiers et adresses de pages
+
+- **Le chemin d'un fichier**, décomposé sur un exemple Windows : `C:\` le disque, `Users\alice\Documents\` les dossiers du plus large au plus précis, `raven` le nom, `.odt` l'extension. Windows sépare par une barre inversée, macOS et Linux par une barre normale ; un chemin **relatif** part du dossier courant.
+- **L'adresse d'une page** est le même objet, précédé de la machine où aller chercher : `https://` comment on parle, `www.ensg.eu` à quelle machine, `/cours/info01/` le chemin sur cette machine, `raven.html` le fichier.
+- **Le pont** : `file:///C:/Users/alice/Documents/raven.html`, même structure sans machine distante. C'est ce qui explique le `file:///` que les étudiants verront en ouvrant une page par double-clic, tout de suite après.
+- *Semé pour le cours 3* : « le fichier existe pourtant » signifie presque toujours qu'on ne l'a pas cherché depuis le bon dossier.
+
+### ⌨️ 20′ — TD : fichiers, formats et extensions *(manipulation, LibreOffice)*
+
+Fichier de départ : `data/cours1/genere/raven.odt`, produit par `python make_data.py fetch && python make_data.py build`. Tous les résultats ci-dessous ont été observés, sur LibreOffice piloté en mode sans interface.
+
+**1. Un même document, trois formats.** Ouvrir le `.odt` dans Writer, puis :
+
+| Fichier produit | Comment | Le texte est-il encore du texte ? |
+|-----------------|---------|-----------------------------------|
+| `raven.pdf` | Fichier → Exporter au format PDF | oui : il se sélectionne et se cherche |
+| `raven.png` | Fichier → **Exporter…**, type PNG | non : des pixels, et la première page seulement |
+| `raven.odt` | le fichier de départ | oui, et il reste modifiable |
+
+L'export en image se trouve sous *Fichier > Exporter*, pas sous *Enregistrer sous* : les filtres `writer_png_Export` et `writer_jpg_Export` existent bien depuis Writer. Nommer la différence entre une page **décrite** (PDF, texte vectoriel) et une page **photographiée** (PNG, JPEG). Rouvrir le `.png` dans LibreOffice : il s'ouvre dans **Draw**.
+
+**2. Renommer, et voir qui se laisse tromper.** Avec `F2`, sur des copies, en gardant `odt` dans le nom :
+
+| Nom donné | Ce que le système propose | Ce qui se passe |
+|-----------|---------------------------|-----------------|
+| `raven_odt.pdf` | un lecteur PDF | refus : le fichier n'est pas un PDF |
+| `raven_odt.jpg` | une visionneuse | refus : *Not a JPEG file: starts with 0x50 0x4b* |
+| `riri.fifi.loulou.odt` | LibreOffice Writer | s'ouvre : seule la fin du nom compte |
+| `raven.loulou` | LibreOffice Writer | s'ouvre : extension inconnue, le système regarde le contenu |
+
+La quatrième ligne est la plus instructive et n'est pas intuitive : avec une extension **inventée**, le système n'a plus de convention à appliquer et se rabat sur les premiers octets. Laisser la salle inventer l'extension. Le message de la visionneuse nomme lui-même les octets lus, `0x50 0x4b`, soit « PK ».
+
+> **Prérequis, vérifié en 2026** : Windows 11 masque toujours les extensions des types connus **par défaut**. Le réglage est dans *Explorateur > Affichage > Afficher > Extensions de noms de fichiers* ; sous macOS, *Finder > Réglages > Avancé > « Afficher tous les suffixes de fichiers »*. Sans cela, `F2` ne montre pas ce qu'on renomme et toute la manipulation tombe à plat. C'est le premier geste de la séance, et il est rappelé sur la diapositive elle-même.
+
+**3. Un `.odt` est une archive.** Renommer en `.zip`, ouvrir avec le gestionnaire d'archives : six fichiers, dont `mimetype`, `content.xml` (le texte) et `styles.xml` (la mise en forme). Ouvrir `content.xml` dans l'éditeur : le poème est en clair. C'est aussi la réponse à « pourquoi un `.odt` se versionne mal ».
+
+**4. Modifier le document sans traitement de texte.** Éditer les fichiers extraits, recompresser, renommer en `.odt` :
+
+- le texte : dans `content.xml`, remplacer `>The Raven<` par `>Le Corbeau<` ;
+- **un style, sans code hexadécimal** : dans `content.xml`, remplacer `Text_20_body` par `Heading_20_1` sur un paragraphe, qui devient un titre. Une diapositive montre la ligne avant et après, la partie changée en couleur ;
+- la taille : dans `styles.xml`, sur `Heading_20_1`, passer `fo:font-size` de `115%` à `220%`.
+
+> **Sur la couleur, question attendue** : ODF n'accepte **pas** de nom de couleur. Vérifié — `fo:color="red"` est ignoré et le titre reste noir ; il faut `fo:color="#c0392b"`. C'est donc l'occasion d'expliquer le code hexadécimal, deux chiffres par composante rouge, verte et bleue. CSS, lui, accepte les deux écritures, ce qui se vérifie à la manipulation suivante.
+
+`content.xml` fait 4 ko sur 21 lignes, dont une de 1 300 caractères : le Bloc-notes l'ouvre, en activant le retour à la ligne, mais l'éditeur de code du module est nettement plus confortable, puisqu'il colore et replie les balises.
+
+> ⚠️ **Le piège, à annoncer avant qu'il ne se produise** : compresser les six fichiers, **pas le dossier qui les contient**. Sinon les chemins dans l'archive deviennent `extrait/content.xml` et LibreOffice refuse d'ouvrir, avec « source file could not be loaded ». Vérifié : c'est bien un échec, pas une dégradation silencieuse.
+
+**5. Ouvrir une page depuis son disque.** Double-clic sur `raven_brut.html` : le navigateur l'affiche sans réseau, et l'adresse est un chemin du disque. Puis `raven_style.html`, même texte mis en forme, qui appelle `style.css` : changer une couleur dans le CSS et recharger avec `F5`. Le `.html` est identique dans les deux cas ; seule la ligne `<link rel="stylesheet" href="style.css">` les distingue. Si `style.css` n'est pas dans le même dossier, la page s'affiche sans mise en forme — bonne occasion de reparler des chemins relatifs.
+
+L'argument à retenir dépasse la manipulation : un format **ouvert et documenté** se manipule avec des outils quelconques, et le contenu se sépare de sa présentation aussi bien dans un `.odt` que dans une page web.
+
+### 🎓 4′ — Comment un logiciel reconnaît un fichier
+
+Deux étages de décision. Le **système** choisit le logiciel d'après le **nom** ; le **logiciel** ouvre le fichier et lit ses **premiers octets** : `PK` pour une archive ZIP donc un `.odt`, `%PDF` pour un PDF, lisibles en clair. Ces octets de tête s'appellent des *nombres magiques* ; `file` ne fait que les comparer à un catalogue.
+
+Ne pas développer le binaire ici : il est ouvert en hexadécimal au cours 3. Annoncer en revanche que le même phénomène revient dans la partie programmation, où les premiers octets de `python3` se lisent « ELF ».
+
+### 🎓 8′ — Interface graphique et ligne de commande *(partie de cours)*
+
+- **La même conversion, deux façons** : *Fichier → Exporter au format PDF* dans LibreOffice Writer, ou `soffice --headless --convert-to pdf raven.odt`. Le fichier produit est identique ; ce qui diffère est ce qu'il en reste.
+- **Ne pas opposer en bien et mal.** Le mode graphique est supérieur pour explorer et pour tout ce qui se juge à l'œil ; le mode texte l'est pour répéter, transmettre et automatiser. Le module enseigne le second parce que c'est celui qui manque.
+- **Expérience utilisateur** : les perceptions et réactions d'une personne qui résultent de l'usage d'un produit (norme ISO 9241-210). L'interface n'en est qu'une partie — un logiciel très joli qui perd le travail de l'utilisateur a une mauvaise UX. Utile à des étudiants qui produiront eux-mêmes des outils au cours 6 et au TD 7.
+- Critères comparés, d'après Jakob Nielsen (apprentissage, efficacité une fois su, mémorisation, erreurs), plus un cinquième ajouté ici : **la trace laissée**, qui décide de ce qui est reproductible.
+
+### ⌨️ 10′ — Une vidéo, deux chemins *(manipulation)*
+
+Produire la même vidéo — le trajet de la gare à l'école en cinq étapes commentées — en assemblant des applications graphiques, puis en une commande. Scripts, données à préparer et alternatives « clic-bouton » : [`manip_video_trajet.md`](manip_video_trajet.md) et [`data/cours1/trajet/`](../../../data/cours1/trajet/).
+
+`ffmpeg` et `imagemagick` sont déjà dans l'environnement `info01` : rien à installer. **Mais cela suppose l'environnement en place**, ce qui n'est pas le cas à ce stade du déroulé — voir la note de minutage ci-dessous.
 
 ### ⌨️ 30′ — Un texte, quatre formes *(manipulation centrale)*
 
@@ -95,6 +206,39 @@ Textes du domaine public : **The Raven** (Poe, 1845) et **Auld Lang Syne** (Burn
 
 - Markdown pour README et notes ; aperçu VSCode.
 - Ouverture du **dépôt de notes du cours** — fil rouge git à faible enjeu, rejoué à chaque séance (git lui-même arrive au cours 2).
+
+## Minutage
+
+**Le deck est volontairement plus large que la séance.** Le parti pris est de produire les diapositives d'abord et de filtrer ensuite : le déroulé détaillé ci-dessus totalise environ **160 minutes** pour une séance de 120, et cet écart est assumé tant que le contenu n'est pas stabilisé.
+
+Le budget visé, celui de la diapositive « Contenu de la séance », reste :
+
+| Partie | Contenu | Durée |
+|--------|---------|-------|
+| Logiciels et interfaces | logiciel, vocabulaire, système d'exploitation, application web, modes et UX, démo vidéo | 30′ |
+| Programmation | code source et exécutable, interprété et compilé | 10′ |
+| Fichiers et formats | extension, échange d'extensions, grille, un texte quatre formes | 40′ |
+| Outils de travail | IDE, environnement conda, notebooks, dépôt de notes | 40′ |
+
+Trois leviers connus pour y arriver, à activer au moment de figer la séance :
+
+1. « Une vidéo, deux chemins » en **démonstration** (3′) plutôt qu'en manipulation (10′), et rejouée en autonomie après l'installation de l'environnement.
+2. L'étape 3 de « un texte, quatre formes » (ODT-ZIP) en exercice complémentaire, comme déjà prévu : −6′.
+3. Le bloc IDE réduit à ce qui sert au cours 2 : −4′.
+
+**Contrainte d'ordre** : la manipulation vidéo a besoin de l'environnement conda, installé plus tard dans la séance. D'où la démonstration au moment des interfaces, la manipulation complète venant après l'installation ou en exercice complémentaire.
+
+## Manipulations et diapositives de séparation
+
+Le deck distingue trois régimes par la couleur de fond de ses diapositives d'ouverture, et par rien d'autre : blanc pour l'exposé, bleu pour les diapositives de section (`separateur`), brun pour les manipulations et les travaux dirigés (`separateur-manip`, `separateur-td`). C'est la distinction 🎓 / ⌨️ de ce document, rendue visible de loin. Trois blocs de manipulation dans la séance :
+
+| Ouverture | Contenu |
+|-----------|---------|
+| *Fichiers, formats et extensions* | exporter, renommer, ouvrir le `.odt` comme une archive et le modifier |
+| *Une vidéo, deux chemins* | le trajet de la gare à l'école, en cliquant puis en une commande |
+| *Un texte, quatre formes* | le poème en `.txt`, `.odt`, `.html` brut, `.html` + CSS |
+
+Un troisième bloc, *Échanger deux extensions* (convertir un `.odt` en PDF, échanger les extensions des copies, essayer d'ouvrir), est **passé en annexe** en fin de deck : il demande la ligne de commande, trop tôt à ce stade de la séance. Les résultats observés y sont conservés, et la diapositive « Comment un logiciel reconnaît un fichier » en donne la conclusion sans la manipulation.
 
 ## Points d'attention
 

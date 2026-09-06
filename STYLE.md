@@ -50,7 +50,11 @@ assertion compressée.
 - Des diapositives de séparation (`#separateur(…)`) marquent le passage d'une
   partie à l'autre.
 - Principe de cohérence (Mayer) : tout élément qui ne sert pas nuit. Pas
-  d'emoji décoratif, pas de couleur qui ne code rien.
+  d'emoji décoratif, pas de couleur qui ne code rien. Le thème n'emploie que
+  trois couleurs : le bleu du texte et des diapositives de section, le brun des
+  parties TD et des manipulations (`separateur-td`, `separateur-manip`), et le
+  gris des encadrés. Le brun code une information réelle et répétée, le passage
+  de l'exposé au travail sur machine.
 
 **Formulations à éviter**, relevées sur une première version de ce deck :
 
