@@ -77,7 +77,7 @@ la détaillaient sont conservées en annexe du deck.
 
 > Ne pas citer Android ni iOS avant la question 1, ni les logiciels que les étudiants ne connaissent pas encore en début d'année (QGIS arrive plus tard dans le cursus). Les exemples des diapositives précédentes ont été choisis dans ce sens.
 
-### 🎓 5′ — L'application web, et où le calcul se fait
+### 🎓 5′ — L'application web, et où elle s'exécute
 
 Réponse à la question 2, en deux diapositives. L'enjeu n'est pas le vocabulaire : il est de faire remarquer que des tâches qui demandaient un logiciel installé se font aujourd'hui dans un navigateur, et que le lieu du calcul, donc celui des fichiers, a changé sans qu'on le dise.
 
@@ -85,14 +85,25 @@ Réponse à la question 2, en deux diapositives. L'enjeu n'est pas le vocabulair
 - **Le navigateur fait le travail d'un système d'exploitation** : il charge du code, l'exécute dans une machine virtuelle, lui donne du stockage et un accès réseau, et l'empêche de toucher au reste de la machine. La documentation de Mozilla emploie littéralement le mot « machine virtuelle » pour le moteur qui exécute JavaScript et WebAssembly, ce dernier tournant à une vitesse *proche du natif*. Ne pas entrer dans les technologies.
 - **Deux endroits pour le calcul**, et c'est la conséquence qui compte :
 
-| | Calcul dans le navigateur | Calcul sur un serveur |
+| | Dans le navigateur | Sur un serveur |
 |---|---|---|
 | Votre fichier | ne quitte pas la machine | part sur le réseau |
 | Sans connexion | peut continuer | s'arrête |
 | Qui calcule | votre processeur | celui du service |
 | Exemples | retouche d'image en ligne | traduction, IA générative |
+| **Le cas courant : les deux** | l'affichage, la mise en page, les interactions | les données, la recherche, les traitements lourds |
+
+> La dernière ligne est la plus importante, et elle vient après les cas purs parce qu'elle ne se comprend qu'ensuite : presque aucune application web n'est entièrement d'un côté. Une messagerie affiche et met en page chez vous, mais cherche dans vos messages sur son serveur. La question utile n'est donc pas « où est-ce que ça tourne ? » mais « qu'est-ce qui part, et quand ? ».
 
 - **Rattachement** : l'outil en ligne proposé pour la manipulation vidéo annonce que le rendu se fait sur l'appareil, ce qui explique qu'il n'exige ni compte ni connexion permanente. La phrase « ce qu'on dépose quelque part y reste » est semée ici et reprise au cours 5 avec les secrets.
+
+### 🎓 1′ — Ce qu'un fichier permet *(liaison)*
+
+Diapositive de liaison entre les entrées-sorties et les extensions, à passer en une minute : elle justifie la suite plutôt qu'elle n'apporte une notion. Sans elle, la partie enchaîne sur les extensions et les chemins sans avoir dit pourquoi ces détails méritent qu'on s'y arrête.
+
+Le fil vient de la diapositive précédente : parmi les deux natures de sortie, c'est le fichier qui reste. Quatre lignes disent ce que ce « rester » permet — conserver un résultat, le passer d'un logiciel à l'autre, changer de machine, le remettre à quelqu'un — et elles sont toutes vraies dès cette semaine, la dernière au cours 2.
+
+> La deuxième ligne est celle qui porte le plus loin : un format de fichier est ce sur quoi deux logiciels se mettent d'accord sans se connaître. Ne pas développer, la partie 3 y revient.
 
 ### 🎓 6′ — Fichier, extension, type de fichier
 
@@ -210,6 +221,36 @@ Le module fait écrire la commande à la main, et il faut **dire pourquoi** plut
 
 > Sur le bouton C++ : il existe, s'appelle « Run C/C++ File », demande de choisir un compilateur au premier lancement puis écrit un `tasks.json` dans le projet. Ne pas l'employer en séance — cela ajoute un fichier de configuration à expliquer — mais savoir répondre à celui qui l'aura trouvé.
 
+### 🎓 3′ — De quoi compiler du C++
+
+Python vient avec l'environnement ; un compilateur C++, non. **Windows n'en fournit aucun**, et il s'installe dans le même environnement conda.
+
+| | Linux, macOS | Windows |
+|---|---|---|
+| Le compilateur | `g++`, presque toujours déjà là | aucun d'origine |
+| Comment l'obtenir | rien à faire | `conda install -c conda-forge gxx` |
+| Ce qu'on tape ensuite | `g++ …` | `x86_64-w64-mingw32-g++ …` |
+
+> **Le nom de l'exécutable est le piège**, et il faut le projeter : conda-forge installe `x86_64-w64-mingw32-g++.exe`, pas `g++`. C'est le nom complet de la cible, et il ne s'invente pas. Relevé dans le contenu du paquet `gxx_win-64`, sans machine Windows pour l'essayer : **à confirmer avant la séance**.
+
+> Ne pas employer `m2w64-toolchain`, encore proposé par de vieilles réponses en ligne : le paquet affiche lui-même à l'activation qu'il est obsolète et renvoie vers `gcc`, `gxx` et `gfortran`.
+
+L'installation demande du réseau et quelques minutes : la lancer avant la séance si possible, sinon au début de la manipulation en enchaînant sur Python pendant qu'elle tourne. C'est la seule étape de la séance qui dépende du réseau de la salle. La justification de l'environnement est repoussée à la partie 4, et il faut le dire plutôt que de laisser la question en suspens.
+
+### 🎓 3′ — Ouvrir un terminal où conda existe
+
+`conda` n'est pas disponible dans n'importe quel terminal, et c'est la première cause de « la commande n'existe pas ».
+
+| Où | Le geste | Ce qui le prouve |
+|---|---|---|
+| Windows, hors éditeur | menu Démarrer, chercher « Anaconda Prompt » | l'invite commence par `(base)` |
+| Linux, macOS | un terminal ordinaire suffit | l'invite commence par `(base)` |
+| Dans l'éditeur | `Ctrl`+`Maj`+`P`, « Python: Select Interpreter », choisir `info01` | le terminal ouvert ensuite commence par `(info01)` |
+
+Les postes de la salle ont Anaconda installé : c'est lui qui fournit l'« Anaconda Prompt » du menu Démarrer. Le terminal Windows ordinaire, `cmd` ou PowerShell, ne connaît pas `conda` tant qu'il n'a pas été initialisé.
+
+> **La troisième ligne est celle qui sert toute l'année** : choisir l'interpréteur dans l'éditeur suffit, l'extension Python plaçant ensuite tous les terminaux intégrés dans cet environnement — on n'a plus à taper `conda activate`. Faire lire l'invite à voix haute une fois : `(base)` et `(info01)` ne sont pas la même chose, et les confondre fait installer les paquets là où ils ne serviront pas.
+
 ### ⌨️ 10′ — Un hello world en Python et en C++ *(manipulation)*
 
 La manipulation tient sur deux diapositives : les gestes, puis ce qu'ils ont produit. **Les gestes sont écrits un par un et projetés tels quels** — l'objectif seul ne suffit pas à cette séance, une étape sous-entendue est une étape où la moitié de la salle s'arrête sans le dire.
@@ -239,6 +280,33 @@ Sous Windows, `g++` n'est pas fourni : MinGW-w64, MSYS2 ou le sous-système Wind
 
 ---
 
+### ⌨️ 8′ — Le même programme, trois façons de l'exécuter *(manipulation)*
+
+`data/cours1/hello/python/altitudes.py`, six lignes qui calculent une moyenne d'altitudes. Choisi pour trois raisons : il tient à l'écran, il a une boucle donc un état qui change, et son résultat se vérifie de tête — le `hello world` n'avait aucune de ces propriétés. Les altitudes sont celles de la diapositive « Coloration syntaxique » : le même extrait, devenu un programme qui tourne.
+
+1. **En entier** : `python python/altitudes.py` → `moyenne : 129.0 m`. Une seule ligne de sortie ; ce qui s'est passé entre-temps n'est pas visible.
+2. **Ligne à ligne**, dans la session interactive : `total` s'affiche sans `print`, ce qui donne accès à l'intérieur du calcul. Faire refaire la boucle en affichant `total` à chaque tour — 128,4 puis 259,4 puis 387,0.
+3. **Pas à pas dans l'éditeur** : point d'arrêt en marge de la ligne 4 (`F9`), lancer (`F5`), avancer (`F10`), lire le panneau « Variables ».
+
+> Le réflexe à installer contre celui qu'ils ont déjà : on n'ajoute pas des `print` partout pour savoir ce qui se passe, on pose un point d'arrêt. Ligne 4 est choisie exprès — c'est le corps de la boucle, l'arrêt se répète trois fois et `total` change sous leurs yeux. Faire prédire la valeur avant chaque `F10`. Ne pas aller jusqu'à `F11`, qui entre dans les fonctions appelées et perd tout le monde.
+
+> Raccourcis par défaut de VSCode, relevés dans la documentation et non sur les postes : vérifier que personne n'a un jeu modifié. **« Python en interactif » vient d'ici** et non plus de la partie 4, où son exemple s'appuyait sur un script parti en annexe.
+
+### 🎓 2′ — Il n'existe pas qu'un interpréteur Python *(remarque)*
+
+Diapositive de remarque, une minute. « Python » nomme le langage ; plusieurs programmes savent l'exécuter, et celui que tout le monde emploie est écrit en C.
+
+| Interpréteur | Écrit en | Ce qui le distingue |
+|---|---|---|
+| CPython | C | la référence, celle qu'on installe sans le savoir |
+| PyPy | Python | plus rapide sur les longs calculs, compatible en partie |
+| Jython | Java | permet d'employer les bibliothèques Java |
+| MicroPython | C | tient dans un microcontrôleur |
+
+> Le seul qu'ils rencontreront est CPython, et il faut le dire ainsi pour qu'ils ne cherchent pas à choisir. Que l'interpréteur de référence soit écrit en C boucle avec « Code source et fichier exécutable » : les octets montrés étaient ceux de ce programme, compilé comme le `bonjour.exe` de la manipulation. Ne pas ouvrir la question de la vitesse, qui revient au cours 6.
+
+---
+
 ## Partie 3 — Édition de texte et contenu des fichiers
 
 La partie s'ouvre là où commence le fil du texte, et son titre ne reprend plus celui de la partie 1. Elle enchaîne quatre choses : programmer c'est éditer du texte, ce que l'éditeur apporte à cette édition, les formats de texte d'un projet — Markdown en tête —, puis ce que contient vraiment un fichier, jusqu'à ses premiers octets.
@@ -257,12 +325,6 @@ La preuve visuelle est un face-à-face de ce que coûte l'édition sans outil ad
 
 **Texte brut et document mis en forme.** Un programme s'écrit dans un éditeur de texte brut, jamais dans Word ni LibreOffice : pas de gras, pas de taille de police, pas de style, non parce que ce serait laid mais parce qu'un `.py` n'a aucun endroit où les enregistrer. La preuve est le `content.xml` ouvert en début de séance, la même ligne de code noyée dans les balises de style. Le piège concret à annoncer maintenant : un traitement de texte remplace tout seul les guillemets droits par des guillemets typographiques, et le programme recopié depuis un document Word refuse alors de s'exécuter sur un message qui ne parle pas de guillemets.
 
-### 🎓 5′ — Ce que l'éditeur ajoute au texte
-
-Deux fois la même ligne, en chasse fixe puis en chasse proportionnelle : à gauche les `=` s'alignent, à droite non. C'est la preuve visuelle, et elle suffit à faire passer le reste — couleurs, numéros de ligne et police sont des affichages, seule l'indentation est dans le fichier.
-
-Point de culture à donner ici : un éditeur de code emploie toujours une police à chasse fixe, un traitement de texte une police proportionnelle. Le rapprocher de LibreOffice, manipulé en début de séance, où l'on choisit une police pour la mise en page alors qu'ici on la subit pour une raison technique.
-
 ### 🎓 4′ — Les règles d'écriture d'un langage
 
 À placer **avant** la coloration et la vérification, qu'elle justifie l'une et l'autre. Un langage de programmation a une grammaire appliquée à la lettre, et surtout **beaucoup moins d'exceptions que l'orthographe** — c'est ce qui rend la vérification automatique possible.
@@ -278,22 +340,20 @@ La comparaison sert à désamorcer une inquiétude, et il faut la formuler dans 
 
 > On ne peut pas écrire un logiciel qui corrige un texte français de façon sûre ; on peut en écrire un qui vérifie un programme. C'est exactement ce que fait l'extension installée à la manipulation qui suit.
 
-### 🎓 6′ — Coloration et extensions
-
-Trois diapositives qui expliquent ce que l'éditeur apporte au-delà de l'affichage, et qui préparent la manipulation.
+### 🎓 4′ — Coloration et vérification
 
 - **Coloration syntaxique** : chaque langage a ses règles d'écriture, l'éditeur les connaît et donne une couleur à chaque catégorie de mot. La preuve est le même extrait Python affiché deux fois, sans couleur puis avec. Faire nommer par la salle ce que la couleur distingue — mots du langage, nombres, texte entre guillemets, noms choisis par celui qui écrit — avant de le dire. L'intérêt n'est pas le confort : un mot-clé mal orthographié perd sa couleur, et cela se voit sans rien exécuter.
-- **Les extensions de l'éditeur** : la coloration des langages courants est fournie d'origine ; l'extension y ajoute la vérification, la complétion et le lancement. Les trois du module, avec leur identifiant, qui est ce qu'il faut chercher dans le panneau puisque les noms affichés se ressemblent tous :
+- **Vérification de l'écriture** : l'éditeur relit le fichier pendant qu'on l'écrit, le compilateur ne répond qu'au lancement. La comparaison qui fait comprendre est le correcteur orthographique, qui souligne le mot sans attendre l'impression. La preuve est `cpp/aire.cpp`, où le point-virgule manque à la ligne 6 et où **g++ signale la ligne 7** : un compilateur désigne l'endroit où il ne peut plus continuer, pas l'endroit de la faute. Lire le message, puis remonter d'une ligne, est le réflexe à donner.
 
-| Langage | Extension | Ce qu'elle ajoute |
-|---|---|---|
-| Python | `ms-python.python` | vérification, complétion, lancement du fichier |
-| C++ | `ms-vscode.cpptools` | vérification, complétion, compilation et débogage |
-| Notebooks | `ms-toolsai.jupyter` | exécution des cellules dans l'éditeur |
+> On dit ici « l'éditeur » et non « l'extension » : d'où vient ce service est le sujet de la diapositive qui ferme le bloc, et il vaut mieux faire constater le soulignement avant d'en expliquer l'origine.
 
-> Identifiants relevés sur le poste de préparation, où les trois extensions sont installées. L'extension Python installe elle-même Pylance, qui fait la vérification : ne le dire que si quelqu'un remarque qu'une deuxième extension est apparue.
+### 🎓 5′ — Ce que l'éditeur ajoute au texte
 
-- **Vérification de l'écriture** : l'extension relit le fichier pendant qu'on l'écrit, le compilateur ne répond qu'au lancement. La comparaison qui fait comprendre est le correcteur orthographique, qui souligne le mot sans attendre l'impression. La preuve est `cpp/aire.cpp`, où le point-virgule manque à la ligne 6 et où **g++ signale la ligne 7** : un compilateur désigne l'endroit où il ne peut plus continuer, pas l'endroit de la faute. Lire le message, puis remonter d'une ligne, est le réflexe à donner.
+Deux fois la même ligne, en chasse fixe puis en chasse proportionnelle : à gauche les `=` s'alignent, à droite non. Couleurs, numéros de ligne et police sont des affichages ; seule l'indentation est dans le fichier.
+
+La diapositive est placée **juste avant** les espaces et tabulations, parce que c'est le même sujet pris par l'autre bout : si l'éditeur impose une police à chasse fixe, c'est pour que les colonnes s'alignent et que les espaces se comptent — exactement ce dont Python a besoin, et ce que la diapositive suivante fait constater.
+
+Point de culture : le mot vient de l'imprimerie, où la chasse est la largeur d'un caractère. Le rapprocher de LibreOffice, manipulé en début de séance, où l'on choisit une police pour la mise en page alors qu'ici on la subit pour une raison technique.
 
 ### ⌨️ 5′ — Espaces, tabulations et fins de ligne
 
@@ -302,6 +362,30 @@ Erreur qui coûtera des heures au semestre si elle n'est pas nommée maintenant.
 - Faire **activer l'affichage des espaces** sur les postes : Affichage → Rendu des espaces → Tout. Un point par espace, une flèche par tabulation.
 - Faire lire la **barre d'état** : `Spaces: 4` dit ce qu'insère la touche de tabulation, `LF` ou `CRLF` dit comment les lignes se terminent.
 - Sur les fins de ligne : Windows en met deux caractères, Linux et macOS un seul. Un même fichier n'a donc pas la même taille selon la machine qui l'a écrit, et un diff peut signaler toutes les lignes comme modifiées alors qu'aucune ne l'est. Le point est repris au cours 2 avec git ; aujourd'hui, savoir où l'éditeur l'affiche suffit.
+
+### 🎓 5′ — Extension de fichier et extension de VSCode *(clôture du bloc)*
+
+Un seul mot pour deux choses sans rapport, et la confusion est réelle : « installe l'extension Python » et « le fichier a l'extension `.py` » ne parlent pas de la même chose. Le dire explicitement, une fois.
+
+| | L'extension du fichier | L'extension de l'éditeur |
+|---|---|---|
+| Ce que c'est | la fin du nom, après le dernier point : `.py`, `.cpp`, `.md` | un greffon installé dans VSCode : `ms-python.python` |
+| Dans le fichier | rien : les trois sont du texte, sans marque ni en-tête | rien non plus : elle n'agit que sur l'affichage |
+| Ce qu'elle apporte | une indication de langage, à qui lit le nom | la coloration fine, et la vérification des règles d'écriture |
+
+**La colonne de gauche est le point neuf.** Un `.py` et un `.cpp` sont des fichiers texte, et rien dans leurs octets ne les distingue : pas de marque binaire, pas d'en-tête, pas de signature. L'extension est purement informative — elle dit ce qu'on peut espérer trouver dedans, elle ne le garantit pas. `python bonjour.txt` exécute parfaitement un programme Python : la démonstration tient en cinq secondes et se retient. C'est aussi ce que la manipulation « Les premiers octets d'un fichier » fera constater plus loin dans la partie, les formats texte n'ayant aucune signature contrairement au ZIP et au PDF.
+
+**La vérification est partielle**, et c'est la limite à poser : elle porte sur les règles d'écriture, pas sur le sens. Un programme peut être irréprochable pour l'extension et faire exactement le contraire de ce qu'on voulait. Cela prolonge « Les règles d'écriture d'un langage ».
+
+Les trois du module, avec leur identifiant, qui est ce qu'il faut chercher dans le panneau puisque les noms affichés se ressemblent tous :
+
+| Langage | Extension | Ce qu'elle ajoute |
+|---|---|---|
+| Python | `ms-python.python` | vérification, complétion, lancement du fichier |
+| C++ | `ms-vscode.cpptools` | vérification, complétion, compilation et débogage |
+| Notebooks | `ms-toolsai.jupyter` | exécution des cellules dans l'éditeur |
+
+> Identifiants relevés sur le poste de préparation, où les trois extensions sont installées. L'extension Python installe elle-même Pylance, qui fait la vérification : ne le dire que si quelqu'un remarque qu'une deuxième extension est apparue.
 
 ### ⌨️ 10′ — Extensions de langage et programmes fautifs *(manipulation)*
 
@@ -335,7 +419,7 @@ La manipulation précédente est au milieu de la partie, pas à sa fin. Une **di
 
 Quatre diapositives qui existent parce que la séance **demande du Markdown sans l'avoir montré** : les notes du jour, le `README`, et le premier commit du cours 2 sont tous en `.md`.
 
-- **La famille.** Le code n'est pas le seul texte d'un projet : `.py` porte les instructions, `.json` et `.yaml` les réglages, `.csv` les données, `.md` la documentation. Tous s'ouvrent dans le même éditeur, se comparent ligne à ligne et se versionnent. L'accroche géomatique est immédiate — un GeoJSON est un `.json` ordinaire, et c'est le fichier de l'annexe « Une vidéo, deux chemins ».
+- **La famille.** Le code n'est pas le seul texte d'un projet : `.py` porte les instructions, `.json` et `.yaml` les réglages, `.csv` les données, `.md` la documentation. Tous s'ouvrent dans le même éditeur, se comparent ligne à ligne et se versionnent. C'est le `.md` qui occupe la suite de la partie : celui qu'ils écriront le plus tôt et le plus souvent.
 - **L'intention de Markdown.** John Gruber, 15 mars 2004, avec Aaron Swartz pour unique bêta-testeur ; les titres en `#` viennent d'`atx`, le format de Swartz. Le but déclaré : un texte « publiable tel quel, sans avoir l'air balisé », inspiré du courriel en texte brut. La preuve est un face-à-face `.md` / HTML au même rendu, dont seul le premier se lit sans conversion. CommonMark (2014) n'est à mentionner que si quelqu'un signale un rendu qui diffère d'un outil à l'autre.
 - **Trois façons d'écrire un document**, et quand employer chacune :
 
@@ -351,64 +435,55 @@ Quatre diapositives qui existent parce que la séance **demande du Markdown sans
 
 - **Ce que l'éditeur en fait**, relevé dans les extensions livrées avec VSCode plutôt que supposé :
 
-| Format | Fourni d'origine | Ce qu'une extension ajoute |
+| Format | Fourni d'origine | Où voir le rendu |
 |---|---|---|
-| `.md` | coloration, aperçu `Ctrl`+`Maj`+`V`, plan du document, liens vérifiés | du confort, rien d'essentiel |
-| `.json` | coloration, pliage, formatage, vérification par schéma | rien, le plus souvent |
-| `.yaml` | la coloration, et rien de plus | la vérification par schéma (`redhat.vscode-yaml`) |
+| `.md` | coloration, plan du document, complétion et vérification des liens | dans l'éditeur, `Ctrl`+`Maj`+`V` |
+| `.html`, `.css` | coloration, complétion des balises et des propriétés | dans le navigateur, par `file:///` |
 
-> `markdown-language-features` et `json-language-features` sont livrés avec l'éditeur, `yaml-language-features` n'existe pas. C'est le contraste avec les extensions Python et C++ qui fait le propos : trois formats, trois réponses à « faut-il installer quelque chose ? ». Montrer l'aperçu Markdown en direct sur le fichier de notes du jour.
+> `markdown-language-features`, `html-language-features` et `css-language-features` sont livrés avec l'éditeur. Le propos est ce qu'on en conclut : pour tout ce qu'on écrira en dehors du code, il n'y a rien à installer — contraste avec Python et C++, qui exigent une extension. Montrer l'aperçu Markdown en direct sur le fichier de notes du jour.
+
+> JSON et YAML sortent de la séance : le sujet n'y est pas assez employé pour valoir une diapositive projetée. La comparaison, et le fait que `yaml-language-features` n'existe pas contrairement à `json-language-features`, sont conservés en annexe.
 
 La grille des seize extensions de la partie 1 a été révisée en conséquence : `.md`, `.json` et `.yaml` y entrent, `.flac`, `.mkv` et `.7z` en sortent (des doublons de `.mp3`, `.mp4` et `.zip`), et la dernière ligne regroupe les quatre fichiers qu'ils éditeront eux-mêmes. Six des seize formats sont maintenant du texte, contre trois.
 
-### ⌨️ 30′ — Un texte, quatre formes *(manipulation centrale)*
+### 🎓 4′ — La syntaxe de Markdown
+
+Une dizaine de marques suffisent, et chacune se lit telle quelle : le dièse annonce un titre, le tiret une puce, les astérisques une emphase. La preuve est un face-à-face source / rendu — ce qu'il faut faire remarquer est que **la colonne de gauche se lit déjà**, l'intention de Gruber rendue concrète.
+
+Les deux pièges à signaler, une minute chacun : une ligne vide sépare les paragraphes, sans quoi deux lignes consécutives n'en font qu'un ; et le dièse veut un espace après lui.
+
+### 🎓 4′ — Un diagramme écrit en texte
+
+Six lignes dans un bloc `mermaid`, et l'aperçu dessine les boîtes et les flèches. **Rien à installer** : depuis la version 1.121, VSCode rend les diagrammes Mermaid dans l'aperçu Markdown d'origine — vérifié sur le poste de préparation, où `mermaid-markdown-features` est livré avec l'éditeur.
+
+> L'intérêt n'est pas de dessiner joli, c'est que le schéma soit du texte : il se compare ligne à ligne, il se versionne, et on le corrige sans rouvrir un logiciel de dessin. Faire remarquer que le dessin n'est pas dans le fichier — les boîtes sont calculées à l'affichage, comme la coloration l'était pour le code. Le cours 2 s'en sert pour représenter l'historique d'un dépôt git.
+
+### ⌨️ 20′ — Formatage HTML et Markdown *(manipulation)*
 
 Données : `data/cours1/genere/`, produites par `python make_data.py fetch && python make_data.py build`.
-Textes du domaine public : **The Raven** (Poe, 1845) et **Auld Lang Syne** (Burns, 1788) — un poème et une chanson, vers courts, structure visible.
+Textes du domaine public : **The Raven** (Poe, 1845) et **Auld Lang Syne** (Burns, 1788).
 
 | Étape | Fichier | Geste | Constat attendu |
 |-------|---------|-------|------------------|
-| 1 | `*_une_ligne.txt` | remettre en forme (un vers par ligne, strophes) | un fichier texte contient des **caractères** ; `\n` en est un — pas de « lignes » sans lui |
-| 2 | `*_une_ligne.donnees` | renommer en `.txt`, puis `.html` | **mêmes octets**, comportement différent : l'extension est une étiquette — et elle peut mentir |
-| 3 | `*.odt` | ouvrir dans **LibreOffice Writer**, puis copier en `.zip` et lire `content.xml` | un format « binaire » est souvent une **archive de XML** (idem `.docx`, `.xlsx`, `.epub`) |
-| 4 | `*_brut.html` | ouvrir dans le **navigateur** (double-clic) | adresse en `file://` — **aucun serveur** ; le navigateur ignore les sauts de ligne : la structure se **déclare** (`<p>`, `<br>`) |
-| 5 | `*_style.html` + `style.css` | ouvrir, puis éditer le CSS et recharger (`F5`) | **contenu ≠ présentation** : deux fichiers, on change l'apparence sans toucher au texte |
+| 1 | `*_brut.html` | ouvrir dans le **navigateur** (double-clic) | adresse en `file://` — **aucun serveur** ; le navigateur ignore les sauts de ligne : la structure se **déclare** (`<p>`, `<br>`) |
+| 2 | `*_style.html` + `style.css` | ouvrir, puis éditer le CSS et recharger (`F5`) | **contenu ≠ présentation** : deux fichiers, on change l'apparence sans toucher au texte |
 
-*Conduite de séance* : faire l'étape 1 sur le poème tous ensemble (5′), laisser les étapes 2–5 en autonomie avec le notebook comme guide, puis mise en commun de 3′ sur l'étape 3 (l'ODT-ZIP est le moment « ah ! » de la séance).
+C'est l'aspect graphique du fil « texte » : le même contenu, deux présentations, et la seconde se règle dans un fichier texte qu'on édite dans le même éditeur. Faire éditer `style.css` en direct — `background`, `font-family`, `max-width` — et recharger : le retour est immédiat, et c'est ce qui fait comprendre la séparation.
 
-*Si le temps manque* : l'étape 3 part en exercice complémentaire.
+**Second temps — mettre en forme une recette.** Support dans `data/cours1/markdown/` : `recette_a_formater.txt` (le texte de départ, sans aucune structure), `ingredients.csv`, et `recette.md` (le résultat attendu, à n'ouvrir qu'après avoir essayé). L'exercice n'est pas de recopier des marques, c'est de **décider ce qui est un titre, ce qui est une étape et ce qui est une donnée** : la mise en forme est une lecture du contenu.
 
-### ⌨️ 8′ — Les premiers octets d'un fichier *(mini-projet Python)*
+| | Ce qu'il faut faire |
+|---|---|
+| 1 | ouvrir `data/cours1/markdown/`, puis `recette_a_formater.txt` |
+| 2 | l'enregistrer sous `recette.md`, aperçu côte à côte par `Ctrl`+`K` puis `V` |
+| 3 | un titre en `#`, deux sous-titres en `##` |
+| 4 | les étapes de préparation en liste numérotée |
+| 5 | les ingrédients en tableau, depuis `ingredients.csv` |
+| 6 | l'ordre des opérations en bloc `mermaid` |
 
-La conclusion de la manipulation précédente : après avoir constaté que l'extension ne décrit pas le contenu, on regarde ce qui le décrit. Ouvrir `data/cours1/formats/` dans l'éditeur et lancer `python octets.py` au terminal — exactement le geste de la manipulation « hello world », refait sur un programme qui sert à quelque chose. Le script fait quarante lignes et se lit avant d'être lancé : trois fonctions, dont une qui compare le début du fichier à un dictionnaire de signatures.
+> Étape 5 : le tableau se tape à la main la première fois — l'intérêt est de voir qu'un tableau Markdown n'est que des barres verticales, et que leur alignement n'est même pas obligatoire. Une extension du catalogue le fait ensuite en une commande, chercher « CSV to Markdown Table » ; plusieurs existent et se valent, aucune n'est indispensable. Pour ceux qui vont vite : une photo par `![](…)`, ce qui fait retravailler les chemins relatifs, et la remarque finale en citation par `>`.
 
-| Fichier lu | Premiers octets | Ce qu'ils signent |
-|---|---|---|
-| `raven_une_ligne.txt` | `4F 6E 63 65` — `Once` | aucune signature : un fichier texte n'en porte pas |
-| `raven_une_ligne.donnees` | `4F 6E 63 65` — `Once` | les mêmes octets que la ligne précédente |
-| `raven.odt` | `50 4B 03 04` — `PK` | une archive ZIP, donc un `.odt` |
-| `raven.pdf` | `25 50 44 46` — `%PDF` | un document PDF |
-
-Sortie réelle. La colonne de droite est masquée à la projection. `raven.pdf` est celui qu'ils ont produit eux-mêmes en première partie ; s'il manque, le script écrit `introuvable` et continue.
-
-Deux étages de décision, et c'est tout le propos : le **système** choisit le logiciel d'après le **nom**, le **logiciel** lit les **premiers octets**. Ces octets de tête s'appellent des *nombres magiques*. Que les fichiers texte n'en aient aucun est une information, pas un manque : rien dans un fichier texte ne dit de quoi il est fait.
-
-**Deux extensions échangées**, en deux lignes et sans quitter le mini-projet :
-
-```bash
-cp ../genere/raven.odt ../genere/raven_odt.pdf
-cp ../genere/raven.pdf ../genere/raven_pdf.odt
-python octets.py ../genere/raven_odt.pdf ../genere/raven_pdf.odt
-```
-
-Le nom a changé, les octets non. Faire essayer le **double-clic** sur `raven_odt.pdf` avant de lancer le script : le lecteur PDF s'ouvre et refuse le fichier, et les deux étages se contredisent devant eux. Sous Windows, `copy` remplace `cp`.
-
-> Ce bloc remplace les anciennes diapositives PowerShell et `head`/`xxd`/`file`, qui dépendaient du système et dont l'une n'avait jamais pu être exécutée. Elles sont conservées en annexe du deck. Détails dans [`data/cours1/formats/README.md`](../../../data/cours1/formats/README.md).
-
-Ne pas développer le binaire ici : il est ouvert en hexadécimal au cours 3. Annoncer en revanche que le même phénomène est déjà passé en partie 2, où les premiers octets de `python3` se lisent « ELF ».
-
----
-
+> **Ce qui est sorti de la séance.** La manipulation comptait cinq étapes : remettre en forme un `.txt` d'une seule ligne, renommer un `.donnees`, ouvrir un `.odt` comme une archive ZIP. Les trois premières travaillaient l'édition d'un poème plus que le format, et n'employaient pas Markdown : elles sont conservées en annexe, avec leurs diapositives, en attendant d'être reprises ou supprimées. Le même sort échoit à « Binaire, hexadécimal et encodage du texte » et au mini-projet « Les premiers octets d'un fichier ».
 ## Partie 4 — Environnement de programmation
 
 La partie ne s'ouvre plus sur les interfaces mais sur le problème qui rend l'outil nécessaire. L'ordre est : ce qu'un programme emprunte, pourquoi il faut isoler ces emprunts, l'outil qui le fait, comment lire ses commandes, où les taper, puis l'installation elle-même.
@@ -420,6 +495,19 @@ Trois diapositives, dans cet ordre. Elles répondent à la question que les étu
 - **Ce qu'un programme emprunte** : les lignes `import` désignent du code écrit par d'autres. Nommer le mot *bibliothèque*, écarter « librairie », faux ami de *library*. L'image qui passe bien : une recette qui commence par « prenez une pâte brisée » — vous ne la fabriquez pas, mais il faut qu'elle soit dans le placard, et que ce soit la bonne.
 - **Une bibliothèque en entraîne d'autres** : `environment.yml` nomme 15 paquets, l'environnement en contient 352. Personne ne tient cette liste à la main, d'où l'outil. Conséquence à énoncer : une installation est reproductible parce qu'un fichier la décrit, pas parce qu'on se souvient de ce qu'on a tapé.
 - **Pourquoi isoler un environnement** : la même machine porte numpy 1.21.5 hors environnement et 2.5.2 dans `info01`. C'est la réponse au `ModuleNotFoundError` sur un paquet « qu'on vient d'installer », symptôme le plus fréquent du semestre.
+
+### 🎓 4′ — Ce qu'une bibliothèque contient vraiment
+
+Certaines bibliothèques ne sont que du Python ; d'autres enveloppent du code écrit dans un autre langage, déjà compilé.
+
+| | Tout en Python | Une enveloppe autour d'un autre langage |
+|---|---|---|
+| Exemples | `requests`, `markdown` | `numpy`, `pillow` |
+| Ce qui est distribué | du texte, lisible | du texte, plus un binaire compilé |
+| Selon la machine | le même fichier partout | un fichier par système et par version de Python |
+| Pourquoi | rien à compiler | la vitesse, ou une bibliothèque qui existait déjà |
+
+> **C'est la troisième ligne qui compte.** Une enveloppe doit exister précompilée pour chaque système et chaque version de Python ; quand elle n'existe pas, l'installation tente de compiler sur place et échoue faute de compilateur — le « Microsoft Visual C++ 14.0 is required » que tout le monde a déjà vu. C'est exactement ce que conda résout, et pourquoi le module l'emploie plutôt que `pip` seul : il distribue les binaires précompilés, et sait installer ce qui n'est pas du Python, comme le compilateur C++ de la partie 2 ou `ffmpeg`. Les quatre exemples sont choisis pour être compris **sans notion préalable** : `markdown` convertit en HTML ce qu'ils viennent d'écrire à la manipulation précédente, et c'est du Python de bout en bout ; `pillow` ouvre les `.jpg` et `.png` de la grille des extensions, mais ne les décode pas lui-même — il appelle `libjpeg` et `libpng`, deux bibliothèques C plus vieilles que les étudiants.
 
 ### 🎓 6′ — L'outil, et le minimum de ligne de commande pour s'en servir
 
@@ -494,6 +582,16 @@ Deux façons d'exécuter du Python, et elles ne servent pas à la même chose : 
   - l'ordre d'exécution (`[1]`, `[2]`…) n'est pas l'ordre d'affichage.
 - **Démonstration en direct** (2′) : `x = 10` / `print(x*2)` → modifier la première cellule sans l'exécuter → la seconde ment. Puis *Restart & Run All*.
 - **`.ipynb` vs MyST** : JSON généré (résultats et images inclus, `git diff` illisible) vs Markdown écrit (résultats recalculés, `diff` lisible). Montrer que **le support projeté est lui-même un fichier MyST**.
+- **Trois façons d'ouvrir un notebook**, et la troisième referme « Le lieu du calcul » de la partie 1 :
+
+| Comment | Ce que vous lancez | Où tourne le noyau |
+|---|---|---|
+| Dans l'éditeur de code | le `.ipynb` ouvert dans VSCode | sur votre machine |
+| JupyterLab en local | `jupyter lab` dans un terminal | sur votre machine |
+| Dans le navigateur | **JupyterLite**, une adresse à ouvrir | dans l'onglet, chez vous |
+
+> JupyterLite n'a **pas de serveur** : son noyau Python est compilé en WebAssembly et tourne dans l'onglet, si bien que rien de ce qu'on écrit ne part sur le réseau. C'est un service en ligne où le calcul se fait chez soi — exactement le cas qu'on annonçait en partie 1 sans pouvoir le montrer. Ni compte ni installation, ce qui le distingue de Colab et de Binder. Ne pas le proposer comme environnement de travail : tous les paquets n'y sont pas, et ce qu'on y dépose vit dans le navigateur.
+
 - **Bouclage explicite** : « même contenu, deux formats » — la leçon d'il y a une heure, appliquée à leur propre travail. Et amorce du cours 2 : *pourquoi le texte se versionne bien*.
 - **Quand un notebook, quand un script** *(diapositive de clôture)*. La partie disait ce qu'est un notebook sans jamais dire quand en ouvrir un ; c'est ce que cette diapositive corrige.
 
@@ -509,9 +607,56 @@ Deux façons d'exécuter du Python, et elles ne servent pas à la même chose : 
 
 Cette diapositive **remplace** « Ce que le notebook réunit », récapitulation que le minutage désignait déjà comme la première à sauter : la partie garde donc sa longueur, et « À retenir » assure seule la clôture de la séance.
 
+### ⌨️ 10′ — Le notebook du cours, ouvert de trois façons *(manipulation)*
+
+Support : `src/cours1/notebook/04_premiers_octets.md`, écrit en MyST et converti par `python outils/construire_notebooks.py`. Le notebook lit les premiers octets d'un fichier et en déduit son format — contenu passé en annexe des diapositives parce qu'il se prête mieux à un notebook qu'à une projection.
+
+| | Le geste | Ce qu'on observe |
+|---|---|---|
+| Dans le navigateur | ouvrir [jupyter.org/try-jupyter](https://jupyter.org/try-jupyter/lab/), y déposer le fichier | aucun compte, aucune installation, et le calcul se fait chez vous |
+| Dans l'éditeur | ouvrir le `.ipynb`, choisir le noyau `info01` | les cellules s'exécutent par `Maj`+`Entrée` |
+| Dans JupyterLab | `jupyter lab` au terminal, puis le fichier dans l'arborescence | une adresse `localhost`, donc un serveur qui est le vôtre |
+
+L'ordre est celui de l'engagement croissant : rien à installer, puis l'éditeur qu'ils ont déjà, puis un serveur qu'ils lancent eux-mêmes. Si le réseau de la salle est mauvais, sauter la première et la montrer au tableau ; le premier chargement de JupyterLite prend une dizaine de secondes.
+
+> **La dernière cellule est celle à faire attendre** : elle copie le `.odt` sous un nom en `.pdf`, relit les octets, et montre que le nom ment. C'est « Deux extensions échangées » fait par eux, en trois lignes. Ils y retrouvent aussi le `50 4B 03 04` du `.odt` et l'absence de signature des fichiers texte, mais en l'exécutant.
+
+> Le noyau à choisir dans l'éditeur est la même question que l'interpréteur de la partie 2, et la même réponse — `info01`. Le dire ainsi plutôt que comme une nouveauté. Et le fichier source étant en MyST, donc du texte comparable ligne à ligne, c'est « Deux formats de notebook » vérifié sur le support qu'ils ont sous les yeux.
+
 ---
 
 ## Annexes et bonus
+
+### ⌨️ 8′ — Les premiers octets d'un fichier *(mini-projet Python)*
+
+La conclusion de la manipulation précédente : après avoir constaté que l'extension ne décrit pas le contenu, on regarde ce qui le décrit. Ouvrir `data/cours1/formats/` dans l'éditeur et lancer `python octets.py` au terminal — exactement le geste de la manipulation « hello world », refait sur un programme qui sert à quelque chose. Le script fait quarante lignes et se lit avant d'être lancé : trois fonctions, dont une qui compare le début du fichier à un dictionnaire de signatures.
+
+| Fichier lu | Premiers octets | Ce qu'ils signent |
+|---|---|---|
+| `raven_une_ligne.txt` | `4F 6E 63 65` — `Once` | aucune signature : un fichier texte n'en porte pas |
+| `raven_une_ligne.donnees` | `4F 6E 63 65` — `Once` | les mêmes octets que la ligne précédente |
+| `raven.odt` | `50 4B 03 04` — `PK` | une archive ZIP, donc un `.odt` |
+| `raven.pdf` | `25 50 44 46` — `%PDF` | un document PDF |
+
+Sortie réelle. La colonne de droite est masquée à la projection. `raven.pdf` est celui qu'ils ont produit eux-mêmes en première partie ; s'il manque, le script écrit `introuvable` et continue.
+
+Deux étages de décision, et c'est tout le propos : le **système** choisit le logiciel d'après le **nom**, le **logiciel** lit les **premiers octets**. Ces octets de tête s'appellent des *nombres magiques*. Que les fichiers texte n'en aient aucun est une information, pas un manque : rien dans un fichier texte ne dit de quoi il est fait.
+
+**Deux extensions échangées**, en deux lignes et sans quitter le mini-projet :
+
+```bash
+cp ../genere/raven.odt ../genere/raven_odt.pdf
+cp ../genere/raven.pdf ../genere/raven_pdf.odt
+python octets.py ../genere/raven_odt.pdf ../genere/raven_pdf.odt
+```
+
+Le nom a changé, les octets non. Faire essayer le **double-clic** sur `raven_odt.pdf` avant de lancer le script : le lecteur PDF s'ouvre et refuse le fichier, et les deux étages se contredisent devant eux. Sous Windows, `copy` remplace `cp`.
+
+> Ce bloc remplace les anciennes diapositives PowerShell et `head`/`xxd`/`file`, qui dépendaient du système et dont l'une n'avait jamais pu être exécutée. Elles sont conservées en annexe du deck. Détails dans [`data/cours1/formats/README.md`](../../../data/cours1/formats/README.md).
+
+Ne pas développer le binaire ici : il est ouvert en hexadécimal au cours 3. Annoncer en revanche que le même phénomène est déjà passé en partie 2, où les premiers octets de `python3` se lisent « ELF ».
+
+---
 
 ### ⌨️ 10′ — Une vidéo, deux chemins *(bonus, pour aller plus loin)*
 
@@ -611,8 +756,8 @@ Le budget visé, celui de la diapositive « Contenu de la séance », est :
 | Partie | Contenu | Durée |
 |--------|---------|-------|
 | Logiciels et formats de fichier | logiciel, vocabulaire, système d'exploitation, application web, extension, chemins, TD fichiers | 25′ |
-| Programmation et éditeur de code | programmes et applications, compilé et interprété, code source et exécutable, place de l'interpréteur, éditeur et fonctions d'un IDE, lancer un programme, hello world | 25′ |
-| Édition de texte et contenu des fichiers | programmation et édition de texte, texte brut, règles d'un langage, coloration et extensions, espaces et tabulations, programmes fautifs, fichiers texte et Markdown, un texte quatre formes, les premiers octets | 30′ |
+| Programmation et éditeur de code | programmes et applications, compilé et interprété, code source et exécutable, place de l'interpréteur, éditeur et fonctions d'un IDE, lancer un programme, de quoi compiler du C++, hello world | 25′ |
+| Édition de texte et contenu des fichiers | programmation et édition de texte, texte brut, règles d'un langage, coloration et vérification, chasse fixe, espaces et tabulations, extensions de fichier et de VSCode, programmes fautifs, fichiers texte et Markdown, une page HTML et sa feuille de style | 30′ |
 | Environnement de programmation | bibliothèques et dépendances, conda, terminal de l'éditeur, Python interactif | 25′ |
 | Notebooks | interface et noyau, trois façons de l'ouvrir, deux formats | 10′ |
 
@@ -638,8 +783,7 @@ Cinq blocs de manipulation dans la séance, répartis sur les trois premières p
 | *Fichiers, formats et extensions* | 1 | exporter, renommer, ouvrir le `.odt` comme une archive et le modifier |
 | *Un hello world en Python et en C++* | 2 | lancer les deux programmes, et voir ce que chacun laisse sur le disque |
 | *Extensions de langage et programmes fautifs* | 2 | installer l'extension d'un langage, corriger trois fichiers |
-| *Un texte, quatre formes* | 3 | le poème en `.txt`, `.odt`, `.html` brut, `.html` + CSS |
-| *Les premiers octets d'un fichier* | 3 | le mini-projet Python, et l'extension qui ment |
+| *Une page HTML et sa feuille de style* | 3 | la page brute au navigateur, puis la même avec son CSS |
 
 L'installation de l'environnement, en partie 4, est une sixième manipulation, sans diapositive d'ouverture : elle occupe la partie entière.
 

@@ -46,7 +46,7 @@
     [Comment], [Ce que vous lancez], [Où tourne le noyau],
     [Dans l'éditeur de code], [le `.ipynb` ouvert dans VSCode], [sur votre machine],
     [JupyterLab en local], [`jupyter lab` dans un terminal], [sur votre machine],
-    [Un service en ligne], [une adresse fournie par le service], [sur son serveur],
+    [Dans le navigateur], [JupyterLite, une adresse à ouvrir], [dans l'onglet, chez vous],
   )
 
   #v(0.3em)
@@ -73,8 +73,20 @@
     `Serving notebooks from local directory` désigne le dossier courant : le
     notebook ne voit que ce qui est dessous. Encore les chemins relatifs.
 
-    Sur les services en ligne : ce qu'on y dépose y reste, et l'environnement
-    n'est pas celui qu'ils ont installé. Pratique pour dépanner, pas pour
+    La troisième ligne est celle qui surprend, et elle referme « Le lieu du
+    calcul » de la première partie : JupyterLite n'a pas de serveur. Le noyau
+    Python y est compilé en WebAssembly et tourne dans l'onglet, si bien que
+    rien de ce qu'on écrit ne part sur le réseau. C'est un service en ligne où
+    le calcul se fait chez vous, et c'est exactement le cas qu'on annonçait
+    sans pouvoir le montrer.
+
+    Ne pas le proposer comme environnement de travail : tous les paquets n'y
+    sont pas, et ce qu'on y dépose vit dans le navigateur. Il sert à ouvrir un
+    notebook en dix secondes, sans compte et sans installation — c'est
+    beaucoup, et c'est tout.
+
+    Sur les autres services, Colab et consorts : ils exigent un compte, et ce
+    qu'on y dépose part sur leurs serveurs. Pratique pour dépanner, pas pour
     rendre un travail.
   ]
 ]
@@ -164,5 +176,60 @@
   #notes[
     Enchaîner sur le dépôt de notes : chacun écrit les notes du jour en
     Markdown. Git arrive au cours 2 ; aujourd'hui, seulement le fichier.
+  ]
+]
+#separateur-manip(
+  "Le notebook du cours, ouvert de trois façons",
+  annonce: "Dans le navigateur sans rien installer, dans l'éditeur, puis dans JupyterLab",
+)
+#d("Ouvrir le même notebook, trois fois")[
+  #annonce[
+    `04_premiers_octets.ipynb` lit les premiers octets d'un fichier et en
+    déduit le format. Le même fichier, ouvert de trois façons.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr, 1fr),
+    align: left + horizon,
+    [], [Le geste], [Ce qu'on observe],
+    [Dans le navigateur],
+      [ouvrir #link("https://jupyter.org/try-jupyter/lab/")[jupyter.org/try-jupyter], y déposer le fichier],
+      reponse[aucun compte, aucune installation, et le calcul se fait chez vous],
+    [Dans l'éditeur],
+      [ouvrir le `.ipynb`, choisir le noyau `info01`],
+      reponse[les cellules s'exécutent par `Maj` + `Entrée`],
+    [Dans JupyterLab],
+      [`jupyter lab` au terminal, puis le fichier dans l'arborescence],
+      reponse[une adresse `localhost`, donc un serveur qui est le vôtre],
+  )
+
+  #legende[
+    Le notebook est produit depuis un fichier MyST par
+    `python outils/construire_notebooks.py`. Le premier chargement de
+    JupyterLite prend une dizaine de secondes.
+  ]
+
+  #notes[
+    L'ordre est celui de l'engagement croissant : rien à installer, puis
+    l'éditeur qu'ils ont déjà, puis un serveur qu'ils lancent eux-mêmes. Si le
+    réseau de la salle est mauvais, sauter la première et la montrer au
+    tableau.
+
+    Le contenu du notebook n'est pas neuf : c'est la lecture des premiers
+    octets, passée en annexe des diapositives parce qu'elle se prête mieux à
+    un notebook qu'à une projection. Ils y retrouvent le `50 4B 03 04` du
+    `.odt` et l'absence de signature des fichiers texte, mais en l'exécutant.
+
+    La dernière cellule est celle à faire attendre : elle copie le `.odt` sous
+    un nom en `.pdf`, relit les octets, et montre que le nom ment. C'est la
+    manipulation « Deux extensions échangées » faite par eux, en trois lignes.
+
+    Sur le noyau à choisir dans l'éditeur : c'est la même question que
+    l'interpréteur de la partie 2, et la même réponse — `info01`. Le dire
+    ainsi plutôt que comme une nouveauté.
+
+    Le fichier source est en MyST, donc du texte, donc comparable ligne à
+    ligne : c'est la diapositive « Deux formats de notebook », vérifiée sur le
+    support qu'ils ont sous les yeux.
   ]
 ]

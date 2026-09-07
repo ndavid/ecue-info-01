@@ -14,6 +14,94 @@
   "Interface graphique et ligne de commande",
   annonce: "Diapositives non traitées en séance, reprises au cours 2",
 )
+#d("Ligne de commande et interface graphique")[
+  #annonce[
+    Deux façons de dire à un logiciel quoi faire, comparées sur cinq points.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr, 1fr),
+    align: left + horizon,
+    [], [Interface graphique], [Ligne de commande],
+    [Ce que vous faites], [vous désignez ce que vous voyez], [vous nommez ce que vous voulez],
+    [Ce qui est proposé], [ce que les menus contiennent], [tout ce que le programme accepte],
+    [Pour dix fichiers], [dix fois les mêmes gestes], [la même ligne, une fois],
+    [Ce qui en reste], [rien], [la commande, qui est le mode d'emploi],
+    [Dire à quelqu'un quoi faire], [décrire des clics], [envoyer la ligne],
+  )
+
+  #legende[
+    Les deux interfaces ne rendent pas le même service ; aucune ne remplace
+    l'autre.
+  ]
+
+  #notes[
+    Le point à faire passer : le mode graphique montre ce qui est possible,
+    la ligne de commande suppose qu'on le sache déjà. C'est pour cela qu'on
+    explore au clic et qu'on répète au clavier.
+
+    Contre-exemple à donner si la salle penche trop d'un côté : personne ne
+    retouche une photo au terminal, et personne ne renomme trois cents
+    fichiers à la souris.
+
+    La ligne suivante du tableau est celle qui compte pour le module :
+    « ce qui en reste ». Elle prépare git au cours 2 et les scripts au
+    cours 3.
+  ]
+]
+#d("Anatomie d'une commande")[
+  #annonce[
+    Une commande se lit toujours dans le même ordre.
+  ]
+
+  #align(center)[
+    #grid(
+      columns: (auto, auto, auto),
+      row-gutter: 8pt, column-gutter: 20pt,
+      align: center,
+      text(font: police-code, size: 23pt, fill: accent, weight: demi-gras, "soffice"),
+      text(font: police-code, size: 23pt, fill: manip, weight: demi-gras, "--convert-to pdf"),
+      text(font: police-code, size: 23pt, fill: encre, "raven.odt"),
+      text(size: 14pt, fill: accent)[le programme],
+      text(size: 14pt, fill: manip)[l'option : la tâche demandée],
+      text(size: 14pt, fill: estompe)[l'argument : le fichier traité],
+    )
+  ]
+
+  #v(0.3em)
+  #tableau(
+    columns: (auto, 1.1fr, 1fr),
+    align: left + horizon,
+    [Ce qu'on tape], [Ce que c'est], [Le geste équivalent, à la souris],
+    [`soffice`],
+    [LibreOffice lui-même, sous le nom de son programme],
+    [ouvrir `raven.odt` dans Writer],
+    [`--convert-to pdf`],
+    [une option, à ses deux tirets : la tâche demandée],
+    [le menu Fichier → Exporter au format PDF],
+    [`raven.odt`],
+    [un argument, sans tiret : le fichier traité],
+    [le document ouvert dans la fenêtre],
+  )
+
+  #notes[
+    Le même logiciel des deux côtés, et le même PDF produit.
+
+    Faire le lien explicitement avec la manipulation de la première partie :
+    ils ont exporté `raven.odt` en PDF en cliquant dans LibreOffice. `soffice` n'est
+    pas un autre outil, c'est le même, appelé par son nom.
+
+    Le nom surprend toujours : il vient de StarOffice, l'ancêtre de la suite.
+    Le dire en une phrase et passer, l'anecdote n'a pas d'intérêt en soi.
+
+    La lecture option / argument est ce qu'il faut retenir : c'est la grille de
+    lecture de toutes les commandes du semestre, et elle rend une page d'aide
+    utilisable. Le cours 3 construit une commande de cette forme avec
+    `argparse`.
+
+    Ne pas taper la commande maintenant : c'est la manipulation qui suit.
+  ]
+]
 #d("Désigner un fichier, ou les décrire tous")[
   #annonce[
     À la souris, on désigne les fichiers un par un. Dans une commande, on les
@@ -614,5 +702,246 @@ d("Le menu d'exportation de LibreOffice")[
 
     Question qui vient : « et si je veux changer la police des sous-titres ? »
     Répondre que c'est une option de la dernière ligne, et ne pas y entrer.
+  ]
+]
+
+// ------------- Annexe : formats de fichier, octets et signatures ------------
+
+#separateur(
+  "Formats de fichier, octets et signatures",
+  annonce: "Sorties de la partie « édition de texte », gardées pour référence",
+)
+#d("JSON et YAML dans l'éditeur")[
+  #annonce[
+    Les deux portent les mêmes réglages et se convertissent l'un en l'autre,
+    mais l'éditeur ne les sert pas également.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr, 1fr),
+    align: left + horizon,
+    [Format], [Fourni d'origine], [Ce qu'une extension ajoute],
+    [`.json`],
+      [coloration, pliage, formatage, vérification par schéma],
+      [rien, le plus souvent],
+    [`.yaml`],
+      [la coloration, et rien de plus],
+      [la vérification par schéma, `redhat.vscode-yaml`],
+  )
+
+  #legende[
+    Relevé dans les extensions livrées avec VSCode : `json-language-features`
+    y est, `yaml-language-features` n'existe pas.
+  ]
+
+  #notes[
+    Sortie de la séance : le sujet n'est pas assez employé au cours 1 pour
+    valoir une diapositive projetée. Elle sert si quelqu'un demande pourquoi
+    un `.yaml` n'est pas vérifié comme un `.json`.
+
+    Le contraste avec les extensions de langage reste le propos : Python et
+    C++ en exigent une, Markdown, HTML, CSS et JSON n'en ont pas besoin, YAML
+    en tire un service précis et limité.
+  ]
+]
+#d("Extension et contenu")[
+  #annonce[
+    L'extension indique au système quel logiciel proposer. Elle n'agit pas
+    sur les octets du fichier.
+  ]
+
+  ```python
+  a = Path("raven_une_ligne.txt").read_bytes()
+  b = Path("raven_une_ligne.donnees").read_bytes()
+  a == b
+  ```
+
+  #v(0.5em)
+  #align(center, text(size: 30pt, fill: accent, weight: "bold")[True])
+
+  #legende[Deux noms, deux extensions, exactement les mêmes octets.]
+
+  #notes[
+    Enchaîner sur la conséquence : une extension peut mentir. Le seul moyen de
+    savoir ce que contient un fichier est de regarder ses octets. Faire activer
+    l'affichage des extensions dans l'explorateur, une fois pour toutes.
+  ]
+]
+#d("Ce que contient un fichier texte")[
+  #annonce[
+    Un fichier texte contient des caractères. Le saut de ligne en est un :
+    sans lui, le texte n'est pas découpé.
+  ]
+
+  ```python
+  brut = Path("raven_une_ligne.txt").read_text(encoding="utf-8")
+  print(len(brut), "caractères,", brut.count("\n"), "saut de ligne")
+  ```
+
+  #v(0.4em)
+  ```
+  1341 caractères, 1 saut de ligne
+  ```
+
+  #legende[
+    Le poème entier tient sur une ligne. Le saut de ligne est un caractère
+    comme un autre : s'il n'y en a pas, il n'y a pas de lignes.
+  ]
+
+  #notes[
+    C'est l'énoncé de la première manipulation : remettre le texte en forme,
+    c'est ajouter au fichier une information qu'il ne contenait pas.
+  ]
+]
+#d[Structure d'un fichier `.odt`][
+  #annonce[
+    Un document LibreOffice est une archive ZIP contenant des fichiers XML.
+    Les formats `.docx`, `.xlsx` et `.epub` sont construits de même.
+  ]
+
+  ```python
+  with zipfile.ZipFile("raven.odt") as archive:
+      print(archive.namelist())
+  ```
+
+  #v(0.4em)
+  ```
+  ['mimetype', 'meta.xml', 'META-INF/manifest.xml', 'content.xml',
+   'manifest.rdf', 'styles.xml', 'settings.xml',
+   'Configurations2/accelerator/current.xml', 'Thumbnails/thumbnail.png']
+  ```
+
+  #legende[`.docx`, `.xlsx` et `.epub` sont construits de la même façon.]
+
+  #notes[
+    Faire ouvrir `content.xml` dans l'éditeur : le texte du poème est là,
+    entouré de balises de mise en forme. C'est aussi la réponse à « pourquoi un
+    `.odt` se versionne mal ».
+  ]
+]
+#d("Binaire, hexadécimal et encodage du texte")[
+  #annonce[
+    Un fichier est une suite d'octets. Un octet vaut de 0 à 255, et s'écrit
+    avec deux chiffres hexadécimaux. Le texte n'échappe pas à la règle : une
+    table associe chaque caractère à un ou plusieurs octets.
+  ]
+
+  #tableau(
+    columns: (auto, auto, auto, 1fr),
+    align: left + horizon,
+    [Caractère], [Valeur], [En hexadécimal], [Remarque],
+    [`P`], [80], [`50`], [un octet, comme tout l'ASCII],
+    [`K`], [75], [`4B`], [au-delà de 9, on compte avec A à F],
+    [`é`], [195 et 169], [`C3 A9`], [deux octets en UTF-8, l'encodage d'aujourd'hui],
+  )
+
+  #legende[
+    L'hexadécimal ne change rien au fichier : c'est une façon d'écrire les
+    octets, plus lisible que 8 chiffres binaires par octet.
+  ]
+
+  #notes[
+    Le minimum utile ici, rien de plus : le binaire est ouvert pour de bon au
+    cours 3. Ce qu'il faut retenir aujourd'hui est qu'un octet et son écriture
+    hexadécimale sont la même chose, et que « texte » veut dire « octets plus
+    une table de correspondance ».
+
+    Conséquence à semer pour le cours 2 : un fichier écrit avec une table et
+    relu avec une autre donne des caractères abîmés. C'est l'origine des
+    accents cassés que tout le monde a déjà vus.
+
+    `P` vaut 80 et `K` vaut 75 : c'est ce qui produit les deux lettres lisibles
+    en tête d'un ZIP, diapositive suivante.
+  ]
+]
+#separateur-manip(
+  "Les premiers octets d'un fichier",
+  annonce: "Ouvrir le mini-projet formats/ dans l'éditeur, et l'exécuter",
+)
+
+#d("Comment un logiciel reconnaît un fichier")[
+  #annonce[
+    Le système choisit le logiciel d'après le nom. Le logiciel, lui, ouvre le
+    fichier et lit ses premiers octets.
+  ]
+
+  #tableau(
+    columns: (auto, auto, 1fr),
+    align: left + horizon,
+    [Fichier lu], [Premiers octets], [Ce qu'ils signent],
+    [`raven_une_ligne.txt`], [`4F 6E 63 65` #h(6pt) `Once`],
+      reponse[aucune signature : un fichier texte n'en porte pas],
+    [`raven_une_ligne.donnees`], [`4F 6E 63 65` #h(6pt) `Once`],
+      reponse[les mêmes octets que la ligne précédente],
+    [`raven.odt`], [`50 4B 03 04` #h(6pt) `PK`],
+      reponse[une archive ZIP, donc un `.odt`],
+    [`raven.pdf`], [`25 50 44 46` #h(6pt) `%PDF`],
+      reponse[un document PDF],
+  )
+
+  #legende[
+    Sortie réelle de `python octets.py`, dans `data/cours1/formats/`. Ces
+    octets de tête s'appellent des nombres magiques.
+  ]
+
+  #notes[
+    Faire ouvrir le dossier `formats/` dans l'éditeur et lancer le script au
+    terminal : c'est exactement le geste de la manipulation « hello world »,
+    refait sur un programme qui sert à quelque chose.
+
+    Faire lire les quarante lignes du script avant de le lancer. Il tient en
+    trois fonctions, dont une qui compare le début du fichier à un
+    dictionnaire de signatures. Rien d'autre.
+
+    Les deux premières lignes sont le cœur : deux extensions, les mêmes
+    octets. C'est la diapositive « Extension et contenu », vue autrement.
+
+    Les fichiers texte n'ont aucune signature, et c'est une information, pas
+    un manque : rien dans un fichier texte ne dit de quoi il est fait. C'est
+    au logiciel qui l'ouvre de décider, et c'est pourquoi `file` se trompe
+    parfois.
+
+    `PK` sont les initiales de Phil Katz, l'auteur du format ZIP. Une phrase,
+    pas plus, elle fait retenir le reste.
+
+    `raven.pdf` est celui qu'ils ont produit eux-mêmes en première partie. Si
+    l'export n'a pas été fait, le script écrit `introuvable` et continue.
+  ]
+]
+
+#d("Deux extensions échangées")[
+  #annonce[
+    Deux copies dont on échange les extensions gardent leurs octets. C'est le
+    contenu que le logiciel lit, pas le nom.
+  ]
+
+  ```bash
+  cp ../genere/raven.odt ../genere/raven_odt.pdf
+  cp ../genere/raven.pdf ../genere/raven_pdf.odt
+  python octets.py ../genere/raven_odt.pdf ../genere/raven_pdf.odt
+  ```
+
+  #v(0.3em)
+  ```
+  raven_odt.pdf     50 4B 03 04  PK..   archive ZIP, donc .odt, .docx, .xlsx ou .epub
+  raven_pdf.odt     25 50 44 46  %PDF   document PDF
+  ```
+
+  #legende[
+    Sortie réelle. Sous Windows, `copy` remplace `cp`. Le double-clic, lui,
+    échoue : le système lance le logiciel que le nom désigne.
+  ]
+
+  #notes[
+    Faire essayer le double-clic sur `raven_odt.pdf` avant de lancer le
+    script : le lecteur PDF s'ouvre et refuse le fichier. Deux étages de
+    décision, et ils se contredisent — c'est tout le propos.
+
+    Le message d'erreur de la visionneuse nomme parfois les octets qu'elle a
+    lus, `0x50 0x4b`. Le rapprocher de la colonne du tableau précédent.
+
+    La manipulation complète, avec LibreOffice et l'explorateur, est en annexe
+    sous le titre « Échanger deux extensions ». Ces deux lignes en donnent le
+    résultat sans le temps qu'elle demande.
   ]
 ]

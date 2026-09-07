@@ -83,6 +83,55 @@
     `conda env export` ; ne pas y entrer aujourd'hui.
   ]
 ]
+#d("Ce qu'une bibliothèque contient vraiment")[
+  #annonce[
+    Certaines bibliothèques ne sont que du Python. D'autres enveloppent du
+    code écrit dans un autre langage, déjà compilé pour votre machine.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr, 1fr),
+    align: left + horizon,
+    [], [Tout en Python], [Une enveloppe autour d'un autre langage],
+    [Exemples], [`requests`, `markdown`], [`numpy`, `pillow`],
+    [Ce qui est distribué], [du texte, lisible], [du texte, plus un binaire compilé],
+    [Selon la machine],
+      [le même fichier partout],
+      [un fichier par système et par version de Python],
+    [Pourquoi], [rien à compiler], [la vitesse, ou une bibliothèque qui existait déjà],
+  )
+
+  #legende[
+    C'est la deuxième catégorie qui rend l'installation difficile, et qui
+    explique l'outil de la diapositive suivante.
+  ]
+
+  #notes[
+    Le point pratique est la troisième ligne. Une bibliothèque tout en Python
+    s'installe partout de la même façon ; une enveloppe doit exister
+    précompilée pour Windows, macOS, Linux, et pour chaque version de Python.
+    Quand elle n'existe pas, l'installation tente de compiler sur place, ce
+    qui échoue faute de compilateur — le message « Microsoft Visual C++ 14.0
+    is required » que tout le monde a déjà vu vient de là.
+
+    C'est exactement le problème que conda résout, et c'est pourquoi le module
+    l'emploie plutôt que `pip` seul : conda distribue les binaires
+    précompilés, et sait aussi installer ce qui n'est pas du Python, comme le
+    compilateur C++ de tout à l'heure ou `ffmpeg`.
+
+    Ne pas entrer dans le détail des formats de paquet. Ce qu'il faut retenir
+    tient en une phrase : installer une bibliothèque, ce n'est pas toujours
+    copier du texte.
+
+    Les quatre exemples sont choisis pour être compris aujourd'hui, sans
+    notion préalable. `markdown` convertit en HTML ce qu'ils viennent
+    d'écrire à la manipulation précédente, et c'est du Python de bout en
+    bout. `pillow` ouvre les `.jpg` et les `.png` de la grille des
+    extensions : il ne les décode pas lui-même, il appelle `libjpeg` et
+    `libpng`, deux bibliothèques C plus vieilles qu'eux, que personne ne
+    réécrira en Python.
+  ]
+]
 #d("Pourquoi isoler un environnement")[
   #annonce[
     Deux projets peuvent réclamer deux versions de la même bibliothèque. Un
@@ -156,94 +205,6 @@
     c'est la manipulation de la fin de partie.
   ]
 ]
-#d("Ligne de commande et interface graphique")[
-  #annonce[
-    Deux façons de dire à un logiciel quoi faire, comparées sur cinq points.
-  ]
-
-  #tableau(
-    columns: (auto, 1fr, 1fr),
-    align: left + horizon,
-    [], [Interface graphique], [Ligne de commande],
-    [Ce que vous faites], [vous désignez ce que vous voyez], [vous nommez ce que vous voulez],
-    [Ce qui est proposé], [ce que les menus contiennent], [tout ce que le programme accepte],
-    [Pour dix fichiers], [dix fois les mêmes gestes], [la même ligne, une fois],
-    [Ce qui en reste], [rien], [la commande, qui est le mode d'emploi],
-    [Dire à quelqu'un quoi faire], [décrire des clics], [envoyer la ligne],
-  )
-
-  #legende[
-    Les deux interfaces ne rendent pas le même service ; aucune ne remplace
-    l'autre.
-  ]
-
-  #notes[
-    Le point à faire passer : le mode graphique montre ce qui est possible,
-    la ligne de commande suppose qu'on le sache déjà. C'est pour cela qu'on
-    explore au clic et qu'on répète au clavier.
-
-    Contre-exemple à donner si la salle penche trop d'un côté : personne ne
-    retouche une photo au terminal, et personne ne renomme trois cents
-    fichiers à la souris.
-
-    La ligne suivante du tableau est celle qui compte pour le module :
-    « ce qui en reste ». Elle prépare git au cours 2 et les scripts au
-    cours 3.
-  ]
-]
-#d("Anatomie d'une commande")[
-  #annonce[
-    Une commande se lit toujours dans le même ordre.
-  ]
-
-  #align(center)[
-    #grid(
-      columns: (auto, auto, auto),
-      row-gutter: 8pt, column-gutter: 20pt,
-      align: center,
-      text(font: police-code, size: 23pt, fill: accent, weight: demi-gras, "soffice"),
-      text(font: police-code, size: 23pt, fill: manip, weight: demi-gras, "--convert-to pdf"),
-      text(font: police-code, size: 23pt, fill: encre, "raven.odt"),
-      text(size: 14pt, fill: accent)[le programme],
-      text(size: 14pt, fill: manip)[l'option : la tâche demandée],
-      text(size: 14pt, fill: estompe)[l'argument : le fichier traité],
-    )
-  ]
-
-  #v(0.3em)
-  #tableau(
-    columns: (auto, 1.1fr, 1fr),
-    align: left + horizon,
-    [Ce qu'on tape], [Ce que c'est], [Le geste équivalent, à la souris],
-    [`soffice`],
-    [LibreOffice lui-même, sous le nom de son programme],
-    [ouvrir `raven.odt` dans Writer],
-    [`--convert-to pdf`],
-    [une option, à ses deux tirets : la tâche demandée],
-    [le menu Fichier → Exporter au format PDF],
-    [`raven.odt`],
-    [un argument, sans tiret : le fichier traité],
-    [le document ouvert dans la fenêtre],
-  )
-
-  #notes[
-    Le même logiciel des deux côtés, et le même PDF produit.
-
-    Faire le lien explicitement avec la manipulation de la première partie :
-    ils ont exporté `raven.odt` en PDF en cliquant dans LibreOffice. `soffice` n'est
-    pas un autre outil, c'est le même, appelé par son nom.
-
-    Le nom surprend toujours : il vient de StarOffice, l'ancêtre de la suite.
-    Le dire en une phrase et passer, l'anecdote n'a pas d'intérêt en soi.
-
-    La lecture option / argument est ce qu'il faut retenir : c'est la grille de
-    lecture de toutes les commandes du semestre, et elle rend une page d'aide
-    utilisable. Le cours 3 construit une commande de cette forme avec
-    `argparse`.
-
-    Ne pas taper la commande maintenant : c'est la manipulation qui suit.
-  ]
-]
 #d("Le terminal de l'éditeur de code")[
   #annonce[
     L'éditeur ouvre un terminal dans sa fenêtre, déjà placé dans le dossier du
@@ -311,49 +272,5 @@
     Message à marteler : un `ModuleNotFoundError` sur un paquet « qu'on vient
     d'installer » signifie presque toujours que le mauvais environnement est
     actif. Prévoir l'installation en amont ; c'est le point qui déborde.
-  ]
-]
-#d("Python en interactif")[
-  #annonce[
-    Taper `python` sans nom de fichier ouvre une session interactive : chaque
-    ligne est lue, exécutée, et son résultat affiché aussitôt.
-  ]
-
-  ```console
-  $ python
-  Python 3.12.14 | packaged by conda-forge | (main, Sep  1 2026) [GCC 14.4.0]
-  >>> from octets import entete, en_hexadecimal
-  >>> entete("../genere/raven.odt")
-  b'PK\x03\x04'
-  >>> en_hexadecimal(entete("../genere/raven.pdf"))
-  '25 50 44 46'
-  >>> exit()
-  ```
-
-  #legende[
-    Session réelle, dans `data/cours1/formats/`. Le résultat s'affiche sans
-    `print` : c'est propre à la session interactive.
-  ]
-
-  #notes[
-    Deux façons d'exécuter du Python, et elles ne servent pas à la même chose.
-    Un script se lance en entier et se relance à l'identique ; une session
-    interactive s'essaie ligne à ligne et ne laisse rien.
-
-    Faire remarquer les trois chevrons : c'est l'invite de Python, et non
-    celle du terminal. Confondre les deux est l'erreur de début de semestre,
-    et elle produit `SyntaxError` quand on tape une commande du système dans
-    Python.
-
-    On y entre par `python`, on en sort par `exit()` ou `Ctrl` + `D`. Le
-    dire tout de suite : on ne devine pas comment sortir.
-
-    Le module réutilise ici son propre script, importé comme une bibliothèque.
-    C'est la diapositive « Ce qu'un programme emprunte », vue de l'autre côté :
-    le code de quelqu'un d'autre, c'était aussi du code écrit par eux il y a
-    dix minutes.
-
-    Amorce de la partie suivante : un notebook est cette session interactive,
-    avec le texte conservé autour.
   ]
 ]

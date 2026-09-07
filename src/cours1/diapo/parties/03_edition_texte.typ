@@ -96,60 +96,6 @@
     il ne rend aucun des services énumérés à la partie précédente.
   ]
 ]
-#d("Ce que l'éditeur ajoute au texte")[
-  #annonce[
-    Le fichier ne contient que des caractères. Le même texte, dans deux
-    polices : à gauche, les colonnes s'alignent.
-  ]
-
-  #face-a-face(
-    panneau("Chasse fixe (éditeur de code)")[
-      #raw("aire  = 12\ntotal = 480", block: true)
-    ],
-    // Le même texte, à la même taille, dans la police du corps : seules les
-    // largeurs de caractère changent, et l'alignement se perd.
-    panneau("Chasse proportionnelle (traitement de texte)")[
-      #{
-        show raw: set text(font: police-texte)
-        raw("aire  = 12\ntotal = 480", block: true)
-      }
-    ],
-  )
-
-  #v(0.5em)
-  #tableau(
-    entete: false,
-    columns: (auto, 1fr),
-    align: left + horizon,
-    [Affiché, absent du fichier], [les couleurs, les numéros de ligne, la police],
-    [Présent dans le fichier], [l'indentation, qui en Python délimite le bloc],
-  )
-
-  #legende[
-    Tout ce que l'éditeur ajoute est calculé à la lecture, et n'est jamais
-    enregistré.
-  ]
-
-  #notes[
-    Culture : un éditeur de code emploie toujours une police à *chasse fixe*,
-    où toutes les lettres occupent la même largeur, alors qu'un traitement de
-    texte emploie une police *proportionnelle*, où le `i` est plus étroit que
-    le `m`. Le petit exemple le montre : à droite, les deux `=` ne sont plus
-    alignés alors que le texte est identique.
-
-    L'intérêt n'est pas esthétique. Une chasse fixe rend les espaces
-    comptables : trois espaces se distinguent de quatre, et une tabulation se
-    repère. C'est exactement ce dont Python a besoin.
-
-    Faire le lien avec LibreOffice, manipulé en début de séance : on y choisit
-    une police pour la mise en page, ici on la subit pour une raison
-    technique. Le mot vient de l'imprimerie, où la chasse est la largeur d'un
-    caractère.
-
-    Ne pas confondre l'indentation, qui est dans le fichier et compte, avec la
-    coloration, qui n'y est pas. C'est le sens de la dernière colonne.
-  ]
-]
 #d("Les règles d'écriture d'un langage")[
   #annonce[
     Un langage de programmation a une grammaire, appliquée à la lettre. Elle a
@@ -218,6 +164,17 @@
     ],
   )
 
+  #v(0.4em)
+  #tableau(
+    entete: false,
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [Les mots du langage et les fonctions connues], [`for`, `in`, `print`],
+    [Les nombres], [`128.4`, `131.0`],
+    [Le texte entre guillemets], [`"{altitude:.1f} m"`],
+    [Les noms que vous choisissez], [`altitudes`, `altitude`],
+  )
+
   #legende[
     Le fichier est le même des deux côtés. La couleur est calculée à la
     lecture, comme les numéros de ligne.
@@ -238,49 +195,9 @@
     montre en une seconde.
   ]
 ]
-#d("Les extensions de l'éditeur")[
-  #annonce[
-    VSCode colore seul les langages les plus courants. Une extension y
-    ajoute la vérification de l'écriture, la complétion et le lancement du
-    programme.
-  ]
-
-  #tableau(
-    columns: (auto, auto, 1fr),
-    align: left + horizon,
-    [Langage], [Extension], [Ce qu'elle ajoute à la coloration],
-    [Python], [`ms-python.python`], [vérification, complétion, lancement du fichier],
-    [C++], [`ms-vscode.cpptools`], [vérification, complétion, compilation et débogage],
-    [Notebooks], [`ms-toolsai.jupyter`], [exécution des cellules dans l'éditeur],
-  )
-
-  #legende[
-    Panneau Extensions, `Ctrl` + `Maj` + `X`. Ces identifiants sont ceux du
-    catalogue de VSCode ; un autre IDE rend les mêmes services sous d'autres
-    noms, parfois sans rien installer.
-  ]
-
-  #notes[
-    Les trois extensions du module, et rien de plus aujourd'hui : celle de
-    Python sert dès cette séance, celle de C++ à la manipulation qui suit,
-    celle de Jupyter à la dernière partie.
-
-    L'identifiant en chasse fixe est ce qu'il faut chercher dans le panneau :
-    les noms affichés se ressemblent tous et plusieurs extensions non
-    officielles portent le même titre. C'est le réflexe à donner, et il vaut
-    au-delà de ce cours.
-
-    L'extension Python installe elle-même Pylance, qui fait la vérification.
-    Ne pas entrer dans le détail ; le dire seulement si quelqu'un remarque
-    qu'une deuxième extension est apparue.
-
-    Identifiants relevés sur le poste de préparation. Le catalogue est le même
-    sur les trois systèmes.
-  ]
-]
 #d("Vérification de l'écriture")[
   #annonce[
-    L'extension relit le fichier pendant qu'on l'écrit et souligne ce qui ne
+    L'éditeur relit le fichier pendant qu'on l'écrit et souligne ce qui ne
     respecte pas les règles du langage. Le compilateur, lui, ne répond
     qu'au lancement.
   ]
@@ -319,6 +236,60 @@
 
     Le fichier est `data/cours1/erreurs/cpp/aire.cpp`, corrigé à la
     manipulation qui suit.
+  ]
+]
+#d("Ce que l'éditeur ajoute au texte")[
+  #annonce[
+    Le fichier ne contient que des caractères. Le même texte, dans deux
+    polices : à gauche, les colonnes s'alignent.
+  ]
+
+  #face-a-face(
+    panneau("Chasse fixe (éditeur de code)")[
+      #raw("aire  = 12\ntotal = 480", block: true)
+    ],
+    // Le même texte, à la même taille, dans la police du corps : seules les
+    // largeurs de caractère changent, et l'alignement se perd.
+    panneau("Chasse proportionnelle (traitement de texte)")[
+      #{
+        show raw: set text(font: police-texte)
+        raw("aire  = 12\ntotal = 480", block: true)
+      }
+    ],
+  )
+
+  #v(0.5em)
+  #tableau(
+    entete: false,
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [Affiché, absent du fichier], [les couleurs, les numéros de ligne, la police],
+    [Présent dans le fichier], [l'indentation, qui en Python délimite le bloc],
+  )
+
+  #legende[
+    Tout ce que l'éditeur ajoute est calculé à la lecture, et n'est jamais
+    enregistré.
+  ]
+
+  #notes[
+    Culture : un éditeur de code emploie toujours une police à *chasse fixe*,
+    où toutes les lettres occupent la même largeur, alors qu'un traitement de
+    texte emploie une police *proportionnelle*, où le `i` est plus étroit que
+    le `m`. Le petit exemple le montre : à droite, les deux `=` ne sont plus
+    alignés alors que le texte est identique.
+
+    L'intérêt n'est pas esthétique. Une chasse fixe rend les espaces
+    comptables : trois espaces se distinguent de quatre, et une tabulation se
+    repère. C'est exactement ce dont Python a besoin.
+
+    Faire le lien avec LibreOffice, manipulé en début de séance : on y choisit
+    une police pour la mise en page, ici on la subit pour une raison
+    technique. Le mot vient de l'imprimerie, où la chasse est la largeur d'un
+    caractère.
+
+    Ne pas confondre l'indentation, qui est dans le fichier et compte, avec la
+    coloration, qui n'y est pas. C'est le sens de la dernière colonne.
   ]
 ]
 #d("Espaces, tabulations et fins de ligne")[
@@ -399,6 +370,64 @@ d("Les caractères invisibles, affichés")[
   ]
 ]
 }
+#d("Extension de fichier et extension de VSCode")[
+  #annonce[
+    Le même mot désigne deux choses sans rapport : la fin du nom d'un fichier,
+    et un greffon qu'on installe dans l'éditeur.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr, 1fr),
+    align: left + horizon,
+    [], [L'extension du fichier], [L'extension de l'éditeur],
+    [Ce que c'est],
+      [la fin du nom, après le dernier point : `.py`, `.cpp`, `.md`],
+      [un greffon installé dans VSCode : `ms-python.python`],
+    [Dans le fichier],
+      [rien : les trois sont du texte, sans marque ni en-tête],
+      [rien non plus : elle n'agit que sur l'affichage],
+    [Ce qu'elle apporte],
+      [une indication de langage, à qui lit le nom],
+      [la coloration fine, et la vérification des règles d'écriture],
+  )
+
+  #legende[
+    Les trois du module : `ms-python.python`, `ms-vscode.cpptools`,
+    `ms-toolsai.jupyter`. Panneau Extensions, `Ctrl` + `Maj` + `X`, où l'on
+    cherche l'identifiant et jamais le nom affiché.
+  ]
+
+  #notes[
+    Deux sens pour un mot, et la confusion est réelle : « installe l'extension
+    Python » et « le fichier a l'extension `.py` » ne parlent pas de la même
+    chose. Le dire une fois explicitement vaut mieux que de laisser chacun
+    trancher.
+
+    La colonne de gauche est le point neuf. Un `.py` et un `.cpp` sont des
+    fichiers texte, et rien dans leurs octets ne les distingue : pas de marque
+    binaire, pas d'en-tête, pas de signature. L'extension est purement
+    informative — elle dit ce qu'on peut espérer trouver dedans, elle ne le
+    garantit pas. `python bonjour.txt` exécute parfaitement un programme
+    Python : la démonstration tient en cinq secondes et se retient.
+
+    C'est aussi ce que la manipulation « Les premiers octets d'un fichier »
+    fera constater plus loin dans la partie : les formats texte n'ont aucune
+    signature, contrairement au ZIP et au PDF.
+
+    La vérification annoncée à droite porte sur les règles d'écriture, pas sur
+    le sens : un programme peut être irréprochable pour l'extension et faire
+    exactement le contraire de ce qu'on voulait. C'est la limite à poser, et
+    elle prolonge « Les règles d'écriture d'un langage ».
+
+    L'identifiant en chasse fixe est ce qu'il faut chercher dans le panneau :
+    les noms affichés se ressemblent tous et plusieurs extensions non
+    officielles portent le même titre. Le réflexe vaut au-delà de ce cours.
+
+    L'extension Python installe elle-même Pylance, qui fait la vérification.
+    Ne le dire que si quelqu'un remarque qu'une deuxième extension est
+    apparue. Identifiants relevés sur le poste de préparation.
+  ]
+]
 #separateur-manip(
   "Extensions de langage et programmes fautifs",
   annonce: "Installer l'extension d'un langage, puis corriger trois fichiers qui refusent de s'exécuter",
@@ -414,6 +443,9 @@ d("Les caractères invisibles, affichés")[
     columns: (1.1fr, 1fr),
     align: left + horizon,
     [Le geste], [Ce que vous observez],
+    [Ouvrir `python/surface.py` dans LibreOffice Writer, puis lui donner une
+     police à chasse fixe],
+      reponse[les colonnes s'alignent, comme dans l'éditeur],
     [Fichier #sym.arrow.r Ouvrir le dossier, sur `data/cours1/erreurs/`],
       [trois fichiers, deux `.py` et un `.cpp`],
     [Ouvrir `python/surface.py` avant toute installation],
@@ -430,12 +462,19 @@ d("Les caractères invisibles, affichés")[
   ]
 
   #notes[
-    La deuxième ligne est celle qui surprend, et elle est voulue : la
+    La première ligne est là pour vérifier de leurs mains ce que « Ce que
+    l'éditeur ajoute au texte » a montré : le fichier ne contient aucune
+    police, et le même texte s'aligne ou non selon celle qu'on lui donne.
+    Format #sym.arrow.r Caractère, puis une police à chasse fixe — Liberation
+    Mono ou DejaVu Sans Mono sont présentes partout. Enchaîner en disant que
+    l'éditeur fait ce choix d'office, et qu'on n'a donc jamais à y penser.
+
+    La troisième ligne est celle qui surprend, et elle est voulue : la
     coloration ne vient pas de l'extension, elle est fournie d'origine pour
     les langages courants. Ce que l'extension apporte est la ligne suivante,
     le soulignement.
 
-    Enchaîner sur la diapositive « Les extensions de l'éditeur » si la
+    Enchaîner sur « Extension de fichier et extension de VSCode » si la
     question de l'identifiant revient : c'est lui qu'on cherche, pas le nom
     affiché.
 
@@ -514,14 +553,17 @@ d("Les caractères invisibles, affichés")[
     align: left + horizon,
     [Fichier], [Ce qu'il porte], [Qui le lit],
     [`.py`], [les instructions du programme], [l'interpréteur],
-    [`.json`, `.yaml`], [les réglages, des données structurées], [un programme],
     [`.csv`], [des données en tableau], [un programme, un tableur],
-    [`.md`], [la documentation, les notes, le `README`], [un humain],
+    surligne[`.md`],
+      surligne[la documentation, les notes, le `README`],
+      surligne[un humain],
+    [`.json`, `.yaml`], [les réglages, des données structurées], [un programme],
   )
 
   #legende[
     Tous s'ouvrent dans l'éditeur, se comparent ligne à ligne et se
-    versionnent. Un fichier GeoJSON est un `.json`, et rien d'autre.
+    versionnent. C'est le `.md` qui occupe la suite de cette partie : c'est
+    celui que vous écrirez le plus tôt et le plus souvent.
   ]
 
   #notes[
@@ -535,12 +577,83 @@ d("Les caractères invisibles, affichés")[
     celui que les humains écrivent, parce qu'il accepte des commentaires. Une
     phrase, pas plus.
 
-    L'accroche géomatique est à donner ici : un GeoJSON exporté d'uMap ou de
-    QGIS est un fichier `.json` ordinaire, qui s'ouvre dans l'éditeur et se
-    lit. C'est le fichier de l'annexe « Une vidéo, deux chemins ».
-
     Le `README` est nommé dès maintenant parce qu'il est le livrable de fin de
     séance et le premier commit du cours 2.
+  ]
+]
+#d("Structure d'une page HTML")[
+  #annonce[
+    Le navigateur ignore les sauts de ligne du fichier source. La structure
+    se déclare avec des balises.
+  ]
+
+  #face-a-face(
+    panneau[Fichier `.html`][
+      ```html
+      <p>Once upon a midnight dreary,
+      while I pondered, weak and weary,
+      Over many a quaint and curious
+      volume of forgotten lore—</p>
+      ```
+    ],
+    panneau("Rendu à l'écran")[
+      #block(inset: 10pt, stroke: 0.8pt + estompe.lighten(50%))[
+        #set text(size: 15pt)
+        Once upon a midnight dreary, while I pondered, weak and weary, Over many
+        a quaint and curious volume of forgotten lore—
+      ]
+    ],
+  )
+
+  #legende[En HTML, la structure se déclare avec des balises : `<p>`, `<br>`.]
+
+  #notes[
+    L'adresse commence par `file://` : aucun serveur, aucun réseau, le
+    navigateur lit un fichier local. Point important pour la suite du semestre.
+  ]
+]
+#d("Contenu et présentation")[
+  #annonce[
+    Le contenu est dans le fichier `.html`, la présentation dans un fichier
+    `.css` distinct. L'un change sans l'autre.
+  ]
+
+  #face-a-face(
+    panneau[`raven_brut.html`][
+      #illustration(
+        "/data/cours1/illustrations/page_html_brut.png",
+        block(inset: 10pt, stroke: 0.8pt + estompe.lighten(50%), width: 100%)[
+          #set text(size: 13pt, font: ("DejaVu Serif", "Libertinus Serif"))
+          #text(size: 17pt, weight: "bold")[The Raven] \
+          Edgar Allan Poe (1845) \
+          #v(0.2em)
+          Once upon a midnight dreary, while I pondered, weak and weary…
+        ],
+        hauteur: 150pt,
+      )
+    ],
+    panneau[`raven_style.html` + `style.css`][
+      #illustration(
+        "/data/cours1/illustrations/page_html_style.png",
+        block(inset: 10pt, fill: rgb("#faf8f4"), stroke: 0.8pt + rgb("#ddd8cd"), width: 100%)[
+          #set text(size: 13pt, fill: rgb("#2b2b2b"))
+          #text(size: 17pt, weight: "bold")[The Raven] \
+          #text(style: "italic", fill: rgb("#6b6b6b"))[Edgar Allan Poe (1845)]
+          #v(0.3em)
+          Once upon a midnight dreary, \
+          while I pondered, weak and weary,
+        ],
+        hauteur: 150pt,
+      )
+    ],
+  )
+
+  #legende[Le fichier `.html` est identique dans les deux cas ; seule la ligne `<link rel="stylesheet">` diffère.]
+
+  #notes[
+    Faire éditer `style.css` et recharger avec F5. Même principe que le Markdown
+    d'un README, et que la séparation code / configuration qu'ils reverront
+    partout.
   ]
 ]
 #d("L'intention de Markdown")[
@@ -593,6 +706,70 @@ d("Les caractères invisibles, affichés")[
     quelqu'un signale qu'un même fichier ne rend pas pareil partout.
   ]
 ]
+#d("La syntaxe de Markdown")[
+  #annonce[
+    Une dizaine de marques suffisent, et chacune se lit telle quelle : le
+    dièse annonce un titre, le tiret une puce, les astérisques une emphase.
+  ]
+
+  #face-a-face(
+    panneau("Ce qu'on écrit")[
+      ```markdown
+      # Un titre
+      ## Un sous-titre
+
+      Du texte, de l'*emphase*,
+      du **gras**.
+
+      - une puce
+      1. une étape
+
+      [un lien](https://typst.app)
+      ![une photo](poele.jpg)
+      ```
+    ],
+    panneau("Ce qui s'affiche")[
+      #block(inset: 9pt, stroke: 0.8pt + estompe.lighten(50%), width: 100%)[
+        #set text(size: 13pt)
+        #text(size: 19pt, weight: "bold")[Un titre] \
+        #text(size: 15pt, weight: "bold")[Un sous-titre]
+        #v(0.3em)
+        Du texte, de l'#text(style: "italic")[emphase], du
+        #text(weight: "bold")[gras].
+        #v(0.3em)
+        • une puce \
+        1. une étape
+        #v(0.3em)
+        #text(fill: accent)[#underline[un lien]] \
+        #text(fill: estompe)[▭ une photo]
+      ]
+    ],
+  )
+
+  #legende[
+    Un tableau s'écrit avec des barres verticales, un bloc de code entre
+    trois accents graves. Le reste s'apprend en le lisant.
+  ]
+
+  #notes[
+    Ne pas faire apprendre la liste. Ce qu'il faut faire remarquer est que la
+    colonne de gauche se lit déjà : c'est l'intention de Gruber, vue à la
+    diapositive précédente, rendue concrète.
+
+    Les deux pièges à signaler, parce qu'ils coûtent une minute chacun. Une
+    ligne vide sépare les paragraphes, sans quoi deux lignes consécutives
+    n'en font qu'un. Et le dièse veut un espace après lui : `#Titre` ne
+    produit pas un titre.
+
+    Sur le lien et l'image : même syntaxe, avec un point d'exclamation devant
+    pour l'image. Le chemin de l'image est relatif au fichier `.md`, ce qui
+    est l'occasion de rappeler les chemins de la partie 1.
+
+    L'aperçu `Ctrl` + `Maj` + `V` est le moyen de vérifier, et il est côte à
+    côte avec `Ctrl` + `K` puis `V`. C'est ce qu'ils emploieront pendant la
+    manipulation.
+  ]
+]
 #d("Trois façons d'écrire un document")[
   #annonce[
     Le choix se fait sur ce qu'on veut pouvoir faire ensuite : relire,
@@ -634,320 +811,176 @@ d("Les caractères invisibles, affichés")[
     début de séance en est un.
   ]
 ]
-#d("Markdown, JSON et YAML dans l'éditeur")[
+#d("Markdown et HTML dans l'éditeur")[
   #annonce[
-    Les trois s'éditent sans rien installer, mais l'éditeur ne les sert pas
-    également : deux sont complets d'origine, le troisième ne l'est pas.
+    Les deux s'éditent sans rien installer : VSCode connaît d'origine le
+    Markdown, le HTML et le CSS, et sait en montrer le rendu.
   ]
 
   #tableau(
     columns: (auto, 1fr, 1fr),
     align: left + horizon,
-    [Format], [Fourni d'origine], [Ce qu'une extension ajoute],
+    [Format], [Fourni d'origine], [Où voir le rendu],
     [`.md`],
-      [coloration, aperçu `Ctrl` + `Maj` + `V`, plan du document, liens vérifiés],
-      [du confort, rien d'essentiel],
-    [`.json`],
-      [coloration, pliage, formatage, vérification par schéma],
-      [rien, le plus souvent],
-    [`.yaml`],
-      [la coloration, et rien de plus],
-      [la vérification par schéma, `redhat.vscode-yaml`],
+      [coloration, plan du document, complétion et vérification des liens],
+      [dans l'éditeur, `Ctrl` + `Maj` + `V`],
+    [`.html`, `.css`],
+      [coloration, complétion des balises et des propriétés],
+      [dans le navigateur, par une adresse `file:///`],
   )
 
   #legende[
     Relevé dans les extensions livrées avec VSCode :
-    `markdown-language-features` et `json-language-features` y sont,
-    `yaml-language-features` n'existe pas.
+    `markdown-language-features`, `html-language-features` et
+    `css-language-features` y sont toutes les trois.
   ]
 
   #notes[
-    La diapositive répond à la question posée deux fois depuis le début de la
-    partie : quand faut-il installer une extension ? La réponse n'est pas
-    « toujours », et elle se vérifie plutôt qu'elle ne se croit.
+    Le point de la diapositive n'est pas la liste mais ce qu'elle permet de
+    conclure : pour tout ce qu'on écrira cette année en dehors du code, il n'y
+    a rien à installer. C'est le contraste avec Python et C++, qui exigent une
+    extension, et il vaut d'être dit ainsi.
 
     L'aperçu Markdown est à montrer en direct, `Ctrl` + `Maj` + `V` sur le
     fichier de notes du jour : c'est le geste qu'ils emploieront le plus cette
-    année, et il ne demande rien à installer.
+    année.
 
-    Le contraste avec « Les extensions de l'éditeur », vue plus haut dans
-    cette partie, est le point : Python et C++ en exigent une, Markdown et
-    JSON n'en ont pas besoin, YAML en tire un service précis et limité. Trois
-    cas, trois réponses.
+    La dernière colonne porte la différence de nature : le Markdown se rend
+    dans l'éditeur, le HTML dans le navigateur. Les deux diapositives qui
+    suivent la manipulation le montrent sur la page du poème.
 
-    Vérifié sur le poste de préparation en listant le dossier des extensions
-    fournies avec l'éditeur. Le catalogue est le même sur les trois systèmes.
+    Sur JSON et YAML, si la question vient : même principe, mais l'éditeur ne
+    les sert pas également. La diapositive est en annexe.
   ]
 ]
-#separateur-manip(
-  "Un texte, quatre formes",
-  annonce: "Le même poème en .txt, en .odt, en .html, puis avec une feuille de style",
-)
-#d("Extension et contenu")[
+#d("Un diagramme écrit en texte")[
   #annonce[
-    L'extension indique au système quel logiciel proposer. Elle n'agit pas
-    sur les octets du fichier.
-  ]
-
-  ```python
-  a = Path("raven_une_ligne.txt").read_bytes()
-  b = Path("raven_une_ligne.donnees").read_bytes()
-  a == b
-  ```
-
-  #v(0.5em)
-  #align(center, text(size: 30pt, fill: accent, weight: "bold")[True])
-
-  #legende[Deux noms, deux extensions, exactement les mêmes octets.]
-
-  #notes[
-    Enchaîner sur la conséquence : une extension peut mentir. Le seul moyen de
-    savoir ce que contient un fichier est de regarder ses octets. Faire activer
-    l'affichage des extensions dans l'explorateur, une fois pour toutes.
-  ]
-]
-#d("Ce que contient un fichier texte")[
-  #annonce[
-    Un fichier texte contient des caractères. Le saut de ligne en est un :
-    sans lui, le texte n'est pas découpé.
-  ]
-
-  ```python
-  brut = Path("raven_une_ligne.txt").read_text(encoding="utf-8")
-  print(len(brut), "caractères,", brut.count("\n"), "saut de ligne")
-  ```
-
-  #v(0.4em)
-  ```
-  1341 caractères, 1 saut de ligne
-  ```
-
-  #legende[
-    Le poème entier tient sur une ligne. Le saut de ligne est un caractère
-    comme un autre : s'il n'y en a pas, il n'y a pas de lignes.
-  ]
-
-  #notes[
-    C'est l'énoncé de la première manipulation : remettre le texte en forme,
-    c'est ajouter au fichier une information qu'il ne contenait pas.
-  ]
-]
-#d[Structure d'un fichier `.odt`][
-  #annonce[
-    Un document LibreOffice est une archive ZIP contenant des fichiers XML.
-    Les formats `.docx`, `.xlsx` et `.epub` sont construits de même.
-  ]
-
-  ```python
-  with zipfile.ZipFile("raven.odt") as archive:
-      print(archive.namelist())
-  ```
-
-  #v(0.4em)
-  ```
-  ['mimetype', 'meta.xml', 'META-INF/manifest.xml', 'content.xml',
-   'manifest.rdf', 'styles.xml', 'settings.xml',
-   'Configurations2/accelerator/current.xml', 'Thumbnails/thumbnail.png']
-  ```
-
-  #legende[`.docx`, `.xlsx` et `.epub` sont construits de la même façon.]
-
-  #notes[
-    Faire ouvrir `content.xml` dans l'éditeur : le texte du poème est là,
-    entouré de balises de mise en forme. C'est aussi la réponse à « pourquoi un
-    `.odt` se versionne mal ».
-  ]
-]
-#d("Structure d'une page HTML")[
-  #annonce[
-    Le navigateur ignore les sauts de ligne du fichier source. La structure
-    se déclare avec des balises.
+    Un schéma se décrit aussi en texte. Six lignes dans un bloc `mermaid`, et
+    l'aperçu dessine les boîtes et les flèches.
   ]
 
   #face-a-face(
-    panneau[Fichier `.html`][
-      ```html
-      <p>Once upon a midnight dreary,
-      while I pondered, weak and weary,
-      Over many a quaint and curious
-      volume of forgotten lore—</p>
-      ```
+    panneau("Ce qu'on écrit")[
+      #raw(
+        "```mermaid\nflowchart LR\n  A[Pâte] --> B[Repos, 1 h]\n  B --> C[Cuisson]\n```",
+        block: true,
+      )
     ],
-    panneau("Rendu à l'écran")[
-      #block(inset: 10pt, stroke: 0.8pt + estompe.lighten(50%))[
-        #set text(size: 15pt)
-        Once upon a midnight dreary, while I pondered, weak and weary, Over many
-        a quaint and curious volume of forgotten lore—
-      ]
+    panneau("Ce qui s'affiche")[
+      #v(0.6em)
+      #chaine(
+        ("Pâte", ""),
+        ("Repos, 1 h", ""),
+        ("Cuisson", ""),
+      )
     ],
-  )
-
-  #legende[En HTML, la structure se déclare avec des balises : `<p>`, `<br>`.]
-
-  #notes[
-    L'adresse commence par `file://` : aucun serveur, aucun réseau, le
-    navigateur lit un fichier local. Point important pour la suite du semestre.
-  ]
-]
-#d("Contenu et présentation")[
-  #annonce[
-    Le contenu est dans le fichier `.html`, la présentation dans un fichier
-    `.css` distinct. L'un change sans l'autre.
-  ]
-
-  #face-a-face(
-    panneau[`raven_brut.html`][
-      #block(inset: 10pt, stroke: 0.8pt + estompe.lighten(50%), width: 100%)[
-        #set text(size: 13pt, font: ("DejaVu Serif", "Libertinus Serif"))
-        #text(size: 17pt, weight: "bold")[The Raven] \
-        Edgar Allan Poe (1845) \
-        #v(0.2em)
-        Once upon a midnight dreary, while I pondered, weak and weary…
-      ]
-    ],
-    panneau[`raven_style.html` + `style.css`][
-      #block(inset: 10pt, fill: rgb("#faf8f4"), stroke: 0.8pt + rgb("#ddd8cd"), width: 100%)[
-        #set text(size: 13pt, fill: rgb("#2b2b2b"))
-        #text(size: 17pt, weight: "bold")[The Raven] \
-        #text(style: "italic", fill: rgb("#6b6b6b"))[Edgar Allan Poe (1845)]
-        #v(0.3em)
-        Once upon a midnight dreary, \
-        while I pondered, weak and weary,
-      ]
-    ],
-  )
-
-  #legende[Le fichier `.html` est identique dans les deux cas ; seule la ligne `<link rel="stylesheet">` diffère.]
-
-  #notes[
-    Faire éditer `style.css` et recharger avec F5. Même principe que le Markdown
-    d'un README, et que la séparation code / configuration qu'ils reverront
-    partout.
-  ]
-]
-#d("Binaire, hexadécimal et encodage du texte")[
-  #annonce[
-    Un fichier est une suite d'octets. Un octet vaut de 0 à 255, et s'écrit
-    avec deux chiffres hexadécimaux. Le texte n'échappe pas à la règle : une
-    table associe chaque caractère à un ou plusieurs octets.
-  ]
-
-  #tableau(
-    columns: (auto, auto, auto, 1fr),
-    align: left + horizon,
-    [Caractère], [Valeur], [En hexadécimal], [Remarque],
-    [`P`], [80], [`50`], [un octet, comme tout l'ASCII],
-    [`K`], [75], [`4B`], [au-delà de 9, on compte avec A à F],
-    [`é`], [195 et 169], [`C3 A9`], [deux octets en UTF-8, l'encodage d'aujourd'hui],
   )
 
   #legende[
-    L'hexadécimal ne change rien au fichier : c'est une façon d'écrire les
-    octets, plus lisible que 8 chiffres binaires par octet.
+    Rien à installer : depuis la version 1.121, VSCode rend les diagrammes
+    Mermaid dans l'aperçu Markdown d'origine. Vérifié sur le poste de
+    préparation, où `mermaid-markdown-features` est livré avec l'éditeur.
   ]
 
   #notes[
-    Le minimum utile ici, rien de plus : le binaire est ouvert pour de bon au
-    cours 3. Ce qu'il faut retenir aujourd'hui est qu'un octet et son écriture
-    hexadécimale sont la même chose, et que « texte » veut dire « octets plus
-    une table de correspondance ».
+    L'intérêt n'est pas de dessiner joli, c'est que le schéma soit du texte :
+    il se compare ligne à ligne, il se versionne, et on le corrige sans
+    rouvrir un logiciel de dessin. C'est l'argument de toute la partie,
+    appliqué à autre chose qu'à de la prose.
 
-    Conséquence à semer pour le cours 2 : un fichier écrit avec une table et
-    relu avec une autre donne des caractères abîmés. C'est l'origine des
-    accents cassés que tout le monde a déjà vus.
+    Faire remarquer que le dessin n'est pas dans le fichier. Le `.md` ne
+    contient que les six lignes ; les boîtes sont calculées à l'affichage,
+    comme la coloration l'était pour le code.
 
-    `P` vaut 80 et `K` vaut 75 : c'est ce qui produit les deux lettres lisibles
-    en tête d'un ZIP, diapositive suivante.
+    Le vocabulaire minimal suffit : `flowchart LR` pour un schéma de gauche à
+    droite, un identifiant, le texte entre crochets, et `-->` pour une
+    flèche. Tout le reste s'invente en lisant la documentation de Mermaid.
+
+    Ne pas ouvrir le catalogue des types de diagrammes. Un organigramme
+    aujourd'hui, le reste quand ils en auront besoin — le cours 2 s'en sert
+    pour représenter l'historique d'un dépôt git.
   ]
 ]
 #separateur-manip(
-  "Les premiers octets d'un fichier",
-  annonce: "Ouvrir le mini-projet formats/ dans l'éditeur, et l'exécuter",
+  "Formatage HTML et Markdown",
+  annonce: "Une page web et sa feuille de style, puis un texte brut mis en forme en Markdown",
 )
-
-#d("Comment un logiciel reconnaît un fichier")[
+#d("Mettre en forme une recette")[
   #annonce[
-    Le système choisit le logiciel d'après le nom. Le logiciel, lui, ouvre le
-    fichier et lit ses premiers octets.
+    Un texte brut sans aucune structure, à reprendre en Markdown. Le rendu se
+    vérifie à côté, sans quitter l'éditeur.
   ]
 
   #tableau(
-    columns: (auto, auto, 1fr),
+    columns: (auto, 1fr),
     align: left + horizon,
-    [Fichier lu], [Premiers octets], [Ce qu'ils signent],
-    [`raven_une_ligne.txt`], [`4F 6E 63 65` #h(6pt) `Once`],
-      reponse[aucune signature : un fichier texte n'en porte pas],
-    [`raven_une_ligne.donnees`], [`4F 6E 63 65` #h(6pt) `Once`],
-      reponse[les mêmes octets que la ligne précédente],
-    [`raven.odt`], [`50 4B 03 04` #h(6pt) `PK`],
-      reponse[une archive ZIP, donc un `.odt`],
-    [`raven.pdf`], [`25 50 44 46` #h(6pt) `%PDF`],
-      reponse[un document PDF],
+    [], [Ce qu'il faut faire],
+    [1], [ouvrir `data/cours1/markdown/`, puis `recette_a_formater.txt`],
+    [2], [l'enregistrer sous `recette.md`, et ouvrir l'aperçu par `Ctrl` + `K` puis `V`],
+    [3], [un titre en `#`, deux sous-titres en `##`],
+    [4], [les étapes de préparation en liste numérotée],
+    [5], [les ingrédients en tableau, depuis `ingredients.csv`],
+    [6], [l'ordre des opérations en bloc `mermaid`],
   )
 
   #legende[
-    Sortie réelle de `python octets.py`, dans `data/cours1/formats/`. Ces
-    octets de tête s'appellent des nombres magiques.
+    `recette.md`, dans le même dossier, donne le résultat attendu : ne
+    l'ouvrir qu'après avoir essayé.
   ]
 
   #notes[
-    Faire ouvrir le dossier `formats/` dans l'éditeur et lancer le script au
-    terminal : c'est exactement le geste de la manipulation « hello world »,
-    refait sur un programme qui sert à quelque chose.
+    Le texte de départ n'a aucune structure, et c'est voulu : ils doivent la
+    décider, pas la recopier. La discussion utile est de savoir ce qui est un
+    titre et ce qui est une étape — la mise en forme est une lecture du
+    contenu, pas une décoration.
 
-    Faire lire les quarante lignes du script avant de le lancer. Il tient en
-    trois fonctions, dont une qui compare le début du fichier à un
-    dictionnaire de signatures. Rien d'autre.
+    L'aperçu côte à côte est le geste à installer, `Ctrl` + `K` puis `V`. On
+    écrit à gauche, on voit à droite, et on corrige sans rien lancer.
 
-    Les deux premières lignes sont le cœur : deux extensions, les mêmes
-    octets. C'est la diapositive « Extension et contenu », vue autrement.
+    Étape 5 : le tableau se tape à la main, ou se produit depuis le CSV par
+    une extension du catalogue — chercher « CSV to Markdown Table ». Le faire
+    à la main la première fois, montrer l'extension ensuite : l'intérêt est de
+    voir qu'un tableau Markdown n'est que des barres verticales alignées, et
+    que l'alignement n'est même pas obligatoire.
 
-    Les fichiers texte n'ont aucune signature, et c'est une information, pas
-    un manque : rien dans un fichier texte ne dit de quoi il est fait. C'est
-    au logiciel qui l'ouvre de décider, et c'est pourquoi `file` se trompe
-    parfois.
+    Étape 6 : le diagramme de la diapositive précédente, avec les deux
+    entrées qui se rejoignent. Rien à installer.
 
-    `PK` sont les initiales de Phil Katz, l'auteur du format ZIP. Une phrase,
-    pas plus, elle fait retenir le reste.
-
-    `raven.pdf` est celui qu'ils ont produit eux-mêmes en première partie. Si
-    l'export n'a pas été fait, le script écrit `introuvable` et continue.
+    Pour ceux qui vont vite : ajouter une photo par `![](…)`, ce qui rappelle
+    les chemins relatifs, et une citation par `>` pour la remarque finale.
   ]
 ]
-
-#d("Deux extensions échangées")[
+// Le rendu attendu, quand la capture est disponible : sans elle, la
+// diapositive n'aurait rien à montrer que le texte de la précédente.
+#if captures-disponibles {
+d("Le résultat attendu")[
   #annonce[
-    Deux copies dont on échange les extensions gardent leurs octets. C'est le
-    contenu que le logiciel lit, pas le nom.
+    Un titre, un tableau, une liste numérotée, et le diagramme dessiné à
+    partir de ses six lignes de texte.
   ]
 
-  ```bash
-  cp ../genere/raven.odt ../genere/raven_odt.pdf
-  cp ../genere/raven.pdf ../genere/raven_pdf.odt
-  python octets.py ../genere/raven_odt.pdf ../genere/raven_pdf.odt
-  ```
-
-  #v(0.3em)
-  ```
-  raven_odt.pdf     50 4B 03 04  PK..   archive ZIP, donc .odt, .docx, .xlsx ou .epub
-  raven_pdf.odt     25 50 44 46  %PDF   document PDF
-  ```
+  #align(center)[
+    #illustration(
+      "/data/cours1/illustrations/apercu_recette.png",
+      none,
+      hauteur: 200pt,
+    )
+  ]
 
   #legende[
-    Sortie réelle. Sous Windows, `copy` remplace `cp`. Le double-clic, lui,
-    échoue : le système lance le logiciel que le nom désigne.
+    Aperçu du `recette.md` du dossier. Le diagramme n'est pas une image : il
+    est décrit en six lignes dans le fichier, et dessiné à l'affichage.
   ]
 
   #notes[
-    Faire essayer le double-clic sur `raven_odt.pdf` avant de lancer le
-    script : le lecteur PDF s'ouvre et refuse le fichier. Deux étages de
-    décision, et ils se contredisent — c'est tout le propos.
+    À projeter après la manipulation, pas avant : c'est le corrigé. Faire
+    remarquer que rien ici n'a demandé de logiciel de mise en page, et que le
+    fichier source reste lisible tel quel.
 
-    Le message d'erreur de la visionneuse nomme parfois les octets qu'elle a
-    lus, `0x50 0x4b`. Le rapprocher de la colonne du tableau précédent.
-
-    La manipulation complète, avec LibreOffice et l'explorateur, est en annexe
-    sous le titre « Échanger deux extensions ». Ces deux lignes en donnent le
-    résultat sans le temps qu'elle demande.
+    Le diagramme est le point à souligner. Il a la même nature que le reste :
+    du texte dans le fichier, une image seulement à l'écran. C'est la
+    troisième fois de la séance qu'on rencontre cette distinction, après la
+    coloration et les polices.
   ]
 ]
+}

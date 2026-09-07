@@ -27,6 +27,10 @@
 
 #let fleche = align(horizon + center, text(size: 26pt, fill: accent)[→])
 
+// Met une cellule de tableau en valeur sans introduire de couleur nouvelle :
+// le fond est celui des blocs pleins du thème.
+#let surligne(corps) = table.cell(fill: accent.lighten(90%))[#corps]
+
 // Une étape d'une chaîne de traitement, plus compacte que `bloc`.
 #let etape(titre, detail, hauteur: auto) = block(
   width: 100%, height: hauteur, inset: (x: 8pt, y: 5pt), fill: white,

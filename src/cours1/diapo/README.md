@@ -69,7 +69,7 @@ Les images se désignent depuis la racine du projet, `"/data/cours1/…"` : typs
 résout un chemin relatif par rapport au fichier où `image` est appelé,
 c'est-à-dire au thème, et non par rapport au fichier qui écrit le chemin.
 
-`cours1.typ` produit 101 pages, 104 avec les captures d'écran : titre,
+`cours1.typ` produit 116 pages, 120 avec les captures d'écran : titre,
 introduction au module, le contenu de la séance, ses cinq parties (logiciels et
 formats de fichier, programmation et éditeur de code, édition de texte et
 contenu des fichiers, environnement de programmation, notebooks), puis les

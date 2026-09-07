@@ -67,14 +67,31 @@ mettra dans un script au cours 3.
 
 ## Sous Windows
 
-`python` vient de l'environnement conda. `g++`, en revanche, n'est pas fourni
-avec Windows : il s'obtient avec MinGW-w64, MSYS2 ou le sous-système Windows
-pour Linux. L'exécutable produit s'appelle alors `bonjour.exe` et se lance par
-`.\cpp\bonjour`.
+`python` vient de l'environnement conda. Un compilateur C++, en revanche, n'est
+pas fourni avec Windows : il s'installe dans le même environnement.
 
-Prévoir un poste de démonstration si personne dans la salle n'a de
-compilateur : la comparaison vaut d'être vue même par ceux qui ne peuvent pas
-la refaire.
+```bash
+conda install -c conda-forge gxx
+```
+
+**La commande ne s'appelle pas `g++`.** Le paquet installe
+`x86_64-w64-mingw32-g++.exe` — le nom complet de la cible, architecture,
+système et format — et c'est lui qu'il faut taper :
+
+```bat
+x86_64-w64-mingw32-g++ cpp\bonjour.cpp -o cpp\bonjour.exe
+.\cpp\bonjour.exe
+```
+
+> Le nom de l'exécutable a été relevé dans le contenu du paquet `gxx_win-64`
+> de conda-forge, sans machine Windows pour l'essayer : **à confirmer avant la
+> séance**. Ne pas employer `m2w64-toolchain`, encore proposé par de vieilles
+> réponses en ligne : le paquet affiche lui-même à l'activation qu'il est
+> obsolète et renvoie vers `gcc`, `gxx` et `gfortran`.
+
+L'installation demande du réseau et quelques minutes : la lancer avant la
+séance, ou au début de la manipulation en enchaînant sur Python pendant
+qu'elle tourne.
 
 ## Ce qui est laissé de côté
 

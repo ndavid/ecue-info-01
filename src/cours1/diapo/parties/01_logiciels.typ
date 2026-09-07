@@ -159,28 +159,39 @@
     diapositive suivante.
   ]
 ]
-#d("Le lieu du calcul")[
+#d("Où s'exécute une application web ?")[
   #annonce[
-    Deux applications web d'apparence identique peuvent calculer à deux
-    endroits différents. C'est ce qui décide du sort de vos fichiers.
+    Deux applications d'apparence identique peuvent calculer à deux endroits
+    différents, et la plupart calculent aux deux. C'est ce qui décide du sort
+    de vos fichiers.
   ]
 
   #tableau(
     columns: (auto, 1fr, 1fr),
     align: left + horizon,
-    [], [Calcul dans le navigateur], [Calcul sur un serveur],
+    [], [Dans le navigateur], [Sur un serveur],
     [Votre fichier], [ne quitte pas la machine], [part sur le réseau],
     [Sans connexion], [peut continuer], [s'arrête],
     [Qui calcule], [votre processeur], [celui du service],
     [Exemples], [retouche d'image en ligne], [traduction, IA générative],
+    [Le cas courant : les deux],
+      [l'affichage, la mise en page, les interactions],
+      [les données, la recherche, les traitements lourds],
   )
 
   #legende[
-    Devant un service en ligne, deux choses restent à établir : où part le
-    fichier déposé, et ce qu'il en reste ensuite.
+    Les deux colonnes sont les cas purs ; une application ordinaire répartit
+    son travail entre elles. Reste à savoir où part le fichier déposé.
   ]
 
   #notes[
+    La dernière ligne est la plus importante, et c'est pour cela qu'elle vient
+    après les cas purs : presque aucune application web n'est entièrement d'un
+    côté. Une messagerie affiche et met en page chez vous, mais cherche dans
+    vos messages sur son serveur ; un éditeur de documents partagés fait de
+    même. La question utile n'est donc pas « où est-ce que ça tourne ? » mais
+    « qu'est-ce qui part, et quand ? ».
+
     Rattacher à la manipulation vidéo de la fin de partie : l'outil en ligne
     proposé y annonce que le rendu se fait sur l'appareil, ce qui explique
     qu'il n'ait besoin ni de compte ni de connexion permanente.
@@ -259,6 +270,47 @@
 ]
 // --------------------------- Fichiers et extensions -------------------------
 
+#d("Ce qu'un fichier permet")[
+  #annonce[
+    Un fichier est ce qui reste quand le programme s'arrête. C'est pour cela
+    qu'il faut savoir le nommer, reconnaître ce qu'il contient et le retrouver.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [Ce qu'il permet], [Quand cela vous servira],
+    [Conserver un résultat],
+      [relire dans une semaine ce que le programme a produit],
+    [Passer d'un logiciel à l'autre],
+      [le tableau écrit par l'un, ouvert par l'autre],
+    [Changer de machine],
+      [de votre poste à celui de la salle, et retour],
+    [Le remettre à quelqu'un],
+      [un rendu, ou le dépôt partagé du cours 2],
+  )
+
+  #legende[
+    D'où la suite de cette partie : nommer un fichier, reconnaître son type,
+    et savoir le désigner par son chemin.
+  ]
+
+  #notes[
+    Diapositive de liaison, à passer en une minute : elle justifie la suite
+    plutôt qu'elle n'apporte une notion. Sans elle, la partie enchaîne sur les
+    extensions et les chemins sans avoir dit pourquoi ces détails méritent
+    qu'on s'y arrête.
+
+    Le fil vient de la diapositive précédente : parmi les deux natures de
+    sortie, c'est le fichier qui reste. Les quatre lignes disent ce que ce
+    « rester » permet, et elles sont toutes vraies dès cette semaine — les
+    trois premières aujourd'hui, la quatrième au cours 2.
+
+    La deuxième ligne est celle qui porte le plus loin : un format de fichier
+    est ce sur quoi deux logiciels se mettent d'accord sans se connaître. Ne
+    pas développer, la partie 3 y revient longuement.
+  ]
+]
 #d("Fichier, extension et type de fichier")[
   #annonce[
     L'extension est la fin du nom, après le dernier point. Le système s'en
