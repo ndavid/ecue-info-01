@@ -19,7 +19,7 @@ typst watch src/cours1/diapo/cours1.typ
 ```
 
 - `theme.typ` — mise en page, couleurs, polices et gabarits.
-- `cours1.typ` — 51 pages : titre, introduction au module, la séance en trois
+- `cours1.typ` — 58 pages : titre, introduction au module, la séance en trois
   parties (logiciels et interfaces, programmation, formats de fichier et
   outils), puis les annexes.
 

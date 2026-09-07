@@ -3,7 +3,7 @@
 Vue d'ensemble : [../../01_syllabus_v1.md](../../01_syllabus_v1.md) (section « Cours 1 »).
 Inversion C1↔C3 : [../../inversion_c1_c3.md](../../inversion_c1_c3.md).
 
-**Supports** : [`src/cours1/notebook/`](../../../src/cours1/notebook/) (MyST, 3 pages) et [`src/cours1/diapo/`](../../../src/cours1/diapo/) (typst, 51 diapositives en assertion-evidence ; `--input notes=true` pour la version annotée).
+**Supports** : [`src/cours1/notebook/`](../../../src/cours1/notebook/) (MyST, 3 pages) et [`src/cours1/diapo/`](../../../src/cours1/diapo/) (typst, 58 diapositives en assertion-evidence ; `--input notes=true` pour la version annotée).
 Conventions d'écriture : [`STYLE.md`](../../../STYLE.md).
 **Données** : [`data/cours1/`](../../../data/cours1/) — générées par `make_data.py`.
 
@@ -61,6 +61,14 @@ Réponse à la question 2, en deux diapositives. L'enjeu n'est pas le vocabulair
 | Exemples | retouche d'image en ligne | traduction, IA générative |
 
 - **Rattachement** : l'outil en ligne proposé pour la manipulation vidéo annonce que le rendu se fait sur l'appareil, ce qui explique qu'il n'exige ni compte ni connexion permanente. La phrase « ce qu'on dépose quelque part y reste » est semée ici et reprise au cours 5 avec les secrets.
+
+### 🎓 10′ — Outils de programmation : IDE et environnement *(partie de cours)*
+
+La partie s'ouvre en **reprenant le schéma entrée → traitement → sortie** du début de séance, pour poser la question qu'il laissait ouverte : la boîte du milieu est un fichier, d'où vient-elle ? La réponse tient en deux temps, un humain écrit du texte, puis quelque chose le transforme en instructions.
+
+**Interprété et compilé, en schéma plutôt qu'en tableau** : la chaîne compilée a une étape de plus (`raven.c` → compilateur → `raven.exe` → résultat) mais ne la fait **qu'une fois** ; la chaîne interprétée en a une de moins (`raven.py` → interpréteur → résultat) mais la refait **à chaque lancement**. Lancer un programme Python ne crée rien sur le disque, et c'est aussi pourquoi il est plus lent.
+
+Viennent ensuite, dans la même partie, la feuille de route des trois compétences, l'environnement conda et les notebooks : c'est l'outillage annoncé par le titre.
 
 ### 🎓 10′ — Qu'est-ce que programmer
 
@@ -141,14 +149,53 @@ Deux étages de décision. Le **système** choisit le logiciel d'après le **nom
 
 Ne pas développer le binaire ici : il est ouvert en hexadécimal au cours 3. Annoncer en revanche que le même phénomène revient dans la partie programmation, où les premiers octets de `python3` se lisent « ELF ».
 
-### 🎓 8′ — Interface graphique et ligne de commande *(partie de cours)*
+### 🎓 10′ — Interface graphique et ligne de commande *(partie de cours)*
 
-- **La même conversion, deux façons** : *Fichier → Exporter au format PDF* dans LibreOffice Writer, ou `soffice --headless --convert-to pdf raven.odt`. Le fichier produit est identique ; ce qui diffère est ce qu'il en reste.
-- **Ne pas opposer en bien et mal.** Le mode graphique est supérieur pour explorer et pour tout ce qui se juge à l'œil ; le mode texte l'est pour répéter, transmettre et automatiser. Le module enseigne le second parce que c'est celui qui manque.
-- **Expérience utilisateur** : les perceptions et réactions d'une personne qui résultent de l'usage d'un produit (norme ISO 9241-210). L'interface n'en est qu'une partie — un logiciel très joli qui perd le travail de l'utilisateur a une mauvaise UX. Utile à des étudiants qui produiront eux-mêmes des outils au cours 6 et au TD 7.
-- Critères comparés, d'après Jakob Nielsen (apprentissage, efficacité une fois su, mémorisation, erreurs), plus un cinquième ajouté ici : **la trace laissée**, qui décide de ce qui est reproductible.
+- **La différence, en tableau** : au clic on désigne ce que l'on voit, au clavier on nomme ce que l'on veut ; les menus proposent ce qu'ils contiennent, la commande accepte tout ce que le programme sait faire ; pour dix fichiers, dix fois les mêmes gestes contre une ligne ; et surtout, **ce qui en reste** — rien d'un côté, la commande de l'autre. Aucune des deux n'est meilleure : elles ne rendent pas le même service.
+- **Expérience utilisateur** : les perceptions et réactions qui résultent de l'usage d'un produit (norme ISO 9241-210). Critères d'après Jakob Nielsen, plus un cinquième ajouté ici, la trace laissée.
+- **Le terminal** : une fenêtre où l'on tape des commandes et où le programme répond par du texte. Une commande se lit toujours pareil — le programme, ce qu'on lui demande, ce sur quoi il travaille.
 
-### ⌨️ 10′ — Une vidéo, deux chemins *(manipulation)*
+| Système | Comment l'ouvrir |
+|---------|------------------|
+| Windows 11 | clic droit sur Démarrer ou `Win`+`X`, puis Terminal ; depuis un dossier, clic droit puis « Ouvrir dans le terminal » |
+| macOS | Applications, Utilitaires, Terminal |
+| Linux | `Ctrl`+`Alt`+`T` |
+
+Sous Windows 11, **Terminal est l'application par défaut** et ouvre PowerShell ; l'Invite de commandes reste disponible dans le même onglet déroulant. Ne pas développer la différence, elle est au cours 2. Insister en revanche sur le fait que le terminal s'ouvre **dans un dossier** : c'est le dossier courant des chemins relatifs, et la source de la moitié des erreurs de début de semestre.
+
+### ⌨️ 10′ — TD : le même geste, à la souris et au clavier
+
+**1. Convertir des deux façons.** *Fichier > Exporter au format PDF* d'un côté, la commande de l'autre. Le fichier produit est identique ; la commande, elle, se recopie et se relance sur trois cents documents.
+
+> ⚠️ **La commande n'a pas la même forme selon le système.** LibreOffice n'est ajouté au `PATH` par aucun installeur.
+>
+> | Système | Ce qu'il faut taper |
+> |---------|---------------------|
+> | Linux | `soffice --headless --convert-to pdf raven.odt` |
+> | macOS | `/Applications/LibreOffice.app/Contents/MacOS/soffice --headless …` |
+> | Windows | `& "C:\Program Files\LibreOffice\program\soffice.com" --headless …` |
+>
+> Trois pièges : le `PATH` ; le choix de **`soffice.com`** et non `soffice.exe`, que demande la [documentation officielle](https://help.libreoffice.org/latest/en-US/text/shared/guide/start_parameters.html) puisque seule la version console attend la fin de la conversion ; et l'opérateur d'appel `&` de PowerShell, sans lequel un chemin entre guillemets est pris pour du texte.
+>
+> **Seule la ligne Linux a été exécutée.** Celles de Windows et macOS viennent de la documentation et restent à vérifier sur ces systèmes avant la séance. *Repli* : `pandoc raven.odt -o raven.pdf`, qui est dans le `PATH` sur les trois systèmes une fois `conda activate info01` fait.
+
+**2. Le navigateur aussi se pilote au clavier.** Même idée que LibreOffice, sur un logiciel que tout le monde connaît par ses fenêtres. **Les trois lignes ci-dessous ont été exécutées et vérifiées.**
+
+| Ce que l'on veut | La commande |
+|------------------|-------------|
+| la page en PDF | `chromium --headless --no-pdf-header-footer --print-to-pdf=page.pdf file://…` |
+| la page en image | `chromium --headless --screenshot=page.png --window-size=900,1200 file://…` |
+| la page en image, Firefox | `firefox --headless --screenshot page.png --window-size 900,1200 file://…` |
+
+Deux détails avant de lancer en séance : sans `--no-pdf-header-footer`, Chromium ajoute la date et l'adresse sur chaque page ; et Firefox refuse de démarrer si une fenêtre est déjà ouverte, il faut alors `--profile` avec un profil à part. **Firefox ne sait pas produire de PDF** de cette façon, Chromium si.
+
+**3. Le minimum sur le binaire.** Un octet vaut de 0 à 255 et s'écrit avec deux chiffres hexadécimaux ; « texte » signifie « octets plus une table de correspondance ». `P` vaut 80 soit `50`, `K` vaut 75 soit `4B`, `é` vaut `C3 A9` en UTF-8. Rien de plus : le binaire est ouvert pour de bon au cours 3.
+
+**4. Ce qu'un logiciel lit vraiment.** `head -c 8 … | xxd` puis `file` : `PK` pour une archive ZIP donc un `.odt`, `%PDF` pour un PDF. Ces octets de tête s'appellent des *nombres magiques*.
+
+> **Équivalent Windows**, puisque `head` et `xxd` n'existent pas : `Format-Hex raven.odt | Select-Object -First 1` remplace les deux à la fois, en affichant l'hexadécimal et le texte côte à côte. Le paramètre `-Count`, plus direct, n'existe qu'à partir de PowerShell 6.2 et **pas** dans le PowerShell 5.1 livré avec Windows, d'où le passage par `Select-Object`. Windows ne fournit aucun équivalent de `file`. **Ces lignes viennent de la documentation Microsoft et n'ont pas pu être exécutées** faute de Windows : à vérifier avant la séance.
+
+### ⌨️ 10′ — Une vidéo, deux chemins *(bonus, pour aller plus loin)*
 
 Produire la même vidéo — le trajet de la gare à l'école en cinq étapes commentées — en assemblant des applications graphiques, puis en une commande. Scripts, données à préparer et alternatives « clic-bouton » : [`manip_video_trajet.md`](manip_video_trajet.md) et [`data/cours1/trajet/`](../../../data/cours1/trajet/).
 
@@ -235,7 +282,8 @@ Le deck distingue trois régimes par la couleur de fond de ses diapositives d'ou
 | Ouverture | Contenu |
 |-----------|---------|
 | *Fichiers, formats et extensions* | exporter, renommer, ouvrir le `.odt` comme une archive et le modifier |
-| *Une vidéo, deux chemins* | le trajet de la gare à l'école, en cliquant puis en une commande |
+| *Le même geste, à la souris et au clavier* | convertir un document des deux façons, puis lire les nombres magiques |
+| *Une vidéo, deux chemins* — **bonus** | le trajet de la gare à l'école, pour ceux qui vont vite |
 | *Un texte, quatre formes* | le poème en `.txt`, `.odt`, `.html` brut, `.html` + CSS |
 
 Un troisième bloc, *Échanger deux extensions* (convertir un `.odt` en PDF, échanger les extensions des copies, essayer d'ouvrir), est **passé en annexe** en fin de deck : il demande la ligne de commande, trop tôt à ce stade de la séance. Les résultats observés y sont conservés, et la diapositive « Comment un logiciel reconnaît un fichier » en donne la conclusion sans la manipulation.

@@ -1,4 +1,4 @@
-#import "theme.typ": diapos, page-titre, separateur-module, d, separateur, separateur-manip, annonce, notes, legende, tableau, face-a-face, panneau, question, etiquette, icone-fenetre, icone-engrenage, icone-puce, accent, encre, estompe, manip, gris, demi-gras, police-code
+#import "theme.typ": diapos, page-titre, separateur-module, d, separateur, separateur-manip, separateur-td, annonce, notes, legende, tableau, face-a-face, panneau, question, etiquette, icone-fenetre, icone-engrenage, icone-puce, accent, encre, estompe, manip, gris, demi-gras, police-code
 
 #show: diapos.with(
   titre-court: "Introduction à l'informatique",
@@ -19,6 +19,20 @@
 ]
 
 #let fleche = align(horizon + center, text(size: 26pt, fill: accent)[→])
+
+// Une étape d'une chaîne de traitement, plus compacte que `bloc`.
+#let etape(titre, detail) = block(
+  width: 100%, height: 100%, inset: (x: 8pt, y: 5pt), fill: white,
+  stroke: 1pt + accent.lighten(55%),
+)[
+  #align(center + horizon)[
+    #text(size: 16pt, weight: demi-gras)[#titre]
+    #if detail != "" [
+      #v(0.15em)
+      #text(size: 12pt, fill: estompe)[#detail]
+    ]
+  ]
+]
 
 // Une couche du schéma en pile : pictogramme, nom, exemples.
 #let couche(icone, titre, exemples, plein: false) = block(
@@ -847,42 +861,123 @@
   annonce: "Deux façons de piloter le même logiciel, et ce qu'il en reste",
 )
 
-#d("Comment un logiciel reconnaît un fichier")[
+
+
+#d("Ligne de commande et interface graphique")[
   #annonce[
-    Le système choisit le logiciel d'après le nom. Le logiciel, lui, lit les
-    premiers octets du fichier.
+    Deux façons de dire à un logiciel quoi faire. Ce qui les sépare n'est pas
+    la difficulté.
   ]
 
-  ```console
-  $ head -c 8 test_odt.pdf | xxd
-  00000000: 504b 0304 1400 0208    PK......
-
-  $ head -c 8 test_pdf.odt | xxd
-  00000000: 2550 4446 2d31 2e37    %PDF-1.7
-
-  $ file test_odt.pdf test_pdf.odt
-  test_odt.pdf: OpenDocument Text
-  test_pdf.odt: PDF document, version 1.7, 1 page(s)
-  ```
+  #tableau(
+    columns: (auto, 1fr, 1fr),
+    align: left + horizon,
+    [], [Interface graphique], [Ligne de commande],
+    [Ce que vous faites], [vous désignez ce que vous voyez], [vous nommez ce que vous voulez],
+    [Ce qui est proposé], [ce que les menus contiennent], [tout ce que le programme accepte],
+    [Pour dix fichiers], [dix fois les mêmes gestes], [la même ligne, une fois],
+    [Ce qui en reste], [rien], [la commande, qui est le mode d'emploi],
+    [Dire à quelqu'un quoi faire], [décrire des clics], [envoyer la ligne],
+  )
 
   #legende[
-    `PK` signe une archive ZIP, donc un `.odt` ; `%PDF` signe un PDF. Ces
-    premiers octets sont lisibles en clair.
+    Aucune des deux n'est meilleure. Elles ne rendent pas le même service.
   ]
 
   #notes[
-    Ces octets de tête s'appellent des nombres magiques. La commande `file`
-    ne fait que les comparer à un catalogue. Ne pas développer : le format
-    binaire est ouvert en hexadécimal au cours 3.
+    Le point à faire passer : le mode graphique montre ce qui est possible,
+    la ligne de commande suppose qu'on le sache déjà. C'est pour cela qu'on
+    explore au clic et qu'on répète au clavier.
 
-    Annoncer que le même phénomène se reverra dans la partie programmation :
-    les premiers octets de l'exécutable `python3` se lisent « ELF ». Et la
-    manipulation qui produit ces fichiers est en annexe, si le temps le
-    permet.
+    Contre-exemple à donner si la salle penche trop d'un côté : personne ne
+    retouche une photo au terminal, et personne ne renomme trois cents
+    fichiers à la souris.
+
+    La ligne suivante du tableau est celle qui compte pour le module :
+    « ce qui en reste ». Elle prépare git au cours 2 et les scripts au
+    cours 3.
   ]
 ]
 
-// -------------------------------- Interfaces --------------------------------
+#d("Ce que « facile à utiliser » veut dire")[
+  #annonce[
+    L'expérience utilisateur désigne les perceptions et réactions qui
+    résultent de l'usage d'un produit. Ses critères ne vont pas tous dans le
+    même sens.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr, 1fr),
+    align: left + horizon,
+    [Critère], [Mode graphique], [Mode texte],
+    [Apprentissage], [on explore les menus], [il faut la connaître],
+    [Efficacité, une fois su], [un geste par fichier], [une ligne pour trois cents],
+    [Mémorisation], [on reconnaît], [on doit se rappeler],
+    [Erreurs], [annulation possible], [une faute de frappe suffit],
+    [Trace laissée], [aucune], [la commande elle-même],
+  )
+
+  #legende[Définition : norme ISO 9241-210 ; critères d'après Jakob Nielsen.]
+
+  #notes[
+    L'interface n'est qu'une partie de l'expérience : un logiciel très joli
+    qui perd le travail de l'utilisateur a une mauvaise UX. Utile à dire à des
+    étudiants qui produiront eux-mêmes des outils au cours 6 et au TD 7.
+  ]
+]
+
+#d("Le terminal")[
+  #annonce[
+    Un terminal est une fenêtre où l'on tape des commandes et où le programme
+    répond par du texte. Rien d'autre.
+  ]
+
+  #align(center)[
+    #grid(
+      columns: (auto, auto, auto),
+      row-gutter: 12pt, column-gutter: 14pt,
+      align: center,
+      text(font: police-code, size: 23pt, fill: accent, weight: demi-gras, "soffice"),
+      text(font: police-code, size: 23pt, fill: manip, weight: demi-gras, "--convert-to pdf"),
+      text(font: police-code, size: 23pt, fill: encre, "raven.odt"),
+      text(size: 14pt, fill: accent)[le programme],
+      text(size: 14pt, fill: manip)[les options],
+      text(size: 14pt, fill: estompe)[ce sur quoi il travaille],
+    )
+  ]
+
+  #v(0.7em)
+  #tableau(
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [Système], [Comment l'ouvrir],
+    [Windows 11], [clic droit sur le bouton Démarrer, ou `Win`+`X`, puis Terminal. Depuis un dossier : clic droit, « Ouvrir dans le terminal »],
+    [macOS], [Applications, Utilitaires, Terminal],
+    [Linux], [`Ctrl`+`Alt`+`T` sur la plupart des bureaux],
+  )
+
+  #notes[
+    Sous Windows 11, Terminal est l'application par défaut ; elle ouvre
+    PowerShell. L'ancienne « Invite de commandes » reste disponible dans le
+    même onglet déroulant. Ne pas entrer dans la différence entre les deux
+    aujourd'hui : elle est traitée au cours 2.
+
+    Le terminal s'ouvre toujours dans un dossier, affiché avant l'invite.
+    C'est le « dossier courant » des chemins relatifs vus tout à l'heure, et
+    la source de la moitié des erreurs de début de semestre. Le clic droit
+    « Ouvrir dans le terminal » depuis le bon dossier évite le problème.
+
+    Une commande se lit toujours pareil : le programme, puis ce qu'on lui
+    demande, puis ce sur quoi il travaille.
+  ]
+]
+
+// --------------------- TD : piloter un logiciel au clavier -------------------
+
+#separateur-manip(
+  "Le même geste, à la souris et au clavier",
+  annonce: "Convertir un document des deux façons, puis regarder ce qu'un logiciel lit vraiment",
+)
 
 #d("Mode graphique et mode texte")[
   #annonce[
@@ -918,49 +1013,190 @@
   )
 
   #legende[
-    La commande se recopie dans un message, se garde dans un fichier, et se
-    relance sur trois cents documents. La suite de clics ne se transmet qu'en
-    la décrivant.
+    Le fichier produit est le même. La commande, elle, se recopie dans un
+    message et se relance sur trois cents documents.
   ]
 
   #notes[
-    Ne pas opposer les deux modes en bien et mal. Le mode graphique est
-    supérieur pour explorer et pour tout ce qui se juge à l'œil ; le mode
-    texte l'est pour répéter, transmettre et automatiser. Le module enseigne
-    le second parce que c'est celui qui manque.
+    Ne pas opposer les deux modes en bien et mal : le graphique est supérieur
+    pour explorer et pour ce qui se juge à l'œil, le texte pour répéter et
+    transmettre. Le module enseigne le second parce que c'est celui qui manque.
+
+    La commande telle qu'elle est écrite ici ne fonctionne que sous Linux.
+    C'est l'objet de la diapositive suivante, et il vaut mieux le dire avant
+    que quelqu'un ne l'essaie.
   ]
+
 ]
 
-#d("Ce que « facile à utiliser » veut dire")[
+#d("La même commande, trois systèmes")[
   #annonce[
-    L'expérience utilisateur désigne les perceptions et réactions qui
-    résultent de l'usage d'un produit. Ses critères ne vont pas tous dans le
-    même sens.
+    LibreOffice n'est ajouté au `PATH` par aucun installeur. Sous Windows et
+    macOS, il faut donner son chemin complet.
   ]
 
   #tableau(
-    columns: (auto, 1fr, 1fr),
+    columns: (auto, 1fr),
     align: left + horizon,
-    [Critère], [Mode graphique], [Mode texte],
-    [Apprentissage], [on explore les menus], [il faut la connaître],
-    [Efficacité, une fois su], [un geste par fichier], [une ligne pour trois cents],
-    [Mémorisation], [on reconnaît], [on doit se rappeler],
-    [Erreurs], [annulation possible], [une faute de frappe suffit],
-    [Trace laissée], [aucune], [la commande elle-même],
+    [Système], [Ce qu'il faut taper],
+    [Linux], [`soffice --headless --convert-to pdf raven.odt`],
+    [macOS], [`/Applications/LibreOffice.app/Contents/MacOS/soffice --headless …`],
+    [Windows], [`& "C:\Program Files\LibreOffice\program\soffice.com" --headless …`],
   )
 
-  #legende[Définition : norme ISO 9241-210 ; critères d'après Jakob Nielsen.]
+  #legende[
+    Sous Windows, c'est `soffice.com` et non `soffice.exe` : seule la version
+    console attend la fin de la conversion. Le `&` est nécessaire parce que
+    PowerShell prendrait sinon le chemin entre guillemets pour du texte.
+  ]
 
   #notes[
-    L'interface n'est qu'une partie de l'expérience : un logiciel très joli
-    qui perd le travail de l'utilisateur a une mauvaise UX. Utile à dire à des
-    étudiants qui produiront eux-mêmes des outils au cours 6 et au TD 7.
+    Trois pièges, dans l'ordre où ils se présentent : le `PATH`, le choix
+    entre `soffice.com` et `soffice.exe` que demande la documentation
+    officielle, et l'opérateur d'appel de PowerShell.
+
+    Honnêteté nécessaire : seule la ligne Linux a été exécutée. Celles de
+    Windows et macOS viennent de la documentation LibreOffice et n'ont pas
+    été vérifiées sur ces systèmes. Les tester avant la séance.
+
+    Repli si cela dérape sur quelques postes : `pandoc raven.odt -o raven.pdf`
+    dans l'environnement `info01`, qui lui est dans le `PATH` sur les trois
+    systèmes une fois `conda activate` fait. Même démonstration, sans le
+    problème de chemin.
   ]
 ]
 
-#separateur-manip(
+#d("Le navigateur en ligne de commande")[
+  #annonce[
+    Le navigateur aussi se pilote sans fenêtre. C'est son moteur de rendu que
+    l'on appelle, le même qui affiche la page à l'écran.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr, auto),
+    align: left + horizon,
+    [Ce que l'on veut], [La commande], [Résultat obtenu],
+    [la page en PDF],
+      [`chromium --headless --no-pdf-header-footer --print-to-pdf=page.pdf file://…`],
+      [texte sélectionnable],
+    [la page en image],
+      [`chromium --headless --screenshot=page.png --window-size=900,1200 file://…`],
+      [900 × 1200 pixels],
+    [avec Firefox],
+      [`firefox --headless --screenshot page.png --window-size 900,1200 file://…`],
+      [image seulement],
+  )
+
+  #legende[
+    Même logiciel, même moteur de rendu : seule l'interface disparaît. Firefox
+    ne sait pas produire de PDF de cette façon, Chromium si.
+  ]
+
+  #notes[
+    Ces trois lignes ont été exécutées et vérifiées. Deux détails à connaître
+    avant de les lancer en séance. Sans `--no-pdf-header-footer`, Chromium
+    ajoute la date et l'adresse en haut et en bas de chaque page. Et Firefox
+    refuse de démarrer si une autre fenêtre est déjà ouverte : il faut alors
+    lui donner un profil à part avec `--profile`.
+
+    Le rapprochement à faire avec la conversion LibreOffice : dans les deux
+    cas, un logiciel que l'on connaît par ses fenêtres accepte aussi d'être
+    appelé par son nom. Une interface graphique n'est qu'une façade posée sur
+    un programme.
+  ]
+]
+
+#d("Binaire, hexadécimal et encodage du texte")[
+  #annonce[
+    Un fichier est une suite d'octets. Un octet vaut de 0 à 255, et s'écrit
+    avec deux chiffres hexadécimaux. Le texte n'échappe pas à la règle : une
+    table associe chaque caractère à un ou plusieurs octets.
+  ]
+
+  #tableau(
+    columns: (auto, auto, auto, 1fr),
+    align: left + horizon,
+    [Caractère], [Valeur], [En hexadécimal], [Remarque],
+    [`P`], [80], [`50`], [un octet, comme tout l'ASCII],
+    [`K`], [75], [`4B`], [au-delà de 9, on compte avec A à F],
+    [`é`], [195 et 169], [`C3 A9`], [deux octets en UTF-8, l'encodage d'aujourd'hui],
+  )
+
+  #legende[
+    L'hexadécimal ne change rien au fichier : c'est une façon d'écrire les
+    octets, plus lisible que 8 chiffres binaires par octet.
+  ]
+
+  #notes[
+    Le minimum utile ici, rien de plus : le binaire est ouvert pour de bon au
+    cours 3. Ce qu'il faut retenir aujourd'hui est qu'un octet et son écriture
+    hexadécimale sont la même chose, et que « texte » veut dire « octets plus
+    une table de correspondance ».
+
+    Conséquence à semer pour le cours 2 : un fichier écrit avec une table et
+    relu avec une autre donne des caractères abîmés. C'est l'origine des
+    accents cassés que tout le monde a déjà vus.
+
+    `P` vaut 80 et `K` vaut 75 : c'est ce qui produit les deux lettres lisibles
+    en tête d'un ZIP, diapositive suivante.
+  ]
+]
+
+#d("Comment un logiciel reconnaît un fichier")[
+  #annonce[
+    Le système choisit le logiciel d'après le nom. Le logiciel, lui, lit les
+    premiers octets du fichier.
+  ]
+
+  ```console
+  $ head -c 8 test_odt.pdf | xxd
+  00000000: 504b 0304 1400 0208    PK......
+
+  $ head -c 8 test_pdf.odt | xxd
+  00000000: 2550 4446 2d31 2e37    %PDF-1.7
+
+  $ file test_odt.pdf test_pdf.odt
+  test_odt.pdf: OpenDocument Text
+  test_pdf.odt: PDF document, version 1.7, 1 page(s)
+  ```
+
+  #v(0.3em)
+  #tableau(
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [Sous Windows], [ni `head` ni `xxd`, mais PowerShell fait les deux],
+    [les premiers octets], [`Format-Hex raven.odt | Select-Object -First 1`],
+  )
+
+  #notes[
+    Ces octets de tête s'appellent des nombres magiques. La commande `file`
+    ne fait que les comparer à un catalogue. Ne pas développer : le format
+    binaire est ouvert en hexadécimal au cours 3.
+
+    `PK` signe une archive ZIP, donc un `.odt` ; `%PDF` signe un PDF. Windows
+    ne fournit en revanche aucun équivalent de `file`, qui déduit le type du
+    contenu.
+
+    Sur l'équivalent Windows : `head` et `xxd` n'existent pas, et `Format-Hex`
+    remplace les deux à la fois puisqu'il affiche l'hexadécimal et le texte
+    côte à côte. Son paramètre `-Count` n'est apparu qu'avec PowerShell 6.2,
+    donc pas dans le PowerShell 5.1 livré avec Windows : d'où le passage par
+    `Select-Object -First 1`, qui prend la première ligne de seize octets et
+    fonctionne dans les deux versions. Ces lignes viennent de la documentation
+    Microsoft et n'ont pas pu être exécutées ici, faute de Windows : à
+    vérifier avant la séance.
+
+    Annoncer que le même phénomène se reverra dans la partie programmation :
+    les premiers octets de l'exécutable `python3` se lisent « ELF ». Et la
+    manipulation qui produit ces fichiers est en annexe, si le temps le
+    permet.
+  ]
+]// -------------------------------- Interfaces --------------------------------
+
+#separateur-td(
   "Une vidéo, deux chemins",
-  annonce: "La même vidéo produite en cliquant, puis en une commande",
+  mention: "Bonus — pour aller plus loin",
+  annonce: "La même vidéo produite en cliquant, puis en une commande, pour ceux qui vont vite",
 )
 
 #d("Le trajet de la gare à l'école")[
@@ -996,26 +1232,43 @@
 // =============================== Programmation ==============================
 
 #separateur(
-  "Programmation",
-  annonce: "Du texte écrit au clavier au fichier que le processeur exécute",
+  "Outils de programmation : IDE et environnement",
+  annonce: "Du texte écrit au clavier au programme qui tourne, et l'outillage pour y arriver",
 )
 
-#d("Trois compétences préalables")[
-  #tableau(
-    entete: false,
-    columns: (auto, 1fr, auto),
-    align: left + horizon,
-    [Fichiers et dossiers], [ce qu'un fichier contient, ce qu'une extension signifie], [séances 1 et 3],
-    [Édition de code], [ce qui distingue un éditeur d'un traitement de texte], [séance 1],
-    [Environnement], [installer Python, et décrire l'installation pour la reproduire], [séance 1],
+#d("D'où vient le programme lui-même")[
+  #annonce[
+    Le schéma du début de séance laissait une question ouverte : la boîte du
+    milieu, le programme, est elle aussi un fichier. Reste à savoir d'où il
+    vient.
+  ]
+
+  #grid(
+    columns: (1fr, 34pt, 1fr, 34pt, 1fr),
+    rows: 96pt,
+    bloc("Entrée", "un relevé GPS, une image, le clavier"),
+    fleche,
+    bloc("Traitement", "le programme", plein: true),
+    fleche,
+    bloc("Sortie", "un fichier, un écran, du son"),
   )
 
+  #v(0.5em)
+  #align(center)[
+    #text(size: 19pt, fill: manip, weight: demi-gras)[
+      Cette boîte-là, comment est-elle fabriquée ?
+    ]
+  ]
+
   #notes[
-    Annoncer l'ordre : la suite observe un même texte sous quatre formes de
-    fichier, puis on installe l'environnement.
+    Reprendre littéralement le schéma vu en début de séance, pour que la
+    partie s'ouvre sur une question déjà posée plutôt que sur un sujet neuf.
+
+    La réponse tient en deux temps : un humain écrit du texte, puis quelque
+    chose transforme ce texte en instructions exécutables. Les deux
+    diapositives suivantes traitent l'un puis l'autre.
   ]
 ]
-
 
 #d("Code source et fichier exécutable")[
   #annonce[
@@ -1050,34 +1303,165 @@
   ]
 ]
 
-#d("Langages interprétés et langages compilés")[
+#d("Deux chemins du texte à l'exécution")[
   #annonce[
-    Deux façons de passer du texte à l'exécution. Python relève de la
-    première.
+    Compiler traduit tout le programme une fois pour toutes. Interpréter lit
+    et exécute le texte à chaque lancement.
   ]
 
+  #block(width: 100%, fill: gris, inset: (x: 12pt, y: 7pt), below: 0.6em)[
+    #text(size: 15pt, fill: estompe, weight: demi-gras)[Compilé]
+    #v(0.4em)
+    #grid(
+      columns: (1fr, 26pt, 1fr, 26pt, 1fr, 26pt, 1fr),
+      rows: 40pt,
+      align: horizon,
+      etape("raven.c", "le texte écrit"),
+      fleche,
+      etape("compilateur", "une fois"),
+      fleche,
+      etape("raven.exe", "des instructions"),
+      fleche,
+      etape("résultat", "à chaque lancement"),
+    )
+  ]
+
+  #block(width: 100%, fill: accent.lighten(92%), inset: (x: 12pt, y: 7pt))[
+    #text(size: 15pt, fill: accent, weight: demi-gras)[Interprété]
+    #v(0.4em)
+    #grid(
+      columns: (1fr, 26pt, 1fr, 26pt, 1fr),
+      rows: 40pt,
+      align: horizon,
+      etape("raven.py", "le texte écrit"),
+      fleche,
+      etape("interpréteur", "à chaque lancement"),
+      fleche,
+      etape("résultat", ""),
+    )
+  ]
+
+  #legende[
+    Lancer un programme Python ne crée rien sur le disque : le texte est relu
+    à chaque fois, et c'est aussi pourquoi il est plus lent.
+  ]
+
+  #notes[
+    Le schéma dit tout : la chaîne compilée a une étape de plus, mais elle
+    n'est faite qu'une fois ; la chaîne interprétée en a une de moins, mais
+    elle la refait à chaque exécution.
+
+    Semer ici le facteur ×100 à ×1000 du cours 6 et du TD 7 : `numpy` est
+    rapide parce qu'il délègue à du C compilé. Ne pas développer maintenant.
+
+    Question qui vient toujours : « et Java ? ». Répondre en une phrase, les
+    deux à la fois, et ne pas s'y engager.
+  ]
+]
+
+#d("Trois compétences préalables")[
   #tableau(
-    columns: (auto, 1fr, 1fr),
+    entete: false,
+    columns: (auto, 1fr, auto),
     align: left + horizon,
-    [], [Interprété], [Compilé],
-    [Ce qui se passe], [le texte est lu et exécuté ligne à ligne],
-      [le texte est traduit en binaire une fois pour toutes],
-    [Sur le disque], [rien de nouveau], [un exécutable],
-    [Exemples], [Python, JavaScript], [C, C++, Rust],
-    [Vitesse d'exécution], [lente], [rapide],
+    [Fichiers et dossiers], [ce qu'un fichier contient, ce qu'une extension signifie], [séances 1 et 3],
+    [Édition de code], [ce qui distingue un éditeur d'un traitement de texte], [séance 1],
+    [Environnement], [installer Python, et décrire l'installation pour la reproduire], [séance 1],
   )
 
   #notes[
-    Semer ici le facteur ×100 à ×1000 du cours 6 et du TD 7 : `numpy` est rapide
-    parce qu'il délègue à du C compilé. Ne pas développer maintenant.
+    Annoncer l'ordre : la suite observe un même texte sous quatre formes de
+    fichier, puis on installe l'environnement.
+  ]
+]
+
+#d("L'environnement de développement")[
+  #annonce[
+    Un environnement réunit une version de Python et les outils choisis, dans
+    un dossier isolé que l'on peut recréer ailleurs.
+  ]
+
+  ```bash
+  conda create -n info01 -c conda-forge python=3.12 \
+      jupyterlab numpy pillow pandoc typst ffmpeg imagemagick
+  conda activate info01
+  ```
+
+  #v(0.5em)
+  ```python
+  import sys; print(sys.executable)
+  ```
+  ```
+  /home/…/miniforge3/envs/info01/bin/python
+  ```
+
+  #legende[Le chemin doit contenir `info01`.]
+
+  #notes[
+    Message à marteler : un `ModuleNotFoundError` sur un paquet « qu'on vient
+    d'installer » signifie presque toujours que le mauvais environnement est
+    actif. Prévoir l'installation en amont ; c'est le point qui déborde.
+  ]
+]
+
+#d("Interface et noyau d'un notebook")[
+  #annonce[
+    L'interface affiche le texte et les résultats. Le noyau exécute le code
+    et conserve les variables entre les cellules.
+  ]
+
+  #grid(
+    columns: (1fr, 88pt, 1fr),
+    rows: 110pt,
+    bloc("Interface", "navigateur ou VSCode, affiche"),
+    align(horizon + center)[
+      #text(size: 20pt, fill: accent)[→] \
+      #text(size: 13pt, fill: estompe)[code] \
+      #v(0.2em)
+      #text(size: 20pt, fill: accent)[←] \
+      #text(size: 13pt, fill: estompe)[résultats]
+    ],
+    bloc("Noyau", "un processus Python, calcule et retient", plein: true),
+  )
+
+  #notes[
+    Démonstration en direct : `x = 10`, puis `print(x * 2)` → 20. Modifier la
+    première cellule en `x = 3` sans l'exécuter : la seconde affiche toujours
+    20. Puis Restart & Run All. Conclure sur le réflexe avant tout partage.
+  ]
+]
+
+#d("Deux formats de notebook")[
+  #annonce[
+    Un `.ipynb` enregistre les résultats dans le fichier. Un fichier MyST ne
+    garde que le code, et les résultats sont recalculés.
+  ]
+
+  #tableau(
+    columns: (1fr, auto, auto),
+    align: (left + horizon, center + horizon, center + horizon),
+    [Même modification : `1920` → `3840`], [`.ipynb`], [MyST `.md`],
+    [Lignes modifiées dans le `diff`], [44], [2],
+    [Taille du fichier], [17,6 ko], [11,5 ko],
+  )
+
+  #legende[
+    Mesuré sur la page « Environnement Python » de ce cours. Le `.ipynb`
+    contient aussi les résultats, qui changent à chaque exécution.
+  ]
+
+  #notes[
+    Boucler explicitement : même contenu, deux formats — la question du début de
+    séance, appliquée à leur propre travail. Et transition vers le cours 2 :
+    c'est pour cette raison que le texte se versionne bien.
   ]
 ]
 
 // ========================= Formats de fichier et outils =====================
 
 #separateur(
-  "Formats de fichier et outils de travail",
-  annonce: "Un même texte sous quatre formes, puis l'environnement Python",
+  "Formats de fichier",
+  annonce: "Un même texte sous quatre formes",
 )
 
 #separateur-manip(
@@ -1229,88 +1613,6 @@
     Faire éditer `style.css` et recharger avec F5. Même principe que le Markdown
     d'un README, et que la séparation code / configuration qu'ils reverront
     partout.
-  ]
-]
-
-#d("L'environnement de développement")[
-  #annonce[
-    Un environnement réunit une version de Python et les outils choisis, dans
-    un dossier isolé que l'on peut recréer ailleurs.
-  ]
-
-  ```bash
-  conda create -n info01 -c conda-forge python=3.12 \
-      jupyterlab numpy pillow pandoc typst ffmpeg imagemagick
-  conda activate info01
-  ```
-
-  #v(0.5em)
-  ```python
-  import sys; print(sys.executable)
-  ```
-  ```
-  /home/…/miniforge3/envs/info01/bin/python
-  ```
-
-  #legende[Le chemin doit contenir `info01`.]
-
-  #notes[
-    Message à marteler : un `ModuleNotFoundError` sur un paquet « qu'on vient
-    d'installer » signifie presque toujours que le mauvais environnement est
-    actif. Prévoir l'installation en amont ; c'est le point qui déborde.
-  ]
-]
-
-#d("Interface et noyau d'un notebook")[
-  #annonce[
-    L'interface affiche le texte et les résultats. Le noyau exécute le code
-    et conserve les variables entre les cellules.
-  ]
-
-  #grid(
-    columns: (1fr, 88pt, 1fr),
-    rows: 110pt,
-    bloc("Interface", "navigateur ou VSCode, affiche"),
-    align(horizon + center)[
-      #text(size: 20pt, fill: accent)[→] \
-      #text(size: 13pt, fill: estompe)[code] \
-      #v(0.2em)
-      #text(size: 20pt, fill: accent)[←] \
-      #text(size: 13pt, fill: estompe)[résultats]
-    ],
-    bloc("Noyau", "un processus Python, calcule et retient", plein: true),
-  )
-
-  #notes[
-    Démonstration en direct : `x = 10`, puis `print(x * 2)` → 20. Modifier la
-    première cellule en `x = 3` sans l'exécuter : la seconde affiche toujours
-    20. Puis Restart & Run All. Conclure sur le réflexe avant tout partage.
-  ]
-]
-
-#d("Deux formats de notebook")[
-  #annonce[
-    Un `.ipynb` enregistre les résultats dans le fichier. Un fichier MyST ne
-    garde que le code, et les résultats sont recalculés.
-  ]
-
-  #tableau(
-    columns: (1fr, auto, auto),
-    align: (left + horizon, center + horizon, center + horizon),
-    [Même modification : `1920` → `3840`], [`.ipynb`], [MyST `.md`],
-    [Lignes modifiées dans le `diff`], [44], [2],
-    [Taille du fichier], [17,6 ko], [11,5 ko],
-  )
-
-  #legende[
-    Mesuré sur la page « Environnement Python » de ce cours. Le `.ipynb`
-    contient aussi les résultats, qui changent à chaque exécution.
-  ]
-
-  #notes[
-    Boucler explicitement : même contenu, deux formats — la question du début de
-    séance, appliquée à leur propre travail. Et transition vers le cours 2 :
-    c'est pour cette raison que le texte se versionne bien.
   ]
 ]
 
