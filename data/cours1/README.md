@@ -42,3 +42,19 @@ python make_data.py build
 | `<nom>_brut.html` | à ouvrir dans le **navigateur** (rendu sans mise en forme) |
 | `<nom>_style.html` + `style.css` | même contenu **avec CSS** → comparer les deux |
 | `_corrige/<nom>.txt` | version correctement formatée (pour l'enseignant) |
+
+## Les autres dossiers de la séance
+
+`make_data.py` et `genere/` ne servent qu'à la manipulation « un texte, quatre
+formes ». Les autres manipulations ont leurs propres fichiers, versionnés
+puisque ce sont des sources de quelques lignes et non des données dérivées.
+
+| Dossier | Manipulation |
+|---------|--------------|
+| [`hello/`](hello/) | deux « hello world », en Python et en C++ |
+| [`erreurs/`](erreurs/) | trois programmes fautifs, à corriger dans l'éditeur |
+| [`formats/`](formats/) | `octets.py`, qui lit les premiers octets d'un fichier |
+| [`trajet/`](trajet/) | le bonus vidéo « une vidéo, deux chemins » |
+| [`illustrations/`](illustrations/) | les captures d'écran des diapositives, hors dépôt |
+
+Chacun a son README.

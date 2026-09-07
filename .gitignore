@@ -20,3 +20,18 @@ data/cours1/trajet/etape_*.png
 data/cours1/trajet/montage.txt
 data/cours1/trajet/trajet.srt
 data/cours1/trajet/trajet.mp4
+
+# Manipulation « hello world » : on versionne les deux sources, pas l'exécutable
+# que la compilation produit.
+data/cours1/hello/cpp/bonjour
+data/cours1/hello/cpp/*.exe
+
+# Captures d'écran des diapositives : fournies à part, jamais versionnées.
+# Seul le README qui décrit l'arborescence attendue est suivi.
+data/*/illustrations/*
+!data/*/illustrations/README.md
+
+# Manipulation « trois programmes fautifs » : on versionne les sources fautives,
+# pas l'exécutable que la compilation produit une fois la faute corrigée.
+data/cours1/erreurs/cpp/aire
+data/cours1/erreurs/cpp/*.exe
