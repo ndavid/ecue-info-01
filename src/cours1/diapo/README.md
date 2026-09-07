@@ -46,11 +46,34 @@ typst watch --root . src/cours1/diapo/cours1.typ
 `--root .`, depuis la racine du dépôt, autorise typst à lire les images de
 `data/` ; sans cette option il refuse de sortir de `src/cours1/diapo/`.
 
-- `theme.typ` — mise en page, couleurs, polices et gabarits.
-- `cours1.typ` — 101 pages, 104 avec les captures d'écran : titre, introduction
-  au module, le contenu de la séance, ses cinq parties (logiciels et formats
-  de fichier, programmation et éditeur de code, formats de fichier,
-  environnement de programmation, notebooks), puis les annexes.
+## Organisation des fichiers
+
+Le contenu est découpé, une partie de la séance par fichier. `cours1.typ` ne
+porte plus que les réglages globaux et l'ordre des parties : les règles `#show`
+qu'il pose s'appliquent à tout ce qui est inclus ensuite.
+
+```
+src/commun/theme.typ        mise en page, couleurs, polices et gabarits
+src/commun/schemas.typ      bloc, etape, chaine, couche, liaison
+src/commun/prelude.typ      ré-exporte les deux, seul import à écrire
+src/cours1/diapo/cours1.typ assemblage : réglages, puis sept #include
+src/cours1/diapo/parties/   00 ouverture, 01 à 05 les parties, 09 annexes
+```
+
+Un fichier inclus par `#include` **n'hérite pas** des imports de celui qui
+l'inclut : chaque partie porte donc sa propre ligne
+`#import "../../../commun/prelude.typ": *`. C'est le seul boilerplate, et le
+prelude le réduit à une ligne quel que soit le nombre de gabarits.
+
+Les images se désignent depuis la racine du projet, `"/data/cours1/…"` : typst
+résout un chemin relatif par rapport au fichier où `image` est appelé,
+c'est-à-dire au thème, et non par rapport au fichier qui écrit le chemin.
+
+`cours1.typ` produit 101 pages, 104 avec les captures d'écran : titre,
+introduction au module, le contenu de la séance, ses cinq parties (logiciels et
+formats de fichier, programmation et éditeur de code, édition de texte et
+contenu des fichiers, environnement de programmation, notebooks), puis les
+annexes.
 
 ## Identité visuelle
 

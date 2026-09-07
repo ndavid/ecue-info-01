@@ -4,8 +4,8 @@ installe pour l'utilisateur courant si on le demande.
 
 Le thème reprend l'identité du thème Beamer « Bruno », qui impose Fira Sans avec
 un « gras » qui n'est en réalité qu'un demi-gras (graisse 500). Les gabarits de
-`theme.typ` sont calibrés sur la chasse de cette police. Sans elle, typst
-retombe sur la suivante de la pile ; le document compile toujours, mais les
+`src/commun/theme.typ` sont calibrés sur la chasse de cette police. Sans elle,
+typst retombe sur la suivante de la pile ; le document compile toujours, mais les
 proportions ne sont plus celles pour lesquelles il a été réglé.
 
     python outils/verifier_polices.py             # état des lieux

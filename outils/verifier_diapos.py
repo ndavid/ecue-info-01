@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Repère les diapositives trop pleines dans un PDF produit par typst.
 
-Le gabarit `d` de `theme.typ` répartit l'espace libre entre le titre et le bas
-de la page par deux ressorts (`v(0.85fr)` puis `v(1fr)`). Quand le corps est
+Le gabarit `d` de `src/commun/theme.typ` répartit l'espace libre entre le
+titre et le bas de la page par deux ressorts (`v(0.85fr)` puis `v(1fr)`).
+Quand le corps est
 trop haut, ces ressorts se referment sans que typst ne signale rien : la phrase
 d'annonce vient alors se coller sous le titre, parfois le chevaucher, et la
 diapositive n'est fautive qu'à l'œil.

@@ -29,14 +29,22 @@ from pathlib import Path
 
 RACINE = Path(__file__).resolve().parent.parent
 
-# Les noms de fichiers attendus sont écrits dans le `.typ` lui-même : plutôt que
-# de tenir une liste en double, on les y relit.
-MOTIF_IMAGE = re.compile(r'"\.\./\.\./\.\./(data/[^"]+\.(?:png|jpg|jpeg))"')
+# Les noms de fichiers attendus sont écrits dans les `.typ` eux-mêmes : plutôt
+# que de tenir une liste en double, on les y relit. Les supports les désignent
+# depuis la racine du projet (`/data/…`), typst résolvant sinon le chemin par
+# rapport au fichier où `image` est appelé, c'est-à-dire au thème.
+MOTIF_IMAGE = re.compile(r'"/?(?:\.\./)*(data/[^"]+\.(?:png|jpg|jpeg))"')
+
+
+def sources(source: Path) -> list[Path]:
+    """Le fichier d'assemblage, et les parties qu'il inclut."""
+    return [source] + sorted((source.parent / "parties").glob("*.typ"))
 
 
 def captures_presentes(source: Path) -> tuple[bool, list[str]]:
-    """Dit si toutes les images citées par le `.typ` sont là, et liste les absentes."""
-    attendues = sorted(set(MOTIF_IMAGE.findall(source.read_text(encoding="utf-8"))))
+    """Dit si toutes les images citées par les `.typ` sont là, et liste les absentes."""
+    textes = "".join(f.read_text(encoding="utf-8") for f in sources(source))
+    attendues = sorted(set(MOTIF_IMAGE.findall(textes)))
     manquantes = [c for c in attendues if not (RACINE / c).exists()]
     return (bool(attendues) and not manquantes), manquantes
 

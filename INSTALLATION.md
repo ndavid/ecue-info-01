@@ -238,7 +238,16 @@ dans typst. Les PDF générés sont dans `.gitignore` : ce sont des artefacts.
 
 ### Structure d'un jeu de diapositives
 
-`theme.typ` porte la mise en page et les gabarits. Les principaux :
+Le contenu est découpé par partie sous `src/cours1/diapo/parties/` ;
+`cours1.typ` ne porte que les réglages globaux et l'ordre des inclusions. Les
+gabarits sont partagés par les sept séances dans `src/commun/`, et un seul
+import les apporte tous :
+
+```typst
+#import "../../commun/prelude.typ": *
+```
+
+`src/commun/theme.typ` porte la mise en page et les gabarits. Les principaux :
 
 | Helper | Rôle |
 |--------|------|

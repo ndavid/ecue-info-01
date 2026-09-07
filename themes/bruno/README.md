@@ -144,7 +144,7 @@ si elle est disponible.
 Ce dossier est la référence : il conserve le portage fidèle, à la géométrie
 exacte du thème d'origine, et la trace des mesures qui l'ont validé.
 
-Les supports du module s'en servent. `src/cours<n>/diapo/theme.typ` reprend
+Les supports du module s'en servent. `src/commun/theme.typ` reprend
 l'identité de Bruno — couleurs, police, demi-gras, barre de pied de page,
 angles vifs — transposée à une page de projection plus grande (facteur 1,909,
 qui laisse le corps de texte à 21 pt), et y ajoute ce que Bruno ne fournit pas :

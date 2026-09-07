@@ -1,4 +1,4 @@
-#import "../../cours1/diapo/theme.typ": diapos, d, page-titre, separateur, separateur-td, separateur-manip, annonce, notes, legende, tableau
+#import "../../commun/prelude.typ": *
 
 // Gabarit — contenu à rédiger. Plan recopié du syllabus.
 // Modèle : src/cours1/diapo/cours1.typ
