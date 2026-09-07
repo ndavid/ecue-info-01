@@ -91,12 +91,58 @@ s'écrit donc en **phrases complètes et déclaratives**.
 | Tiret cadratin en connecteur | « le fichier — celui qu'on ouvre — est binaire » | virgules, parenthèses, ou deux phrases |
 | Méta-commentaire pédagogique | « le moment "ah !" de la séance » | réservé aux notes enseignant |
 | Auto-annonce | « Voilà pourquoi c'est important » | le montrer, ne pas l'annoncer |
+| Question rhétorique | « Cette boîte-là, comment est-elle fabriquée ? » | énoncer ce dont on va parler |
 | Emoji comme structure | ✅ ❌ ⚠️ en début de ligne | des mots, ou un tableau |
 | Triplets systématiques | tout par groupes de trois | suivre le contenu, pas le rythme |
 
 **Sur les émoji** : `🎓` et `⌨️` sont conservés dans le *syllabus* et les notes
 enseignant, où ils codent une information réelle (exposé / manipulation) et
 répétée. Ailleurs, ils sont décoratifs — donc supprimés.
+
+## Manipulations et corrigé
+
+Ce qu'une manipulation fait constater ne se projette pas pendant qu'elle se
+fait. La colonne d'observation d'un tableau de manipulation s'écrit dans
+`reponse[…]` : elle devient un filet à compléter à la projection, et n'apparaît
+que dans la compilation `--input corrige=true`, distribuée après la séance.
+
+Deux résultats motivent ce choix, et fixent aussi sa limite.
+
+- **Effet de pré-test.** Tenter de répondre avant de connaître la réponse
+  améliore la rétention de celle-ci, y compris quand la tentative échoue,
+  pourvu que la réponse soit donnée ensuite. La correction n'est donc pas
+  facultative : c'est elle qui rend la tentative profitable.
+- **Notes guidées.** Un support à trous produit de meilleurs résultats qu'un
+  support complet, à condition qu'il reste un squelette : l'erreur documentée
+  est de laisser si peu à compléter que le support redevient complet.
+
+En pratique : ce que l'étudiant produit ou observe est masqué ; la consigne, le
+vocabulaire et les définitions ne le sont jamais. Une diapositive de réponses
+séparée, comme « Reconnaître un format à son extension — réponses », reste
+préférable quand la question se pose à la salle plutôt que sur machine.
+
+Sources : Richland, Kornell & Kao, *Do unsuccessful retrieval attempts enhance
+learning?* (JEP:Applied, 2009) —
+[texte](https://learninglab.uchicago.edu/Pre-Testing_files/RichlandKornellKao.pdf) ;
+Kornell, Hays & Bjork, *Unsuccessful retrieval attempts enhance subsequent
+learning* (JEP:LMC, 2009) —
+[texte](https://bjorklab.psych.ucla.edu/wp-content/uploads/sites/13/2016/07/Hays_Kornell_RBjork_inpress.pdf) ;
+synthèse sur les notes guidées, Ohio State University —
+[ada.osu.edu/guided-notes](https://ada.osu.edu/guided-notes).
+
+## Illustrations et captures d'écran
+
+Un schéma dessiné est préféré par défaut : rien à distribuer, rien à refaire
+quand le logiciel change de version, un rendu identique partout. Une capture
+d'écran ne se justifie que pour ce qu'un schéma ne peut pas montrer, comme le
+nombre réel d'entrées d'un menu ou l'encombrement réel d'une fenêtre.
+
+Quand les deux sont utiles, ils vont sur deux diapositives : le schéma porte
+l'idée, la capture porte la preuve. Les mettre côte à côte les rend illisibles
+l'un et l'autre.
+
+Les captures ne sont pas versionnées, et leur fabrication est décrite dans
+[`data/cours1/illustrations/README.md`](data/cours1/illustrations/README.md).
 
 ## Encadrés
 
@@ -119,12 +165,14 @@ Pas d'encadré « à retenir » qui recopie le paragraphe précédent.
 
 ## Vérification avant de committer un support
 
-- [ ] Chaque titre de diapositive est une phrase complète.
+- [ ] Chaque titre de diapositive nomme le sujet, sans slogan ni contraste.
 - [ ] Aucune diapositive ne contient de liste à puces.
 - [ ] Aucun paragraphe d'une seule phrase courte destiné à faire effet.
 - [ ] Le gras ne marque que des termes définis.
 - [ ] Aucun encadré ne répète le paragraphe voisin.
 - [ ] Les commandes montrées ont été exécutées.
+- [ ] Ce que la manipulation fait constater est dans `reponse[…]`.
+- [ ] `python outils/verifier_diapos.py` ne signale rien.
 
 ## Sources
 

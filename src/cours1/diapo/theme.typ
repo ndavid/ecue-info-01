@@ -40,6 +40,29 @@
 
 #let notes-visibles = sys.inputs.at("notes", default: "") == "true"
 
+// Écart garanti entre le titre et le corps d'une diapositive, en plus du
+// ressort qui répartit l'espace libre. Sans lui, une diapositive un peu pleine
+// referme le ressort et l'annonce vient se coller sous le titre.
+//
+// La version annotée réserve le bas de page aux notes de conduite : il n'y
+// reste pas de quoi l'offrir sans repousser les diapositives les plus pleines
+// sur une page de suite, ce qui serait pire. Elle s'en passe donc, et
+// `outils/verifier_diapos.py` mesure ce qu'il en résulte.
+#let ecart-titre = if notes-visibles { 0pt } else { 17pt }
+
+// Corrigé des manipulations.
+//
+// Ce qu'une manipulation fait constater ne se projette pas pendant qu'elle se
+// fait : la tentative, même infructueuse, améliore la rétention de la réponse
+// donnée ensuite (effet de pré-test, Richland, Kornell & Kao 2009 ; Kornell,
+// Hays & Bjork 2009), et un support à trous est plus efficace qu'un support
+// complet (notes guidées, Konrad & al.). Les colonnes d'observation sont donc
+// laissées vides à la projection, et remplies dans une seconde compilation.
+//
+//   typst compile --root . cours1.typ                     # à projeter
+//   typst compile --root . --input corrige=true cours1.typ # après la séance
+#let corrige-visible = sys.inputs.at("corrige", default: "") == "true"
+
 // Petites capitales : ni Fira Sans ni Lato ne portent de table `smcp`, donc
 // `smallcaps()` resterait sans effet. On les fabrique.
 #let petites-capitales(corps) = text(size: 0.85em, tracking: 0.08em)[
@@ -198,6 +221,11 @@
       ]
     ]
   ]
+  // Un écart garanti, puis le ressort. Sans le premier, une diapositive un peu
+  // pleine referme le ressort et vient coller l'annonce sous le titre — ce qui
+  // arrive vite dans la version annotée, dont le bas de page est réservé aux
+  // notes. `outils/verifier_diapos.py` mesure cet écart page par page.
+  v(ecart-titre)
   v(0.85fr)
   corps
   v(1fr)
@@ -385,16 +413,26 @@
   )
 ]
 
+// Ce que la manipulation fait constater : masqué à la projection, remplacé par
+// un filet à compléter, et affiché dans la compilation « corrigé ».
+#let reponse(corps) = if corrige-visible {
+  corps
+} else {
+  box(width: 100%, baseline: 0.15em)[
+    #line(length: 100%, stroke: 0.6pt + gris.darken(18%))
+  ]
+}
+
 // Étiquette d'extension, en chasse fixe, pour les grilles de reconnaissance.
 #let etiquette(nom, reponse: none) = block(
-  width: 100%, inset: (x: 8pt, y: 6pt),
+  width: 100%, inset: (x: 8pt, y: 5pt),
   fill: gris, stroke: 0.8pt + gris.darken(12%),
 )[
   #align(center)[
-    #text(font: police-code, size: 16pt, weight: demi-gras, fill: accent)[#nom]
+    #text(font: police-code, size: 15pt, weight: demi-gras, fill: accent)[#nom]
     #if reponse != none [
-      #v(0.25em)
-      #text(size: 12pt, fill: estompe)[#reponse]
+      #v(0.2em)
+      #text(size: 11.5pt, fill: estompe)[#reponse]
     ]
   ]
 ]
@@ -409,3 +447,59 @@
     #corps
   ]
 ]
+
+// ---------------------------------------------------------------------------
+// Illustrations
+//
+// Fenêtre d'application, dessinée : barre de titre, trois pastilles, corps.
+// Sert à montrer à quoi ressemble une interface sans photographier un produit
+// précis, donc sans capture d'écran à versionner ni à refaire à chaque
+// changement de version du logiciel.
+#let fenetre(titre, corps, code: false, hauteur: auto) = block(
+  width: 100%, height: hauteur, stroke: 1pt + accent.lighten(55%), clip: true,
+)[
+  #block(width: 100%, fill: gris, inset: (x: 9pt, y: 6pt))[
+    #grid(
+      columns: (auto, 1fr), column-gutter: 9pt, align: horizon,
+      box(height: 8pt)[
+        #for i in range(3) {
+          place(horizon + left, dx: i * 11pt,
+                circle(radius: 3.5pt, stroke: 0.8pt + estompe))
+        }
+        #h(29pt)
+      ],
+      text(size: 13pt, fill: estompe)[#titre],
+    )
+  ]
+  #block(width: 100%, inset: (x: 10pt, y: 9pt))[
+    #if code {
+      set text(font: police-code, size: 12.5pt)
+      set par(leading: 0.7em)
+      corps
+    } else { corps }
+  ]
+]
+
+// Captures d'écran.
+//
+// Elles ne sont pas versionnées : volumineuses, elles vieillissent avec les
+// versions des logiciels et n'ont pas à peser sur l'historique. Elles vivent
+// dans `data/cours<n>/illustrations/`, hors dépôt, et sont fournies à part.
+// Le document compile sans elles : `illustration` retombe sur l'équivalent
+// dessiné passé en second argument.
+//
+//   typst compile --input captures=true cours1.typ
+#let captures-disponibles = sys.inputs.at("captures", default: "") == "true"
+
+// `hauteur` met l'image à l'échelle, elle ne la rogne pas : une capture
+// d'écran tronquée ne montre plus ce pour quoi elle est là.
+#let illustration(chemin, repli, hauteur: auto, largeur: auto) = {
+  if captures-disponibles {
+    block(
+      stroke: 1pt + accent.lighten(55%),
+      image(chemin, height: hauteur, width: largeur, fit: "contain"),
+    )
+  } else {
+    repli
+  }
+}
