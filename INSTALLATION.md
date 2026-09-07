@@ -104,53 +104,153 @@ l'`.html` + `style.css`, et le corrigé dans `genere/_corrige/`.
 
 ## 3. Diapositives (typst)
 
+### Polices — à faire une fois, avant la première compilation
+
+Le thème reprend l'identité du thème Beamer *Bruno*, qui impose **Fira Sans**
+et dont le « gras » est en réalité un demi-gras (graisse 500). Les gabarits
+sont calibrés sur la chasse de cette police.
+
+Sans elle, typst ne s'arrête pas : il prend la suivante de la pile de
+substitution et signale `unknown font family`. Le document compile, mais plus
+large, et c'est ainsi que du texte est passé par-dessus le bord de ses cadres
+dans une version antérieure de ce dépôt.
+
+```bash
+conda activate info01
+
+python outils/verifier_polices.py             # état des lieux
+python outils/verifier_polices.py --installer # télécharge et installe Fira Sans
+```
+
+L'installation se fait dans le dossier de polices de l'utilisateur, sans droits
+d'administration : `~/.local/share/fonts` sous Linux, `~/Library/Fonts` sous
+macOS, `%LOCALAPPDATA%\Microsoft\Windows\Fonts` sous Windows. Fira Sans est
+publiée par Mozilla sous licence SIL Open Font License 1.1 ; le dépôt ne
+l'embarque pas, pour rester sans fichier binaire.
+
+> **Terminal intégré de VSCode installé en snap** : il redéfinit
+> `XDG_DATA_HOME` pour s'isoler, et fontconfig cherche alors les polices dans
+> le bac à sable du snap. Le script installe aux deux endroits, de sorte que le
+> rendu soit le même depuis un terminal ordinaire et depuis celui de l'éditeur.
+
+Depuis la version qui suit, les schémas mesurent leurs boîtes avant de les
+poser : le texte ne peut plus déborder, même sans aucune police système. La
+police reste néanmoins nécessaire pour retrouver la mise en page voulue.
+
+### Compiler
+
+Le script de compilation évite d'avoir à retenir les options : il place la
+racine du bac à sable de typst sur celle du dépôt, et n'emploie les captures
+d'écran que si elles sont réellement présentes.
+
+```bash
+conda activate info01
+
+python outils/compiler_diapos.py             # le cours 1, à projeter
+python outils/compiler_diapos.py --notes     # version annotée
+python outils/compiler_diapos.py --corrige   # corrigé des manipulations
+python outils/compiler_diapos.py --tous      # les sept jeux
+python outils/compiler_diapos.py --sans-captures   # vérifier le repli dessiné
+```
+
+Les commandes équivalentes, à la main :
+
 ```bash
 conda activate info01
 
 # compilation unique → src/cours1/diapo/cours1.pdf
-typst compile src/cours1/diapo/cours1.typ
+typst compile --root . src/cours1/diapo/cours1.typ
+
+# version annotée, avec les notes de conduite de l'enseignant
+typst compile --root . --input notes=true src/cours1/diapo/cours1.typ cours1-notes.pdf
+
+# avec les captures d'écran, si l'archive a été décompressée
+typst compile --root . --input captures=true src/cours1/diapo/cours1.typ
+
+# avec le corrigé des manipulations, à distribuer après la séance
+typst compile --root . --input corrige=true src/cours1/diapo/cours1.typ cours1-corrige.pdf
 
 # recompilation à chaque sauvegarde (confortable pour rédiger)
-typst watch src/cours1/diapo/cours1.typ
+typst watch --root . src/cours1/diapo/cours1.typ
 
 # export images (une PNG par diapositive)
-typst compile --format png --ppi 150 src/cours1/diapo/cours1.typ "apercu-{n}.png"
+typst compile --root . --format png --ppi 150 src/cours1/diapo/cours1.typ "apercu-{n}.png"
 ```
+
+`--root .` place la racine du bac à sable de typst sur celle du dépôt : sans
+elle, un `.typ` de `src/cours1/diapo/` ne peut pas lire une image de `data/`.
 
 Tous les jeux d'un coup :
 
 ```bash
-for f in src/cours*/diapo/cours*.typ; do typst compile "$f"; done
+for f in src/cours*/diapo/cours*.typ; do typst compile --root . "$f"; done
 ```
 
-**Aucune dépendance externe** : le thème (`src/cours1/diapo/theme.typ`) n'importe
-aucun paquet et n'utilise que des polices **embarquées dans typst**
-(*Libertinus Serif*, *DejaVu Sans Mono*). La compilation est donc identique sur
-tous les postes et fonctionne hors ligne.
+### Les quatre compilations, et à qui elles servent
 
-Pour un rendu sans empattements, changer les deux constantes en tête de
-`theme.typ` :
+| Options | Pour qui | Ce qui change |
+|---------|----------|---------------|
+| aucune | projeté en séance | les colonnes d'observation des manipulations sont vides |
+| `--input corrige=true` | distribué après la séance | ces colonnes sont remplies |
+| `--input notes=true` | l'enseignant | les notes de conduite s'ajoutent en bas de page |
+| `--input captures=true` | partout, si les images sont là | les captures d'écran remplacent les schémas dessinés |
 
-```typst
-#let police-texte = ("Inter", "Segoe UI", "DejaVu Sans")
+Les options se combinent. Ce que la manipulation fait constater n'est pas
+projeté pendant qu'elle se fait : la tentative, même infructueuse, améliore la
+rétention de la réponse donnée ensuite, et un support à trous est plus efficace
+qu'un support complet. Les références sont dans
+[`STYLE.md`](STYLE.md#manipulations-et-corrigé).
+
+### Vérifier une fois compilé
+
+typst ne signale pas une diapositive trop pleine : le gabarit répartit l'espace
+libre par des ressorts, et quand le corps est trop haut ils se referment
+silencieusement, collant la phrase d'annonce sous le titre. Le symptôme se
+mesure sur le PDF :
+
+```bash
+python outils/verifier_diapos.py src/cours1/diapo/cours1.pdf
 ```
 
-typst émettra alors un avertissement `unknown font family` pour chaque police
-absente du poste — sans gravité, il prend la suivante de la liste.
+La version annotée est plus contrainte, puisqu'elle réserve le bas de la page
+aux notes de conduite. Elle se relit avec un seuil plus bas :
 
-Les PDF générés sont dans `.gitignore` : ce sont des artefacts.
+```bash
+typst compile --root . --input notes=true src/cours1/diapo/cours1.typ notes.pdf
+python outils/verifier_diapos.py --seuil 10 notes.pdf
+```
+
+Le script sort en code 1 dès qu'une diapositive est signalée.
+
+### Captures d'écran
+
+Les images d'illustration ne sont pas versionnées : voir
+[`data/cours1/illustrations/README.md`](data/cours1/illustrations/README.md)
+pour l'arborescence attendue, les noms de fichiers et le format. Sans elles,
+chaque diapositive concernée emploie un équivalent dessiné en typst, et le
+document compile normalement.
+
+### Dépendances
+
+**Aucun paquet typst importé.** La seule dépendance externe est la police du
+texte, traitée ci-dessus ; celle du code (*DejaVu Sans Mono*) est embarquée
+dans typst. Les PDF générés sont dans `.gitignore` : ce sont des artefacts.
 
 ### Structure d'un jeu de diapositives
 
-`theme.typ` fournit la mise en page et quatre helpers :
+`theme.typ` porte la mise en page et les gabarits. Les principaux :
 
 | Helper | Rôle |
 |--------|------|
-| `diapos(titre:, sous-titre:, auteur:, date:)` | réglages globaux + diapo de titre |
-| `d(titre)[…]` | une diapositive |
-| `retenir[…]` | encadré « à retenir » |
-| `expose(durée)` / `manip(durée)` | marqueurs 🎓 / ⌨ du syllabus |
+| `diapos(titre-court:, auteur-court:)` | réglages globaux, pied de page |
+| `d(titre)[…]` | une diapositive ordinaire |
+| `separateur(…)` / `separateur-td(…)` / `separateur-manip(…)` | diapositives de section |
+| `annonce[…]`, `legende[…]`, `notes[…]` | phrase sous le titre, source, notes de conduite |
+| `tableau(…)`, `face-a-face(…)`, `panneau(…)` | preuves visuelles |
+| `fenetre(titre)[…]` | fenêtre d'application dessinée |
+| `illustration(chemin, repli)` | capture d'écran si elle est là, dessin sinon |
 
+La liste complète est dans [`src/cours1/diapo/README.md`](src/cours1/diapo/README.md).
 `src/cours1/diapo/cours1.typ` sert de modèle ; les gabarits des cours 2–7
 importent le même thème.
 
