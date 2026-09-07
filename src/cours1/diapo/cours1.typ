@@ -1,4 +1,4 @@
-#import "theme.typ": diapos, page-titre, separateur-module, d, separateur, separateur-manip, separateur-td, annonce, notes, legende, tableau, face-a-face, panneau, question, etiquette, icone-fenetre, icone-engrenage, icone-puce, fenetre, illustration, captures-disponibles, reponse, corrige-visible, notes-visibles, accent, encre, estompe, manip, gris, demi-gras, police-code, police-texte
+#import "theme.typ": diapos, page-titre, separateur-module, d, separateur, separateur-manip, separateur-td, separateur-reprise, annonce, notes, legende, tableau, face-a-face, panneau, bloc-titre, question, etiquette, icone-fenetre, icone-engrenage, icone-puce, fenetre, illustration, captures-disponibles, reponse, corrige-visible, notes-visibles, accent, encre, estompe, manip, gris, demi-gras, police-code, police-texte
 
 #show: diapos.with(
   titre-court: "Introduction à l'informatique",
@@ -166,20 +166,51 @@
     aussi de ce module.
   ]
 ]
-#d("Les quatre domaines abordés")[
+#d("Les trois compétences du module")[
+  #annonce[
+    Trois savoir-faire reviennent à chaque séance. Une culture des ordres de
+    grandeur s'y ajoute par apartés, pour expliquer pourquoi les outils sont
+    faits ainsi.
+  ]
+
   #grid(
-    columns: (1fr, 1fr),
-    rows: (86pt, 86pt),
-    gutter: 14pt,
-    bloc("Outils d'édition", "éditeur de code, arborescence de projet"),
-    bloc("Versionnement", "git : enregistrer, revenir, partager"),
-    bloc("Forme d'un projet", "README, environnement, fichiers, ligne de commande"),
-    bloc("Culture générale", "ordres de grandeur, sécurité, outils du terminal"),
+    columns: (1fr, 1fr, 1fr),
+    rows: 88pt,
+    gutter: 12pt,
+    bloc("Éditer", "éditeur de code, arborescence de projet"),
+    bloc("Versionner", "git : enregistrer, revenir, partager"),
+    bloc("Structurer", "README, environnement, ligne de commande"),
   )
 
+  #v(0.6em)
+  #block(
+    width: 100%, inset: (x: 14pt, y: 9pt), fill: gris,
+    stroke: 1pt + accent.lighten(62%),
+  )[
+    #grid(
+      columns: (auto, 1fr), column-gutter: 16pt, align: horizon,
+      text(size: 17pt, weight: demi-gras)[Et, par apartés],
+      align(right, text(size: 14pt, fill: estompe)[
+        ordres de grandeur, sécurité : pourquoi les outils sont faits ainsi
+      ]),
+    )
+  ]
+
   #notes[
-    Les trois premiers sont les fils rouges du module. Le quatrième arrive par
-    apartés, au fil des séances.
+    Les trois blocs sont les fils rouges : chaque séance en reprend au moins
+    un, et les deux TD les mobilisent ensemble.
+
+    Le bandeau n'est pas un quatrième domaine, et c'est pour cela qu'il n'a
+    pas la même forme. Il désigne ce qui revient en apartés : ce que pèse un
+    fichier, ce que coûte un calcul, ce qui circule sur le réseau, ce qu'on ne
+    met pas dans un dépôt. La séance 5 lui est consacrée, les autres le
+    croisent.
+
+    Dire pourquoi ce registre existe plutôt que de le laisser en liste. Il
+    porte le « pourquoi » des gestes demandés : on ne versionne pas du
+    binaire, on ne recopie pas une boucle Python là où numpy va cent fois plus
+    vite. Ces deux règles ne se retiennent que si l'ordre de grandeur qui les
+    justifie a été donné une fois.
   ]
 ]
 #d("Ce que vous avez peut-être déjà vu")[
@@ -215,6 +246,44 @@
     ne s'installe pas faclement sur un autre ordinateur etc... 
     Ces notions ne sont pas enseignées dans les autres cours, choix de
     les enseigner explicitement plutôt que d'attendre une auto-formation des élèves sur ces points..
+  ]
+]
+#d("Le rythme de la première partie")[
+  #annonce[
+    La première partie reprend ces notions, et avance donc plus vite que les
+    suivantes. C'est la seule de la séance où le rythme est délibérément élevé.
+  ]
+
+  #v(0.4em)
+  #bloc-titre("Point d'attention")[
+    #set text(size: 19pt)
+    Si quelque chose n'est pas clair dans cette partie, posez la question
+    tout de suite, sans attendre la fin.
+    #v(0.5em)
+    Tout ce qui suit s'appuie dessus. Une notion laissée de côté aujourd'hui
+    se paiera sur les six séances suivantes, et c'est le retard pris au début
+    qui est le plus difficile à rattraper.
+  ]
+
+  #notes[
+    Diapositive courte, mais à ne pas expédier : c'est le contrat de la
+    séance, et il vaut la peine de s'arrêter dessus dix secondes de plus que
+    le contenu ne le demande.
+
+    Dire les deux moitiés dans cet ordre. D'abord la raison du rythme, qui
+    est un choix et non de la précipitation : la partie 1 reprend ce qui a pu
+    être vu au lycée, et le temps ainsi gagné va aux manipulations. Ensuite
+    la contrepartie, qui est à leur charge.
+
+    Formulation qui fonctionne mieux qu'une invitation générale à poser des
+    questions : dire qu'ici, ne pas comprendre est probable et normal, parce
+    qu'on va vite exprès. La question n'est donc pas un aveu, c'est ce que le
+    rythme suppose.
+
+    Le passage à surveiller en pratique est le vocabulaire de la partie 1 —
+    logiciel, application, format, extension, chemin. Ce sont des mots qu'ils
+    croient connaître, et c'est là que les malentendus s'installent sans
+    bruit.
   ]
 ]
 #d("Organisation : sept séances de deux heures")[
@@ -258,9 +327,9 @@
     columns: (1fr, auto, auto),
     align: (left + horizon, left + horizon, right + horizon),
     [Partie], [Nature], [Durée],
-    [Logiciels et formats de fichier], [cours et manipulation], [30′],
-    [Programmation et éditeur de code], [cours et manipulation], [35′],
-    [Formats de fichier], [manipulation], [20′],
+    [Logiciels et formats de fichier], [cours et manipulation], [25′],
+    [Programmation et éditeur de code], [cours et manipulation], [25′],
+    [Édition de texte et contenu des fichiers], [cours et manipulation], [30′],
     [Environnement de programmation], [cours et manipulation], [25′],
     [Notebooks], [cours], [10′],
   )
@@ -444,7 +513,7 @@
     diapositive suivante.
   ]
 ]
-#d("Où le calcul se fait")[
+#d("Le lieu du calcul")[
   #annonce[
     Deux applications web d'apparence identique peuvent calculer à deux
     endroits différents. C'est ce qui décide du sort de vos fichiers.
@@ -477,50 +546,66 @@
 ]
 #d("Entrées et sorties d'un programme")[
   #annonce[
-    Un programme lit des fichiers et en produit d'autres. Mais toutes ses
-    sorties ne sont pas des fichiers : l'écran et le son en sont aussi.
+    Ce qu'un programme reçoit et ce qu'il produit sont de deux natures : un
+    fichier, qui se conserve, ou un périphérique, qui ne garde rien.
   ]
 
   #layout(dispo => context {
     let ecart = 34pt
     let largeur = (dispo.width - 2 * ecart) / 3
-    // Les deux sorties se partagent la colonne de droite : la hauteur commune
-    // est celle de la colonne, mesurée sur la plus haute des trois boîtes.
-    let sorties = (
-      ("Une sortie qui reste", "un fichier : image, tableau, vidéo"),
-      ("Une sortie qui passe", "un périphérique : écran, son"),
-    )
     let gouttiere = 10pt
+    // Entrées et sorties se répondent : mêmes deux natures de chaque côté.
+    let entrees = (
+      ("Entrée : un fichier", "un relevé GPS, une image"),
+      ("Entrée : un périphérique", "clavier, souris, réseau"),
+    )
+    let sorties = (
+      ("Sortie : un fichier", "une image, un tableau, une vidéo"),
+      ("Sortie : un périphérique", "écran, son"),
+    )
+    // Les colonnes latérales portent deux boîtes, celle du milieu une seule :
+    // la hauteur commune est celle de la plus haute des trois colonnes.
     let hauteur = calc.max(
-      measure(bloc("Entrée", "un relevé GPS, une image, le clavier"), width: largeur).height,
       measure(bloc("Traitement", "le programme"), width: largeur).height,
-      ..sorties.map(s => 2 * measure(bloc(..s), width: largeur).height + gouttiere),
+      ..(entrees + sorties).map(
+        s => 2 * measure(bloc(..s), width: largeur).height + gouttiere,
+      ),
+    )
+    let colonne(paire) = grid(
+      rows: ((hauteur - gouttiere) / 2,) * 2, row-gutter: gouttiere,
+      ..paire.map(s => bloc(..s, hauteur: 100%)),
     )
     grid(
       columns: (largeur, ecart, largeur, ecart, largeur),
       rows: hauteur,
       align: horizon,
-      bloc("Entrée", "un relevé GPS, une image, le clavier", hauteur: hauteur),
+      colonne(entrees),
       fleche,
       bloc("Traitement", "le programme", plein: true, hauteur: hauteur),
       fleche,
-      grid(
-        rows: ((hauteur - gouttiere) / 2,) * 2, row-gutter: gouttiere,
-        ..sorties.map(s => bloc(..s, hauteur: 100%)),
-      ),
+      colonne(sorties),
     )
   })
 
   #legende[
-    La sortie affichée à l'écran ne laisse rien derrière elle, le fichier si,
-    et c'est lui qu'on peut relire, comparer et versionner.
+    Un fichier sert à conserver un résultat et à l'échanger : avec un autre
+    logiciel, avec une autre machine, ou avec quelqu'un d'autre.
   ]
 
   #notes[
-    Schéma réutilisé tout le semestre. Insister sur la sortie de droite : les
-    étudiants pensent spontanément qu'un programme « affiche », et oublient
-    qu'il peut écrire. Le module s'intéresse surtout à ce qui laisse un
-    fichier, parce que c'est ce qui se relit, se compare et se versionne.
+    Schéma réutilisé tout le semestre. Les deux colonnes se répondent, et
+    c'est ce qu'il faut faire remarquer : un programme ne reçoit pas
+    seulement des fichiers, et n'en produit pas seulement.
+
+    Le réflexe à corriger est du côté droit : les étudiants pensent
+    spontanément qu'un programme « affiche », et oublient qu'il peut écrire.
+    Le module s'intéresse surtout à ce qui laisse un fichier, parce qu'un
+    fichier se relit, se compare et se versionne — et surtout parce qu'il est
+    ce qui circule d'un logiciel à l'autre.
+
+    Le réseau est mis du côté des périphériques, avec le clavier et la souris.
+    Ce n'est pas une approximation : pour le programme, ce sont trois choses
+    qu'on lit sans qu'elles restent. Le rapprochement est repris au cours 5.
 
     D'où vient le programme lui-même : la question est ouverte ici et traitée
     dans la partie « Programmation ».
@@ -577,17 +662,20 @@
   #grid(
     columns: (1fr, 1fr, 1fr, 1fr),
     gutter: 9pt,
-    etiquette(".mp3"), etiquette(".flac"), etiquette(".mp4"), etiquette(".mkv"),
-    etiquette(".jpg"), etiquette(".png"), etiquette(".svg"), etiquette(".tif"),
-    etiquette(".pdf"), etiquette(".odt"), etiquette(".xlsx"), etiquette(".csv"),
-    etiquette(".zip"), etiquette(".7z"), etiquette(".py"), etiquette(".exe"),
+    etiquette(".mp3"), etiquette(".mp4"), etiquette(".jpg"), etiquette(".png"),
+    etiquette(".svg"), etiquette(".tif"), etiquette(".pdf"), etiquette(".odt"),
+    etiquette(".xlsx"), etiquette(".csv"), etiquette(".zip"), etiquette(".exe"),
+    etiquette(".py"), etiquette(".md"), etiquette(".json"), etiquette(".yaml"),
   )
 
   #notes[
     Interroger la salle, en trois minutes, sans commenter chaque réponse. Les
-    trois qui font débat : `.svg` (une image, mais du texte XML), `.csv` (du
-    texte, pas un fichier Excel) et `.7z` (une archive, comme `.zip`, mais
-    d'un autre outil). Ne pas s'attarder sur `.tif`.
+    deux qui font débat : `.svg` (une image, mais du texte XML) et `.csv` (du
+    texte, pas un fichier Excel). Ne pas s'attarder sur `.tif`.
+
+    La dernière ligne est celle du module, et elle est volontairement groupée :
+    ce sont les quatre fichiers qu'ils éditeront eux-mêmes. Peu sauront nommer
+    `.yaml` ; c'est attendu, la partie suivante y répond.
   ]
 ]
 #d("Reconnaître un format à son extension — réponses")[
@@ -595,9 +683,7 @@
     columns: (1fr, 1fr, 1fr, 1fr),
     gutter: 9pt,
     etiquette(".mp3", reponse: "son, avec perte"),
-    etiquette(".flac", reponse: "son, sans perte"),
     etiquette(".mp4", reponse: "vidéo, la plus courante"),
-    etiquette(".mkv", reponse: "vidéo, conteneur libre"),
     etiquette(".jpg", reponse: "photo, avec perte"),
     etiquette(".png", reponse: "image, sans perte"),
     etiquette(".svg", reponse: "image vectorielle : texte"),
@@ -607,20 +693,25 @@
     etiquette(".xlsx", reponse: "Excel, archive ZIP"),
     etiquette(".csv", reponse: "tableau : du texte"),
     etiquette(".zip", reponse: "archive de fichiers"),
-    etiquette(".7z", reponse: "archive, compression forte"),
-    etiquette(".py", reponse: "code Python : du texte"),
     etiquette(".exe", reponse: "programme Windows"),
+    etiquette(".py", reponse: "code Python : du texte"),
+    etiquette(".md", reponse: "documentation : du texte"),
+    etiquette(".json", reponse: "données, réglages : texte"),
+    etiquette(".yaml", reponse: "réglages : du texte"),
   )
 
   #legende[
-    Trois de ces seize formats sont du texte : ceux qu'on peut ouvrir dans un
+    Six de ces seize formats sont du texte : ceux qu'on peut ouvrir dans un
     éditeur, comparer ligne à ligne et versionner.
   ]
 
   #notes[
-    Les trois formats texte de la grille : `.svg`, `.csv` et `.py`, auxquels
-    s'ajoute le `.md` des notes du cours. Deux autres sont des archives ZIP de
-    XML, `.odt` et `.xlsx` : ouvert en direct plus loin dans la séance.
+    Les six formats texte de la grille : `.svg`, `.csv`, `.py`, `.md`, `.json`
+    et `.yaml`. Deux autres sont des archives ZIP de XML, `.odt` et `.xlsx`,
+    ouvertes en direct plus loin dans la séance.
+
+    Faire compter les six par la salle plutôt que de les énoncer : c'est le
+    critère de tout le module, et il vaut d'être trouvé une fois.
   ]
 ]
 // --------------------------- Chemins et adresses ----------------------------
@@ -852,14 +943,28 @@
   )
 
   #legende[
-    Le texte n'a pas bougé : seul le nom du style a changé. Le contenu et sa
-    mise en forme sont bien deux choses distinctes.
+    `_20_` est le code hexadécimal de l'espace : `Text_20_body` se lit
+    « Text body », et `Heading_20_1` « Heading 1 ». Le texte, lui, n'a pas
+    bougé — seul le nom du style a changé.
   ]
 
   #notes[
     `content.xml` fait ici 4 ko sur 21 lignes, dont une de 1 300 caractères :
     lisible au Bloc-notes en activant le retour à la ligne, nettement plus
     confortable dans l'éditeur de code, qui colore et replie les balises.
+
+    Le `_20_` intrigue toujours, et la réponse tient en deux phrases : un nom
+    de style est un nom XML, où l'espace est interdit ; ODF encode donc chaque
+    caractère interdit par son code hexadécimal entouré de tirets bas, et
+    l'espace vaut 20 en hexadécimal. Le nom lisible est rangé à côté, dans
+    l'attribut `style:display-name`, et c'est celui que LibreOffice affiche
+    dans son panneau des styles.
+
+    Ce n'est donc pas un nom en trois morceaux : c'est « Text body » avec son
+    espace encodé. Le rapprochement à faire, s'il aide, est celui du `%20` des
+    adresses web, où l'espace est interdit pour la même raison et encodé de la
+    même façon. La référence est OpenDocument v1.3, partie 3, sur `style:name`
+    et `style:display-name` ; elle est donnée dans le notebook.
 
     Sur la couleur, question fréquente : ODF n'accepte pas de nom de couleur.
     Vérifié, `fo:color="red"` est ignoré et le titre reste noir ; il faut
@@ -935,56 +1040,112 @@
 ]
 // ==================== Programmation et éditeur de code =====================
 
-#separateur(
-  "Programmation et éditeur de code",
-  annonce: "Du texte écrit au clavier au programme qui tourne",
-)
+#separateur("Programmation et éditeur de code")
 #d("Programmes et applications")[
   #annonce[
-    Un programme exécute une tâche répétitive plus vite qu'à la main, et de la
-    même façon à chaque exécution.
+    Un programme est un texte d'instructions qui accomplit une tâche ;
+    programmer, c'est écrire ce texte. Une application est un programme
+    empaqueté pour celui qui s'en sert.
   ]
 
   #tableau(
-    columns: (1.1fr, 1fr, 1fr),
+    columns: (auto, 1fr, 1fr),
     align: left + horizon,
-    [Renommer 300 photos par date], [À la main], [Par programme],
-    [Durée], [une soirée], [quelques secondes],
-    [Deuxième exécution], [à refaire entièrement], [identique, sans effort],
-    [Erreur de recopie], [invisible], [systématique, donc repérable],
+    [], [Programme], [Application],
+    [Ce qu'on reçoit],
+      [le code source, un fichier texte],
+      [un produit installé, prêt à l'emploi],
+    [Pour l'exécuter],
+      [savoir quel outil le lance, et le lui demander],
+      [ouvrir la fenêtre],
+    [Interface],
+      [souvent aucune : le terminal suffit],
+      [prévue pour l'utilisateur],
+    [Dans ce module],
+      [automatiser une tâche, traiter des données],
+      [ce qu'on utilise, pas ce qu'on écrit],
   )
 
+  #legende[
+    La frontière tient à l'empaquetage et à l'usage, non à la technique : le
+    même code, distribué prêt à l'emploi, se présente comme une application.
+  ]
+
   #notes[
-    Une application est un programme muni d'une interface ; beaucoup de
-    programmes n'en ont pas et se lancent depuis un terminal.
+    Motiver avant de définir. Renommer 300 photos par leur date prend une
+    soirée à la main et quelques secondes par programme ; la deuxième
+    exécution ne coûte rien, et une erreur de recopie devient systématique,
+    donc repérable. C'est le genre de programme demandé dans ce module : de
+    l'automatisation et du traitement de données, pas des applications.
+
+    Trois mots à séparer une fois pour toutes : « programmation » nomme
+    l'activité, « programme » son résultat, « application » ce que reçoit
+    celui qui s'en sert. Dire que la frontière entre les deux derniers est
+    floue plutôt que la laisser deviner : ce n'est pas une catégorie
+    technique. Un même code se lance à la main depuis un terminal, puis
+    s'empaquette avec une interface et se distribue ; ce qui change est ce
+    que reçoit l'utilisateur, et ce qu'il doit savoir pour le faire tourner.
+
+    Reprendre ensuite le schéma entrée → traitement → sortie du début de
+    séance : la boîte du milieu est elle aussi un fichier, et la question qui
+    ouvre la suite est de savoir comment ce fichier est fabriqué. Les deux
+    diapositives suivantes y répondent : d'abord les deux chemins qui mènent
+    du texte à l'exécution, puis ce que devient ce texte une fois traduit.
   ]
 ]
-#d("D'où vient le programme lui-même")[
+#d("Deux chemins du texte à l'exécution")[
   #annonce[
-    La boîte du milieu du schéma de début de séance est elle aussi un fichier.
-    Cette partie décrit comment ce fichier est fabriqué.
+    Compiler traduit tout le programme une fois pour toutes. Interpréter lit
+    et exécute le texte à chaque lancement.
   ]
 
-  #chaine(
-    gabarit: bloc, ecart: 34pt, pleins: (1,),
-    ("Entrée", "un relevé GPS, une image, le clavier"),
-    ("Traitement", "le programme"),
-    ("Sortie", "un fichier, un écran, du son"),
-  )
+  #block(width: 100%, fill: gris, inset: (x: 12pt, y: 5pt), below: 0.4em)[
+    #text(size: 15pt, fill: estompe, weight: demi-gras)[Compilé]
+    #v(0.25em)
+    #chaine(
+      ("bonjour.cpp", "le texte écrit"),
+      ("compilateur", "une fois"),
+      ("bonjour.exe", "des instructions"),
+      ("résultat", "à chaque lancement"),
+    )
+  ]
+
+  #block(width: 100%, fill: accent.lighten(92%), inset: (x: 12pt, y: 5pt))[
+    #text(size: 15pt, fill: accent, weight: demi-gras)[Interprété]
+    #v(0.25em)
+    #chaine(
+      ("bonjour.py", "le texte écrit"),
+      ("interpréteur", "à chaque lancement"),
+      ("résultat", "rien sur le disque"),
+    )
+  ]
+
+  #legende[
+    Lancer un programme Python ne crée rien sur le disque, et c'est aussi
+    pourquoi il est plus lent.
+  ]
 
   #notes[
-    Reprendre littéralement le schéma vu en début de séance, pour que la
-    partie s'ouvre sur une question déjà posée plutôt que sur un sujet neuf.
+    Le schéma dit tout : la chaîne compilée a une étape de plus, mais elle
+    n'est faite qu'une fois ; la chaîne interprétée en a une de moins, mais
+    elle la refait à chaque exécution.
 
-    La réponse tient en deux temps : un humain écrit du texte, puis quelque
-    chose transforme ce texte en instructions exécutables. Les deux
-    diapositives suivantes traitent l'un puis l'autre.
+    Semer ici le facteur ×100 à ×1000 du cours 6 et du TD 7 : `numpy` est
+    rapide parce qu'il délègue à du C compilé. Ne pas développer maintenant.
+
+    Les noms de fichiers sont ceux de la manipulation de tout à l'heure : le
+    schéma et le geste porteront les mêmes, et le rapprochement se fera tout
+    seul. Le dire une fois, ici.
+
+    Question qui vient toujours : « et Java ? ». Répondre en une phrase, les
+    deux à la fois, et ne pas s'y engager.
   ]
 ]
 #d("Code source et fichier exécutable")[
   #annonce[
-    Le fichier que le processeur exécute est illisible pour un humain. Il a
-    pourtant été produit à partir d'un texte écrit au clavier.
+    Au bout de la chaîne compilée, un fichier que le processeur lit et
+    qu'aucun humain ne peut lire. Il a pourtant été produit à partir d'un
+    texte écrit au clavier.
   ]
 
   #face-a-face(
@@ -1011,50 +1172,53 @@
     Faire remarquer `7f 45 4c 46` : c'est « ELF », lisible en ASCII. Un fichier
     binaire n'est pas du bruit, il a une structure — on l'ouvrira nous-mêmes au
     cours 3.
+
+    Le fichier montré est l'exécutable de `python3`, et ce n'est pas un hasard :
+    l'interpréteur du chemin de droite est lui-même arrivé au bout du chemin de
+    gauche. C'est ce que la diapositive suivante met en place.
   ]
 ]
-#d("Deux chemins du texte à l'exécution")[
+#d("La place de l'interpréteur")[
   #annonce[
-    Compiler traduit tout le programme une fois pour toutes. Interpréter lit
-    et exécute le texte à chaque lancement.
+    Un programme compilé s'adresse directement au système. Un programme
+    interprété passe d'abord par l'interpréteur, lui-même un exécutable.
   ]
 
-  #block(width: 100%, fill: gris, inset: (x: 12pt, y: 5pt), below: 0.4em)[
-    #text(size: 15pt, fill: estompe, weight: demi-gras)[Compilé]
-    #v(0.25em)
-    #chaine(
-      ("raven.c", "le texte écrit"),
-      ("compilateur", "une fois"),
-      ("raven.exe", "des instructions"),
-      ("résultat", "à chaque lancement"),
-    )
-  ]
-
-  #block(width: 100%, fill: accent.lighten(92%), inset: (x: 12pt, y: 5pt))[
-    #text(size: 15pt, fill: accent, weight: demi-gras)[Interprété]
-    #v(0.25em)
-    #chaine(
-      ("raven.py", "le texte écrit"),
-      ("interpréteur", "à chaque lancement"),
-      ("résultat", "rien sur le disque"),
-    )
-  ]
+  #couche(
+    icone-fenetre(taille: 30pt), "Programme interprété",
+    "bonjour.py, une page web", plein: true,
+  )
+  #liaison("le texte à exécuter", "le résultat")
+  #couche(
+    icone-fenetre(taille: 30pt), "Interpréteur",
+    "python, le navigateur",
+  )
+  #liaison("« ouvre ce fichier »", "le contenu")
+  #couche(
+    icone-engrenage(taille: 30pt), "Système d'exploitation",
+    "Windows, macOS, Linux",
+  )
 
   #legende[
-    Lancer un programme Python ne crée rien sur le disque, et c'est aussi
-    pourquoi il est plus lent.
+    Un programme compilé n'a pas cet étage intermédiaire : `bonjour.exe`
+    s'adresse directement au système.
   ]
 
   #notes[
-    Le schéma dit tout : la chaîne compilée a une étape de plus, mais elle
-    n'est faite qu'une fois ; la chaîne interprétée en a une de moins, mais
-    elle la refait à chaque exécution.
+    Le mot à donner : un interpréteur est un programme comme les autres.
+    Celui de Python s'appelle `python`, et c'est son exécutable dont les
+    premiers octets viennent d'être montrés, `7f 45 4c 46`.
+    Ce qui exécute du texte est soi-même un binaire.
 
-    Semer ici le facteur ×100 à ×1000 du cours 6 et du TD 7 : `numpy` est
-    rapide parce qu'il délègue à du C compilé. Ne pas développer maintenant.
+    La conséquence pratique est celle qui compte : pour lancer un programme
+    Python, il faut que Python soit installé, alors qu'un exécutable compilé
+    se lance seul. C'est ce que la manipulation fera constater, et c'est
+    pourquoi la partie « Environnement de programmation » existe.
 
-    Question qui vient toujours : « et Java ? ». Répondre en une phrase, les
-    deux à la fois, et ne pas s'y engager.
+    Le navigateur est le second exemple, et le plus parlant : il interprète
+    trois langages sans que personne ne l'appelle « interpréteur ». Le mot
+    désigne un rôle, pas une catégorie de logiciel. Sous les trois couches il
+    y a le matériel, comme à la diapositive « Le système d'exploitation ».
   ]
 ]
 #d("L'éditeur de code")[
@@ -1091,6 +1255,327 @@
 
     VSCode s'affiche en anglais par défaut ; le module ne demande pas de le
     changer.
+  ]
+]
+#d("Les fonctions d'un IDE")[
+  #annonce[
+    IDE, pour _integrated development environment_, se traduit par
+    environnement de développement intégré : un seul logiciel réunit ce qui
+    demandait autant d'outils séparés.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [La fonction], [Ce que l'éditeur en fournit],
+    [Écrire le code],
+      [coloration, indentation, complétion, soulignement des fautes],
+    [Le lancer et le tester],
+      [un terminal intégré et un bouton d'exécution, sans quitter la fenêtre],
+    [Naviguer dans le projet],
+      [l'arborescence à gauche, la recherche dans tous les fichiers],
+    [Déboguer],
+      [exécuter pas à pas, arrêter sur une ligne, lire les variables],
+  )
+
+  #legende[
+    Un éditeur de texte ordinaire ne fait que la première ligne. C'est
+    l'intégration des autres qui fait l'environnement.
+  ]
+
+  #notes[
+    Le sigle est anglais et le restera : « environnement de développement
+    intégré » est la traduction officielle, « EDI » son abréviation, et
+    personne ne l'emploie. Le dire une fois pour que le mot lu ailleurs soit
+    reconnu.
+
+    Les deuxième et troisième lignes sont celles qui distinguent un IDE d'un
+    éditeur de texte, et ce sont elles qu'on va employer aujourd'hui : le
+    terminal intégré à la manipulation qui vient, l'arborescence dès qu'on
+    ouvre un dossier plutôt qu'un fichier.
+
+    Le débogage est nommé, pas montré : il vient au cours 2, une fois qu'il y
+    aura des programmes assez longs pour en avoir besoin. Le panneau git est
+    dans la même situation.
+
+    Microsoft présente VSCode comme un éditeur de code plutôt que comme un
+    IDE, la différence étant que les fonctions avancées viennent d'extensions
+    installées. La frontière est commerciale autant que technique ; ne pas
+    s'y attarder si la question ne vient pas.
+  ]
+]
+#d("Lancer un programme depuis l'éditeur")[
+  #annonce[
+    Le bouton exécute le fichier ouvert, le terminal exécute ce qu'on y tape.
+    Le premier est plus rapide, le second est le même partout.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr, 1fr),
+    align: left + horizon,
+    [], [Le bouton d'exécution], [Le terminal intégré],
+    [Où le trouver],
+      [en haut à droite de l'éditeur],
+      [Terminal #sym.arrow.r Nouveau terminal],
+    [Sur un `.py`],
+      [« Run Python File »],
+      [`python bonjour.py`],
+    [Sur un `.cpp`],
+      [« Run C/C++ File », qui demande le compilateur la première fois],
+      [`g++ …`, puis l'exécutable produit],
+    [Ce qu'il choisit à votre place],
+      [l'interpréteur, réglé par `Ctrl` + `Maj` + `P` #sym.arrow.r « Python: Select Interpreter »],
+      [rien : la commande dit tout],
+  )
+
+  #legende[
+    Le bouton écrit sa commande dans le terminal avant de l'exécuter : elle
+    reste lisible, et c'est celle-là qu'il faut savoir écrire.
+  ]
+
+  #notes[
+    La diapositive répond à une question que la partie laissait ouverte : on a
+    dit qu'un IDE sert à lancer et tester, sans jamais montrer par où. Trois
+    menus, et c'est tout ce qu'il faut aujourd'hui.
+
+    Le module fait écrire la commande à la main, et il faut dire pourquoi
+    plutôt que de l'imposer : elle est identique sur les trois systèmes, elle
+    se relit, et c'est elle qu'on enchaînera au cours 2 puis qu'on mettra dans
+    un script au cours 3. Le bouton, lui, est différent d'un langage à
+    l'autre et masque ce qu'il fait.
+
+    La dernière ligne est celle qui coûte le plus cher si elle est sautée. Le
+    bouton exécute avec l'interpréteur sélectionné, qui n'est pas forcément
+    celui de l'environnement du module : c'est l'origine du `ModuleNotFoundError`
+    « sur un paquet qu'on vient d'installer », annoncé à la partie 4. La
+    sélection vaut aussi pour le terminal, que l'extension Python active
+    ensuite toute seule.
+
+    Sur le bouton C++ : il existe, il s'appelle « Run C/C++ File », et il
+    demande de choisir un compilateur au premier lancement, puis écrit un
+    `tasks.json` dans le projet. Ne pas l'employer en séance — cela ajoute un
+    fichier de configuration à expliquer — mais savoir répondre à celui qui
+    l'aura trouvé.
+  ]
+]
+#separateur-manip(
+  "Un hello world en Python et en C++",
+  annonce: "Ouvrir les deux projets dans l'éditeur, puis les exécuter depuis son terminal",
+)
+#d("Lancer les deux programmes")[
+  #annonce[
+    Six gestes, dans cet ordre. Le terminal de l'éditeur s'ouvre déjà dans le
+    dossier du projet : il n'y a aucun chemin à écrire.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [], [Ce qu'il faut faire],
+    [1], [Fichier #sym.arrow.r Ouvrir le dossier, puis choisir `data/cours1/hello/`],
+    [2], [`Ctrl` + `Maj` + `P`, « Python: Select Interpreter », choisir `info01`],
+    [3], [Terminal #sym.arrow.r Nouveau terminal : il s'ouvre en bas, dans `hello/`],
+    [4], [taper `python python/bonjour.py`, puis Entrée],
+    [5], [taper `g++ cpp/bonjour.cpp -o cpp/bonjour`, puis Entrée],
+    [6], [taper `cpp/bonjour`, puis Entrée],
+  )
+
+  #legende[
+    L'étape 5 n'affiche rien, et c'est normal : elle produit un fichier.
+    Sous Windows, l'exécutable s'appelle `cpp\bonjour.exe` et se lance par
+    `.\cpp\bonjour.exe`.
+  ]
+
+  #notes[
+    Les gestes sont écrits un par un, et il faut les projeter tels quels.
+    L'objectif seul ne suffit pas à cette séance : une étape sous-entendue
+    est une étape où la moitié de la salle s'arrête sans le dire.
+
+    Le bouton d'exécution fait la même chose que l'étape 4, et il existe aussi
+    pour le C++ — c'est la diapositive précédente. Le montrer après, jamais
+    avant : c'est la commande écrite à la main qui doit rester, parce qu'elle
+    est la même partout et qu'elle se relit.
+
+    L'étape 2 évite le `ModuleNotFoundError` de fin de séance : sans elle, le
+    terminal peut ouvrir un autre Python que celui du module. Elle ne coûte
+    rien aujourd'hui, où aucune bibliothèque n'est importée, et c'est
+    justement pourquoi on la fait maintenant.
+
+    L'étape 5 est celle où l'on attend une question, puisqu'il ne se passe
+    rien à l'écran. Faire regarder l'arborescence à gauche plutôt que le
+    terminal : le fichier `cpp/bonjour` vient d'y apparaître.
+
+    Sous Windows, `g++` n'est pas fourni : il vient avec MinGW-w64, MSYS2 ou
+    le sous-système Windows pour Linux. Prévoir un poste de démonstration si
+    personne dans la salle n'en dispose.
+  ]
+]
+#d("Ce que chaque lancement a produit")[
+  #annonce[
+    Les deux programmes affichent la même phrase. Ce qui les distingue est le
+    nombre d'étapes, et ce qui reste sur le disque.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr, 1fr),
+    align: left + horizon,
+    [], [`python/bonjour.py`], [`cpp/bonjour.cpp`],
+    [Nombre d'étapes], reponse[une], reponse[deux : compiler, puis exécuter],
+    [Ce qui apparaît dans l'arborescence],
+      reponse[rien],
+      reponse[`cpp/bonjour`, un exécutable],
+    [Taille du fichier source], [121 octets], [230 octets],
+    [Taille du fichier produit],
+      reponse[aucun fichier],
+      reponse[environ 20 000 octets],
+  )
+
+  #legende[
+    La taille de l'exécutable dépend du compilateur et du système ; le
+    rapport à la source, près de cent fois, n'en dépend pas.
+  ]
+
+  #notes[
+    C'est la diapositive « Deux chemins du texte à l'exécution », faite à la
+    main. Y renvoyer explicitement : la chaîne compilée a une étape de plus,
+    mais elle ne la refait pas.
+
+    Le rapport de taille est le chiffre à faire dire. L'exécutable embarque
+    de quoi tourner sans le compilateur, d'où le facteur cent ; le fichier
+    Python, lui, ne peut rien faire sans l'interpréteur, qui est déjà
+    installé et qu'on ne compte donc pas.
+
+    Faire ouvrir `cpp/bonjour` dans l'éditeur pour constater qu'il est
+    illisible : c'est la diapositive « Code source et fichier exécutable »,
+    vérifiée par eux. Ajouter que `python` est un exécutable de la même
+    espèce, ce qui referme la diapositive sur l'interpréteur.
+
+    Le terminal est repris pour lui-même à la partie « Environnement de
+    programmation », et c'est là que la notion de dossier courant est nommée.
+  ]
+]
+// Le résultat de la manipulation, quand la capture est disponible.
+#if captures-disponibles {
+d("Les deux exécutions dans l'éditeur")[
+  #annonce[
+    Le terminal de l'éditeur garde la trace des trois commandes, et
+    l'arborescence montre le fichier que la compilation vient de produire.
+  ]
+
+  #align(center)[
+    #illustration(
+      "../../../data/cours1/illustrations/vscode_hello.png",
+      none,
+      hauteur: hauteur-capture-pleine,
+    )
+  ]
+
+  #legende[
+    `cpp/bonjour` n'existait pas avant la deuxième commande. Le programme
+    Python, lui, n'a rien laissé.
+  ]
+
+  #notes[
+    Trois commandes, deux langages, une seule fenêtre : c'est aussi
+    l'argument de l'éditeur de code, montré plutôt qu'énoncé.
+
+    Faire remarquer que la sortie affichée est identique, alors que le chemin
+    pour l'obtenir ne l'est pas. C'est le fil de toute la partie.
+  ]
+]
+}
+// ================ Édition de texte et contenu des fichiers ==================
+
+#separateur(
+  "Édition de texte et contenu des fichiers",
+  annonce: "Ce qu'on édite dans un projet, avec quel outil, et ce que contient vraiment un fichier",
+)
+#d("Programmation et édition de texte")[
+  #annonce[
+    Programmer, c'est écrire du texte dans un fichier. Le faire vite et sans
+    faute s'apprend, et c'est ce à quoi sert un éditeur de code.
+  ]
+
+  #tableau(
+    columns: (1fr, 1fr),
+    align: left + horizon,
+    [Dans un éditeur de texte ordinaire], [Dans un éditeur de code],
+    [une faute de frappe se découvre à l'exécution],
+      [elle est soulignée pendant la frappe],
+    [on cherche un fichier dans l'explorateur],
+      [l'arborescence et la recherche sont dans la fenêtre],
+    [on relance le programme dans une autre fenêtre],
+      [le terminal est sous le code],
+    [une indentation fausse ne se voit pas],
+      [les espaces s'affichent],
+  )
+
+  #legende[
+    La colonne de droite est ce que cette partie détaille, ligne après ligne.
+  ]
+
+  #notes[
+    L'ouverture de la partie, et son argument : tout ce qui sera produit cette
+    année passe par l'édition d'un fichier texte — le programme, ses réglages,
+    sa documentation, et jusqu'à ce que git doit ignorer. Ce n'est donc pas un
+    détail d'outillage, c'est le geste de base.
+
+    La colonne de gauche n'est pas une caricature : c'est ce que fait
+    quelqu'un qui écrit son code dans le Bloc-notes, et plusieurs l'auront
+    fait au lycée. Ne pas se moquer, montrer ce que cela coûte.
+
+    Les quatre lignes annoncent le plan de la partie : ce que l'éditeur
+    affiche, ce qu'il vérifie, et ce qu'il rend visible. Ils viennent de faire
+    la troisième colonne sans le savoir, en lançant leurs deux programmes
+    depuis le terminal intégré.
+  ]
+]
+#d("Texte brut et document mis en forme")[
+  #annonce[
+    Un programme s'écrit dans un éditeur de texte brut. Un traitement de
+    texte enregistrerait de la mise en forme, que ni Python ni le compilateur
+    ne savent lire.
+  ]
+
+  #face-a-face(
+    panneau("Enregistré par un éditeur de code")[
+      ```python
+      print("Bonjour")
+      ```
+    ],
+    panneau("Enregistré par un traitement de texte")[
+      ```xml
+      <text:p text:style-name="P1">
+      print("Bonjour")</text:p>
+      ```
+    ],
+  )
+
+  #legende[
+    À droite, le `content.xml` ouvert en début de séance. La seule mise en
+    forme qui compte dans un programme est l'indentation, et elle est faite
+    d'espaces.
+  ]
+
+  #notes[
+    La règle, énoncée une fois et sans nuance : on n'écrit jamais de code
+    dans Word ni dans LibreOffice. Pas de gras, pas de taille de police, pas
+    de style — non parce que ce serait laid, mais parce que rien de tout cela
+    n'a d'endroit où être enregistré dans un `.py`.
+
+    Le piège qui coûtera une heure à quelqu'un cette année est plus discret :
+    un traitement de texte remplace tout seul les guillemets droits par des
+    guillemets typographiques, et le tiret par un tiret cadratin. Le
+    programme recopié depuis un document Word refuse alors de s'exécuter, sur
+    un message qui ne parle pas de guillemets. Le dire maintenant, et le
+    rappeler au premier cas rencontré.
+
+    Rattacher à la manipulation du début de séance : ils ont ouvert le
+    `content.xml` d'un `.odt` et vu le texte noyé dans les balises de style.
+    C'est exactement ce que recevrait l'interpréteur.
+
+    Le Bloc-notes, lui, enregistre bien du texte brut : il conviendrait, mais
+    il ne rend aucun des services énumérés à la partie précédente.
   ]
 ]
 #d("Ce que l'éditeur ajoute au texte")[
@@ -1147,6 +1632,48 @@
     coloration, qui n'y est pas. C'est le sens de la dernière colonne.
   ]
 ]
+#d("Les règles d'écriture d'un langage")[
+  #annonce[
+    Un langage de programmation a une grammaire, appliquée à la lettre. Elle a
+    beaucoup moins d'exceptions que l'orthographe, et c'est ce qui permet à un
+    logiciel de la vérifier à votre place.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr, 1fr),
+    align: left + horizon,
+    [], [L'orthographe du français], [La grammaire d'un langage],
+    [Les règles],
+      [nombreuses, et souvent affaire d'usage],
+      [peu nombreuses, et écrites noir sur blanc],
+    [Les exceptions], [à apprendre une par une], [presque aucune],
+    [Qui tranche], [l'usage, parfois personne], [l'interpréteur, sans appel],
+    [Une faute], [le lecteur comprend quand même], [le programme s'arrête],
+  )
+
+  #legende[
+    Les diapositives suivantes montrent ce que l'éditeur tire de ces règles :
+    la couleur, puis le soulignement.
+  ]
+
+  #notes[
+    La comparaison avec l'orthographe est là pour désamorcer une inquiétude,
+    et il faut la formuler dans ce sens : un langage de programmation
+    s'apprend plus vite qu'une langue, parce qu'il a peu de règles et presque
+    pas d'exceptions. Ce qui est dur n'est pas la syntaxe, c'est de savoir
+    quoi écrire — et cela relève du cours de programmation.
+
+    La contrepartie est la dernière ligne : la machine n'interprète pas les
+    intentions. Une virgule oubliée arrête tout, là où un lecteur humain
+    aurait rétabli le sens sans y penser. C'est déroutant au début et cela ne
+    l'est plus ensuite.
+
+    C'est aussi ce qui rend la vérification automatique possible. On ne peut
+    pas écrire un logiciel qui corrige un texte français de façon sûre ; on
+    peut en écrire un qui vérifie un programme, et c'est exactement ce que
+    fait l'extension installée tout à l'heure.
+  ]
+]
 // La coloration est ici le sujet de la diapositive, et non un ornement : c'est
 // la seule du deck où une couleur autre que les trois du thème est légitime.
 // Le bloc de gauche est écrit sans langage déclaré, ce qui suffit à l'obtenir
@@ -1195,7 +1722,7 @@
 ]
 #d("Les extensions de l'éditeur")[
   #annonce[
-    L'éditeur colore seul les langages les plus courants. Une extension y
+    VSCode colore seul les langages les plus courants. Une extension y
     ajoute la vérification de l'écriture, la complétion et le lancement du
     programme.
   ]
@@ -1210,8 +1737,9 @@
   )
 
   #legende[
-    Panneau Extensions, `Ctrl` + `Maj` + `X`. Les trois sont publiées par
-    Microsoft et s'installent en un clic.
+    Panneau Extensions, `Ctrl` + `Maj` + `X`. Ces identifiants sont ceux du
+    catalogue de VSCode ; un autre IDE rend les mêmes services sous d'autres
+    noms, parfois sans rien installer.
   ]
 
   #notes[
@@ -1319,8 +1847,8 @@
     l'affiche.
 
     Annoncer le rapprochement : le saut de ligne est un caractère comme les
-    autres, ce que la partie « Formats de fichier » montrera sur un poème
-    tenant tout entier sur une seule ligne.
+    autres, ce que la manipulation « Un texte, quatre formes » montrera plus
+     loin dans cette partie, sur un poème tenant tout entier sur une ligne.
   ]
 ]
 // Sans capture, cette diapositive n'ajouterait rien au bloc de la précédente.
@@ -1350,88 +1878,6 @@ d("Les caractères invisibles, affichés")[
 
     Le message d'erreur du terminal désigne la bonne ligne. Insister : lire le
     numéro de ligne d'une erreur est un réflexe à prendre aujourd'hui.
-  ]
-]
-}
-#separateur-manip(
-  "Un hello world en Python et en C++",
-  annonce: "Ouvrir les deux projets dans l'éditeur, puis les exécuter depuis son terminal",
-)
-#d("Lancer les deux programmes")[
-  #annonce[
-    Deux programmes qui affichent la même phrase, dans deux langages qui ne
-    s'exécutent pas de la même façon.
-  ]
-
-  #tableau(
-    columns: (auto, 1fr, 1fr),
-    align: left + horizon,
-    [], [`python/bonjour.py`], [`cpp/bonjour.cpp`],
-    [Ce qu'on tape],
-      [`python python/bonjour.py`],
-      [`g++ cpp/bonjour.cpp -o cpp/bonjour`, puis `cpp/bonjour`],
-    [Nombre d'étapes], reponse[une], reponse[deux : compiler, puis exécuter],
-    [Ce qui apparaît sur le disque], reponse[rien], reponse[`cpp/bonjour`, un exécutable],
-    [Taille du fichier source], [230 octets], [230 octets],
-    [Taille du fichier produit], reponse[aucun fichier], reponse[23 624 octets],
-  )
-
-  #legende[
-    Ouvrir le dossier `data/cours1/hello/` dans l'éditeur, puis
-    Terminal #sym.arrow.r Nouveau terminal. Tailles relevées sur les fichiers
-    du cours.
-  ]
-
-  #notes[
-    C'est la diapositive « Deux chemins du texte à l'exécution », faite à la
-    main. Y renvoyer explicitement : la chaîne compilée a une étape de plus,
-    mais ne la refait pas.
-
-    Le terminal de l'éditeur s'ouvre déjà dans le dossier du projet, ce qui
-    évite pour l'instant toute question de chemin. Le dire, sans plus : le
-    terminal est repris pour lui-même à la partie « Environnement de
-    programmation », et c'est là que la notion de dossier courant est nommée.
-
-    Sous Windows, `g++` n'est pas fourni : il vient avec MinGW-w64, MSYS2 ou
-    le sous-système Windows pour Linux, et l'exécutable produit s'appelle
-    alors `bonjour.exe`. Prévoir un poste de démonstration si personne ne l'a.
-
-    Le rapport de taille est le chiffre à faire dire : cent fois le fichier de
-    départ, parce que l'exécutable embarque de quoi tourner sans le
-    compilateur.
-
-    Faire ouvrir `cpp/bonjour` dans l'éditeur pour constater qu'il est
-    illisible : c'est la diapositive « Code source et fichier exécutable »,
-    vérifiée par eux.
-  ]
-]
-// Le résultat de la manipulation, quand la capture est disponible.
-#if captures-disponibles {
-d("Les deux exécutions dans l'éditeur")[
-  #annonce[
-    Le terminal de l'éditeur garde la trace des trois commandes, et
-    l'arborescence montre le fichier que la compilation vient de produire.
-  ]
-
-  #align(center)[
-    #illustration(
-      "../../../data/cours1/illustrations/vscode_hello.png",
-      none,
-      hauteur: hauteur-capture-pleine,
-    )
-  ]
-
-  #legende[
-    `cpp/bonjour` n'existait pas avant la deuxième commande. Le programme
-    Python, lui, n'a rien laissé.
-  ]
-
-  #notes[
-    Trois commandes, deux langages, une seule fenêtre : c'est aussi
-    l'argument de l'éditeur de code, montré plutôt qu'énoncé.
-
-    Faire remarquer que la sortie affichée est identique, alors que le chemin
-    pour l'obtenir ne l'est pas. C'est le fil de toute la partie.
   ]
 ]
 }
@@ -1535,12 +1981,186 @@ d("Les deux exécutions dans l'éditeur")[
     se compile pas : le soulignement de l'éditeur reste la seule vérification.
   ]
 ]
-// ========================= Formats de fichier et outils =====================
-
-#separateur(
-  "Formats de fichier",
-  annonce: "Un même texte sous quatre formes, puis ce que ses octets révèlent",
+#separateur-reprise(
+  "Markdown et les autres fichiers texte",
+  annonce: "Ce qu'on édite dans un projet, en dehors du code",
 )
+#d("Les fichiers texte d'un projet")[
+  #annonce[
+    Le code n'est pas le seul texte d'un projet. Les réglages, les données et
+    la documentation s'écrivent aussi en texte, dans le même éditeur.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr, auto),
+    align: left + horizon,
+    [Fichier], [Ce qu'il porte], [Qui le lit],
+    [`.py`], [les instructions du programme], [l'interpréteur],
+    [`.json`, `.yaml`], [les réglages, des données structurées], [un programme],
+    [`.csv`], [des données en tableau], [un programme, un tableur],
+    [`.md`], [la documentation, les notes, le `README`], [un humain],
+  )
+
+  #legende[
+    Tous s'ouvrent dans l'éditeur, se comparent ligne à ligne et se
+    versionnent. Un fichier GeoJSON est un `.json`, et rien d'autre.
+  ]
+
+  #notes[
+    La diapositive corrige une impression que la partie a pu laisser jusqu'ici :
+    on n'écrit pas que du code dans un éditeur de code. Sur un projet réel, les
+    fichiers de réglage et la documentation sont souvent plus nombreux que les
+    fichiers de programme.
+
+    `.json` et `.yaml` portent la même chose et se convertissent l'un en
+    l'autre ; le premier est celui que les programmes écrivent, le second
+    celui que les humains écrivent, parce qu'il accepte des commentaires. Une
+    phrase, pas plus.
+
+    L'accroche géomatique est à donner ici : un GeoJSON exporté d'uMap ou de
+    QGIS est un fichier `.json` ordinaire, qui s'ouvre dans l'éditeur et se
+    lit. C'est le fichier de l'annexe « Une vidéo, deux chemins ».
+
+    Le `README` est nommé dès maintenant parce qu'il est le livrable de fin de
+    séance et le premier commit du cours 2.
+  ]
+]
+#d("L'intention de Markdown")[
+  #annonce[
+    John Gruber, 2004 : un format de texte facile à lire et à écrire,
+    convertible en HTML, et publiable tel quel sans avoir l'air balisé.
+  ]
+
+  #face-a-face(
+    panneau[Le fichier `.md`][
+      ```markdown
+      # The Raven
+
+      Poème d'*Edgar Allan Poe*, 1845.
+
+      - publié en janvier
+      - 108 vers
+      ```
+    ],
+    panneau[Le même contenu en HTML][
+      ```html
+      <h1>The Raven</h1>
+      <p>Poème d'<em>Edgar Allan
+      Poe</em>, 1845.</p>
+      <ul><li>publié en janvier</li>
+      <li>108 vers</li></ul>
+      ```
+    ],
+  )
+
+  #legende[
+    Les deux produisent le même affichage. Celui de gauche se lit sans être
+    converti, et c'est très exactement le but que Gruber s'était fixé.
+  ]
+
+  #notes[
+    Markdown est annoncé le 15 mars 2004 par John Gruber sur son site Daring
+    Fireball. Aaron Swartz en est l'unique bêta-testeur et discute la syntaxe ;
+    les titres en `#` viennent d'atx, son propre format. L'inspiration
+    revendiquée est le courriel en texte brut, où l'on encadrait déjà d'astérisques
+    ce qu'on voulait mettre en valeur.
+
+    L'intention à faire entendre, parce qu'elle n'est pas évidente : Markdown
+    n'est pas un HTML simplifié pour ceux qui n'y arriveraient pas. Sa
+    contrainte de départ est que la source reste lisible sans conversion. Tout
+    le reste en découle, y compris ce qu'il ne sait pas faire.
+
+    Depuis 2014, CommonMark en fixe une spécification et une suite de tests,
+    les implémentations divergeant sur les cas limites. Ne le dire que si
+    quelqu'un signale qu'un même fichier ne rend pas pareil partout.
+  ]
+]
+#d("Trois façons d'écrire un document")[
+  #annonce[
+    Le choix se fait sur ce qu'on veut pouvoir faire ensuite : relire,
+    comparer, ou mettre en page.
+  ]
+
+  #tableau(
+    columns: (1.1fr, 0.9fr, 1fr, 1fr),
+    align: left + horizon,
+    [], [`.txt`], [`.md`], [`.odt`, `.docx`],
+    [Titres, listes, emphase], [aucun], [dans le texte], [dans des balises],
+    [Lisible sans logiciel], [oui], [oui], [non],
+    [Se compare ligne à ligne], [oui], [oui], [non],
+    [Mise en page fine], [non], [non], [oui],
+    [Quand l'employer],
+      [une note jetable, la sortie d'un programme],
+      [`README`, notes, doc d'un projet],
+      [un rapport à rendre, une charte imposée],
+  )
+
+  #legende[
+    Markdown se convertit vers les autres, `pandoc notes.md -o notes.pdf` au
+    cours 2 : le choix n'engage pas le rendu final.
+  ]
+
+  #notes[
+    La ligne qui décide est la dernière, et les trois colonnes ne s'opposent
+    pas : elles répondent à trois besoins qu'on a tour à tour dans la même
+    semaine.
+
+    Le piège à désamorcer tout de suite, sans quoi ils retournent à
+    LibreOffice : « mon rapport doit être en PDF » n'est pas un argument
+    contre Markdown, puisque `pandoc` produit le PDF depuis le `.md`. Ce qu'on
+    perd est le contrôle fin de la mise en page, ce qu'on gagne est de pouvoir
+    relire, comparer et versionner. C'est l'arbitrage, il faut le nommer.
+
+    Le `.txt` n'est pas un format inférieur : c'est celui des sorties de
+    programme et des relevés, où toute structure serait une gêne. Le poème du
+    début de séance en est un.
+  ]
+]
+#d("Markdown, JSON et YAML dans l'éditeur")[
+  #annonce[
+    Les trois s'éditent sans rien installer, mais l'éditeur ne les sert pas
+    également : deux sont complets d'origine, le troisième ne l'est pas.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr, 1fr),
+    align: left + horizon,
+    [Format], [Fourni d'origine], [Ce qu'une extension ajoute],
+    [`.md`],
+      [coloration, aperçu `Ctrl` + `Maj` + `V`, plan du document, liens vérifiés],
+      [du confort, rien d'essentiel],
+    [`.json`],
+      [coloration, pliage, formatage, vérification par schéma],
+      [rien, le plus souvent],
+    [`.yaml`],
+      [la coloration, et rien de plus],
+      [la vérification par schéma, `redhat.vscode-yaml`],
+  )
+
+  #legende[
+    Relevé dans les extensions livrées avec VSCode :
+    `markdown-language-features` et `json-language-features` y sont,
+    `yaml-language-features` n'existe pas.
+  ]
+
+  #notes[
+    La diapositive répond à la question posée deux fois depuis le début de la
+    partie : quand faut-il installer une extension ? La réponse n'est pas
+    « toujours », et elle se vérifie plutôt qu'elle ne se croit.
+
+    L'aperçu Markdown est à montrer en direct, `Ctrl` + `Maj` + `V` sur le
+    fichier de notes du jour : c'est le geste qu'ils emploieront le plus cette
+    année, et il ne demande rien à installer.
+
+    Le contraste avec « Les extensions de l'éditeur », vue plus haut dans
+    cette partie, est le point : Python et C++ en exigent une, Markdown et
+    JSON n'en ont pas besoin, YAML en tire un service précis et limité. Trois
+    cas, trois réponses.
+
+    Vérifié sur le poste de préparation en listant le dossier des extensions
+    fournies avec l'éditeur. Le catalogue est le même sur les trois systèmes.
+  ]
+]
 #separateur-manip(
   "Un texte, quatre formes",
   annonce: "Le même poème en .txt, en .odt, en .html, puis avec une feuille de style",
@@ -2269,36 +2889,48 @@ d("Les deux exécutions dans l'éditeur")[
     c'est pour cette raison que le texte se versionne bien.
   ]
 ]
-#d("Ce que le notebook réunit")[
+#d("Quand un notebook, quand un script")[
   #annonce[
-    Rien de neuf dans un notebook : il rassemble quatre choses vues plus tôt
-    dans la séance.
+    Un notebook sert à comprendre et à montrer, un script à refaire. Le même
+    code passe souvent de l'un à l'autre.
   ]
 
   #tableau(
-    columns: (1fr, auto),
+    columns: (1fr, 1fr, 1fr),
     align: left + horizon,
-    [Ce que vous y retrouvez], [Vu à la partie],
-    [une adresse `http://localhost:8888`, et non `file:///`], [Logiciels et formats de fichier],
-    [un calcul qui se fait chez vous, ou sur un serveur], [Logiciels et formats de fichier],
-    [un noyau, qui est l'environnement Python choisi], [Environnement de programmation],
-    [un `.ipynb` qui n'est pas tout à fait du texte], [Formats de fichier],
+    [], [Notebook], [Script `.py`],
+    [Ce qu'on y cherche], [explorer, expliquer, montrer], [refaire, automatiser],
+    [Exécution], [cellule par cellule, l'état reste], [du début à la fin],
+    [Le résultat], [dans le document, avec le texte qui l'explique], [à l'écran ou dans un fichier],
+    [Se relance seul], [non], [oui],
+    [Se partage comme outil], [mal : il faut le noyau, et le bon ordre], [bien : une commande],
   )
 
   #legende[
-    Dernier point de la séance, et premier outil des cours suivants.
+    On explore dans un notebook, on livre un script. Ce passage est le sujet
+    du cours 3.
   ]
 
   #notes[
-    Diapositive de clôture : la faire lire ligne à ligne en demandant à la
-    salle où chacune a été vue. C'est un contrôle de compréhension déguisé, et
-    il tient en deux minutes.
+    La diapositive répond à la question que la partie ne posait pas : à quoi
+    un notebook sert-il mieux qu'un fichier `.py` ? Sans elle, ils savent en
+    lancer un sans savoir quand en ouvrir un.
 
-    Le message : un notebook n'est pas un objet à part, c'est un assemblage
-    d'éléments dont ils connaissent déjà chacun. Ce qui leur reste à
-    apprendre est l'usage, pas la nature.
+    Le cas d'usage à décrire, parce qu'il se reconnaît : on ouvre un notebook
+    parce qu'on ne sait pas encore ce qu'on cherche. On essaie, on regarde, on
+    garde le commentaire à côté du résultat. Le jour où cela marche et doit
+    tourner chaque semaine sans surveillance, cela devient un script — et
+    c'est le cours 3.
 
-    Enchaîner sur « À retenir », qui fait le même travail pour toute la séance.
+    La ligne qui surprend est la dernière. Un notebook donné à quelqu'un
+    d'autre demande le bon noyau, les bonnes bibliothèques et que les cellules
+    soient exécutées dans l'ordre ; un script se donne avec une ligne de
+    commande. Rattacher à la diapositive précédente : c'est aussi pourquoi le
+    `.ipynb` se versionne mal.
+
+    Ne pas opposer les deux. Le notebook n'est pas un brouillon honteux et le
+    script n'est pas la version sérieuse : ce sont deux moments du même
+    travail.
   ]
 ]
 #d("À retenir")[

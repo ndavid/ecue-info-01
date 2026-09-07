@@ -55,6 +55,10 @@ la détaillaient sont conservées en annexe du deck.
 
 ## Partie 1 — Logiciels et formats de fichier
 
+> **Le rythme est annoncé avant d'entrer dans la partie.** Une diapositive suit celle des notions déjà vues au lycée : la partie 1 les reprend, elle avance donc plus vite que les suivantes, et c'est la seule où le rythme est délibérément élevé. Le temps gagné va aux manipulations.
+>
+> Elle porte un **point d'attention** encadré (`bloc-titre`) : si quelque chose n'est pas clair ici, la question se pose tout de suite. Formulation qui fonctionne mieux qu'une invitation générale — dire qu'ici, ne pas comprendre est probable et normal *parce qu'on va vite exprès*, si bien que la question n'est pas un aveu mais ce que le rythme suppose. Le passage à surveiller est le vocabulaire (logiciel, application, format, extension, chemin) : des mots qu'ils croient connaître, et où les malentendus s'installent sans bruit.
+
 ### 🎓 12′ — Qu'est-ce qu'un logiciel (haut niveau)
 
 - Schéma unique et réutilisé tout le semestre : **entrée → traitement → sortie**. Distinguer deux sortes de sorties : celle **qui reste** (un fichier) et celle **qui passe** (un périphérique : écran, son). Le module s'intéresse surtout à la première, parce que c'est elle qui se relit, se compare et se versionne.
@@ -143,7 +147,7 @@ La quatrième ligne est la plus instructive et n'est pas intuitive : avec une ex
 **4. Modifier le document sans traitement de texte.** Éditer les fichiers extraits, recompresser, renommer en `.odt` :
 
 - le texte : dans `content.xml`, remplacer `>The Raven<` par `>Le Corbeau<` ;
-- **un style, sans code hexadécimal** : dans `content.xml`, remplacer `Text_20_body` par `Heading_20_1` sur un paragraphe, qui devient un titre. Une diapositive montre la ligne avant et après, la partie changée en couleur ;
+- **un style, sans code hexadécimal** : dans `content.xml`, remplacer `Text_20_body` par `Heading_20_1` sur un paragraphe, qui devient un titre. Une diapositive montre la ligne avant et après, la partie changée en couleur. Le `_20_` intrigue toujours : ce n'est pas un nom en trois morceaux, c'est « Text body » dont l'espace est encodé, un nom XML n'en acceptant pas. ODF écrit chaque caractère interdit sous la forme de son code hexadécimal entre tirets bas, et l'espace vaut 20 — le même principe que le `%20` des adresses web. Le nom lisible est dans l'attribut `style:display-name`, et l'explication est donnée aux étudiants dans le notebook, avec un lien vers la spécification ;
 - la taille : dans `styles.xml`, sur `Heading_20_1`, passer `fo:font-size` de `115%` à `220%`.
 
 > **Sur la couleur, question attendue** : ODF n'accepte **pas** de nom de couleur. Vérifié — `fo:color="red"` est ignoré et le titre reste noir ; il faut `fo:color="#c0392b"`. C'est donc l'occasion d'expliquer le code hexadécimal, deux chiffres par composante rouge, verte et bleue. CSS, lui, accepte les deux écritures, ce qui se vérifie à la manipulation suivante.
@@ -160,11 +164,15 @@ L'argument à retenir dépasse la manipulation : un format **ouvert et document�
 
 ## Partie 2 — Programmation et éditeur de code
 
-### 🎓 10′ — Compilé et interprété *(ouverture de la partie)*
+### 🎓 10′ — Du code source à l'exécution *(ouverture de la partie)*
 
-La partie s'ouvre en **reprenant le schéma entrée → traitement → sortie** du début de séance, pour poser la question qu'il laissait ouverte : la boîte du milieu est un fichier, d'où vient-elle ? La réponse tient en deux temps, un humain écrit du texte, puis quelque chose le transforme en instructions.
+La partie s'ouvre sur le **vocabulaire**, diapositive « Programmes et applications » : un programme est un texte d'instructions, programmer c'est écrire ce texte, une application est un programme empaqueté pour celui qui s'en sert. Dire que la frontière entre les deux derniers tient à l'empaquetage et à l'usage, non à la technique, plutôt que de la laisser deviner — c'est la question qui revient chaque année. Le schéma entrée → traitement → sortie du début de séance se reprend ici **à l'oral**, pour poser ce qui suit : la boîte du milieu est un fichier, d'où vient-elle ?
+
+**Code source et fichier exécutable** répond en montrant les deux côte à côte, trois lignes de Python d'un côté, les premiers octets de l'exécutable `python3` de l'autre.
 
 **Interprété et compilé, en schéma plutôt qu'en tableau** : la chaîne compilée a une étape de plus (`raven.c` → compilateur → `raven.exe` → résultat) mais ne la fait **qu'une fois** ; la chaîne interprétée en a une de moins (`raven.py` → interpréteur → résultat) mais la refait **à chaque lancement**. Lancer un programme Python ne crée rien sur le disque, et c'est aussi pourquoi il est plus lent.
+
+**La place de l'interpréteur** reprend enfin le schéma en couches de la partie 1, avec un étage de plus : un programme interprété s'adresse à l'interpréteur, qui s'adresse au système ; un programme compilé n'a pas cet étage. Le point à faire est que `python` est lui-même un exécutable compilé, celui dont les octets viennent d'être montrés. Un navigateur tient le même rôle pour HTML, CSS et JavaScript, et personne ne l'appelle interpréteur : le mot désigne un rôle. Conséquence pratique, qui justifie la partie 4 — il faut que Python soit installé pour lancer un programme Python.
 
 Viennent ensuite, dans la même partie, la feuille de route des trois compétences, l'environnement conda et les notebooks : c'est l'outillage annoncé par le titre.
 
@@ -172,7 +180,7 @@ Viennent ensuite, dans la même partie, la feuille de route des trois compétenc
 
 - Un langage = un vocabulaire, une grammaire, un sens. Écrire un programme = écrire un texte respectant cette convention.
 - Démonstration : 3 lignes de Python affichées, exécutées en direct dans le notebook. Insister — *c'est du texte qu'on pourrait taper dans le Bloc-notes*.
-- **Interpréteur vs compilateur**, tableau à 3 lignes. Python est interprété.
+- La comparaison compilé / interprété est déjà faite juste avant : y renvoyer plutôt que la refaire.
 - **Graine explicite** : « exécution plus lente » → cours 6 (boucle vs numpy) et TD7 (×100–1000).
 
 ### 🎓 8′ — IDE (VSCode)
@@ -182,7 +190,72 @@ Une capture d'écran de VSCode ouvert sur un petit projet sert de support : les 
 - **Dossier = projet** (on n'ouvre pas un fichier isolé) — habitude structurante pour git au cours 2.
 - Explorateur, palette de commandes (`Ctrl+Maj+P`), terminal intégré, aperçu Markdown (`Ctrl+Maj+V`), extensions (Python, Jupyter, MyST).
 - Numéros de ligne, tabulation vs espaces, encodage affiché dans la barre d'état.
-- Un éditeur de code enregistre du **texte brut** : les couleurs sont un affichage, pas du contenu. C'est la différence avec le traitement de texte manipulé en début de séance.
+
+**Le sigle, une fois.** IDE, pour *integrated development environment*, se traduit par **environnement de développement intégré** ; « EDI » existe et ne s'emploie pas. La diapositive « Les fonctions d'un IDE » énumère ce que l'intégration recouvre — écrire le code, le lancer et le tester, naviguer dans le projet, déboguer — et l'argument est que seule la première ligne est le fait d'un éditeur de texte ordinaire. Les deuxième et troisième servent dès aujourd'hui, le débogage vient au cours 2. Ne pas s'attarder sur le fait que Microsoft présente VSCode comme un éditeur plutôt que comme un IDE : la frontière est commerciale autant que technique.
+
+### 🎓 4′ — Lancer un programme depuis l'éditeur
+
+La partie a dit qu'un IDE sert à lancer et à tester, sans jamais montrer par où. Trois menus suffisent, et ils sont projetés avant la manipulation plutôt que découverts pendant.
+
+| | Le bouton d'exécution | Le terminal intégré |
+|---|---|---|
+| Où le trouver | en haut à droite de l'éditeur | Terminal → Nouveau terminal |
+| Sur un `.py` | « Run Python File » | `python bonjour.py` |
+| Sur un `.cpp` | « Run C/C++ File », qui demande le compilateur la première fois | `g++ …`, puis l'exécutable produit |
+| Ce qu'il choisit à votre place | l'interpréteur, réglé par `Ctrl`+`Maj`+`P` → « Python: Select Interpreter » | rien : la commande dit tout |
+
+Le module fait écrire la commande à la main, et il faut **dire pourquoi** plutôt que de l'imposer : elle est identique sur les trois systèmes, elle se relit, et c'est elle qu'on enchaînera au cours 2 puis qu'on mettra dans un script au cours 3. Le bouton, lui, change d'un langage à l'autre et masque ce qu'il fait — mais il écrit sa commande dans le terminal avant de l'exécuter, ce qui est l'argument à montrer.
+
+> La dernière ligne est celle qui coûte cher si on la saute. Le bouton exécute avec **l'interpréteur sélectionné**, qui n'est pas forcément celui du module : c'est l'origine du `ModuleNotFoundError` « sur un paquet qu'on vient d'installer » annoncé en partie 4. La sélection vaut aussi pour le terminal, que l'extension Python active ensuite toute seule.
+
+> Sur le bouton C++ : il existe, s'appelle « Run C/C++ File », demande de choisir un compilateur au premier lancement puis écrit un `tasks.json` dans le projet. Ne pas l'employer en séance — cela ajoute un fichier de configuration à expliquer — mais savoir répondre à celui qui l'aura trouvé.
+
+### ⌨️ 10′ — Un hello world en Python et en C++ *(manipulation)*
+
+La manipulation tient sur deux diapositives : les gestes, puis ce qu'ils ont produit. **Les gestes sont écrits un par un et projetés tels quels** — l'objectif seul ne suffit pas à cette séance, une étape sous-entendue est une étape où la moitié de la salle s'arrête sans le dire.
+
+1. **Fichier → Ouvrir le dossier**, puis choisir `data/cours1/hello/` — le dossier, pas un fichier.
+2. **`Ctrl`+`Maj`+`P`**, taper « Python: Select Interpreter », choisir `info01`. Rien ne se passe visiblement, et c'est normal : le réglage sert au terminal qu'on ouvre juste après. Sans lui, `python` peut être un autre que celui du module.
+3. **Terminal → Nouveau terminal** : il s'ouvre en bas, déjà dans `hello/`, ce qu'il faut faire remarquer après les erreurs de chemin du début de séance.
+4. Taper `python python/bonjour.py`, puis Entrée.
+5. Taper `g++ cpp/bonjour.cpp -o cpp/bonjour`, puis Entrée. **Rien ne s'affiche**, et c'est l'étape où la question vient : faire regarder l'arborescence plutôt que le terminal, `cpp/bonjour` vient d'y apparaître.
+6. Taper `cpp/bonjour`, puis Entrée.
+
+Le bouton d'exécution fait la même chose que l'étape 4, et il existe aussi pour le C++ : c'est la diapositive précédente. Le montrer après, jamais avant — la commande écrite à la main est celle qui reste.
+
+| | `python/bonjour.py` | `cpp/bonjour.cpp` |
+|---|---|---|
+| Ce qu'on tape | `python python/bonjour.py` | `g++ cpp/bonjour.cpp -o cpp/bonjour`, puis `cpp/bonjour` |
+| Étapes | une | deux : compiler, puis exécuter |
+| Sur le disque | rien | `cpp/bonjour`, un exécutable |
+| Taille de la source | 121 octets | 230 octets |
+| Taille produite | aucun fichier | environ 20 000 octets, près de cent fois la source |
+
+La taille de l'exécutable dépend du compilateur et du système — 19 560 octets avec g++ 13.3, 23 624 relevés ailleurs — mais l'ordre de grandeur ne bouge pas, et c'est lui qu'on fait dire.
+
+C'est la diapositive « Deux chemins du texte à l'exécution » faite à la main : y renvoyer explicitement. Faire ensuite ouvrir `cpp/bonjour` dans l'éditeur pour constater qu'il est illisible — la diapositive « Code source et fichier exécutable », vérifiée par eux.
+
+Sous Windows, `g++` n'est pas fourni : MinGW-w64, MSYS2 ou le sous-système Windows pour Linux. Prévoir un poste de démonstration si personne ne l'a. Détails dans [`data/cours1/hello/README.md`](../../../data/cours1/hello/README.md).
+
+---
+
+## Partie 3 — Édition de texte et contenu des fichiers
+
+La partie s'ouvre là où commence le fil du texte, et son titre ne reprend plus celui de la partie 1. Elle enchaîne quatre choses : programmer c'est éditer du texte, ce que l'éditeur apporte à cette édition, les formats de texte d'un projet — Markdown en tête —, puis ce que contient vraiment un fichier, jusqu'à ses premiers octets.
+
+La manipulation « hello world » reste à la partie 2 : elle clôt l'exposé sur l'exécution, dont elle est la vérification. Celle des programmes fautifs vient ici, après les extensions et la vérification de l'écriture, dont elle dépend.
+
+### 🎓 4′ — Programmation et édition de texte *(ouverture de la partie)*
+
+Tout ce qui sera produit cette année passe par l'édition d'un fichier texte : le programme, ses réglages, sa documentation, jusqu'à ce que git doit ignorer. Ce n'est donc pas un détail d'outillage, c'est le geste de base — et c'est ce que la partie outille.
+
+La preuve visuelle est un face-à-face de ce que coûte l'édition sans outil adapté : une faute qui se découvre à l'exécution plutôt que soulignée à la frappe, un fichier cherché dans l'explorateur plutôt que dans l'arborescence, un programme relancé dans une autre fenêtre, une indentation fausse qui ne se voit pas. La colonne de droite annonce le plan de la partie.
+
+> La colonne de gauche n'est pas une caricature : c'est ce que fait quelqu'un qui écrit son code dans le Bloc-notes, et plusieurs l'auront fait au lycée. Ne pas s'en moquer, montrer ce que cela coûte.
+
+### 🎓 5′ — Texte brut et document mis en forme
+
+**Texte brut et document mis en forme.** Un programme s'écrit dans un éditeur de texte brut, jamais dans Word ni LibreOffice : pas de gras, pas de taille de police, pas de style, non parce que ce serait laid mais parce qu'un `.py` n'a aucun endroit où les enregistrer. La preuve est le `content.xml` ouvert en début de séance, la même ligne de code noyée dans les balises de style. Le piège concret à annoncer maintenant : un traitement de texte remplace tout seul les guillemets droits par des guillemets typographiques, et le programme recopié depuis un document Word refuse alors de s'exécuter sur un message qui ne parle pas de guillemets.
 
 ### 🎓 5′ — Ce que l'éditeur ajoute au texte
 
@@ -190,7 +263,22 @@ Deux fois la même ligne, en chasse fixe puis en chasse proportionnelle : à gau
 
 Point de culture à donner ici : un éditeur de code emploie toujours une police à chasse fixe, un traitement de texte une police proportionnelle. Le rapprocher de LibreOffice, manipulé en début de séance, où l'on choisit une police pour la mise en page alors qu'ici on la subit pour une raison technique.
 
-### 🎓 6′ — Règles d'écriture, coloration et extensions
+### 🎓 4′ — Les règles d'écriture d'un langage
+
+À placer **avant** la coloration et la vérification, qu'elle justifie l'une et l'autre. Un langage de programmation a une grammaire appliquée à la lettre, et surtout **beaucoup moins d'exceptions que l'orthographe** — c'est ce qui rend la vérification automatique possible.
+
+| | L'orthographe du français | La grammaire d'un langage |
+|---|---|---|
+| Les règles | nombreuses, et souvent affaire d'usage | peu nombreuses, et écrites noir sur blanc |
+| Les exceptions | à apprendre une par une | presque aucune |
+| Qui tranche | l'usage, parfois personne | l'interpréteur, sans appel |
+| Une faute | le lecteur comprend quand même | le programme s'arrête |
+
+La comparaison sert à désamorcer une inquiétude, et il faut la formuler dans ce sens : un langage s'apprend plus vite qu'une langue, parce qu'il a peu de règles et presque pas d'exceptions. Ce qui est difficile n'est pas la syntaxe mais de savoir quoi écrire, et cela relève du cours de programmation. La contrepartie est la dernière ligne : la machine n'interprète pas les intentions.
+
+> On ne peut pas écrire un logiciel qui corrige un texte français de façon sûre ; on peut en écrire un qui vérifie un programme. C'est exactement ce que fait l'extension installée à la manipulation qui suit.
+
+### 🎓 6′ — Coloration et extensions
 
 Trois diapositives qui expliquent ce que l'éditeur apporte au-delà de l'affichage, et qui préparent la manipulation.
 
@@ -214,21 +302,6 @@ Erreur qui coûtera des heures au semestre si elle n'est pas nommée maintenant.
 - Faire **activer l'affichage des espaces** sur les postes : Affichage → Rendu des espaces → Tout. Un point par espace, une flèche par tabulation.
 - Faire lire la **barre d'état** : `Spaces: 4` dit ce qu'insère la touche de tabulation, `LF` ou `CRLF` dit comment les lignes se terminent.
 - Sur les fins de ligne : Windows en met deux caractères, Linux et macOS un seul. Un même fichier n'a donc pas la même taille selon la machine qui l'a écrit, et un diff peut signaler toutes les lignes comme modifiées alors qu'aucune ne l'est. Le point est repris au cours 2 avec git ; aujourd'hui, savoir où l'éditeur l'affiche suffit.
-
-### ⌨️ 10′ — Un hello world en Python et en C++ *(manipulation)*
-
-Ouvrir `data/cours1/hello/` dans l'éditeur, puis Terminal → Nouveau terminal — qui s'ouvre déjà dans le dossier du projet, ce qu'il faut faire remarquer après les erreurs de chemin du début de séance.
-
-| | `python/bonjour.py` | `cpp/bonjour.cpp` |
-|---|---|---|
-| Ce qu'on tape | `python python/bonjour.py` | `g++ cpp/bonjour.cpp -o cpp/bonjour`, puis `cpp/bonjour` |
-| Étapes | une | deux : compiler, puis exécuter |
-| Sur le disque | rien | `cpp/bonjour`, un exécutable |
-| Taille produite | aucun fichier | 23 624 octets, pour 230 de source |
-
-C'est la diapositive « Deux chemins du texte à l'exécution » faite à la main : y renvoyer explicitement. Faire ensuite ouvrir `cpp/bonjour` dans l'éditeur pour constater qu'il est illisible — la diapositive « Code source et fichier exécutable », vérifiée par eux.
-
-Sous Windows, `g++` n'est pas fourni : MinGW-w64, MSYS2 ou le sous-système Windows pour Linux. Prévoir un poste de démonstration si personne ne l'a. Détails dans [`data/cours1/hello/README.md`](../../../data/cours1/hello/README.md).
 
 ### ⌨️ 10′ — Extensions de langage et programmes fautifs *(manipulation)*
 
@@ -254,9 +327,39 @@ La vérification demandée n'est pas que le programme affiche le bon résultat, 
 
 Sous Windows sans compilateur, le fichier C++ se lit et se corrige mais ne se compile pas ; le soulignement de l'éditeur reste alors la seule vérification.
 
----
+### 🎓 — Reprise du cours : Markdown et les autres fichiers texte
 
-## Partie 3 — Formats de fichier
+La manipulation précédente est au milieu de la partie, pas à sa fin. Une **diapositive de reprise** (`separateur-reprise`, fond bleu, mention « Reprise du cours ») marque le retour à l'exposé : sans elle, rien ne dit où le travail sur machine s'arrête, puisque les diapositives de manipulation ont le même fond blanc que le cours. Le bleu ouvre un bloc de cours, le brun un bloc sur machine.
+
+### 🎓 10′ — Les fichiers texte d'un projet, et Markdown
+
+Quatre diapositives qui existent parce que la séance **demande du Markdown sans l'avoir montré** : les notes du jour, le `README`, et le premier commit du cours 2 sont tous en `.md`.
+
+- **La famille.** Le code n'est pas le seul texte d'un projet : `.py` porte les instructions, `.json` et `.yaml` les réglages, `.csv` les données, `.md` la documentation. Tous s'ouvrent dans le même éditeur, se comparent ligne à ligne et se versionnent. L'accroche géomatique est immédiate — un GeoJSON est un `.json` ordinaire, et c'est le fichier de l'annexe « Une vidéo, deux chemins ».
+- **L'intention de Markdown.** John Gruber, 15 mars 2004, avec Aaron Swartz pour unique bêta-testeur ; les titres en `#` viennent d'`atx`, le format de Swartz. Le but déclaré : un texte « publiable tel quel, sans avoir l'air balisé », inspiré du courriel en texte brut. La preuve est un face-à-face `.md` / HTML au même rendu, dont seul le premier se lit sans conversion. CommonMark (2014) n'est à mentionner que si quelqu'un signale un rendu qui diffère d'un outil à l'autre.
+- **Trois façons d'écrire un document**, et quand employer chacune :
+
+| | `.txt` | `.md` | `.odt` / `.docx` |
+|---|---|---|---|
+| Titres, listes, emphase | aucun | dans le texte | dans des balises |
+| Lisible sans logiciel | oui | oui | non |
+| Se compare ligne à ligne | oui | oui | non |
+| Mise en page fine | non | non | oui |
+| Quand l'employer | note jetable, sortie de programme | `README`, notes, doc d'un projet | rapport à rendre, charte imposée |
+
+> Le piège à désamorcer sur-le-champ : « mon rapport doit être en PDF » n'est pas un argument contre Markdown, puisque `pandoc notes.md -o notes.pdf` le produit — c'est d'ailleurs le premier outil du cours 2. Ce qu'on perd est le contrôle fin de la mise en page, ce qu'on gagne est de pouvoir relire, comparer et versionner.
+
+- **Ce que l'éditeur en fait**, relevé dans les extensions livrées avec VSCode plutôt que supposé :
+
+| Format | Fourni d'origine | Ce qu'une extension ajoute |
+|---|---|---|
+| `.md` | coloration, aperçu `Ctrl`+`Maj`+`V`, plan du document, liens vérifiés | du confort, rien d'essentiel |
+| `.json` | coloration, pliage, formatage, vérification par schéma | rien, le plus souvent |
+| `.yaml` | la coloration, et rien de plus | la vérification par schéma (`redhat.vscode-yaml`) |
+
+> `markdown-language-features` et `json-language-features` sont livrés avec l'éditeur, `yaml-language-features` n'existe pas. C'est le contraste avec les extensions Python et C++ qui fait le propos : trois formats, trois réponses à « faut-il installer quelque chose ? ». Montrer l'aperçu Markdown en direct sur le fichier de notes du jour.
+
+La grille des seize extensions de la partie 1 a été révisée en conséquence : `.md`, `.json` et `.yaml` y entrent, `.flac`, `.mkv` et `.7z` en sortent (des doublons de `.mp3`, `.mp4` et `.zip`), et la dernière ligne regroupe les quatre fichiers qu'ils éditeront eux-mêmes. Six des seize formats sont maintenant du texte, contre trois.
 
 ### ⌨️ 30′ — Un texte, quatre formes *(manipulation centrale)*
 
@@ -392,6 +495,19 @@ Deux façons d'exécuter du Python, et elles ne servent pas à la même chose : 
 - **Démonstration en direct** (2′) : `x = 10` / `print(x*2)` → modifier la première cellule sans l'exécuter → la seconde ment. Puis *Restart & Run All*.
 - **`.ipynb` vs MyST** : JSON généré (résultats et images inclus, `git diff` illisible) vs Markdown écrit (résultats recalculés, `diff` lisible). Montrer que **le support projeté est lui-même un fichier MyST**.
 - **Bouclage explicite** : « même contenu, deux formats » — la leçon d'il y a une heure, appliquée à leur propre travail. Et amorce du cours 2 : *pourquoi le texte se versionne bien*.
+- **Quand un notebook, quand un script** *(diapositive de clôture)*. La partie disait ce qu'est un notebook sans jamais dire quand en ouvrir un ; c'est ce que cette diapositive corrige.
+
+| | Notebook | Script `.py` |
+|---|---|---|
+| Ce qu'on y cherche | explorer, expliquer, montrer | refaire, automatiser |
+| Exécution | cellule par cellule, l'état reste | du début à la fin |
+| Le résultat | dans le document, avec le texte qui l'explique | à l'écran ou dans un fichier |
+| Se relance seul | non | oui |
+| Se partage comme outil | mal : il faut le noyau, et le bon ordre | bien : une commande |
+
+> La formule à laisser : **on explore dans un notebook, on livre un script.** Le cas d'usage se reconnaît — on ouvre un notebook parce qu'on ne sait pas encore ce qu'on cherche ; le jour où cela marche et doit tourner sans surveillance, cela devient un script, et c'est le cours 3. Ne pas opposer les deux : le notebook n'est pas un brouillon honteux, le script n'est pas la version sérieuse. La progression notebook → script → CLI est l'arc du module, et c'est ici qu'elle s'énonce.
+
+Cette diapositive **remplace** « Ce que le notebook réunit », récapitulation que le minutage désignait déjà comme la première à sauter : la partie garde donc sa longueur, et « À retenir » assure seule la clôture de la séance.
 
 ---
 
@@ -494,9 +610,9 @@ Le budget visé, celui de la diapositive « Contenu de la séance », est :
 
 | Partie | Contenu | Durée |
 |--------|---------|-------|
-| Logiciels et formats de fichier | logiciel, vocabulaire, système d'exploitation, application web, extension, chemins, TD fichiers | 30′ |
-| Programmation et éditeur de code | code source et exécutable, compilé et interprété, éditeur, coloration et extensions, espaces et tabulations, hello world, programmes fautifs | 35′ |
-| Formats de fichier | un texte quatre formes, les premiers octets d'un fichier | 20′ |
+| Logiciels et formats de fichier | logiciel, vocabulaire, système d'exploitation, application web, extension, chemins, TD fichiers | 25′ |
+| Programmation et éditeur de code | programmes et applications, compilé et interprété, code source et exécutable, place de l'interpréteur, éditeur et fonctions d'un IDE, lancer un programme, hello world | 25′ |
+| Édition de texte et contenu des fichiers | programmation et édition de texte, texte brut, règles d'un langage, coloration et extensions, espaces et tabulations, programmes fautifs, fichiers texte et Markdown, un texte quatre formes, les premiers octets | 30′ |
 | Environnement de programmation | bibliothèques et dépendances, conda, terminal de l'éditeur, Python interactif | 25′ |
 | Notebooks | interface et noyau, trois façons de l'ouvrir, deux formats | 10′ |
 
@@ -506,7 +622,7 @@ Les autres leviers connus, à activer au moment de figer la séance :
 
 1. « Une vidéo, deux chemins » en **démonstration** (3′) plutôt qu'en manipulation (10′), et rejouée en autonomie après l'installation de l'environnement.
 2. Le bloc IDE réduit à ce qui sert au cours 2 : −4′.
-3. « Ce que le notebook réunit » sautée si la partie 5 déborde : c'est une récapitulation, elle ne porte aucune notion neuve.
+3. Le bloc Markdown réduit à deux diapositives — l'intention et la comparaison des trois formats — en renvoyant l'édition dans l'éditeur au cours 2, où `pandoc` est de toute façon repris : −4′.
 4. Le mini-projet « premiers octets » ramené à une démonstration au tableau : −5′. Il vaut mieux le garder en manipulation, c'est le seul moment où ils lancent un script qu'ils n'ont pas écrit.
 
 **Contrainte d'ordre** : la manipulation vidéo a besoin de l'environnement conda, installé en fin de séance. D'où la démonstration au moment des formats, la manipulation complète venant après l'installation ou en exercice complémentaire.

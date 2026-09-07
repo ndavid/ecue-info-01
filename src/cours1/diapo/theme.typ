@@ -272,6 +272,16 @@
   titre-manip, annonce: annonce, mention: "Manipulation",
 )
 
+// Reprise de l'exposé après un bloc de manipulation placé au milieu d'une
+// partie, et non à sa fin. Sans elle, rien ne dit où le travail sur machine
+// s'arrête : la diapositive suivante reprend le fond blanc de l'exposé, mais
+// après quatre diapositives blanches de manipulation, ce n'est pas un signal.
+// Même fond que les diapositives de section, et la couleur ne code toujours
+// qu'une chose : le bleu ouvre un bloc de cours, le brun un bloc sur machine.
+#let separateur-reprise(titre, annonce: none) = separateur(
+  titre, annonce: annonce, mention: "Reprise du cours",
+)
+
 // Phrase d'annonce placée entre le titre et la preuve visuelle.
 #let annonce(corps) = block(width: 100%, below: 0.8em)[
   #set text(size: 17pt)

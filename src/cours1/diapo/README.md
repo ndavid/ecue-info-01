@@ -47,7 +47,7 @@ typst watch --root . src/cours1/diapo/cours1.typ
 `data/` ; sans cette option il refuse de sortir de `src/cours1/diapo/`.
 
 - `theme.typ` — mise en page, couleurs, polices et gabarits.
-- `cours1.typ` — 89 pages, 92 avec les captures d'écran : titre, introduction
+- `cours1.typ` — 101 pages, 104 avec les captures d'écran : titre, introduction
   au module, le contenu de la séance, ses cinq parties (logiciels et formats
   de fichier, programmation et éditeur de code, formats de fichier,
   environnement de programmation, notebooks), puis les annexes.
@@ -84,9 +84,10 @@ n'arrondit jamais.
 | `d(titre, sous-titre: none)` | une diapositive ordinaire |
 | `separateur(titre, annonce:)` | diapositive de section, fond bleu |
 | `separateur-td(titre, annonce:, mention:)` | ouverture d'une partie de travaux dirigés, fond brun |
+| `separateur-reprise(titre, annonce:)` | retour à l'exposé après une manipulation en milieu de partie |
 | `separateur-manip(titre, annonce:)` | même gabarit, mention « Manipulation » |
 
-Les deux derniers marquent le passage de l'exposé au travail sur machine, la
+Les trois derniers marquent le passage de l'exposé au travail sur machine, et son retour, la
 distinction 🎓 / ⌨️ du syllabus. C'est la seule information que la couleur
 code, et elle ne sert à rien d'autre. Bruno ne fournit ni l'un ni l'autre :
 ces deux gabarits sont ajoutés ici, en n'employant que les couleurs du thème.

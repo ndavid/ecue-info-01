@@ -117,6 +117,19 @@ Un `.odt` est une archive ZIP contenant des fichiers XML. Le texte est dans
 `content.xml`, entouré de balises qui décrivent la mise en forme. Les formats
 `.docx`, `.xlsx` et `.epub` sont construits de la même façon.
 
+Les noms de style qu'on y lit surprennent : `Text_20_body`, `Heading_20_1`. Ce
+ne sont pas des noms en plusieurs morceaux. Un nom de style est un nom XML, où
+l'espace est interdit ; ODF encode donc chaque caractère interdit par son code
+hexadécimal entouré de tirets bas, et l'espace vaut `20` en hexadécimal. Il
+faut donc lire « Text body » et « Heading 1 ». C'est le même principe que le
+`%20` des adresses web, où l'espace est interdit pour la même raison.
+
+Le nom lisible existe aussi dans le fichier : il est rangé dans l'attribut
+`style:display-name`, et c'est lui que LibreOffice montre dans son panneau des
+styles. La règle est fixée par la spécification OpenDocument, partie 3, aux
+sections sur [`style:name` et
+`style:display-name`](https://docs.oasis-open.org/office/OpenDocument/v1.3/OpenDocument-v1.3-part3-schema.html).
+
 :::{admonition} Manipulation 3 — ouvrir l'ODT, puis l'ouvrir autrement
 :class: tip
 
