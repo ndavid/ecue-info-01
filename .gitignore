@@ -35,3 +35,6 @@ data/*/illustrations/*
 # pas l'exécutable que la compilation produit une fois la faute corrigée.
 data/cours1/erreurs/cpp/aire
 data/cours1/erreurs/cpp/*.exe
+
+# Notebooks dérivés des sources MyST par outils/construire_notebooks.py
+src/*/notebook/*.ipynb

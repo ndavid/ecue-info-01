@@ -102,6 +102,20 @@ l'`.html` + `style.css`, et le corrigé dans `genere/_corrige/`.
 
 ---
 
+## 2 bis. Notebooks
+
+Les notebooks sont écrits en **MyST Markdown**, dans `src/cours<n>/notebook/`.
+C'est du texte : il se relit, se compare ligne à ligne et se versionne — la
+démonstration du cours 1 appliquée à ses propres supports. Les `.ipynb` en sont
+dérivés, comme les PDF le sont des `.typ`, et ils sont dans `.gitignore`.
+
+```bash
+conda activate info01
+
+python outils/construire_notebooks.py             # cellules vides, à ouvrir en séance
+python outils/construire_notebooks.py --executer  # sorties remplies, pour distribuer
+```
+
 ## 3. Diapositives (typst)
 
 ### Polices — à faire une fois, avant la première compilation

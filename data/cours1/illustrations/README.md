@@ -28,9 +28,49 @@ prennent la place des images.
 | `terminal_linux_gnome.png` | une fenêtre GNOME Terminal à l'ouverture | « Le terminal » | documentation GNOME |
 | `vscode_espaces.png` | VSCode, affichage des espaces activé : quatre espaces ligne 2, une tabulation ligne 3, et le `TabError` dans le terminal | « Les caractères invisibles, affichés » | produite ici |
 | `vscode_hello.png` | VSCode : les deux projets hello world, et le terminal ayant lancé Python puis compilé et exécuté le C++ | « Les deux exécutions dans l'éditeur » | produite ici |
+| `page_html_brut.png` | `raven_brut.html` dans le navigateur, sans feuille de style | « Contenu et présentation » | **reproductible**, voir plus bas |
+| `page_html_style.png` | `raven_style.html` avec `style.css`, dans le navigateur | « Contenu et présentation » | **reproductible**, voir plus bas |
+| `apercu_recette.png` | `recette.md` rendu : titre, tableau, liste numérotée, diagramme Mermaid | « Le résultat attendu » | **reproductible**, voir plus bas |
 
 Le nom du fichier est celui du tableau ci-dessus, à la lettre : c'est lui qui
 est écrit dans le `.typ`.
+
+## Captures reproductibles
+
+Trois d'entre elles ne demandent aucune manipulation à la souris : ce sont des
+pages web, et un navigateur sans fenêtre les photographie. Elles peuvent donc
+être refaites à l'identique quand les données changent.
+
+```bash
+D=data/cours1/illustrations
+
+# les deux pages du poème, avec et sans feuille de style
+cd data/cours1/genere
+for f in raven_brut raven_style; do
+    chromium --headless --disable-gpu --hide-scrollbars \
+        --screenshot="../../../$D/page_html_${f#raven_}.png" \
+        --window-size=900,620 "file://$PWD/$f.html"
+done
+
+# le rendu de la recette : pandoc produit le HTML, mermaid dessine le schéma
+pandoc data/cours1/markdown/recette.md -t html -o page.html   # + script mermaid
+chromium --headless --disable-gpu --hide-scrollbars \
+    --virtual-time-budget=25000 --screenshot="$D/apercu_recette.png" \
+    --window-size=760,1180 "file://$PWD/page.html"
+
+convert "$D/apercu_recette.png" -trim +repage -bordercolor white -border 12 \
+    "$D/apercu_recette.png"
+```
+
+> Sous Ubuntu, le Chromium installé en *snap* ne lit ni n'écrit hors de
+> `$HOME`, ni dans les dossiers commençant par un point : passer par un dossier
+> ordinaire du répertoire personnel, sans quoi la capture montre un
+> « Accès au fichier refusé ».
+
+Les trois autres montrent des fenêtres d'application — VSCode, LibreOffice, un
+terminal — et se font à la main : il faut mettre l'interface dans l'état voulu
+(un point d'arrêt posé, l'affichage des espaces activé), ce qu'aucun outil ne
+reproduit fidèlement.
 
 ## Images reprises d'une documentation officielle
 
