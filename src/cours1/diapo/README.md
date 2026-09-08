@@ -183,17 +183,19 @@ deux ressorts. Quand le corps est trop haut, ces ressorts se referment sans
 que typst ne dise rien : l'annonce vient se coller sous le titre. Le script
 mesure cet écart page par page et signale ce qui passe sous le seuil.
 
-La version annotée réserve le bas de la page aux notes : il n'y reste pas de
-quoi garantir l'écart minimal sans repousser les diapositives les plus pleines
-sur une page de suite. Elle se relit avec `--seuil 10`.
+La version annotée se relit au même seuil, et doit rendre le même verdict : sa
+bande de notes n'est pas prise sur la diapositive mais ajoutée sous elle, si
+bien que les deux variantes ont exactement la même zone de diapositive. Leurs
+nombres de pages doivent donc être égaux ; un écart signifie qu'une
+diapositive déborde sur une page de suite.
 
 ## Illustrations
 
 `illustration(chemin, repli)` affiche la capture d'écran désignée quand le
 document est compilé avec `--input captures=true`, et le contenu de `repli`
-sinon. Les captures vivent hors dépôt, dans `data/cours1/illustrations/` ;
+sinon. Les captures vivent hors dépôt, dans `illustrations/cours1/` ;
 leurs noms, leur format et leur poids maximal sont fixés par le
-[README de ce dossier](../../../data/cours1/illustrations/README.md).
+[README de ce dossier](../../../illustrations/cours1/README.md).
 
 Une capture ne se justifie que pour montrer ce qu'un schéma ne peut pas dire,
 comme l'aspect réel d'une interface. Partout ailleurs, le dessin vectoriel est

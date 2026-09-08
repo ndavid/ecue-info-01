@@ -38,17 +38,37 @@
 #let marge-x = 18.5mm             // 10 mm sur 160 mm, transposé
 #let hauteur-pied = 21.6pt
 
+// Bande réservée aux notes de conduite, dans la version annotée.
+//
+// Elle n'est pas prise sur la diapositive mais ajoutée sous elle : la page
+// annotée est plus haute que la page projetée, d'exactement cette valeur. La
+// zone de diapositive garde donc la hauteur pour laquelle les corps ont été
+// réglés, et une diapositive qui tient à la projection tient aussi ici.
+//
+// L'ancien réglage prenait ces millimètres sur la page 16:9 elle-même, en
+// portant la marge basse de 10,3 à 36 mm. Cinq corps de diapositive ne
+// tenaient plus dans ce qui restait ; comme le bloc de notes est posé hors
+// flux, c'était le corps qui débordait, et les notes partaient seules sur une
+// page de suite. La version annotée comptait alors cinq pages de plus que
+// celle à projeter, ce qui rendait la comparaison des deux inutilisable.
+#let bande-notes = 80mm
+
+// Hauteur du bloc de notes : la bande, plus la marge basse ordinaire, moins
+// ce qu'il faut laisser à la barre de pied de page.
+#let hauteur-notes = bande-notes + 10.3mm - 11mm
+
 #let notes-visibles = sys.inputs.at("notes", default: "") == "true"
 
 // Écart garanti entre le titre et le corps d'une diapositive, en plus du
 // ressort qui répartit l'espace libre. Sans lui, une diapositive un peu pleine
 // referme le ressort et l'annonce vient se coller sous le titre.
 //
-// La version annotée réserve le bas de page aux notes de conduite : il n'y
-// reste pas de quoi l'offrir sans repousser les diapositives les plus pleines
-// sur une page de suite, ce qui serait pire. Elle s'en passe donc, et
-// `outils/verifier_diapos.py` mesure ce qu'il en résulte.
-#let ecart-titre = if notes-visibles { 0pt } else { 17pt }
+// Il vaut pour les deux variantes. La version annotée s'en passait, faute de
+// place, du temps où sa bande de notes était prise sur la diapositive ; elle
+// est maintenant ajoutée sous elle, et les deux variantes ont exactement la
+// même zone de diapositive. `outils/verifier_diapos.py` doit donc désormais
+// rendre le même verdict sur l'une et sur l'autre.
+#let ecart-titre = 17pt
 
 // Corrigé des manipulations.
 //
@@ -119,13 +139,16 @@
   show list: set block(above: 0.62em, below: 0.62em)
 
   set page(
-    paper: "presentation-16-9",
+    // 297 x 167,06 mm, soit le 16:9 de typst, allongé pour les notes.
+    width: 297mm,
+    height: 167.06mm + if notes-visibles { bande-notes } else { 0mm },
     // Le bandeau supérieur est vidé par le thème : la zone de texte commence au
-    // bord du papier. La version annotée réserve en plus le bas de page.
+    // bord du papier. La marge basse absorbe la bande de notes, si bien que la
+    // zone de diapositive fait 156,76 mm dans les deux variantes.
     margin: (
       x: marge-x,
       top: 0mm,
-      bottom: if notes-visibles { 36mm } else { 10.3mm },
+      bottom: 10.3mm + if notes-visibles { bande-notes } else { 0mm },
     ),
     // La barre de pied de page est posée en avant-plan, seul moyen de la coller
     // au bord inférieur et de la faire courir sur toute la largeur du papier,
@@ -234,7 +257,7 @@
 
 // Gabarit commun aux diapositives de séparation : fond plein, filet et titre.
 // Bruno n'en fournit aucun ; celui-ci n'emploie que les couleurs du thème.
-#let _separation(fond, sur-fond, filet, titre-partie, annonce, mention) = {
+#let _separation(fond, sur-fond, filet, titre-partie, annonce, mention, dossier) = {
   set page(foreground: none, fill: fond)
   align(horizon + left, block(width: 78%)[
     #if mention != none [
@@ -250,26 +273,38 @@
       #v(0.45em)
       #text(size: pt-normalsize, fill: sur-fond.lighten(35%))[#annonce]
     ]
+    // Le dossier de travail, sur l'ouverture plutôt que dans une légende trois
+    // diapositives plus loin : c'est la première chose que la salle a besoin de
+    // savoir pour commencer, et la première question posée quand elle manque.
+    #if dossier != none [
+      #v(0.7em)
+      #text(size: pt-footnotesize, font: police-code, fill: sur-fond.lighten(20%))[
+        #dossier
+      ]
+    ]
   ])
   pagebreak(weak: true)
 }
 
 // Diapositive de section, entre deux parties de la séance : fond bleu.
-#let separateur(titre-partie, annonce: none, mention: none) = _separation(
-  accent, white, manip.lighten(25%), titre-partie, annonce, mention,
+#let separateur(titre-partie, annonce: none, mention: none, dossier: none) = _separation(
+  accent, white, manip.lighten(25%), titre-partie, annonce, mention, dossier,
 )
 
 // Ouverture d'une partie de travaux dirigés : fond brun, la seconde couleur du
 // thème. Elle code une information réelle et répétée, le passage de l'exposé au
 // travail sur machine.
-#let separateur-td(titre-td, annonce: none, mention: "Travaux dirigés") = {
-  _separation(manip, white, gris, titre-td, annonce, mention)
+// `dossier` nomme le dossier où se trouvent les fichiers de la manipulation.
+// Toute ouverture de travail sur machine doit le porter : sans lui, la salle
+// cherche ses fichiers au lieu d'écouter la consigne.
+#let separateur-td(titre-td, annonce: none, mention: "Travaux dirigés", dossier: none) = {
+  _separation(manip, white, gris, titre-td, annonce, mention, dossier)
 }
 
 // Ouverture d'un bloc de manipulation à l'intérieur d'un cours : même gabarit
 // que les travaux dirigés, mention différente.
-#let separateur-manip(titre-manip, annonce: none) = separateur-td(
-  titre-manip, annonce: annonce, mention: "Manipulation",
+#let separateur-manip(titre-manip, annonce: none, dossier: none) = separateur-td(
+  titre-manip, annonce: annonce, mention: "Manipulation", dossier: dossier,
 )
 
 // Reprise de l'exposé après un bloc de manipulation placé au milieu d'une
@@ -292,7 +327,17 @@
 // projeté. Masquées par défaut (voir --input notes=true en tête de fichier).
 #let notes(corps) = {
   if notes-visibles {
-    place(bottom, dy: 2.3cm, block(width: 100%)[
+    // Les notes commencent juste sous la diapositive et descendent dans la
+    // bande, plutôt que d'être collées au pied et de remonter vers elle : des
+    // notes courtes restent ainsi près de ce qu'elles commentent, et des notes
+    // longues occupent la bande sans empiéter sur le corps.
+    //
+    // `place` aligne par le bas : en donnant au bloc une hauteur fixe et un
+    // décalage égal, son haut vient se poser exactement sur le bas de la zone
+    // de diapositive. Le décalage est ainsi une constante, et non une mesure —
+    // ce qui compte, car un bloc mesuré dans le flux consomme de la hauteur,
+    // déséquilibre les deux ressorts du gabarit et remonte le corps.
+    place(bottom, dy: hauteur-notes, block(width: 100%, height: hauteur-notes)[
       #line(length: 100%, stroke: 0.5pt + estompe.lighten(40%))
       #v(0.25em)
       #set text(size: 10pt, fill: estompe)
