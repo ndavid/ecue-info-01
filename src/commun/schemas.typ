@@ -118,3 +118,79 @@
 // Pour les diapositives où la capture est seule : elle peut prendre la place.
 #let hauteur-capture-pleine = if notes-visibles { 192pt } else { 242pt }
 
+
+// Une frise chronologique : un axe daté, et une étiquette par repère.
+//
+// Les étiquettes alternent au-dessus et au-dessous de l'axe. C'est ce qui
+// permet d'en placer six sans qu'elles se chevauchent, et de garder lisibles
+// deux repères que deux ans séparent.
+//
+//   #frise(
+//     (2008, "pip", "installe des paquets Python"),
+//     (2012, "conda", "l'environnement et les paquets"),
+//   )
+//
+// La position sur l'axe est proportionnelle à la date : c'est ce que la frise
+// apporte sur un tableau, où les six lignes seraient équidistantes.
+//
+// La hauteur n'est pas écrite à la main. Les étiquettes sont posées avec
+// `place`, qui ne contribue pas à la mise en page : sans mesure préalable,
+// elles débordent du bloc et viennent se superposer à la légende. On mesure
+// donc la plus haute et on dimensionne le bloc pour deux d'entre elles.
+#let frise(..evenements, debut: none, fin: none, largeur-etiquette: 128pt, tige: 34pt) = {
+  let items = evenements.pos()
+  let annees = items.map(e => e.at(0))
+  let a0 = if debut == none { calc.min(..annees) } else { debut }
+  let a1 = if fin == none { calc.max(..annees) } else { fin }
+
+  let etiquette(nom, annee, detail) = block(width: largeur-etiquette)[
+    #align(center)[
+      #text(size: 16pt, weight: demi-gras, fill: accent)[#nom]
+      #h(5pt)
+      #text(size: 14pt, fill: estompe)[#str(annee)]
+      #v(0.15em)
+      #text(size: 12pt, fill: estompe)[#detail]
+    ]
+  ]
+
+  context {
+    let haut-etiquette = calc.max(
+      ..items.map(e => measure(etiquette(e.at(1), e.at(0), e.at(2))).height),
+    )
+    // Deux étiquettes, deux tiges, et le rayon du point au milieu.
+    let hauteur = 2 * (haut-etiquette + tige) + 10pt
+    let axe = hauteur / 2
+
+    layout(dispo => {
+      // La demi-étiquette de marge de chaque côté garde la première et la
+      // dernière dans la page.
+      let marge = largeur-etiquette / 2
+      let large = dispo.width - 2 * marge
+      let x = annee => marge + large * (annee - a0) / (a1 - a0)
+
+      block(width: 100%, height: hauteur, {
+        place(top + left, dy: axe, line(length: 100%, stroke: 1pt + accent.lighten(35%)))
+        for (i, item) in items.enumerate() {
+          let (annee, nom, detail) = item
+          let dessus = calc.rem(i, 2) == 0
+          let cx = x(annee)
+
+          place(top + left, dx: cx - 3.5pt, dy: axe - 3.5pt,
+                circle(radius: 3.5pt, fill: accent))
+          place(top + left, dx: cx, dy: if dessus { axe - tige } else { axe },
+                line(angle: 90deg, length: tige, stroke: 0.8pt + accent.lighten(45%)))
+          place(
+            top + left,
+            dx: cx - largeur-etiquette / 2,
+            dy: if dessus { axe - tige - haut-etiquette } else { axe + tige },
+            block(width: largeur-etiquette, height: haut-etiquette)[
+              #align(if dessus { bottom } else { top })[
+                #etiquette(nom, annee, detail)
+              ]
+            ],
+          )
+        }
+      })
+    })
+  }
+}

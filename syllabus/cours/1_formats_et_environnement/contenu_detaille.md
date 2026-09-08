@@ -3,8 +3,9 @@
 Vue d'ensemble : [../../01_syllabus_v1.md](../../01_syllabus_v1.md) (section « Cours 1 »).
 Inversion C1↔C3 : [../../inversion_c1_c3.md](../../inversion_c1_c3.md).
 
-**Supports** : [`src/cours1/notebook/`](../../../src/cours1/notebook/) (MyST, 3 pages) et [`src/cours1/diapo/`](../../../src/cours1/diapo/) (typst, 89 diapositives en assertion-evidence, 92 avec les captures d'écran ; `--input notes=true` pour la version annotée, `--input corrige=true` pour le corrigé des manipulations, `--input captures=true` si les captures d'écran sont en place).
+**Supports** : [`src/cours1/notebook/`](../../../src/cours1/notebook/) (MyST, 4 pages) et [`src/cours1/diapo/`](../../../src/cours1/diapo/) (typst, 123 diapositives en assertion-evidence, 127 avec les captures d'écran ; `--input notes=true` pour la version annotée, `--input corrige=true` pour le corrigé des manipulations, `--input captures=true` si les captures d'écran sont en place).
 Conventions d'écriture : [`STYLE.md`](../../../STYLE.md).
+Illustrations manquantes, relevées diapositive par diapositive : [`illustrations_a_chercher.md`](illustrations_a_chercher.md).
 **Données** : [`data/cours1/`](../../../data/cours1/) — générées par `make_data.py`.
 
 Objectif : comprendre ce qu'est un logiciel, pourquoi programmer revient à écrire du texte, et savoir manipuler fichiers et environnement de travail en confiance.
@@ -403,7 +404,7 @@ Ouvrir `data/cours1/erreurs/` dans l'éditeur. Trois fichiers courts, chacun fau
 | `python/moyenne.py` | `SyntaxError: expected ':'`, ligne 6 | deux-points manquants après le `for` |
 | `cpp/aire.cpp` | `error: expected ',' or ';' before 'std'`, ligne 7 | point-virgule manquant en fin de ligne 6 |
 
-Messages réels, obtenus avec Python 3.12 et g++ 11.4. La colonne « la faute » est masquée à la projection et remplie par `--input corrige=true`.
+Messages réels, obtenus avec Python 3.12.14 et g++ 13.3. La colonne « la faute » est masquée à la projection et remplie par `--input corrige=true`.
 
 La première ne se voit pas à l'œil : c'est là qu'on fait activer **l'affichage des espaces**, Affichage → Rendu des espaces → Tout, réglage à garder toute l'année. La troisième est la diapositive « Vérification de l'écriture », vérifiée par eux.
 
@@ -543,21 +544,76 @@ La troisième ligne est celle qui évite le `ModuleNotFoundError`, et la quatri�
 
 > Les libellés dépendent de la version de VSCode et de la langue de l'interface, qui est l'anglais par défaut : à vérifier sur le poste de démonstration avant la séance. Le terminal ouvert hors de l'éditeur, et la façon de l'ouvrir sur chaque système, sont en annexe du deck ; c'est le cours 2 qui s'en occupe.
 
-### ⌨️ 25′ — Environnement Python (conda / conda-forge)
+### 🎓 3′ — L'environnement de développement
 
-- **Le problème d'abord** : « ça marche sur ma machine ». Un environnement = un dossier isolé, décrit, recréable, supprimable sans dégât.
-- **Miniforge** (<https://conda-forge.org/download/>), puis :
-  ```bash
-  conda create -n info01 -c conda-forge python=3.12 \
-      jupyterlab mystmd numpy pillow pandoc typst ffmpeg imagemagick
-  conda activate info01
-  ```
-- Vérification : prompt `(info01)`, `python --version`, `pandoc --version`, et surtout `import sys; print(sys.executable)`, dont le chemin doit contenir `info01`.
-- **Message à marteler** : `ModuleNotFoundError` alors qu'« on vient d'installer » = presque toujours le **mauvais environnement actif**.
-- L'env sert à **installer des outils**, pas à packager un projet (décision de conception du module).
+Un environnement réunit une version de Python et les outils choisis, dans un dossier isolé, décrit par un fichier et recréable ailleurs. Le problème d'abord — « ça marche sur ma machine » — puis le dossier qui y répond.
 
-> ⚠️ **Point de bascule de la séance.** Si l'installation dérape sur quelques postes, c'est tout le reste qui saute. Prévoir : consigne d'installation **avant** la rentrée, une clé USB avec l'installeur Miniforge (Windows/macOS), et un binôme d'entraide. Voir les leviers d'allègement dans [`inversion_c1_c3.md`](../../inversion_c1_c3.md).
+**L'environnement est créé avant la séance**, par la consigne d'installation envoyée à la rentrée : sa création prend plusieurs minutes et ne peut pas être le geste de la séance. Ce qui est projeté est la commande, pour qu'ils sachent la relire, pas pour qu'ils la lancent maintenant.
 
+```bash
+conda create -n info01 -c conda-forge python=3.12 \
+    jupyterlab numpy pillow pandoc typst ffmpeg imagemagick
+conda activate info01
+```
+
+- **Miniforge** : <https://conda-forge.org/download/>. La liste exacte des paquets est dans [`environment.yml`](../../../environment.yml), qui est ce qu'on distribue ; la ligne ci-dessus en est le résumé projetable.
+- Vérification : invite `(info01)`, puis `import sys; print(sys.executable)`, dont le chemin doit contenir `info01`.
+- **Message à marteler** : `ModuleNotFoundError` alors qu'« on vient d'installer » = presque toujours le **mauvais environnement actif**. La manipulation qui suit le fait constater.
+- L'environnement sert à **installer des outils**, pas à packager un projet (décision de conception du module).
+
+> ⚠️ **Point de bascule de la séance.** Si l'environnement manque sur quelques postes, la manipulation qui suit ne se fait pas, et le cours 3 démarre mal. Prévoir : consigne d'installation **avant** la rentrée, une clé USB avec l'installeur Miniforge (Windows/macOS), et un binôme d'entraide. Voir les leviers d'allègement dans [`inversion_c1_c3.md`](../../inversion_c1_c3.md).
+
+### 🎓 3′ — Les outils d'installation, et d'où viennent les paquets
+
+Trois diapositives courtes, insérées après « L'outil qui installe un environnement ». Elles répondent à ce que les étudiants trouveront de toute façon en cherchant sur le web, et sèment la question de la confiance.
+
+1. **Les outils qui installent des paquets** — une frise dessinée : `pip` (2008), `conda` (2012), `conda-forge` (2015), `mamba` (2019), `pixi` (2023), `uv` (2024). Ce qu'il faut dire, et rien de plus : `pip` installe des bibliothèques Python et rien d'autre, il ne sait pas installer `ffmpeg` ni un compilateur C++ ; `conda` fait les deux, d'où le choix du module. `pyenv` est nommé dans la légende pour ce qu'il est — un sélecteur de version de Python, qui n'installe aucun paquet — parce que son nom le fait confondre avec les autres. `uv` et `pixi` sont récents, écrits en Rust, excellents, et hors programme : le module s'en tient à un seul outil. Ne pas laisser croire à une succession où le dernier remplace les précédents ; `pip` a dix-huit ans, il est installé dans l'environnement du module, et `uv` l'appelle encore par-dessous.
+2. **D'où viennent les paquets** — PyPI, 886 022 projets, publication immédiate et sans relecture ; conda-forge, 29 411 paquets, chacun avec une recette relue par des humains. Ni bon ni mauvais dépôt : un paquet conda-forge est le plus souvent construit à partir des mêmes sources que le paquet PyPI, quelques jours plus tard. Ce qui change est la porte d'entrée.
+3. **Ce qu'une installation exécute** — `requests` contre `reqeusts`, en grand, côte à côte. Installer un paquet exécute du code écrit par quelqu'un d'autre, avec les droits de celui qui a tapé la commande. Le typosquattage n'a rien de théorique : des campagnes de plusieurs centaines de faux paquets ont été relevées sur PyPI, calqués sur les noms les plus téléchargés.
+
+> **Le réflexe, et c'est la seule chose à retenir** : le nom d'un paquet se copie depuis la documentation du projet, il ne se tape pas de mémoire. Ne pas transformer cela en peur de tout installer — la conclusion est un geste, pas une abstention. Chiffres relevés le 8 septembre 2026 (index de PyPI, API de GitHub) ; 454 600 nouveaux paquets malveillants recensés en 2025, tous dépôts confondus, *State of the Software Supply Chain*, Sonatype, 2026.
+
+> **Sur le canal `defaults` d'Anaconda**, si la question vient : le module emploie Miniforge, qui n'installe que depuis conda-forge, parce que les conditions d'utilisation du dépôt d'Anaconda demandent une licence payante aux organisations au-delà d'une certaine taille. La raison est dans [`INSTALLATION.md`](../../../INSTALLATION.md) et n'a pas à être développée en séance.
+
+### ⌨️ 12′ — Installer une bibliothèque et s'en servir *(manipulation)*
+
+Fichiers : [`data/cours1/environnement/`](../../../data/cours1/environnement/) — un petit projet Python écrit comme les dépôts qu'ils ouvriront cette année : `pyproject.toml`, `environment.yml`, `README.md`, le paquet `page_html/` et `style.css`. Le README y donne le déroulé complet. Trois diapositives d'étapes, après l'ouverture brune.
+
+C'est la seule manipulation de la partie, et elle en est la conclusion : la partie a dit ce qu'un programme emprunte et quel outil l'installe, sans que personne n'ait encore installé quoi que ce soit. `page_html` convertit en page HTML le `recette.md` écrit à la partie 3, avec la bibliothèque `markdown`, qui n'est nulle part.
+
+**On repart d'un environnement neuf**, et non de `info01` : c'est ce qui permet de voir ce qu'un environnement contient d'origine, ce qui manque, et ce qu'une installation ajoute.
+
+| # | Le geste | Ce qu'ils constatent |
+|---|---|---|
+| 1 | Ouvrir le dossier `data/cours1/environnement/` | l'arborescence d'un projet, pas un script isolé |
+| 2 | Lire la ligne `dependencies` de `pyproject.toml` | le projet annonce avoir besoin de `markdown` |
+| 3 | `conda env create -f environment.yml`, puis `conda activate recette` | l'invite passe de `(info01)` à `(recette)` |
+| 4 | `conda list` | **28 paquets**, dont `pip`, `setuptools`, et une douzaine de bibliothèques C — aucun `markdown` |
+| 5 | `python -m page_html` | `ModuleNotFoundError: No module named 'markdown'` |
+| 6 | `conda install -c conda-forge markdown` | **trois** paquets : `markdown`, `importlib-metadata`, `zipp` |
+| 7 | `python -m page_html`, à nouveau | `recette.md -> recette.html, 1282 octets` |
+| 8 | Ouvrir la page par l'adresse `file:///` affichée | la recette mise en page, sans serveur |
+| 9 | Changer une couleur dans `style.css`, `F5` | la page change, le `.html` n'a pas bougé |
+| 10 | Ajouter `- markdown` sous `dependencies` dans `environment.yml` | le fichier décrit enfin ce qu'on a installé |
+| 11 | `conda env update -f environment.yml` | rien ne s'installe : c'était déjà fait |
+
+**L'étape 4 est la surprise de la manipulation.** Un environnement « Python seul » n'est pas vide : 28 paquets, dont une douzaine de bibliothèques C — `openssl`, `libsqlite`, `libzlib` — sans lesquelles l'interpréteur ne démarre pas. `pip`, `setuptools` et `wheel` y sont aussi, ce qui explique que `pip install` fonctionne dans un environnement conda sans qu'on l'ait installé. Et rien de ce que fait un programme utile : ni `numpy`, ni `jupyterlab`, ni `markdown`.
+
+**L'étape 5 ne se saute pas.** C'est la seule fois de la séance où ils voient `ModuleNotFoundError` dans des conditions où la cause est connue d'avance : le message annoncé deux fois depuis la partie 2 devient une chose qui leur est arrivée. Dire en une phrase ce que `-m` fait — exécuter un paquet plutôt qu'un fichier — et ne pas s'y attarder.
+
+**Le chiffre de l'étape 6 vaut la comparaison** : trois paquets ici, un seul dans `info01`, où `importlib-metadata` et `zipp` avaient déjà été tirés par autre chose. C'est « Une bibliothèque en entraîne d'autres » vérifié par eux, et la démonstration que ce qui est déjà là ne se réinstalle pas.
+
+Trois choses de la séance se referment à l'étape 8, et elles se nomment une par une : le `recette.md` est celui qu'ils ont écrit une demi-heure plus tôt ; la page sépare le contenu de la présentation, comme les deux pages du poème de la partie 1 ; elle s'ouvre par une adresse `file:///`, sans serveur.
+
+**Les étapes 10 et 11 sont la conclusion de la partie**, et elles démontrent enfin ce que la deuxième diapositive annonçait : une installation n'est pas reproductible parce qu'on se souvient de ce qu'on a tapé, elle l'est parce qu'un fichier la décrit. Faire le geste devant eux — une ligne ajoutée, quatre caractères d'indentation.
+
+**La question à poser avant de répondre** : pourquoi le diagramme n'est-il pas dessiné ? Le bloc `mermaid` arrive dans la page sous la forme de ses six lignes de texte. Mermaid est un service de l'aperçu de l'éditeur, pas du HTML. C'est la distinction tenue toute la séance entre ce qu'un fichier contient et ce qu'un logiciel en affiche, déjà rencontrée avec la coloration syntaxique et avec la chasse fixe.
+
+**Pour ceux qui vont vite**, et seulement pour eux : `pip install -e .` installe le projet lui-même, après quoi la commande `page-html` existe. C'est la section `[project.scripts]` de `pyproject.toml`, et c'est le sujet du cours 3. Rendre la main ensuite par `conda deactivate` puis `conda activate info01`.
+
+> **Mesuré sur la machine de préparation**, sous Linux, avec le solveur `libmamba` de conda 24.7 : création de l'environnement en 10 s (index en cache), 28 paquets ; `conda install markdown` en 7 s et 3 paquets dans l'environnement neuf, contre 1 paquet de 85 ko et 1 min 52 s à froid dans `info01`. Trente postes en même temps iront moins vite. Commenter la sortie de `conda install` pendant qu'elle tourne plutôt que d'attendre en silence. Les libellés de menu de l'éditeur n'ont pas été vérifiés sur un poste Windows. Poste sans réseau : les étapes 3 et 6 échouent ; projeter le résultat, et faire quand même les étapes 10 et 11, qui ne demandent que d'éditer un fichier.
+
+> **Pourquoi `markdown` et pas `jinja2`.** L'idée d'un `.odt` produit depuis un modèle, par substitution dans `content.xml`, a été écartée pour une raison mesurée : `jinja2` **est déjà installé** dans `info01`, tiré comme dépendance de Sphinx et de JupyterLab, et `conda install jinja2` n'installerait rien. `markdown` est absent des deux environnements, et il est l'exemple « tout en Python » de la diapositive « Ce qu'une bibliothèque contient vraiment » : l'installation la vérifie. Il n'est **pas** ajouté à l'`environment.yml` du module, le geste de la manipulation étant d'ajouter une bibliothèque à un environnement qui existe déjà.
 ### 🎓 4′ — Python en interactif
 
 Taper `python` sans nom de fichier ouvre une session interactive : chaque ligne est lue, exécutée, et son résultat affiché aussitôt, sans `print`. La trace projetée est une session réelle, dans `data/cours1/formats/`, qui réimporte le script des octets de tête.
@@ -758,10 +814,18 @@ Le budget visé, celui de la diapositive « Contenu de la séance », est :
 | Logiciels et formats de fichier | logiciel, vocabulaire, système d'exploitation, application web, extension, chemins, TD fichiers | 25′ |
 | Programmation et éditeur de code | programmes et applications, compilé et interprété, code source et exécutable, place de l'interpréteur, éditeur et fonctions d'un IDE, lancer un programme, de quoi compiler du C++, hello world | 25′ |
 | Édition de texte et contenu des fichiers | programmation et édition de texte, texte brut, règles d'un langage, coloration et vérification, chasse fixe, espaces et tabulations, extensions de fichier et de VSCode, programmes fautifs, fichiers texte et Markdown, une page HTML et sa feuille de style | 30′ |
-| Environnement de programmation | bibliothèques et dépendances, conda, terminal de l'éditeur, Python interactif | 25′ |
+| Environnement de programmation | bibliothèques et dépendances, conda, les outils et les dépôts, terminal de l'éditeur, installation d'une bibliothèque | 25′ |
 | Notebooks | interface et noyau, trois façons de l'ouvrir, deux formats | 10′ |
 
 La partie 1 perd cinq minutes par rapport au budget précédent, et la partie 2 en gagne dix : le levier employé est celui qui était déjà prévu, l'étape ODT-ZIP de la manipulation d'ouverture passant en exercice complémentaire.
+
+> ⚠️ **La partie 4 dépasse son budget, et c'est le point à arbitrer avant de figer la séance.** Elle compte désormais treize diapositives — dix d'exposé et trois d'étapes — pour 25′ : le déroulé détaillé ci-dessus totalise 6 + 4 + 6 + 3 + 3 + 12 = 34′. Les trois candidats à la sortie, par ordre :
+>
+> 1. **« L'environnement de développement »** (−3′), qui redit ce que « L'outil qui installe un environnement » a déjà montré : les deux projettent une commande `conda` de création. Sa seule nouveauté, la vérification par `sys.executable`, se dit en une phrase sur la diapositive précédente.
+> 2. **« D'où viennent les paquets »** (−2′) passe en annexe, « Ce qu'une installation exécute » restant en séance : c'est l'avertissement qui compte, pas le décompte des deux dépôts.
+> 3. **La frise des outils** (−2′) passe en annexe, en gardant une phrase à l'oral sur `pip`. Elle répond à une question qui vient, elle ne construit rien de la suite.
+>
+> Les trois ensemble ramènent la partie à 27′, ce qui tient. Ne pas raccourcir la manipulation : ses étapes 4, 5 et 10 sont ce que la partie entière prépare.
 
 Les autres leviers connus, à activer au moment de figer la séance :
 
@@ -770,22 +834,25 @@ Les autres leviers connus, à activer au moment de figer la séance :
 3. Le bloc Markdown réduit à deux diapositives — l'intention et la comparaison des trois formats — en renvoyant l'édition dans l'éditeur au cours 2, où `pandoc` est de toute façon repris : −4′.
 4. Le mini-projet « premiers octets » ramené à une démonstration au tableau : −5′. Il vaut mieux le garder en manipulation, c'est le seul moment où ils lancent un script qu'ils n'ont pas écrit.
 
-**Contrainte d'ordre** : la manipulation vidéo a besoin de l'environnement conda, installé en fin de séance. D'où la démonstration au moment des formats, la manipulation complète venant après l'installation ou en exercice complémentaire.
+**Contrainte d'ordre** : la manipulation vidéo a besoin de `ffmpeg` et d'`imagemagick`, donc de l'environnement conda. Celui-ci est créé avant la séance, mais la manipulation reste en bonus de fin : elle demande dix minutes que la séance n'a pas. D'où la démonstration au moment des formats, la manipulation complète venant en exercice complémentaire.
 
 ## Manipulations et diapositives de séparation
 
 Le deck distingue trois régimes par la couleur de fond de ses diapositives d'ouverture, et par rien d'autre : blanc pour l'exposé, bleu pour les diapositives de section (`separateur`), brun pour les manipulations et les travaux dirigés (`separateur-manip`, `separateur-td`). C'est la distinction 🎓 / ⌨️ de ce document, rendue visible de loin.
 
-Cinq blocs de manipulation dans la séance, répartis sur les trois premières parties :
+Sept blocs de manipulation dans la séance, un par ouverture brune, répartis sur les cinq parties :
 
 | Ouverture | Partie | Contenu |
 |-----------|--------|---------|
 | *Fichiers, formats et extensions* | 1 | exporter, renommer, ouvrir le `.odt` comme une archive et le modifier |
 | *Un hello world en Python et en C++* | 2 | lancer les deux programmes, et voir ce que chacun laisse sur le disque |
-| *Extensions de langage et programmes fautifs* | 2 | installer l'extension d'un langage, corriger trois fichiers |
-| *Une page HTML et sa feuille de style* | 3 | la page brute au navigateur, puis la même avec son CSS |
+| *Le même programme, trois façons de l'exécuter* | 2 | en entier, ligne à ligne, puis pas à pas au débogueur |
+| *Extensions de langage et programmes fautifs* | 3 | installer l'extension d'un langage, corriger trois fichiers |
+| *Formatage HTML et Markdown* | 3 | la page du poème et sa feuille de style, puis une recette mise en forme |
+| *Installer une bibliothèque et s'en servir* | 4 | `markdown` installé dans `info01`, puis `recette.md` converti en page HTML |
+| *Le notebook du cours, ouvert de trois façons* | 5 | le même `.ipynb` dans le navigateur, dans l'éditeur, dans JupyterLab |
 
-L'installation de l'environnement, en partie 4, est une sixième manipulation, sans diapositive d'ouverture : elle occupe la partie entière.
+La création de l'environnement lui-même n'en fait pas partie : elle est faite avant la séance, sur consigne d'installation, et seule sa commande est projetée.
 
 Trois blocs sont **en annexe** en fin de deck, et n'ont pas vocation à être joués en séance 1 : *Comparaison interface graphique et ligne de commande* (convertir un document des deux façons, piloter le navigateur sans fenêtre), *Échanger deux extensions* (qui demande la ligne de commande), et *Une vidéo, deux chemins*, le bonus. Les résultats observés y sont conservés.
 

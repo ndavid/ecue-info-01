@@ -31,6 +31,12 @@ data/cours1/hello/cpp/*.exe
 data/*/illustrations/*
 !data/*/illustrations/README.md
 
+# Manipulation « installer une bibliothèque » : on versionne le paquet, sa
+# feuille de style et les deux fichiers qui le décrivent — pas la page qu'il
+# produit, ni ce que `pip install -e .` dépose à côté.
+data/cours1/environnement/*.html
+data/cours1/environnement/*.egg-info/
+
 # Manipulation « trois programmes fautifs » : on versionne les sources fautives,
 # pas l'exécutable que la compilation produit une fois la faute corrigée.
 data/cours1/erreurs/cpp/aire

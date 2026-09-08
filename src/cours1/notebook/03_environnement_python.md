@@ -34,6 +34,11 @@ bibliothèques Python (`numpy`, `Pillow`) que des programmes complets (`ffmpeg`,
 `imagemagick`, `pandoc`, `typst`), sur les trois systèmes. L'objectif est
 d'installer des outils de façon reproductible, pas de distribuer un projet.
 
+La liste complète est dans `environment.yml`, à la racine du dépôt, et c'est ce
+fichier qu'on distribue : `conda env create -f environment.yml` recrée
+l'environnement à l'identique. La commande ci-dessous en est le résumé
+projetable en séance.
+
 ## Installation
 
 Installez Miniforge, une distribution conda préconfigurée sur conda-forge :
@@ -78,6 +83,162 @@ vient d'être installé signifie presque toujours que l'environnement actif n'es
 pas celui où l'installation a eu lieu. Vérifiez `sys.executable` avant toute
 autre hypothèse.
 :::
+
+## D'où viennent les paquets, et par quel outil
+
+`conda` n'est ni le seul ni le premier outil d'installation, et aucun n'a fait
+disparaître les précédents. `pip` paraît en 2008 et installe des bibliothèques
+Python, et rien d'autre : il ne sait pas installer `ffmpeg` ni un compilateur
+C++, qui ne sont pas du Python. `conda` paraît en 2012 et fait les deux, ce qui
+est la raison du choix de ce module. `conda-forge`, le dépôt communautaire d'où
+viennent nos paquets, ouvre en 2015. Depuis, `mamba` (2019) a réécrit le
+solveur de conda au point de devenir le sien, et deux outils récents, `pixi`
+(2023) et `uv` (2024), reprennent l'un l'écosystème conda et l'autre celui de
+pip. Ils sont excellents et hors programme : un seul outil suffit ici.
+
+`pyenv`, né la même année que conda, n'installe aucun paquet : il choisit la
+version de Python active. Son nom le fait souvent confondre avec les autres.
+
+Une commande d'installation va chercher le paquet dans un **dépôt**. Les deux
+que vous croiserez n'y laissent pas entrer la même chose.
+
+```{list-table}
+:header-rows: 1
+
+* - Dépôt
+  - Taille
+  - Comment on y entre
+* - PyPI, ce que `pip` installe
+  - 886 022 projets
+  - publication immédiate, par qui veut, sans relecture
+* - conda-forge, ce que `conda` installe ici
+  - 29 411 paquets
+  - une recette, relue par des humains, puis construite pour les trois systèmes
+```
+
+Aucun des deux n'est le bon ou le mauvais : un paquet conda-forge est le plus
+souvent construit à partir des mêmes sources que le paquet PyPI, quelques jours
+plus tard. Ce qui change est la porte d'entrée.
+
+:::{warning}
+**Installer un paquet exécute du code écrit par quelqu'un d'autre**, tout de
+suite, avec vos droits et sur vos fichiers. Le nom que vous tapez est la seule
+chose que vous contrôlez, et c'est par là que passent les attaques : quelqu'un
+publie `reqeusts` à côté de `requests`, la commande passe, rien ne se voit.
+Des campagnes de plusieurs centaines de faux paquets ont été relevées sur PyPI.
+
+Le réflexe tient en une phrase : **le nom d'un paquet se copie depuis la
+documentation du projet, il ne se tape pas de mémoire.**
+:::
+
+Chiffres relevés le 8 septembre 2026 dans l'index de PyPI et par l'API de
+GitHub. Sonatype a recensé plus de 454 600 nouveaux paquets malveillants en
+2025, tous dépôts confondus (*State of the Software Supply Chain*, 2026).
+
+## Ajouter une bibliothèque à un environnement
+
+Un programme n'écrit pas tout ce qu'il fait. Ses lignes `import` désignent du
+code écrit par d'autres, qui doit être présent dans l'environnement actif. Quand
+il ne l'est pas, l'exécution s'arrête avant la première ligne utile.
+
+Le dossier `data/cours1/environnement/` contient un petit projet Python écrit
+comme ceux que vous ouvrirez cette année : un `pyproject.toml` qui dit ce qu'est
+le projet et ce dont il dépend, un `environment.yml` qui décrit l'environnement,
+un `README.md`, et le paquet `page_html/`. Le programme convertit en page HTML
+le `recette.md` que vous avez écrit à la manipulation Markdown, avec la
+bibliothèque `markdown`.
+
+Les deux fichiers de description ne font pas le même travail, et aucun des deux
+n'installe quoi que ce soit — ils disent ce qu'il faut installer.
+
+```{list-table}
+:header-rows: 1
+
+* - Fichier
+  - Décrit
+  - Employé par
+* - `environment.yml`
+  - l'environnement : la version de Python, et tout ce qu'il faut sur la machine, y compris ce qui n'est pas du Python
+  - `conda`
+* - `pyproject.toml`
+  - le projet : son nom, sa version, les bibliothèques que le code importe, la commande qu'il installe
+  - `pip`, et les outils de construction
+```
+
+:::{admonition} Manipulation 4 — un environnement neuf, et ce qu'il faut y ajouter
+:class: tip
+
+On repart d'un environnement vide plutôt que d'`info01`, pour voir ce qu'un
+environnement contient d'origine.
+
+1. Ouvrez `data/cours1/environnement/` dans l'éditeur, et lisez la ligne
+   `dependencies` de `pyproject.toml` : le projet annonce avoir besoin de
+   `markdown`.
+2. Créez l'environnement décrit par le fichier voisin, et activez-le :
+
+   ```bash
+   conda env create -f environment.yml
+   conda activate recette
+   ```
+
+3. Regardez ce qu'il contient : `conda list` affiche **28 paquets**, dont
+   `pip`, `setuptools`, et une douzaine de bibliothèques C sans lesquelles
+   l'interpréteur ne démarre pas. Aucun ne s'appelle `markdown`.
+4. Lancez `python -m page_html`. Le programme s'arrête sur
+   `ModuleNotFoundError: No module named 'markdown'`. Le paquet est là et sa
+   syntaxe est correcte ; c'est le code qu'il emprunte qui manque. (`-m`
+   exécute un paquet plutôt qu'un fichier.)
+5. Installez la bibliothèque, puis relancez la même commande :
+
+   ```bash
+   conda install -c conda-forge markdown
+   python -m page_html
+   ```
+
+6. Ouvrez `recette.html` par l'adresse `file:///` que le programme affiche.
+   Changez une couleur dans `style.css`, enregistrez, rechargez la page.
+7. Ajoutez enfin `- markdown` sous `dependencies` dans `environment.yml`, puis
+   `conda env update -f environment.yml`. Rien ne s'installe, puisque c'est
+   déjà fait — mais sur une machine neuve, `conda env create` installera
+   désormais les deux d'un coup.
+:::
+
+L'étape 5 installe **trois** paquets : `markdown`, et deux qu'il réclame,
+`importlib-metadata` et `zipp`. La même commande dans `info01` n'en installe
+qu'**un seul**, de 85 ko, parce que les deux autres y avaient déjà été tirés
+par autre chose. Ce qui est déjà là ne se réinstalle pas.
+
+L'étape 7 est la conclusion de la partie. Une installation faite à la main ne
+se retrouve pas ; notée dans le fichier qui décrit l'environnement, elle
+redevient reproductible. C'est la différence entre se souvenir de ce qu'on a
+tapé et l'avoir écrit.
+
+```{code-cell} python
+from pathlib import Path
+
+source = Path("../../../data/cours1/markdown/recette.md")
+
+try:
+    import markdown
+except ImportError:
+    print("markdown n'est pas installé : conda install -c conda-forge markdown")
+else:
+    html = markdown.markdown(
+        source.read_text(encoding="utf-8"),
+        extensions=["tables", "fenced_code"],
+    )
+    print(html[:180], "…")
+```
+
+Les tableaux et les blocs de code ne font pas partie du Markdown publié par John
+Gruber en 2004 : la bibliothèque sait les traduire, mais il faut le demander,
+d'où le second argument.
+
+Le bloc `mermaid` de la recette arrive dans la page sous la forme de ses six
+lignes de texte, et non sous la forme d'un dessin. Mermaid est un service de
+l'aperçu de l'éditeur, pas du HTML : le navigateur reçoit du texte et affiche du
+texte. C'est la même distinction que pour la coloration syntaxique, qui n'est
+pas non plus dans le fichier.
 
 ## Trois façons d'exécuter du Python
 
@@ -236,8 +397,9 @@ cellules de code sont des blocs ` ```{code-cell} `, et les résultats sont
 recalculés à la construction plutôt que stockés. Cette page est écrite ainsi.
 
 Sur la page que vous lisez, remplacer `1920` par `3840` produit une différence
-de 2 lignes au format MyST, contre 44 lignes au format `.ipynb`, dont les
-résultats enregistrés.
+de 2 lignes au format MyST, contre 23 lignes au format `.ipynb`, dont les
+résultats enregistrés. Mesuré sur cette page, le `.ipynb` ayant été exécuté :
+c'est là que sont les résultats qui gonflent la différence.
 
 ```{list-table}
 :header-rows: 1

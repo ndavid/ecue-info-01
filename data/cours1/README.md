@@ -54,6 +54,8 @@ puisque ce sont des sources de quelques lignes et non des données dérivées.
 | [`hello/`](hello/) | deux « hello world », en Python et en C++ |
 | [`erreurs/`](erreurs/) | trois programmes fautifs, à corriger dans l'éditeur |
 | [`formats/`](formats/) | `octets.py`, qui lit les premiers octets d'un fichier |
+| [`markdown/`](markdown/) | une recette en texte brut, à mettre en forme en Markdown |
+| [`environnement/`](environnement/) | un petit projet Python : créer un environnement neuf, y installer `markdown`, convertir la recette en page HTML |
 | [`trajet/`](trajet/) | le bonus vidéo « une vidéo, deux chemins » |
 | [`illustrations/`](illustrations/) | les captures d'écran des diapositives, hors dépôt |
 
