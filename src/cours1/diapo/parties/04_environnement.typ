@@ -394,7 +394,7 @@
 
   ```bash
   conda create -n info01 -c conda-forge python=3.12 \
-      jupyterlab numpy pillow pandoc typst ffmpeg imagemagick
+      jupyterlab numpy pillow pandoc ffmpeg imagemagick
   conda activate info01
   ```
 

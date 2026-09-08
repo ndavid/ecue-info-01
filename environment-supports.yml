@@ -1,0 +1,41 @@
+# Environnement de fabrication des supports du module.
+#
+# Il n'intéresse que qui recompile les diapositives ou le book : les étudiants
+# n'en ont pas besoin, et les manipulations ne s'en servent pas. Leur
+# environnement est `environment.yml`.
+#
+# Il reprend le contenu de `environment.yml` — les notebooks du book s'exécutent
+# à la construction, donc avec les mêmes bibliothèques que les étudiants — et y
+# ajoute la chaîne documentaire.
+#
+#   conda env create -f environment-supports.yml
+#   conda activate info01-supports
+name: info01-supports
+
+channels:
+  - conda-forge
+
+dependencies:
+  # --- Socle, identique à l'environnement de travail ---
+  - python=3.12
+  - jupyterlab
+  - numpy
+  - pillow
+  - ffmpeg
+  - imagemagick
+  - pandoc
+
+  # --- Diapositives ---
+  - typst               # src/cours<n>/diapo/*.typ
+
+  # --- Book ---
+  # Sphinx + myst-nb produit du HTML à chemins **relatifs**, ouvrable par
+  # double-clic (file://) et sans connexion — contrainte de distribution aux
+  # étudiants. mystmd/Jupyter Book 2 génère une application web qui exige un
+  # serveur : écarté pour cette raison, et Node n'est donc pas nécessaire.
+  - sphinx
+  - myst-nb             # Markdown MyST + exécution des cellules
+  - sphinx-book-theme
+  - sphinx-design
+  - sphinx-autobuild    # aperçu live pendant la rédaction
+  - jupytext            # .md MyST -> .ipynb, pour outils/construire_notebooks.py

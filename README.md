@@ -12,16 +12,25 @@ Module d'**infrastructure de travail** (outils + concepts génériques) complém
 | [`data/`](data/) | **Fichiers des manipulations**, un dossier par séance puis par manipulation. Deux noms réservés : `produit/` est refabricable par une commande, `fourni/` vient d'ailleurs et ne l'est pas. Ni l'un ni l'autre n'est versionné ; `fourni/` voyage avec [`outils/ressources.py`](outils/ressources.py). |
 | [`illustrations/`](illustrations/) | **Captures d'écran des supports**, hors dépôt. Elles servent aux diapositives, pas aux travaux dirigés. |
 | [`STYLE.md`](STYLE.md) | **Conventions d'écriture** des supports (diapositives, pages de cours, notes). À lire avant d'en rédiger. |
-| [`environment.yml`](environment.yml) | Environnement conda `info01` — voir [`INSTALLATION.md`](INSTALLATION.md). |
+| [`environment.yml`](environment.yml) | Environnement de **travail** `info01` : celui des étudiants et des manipulations. |
+| [`environment-supports.yml`](environment-supports.yml) | Environnement de **fabrication** `info01-supports` : typst et la chaîne du book, pour qui recompile les supports. |
 
 *(Cours 1 rempli de bout en bout — syllabus, notebook, diapos, données ; cours 2–7 en gabarits.)*
 
 ## Démarrage
 
+Pour **suivre** le cours et jouer les manipulations :
+
 ```bash
 conda env create -f environment.yml && conda activate info01   # ~1 min 30
 cd data/cours1 && python make_data.py fetch && python make_data.py build && cd ../..
-typst compile src/cours1/diapo/cours1.typ                      # diapositives → PDF
+```
+
+Pour **recompiler** les supports, il faut en plus la chaîne documentaire :
+
+```bash
+conda env create -f environment-supports.yml && conda activate info01-supports
+python outils/compiler_diapos.py                               # diapositives → PDF
 sphinx-build -b html src _build/html                           # book → _build/html/index.html
 ```
 

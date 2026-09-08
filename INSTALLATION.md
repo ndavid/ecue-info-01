@@ -24,15 +24,32 @@ conda --version
 
 ### Créer l'environnement
 
-Depuis la racine du dépôt :
+Il y en a deux, et il faut savoir lequel on veut.
+
+`info01` est l'environnement de **travail** : celui des étudiants, celui dans
+lequel se jouent toutes les manipulations. Il contient Python, JupyterLab, numpy,
+pillow, ffmpeg, ImageMagick et pandoc — rien de la chaîne documentaire.
 
 ```bash
 conda env create -f environment.yml
 conda activate info01
 ```
 
-Le prompt doit afficher `(info01)`. Durée observée : **~1 min 30** (première fois,
-téléchargements inclus).
+`info01-supports` est l'environnement de **fabrication** : il n'intéresse que qui
+recompile les diapositives ou le book. Il reprend le contenu du premier — les
+notebooks du book s'exécutent à la construction, donc avec les mêmes
+bibliothèques que les étudiants — et y ajoute typst, Sphinx, myst-nb et jupytext.
+
+```bash
+conda env create -f environment-supports.yml
+conda activate info01-supports
+```
+
+Le prompt doit afficher `(info01)` ou `(info01-supports)`. Durée observée pour
+le premier : **~1 min 30** (première fois, téléchargements inclus).
+
+Les deux coexistent sans se gêner : c'est précisément ce qu'un environnement
+sert à faire, et la partie 4 du cours 1 le fait constater aux étudiants.
 
 ### Vérifier
 
