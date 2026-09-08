@@ -6,14 +6,15 @@
 
 #separateur(
   "Environnement de programmation",
-  annonce: "Le code que le programme emprunte, et l'outil qui l'installe",
+  annonce: "Réutiliser du code existant plutôt que tout réécrire, installer ce dont un programme dépend, et décrire cette installation dans un fichier",
 )
 // ------------------------- Dépendances et environnement -----------------------
 
-#d("Ce qu'un programme emprunte")[
+#d("Réutilisation de code existant")[
   #annonce[
-    Un programme n'écrit pas tout ce qu'il fait. Les lignes `import` désignent
-    du code écrit par d'autres, installé sur la machine.
+    Un programme ne contient pas tout le code qu'il exécute. Ses lignes
+    `import` désignent du code publié par d'autres, réutilisé au lieu d'être
+    réécrit.
   ]
 
   #face-a-face(
@@ -26,7 +27,7 @@
       image = Image.new("RGB", (900, 600))
       ```
     ],
-    panneau("Ce que cela suppose installé")[
+    panneau("Ce qu'il réutilise, et qui doit être installé")[
       #tableau(
         entete: false,
         columns: (auto, 1fr),
@@ -36,49 +37,73 @@
       )
       #v(0.4em)
       #text(size: 13pt, fill: estompe)[
-        Deux bibliothèques, soit quelques centaines de milliers de lignes que
-        vous n'écrivez pas.
+        Deux bibliothèques, soit quelques centaines de milliers de lignes déjà
+        écrites, relues et corrigées ailleurs.
       ]
     ],
   )
 
+  #legende[
+    Une bibliothèque dont un programme a besoin pour s'exécuter est une
+    _dépendance_ de ce programme.
+  ]
+
   #notes[
-    Une recette qui commence par « prenez une pâte brisée » : vous ne la
-    fabriquez pas, mais il faut qu'elle soit dans le placard, et que ce
-    soit la bonne.
+    Une recette qui commence par « prenez une pâte brisée » : on ne la
+    fabrique pas, mais il faut qu'elle soit dans le placard, et que ce soit
+    la bonne.
 
     Nommer *bibliothèque* ; écarter « librairie », faux ami de *library*.
+    Nommer *dépendance*, mot employé dans toute la suite de la partie.
+
+    Ce qu'on gagne n'est pas du temps de frappe : du code publié a été
+    relu, corrigé et éprouvé par d'autres, ce qu'un programme écrit dans la
+    semaine ne peut pas être. Réécrire `pillow` serait refaire trente ans
+    de corrections sur les formats d'image.
+
+    L'autre face du même geste vient plus tard dans la partie : ce code
+    est réutilisable parce que quelqu'un l'a distribué, et distribuer le
+    sien demande de décrire son projet dans un fichier.
 
     Ne pas parler d'installation : c'est la diapositive suivante.
   ]
 ]
-#d("Une bibliothèque en entraîne d'autres")[
+#d("Dépendances directes et dépendances transitives")[
   #annonce[
-    Une bibliothèque en réclame d'autres, qui en réclament d'autres à leur
-    tour. La liste effective ne se tient pas à la main.
+    Une dépendance déclare à son tour ses propres dépendances. La relation est
+    récursive, et la liste complète se calcule au lieu de s'énumérer.
   ]
 
   #chaine(
     ecart: 30pt,
-    ("environment.yml", "15 paquets demandés"),
-    ("leurs exigences", "pillow en déclare 25, jupyterlab 50"),
-    ("l'environnement", "352 paquets installés"),
+    ("environment.yml", "7 dépendances directes"),
+    ("ce qu'elles déclarent", "pillow en déclare 14, ffmpeg 53"),
+    ("l'environnement obtenu", "293 paquets installés"),
   )
 
   #legende[
-    Relevé sur l'environnement `info01` du module, avec `conda list`.
+    Relevé le 8 septembre 2026 sur l'`environment.yml` du module : sept paquets
+    demandés, 293 installés d'après `conda create --dry-run`. Le dernier nombre
+    n'est la somme d'aucun des précédents, les dépendances se recouvrant.
   ]
 
   #notes[
-    Personne ne tient cette liste à la main : c'est ce qui justifie
-    l'outil.
+    Vocabulaire à poser ici, employé toute l'année : les paquets écrits
+    dans le fichier sont les dépendances *directes* ; celles qu'ils
+    entraînent sont *transitives*. Calculer l'ensemble à partir du fichier
+    s'appelle *résoudre* les dépendances.
 
-    Une installation est reproductible parce qu'un fichier la décrit, non
-    parce qu'on se souvient de ce qu'on a tapé. C'est le rôle
-    d'`environment.yml`, et ce qui est demandé au rendu.
+    Récursif au sens propre : la même règle s'applique à chaque paquet
+    atteint, jusqu'à n'en plus trouver de nouveau. Personne ne tient cette
+    liste à la main, et c'est ce qui justifie l'outil.
 
-    Les versions exactes sont dans la sortie de `conda env export` ; ne
-    pas y entrer aujourd'hui.
+    Le calcul n'est pas qu'un parcours : deux paquets peuvent exiger deux
+    versions incompatibles d'un troisième, et l'outil doit trouver un jeu
+    de versions qui convienne à tous. Une phrase, pas plus — c'est ce qui
+    explique qu'une installation soit lente.
+
+    Les versions exactes retenues sont dans la sortie de
+    `conda env export` ; ne pas y entrer aujourd'hui.
   ]
 ]
 #d("Ce qu'une bibliothèque contient vraiment")[
@@ -159,10 +184,174 @@
     de chercher plus loin.
   ]
 ]
+#d("Le fichier de dépendances")[
+  #annonce[
+    Les dépendances directes d'un projet ne se retiennent pas : elles s'écrivent
+    dans un fichier, rangé avec le code, que l'outil d'installation lit.
+  ]
+
+  #face-a-face(
+    panneau("Le fichier, écrit à la main")[
+      ```yaml
+      name: info01
+      channels:
+        - conda-forge
+      dependencies:
+        - python=3.12
+        - jupyterlab
+        - numpy
+      ```
+    ],
+    panneau("Ce qu'on en fait")[
+      ```bash
+      conda env create -f environment.yml
+      ```
+      #v(0.5em)
+      #tableau(
+        entete: false,
+        columns: (auto, 1fr),
+        align: left + horizon,
+        [Sur ce poste], [l'environnement décrit est créé],
+        [Sur un autre poste], [le même, à partir du même fichier],
+        [Dans six mois], [le même, sans se souvenir de rien],
+      )
+    ],
+  )
+
+  #legende[
+    Extrait d'`environment.yml`, à la racine du dépôt du module. Le fichier
+    n'installe rien : il dit ce qu'il faut installer.
+  ]
+
+  #notes[
+    La phrase à retenir de la partie : une installation est reproductible
+    parce qu'un fichier la décrit, non parce qu'on se souvient de ce qu'on
+    a tapé. C'est aussi ce qui est demandé au rendu.
+
+    Le fichier ne contient que les dépendances directes, sept ici : les
+    293 autres sont recalculées à chaque création. Écrire la liste
+    complète serait la figer, et l'attacher à un système.
+
+    Il se range avec le code et le suit partout : c'est un fichier texte
+    de quelques lignes, comme le reste du projet. Le versionner est le
+    sujet du cours 2.
+
+    Ce qui manque encore : ce fichier obtenu à la main après coup ne dit
+    pas d'où vient chaque paquet ni en quelle version exacte. `conda env
+    export` le fait ; ne pas y entrer aujourd'hui.
+  ]
+]
+#d("YAML et TOML")[
+  #annonce[
+    Deux formats de fichier texte faits pour décrire et non pour calculer : des
+    données structurées, écrites par un humain, relues par un programme.
+  ]
+
+  #face-a-face(
+    panneau[YAML, ici `environment.yml`][
+      ```yaml
+      name: info01
+      channels:
+        - conda-forge
+      dependencies:
+        - python=3.12
+        - numpy
+      ```
+      #text(size: 14pt, fill: estompe)[
+        L'indentation porte la structure, le tiret marque un élément de liste.
+      ]
+    ],
+    panneau[TOML, ici `pyproject.toml`][
+      ```toml
+      [project]
+      name = "page-html"
+      version = "0.1.0"
+      requires-python = ">=3.10"
+      dependencies = ["markdown>=3.5"]
+      ```
+      #text(size: 14pt, fill: estompe)[
+        Des sections entre crochets, et une valeur par nom.
+      ]
+    ],
+  )
+
+  #legende[
+    Extraits réels des deux fichiers de la manipulation qui suit. Comme `.json`,
+    ils décrivent des données ; contrairement à lui, ils acceptent des
+    commentaires, ce qui explique qu'un humain les écrive.
+  ]
+
+  #notes[
+    Deux minutes. Le propos n'est pas la syntaxe : c'est qu'un troisième
+    usage du texte apparaît, après le code et la documentation. Décrire.
+
+    Ils les ont déjà croisés à « Les fichiers texte d'un projet », dans la
+    ligne `.json`, `.yaml`. Ce sont les mêmes formats, employés ici pour
+    déclarer des dépendances.
+
+    On les retrouve hors de Python : réglages d'un outil, description
+    d'une chaîne d'intégration, composition de conteneurs. Citer sans
+    développer.
+
+    Piège du YAML, à mentionner si quelqu'un tape le fichier : deux
+    espaces d'indentation, jamais de tabulation, et l'éditeur le signale.
+    C'est « Espaces, tabulations et fins de ligne » qui resurgit.
+
+    Ne pas comparer les deux formats point par point : ce qui compte est
+    qu'un projet Python emploie l'un et l'autre pour deux descriptions
+    différentes, diapositive suivante.
+  ]
+]
+#d("Ce qu'un projet déclare")[
+  #annonce[
+    Un projet ne déclare pas que ses dépendances : le même fichier porte son
+    nom, sa version et la commande qu'il installe.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr, auto),
+    align: left + horizon,
+    [Ce qui est écrit], [Ce que c'est], [Qui le lit],
+    [`name`, `version`, `description`], [les métadonnées du projet], [le dépôt, et qui l'installe],
+    surligne[`dependencies`],
+      surligne[les bibliothèques que le code importe],
+      surligne[l'outil d'installation],
+    [`requires-python`], [les versions de Python acceptées], [l'outil d'installation],
+    [`[project.scripts]`], [la commande créée à l'installation], [le système],
+    [`[build-system]`], [l'outil qui fabrique le paquet distribuable], [les outils de construction],
+  )
+
+  #legende[
+    Contenu réel de `data/cours1/environnement/pyproject.toml`. Aujourd'hui vous
+    lisez ce fichier pour installer ; l'écrire est ce qui rend un code
+    installable par quelqu'un d'autre.
+  ]
+
+  #notes[
+    Boucler la partie : le code réutilisé au début de la partie est
+    disponible parce que quelqu'un a écrit un fichier de cette forme, puis
+    déposé le résultat sur un dépôt. Les deux bouts se rejoignent ici.
+
+    Distribuer n'est pas au programme du jour, et le mot suffit : mettre
+    son code à disposition sous une forme qu'une commande installe.
+    Fabriquer le paquet est au cours 3, avec `[project.scripts]`.
+
+    La ligne surlignée est celle que la manipulation fait lire avant de
+    lancer quoi que ce soit : le projet annonce avoir besoin de
+    `markdown`.
+
+    Ne pas détailler `[build-system]` : dire qu'aucun projet ordinaire n'a
+    à en changer.
+
+    Diapositive à passer vite si l'horaire déborde ; elle prépare le cours
+    3 plus qu'elle ne sert la manipulation du jour.
+  ]
+]
 #d("L'outil qui installe un environnement")[
   #annonce[
-    `conda` lit la liste des paquets demandés, résout leurs exigences et les
-    installe. Il n'a pas de fenêtre : il s'emploie en tapant une commande.
+    `conda` lit le fichier de dépendances, résout les dépendances transitives et
+    installe le tout. Il n'a pas de fenêtre : il s'emploie en tapant une
+    commande.
   ]
 
   #tableau(
@@ -418,7 +607,7 @@
 
 #separateur-manip(
   "Installer une bibliothèque et s'en servir",
-  annonce: "Un environnement neuf, un programme qui ne tourne pas, et la ligne qui le répare",
+  annonce: "Objectif : installer la dépendance qui manque à un programme, puis la déclarer dans le fichier qui décrit l'environnement",
   dossier: "data/cours1/environnement/",
 )
 #d("Un environnement neuf")[
@@ -462,8 +651,8 @@
 
     Étape 5, à ne pas sauter : le `ModuleNotFoundError` annoncé deux fois
     depuis la partie 2 leur arrive dans des conditions où la cause est
-    connue. Le fichier est là, sa syntaxe est correcte ; c'est le code
-    emprunté qui manque.
+    connue. Le fichier est là, sa syntaxe est correcte ; c'est la
+    dépendance qui manque.
 
     `python -m page_html` lance un paquet et non un fichier : le dossier
     `page_html/` porte un nom de paquet, `-m` demande à Python de
@@ -500,7 +689,7 @@
   #notes[
     Étape 6 : trois paquets s'installent ici, contre un seul de 85 ko avec
     la même commande dans `info01`, où `importlib-metadata` et `zipp`
-    étaient déjà présents. C'est « Une bibliothèque en entraîne d'autres »
+    étaient déjà présents. C'est « Dépendances directes et dépendances transitives »
     vérifié par eux, et la preuve que ce qui est là ne se réinstalle pas.
 
     Étape 8, trois renvois : le `recette.md` est celui qu'ils ont écrit

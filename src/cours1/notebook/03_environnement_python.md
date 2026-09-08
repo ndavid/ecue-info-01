@@ -135,11 +135,33 @@ Chiffres relevés le 8 septembre 2026 dans l'index de PyPI et par l'API de
 GitHub. Sonatype a recensé plus de 454 600 nouveaux paquets malveillants en
 2025, tous dépôts confondus (*State of the Software Supply Chain*, 2026).
 
+## Dépendances directes et dépendances transitives
+
+Un programme ne contient pas tout le code qu'il exécute. Ses lignes `import`
+désignent du code publié par d'autres, réutilisé au lieu d'être réécrit. Ce
+qu'on y gagne n'est pas du temps de frappe : une bibliothèque diffusée a été
+relue, corrigée et éprouvée par plus de gens qu'un programme écrit dans la
+semaine. Une bibliothèque dont un programme a besoin pour s'exécuter est une
+**dépendance** de ce programme.
+
+La relation est récursive : une dépendance déclare à son tour les siennes, qui
+déclarent les leurs. Les paquets écrits dans le fichier d'un projet sont ses
+dépendances **directes** ; celles qu'ils entraînent sont **transitives**, et
+calculer l'ensemble à partir du fichier s'appelle **résoudre** les dépendances.
+C'est le travail de `conda`, et ce n'est pas un simple parcours : deux paquets
+peuvent exiger deux versions incompatibles d'un troisième, et l'outil doit
+trouver un jeu de versions qui convienne à tous.
+
+L'ordre de grandeur se mesure sur l'environnement du module. `environment.yml`
+déclare sept paquets ; `conda create --dry-run` en installe 293. Entre les deux,
+`pillow` déclare 14 dépendances, `ffmpeg` 53, et elles se recouvrent largement —
+le dernier nombre n'est la somme d'aucun des précédents. Personne ne tient cette
+liste à la main, et c'est ce qui justifie l'outil.
+
 ## Ajouter une bibliothèque à un environnement
 
-Un programme n'écrit pas tout ce qu'il fait. Ses lignes `import` désignent du
-code écrit par d'autres, qui doit être présent dans l'environnement actif. Quand
-il ne l'est pas, l'exécution s'arrête avant la première ligne utile.
+Quand une dépendance n'est pas présente dans l'environnement actif, l'exécution
+s'arrête avant la première ligne utile.
 
 Le dossier `data/cours1/environnement/` contient un petit projet Python écrit
 comme ceux que vous ouvrirez cette année : un `pyproject.toml` qui dit ce qu'est
@@ -165,7 +187,41 @@ n'installe quoi que ce soit — ils disent ce qu'il faut installer.
   - `pip`, et les outils de construction
 ```
 
-:::{admonition} Manipulation 4 — un environnement neuf, et ce qu'il faut y ajouter
+### YAML et TOML
+
+Ces deux fichiers sont écrits dans deux formats de texte faits pour décrire et
+non pour calculer : des données structurées, écrites par un humain, relues par
+un programme. En **YAML**, l'indentation porte la structure et le tiret marque
+un élément de liste ; en **TOML**, des sections entre crochets contiennent une
+valeur par nom. Comme `.json`, ils décrivent des données ; contrairement à lui,
+ils acceptent des commentaires, ce qui explique qu'un humain les écrive. On les
+retrouve bien au-delà de Python : réglages d'un outil, description d'une chaîne
+d'intégration, composition de conteneurs.
+
+Un piège de YAML mérite d'être connu avant de taper le fichier : l'indentation
+se fait avec des espaces, jamais avec une tabulation. C'est la question des
+caractères invisibles, rencontrée à la partie précédente.
+
+`pyproject.toml` ne porte pas que les dépendances. Le même fichier déclare le
+nom du projet, sa version, sa description, les versions de Python acceptées, la
+commande que l'installation doit créer (`[project.scripts]`) et l'outil qui sait
+fabriquer le paquet (`[build-system]`).
+
+```toml
+[project]
+name = "page-html"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = ["markdown>=3.5"]
+```
+
+C'est ce fichier que lisent les outils de construction et les dépôts. Vous le
+lisez aujourd'hui pour installer ; l'écrire est ce qui rend un code installable
+par quelqu'un d'autre, c'est-à-dire distribuable. La fabrication d'un paquet est
+le sujet du cours 3 : le code que vous réutilisez depuis le début de cette page
+est disponible parce que quelqu'un a écrit un fichier de cette forme.
+
+:::{admonition} Manipulation 2 — un environnement neuf, et ce qu'il faut y ajouter
 :class: tip
 
 On repart d'un environnement vide plutôt que d'`info01`, pour voir ce qu'un
@@ -186,7 +242,7 @@ environnement contient d'origine.
    l'interpréteur ne démarre pas. Aucun ne s'appelle `markdown`.
 4. Lancez `python -m page_html`. Le programme s'arrête sur
    `ModuleNotFoundError: No module named 'markdown'`. Le paquet est là et sa
-   syntaxe est correcte ; c'est le code qu'il emprunte qui manque. (`-m`
+   syntaxe est correcte ; c'est la dépendance qui manque. (`-m`
    exécute un paquet plutôt qu'un fichier.)
 5. Installez la bibliothèque, puis relancez la même commande :
 
@@ -352,7 +408,7 @@ compteurs `[1]`, `[2]` indiquent l'ordre réel. Un notebook qui fonctionne chez
 vous peut échouer chez quelqu'un d'autre s'il n'a jamais été relancé depuis le
 début.
 
-:::{admonition} Manipulation 2 — provoquer puis réparer l'incohérence
+:::{admonition} Manipulation 3 — provoquer puis réparer l'incohérence
 :class: tip
 
 1. Lancez `jupyter lab` depuis le terminal, avec `info01` activé.
@@ -421,7 +477,7 @@ c'est là que sont les résultats qui gonflent la différence.
   - n'importe quel éditeur
 ```
 
-:::{admonition} Manipulation 3 — convertir dans les deux sens
+:::{admonition} Manipulation 4 — convertir dans les deux sens
 :class: tip
 
 ```bash
@@ -444,4 +500,5 @@ s'exécute dans un noyau, qui conserve l'état entre les cellules.
 
 Le choix d'un format décide de ce que l'on pourra en faire : le relire, le
 comparer, le versionner. C'est le sujet du cours 2, consacré à la ligne de
-commande et à git.
+commande et à git. L'annexe « Comparer deux versions d'un fichier » en donne
+l'avant-goût, et se fait seul.

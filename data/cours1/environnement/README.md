@@ -104,7 +104,7 @@ Dans l'éditeur de code, dans cet ordre.
    ```
 
    Le paquet est là, il se lit, sa syntaxe est correcte. Ce qui manque est le
-   code qu'il emprunte.
+   code qu'il réutilise, c'est-à-dire sa dépendance.
 
    `python -m page_html` exécute un *paquet* et non un fichier : le dossier
    `page_html/` en est un, et `-m` demande à Python de le lancer.
