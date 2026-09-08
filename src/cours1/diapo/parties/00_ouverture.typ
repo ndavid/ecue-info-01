@@ -20,7 +20,7 @@
   #tableau(
     columns: (1fr, 1fr),
     align: left + horizon,
-    [Demandé dans les autres cours], [(re)vu dans ce module],
+    [Demandé dans les autres modules et cours], [(re)vu dans ce module],
     [« ouvrez le projet fourni »], [travailler dans un éditeur de code, lire une arborescence],
     [« installez Python et numpy »], [créer un environnement et le réinstaller ailleurs],
     [« le script lit `donnees.csv` »], [manipuler des fichiers depuis Python],
@@ -31,6 +31,9 @@
     Ces bases sont en partie connues, par le lycée ou la prépa. Les maîtriser
     évite de prendre du retard dans les autres cours : on s'y consacre au
     contenu du cours plutôt qu'à l'outil qu'on ne sait pas employer.
+    Ces notions sont utiles pour les autres cours informatiques et de programmation
+    mais aussi pour tous les cours non informatiques qui demandent des expérimentations
+    ou rendu de projet sous forme de code.
   ]
 ]
 #d("Objectifs du module liés à la programmation")[

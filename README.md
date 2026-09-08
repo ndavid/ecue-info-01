@@ -11,6 +11,7 @@ Module d'**infrastructure de travail** (outils + concepts génériques) complém
 | [`src/`](src/) | **Supports de séance** : `cours<n>/notebook/` (pages MyST exécutables), `cours<n>/diapo/` (sources typst), et [`conf.py`](src/conf.py) (config du book). |
 | [`data/`](data/) | **Fichiers des manipulations**, un dossier par séance puis par manipulation. Deux noms réservés : `produit/` est refabricable par une commande, `fourni/` vient d'ailleurs et ne l'est pas. Ni l'un ni l'autre n'est versionné ; `fourni/` voyage avec [`outils/ressources.py`](outils/ressources.py). |
 | [`illustrations/`](illustrations/) | **Captures d'écran des supports**, hors dépôt. Elles servent aux diapositives, pas aux travaux dirigés. |
+| [`src/commun/typst-101.md`](src/commun/typst-101.md) | **Lire le typst du dépôt** : les deux premières diapositives commentées ligne à ligne. |
 | [`STYLE.md`](STYLE.md) | **Conventions d'écriture** des supports (diapositives, pages de cours, notes). À lire avant d'en rédiger. |
 | [`environment.yml`](environment.yml) | Environnement de **travail** `info01` : celui des étudiants et des manipulations. |
 | [`environment-supports.yml`](environment-supports.yml) | Environnement de **fabrication** `info01-supports` : typst et la chaîne du book, pour qui recompile les supports. |

@@ -1,5 +1,9 @@
 # Diapositives — Cours 1
 
+Pour relire les sources sans connaître typst :
+[`src/commun/typst-101.md`](../../commun/typst-101.md), qui commente ligne à
+ligne les deux premières diapositives de l'ouverture.
+
 Structure **assertion-evidence** : le titre nomme le sujet de la diapositive,
 une phrase d'annonce énonce l'idée, et le corps est une preuve visuelle
 (schéma, sortie de commande, comparaison). Aucune liste à puces. Les

@@ -26,10 +26,10 @@
 #include "parties/04_environnement.typ"
 #include "parties/05_notebooks.typ"
 
-// Les annexes gardent ce que la séance n'a pas le temps de jouer, et ce que les
-// séances suivantes reprennent. Elles doublent presque le nombre de pages : la
-// version projetée en salle s'en passe.
-//
+// Les annexes gardent des diapo avce du contenu de test ou au final plus
+// approprié pour d'autres seance 
+// gardé pour info re reprise éventuelle
+// 
 //     typst compile --root . --input annexes=true cours1.typ
 #if sys.inputs.at("annexes", default: "") == "true" {
   include "parties/09_annexes.typ"
