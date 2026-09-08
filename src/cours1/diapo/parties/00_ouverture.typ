@@ -20,7 +20,7 @@
   #tableau(
     columns: (1fr, 1fr),
     align: left + horizon,
-    [Demandé dans les autres cours], [(re)vu dans ce module)],
+    [Demandé dans les autres cours], [(re)vu dans ce module],
     [« ouvrez le projet fourni »], [travailler dans un éditeur de code, lire une arborescence],
     [« installez Python et numpy »], [créer un environnement et le réinstaller ailleurs],
     [« le script lit `donnees.csv` »], [manipuler des fichiers depuis Python],
@@ -28,8 +28,9 @@
   )
 
   #notes[
-    Ces bases doivent être connues, au moins partiellement, avec les formations au lycée au prépa. 
-    Mais il est très important de les maitriser pour ne pas prendre du retard dans les autres cours et pouvoir se focaliser sur le contenu propre de chauqe cours et non perdre du temps lié à un méconnaissance des outils utilisés.
+    Ces bases sont en partie connues, par le lycée ou la prépa. Les maîtriser
+    évite de prendre du retard dans les autres cours : on s'y consacre au
+    contenu du cours plutôt qu'à l'outil qu'on ne sait pas employer.
   ]
 ]
 #d("Objectifs du module liés à la programmation")[
@@ -107,7 +108,7 @@
   #annonce[
     Une bonne part de la première séance reprend des notions déjà au programme
     du lycée. Elles sont rappelées pour que la suite du module parte du même
-    point pour tout le monde et ne pas perdre de temps sur ces points dans les autres cours.
+    point pour tout le monde.
   ]
 
   #tableau(
@@ -128,14 +129,15 @@
   ]
 
   #notes[
-    Diapositive à commenter en trente secondes, explique que l'on a conscience que cela peut être des redites pour certains étudiants.
+    Diapositive à commenter en trente secondes. Dire qu'on a conscience que
+    ce sera une redite pour une partie de la salle.
 
     Formulation qui passe bien : ce qui est reproché aux étudiants dans les
-    autres cours n'est pas toujours l'algorithmique, c'est un chemin de
-    fichier faux ou un environnement mal installé, une doc peu clair, un code qui
-    ne s'installe pas faclement sur un autre ordinateur etc... 
-    Ces notions ne sont pas enseignées dans les autres cours, choix de
-    les enseigner explicitement plutôt que d'attendre une auto-formation des élèves sur ces points..
+    autres cours n'est pas toujours l'algorithmique. C'est un chemin de fichier
+    faux, un environnement mal installé, une documentation peu claire, un code
+    qui ne s'installe pas sur une autre machine. Ces gestes ne sont enseignés
+    nulle part ailleurs : le module fait le choix de les enseigner plutôt que
+    d'attendre que chacun se forme seul.
   ]
 ]
 #d("Le rythme de la première partie")[
@@ -179,7 +181,8 @@
 #d("Organisation : sept séances de deux heures")[
   #annonce[
     Chaque séance alterne des explications courtes et des manipulations faites
-    sur votre machine. 2 séances orientées sur des TD plus long et faisant revoir et manipuler les notions vues dans les séances précédentes.
+    sur votre machine. Deux d'entre elles sont des travaux dirigés, qui
+    reprennent sur un livrable complet ce que les séances précédentes ont vu.
   ]
 
   #tableau(
@@ -232,10 +235,9 @@
     Diapositive d'orientation : on y revient à chaque changement de partie, en
     s'appuyant sur les diapositives de séparation.
 
-    Les diapositives brunes du déroulé sont les manipulations : cinq, dans les
-    trois premières parties, l'installation de l'environnement occupant à elle
-    seule la quatrième. Annoncer dès maintenant que la séance n'est pas un
-    exposé continu.
+    Les diapositives brunes du déroulé sont les manipulations : sept, dans les
+    cinq parties. Annoncer dès maintenant que la séance n'est pas un exposé
+    continu.
 
     L'ordre a une logique à énoncer en une phrase : on décrit d'abord ce qu'est
     un logiciel et ce qu'il manipule, puis comment on en écrit un, puis ce

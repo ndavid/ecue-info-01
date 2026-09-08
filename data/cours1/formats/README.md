@@ -4,8 +4,9 @@ Un mini-projet Python de quarante lignes, à ouvrir dans l'éditeur de code et �
 exécuter. Il lit les quatre premiers octets d'un fichier et les compare à un
 catalogue de signatures, ce que fait tout logiciel qui ouvre un document.
 
-C'est la conclusion de la manipulation « Un texte, quatre formes » : après avoir
-constaté que l'extension ne décrit pas le contenu, on regarde ce qui le décrit.
+C'est la conclusion de la manipulation « Fichiers, formats et extensions » :
+après avoir constaté que l'extension ne décrit pas le contenu, on regarde ce
+qui le décrit.
 
 Le script est versionné, comme les sources de [`../hello/`](../hello/) et de
 [`../erreurs/`](../erreurs/). Les fichiers qu'il lit, eux, sont produits par

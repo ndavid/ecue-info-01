@@ -218,7 +218,7 @@
 
   #legende[
     Extrait de `cpp/aire.cpp`, lignes 5 à 7. Le point-virgule manque à la
-    ligne 6 ; g++ 11.4 désigne la ligne 7.
+    ligne 6 ; g++ 13.3 désigne la ligne 7.
   ]
 
   #notes[
@@ -336,8 +336,8 @@
     l'affiche.
 
     Annoncer le rapprochement : le saut de ligne est un caractère comme les
-    autres, ce que la manipulation « Un texte, quatre formes » montrera plus
-     loin dans cette partie, sur un poème tenant tout entier sur une ligne.
+    autres. La diapositive « Ce que contient un fichier texte », en annexe,
+    le compte sur un poème tenant tout entier sur une ligne.
   ]
 ]
 // Sans capture, cette diapositive n'ajouterait rien au bloc de la précédente.
@@ -510,7 +510,7 @@ d("Les caractères invisibles, affichés")[
   )
 
   #legende[
-    Messages réels, obtenus avec Python 3.12 et g++ 11.4. Une fois corrigés,
+    Messages réels, obtenus avec Python 3.12.14 et g++ 13.3. Une fois corrigés,
     les trois programmes affichent `294.0`, `130.05` et `294`.
   ]
 
@@ -632,6 +632,10 @@ d("Les caractères invisibles, affichés")[
         hauteur: 150pt,
       )
     ],
+    // Le repli dessiné reprend les couleurs de `style.css` : ici la couleur est
+    // le sujet de la diapositive, puisque c'est ce que la feuille de style
+    // ajoute. C'est la seconde et dernière exception aux trois couleurs du
+    // thème, après la coloration syntaxique.
     panneau[`raven_style.html` + `style.css`][
       #illustration(
         "/data/cours1/illustrations/page_html_style.png",

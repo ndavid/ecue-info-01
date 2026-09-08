@@ -579,7 +579,7 @@
     `F2` ne montre pas ce qu'on renomme.
   ]
 ]
-#d[Un `.odt` est une archive][
+#d[Contenu de l'archive `.odt`][
   #annonce[
     Renommer `raven.odt` en `raven.zip`, puis l'ouvrir avec le gestionnaire
     d'archives : il s'extrait comme n'importe quelle archive.

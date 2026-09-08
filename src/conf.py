@@ -50,5 +50,16 @@ html_theme_options = {
     "launch_buttons": {},
 }
 
-exclude_patterns = ["_build", "**/diapo/**", "Thumbs.db", ".DS_Store"]
+# Les `.ipynb` de `cours<n>/notebook/` sont dérivés des sources MyST par
+# `outils/construire_notebooks.py`, et vivent à côté d'elles. Sans cette
+# exclusion, Sphinx trouve deux fichiers pour le même document et choisit
+# lui-même lequel construire : le book pourrait afficher les résultats figés du
+# `.ipynb` plutôt que ceux que la construction recalcule.
+exclude_patterns = [
+    "_build",
+    "**/diapo/**",
+    "**/notebook/*.ipynb",
+    "Thumbs.db",
+    ".DS_Store",
+]
 language = "fr"

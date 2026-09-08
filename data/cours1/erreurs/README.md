@@ -19,7 +19,7 @@ annulent leurs corrections en fin de séance.
 | `cpp/aire.cpp` | point-virgule manquant en fin de ligne 6 | `error: expected ',' or ';' before 'std'`, **ligne 7** |
 
 Les messages ci-dessus ont été obtenus sur le poste de préparation, avec Python
-3.12 et g++ 11.4.
+3.12.14 et g++ 13.3.
 
 La troisième ligne est celle qui mérite le commentaire : g++ signale la ligne 7,
 alors que le point-virgule manque à la ligne 6. Un compilateur signale l'endroit

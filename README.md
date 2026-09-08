@@ -43,9 +43,9 @@ Détail, vérifications et pannes connues : **[`INSTALLATION.md`](INSTALLATION.m
 ## Conventions
 
 L'écriture des supports suit [`STYLE.md`](STYLE.md) : diapositives en
-assertion-evidence (titre = phrase complète, corps = preuve visuelle, pas de
-liste à puces), pages de cours en prose autonome, notes enseignant
-télégraphiques. À lire avant de rédiger une séance.
+assertion-evidence (titre = groupe nominal qui nomme le sujet, corps = preuve
+visuelle, pas de liste à puces), pages de cours en prose autonome, notes
+enseignant télégraphiques. À lire avant de rédiger une séance.
 
 - Chaque séance ≈ **120 min** ; parties notées **🎓 exposé** ou **⌨ manipulation** + durée indicative.
 - CM = cours (exposé + manipulation), TD = travaux dirigés.

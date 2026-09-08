@@ -807,11 +807,15 @@ d("Le menu d'exportation de LibreOffice")[
   #v(0.4em)
   ```
   ['mimetype', 'meta.xml', 'META-INF/manifest.xml', 'content.xml',
-   'manifest.rdf', 'styles.xml', 'settings.xml',
-   'Configurations2/accelerator/current.xml', 'Thumbnails/thumbnail.png']
+   'manifest.rdf', 'styles.xml']
   ```
 
-  #legende[`.docx`, `.xlsx` et `.epub` sont construits de la même façon.]
+  #legende[
+    Sortie réelle sur le `raven.odt` du cours, produit par pandoc : six
+    fichiers. Un document enregistré par LibreOffice en porte davantage, dont
+    ses réglages de fenêtre et une vignette. `.docx`, `.xlsx` et `.epub` sont
+    construits de la même façon.
+  ]
 
   #notes[
     Faire ouvrir `content.xml` dans l'éditeur : le texte du poème est là,

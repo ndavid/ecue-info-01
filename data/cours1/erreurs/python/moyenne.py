@@ -1,4 +1,4 @@
-"""Altitude moyenne d'une série de points levés au GPS, en mètres."""
+"""Moyenne d'une série de mesures d'altitude, en mètres."""
 
 altitudes = [128.4, 131.0, 127.6, 133.2]
 

@@ -213,9 +213,12 @@
     programmes peuvent l'appliquer.
 
     Le seul qu'ils rencontreront est CPython, et il faut le dire ainsi pour
-    qu'ils ne cherchent pas à choisir. La bannière affichée au lancement de
-    `python` le nomme, avec le compilateur qui l'a produit : c'est la ligne
-    `packaged by conda-forge … [GCC 14.4.0]`.
+    qu'ils ne cherchent pas à choisir. Ce qui le distingue à l'écran est la
+    bannière de la session interactive : PyPy et Jython annoncent leur nom,
+    CPython ne dit que sa version et le compilateur qui l'a produit,
+    `[GCC 15.3.0]` sur la machine du cours. Bannière relevée dans `info01` ;
+    elle varie avec le canal et la version, la mention `packaged by
+    conda-forge` n'apparaissant pas sur toutes les constructions.
 
     Le fait que l'interpréteur de référence soit écrit en C boucle avec « Code
     source et fichier exécutable » : les octets montrés étaient ceux de ce
@@ -461,8 +464,9 @@
 ]
 #d("Lancer les deux programmes")[
   #annonce[
-    Six gestes, dans cet ordre. Le terminal de l'éditeur s'ouvre déjà dans le
-    dossier du projet : il n'y a aucun chemin à écrire.
+    Six gestes, dans cet ordre, et un septième facultatif. Le terminal de
+    l'éditeur s'ouvre déjà dans le dossier du projet : il n'y a aucun chemin à
+    écrire.
   ]
 
   #tableau(
@@ -658,7 +662,7 @@ d("Les deux exécutions dans l'éditeur")[
 
   ```console
   $ python
-  Python 3.12.14 | packaged by conda-forge | (main, Sep  1 2026) [GCC 14.4.0]
+  Python 3.12.14 (main, Sep  2 2026, 23:27:36) [GCC 15.3.0] on linux
   >>> altitudes = [128.4, 131.0, 127.6]
   >>> total = 0
   >>> for altitude in altitudes:

@@ -100,13 +100,14 @@
     columns: (1fr, auto, auto),
     align: (left + horizon, center + horizon, center + horizon),
     [Même modification : `1920` → `3840`], [`.ipynb`], [MyST `.md`],
-    [Lignes modifiées dans le `diff`], [44], [2],
-    [Taille du fichier], [17,6 ko], [11,5 ko],
+    [Lignes modifiées dans le `diff`], [23], [2],
+    [Taille du fichier], [17,3 ko], [11,3 ko],
   )
 
   #legende[
-    Mesuré sur la page « Environnement Python » de ce cours. Le `.ipynb`
-    contient aussi les résultats, qui changent à chaque exécution.
+    Mesuré sur la page « Environnement Python » de ce cours, le `.ipynb` ayant
+    été exécuté : il contient aussi les résultats, qui changent à chaque
+    exécution.
   ]
 
   #notes[
