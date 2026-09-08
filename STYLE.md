@@ -142,7 +142,7 @@ l'idée, la capture porte la preuve. Les mettre côte à côte les rend illisibl
 l'un et l'autre.
 
 Les captures ne sont pas versionnées, et leur fabrication est décrite dans
-[`data/cours1/illustrations/README.md`](data/cours1/illustrations/README.md).
+[`illustrations/cours1/README.md`](illustrations/cours1/README.md).
 
 ## Encadrés
 

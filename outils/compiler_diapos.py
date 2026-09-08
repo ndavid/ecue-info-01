@@ -3,7 +3,7 @@
 
 `typst compile` demande ici trois choses faciles à oublier : `--root` sur la
 racine du dépôt, faute de quoi un `.typ` de `src/cours<n>/diapo/` ne peut pas
-lire une image de `data/` ; et `--input captures=true` quand les captures
+lire une image de `illustrations/` ; et `--input captures=true` quand les captures
 d'écran sont en place, sinon les diapositives retombent silencieusement sur
 leurs schémas dessinés. Ce script s'en charge : il regarde ce qui est présent
 et passe les options qui conviennent.
@@ -36,7 +36,8 @@ RACINE = Path(__file__).resolve().parent.parent
 # que de tenir une liste en double, on les y relit. Les supports les désignent
 # depuis la racine du projet (`/data/…`), typst résolvant sinon le chemin par
 # rapport au fichier où `image` est appelé, c'est-à-dire au thème.
-MOTIF_IMAGE = re.compile(r'"/?(?:\.\./)*(data/[^"]+\.(?:png|jpg|jpeg))"')
+MOTIF_IMAGE = re.compile(
+    r'"/?(?:\.\./)*((?:data|illustrations)/[^"]+\.(?:png|jpg|jpeg))"')
 
 
 def sources(source: Path) -> list[Path]:

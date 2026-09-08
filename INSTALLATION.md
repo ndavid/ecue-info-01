@@ -90,17 +90,41 @@ Le dépôt versionne le script, pas les textes (voir [`data/cours1/README.md`](d
 conda activate info01
 cd data/cours1
 python make_data.py fetch    # télécharge les sources — une seule fois, réseau requis
-python make_data.py build    # dérive les fichiers de l'exercice dans genere/
+python make_data.py build    # dérive les fichiers de l'exercice dans produit/
 ```
 
-Sans réseau : déposer un `.txt` dans `data/cours1/textes_sources/` (le nom du
+Sans réseau : déposer un `.txt` dans `data/cours1/fourni/` (le nom du
 fichier est la clé, ex. `raven.txt`) puis lancer directement `build`.
 
 `build` produit, pour chaque texte : la version `.txt` **sur une ligne**, la
 copie `.donnees` à mauvaise extension, l'`.odt` (via pandoc), l'`.html` brut,
-l'`.html` + `style.css`, et le corrigé dans `genere/_corrige/`.
+l'`.html` + `style.css`, et le corrigé dans `produit/_corrige/`.
 
 ---
+
+## 2 ter. Ressources hors dépôt
+
+Deux noms sont réservés dans `data/` : `produit/` désigne ce qu'une commande
+refabrique, `fourni/` ce qui vient d'ailleurs et ne se refabrique pas. Les
+captures d'écran des supports, dans `illustrations/`, sont du second genre.
+Aucun des deux n'est versionné, mais seul le second doit suivre d'un poste à
+l'autre.
+
+```bash
+python outils/ressources.py verifier                             # que manque-t-il ?
+python outils/ressources.py importer /media/…/info01-ressources  # remettre en place
+python outils/ressources.py exporter /media/…/info01-ressources  # publier vers la clé
+```
+
+`exporter` met à jour `outils/ressources.json`, qui retient la taille et
+l'empreinte de chaque fichier. Ce manifeste étant versionné, `verifier`
+fonctionne sur un poste fraîchement cloné, avant toute copie : il dit ce qui
+manque plutôt que de laisser une manipulation s'arrêter en séance.
+
+Les copies sont relues après écriture, `importer` n'efface jamais rien et
+refuse d'écraser un fichier dont le contenu diffère tant qu'on ne lui passe pas
+`--forcer`. `--simuler` montre ce qui serait fait sans rien écrire, et
+`--archive` produit en plus un zip daté à côté du dossier.
 
 ## 2 bis. Notebooks
 
@@ -239,7 +263,7 @@ Le script sort en code 1 dès qu'une diapositive est signalée.
 ### Captures d'écran
 
 Les images d'illustration ne sont pas versionnées : voir
-[`data/cours1/illustrations/README.md`](data/cours1/illustrations/README.md)
+[`illustrations/cours1/README.md`](illustrations/cours1/README.md)
 pour l'arborescence attendue, les noms de fichiers et le format. Sans elles,
 chaque diapositive concernée emploie un équivalent dessiné en typst, et le
 document compile normalement.
@@ -331,7 +355,7 @@ rm -rf _build
 ### Prérequis d'exécution
 
 Les cellules de `src/cours1/notebook/02_formats_de_fichier.md` lisent les fichiers
-de `data/cours1/genere/` : **générer les données avant de construire**
+de `data/cours1/produit/` : **générer les données avant de construire**
 (section 2), sinon la build échoue (`nb_execution_raise_on_error = True` — une
 cellule cassée doit se voir).
 

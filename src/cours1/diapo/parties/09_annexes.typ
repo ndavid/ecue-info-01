@@ -204,7 +204,7 @@ d("Le menu d'exportation de LibreOffice")[
 
   #align(center)[
     #illustration(
-      "/data/cours1/illustrations/libreoffice_export_pdf.png",
+      "/illustrations/cours1/libreoffice_export_pdf.png",
       none,
       hauteur: hauteur-capture-pleine,
     )
@@ -264,7 +264,7 @@ d("Le menu d'exportation de LibreOffice")[
     columns: (2.2fr, 1fr), column-gutter: 24pt, align: top,
     panneau("Windows 11 — Windows PowerShell")[
       #illustration(
-        "/data/cours1/illustrations/terminal_windows_powershell.jpg",
+        "/illustrations/cours1/terminal_windows_powershell.jpg",
         fenetre("Windows PowerShell", code: true)[
           #text(fill: accent, weight: demi-gras)[PS C:\\Users\\alice\> ]
         ],
@@ -273,7 +273,7 @@ d("Le menu d'exportation de LibreOffice")[
     ],
     panneau("Linux — GNOME Terminal")[
       #illustration(
-        "/data/cours1/illustrations/terminal_linux_gnome.png",
+        "/illustrations/cours1/terminal_linux_gnome.png",
         fenetre("alice@portable: ~", code: true)[
           #text(fill: accent, weight: demi-gras)[\[alice\@portable ~\]\$ ]
         ],
@@ -341,6 +341,7 @@ d("Le menu d'exportation de LibreOffice")[
 #separateur-manip(
   "Comparaison interface graphique et ligne de commande",
   annonce: "Convertir raven.odt en PDF de deux façons, sur votre machine",
+  dossier: "data/cours1/produit/",
 )
 #d("Mode graphique et mode texte")[
   #annonce[
@@ -554,6 +555,7 @@ d("Le menu d'exportation de LibreOffice")[
 #separateur-manip(
   "Échanger deux extensions",
   annonce: "Sur votre machine, avec LibreOffice et l'explorateur de fichiers",
+  dossier: "data/cours1/produit/",
 )
 #d("Convertir, renommer, essayer d'ouvrir")[
   #annonce[
@@ -590,6 +592,7 @@ d("Le menu d'exportation de LibreOffice")[
   "Une vidéo, deux chemins",
   mention: "Bonus — pour aller plus loin",
   annonce: "La même vidéo produite en cliquant, puis en une commande, pour ceux qui vont vite",
+  dossier: "data/cours1/trajet/",
 )
 #d("Le trajet de la gare à l'école")[
   #annonce[
@@ -861,6 +864,7 @@ d("Le menu d'exportation de LibreOffice")[
 #separateur-manip(
   "Les premiers octets d'un fichier",
   annonce: "Ouvrir le mini-projet formats/ dans l'éditeur, et l'exécuter",
+  dossier: "data/cours1/formats/",
 )
 
 #d("Comment un logiciel reconnaît un fichier")[
@@ -920,9 +924,9 @@ d("Le menu d'exportation de LibreOffice")[
   ]
 
   ```bash
-  cp ../genere/raven.odt ../genere/raven_odt.pdf
-  cp ../genere/raven.pdf ../genere/raven_pdf.odt
-  python octets.py ../genere/raven_odt.pdf ../genere/raven_pdf.odt
+  cp ../produit/raven.odt ../produit/raven_odt.pdf
+  cp ../produit/raven.pdf ../produit/raven_pdf.odt
+  python octets.py ../produit/raven_odt.pdf ../produit/raven_pdf.odt
   ```
 
   #v(0.3em)

@@ -42,10 +42,10 @@ pages web, et un navigateur sans fenêtre les photographie. Elles peuvent donc
 être refaites à l'identique quand les données changent.
 
 ```bash
-D=data/cours1/illustrations
+D=illustrations/cours1
 
 # les deux pages du poème, avec et sans feuille de style
-cd data/cours1/genere
+cd data/cours1/produit
 for f in raven_brut raven_style; do
     chromium --headless --disable-gpu --hide-scrollbars \
         --screenshot="../../../$D/page_html_${f#raven_}.png" \

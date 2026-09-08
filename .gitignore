@@ -1,7 +1,32 @@
-# Données de cours : on versionne la recette (make_data.py), pas les textes
-# téléchargés ni les fichiers qu'on en dérive.
-data/*/textes_sources/
-data/*/genere/
+# Données des séances : deux conventions, et rien à ajouter ici quand une
+# manipulation nouvelle arrive.
+#
+#   produit/   ce qu'une commande refabrique — make_data.py, anime.sh, une
+#              compilation. Perdre ce dossier ne coûte qu'un temps de calcul.
+#   fourni/    ce qui vient d'ailleurs et ne se refabrique pas : textes
+#              téléchargés, tuiles OpenStreetMap dont les conditions d'usage
+#              interdisent le téléchargement en masse. Hors dépôt pour son
+#              poids, mais il doit voyager — c'est l'objet de
+#              `outils/ressources.py`.
+data/*/produit/
+data/*/*/produit/
+data/*/fourni/
+data/*/*/fourni/
+
+# Images des supports : volumineuses, elles vieillissent avec les versions des
+# logiciels et n'ont pas à peser sur l'historique. Seul le README qui décrit
+# l'arborescence attendue est suivi.
+illustrations/*/*
+!illustrations/*/README.md
+
+# Exécutables et pages que les manipulations produisent à côté de leur source :
+# ils y naissent parce que c'est la commande que les étudiants tapent, et non
+# par manque de rangement.
+data/*/hello/cpp/bonjour
+data/*/erreurs/cpp/aire
+data/*/*/cpp/*.exe
+data/*/environnement/*.html
+data/*/environnement/*.egg-info/
 
 # Environnement & outillage
 __pycache__/
@@ -11,36 +36,6 @@ _build/
 
 # Sorties typst
 *.pdf
-
-# Manipulation « trajet » du cours 1 : on versionne la recette, pas le rendu
-data/cours1/trajet/tuiles/
-data/cours1/trajet/carte.png
-data/cours1/trajet/carte.json
-data/cours1/trajet/etape_*.png
-data/cours1/trajet/montage.txt
-data/cours1/trajet/trajet.srt
-data/cours1/trajet/trajet.mp4
-
-# Manipulation « hello world » : on versionne les deux sources, pas l'exécutable
-# que la compilation produit.
-data/cours1/hello/cpp/bonjour
-data/cours1/hello/cpp/*.exe
-
-# Captures d'écran des diapositives : fournies à part, jamais versionnées.
-# Seul le README qui décrit l'arborescence attendue est suivi.
-data/*/illustrations/*
-!data/*/illustrations/README.md
-
-# Manipulation « installer une bibliothèque » : on versionne le paquet, sa
-# feuille de style et les deux fichiers qui le décrivent — pas la page qu'il
-# produit, ni ce que `pip install -e .` dépose à côté.
-data/cours1/environnement/*.html
-data/cours1/environnement/*.egg-info/
-
-# Manipulation « trois programmes fautifs » : on versionne les sources fautives,
-# pas l'exécutable que la compilation produit une fois la faute corrigée.
-data/cours1/erreurs/cpp/aire
-data/cours1/erreurs/cpp/*.exe
 
 # Notebooks dérivés des sources MyST par outils/construire_notebooks.py
 src/*/notebook/*.ipynb

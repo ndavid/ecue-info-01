@@ -350,7 +350,7 @@ d("Les caractères invisibles, affichés")[
 
   #align(center)[
     #illustration(
-      "/data/cours1/illustrations/vscode_espaces.png",
+      "/illustrations/cours1/vscode_espaces.png",
       none,
       hauteur: hauteur-capture-pleine,
     )
@@ -431,6 +431,7 @@ d("Les caractères invisibles, affichés")[
 #separateur-manip(
   "Extensions de langage et programmes fautifs",
   annonce: "Installer l'extension d'un langage, puis corriger trois fichiers qui refusent de s'exécuter",
+  dossier: "data/cours1/erreurs/",
 )
 
 #d("Installer l'extension d'un langage")[
@@ -621,7 +622,7 @@ d("Les caractères invisibles, affichés")[
   #face-a-face(
     panneau[`raven_brut.html`][
       #illustration(
-        "/data/cours1/illustrations/page_html_brut.png",
+        "/illustrations/cours1/page_html_brut.png",
         block(inset: 10pt, stroke: 0.8pt + estompe.lighten(50%), width: 100%)[
           #set text(size: 13pt, font: ("DejaVu Serif", "Libertinus Serif"))
           #text(size: 17pt, weight: "bold")[The Raven] \
@@ -638,7 +639,7 @@ d("Les caractères invisibles, affichés")[
     // thème, après la coloration syntaxique.
     panneau[`raven_style.html` + `style.css`][
       #illustration(
-        "/data/cours1/illustrations/page_html_style.png",
+        "/illustrations/cours1/page_html_style.png",
         block(inset: 10pt, fill: rgb("#faf8f4"), stroke: 0.8pt + rgb("#ddd8cd"), width: 100%)[
           #set text(size: 13pt, fill: rgb("#2b2b2b"))
           #text(size: 17pt, weight: "bold")[The Raven] \
@@ -908,6 +909,7 @@ d("Les caractères invisibles, affichés")[
 #separateur-manip(
   "Formatage HTML et Markdown",
   annonce: "Une page web et sa feuille de style, puis un texte brut mis en forme en Markdown",
+  dossier: "data/cours1/markdown/",
 )
 #d("Mettre en forme une recette")[
   #annonce[
@@ -965,7 +967,7 @@ d("Le résultat attendu")[
 
   #align(center)[
     #illustration(
-      "/data/cours1/illustrations/apercu_recette.png",
+      "/illustrations/cours1/apercu_recette.png",
       none,
       hauteur: 200pt,
     )

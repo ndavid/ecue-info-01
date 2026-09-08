@@ -1,9 +1,36 @@
-# Données — Cours 1 : formats de fichier
+# Données — Cours 1
 
-Ce dossier ne versionne **pas** les textes littéraires : il versionne le script qui
-fabrique les fichiers de l'exercice à partir de sources du domaine public.
+Un dossier par manipulation, et deux noms réservés à l'intérieur.
 
-## Pourquoi
+| Nom | Ce qu'il contient | Versionné | Doit voyager |
+|-----|-------------------|-----------|--------------|
+| le dossier lui-même | les sources : scripts, `.csv`, `.md`, quelques lignes chacun | oui | par git |
+| `produit/` | ce qu'une commande refabrique : `make_data.py`, `anime.sh`, une compilation | non | non, il se refait |
+| `fourni/` | ce qui vient d'ailleurs et ne se refabrique pas | non | **oui** |
+
+C'est la seule règle à connaître, et elle vaut pour toutes les séances. Perdre
+un `produit/` ne coûte qu'un temps de calcul ; perdre un `fourni/` coûte un
+retéléchargement qui n'est pas toujours possible — les tuiles OpenStreetMap de
+[`trajet/`](trajet/) sont dans ce cas, leurs conditions d'usage interdisant le
+téléchargement en masse.
+
+Les `fourni/` ne se recopient donc pas à la main d'un poste à l'autre :
+
+```bash
+python outils/ressources.py exporter /media/…/info01-ressources   # vers la clé
+python outils/ressources.py importer /media/…/info01-ressources   # depuis la clé
+python outils/ressources.py verifier                              # rien ne manque ?
+```
+
+`verifier` compare le dépôt au manifeste versionné `outils/ressources.json` : sur
+un poste neuf, il dit ce qui manque avant qu'une manipulation ne s'arrête faute
+d'un fichier.
+
+Les captures d'écran des diapositives ne sont pas ici : elles servent aux
+supports et non aux travaux dirigés, et vivent dans
+[`illustrations/`](../../illustrations/) à la racine du dépôt.
+
+## Pourquoi le texte n'est pas versionné
 
 - Un dépôt git garde **tout, définitivement** : on n'y met pas de gros corpus recopiés
   (cf. leçon « secrets & `.gitignore` », cours 5B).
@@ -25,14 +52,14 @@ fabrique les fichiers de l'exercice à partir de sources du domaine public.
 # 1. récupérer les sources (une seule fois, nécessite le réseau)
 python make_data.py fetch
 
-#    …ou, hors ligne : déposer soi-même un .txt dans textes_sources/
-#    (ex. textes_sources/raven.txt)
+#    …ou, hors ligne : déposer soi-même un .txt dans fourni/
+#    (ex. fourni/raven.txt)
 
-# 2. générer les fichiers de l'exercice dans genere/
+# 2. générer les fichiers de l'exercice dans produit/
 python make_data.py build
 ```
 
-## Ce qui est produit dans `genere/`
+## Ce qui est produit dans `produit/`
 
 | Fichier | Rôle dans l'exercice |
 |---------|----------------------|
@@ -43,11 +70,10 @@ python make_data.py build
 | `<nom>_style.html` + `style.css` | même contenu **avec CSS** → comparer les deux |
 | `_corrige/<nom>.txt` | version correctement formatée (pour l'enseignant) |
 
-## Les autres dossiers de la séance
+## Les dossiers de la séance
 
-`make_data.py` et `genere/` ne servent qu'à la manipulation « un texte, quatre
-formes ». Les autres manipulations ont leurs propres fichiers, versionnés
-puisque ce sont des sources de quelques lignes et non des données dérivées.
+`make_data.py`, `fourni/` et `produit/` ne servent qu'à la manipulation « un
+texte, quatre formes ». Les autres manipulations ont leurs propres dossiers.
 
 | Dossier | Manipulation |
 |---------|--------------|
@@ -57,6 +83,5 @@ puisque ce sont des sources de quelques lignes et non des données dérivées.
 | [`markdown/`](markdown/) | une recette en texte brut, à mettre en forme en Markdown |
 | [`environnement/`](environnement/) | un petit projet Python : créer un environnement neuf, y installer `markdown`, convertir la recette en page HTML |
 | [`trajet/`](trajet/) | le bonus vidéo « une vidéo, deux chemins » |
-| [`illustrations/`](illustrations/) | les captures d'écran des diapositives, hors dépôt |
 
 Chacun a son README.

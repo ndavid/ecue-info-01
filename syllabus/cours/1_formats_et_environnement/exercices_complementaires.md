@@ -1,7 +1,7 @@
 # Exercices complémentaires — Cours 1 : Logiciel, programmation & formats
 
 > Un exercice = **Objectif · Prérequis · Énoncé · Plancher/Plafond · Critères**. Pour étudiants rapides ou en autonomie.
-> Données : `data/cours1/genere/` (`python make_data.py fetch && python make_data.py build`).
+> Données : `data/cours1/produit/` (`python make_data.py fetch && python make_data.py build`).
 
 ## Ex. 1 — L'ODT est une archive
 
@@ -23,7 +23,7 @@
 
 - **Objectif** : comprendre que le contenu, lui, ne ment pas.
 - **Prérequis** : notion d'extension comme convention.
-- **Énoncé** : renommer trois fichiers de `genere/` en `mystere1.dat`, `mystere2.dat`, `mystere3.dat`, les échanger avec un binôme, puis retrouver la nature de chacun **sans essayer les extensions au hasard** : ouvrir le début du fichier dans VSCode. Les premiers octets trahissent le format (`<!doctype html`, `PK` pour un ZIP/ODT, du texte brut sinon).
+- **Énoncé** : renommer trois fichiers de `produit/` en `mystere1.dat`, `mystere2.dat`, `mystere3.dat`, les échanger avec un binôme, puis retrouver la nature de chacun **sans essayer les extensions au hasard** : ouvrir le début du fichier dans VSCode. Les premiers octets trahissent le format (`<!doctype html`, `PK` pour un ZIP/ODT, du texte brut sinon).
 - **Plancher / Plafond** : *plancher* — distinguer texte et non-texte ; *plafond* — trouver ce qu'est le « nombre magique » d'un format, et vérifier que `PK` correspond bien au ZIP.
 - **Critères** : les trois fichiers sont identifiés, avec l'indice qui a permis de conclure.
 

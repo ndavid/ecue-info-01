@@ -5,13 +5,13 @@ ouvre le fichier et lit ses premiers octets. Ce script fait la même chose : il
 lit quatre octets et les compare à un catalogue de signatures.
 
     python octets.py                        # les fichiers de l'exercice
-    python octets.py ../genere/raven.odt    # un fichier de son choix
+    python octets.py ../produit/raven.odt    # un fichier de son choix
 """
 
 import sys
 from pathlib import Path
 
-GENERE = Path(__file__).resolve().parent.parent / "genere"
+PRODUIT = Path(__file__).resolve().parent.parent / "produit"
 
 # Ces octets de tête s'appellent des nombres magiques. Un fichier texte n'en a
 # pas : c'est précisément ce qui rend deux fichiers texte indiscernables.
@@ -23,11 +23,11 @@ SIGNATURES = {
 }
 
 FICHIERS = [
-    GENERE / "raven_une_ligne.txt",
-    GENERE / "raven_une_ligne.donnees",
-    GENERE / "raven.odt",
-    GENERE / "raven_brut.html",
-    GENERE / "raven.pdf",
+    PRODUIT / "raven_une_ligne.txt",
+    PRODUIT / "raven_une_ligne.donnees",
+    PRODUIT / "raven.odt",
+    PRODUIT / "raven_brut.html",
+    PRODUIT / "raven.pdf",
 ]
 
 

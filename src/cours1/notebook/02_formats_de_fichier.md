@@ -18,7 +18,7 @@ Depuis un terminal, à la racine du dépôt :
 ```bash
 cd data/cours1
 python make_data.py fetch    # télécharge les sources, une seule fois
-python make_data.py build    # produit les fichiers dans genere/
+python make_data.py build    # produit les fichiers dans produit/
 ```
 
 ```{code-cell} python
@@ -32,7 +32,7 @@ def racine_du_depot(depart: Path = Path.cwd()) -> Path:
             return dossier
     raise FileNotFoundError("racine du dépôt introuvable depuis " + str(depart))
 
-DONNEES = racine_du_depot() / "data" / "cours1" / "genere"
+DONNEES = racine_du_depot() / "data" / "cours1" / "produit"
 for fichier in sorted(DONNEES.iterdir()):
     if fichier.is_file():
         print(f"{fichier.name:<34} {fichier.stat().st_size:>6} octets")
@@ -61,7 +61,7 @@ Ouvrez `raven_une_ligne.txt` dans VSCode et rendez-le lisible : un vers par
 ligne, une ligne vide entre les strophes. La ponctuation (`,` `—` `?`) et les
 majuscules en début de vers vous servent de repères.
 
-Comparez ensuite votre résultat avec `genere/_corrige/raven.txt`.
+Comparez ensuite votre résultat avec `produit/_corrige/raven.txt`.
 
 En ajoutant ces sauts de ligne, vous avez ajouté au fichier une information
 qu'il ne contenait pas : sa structure. Elle n'était pas déductible

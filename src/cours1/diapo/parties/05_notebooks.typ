@@ -182,6 +182,7 @@
 #separateur-manip(
   "Le notebook du cours, ouvert de trois façons",
   annonce: "Dans le navigateur sans rien installer, dans l'éditeur, puis dans JupyterLab",
+  dossier: "src/cours1/notebook/",
 )
 #d("Ouvrir le même notebook, trois fois")[
   #annonce[

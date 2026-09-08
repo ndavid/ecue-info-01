@@ -9,7 +9,8 @@ Module d'**infrastructure de travail** (outils + concepts génériques) complém
 |---------|------|
 | [`syllabus/`](syllabus/) | **Documents de référence** : [`01_syllabus_v1.md`](syllabus/01_syllabus_v1.md) (vue d'ensemble des 7 séances) et `cours/<n>_.../` (déroulé fin + exercices). |
 | [`src/`](src/) | **Supports de séance** : `cours<n>/notebook/` (pages MyST exécutables), `cours<n>/diapo/` (sources typst), et [`conf.py`](src/conf.py) (config du book). |
-| [`data/`](data/) | **Jeux de données** par séance. On versionne le script qui *fabrique* les données, pas les données. |
+| [`data/`](data/) | **Fichiers des manipulations**, un dossier par séance puis par manipulation. Deux noms réservés : `produit/` est refabricable par une commande, `fourni/` vient d'ailleurs et ne l'est pas. Ni l'un ni l'autre n'est versionné ; `fourni/` voyage avec [`outils/ressources.py`](outils/ressources.py). |
+| [`illustrations/`](illustrations/) | **Captures d'écran des supports**, hors dépôt. Elles servent aux diapositives, pas aux travaux dirigés. |
 | [`STYLE.md`](STYLE.md) | **Conventions d'écriture** des supports (diapositives, pages de cours, notes). À lire avant d'en rédiger. |
 | [`environment.yml`](environment.yml) | Environnement conda `info01` — voir [`INSTALLATION.md`](INSTALLATION.md). |
 
@@ -56,6 +57,6 @@ enseignant télégraphiques. À lire avant de rédiger une séance.
 - Détailler `syllabus/cours/2..7` (contenu + exercices) sur le gabarit du cours 1.
 - Rédiger les supports `src/cours2..7` (notebooks + diapos), modèle : `src/cours1/`.
 - Alimenter `data/cours2..7` (un `make_data.py` par séance quand c'est pertinent).
-- Ajouter une source `scarborough.txt` dans `data/cours1/textes_sources/` si on veut la ballade en plus (pas d'export texte stable sur Wikisource — la page ne contient que la partition).
+- Ajouter une source `scarborough.txt` dans `data/cours1/fourni/` si on veut la ballade en plus (pas d'export texte stable sur Wikisource — la page ne contient que la partition).
 - Dépôts-squelettes réels : TD4 (studio animation), TD7 (benchmark image + branche `conflit-rapport`), outil trajectoire (c6).
 - Recaler le calendrier (dates) si besoin.

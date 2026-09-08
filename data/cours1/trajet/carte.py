@@ -13,7 +13,7 @@ de repasser plus tard des coordonnées géographiques aux pixels de l'image.
 Politique d'usage des tuiles : le serveur d'OpenStreetMap est un service
 bénévole, qui interdit les téléchargements en masse. Ce script est fait pour
 être lancé **une fois par l'enseignant**, qui distribue ensuite `carte.png`
-aux étudiants ; les tuiles sont mises en cache dans `tuiles/`.
+aux étudiants ; les tuiles sont mises en cache dans `fourni/`.
 """
 import csv
 import json
@@ -39,14 +39,15 @@ def deg_vers_tuile(lon, lat, zoom):
     return x, y
 
 
-def fabrique_carte(bbox=BBOX, zoom=ZOOM, sortie=ICI / "carte.png"):
+def fabrique_carte(bbox=BBOX, zoom=ZOOM, sortie=ICI / "produit" / "carte.png"):
     lon_o, lat_s, lon_e, lat_n = bbox
     x0, y0 = deg_vers_tuile(lon_o, lat_n, zoom)     # coin haut-gauche
     x1, y1 = deg_vers_tuile(lon_e, lat_s, zoom)     # coin bas-droit
     tx0, ty0, tx1, ty1 = int(x0), int(y0), int(x1), int(y1)
 
-    cache = ICI / "tuiles"
+    cache = ICI / "fourni"
     cache.mkdir(exist_ok=True)
+    sortie.parent.mkdir(exist_ok=True)
     tuiles = []
     for ty in range(ty0, ty1 + 1):
         for tx in range(tx0, tx1 + 1):
@@ -77,7 +78,7 @@ def fabrique_carte(bbox=BBOX, zoom=ZOOM, sortie=ICI / "carte.png"):
 
     reference = {"bbox": list(bbox), "zoom": zoom, "origine": [x0, y0],
                  "taille": [largeur, hauteur]}
-    (ICI / "carte.json").write_text(json.dumps(reference, indent=2))
+    (ICI / "produit" / "carte.json").write_text(json.dumps(reference, indent=2))
     print(f"{sortie.name} : {largeur}×{hauteur} pixels")
     return reference
 

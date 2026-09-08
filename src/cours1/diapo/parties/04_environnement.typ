@@ -454,6 +454,7 @@
 #separateur-manip(
   "Installer une bibliothèque et s'en servir",
   annonce: "Un environnement neuf, un programme qui ne tourne pas, et la ligne qui le répare",
+  dossier: "data/cours1/environnement/",
 )
 #d("Un environnement neuf")[
   #annonce[

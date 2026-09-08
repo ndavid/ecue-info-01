@@ -3,10 +3,10 @@
 Le dépôt ne versionne pas les textes : ce script les récupère (domaine public)
 puis en dérive les variantes utilisées en séance.
 
-    python make_data.py fetch    # télécharge les sources dans textes_sources/
-    python make_data.py build    # génère les fichiers dans genere/
+    python make_data.py fetch    # télécharge les sources dans fourni/
+    python make_data.py build    # génère les fichiers dans produit/
 
-Hors ligne : déposer un .txt dans textes_sources/ (nom = clé, ex. raven.txt)
+Hors ligne : déposer un .txt dans fourni/ (nom = clé, ex. raven.txt)
 et lancer directement `build`.
 """
 
@@ -18,8 +18,8 @@ import urllib.request
 from pathlib import Path
 
 ICI = Path(__file__).parent
-SOURCES = ICI / "textes_sources"
-SORTIE = ICI / "genere"
+SOURCES = ICI / "fourni"
+SORTIE = ICI / "produit"
 CORRIGE = SORTIE / "_corrige"
 
 # Textes du domaine public. `debut`/`fin` délimitent l'extrait utile dans le
@@ -41,7 +41,7 @@ TEXTES = {
         "fin": None,
         "strophes_max": 4,
     },
-    # Emplacement libre : déposer soi-même textes_sources/scarborough.txt
+    # Emplacement libre : déposer soi-même fourni/scarborough.txt
     # (Scarborough Fair, ballade traditionnelle — pas d'export texte stable
     # sur Wikisource, la page ne contient que la partition).
     "scarborough": {

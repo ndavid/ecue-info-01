@@ -237,7 +237,7 @@
 
   #align(center)[
     #illustration(
-      "/data/cours1/illustrations/vscode_projet.png",
+      "/illustrations/cours1/vscode_projet.png",
       fenetre("trajet — Visual Studio Code", hauteur: hauteur-capture)[
         #text(size: 13pt, fill: estompe)[
           à gauche l'arborescence, au centre le code, en bas le terminal
@@ -416,6 +416,7 @@
 #separateur-manip(
   "Un hello world en Python et en C++",
   annonce: "Ouvrir les deux projets dans l'éditeur, puis les exécuter depuis son terminal",
+  dossier: "data/cours1/hello/",
 )
 #d("Ouvrir un terminal où conda existe")[
   #annonce[
@@ -581,7 +582,7 @@ d("Les deux exécutions dans l'éditeur")[
 
   #align(center)[
     #illustration(
-      "/data/cours1/illustrations/vscode_hello.png",
+      "/illustrations/cours1/vscode_hello.png",
       none,
       hauteur: hauteur-capture-pleine,
     )
@@ -604,6 +605,7 @@ d("Les deux exécutions dans l'éditeur")[
 #separateur-manip(
   "Le même programme, trois façons de l'exécuter",
   annonce: "En entier, ligne à ligne, puis pas à pas en regardant les variables",
+  dossier: "data/cours1/hello/",
 )
 #d("Le programme de la manipulation")[
   #annonce[

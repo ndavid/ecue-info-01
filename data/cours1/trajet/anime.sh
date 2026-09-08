@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Fabrique trajet.mp4 à partir de carte.png et etapes.csv.
+# Fabrique produit/trajet.mp4 à partir de produit/carte.png et etapes.csv.
 #
 #   ./anime.sh
 #
@@ -9,10 +9,14 @@
 
 set -euo pipefail
 cd "$(dirname "$0")"
+# Tout ce que le script fabrique va dans produit/, où carte.png se trouve déjà :
+# on s'y place, et les noms de fichiers restent ceux de la manipulation.
+mkdir -p produit
+cd produit
 rm -f etape_*.png trajet.srt montage.txt trajet.mp4
 
 # 1. lire les étapes
-mapfile -t lignes < <(tail -n +2 etapes.csv)
+mapfile -t lignes < <(tail -n +2 ../etapes.csv)
 xs=(); ys=(); durees=(); textes=()
 for ligne in "${lignes[@]}"; do
   IFS=, read -r _numero duree x y texte <<< "$ligne"

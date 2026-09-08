@@ -129,7 +129,7 @@ Les trois qui font débat : `.svg` (une image, mais du texte XML), `.csv` (du te
 
 ### ⌨️ 20′ — TD : fichiers, formats et extensions *(manipulation, LibreOffice)*
 
-Fichier de départ : `data/cours1/genere/raven.odt`, produit par `python make_data.py fetch && python make_data.py build`. Tous les résultats ci-dessous ont été observés, sur LibreOffice piloté en mode sans interface.
+Fichier de départ : `data/cours1/produit/raven.odt`, produit par `python make_data.py fetch && python make_data.py build`. Tous les résultats ci-dessous ont été observés, sur LibreOffice piloté en mode sans interface.
 
 **1. Un même document, trois formats.** Ouvrir le `.odt` dans Writer, puis :
 
@@ -461,7 +461,7 @@ Six lignes dans un bloc `mermaid`, et l'aperçu dessine les boîtes et les flèc
 
 ### ⌨️ 20′ — Formatage HTML et Markdown *(manipulation)*
 
-Données : `data/cours1/genere/`, produites par `python make_data.py fetch && python make_data.py build`.
+Données : `data/cours1/produit/`, produites par `python make_data.py fetch && python make_data.py build`.
 Textes du domaine public : **The Raven** (Poe, 1845) et **Auld Lang Syne** (Burns, 1788).
 
 | Étape | Fichier | Geste | Constat attendu |
@@ -701,9 +701,9 @@ Deux étages de décision, et c'est tout le propos : le **système** choisit le 
 **Deux extensions échangées**, en deux lignes et sans quitter le mini-projet :
 
 ```bash
-cp ../genere/raven.odt ../genere/raven_odt.pdf
-cp ../genere/raven.pdf ../genere/raven_pdf.odt
-python octets.py ../genere/raven_odt.pdf ../genere/raven_pdf.odt
+cp ../produit/raven.odt ../produit/raven_odt.pdf
+cp ../produit/raven.pdf ../produit/raven_pdf.odt
+python octets.py ../produit/raven_odt.pdf ../produit/raven_pdf.odt
 ```
 
 Le nom a changé, les octets non. Faire essayer le **double-clic** sur `raven_odt.pdf` avant de lancer le script : le lecteur PDF s'ouvre et refuse le fichier, et les deux étages se contredisent devant eux. Sous Windows, `copy` remplace `cp`.

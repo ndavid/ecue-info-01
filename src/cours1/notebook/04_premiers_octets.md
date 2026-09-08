@@ -30,7 +30,7 @@ son texte est à l'écran. En cas de doute : *Restart & Run All*.
 ```{code-cell} ipython3
 from pathlib import Path
 
-GENERE = Path("../../../data/cours1/genere")
+GENERE = Path("../../../data/cours1/produit")
 sorted(p.name for p in GENERE.glob("raven*"))
 ```
 

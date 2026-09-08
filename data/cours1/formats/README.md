@@ -38,9 +38,9 @@ Le script accepte des chemins en argument. En échangeant les extensions de deux
 copies, on obtient la démonstration en deux lignes :
 
 ```bash
-cp ../genere/raven.odt ../genere/raven_odt.pdf
-cp ../genere/raven.pdf ../genere/raven_pdf.odt
-python octets.py ../genere/raven_odt.pdf ../genere/raven_pdf.odt
+cp ../produit/raven.odt ../produit/raven_odt.pdf
+cp ../produit/raven.pdf ../produit/raven_pdf.odt
+python octets.py ../produit/raven_odt.pdf ../produit/raven_pdf.odt
 ```
 
 ```
@@ -53,7 +53,7 @@ logiciel lit. Sous Windows, remplacer `cp` par `copy`.
 
 ## Fichiers nécessaires
 
-Les cinq fichiers lus par défaut sont dans `../genere/`, produits par
+Les cinq fichiers lus par défaut sont dans `../produit/`, produits par
 
 ```bash
 cd data/cours1

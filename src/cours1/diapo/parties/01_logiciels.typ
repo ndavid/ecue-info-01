@@ -443,7 +443,7 @@
     [Ce qui change d'un système à l'autre], [Exemple],
     [Windows sépare par une barre inversée], [`C:\Users\alice\raven.odt`],
     [macOS et Linux séparent par une barre], [`/home/alice/raven.odt`],
-    [Un chemin relatif part du dossier courant], [`genere\raven.odt`],
+    [Un chemin relatif part du dossier courant], [`produit\raven.odt`],
   )
 
   #notes[
@@ -506,10 +506,11 @@
 #separateur-manip(
   "Fichiers, formats et extensions",
   annonce: "Sur votre machine. Premier geste : afficher les extensions, que Windows masque par défaut.",
+  dossier: "data/cours1/produit/",
 )
 #d("Un même document, trois formats")[
   #annonce[
-    Ouvrir `data/cours1/genere/raven.odt` dans LibreOffice Writer, puis
+    Ouvrir `data/cours1/produit/raven.odt` dans LibreOffice Writer, puis
     l'enregistrer sous deux autres formes et comparer ce qu'il en reste.
   ]
 
@@ -731,7 +732,7 @@
     Pour la couleur, CSS accepte `color: crimson` aussi bien que
     `color: #c0392b` — contrairement à ODF. Faire essayer les deux.
 
-    Fichiers dans `data/cours1/genere/`. Si `style.css` n'est pas dans le même
+    Fichiers dans `data/cours1/produit/`. Si `style.css` n'est pas dans le même
     dossier que le `.html`, la page s'affiche sans mise en forme : bonne
     occasion de reparler des chemins relatifs.
   ]

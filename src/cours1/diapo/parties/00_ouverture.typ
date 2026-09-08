@@ -210,6 +210,54 @@
   auteur: "1re année géomatique",
   date: "15 septembre",
 )
+#d("Les fichiers du cours")[
+  #annonce[
+    Les fichiers des manipulations sont rangés par séance, puis par
+    manipulation. Chaque ouverture de manipulation rappelle son dossier.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [Dossier], [Ce qu'il contient],
+    [`data/cours1/`], [les fichiers des manipulations, un dossier par manipulation],
+    [`data/cours1/*/produit/`], [ce qu'une commande fabrique : on peut le supprimer, il se refait],
+    [`data/cours1/*/fourni/`], [ce qui vient d'ailleurs et ne se refait pas],
+    [`src/cours1/notebook/`], [les pages du cours, qui s'exécutent],
+  )
+
+  #legende[
+    Les diapositives brunes qui ouvrent une manipulation portent le chemin de
+    son dossier, sous leur titre.
+  ]
+
+  #notes[
+    Diapositive à montrer une fois, et à laquelle on revient à chaque
+    manipulation. La question « on est où, là ? » revient sinon à chaque bloc
+    sur machine, et elle coûte deux minutes à chaque fois.
+
+    Faire ouvrir le dossier du cours dans l'éditeur maintenant, une fois pour
+    toutes : c'est le dossier de projet de toute la séance, et les chemins
+    affichés sur les ouvertures de manipulation partent de lui.
+
+    Les deux noms réservés valent partout et sont la seule règle à retenir :
+    `produit/` est refabricable, `fourni/` ne l'est pas. Les fichiers du
+    premier ne sont pas distribués, ils se fabriquent avec `make_data.py` au
+    début de la première manipulation. Le dire, sinon la salle les cherche.
+
+    Cette distinction n'est pas de la comptabilité : elle dit ce qu'on peut
+    effacer sans crainte, et ce qu'on ne retrouvera pas. Les tuiles de fond de
+    carte du bonus vidéo sont dans un `fourni/` pour cette raison, les
+    conditions d'usage d'OpenStreetMap interdisant de les retélécharger en
+    masse.
+
+    À compléter avant la séance : la façon dont le dossier leur est remis n'est
+    écrite nulle part dans le dépôt. Nommer ici le canal réellement employé,
+    dépôt à cloner, archive déposée sur l'intranet ou clé, et le rappeler sur
+    la consigne d'installation envoyée avant la rentrée.
+  ]
+]
+
 #d("Contenu de la séance")[
   #annonce[
     Cinq parties, des notions les plus générales jusqu'à l'installation de
