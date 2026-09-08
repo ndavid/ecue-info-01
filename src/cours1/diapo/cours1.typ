@@ -7,7 +7,7 @@
 //   python outils/compiler_diapos.py                # à projeter
 //   python outils/compiler_diapos.py --notes        # avec les notes de conduite
 //   python outils/compiler_diapos.py --corrige      # corrigé des manipulations
-//   python outils/compiler_diapos.py --sans-annexes # la séance seule
+//   python outils/compiler_diapos.py --avec-annexes # + les annexes
 //
 // Conventions d'écriture : STYLE.md à la racine. Gabarits : parties/README
 // n'existe pas, voir `src/cours1/diapo/README.md`.
@@ -30,7 +30,7 @@
 // séances suivantes reprennent. Elles doublent presque le nombre de pages : la
 // version projetée en salle s'en passe.
 //
-//     typst compile --root . --input annexes=false cours1.typ
-#if sys.inputs.at("annexes", default: "") != "false" {
+//     typst compile --root . --input annexes=true cours1.typ
+#if sys.inputs.at("annexes", default: "") == "true" {
   include "parties/09_annexes.typ"
 }

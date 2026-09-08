@@ -20,14 +20,16 @@ présentes :
 python outils/compiler_diapos.py                  # à projeter
 python outils/compiler_diapos.py --notes          # version annotée
 python outils/compiler_diapos.py --corrige        # corrigé des manipulations
-python outils/compiler_diapos.py --sans-annexes   # la séance seule
+python outils/compiler_diapos.py --avec-annexes   # + les annexes
 ```
 
-`--sans-annexes` laisse de côté la dernière partie du deck et produit
-`cours1-seance.pdf` : 96 pages au lieu de 127. C'est la version à projeter en
-salle. Les annexes gardent ce que la séance n'a pas le temps de jouer et ce que
-les séances suivantes reprennent ; elles restent dans le PDF complet, distribué
-après coup.
+`cours1.pdf` est la séance elle-même, 97 pages : c'est ce qu'on projette. Les
+annexes gardent ce que la séance n'a pas le temps de jouer et ce que les séances
+suivantes reprennent ; elles ne s'ajoutent que sur demande, et le document sort
+alors sous le nom `cours1-annexes.pdf`, 128 pages, à distribuer après coup.
+
+Les options se combinent : `--avec-annexes --notes` produit
+`cours1-annexes-notes.pdf`.
 
 Les commandes équivalentes, à la main :
 
@@ -46,8 +48,8 @@ typst compile --root . --input captures=true src/cours1/diapo/cours1.typ
 # corrigé des manipulations, à distribuer après la séance
 typst compile --root . --input corrige=true src/cours1/diapo/cours1.typ cours1-corrige.pdf
 
-# la séance seule, sans les annexes
-typst compile --root . --input annexes=false src/cours1/diapo/cours1.typ cours1-seance.pdf
+# la séance augmentée de ses annexes
+typst compile --root . --input annexes=true src/cours1/diapo/cours1.typ cours1-annexes.pdf
 
 # recompilation à chaque sauvegarde
 typst watch --root . src/cours1/diapo/cours1.typ

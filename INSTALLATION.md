@@ -224,13 +224,14 @@ Tous les jeux d'un coup :
 for f in src/cours*/diapo/cours*.typ; do typst compile --root . "$f"; done
 ```
 
-### Les quatre compilations, et à qui elles servent
+### Les compilations, et à qui elles servent
 
 | Options | Pour qui | Ce qui change |
 |---------|----------|---------------|
-| aucune | projeté en séance | les colonnes d'observation des manipulations sont vides |
+| aucune | projeté en séance | la séance seule, colonnes d'observation vides |
 | `--input corrige=true` | distribué après la séance | ces colonnes sont remplies |
-| `--input notes=true` | l'enseignant | les notes de conduite s'ajoutent en bas de page |
+| `--input notes=true` | l'enseignant | les notes de conduite s'ajoutent sous la diapositive, sur une page plus haute |
+| `--input annexes=true` | l'enseignant, et après la séance | les annexes s'ajoutent à la fin |
 | `--input captures=true` | partout, si les images sont là | les captures d'écran remplacent les schémas dessinés |
 
 Les options se combinent. Ce que la manipulation fait constater n'est pas
