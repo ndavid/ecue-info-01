@@ -80,7 +80,7 @@ texte, quatre formes ». Les autres manipulations ont leurs propres dossiers.
 | [`hello/`](hello/) | deux « hello world », en Python et en C++ |
 | [`erreurs/`](erreurs/) | trois programmes fautifs, à corriger dans l'éditeur |
 | [`formats/`](formats/) | `octets.py`, qui lit les premiers octets d'un fichier |
-| [`markdown/`](markdown/) | une recette en texte brut, à mettre en forme en Markdown |
+| [`markdown/`](markdown/) | une recette en texte brut, à mettre en forme en Markdown ; en annexe, la comparaison de deux versions du résultat |
 | [`environnement/`](environnement/) | un petit projet Python : créer un environnement neuf, y installer `markdown`, convertir la recette en page HTML |
 | [`trajet/`](trajet/) | le bonus vidéo « une vidéo, deux chemins » |
 

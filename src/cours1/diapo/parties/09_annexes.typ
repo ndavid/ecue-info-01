@@ -940,3 +940,275 @@ d("Le menu d'exportation de LibreOffice")[
     résultat sans le temps qu'elle demande.
   ]
 ]
+// ------------- Annexe : comparer deux versions d'un fichier -----------------
+
+#separateur(
+  "Comparer deux versions d'un fichier",
+  annonce: "Manipulation non traitée en séance, qui prépare le cours 2 : ce qui a changé entre deux versions, et pourquoi la réponse dépend du format",
+)
+#d("Suivi des modifications et comparaison de fichiers")[
+  #annonce[
+    Un traitement de texte enregistre les modifications dans le document. Un
+    outil de comparaison les calcule après coup, entre deux fichiers.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr, 1fr),
+    align: left + horizon,
+    [], [Suivi des modifications, dans Writer ou Word], [Comparaison de deux fichiers],
+    [Quand], [pendant la frappe, la fonction activée avant],
+      [après coup, sur deux fichiers quelconques],
+    [Où est le résultat], [dans le document, avec l'auteur et la date],
+      [nulle part : recalculé à la demande],
+    [L'unité], [le mot, le caractère], [la ligne],
+    [Ce qu'il faut], [un format qui sache les enregistrer], [que les fichiers soient du texte],
+  )
+
+  #legende[
+    Deux réponses à la même question, « qu'est-ce qui a changé ».
+  ]
+
+  #notes[
+    La seconde colonne ne demande rien au fichier, et c'est elle qui vaut
+    pour du code : la dire à la projection.
+
+    Partir de ce qu'ils connaissent : la relecture d'un mémoire ou d'un
+    rapport de stage, corrections apparentes et commentaires dans la
+    marge. Le mécanisme est le même que la coloration ou le diagramme
+    mermaid — une information tenue quelque part et affichée autrement.
+
+    La différence qui compte est la troisième ligne. Un traitement de
+    texte compare des mots dans un flux de texte ; un outil de comparaison
+    prend la ligne pour unité. C'est une raison de plus d'écrire une
+    instruction par ligne, et de couper les paragraphes d'un `.md` en
+    lignes courtes.
+
+    Writer sait aussi comparer deux documents après coup, Édition
+    #sym.arrow.r Suivi des modifications #sym.arrow.r Comparer. Le
+    mentionner : ce n'est pas une opposition entre deux mondes, c'est deux
+    endroits où la même question se pose.
+
+    Ne pas nommer git tout de suite. Il arrive au bout de la séquence,
+    quand la comparaison et le fichier de différences sont acquis.
+  ]
+]
+#d("La tête d'un fichier de différences")[
+  #annonce[
+    La comparaison s'écrit dans un fichier texte : les deux versions comparées,
+    l'endroit, puis les lignes retirées et ajoutées.
+  ]
+
+  ```
+  --- recette.md
+  +++ recette_v2.md
+  @@ -1,6 +1,6 @@
+   # Crêpes
+
+  -*Pour 12 crêpes — 10 minutes de préparation, 1 heure de repos.*
+  +*Pour 12 crêpes — 10 minutes de préparation, 2 heures de repos.*
+  ```
+
+  #v(0.4em)
+  #tableau(
+    entete: false,
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [`---` et `+++`], [la version de départ, puis celle d'arrivée],
+    [`@@ -1,6 +1,6 @@`], [l'endroit : six lignes à partir de la première, de part et d'autre],
+    [espace, `-`, `+`], [ligne inchangée, ligne retirée, ligne ajoutée],
+  )
+
+  #legende[
+    Les sept premières lignes de `modifs.diff`, produit par
+    `python comparer.py creer recette.md recette_v2.md modifs.diff`. Le fichier
+    entier fait 19 lignes pour deux lignes modifiées : le reste est le contexte
+    qui permet de retrouver l'endroit.
+  ]
+
+  #notes[
+    Ce format s'appelle le _diff unifié_. Il est le même partout : `diff
+    -u`, la comparaison de l'éditeur, `git diff` et le script de la
+    manipulation écrivent tous ceci.
+
+    Faire lire les lignes de contexte : elles ne sont pas décoratives.
+    C'est par elles qu'un programme retrouve l'endroit dans un fichier qui
+    a bougé par ailleurs, sans se fier au seul numéro de ligne.
+
+    Deux lignes modifiées pèsent 370 octets, contre 741 pour la recette
+    entière. Le rapport ne s'inverse jamais dans le bon sens sur un
+    fichier un peu long : c'est ce qui rend l'échange de différences
+    intéressant.
+
+    Le lire à l'écran suffit aujourd'hui ; personne n'en écrit à la main.
+  ]
+]
+#d("Appliquer un fichier de différences")[
+  #annonce[
+    Le fichier de différences suffit à reconstruire la seconde version à partir
+    de la première. C'est lui que l'on transmet, plutôt que le fichier entier.
+  ]
+
+  #chaine(
+    ecart: 30pt,
+    ("recette.md", "la version que les deux ont"),
+    ("modifs.diff", "370 octets : ce qui a changé"),
+    ("recette_v3.md", "la seconde version, reconstruite"),
+  )
+
+  #legende[
+    `python comparer.py appliquer recette.md modifs.diff recette_v3.md` écrit
+    un fichier neuf, sans toucher aux deux autres : le résultat se vérifie avant
+    de servir.
+  ]
+
+  #notes[
+    Le mot du métier est _correctif_, ou _patch_. Pendant vingt ans, les
+    contributions à un projet libre se sont envoyées ainsi, par courriel :
+    quelques centaines d'octets décrivant ce qu'il fallait changer.
+
+    Insister sur la vérification : on applique dans un fichier neuf, on
+    compare, on garde. Un correctif appliqué sur une version qui n'est pas
+    celle d'où il vient est refusé, le script le dit et n'écrit rien.
+
+    C'est la moitié de ce que fait git, et la seule qui soit visible
+    aujourd'hui : montrer et transmettre des modifications sous cette
+    forme. Ce que git ajoute — l'historique, les auteurs, les branches —
+    est le cours 2.
+  ]
+]
+// ------------------ Manipulation : comparer deux versions -------------------
+
+#separateur-manip(
+  "Comparer deux versions d'un fichier",
+  annonce: "Objectif : produire un fichier de différences, le lire, puis l'appliquer pour reconstruire la seconde version",
+  dossier: "data/cours1/markdown/",
+)
+#d("Modifier sous un autre nom, puis comparer")[
+  #annonce[
+    On repart de la recette mise en forme à la partie 3. Une copie sous un autre
+    nom, deux corrections, et l'éditeur montre ce qui les sépare.
+  ]
+
+  #tableau(
+    columns: (auto, 1.3fr, 1fr),
+    align: left + horizon,
+    [], [Ce qu'il faut faire], [Ce que vous constatez],
+    [1], [Fichier #sym.arrow.r Ouvrir le dossier, sur `data/cours1/markdown/`, puis ouvrir `recette.md`], [],
+    [2], [Fichier #sym.arrow.r Enregistrer sous, sous le nom `recette_v2.md`], [],
+    [3], [dans `recette_v2.md` : le repos passe à deux heures, le lait à 600 ml], [],
+    [4], [clic droit sur `recette.md`, Sélectionner pour comparer ; puis clic droit sur `recette_v2.md`, Comparer avec l'élément sélectionné],
+      reponse[deux lignes signalées, les trente-trois autres identiques],
+  )
+
+  #legende[
+    Les deux fichiers font 741 et 742 octets. L'éditeur affiche les deux
+    versions côte à côte et ne surligne que ce qui diffère.
+  ]
+
+  #notes[
+    Le geste de l'étape 2 est celui de la manipulation Markdown, refait à
+    dessein : modifier un fichier sous un autre nom, c'est se donner de
+    quoi comparer. Sans cela, l'ancienne version est perdue — et c'est
+    exactement le manque que git comble.
+
+    Étape 3, imposer les deux mêmes corrections à toute la salle : la
+    suite affiche des sorties chiffrées, qui ne correspondront pas si
+    chacun modifie ce qu'il veut.
+
+    Étape 4 : la vue de comparaison de VSCode est la même que celle de son
+    panneau de contrôle de version, qu'ils retrouveront au cours 2. Leur
+    faire remarquer le bandeau d'en-tête, qui nomme les deux fichiers dans
+    le même ordre que le `---` et le `+++` de la diapositive.
+
+    Libellés du menu contextuel dépendants de la langue de l'interface.
+  ]
+]
+#d("Produire le fichier de différences, puis l'appliquer")[
+  #annonce[
+    La même comparaison, faite par un programme, s'écrit dans un fichier ; ce
+    fichier suffit ensuite à refabriquer la seconde version.
+  ]
+
+  #tableau(
+    columns: (auto, 1.4fr, 1fr),
+    align: left + horizon,
+    [], [Ce qu'il faut faire], [Ce que vous constatez],
+    [5], [`python comparer.py creer recette.md recette_v2.md modifs.diff`],
+      reponse[`19 lignes, dont 4 de différence`],
+    [6], [ouvrir `modifs.diff`, et lire son en-tête et sa première section],
+      reponse[les deux noms, l'endroit, les lignes retirées et ajoutées],
+    [7], [`python comparer.py appliquer recette.md modifs.diff recette_v3.md`],
+      reponse[`35 lignes, reconstruites à partir de recette.md`],
+    [8], [comparer `recette_v3.md` et `recette_v2.md` dans l'éditeur],
+      reponse[aucune différence : 370 octets ont suffi],
+  )
+
+  #legende[
+    Sorties réelles dans `data/cours1/markdown/`. `comparer.py` n'emploie que la
+    bibliothèque standard.
+  ]
+
+  #notes[
+    Étape 5 : le programme est celui du dossier, quarante lignes lisibles.
+    Il fait ce que fait la vue de l'étape 4, mais son résultat est un
+    fichier, donc quelque chose qui s'envoie, se relit et se garde.
+
+    Étape 7, à poser comme une question avant de lancer : que faut-il pour
+    reconstruire `recette_v2.md` ? La version de départ et le fichier de
+    différences, rien d'autre.
+
+    Étape 8 : c'est la vérification, et elle n'est pas facultative. Un
+    correctif se contrôle avant d'être adopté.
+
+    Pour ceux qui vont vite : modifier `recette.md` puis relancer l'étape
+    7. Le script refuse, en nommant la ligne qui ne correspond pas. Un
+    correctif est attaché à la version d'où il a été tiré.
+  ]
+]
+#d("Ce qu'une comparaison peut dire d'un fichier binaire")[
+  #annonce[
+    Converties en `.odt`, les deux mêmes versions ne se comparent plus : la
+    question « quelles lignes ont changé » n'a plus de réponse.
+  ]
+
+  ```console
+  $ pandoc recette.md -o recette.odt
+  $ pandoc recette_v2.md -o recette_v2.odt
+  $ python comparer.py creer recette.odt recette_v2.odt modifs.diff
+  recette.odt n'est pas un fichier texte : ses octets ne se lisent pas
+  comme des caractères.
+  ```
+
+  #v(0.4em)
+  #tableau(
+    entete: false,
+    columns: (auto, auto, 1fr),
+    align: left + horizon,
+    [Les deux `.md`], [741 et 742 octets], [deux lignes diffèrent, nommées et lisibles],
+    [Les deux `.odt`], [8 195 octets chacun], [1 690 octets diffèrent, et rien n'en est lisible],
+  )
+
+  #legende[
+    Sortie et mesures réelles. Deux mots changés donnent deux `.odt` de taille
+    identique dont un cinquième des octets diffère : le contenu y est compressé,
+    donc illisible ligne à ligne.
+  ]
+
+  #notes[
+    Dernier passage du fil tenu toute la séance, et le plus concret : le
+    format décide de ce qu'on pourra faire du fichier. Ici, le comparer.
+
+    Les chiffres se commentent dans cet ordre : même taille, donc rien à
+    conclure de la taille ; 1 690 octets différents pour deux mots, parce
+    que la compression redistribue tout. C'est aussi la réponse à «
+    pourquoi un `.odt` se versionne mal », posée en première partie.
+
+    Le `.ipynb` est dans le même cas pour une autre raison : c'est du
+    texte, mais du texte produit par un programme, où une exécution change
+    des dizaines de lignes. « Deux formats de notebook », vérifié.
+
+    Ouvrir sur le cours 2 : ce qu'ils viennent de faire à la main sur deux
+    fichiers, git le fait sur un projet entier et sur toute son histoire,
+    et il commence par leur demander quels fichiers valent d'être suivis.
+  ]
+]

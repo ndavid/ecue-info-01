@@ -27,6 +27,9 @@ data/*/erreurs/cpp/aire
 data/*/*/cpp/*.exe
 data/*/environnement/*.html
 data/*/environnement/*.egg-info/
+data/*/markdown/recette_v*.md
+data/*/markdown/*.diff
+data/*/markdown/*.odt
 
 # Environnement & outillage
 __pycache__/

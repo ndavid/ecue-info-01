@@ -24,7 +24,7 @@ manipulation faite sur votre machine.
   - ce qu'un fichier texte contient, et Markdown
   - 30 min
 * - Environnement de programmation
-  - le code qu'un programme emprunte, et l'outil qui l'installe
+  - le code réutilisé, les dépendances, et le fichier qui les déclare
   - 25 min
 * - Notebooks
   - l'interface, le noyau, et deux formats de fichier
@@ -42,6 +42,9 @@ python make_data.py fetch
 python make_data.py build
 ```
 
+La dernière page de la liste ci-dessous est une annexe : elle n'est pas jouée
+en séance, se fait seule, et prépare le cours 2.
+
 L'environnement `info01` doit être en place, par la consigne d'installation
 envoyée avant la rentrée. La bibliothèque `markdown`, elle, ne l'est pas : elle
 s'installe pendant la séance, et c'est le sujet de la manipulation de la
@@ -54,4 +57,5 @@ notebook/01_programmes_et_outils
 notebook/02_formats_de_fichier
 notebook/03_environnement_python
 notebook/04_premiers_octets
+notebook/05_comparer_versions
 ```
