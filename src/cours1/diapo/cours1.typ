@@ -4,9 +4,10 @@
 // fichier ne porte que les réglages globaux et l'ordre des parties : les
 // règles `#show` posées ici s'appliquent à tout ce qui est inclus ensuite.
 //
-//   python outils/compiler_diapos.py            # à projeter
-//   python outils/compiler_diapos.py --notes    # avec les notes de conduite
-//   python outils/compiler_diapos.py --corrige  # corrigé des manipulations
+//   python outils/compiler_diapos.py                # à projeter
+//   python outils/compiler_diapos.py --notes        # avec les notes de conduite
+//   python outils/compiler_diapos.py --corrige      # corrigé des manipulations
+//   python outils/compiler_diapos.py --sans-annexes # la séance seule
 //
 // Conventions d'écriture : STYLE.md à la racine. Gabarits : parties/README
 // n'existe pas, voir `src/cours1/diapo/README.md`.
@@ -24,4 +25,12 @@
 #include "parties/03_edition_texte.typ"
 #include "parties/04_environnement.typ"
 #include "parties/05_notebooks.typ"
-#include "parties/09_annexes.typ"
+
+// Les annexes gardent ce que la séance n'a pas le temps de jouer, et ce que les
+// séances suivantes reprennent. Elles doublent presque le nombre de pages : la
+// version projetée en salle s'en passe.
+//
+//     typst compile --root . --input annexes=false cours1.typ
+#if sys.inputs.at("annexes", default: "") != "false" {
+  include "parties/09_annexes.typ"
+}

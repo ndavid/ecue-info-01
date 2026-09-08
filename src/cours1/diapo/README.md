@@ -17,10 +17,17 @@ Le plus simple ensuite est de passer par le script de compilation, qui met
 présentes :
 
 ```bash
-python outils/compiler_diapos.py            # à projeter
-python outils/compiler_diapos.py --notes    # version annotée
-python outils/compiler_diapos.py --corrige  # corrigé des manipulations
+python outils/compiler_diapos.py                  # à projeter
+python outils/compiler_diapos.py --notes          # version annotée
+python outils/compiler_diapos.py --corrige        # corrigé des manipulations
+python outils/compiler_diapos.py --sans-annexes   # la séance seule
 ```
+
+`--sans-annexes` laisse de côté la dernière partie du deck et produit
+`cours1-seance.pdf` : 96 pages au lieu de 127. C'est la version à projeter en
+salle. Les annexes gardent ce que la séance n'a pas le temps de jouer et ce que
+les séances suivantes reprennent ; elles restent dans le PDF complet, distribué
+après coup.
 
 Les commandes équivalentes, à la main :
 
@@ -39,6 +46,9 @@ typst compile --root . --input captures=true src/cours1/diapo/cours1.typ
 # corrigé des manipulations, à distribuer après la séance
 typst compile --root . --input corrige=true src/cours1/diapo/cours1.typ cours1-corrige.pdf
 
+# la séance seule, sans les annexes
+typst compile --root . --input annexes=false src/cours1/diapo/cours1.typ cours1-seance.pdf
+
 # recompilation à chaque sauvegarde
 typst watch --root . src/cours1/diapo/cours1.typ
 ```
@@ -54,9 +64,10 @@ qu'il pose s'appliquent à tout ce qui est inclus ensuite.
 
 ```
 src/commun/theme.typ        mise en page, couleurs, polices et gabarits
-src/commun/schemas.typ      bloc, etape, chaine, couche, liaison
+src/commun/schemas.typ      bloc, etape, chaine, couche, liaison, frise
 src/commun/prelude.typ      ré-exporte les deux, seul import à écrire
-src/cours1/diapo/cours1.typ assemblage : réglages, puis sept #include
+src/cours1/diapo/cours1.typ assemblage : réglages, puis les #include
+                            (celui des annexes est conditionné par --input annexes)
 src/cours1/diapo/parties/   00 ouverture, 01 à 05 les parties, 09 annexes
 ```
 
@@ -69,7 +80,7 @@ Les images se désignent depuis la racine du projet, `"/data/cours1/…"` : typs
 résout un chemin relatif par rapport au fichier où `image` est appelé,
 c'est-à-dire au thème, et non par rapport au fichier qui écrit le chemin.
 
-`cours1.typ` produit 116 pages, 120 avec les captures d'écran : titre,
+`cours1.typ` produit 123 pages, 127 avec les captures d'écran : titre,
 introduction au module, le contenu de la séance, ses cinq parties (logiciels et
 formats de fichier, programmation et éditeur de code, édition de texte et
 contenu des fichiers, environnement de programmation, notebooks), puis les
@@ -144,7 +155,7 @@ page n'est celle qui est visée qu'avec Fira Sans.
 Une hauteur de boîte écrite à la main dépend de la police effectivement
 présente sur le poste, et c'est ainsi que du texte est passé par-dessus le bord
 de ses cadres quand Fira Sans manquait. Les schémas en chaîne emploient donc
-`chaine(…)`, défini en tête de `cours1.typ` : il mesure les boîtes à la largeur
+`chaine(…)`, défini dans `src/commun/schemas.typ` : il mesure les boîtes à la largeur
 qu'elles occuperont, retient la plus haute, et impose cette hauteur à toutes.
 Le résultat tient même compilé avec `--ignore-system-fonts`.
 

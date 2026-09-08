@@ -11,11 +11,14 @@ et passe les options qui conviennent.
     python outils/compiler_diapos.py                  # le cours 1, à projeter
     python outils/compiler_diapos.py --notes          # + les notes de conduite
     python outils/compiler_diapos.py --corrige        # + le corrigé des manipulations
+    python outils/compiler_diapos.py --sans-annexes   # la séance seule
     python outils/compiler_diapos.py --tous           # les sept jeux
     python outils/compiler_diapos.py --cours 3        # un autre cours
 
 `--sans-captures` force le repli dessiné, pour vérifier que le document tient
-aussi sans les images.
+aussi sans les images. `--sans-annexes` laisse de côté la dernière partie du
+deck, celle qui garde ce que la séance n'a pas le temps de jouer : c'est la
+version à projeter en salle, et elle sort sous le nom `cours<n>-seance.pdf`.
 """
 
 from __future__ import annotations
@@ -65,10 +68,18 @@ def compiler(cours: int, options: argparse.Namespace) -> int:
         commande += ["--input", "notes=true"]
     if options.corrige:
         commande += ["--input", "corrige=true"]
+    if options.sans_annexes:
+        commande += ["--input", "annexes=false"]
     commande.append(str(source))
 
     suffixe = "".join(
-        s for s, actif in (("-notes", options.notes), ("-corrige", options.corrige)) if actif
+        s
+        for s, actif in (
+            ("-seance", options.sans_annexes),
+            ("-notes", options.notes),
+            ("-corrige", options.corrige),
+        )
+        if actif
     )
     if suffixe:
         commande.append(str(source.with_name(f"cours{cours}{suffixe}.pdf")))
@@ -94,6 +105,10 @@ def main() -> int:
     analyseur.add_argument(
         "--sans-captures", action="store_true",
         help="ignorer les captures d'écran, pour vérifier le repli dessiné",
+    )
+    analyseur.add_argument(
+        "--sans-annexes", action="store_true",
+        help="laisser les annexes de côté : la version projetée en salle",
     )
     options = analyseur.parse_args()
 
