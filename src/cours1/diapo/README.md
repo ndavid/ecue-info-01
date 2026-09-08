@@ -185,11 +185,34 @@ deux ressorts. Quand le corps est trop haut, ces ressorts se referment sans
 que typst ne dise rien : l'annonce vient se coller sous le titre. Le script
 mesure cet écart page par page et signale ce qui passe sous le seuil.
 
-La version annotée se relit au même seuil, et doit rendre le même verdict : sa
-bande de notes n'est pas prise sur la diapositive mais ajoutée sous elle, si
-bien que les deux variantes ont exactement la même zone de diapositive. Leurs
-nombres de pages doivent donc être égaux ; un écart signifie qu'une
-diapositive déborde sur une page de suite.
+La version annotée se relit au même seuil, et doit rendre le même verdict : ses
+notes ne sont pas prises sur la diapositive mais posées à côté, si bien que les
+deux variantes ont exactement la même zone de diapositive. Leurs nombres de
+pages doivent donc être égaux ; un écart signifie qu'une diapositive déborde sur
+une page de suite. Le script ne mesure que la moitié gauche d'une page double,
+faute de quoi il lirait les lignes de notes comme le corps.
+
+## La version annotée
+
+`--input notes=true` produit une page **deux fois plus large** : la diapositive
+à gauche, ses notes de conduite à droite. C'est le format « second écran » de
+Beamer, `show notes on second screen`.
+
+Étirée sur un bureau étendu à deux écrans, la moitié gauche part au
+vidéoprojecteur et la moitié droite reste sur l'écran du présentateur. Lue à
+plat ou imprimée, elle donne la diapositive et ses notes côte à côte.
+
+La moitié gauche est **au millimètre celle qui est projetée** : les marges de
+droite absorbent toute la seconde moitié, et le fond plein des diapositives de
+séparation comme la barre de pied s'y arrêtent. Vérifié mot pour mot, aux mêmes
+coordonnées, sur les 97 pages.
+
+Aucun format de PDF ne distingue une note d'un contenu de page : ce que le
+lecteur affiche, il l'affiche en entier, et aucun lecteur Windows courant ne
+sait masquer la moitié droite. Cette version n'est donc pas projetable telle
+quelle — c'est `cours<n>.pdf`, sans notes, qui va au vidéoprojecteur. À défaut
+de bureau étendu, ouvrir les deux fichiers côte à côte : ils ont le même nombre
+de pages, page pour page.
 
 ## Illustrations
 

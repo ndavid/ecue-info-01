@@ -38,24 +38,27 @@
 #let marge-x = 18.5mm             // 10 mm sur 160 mm, transposé
 #let hauteur-pied = 21.6pt
 
-// Bande réservée aux notes de conduite, dans la version annotée.
-//
-// Elle n'est pas prise sur la diapositive mais ajoutée sous elle : la page
-// annotée est plus haute que la page projetée, d'exactement cette valeur. La
-// zone de diapositive garde donc la hauteur pour laquelle les corps ont été
-// réglés, et une diapositive qui tient à la projection tient aussi ici.
-//
-// L'ancien réglage prenait ces millimètres sur la page 16:9 elle-même, en
-// portant la marge basse de 10,3 à 36 mm. Cinq corps de diapositive ne
-// tenaient plus dans ce qui restait ; comme le bloc de notes est posé hors
-// flux, c'était le corps qui débordait, et les notes partaient seules sur une
-// page de suite. La version annotée comptait alors cinq pages de plus que
-// celle à projeter, ce qui rendait la comparaison des deux inutilisable.
-#let bande-notes = 80mm
+// Largeur d'une diapositive : le 16:9 de typst, 297 x 167,06 mm.
+#let largeur-diapo = 297mm
+#let hauteur-diapo = 167.06mm
 
-// Hauteur du bloc de notes : la bande, plus la marge basse ordinaire, moins
-// ce qu'il faut laisser à la barre de pied de page.
-#let hauteur-notes = bande-notes + 10.3mm - 11mm
+// La version annotée pose les notes à droite de la diapositive, sur une page
+// deux fois plus large — c'est le format « second écran » de Beamer
+// (`show notes on second screen`). Étirée sur un bureau étendu à deux écrans,
+// la moitié gauche part au vidéoprojecteur et la moitié droite reste sur
+// l'écran du présentateur ; imprimée ou lue à plat, elle donne la diapositive
+// et ses notes côte à côte.
+//
+// La moitié gauche est au millimètre celle qui est projetée : les marges de
+// droite absorbent toute la seconde moitié, si bien que la zone de diapositive
+// mesure 260 x 156,76 mm dans les deux variantes. Une diapositive qui tient à
+// la projection tient donc ici, et les deux PDF ont le même nombre de pages,
+// page pour page.
+//
+// Aucun format de PDF ne distingue une note d'un contenu de page : ce que le
+// lecteur affiche, il l'affiche en entier. C'est pourquoi la version annotée
+// n'est pas projetable telle quelle, et pourquoi le PDF sans notes reste le
+// document de projection.
 
 #let notes-visibles = sys.inputs.at("notes", default: "") == "true"
 
@@ -139,16 +142,18 @@
   show list: set block(above: 0.62em, below: 0.62em)
 
   set page(
-    // 297 x 167,06 mm, soit le 16:9 de typst, allongé pour les notes.
-    width: 297mm,
-    height: 167.06mm + if notes-visibles { bande-notes } else { 0mm },
+    // Deux fois plus large quand les notes sont demandées ; la moitié
+    // supplémentaire est absorbée par la marge de droite, et le flux reste
+    // donc dans la moitié gauche.
+    width: largeur-diapo * (if notes-visibles { 2 } else { 1 }),
+    height: hauteur-diapo,
     // Le bandeau supérieur est vidé par le thème : la zone de texte commence au
-    // bord du papier. La marge basse absorbe la bande de notes, si bien que la
-    // zone de diapositive fait 156,76 mm dans les deux variantes.
+    // bord du papier.
     margin: (
-      x: marge-x,
+      left: marge-x,
+      right: marge-x + (if notes-visibles { largeur-diapo } else { 0mm }),
       top: 0mm,
-      bottom: 10.3mm + if notes-visibles { bande-notes } else { 0mm },
+      bottom: 10.3mm,
     ),
     // La barre de pied de page est posée en avant-plan, seul moyen de la coller
     // au bord inférieur et de la faire courir sur toute la largeur du papier,
@@ -157,7 +162,8 @@
       let numero = counter(page).get().first()
       let total = counter(page).final().first()
       place(bottom + left, block(
-        width: 100%, height: hauteur-pied, fill: gris, inset: (x: marge-x),
+        width: largeur-diapo, height: hauteur-pied, fill: gris,
+        inset: (x: marge-x),
       )[
         #set text(size: pt-tiny, fill: accent)
         #align(horizon)[
@@ -258,7 +264,14 @@
 // Gabarit commun aux diapositives de séparation : fond plein, filet et titre.
 // Bruno n'en fournit aucun ; celui-ci n'emploie que les couleurs du thème.
 #let _separation(fond, sur-fond, filet, titre-partie, annonce, mention, dossier) = {
-  set page(foreground: none, fill: fond)
+  set page(
+    foreground: none,
+    fill: if notes-visibles { white } else { fond },
+    // En double largeur, seule la moitié projetée reçoit le fond plein.
+    background: if notes-visibles {
+      place(top + left, rect(width: largeur-diapo, height: 100%, fill: fond))
+    },
+  )
   align(horizon + left, block(width: 78%)[
     #if mention != none [
       #text(size: pt-footnotesize, fill: filet, weight: demi-gras)[
@@ -327,21 +340,17 @@
 // projeté. Masquées par défaut (voir --input notes=true en tête de fichier).
 #let notes(corps) = {
   if notes-visibles {
-    // Les notes commencent juste sous la diapositive et descendent dans la
-    // bande, plutôt que d'être collées au pied et de remonter vers elle : des
-    // notes courtes restent ainsi près de ce qu'elles commentent, et des notes
-    // longues occupent la bande sans empiéter sur le corps.
+    // Les notes vont dans la moitié droite, hors du flux : le décalage vaut
+    // une largeur de diapositive, et la largeur du bloc est celle de la zone de
+    // texte. Le décalage est une constante et non une mesure, ce qui compte —
+    // un bloc mesuré dans le flux y consomme de la hauteur, déséquilibre les
+    // deux ressorts du gabarit et remonte le corps de la diapositive.
     //
-    // `place` aligne par le bas : en donnant au bloc une hauteur fixe et un
-    // décalage égal, son haut vient se poser exactement sur le bas de la zone
-    // de diapositive. Le décalage est ainsi une constante, et non une mesure —
-    // ce qui compte, car un bloc mesuré dans le flux consomme de la hauteur,
-    // déséquilibre les deux ressorts du gabarit et remonte le corps.
-    place(bottom, dy: hauteur-notes, block(width: 100%, height: hauteur-notes)[
-      #line(length: 100%, stroke: 0.5pt + estompe.lighten(40%))
-      #v(0.25em)
-      #set text(size: 10pt, fill: estompe)
-      #set par(leading: 0.5em)
+    // `dy` aligne le haut des notes sur celui du titre, dont le gabarit `d`
+    // donne le décalage.
+    place(top + left, dx: largeur-diapo, dy: 52.5pt, block(width: 100%)[
+      #set text(size: 12pt, fill: estompe)
+      #set par(leading: 0.55em)
       #corps
     ])
   }

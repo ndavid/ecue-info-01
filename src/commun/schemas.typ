@@ -9,7 +9,7 @@
 // fixe dépendrait de la police effectivement installée, et c'est ainsi que du
 // texte est passé par-dessus le bord de ses cadres.
 
-#import "theme.typ": accent, estompe, demi-gras, notes-visibles
+#import "theme.typ": accent, estompe, demi-gras
 
 #let bloc(titre, detail, plein: false, hauteur: auto) = block(
   width: 100%, height: hauteur, inset: 12pt,
@@ -113,10 +113,16 @@
   )
 ]
 
-#let hauteur-capture = if notes-visibles { 190pt } else { 235pt }
-#let hauteur-terminal = if notes-visibles { 112pt } else { 166pt }
+// Hauteurs des captures d'écran. Elles valaient moins dans la version annotée,
+// du temps où celle-ci prenait sa bande de notes sur la diapositive elle-même.
+// Les notes étant désormais posées à droite, sur une page deux fois plus large,
+// la zone de diapositive est la même dans les deux variantes : une seule valeur
+// suffit, et la moitié gauche de la version annotée est au millimètre celle qui
+// est projetée.
+#let hauteur-capture = 235pt
+#let hauteur-terminal = 166pt
 // Pour les diapositives où la capture est seule : elle peut prendre la place.
-#let hauteur-capture-pleine = if notes-visibles { 192pt } else { 242pt }
+#let hauteur-capture-pleine = 242pt
 
 
 // Une frise chronologique : un axe daté, et une étiquette par repère.

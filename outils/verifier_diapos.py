@@ -45,12 +45,27 @@ ECART_MINIMAL = 20.0
 BANDE_PIED = 40.0
 
 
+# La version annotée pose les notes à droite, sur une page deux fois plus large.
+# Ce qui s'y mesure est la diapositive, donc la moitié gauche : sans ce filtre,
+# les lignes de notes sont lues comme le corps et l'écart mesuré est celui qui
+# les sépare du titre, soit presque rien.
+RAPPORT_16_9 = 841.89 / 473.556
+
+
+def largeur_diapo(page):
+    largeur, hauteur = float(page.get("width")), float(page.get("height"))
+    double = largeur > 1.5 * hauteur * RAPPORT_16_9
+    return largeur / 2 if double else largeur
+
+
 def lignes(page, tolerance=3.0):
-    """Regroupe les mots d'une page en lignes, par ordonnée."""
+    """Regroupe les mots de la diapositive en lignes, par ordonnée."""
+    limite = largeur_diapo(page)
     mots = sorted(
         (
             (float(m.get("yMin")), float(m.get("yMax")), float(m.get("xMin")), m.text or "")
             for m in page.iter(NS + "word")
+            if float(m.get("xMin")) < limite
         ),
         key=lambda m: (m[0], m[2]),
     )
