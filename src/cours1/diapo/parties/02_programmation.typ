@@ -36,25 +36,21 @@
   ]
 
   #notes[
-    Motiver avant de définir. Renommer 300 photos par leur date prend une
-    soirée à la main et quelques secondes par programme ; la deuxième
-    exécution ne coûte rien, et une erreur de recopie devient systématique,
-    donc repérable. C'est le genre de programme demandé dans ce module : de
-    l'automatisation et du traitement de données, pas des applications.
+    Motiver avant de définir : renommer 300 photos par leur date prend une
+    soirée à la main, quelques secondes par programme ; la deuxième
+    exécution ne coûte rien, et une erreur de recopie devient
+    systématique, donc repérable. C'est le genre de programme demandé ici
+    — automatisation et traitement de données, pas applications.
 
-    Trois mots à séparer une fois pour toutes : « programmation » nomme
-    l'activité, « programme » son résultat, « application » ce que reçoit
-    celui qui s'en sert. Dire que la frontière entre les deux derniers est
-    floue plutôt que la laisser deviner : ce n'est pas une catégorie
-    technique. Un même code se lance à la main depuis un terminal, puis
-    s'empaquette avec une interface et se distribue ; ce qui change est ce
-    que reçoit l'utilisateur, et ce qu'il doit savoir pour le faire tourner.
+    Trois mots à séparer : « programmation » nomme l'activité, « programme
+    » son résultat, « application » ce que reçoit celui qui s'en sert.
+    Dire que la frontière entre les deux derniers est floue : un même code
+    se lance depuis un terminal, puis s'empaquette avec une interface. Ce
+    qui change est ce que reçoit l'utilisateur.
 
-    Reprendre ensuite le schéma entrée → traitement → sortie du début de
-    séance : la boîte du milieu est elle aussi un fichier, et la question qui
-    ouvre la suite est de savoir comment ce fichier est fabriqué. Les deux
-    diapositives suivantes y répondent : d'abord les deux chemins qui mènent
-    du texte à l'exécution, puis ce que devient ce texte une fois traduit.
+    Reprendre le schéma entrée → traitement → sortie du début de séance :
+    la boîte du milieu est un fichier, et les deux diapositives suivantes
+    disent comment il est fabriqué.
   ]
 ]
 #d("Deux chemins du texte à l'exécution")[
@@ -90,19 +86,17 @@
   ]
 
   #notes[
-    Le schéma dit tout : la chaîne compilée a une étape de plus, mais elle
-    n'est faite qu'une fois ; la chaîne interprétée en a une de moins, mais
-    elle la refait à chaque exécution.
+    La chaîne compilée a une étape de plus, faite une fois ; l'interprétée
+    en a une de moins, refaite à chaque exécution.
 
-    Semer ici le facteur ×100 à ×1000 du cours 6 et du TD 7 : `numpy` est
-    rapide parce qu'il délègue à du C compilé. Ne pas développer maintenant.
+    Semer le facteur ×100 à ×1000 du cours 6 et du TD 7 : `numpy` délègue
+    à du C compilé. Ne pas développer.
 
-    Les noms de fichiers sont ceux de la manipulation de tout à l'heure : le
-    schéma et le geste porteront les mêmes, et le rapprochement se fera tout
-    seul. Le dire une fois, ici.
+    Les noms de fichiers sont ceux de la manipulation à venir ; le dire
+    une fois.
 
-    Question qui vient toujours : « et Java ? ». Répondre en une phrase, les
-    deux à la fois, et ne pas s'y engager.
+    « Et Java ? » vient toujours : répondre en une phrase, les deux à la
+    fois.
   ]
 ]
 #d("Code source et fichier exécutable")[
@@ -133,13 +127,12 @@
   #legende[Premiers octets de l'exécutable `python3`, vus en hexadécimal.]
 
   #notes[
-    Faire remarquer `7f 45 4c 46` : c'est « ELF », lisible en ASCII. Un fichier
-    binaire n'est pas du bruit, il a une structure — on l'ouvrira nous-mêmes au
-    cours 3.
+    Faire remarquer `7f 45 4c 46`, soit « ELF » en ASCII : un binaire
+    n'est pas du bruit, il a une structure. On l'ouvrira au cours 3.
 
-    Le fichier montré est l'exécutable de `python3`, et ce n'est pas un hasard :
-    l'interpréteur du chemin de droite est lui-même arrivé au bout du chemin de
-    gauche. C'est ce que la diapositive suivante met en place.
+    Le fichier montré est l'exécutable de `python3` : l'interpréteur du
+    chemin de droite est lui-même arrivé au bout du chemin de gauche.
+    C'est la diapositive suivante.
   ]
 ]
 #d("La place de l'interpréteur")[
@@ -169,20 +162,19 @@
   ]
 
   #notes[
-    Le mot à donner : un interpréteur est un programme comme les autres.
-    Celui de Python s'appelle `python`, et c'est son exécutable dont les
-    premiers octets viennent d'être montrés, `7f 45 4c 46`.
-    Ce qui exécute du texte est soi-même un binaire.
+    Un interpréteur est un programme comme les autres. Celui de Python
+    s'appelle `python`, et c'est son exécutable dont les premiers octets
+    viennent d'être montrés. Ce qui exécute du texte est soi-même un
+    binaire.
 
-    La conséquence pratique est celle qui compte : pour lancer un programme
-    Python, il faut que Python soit installé, alors qu'un exécutable compilé
-    se lance seul. C'est ce que la manipulation fera constater, et c'est
-    pourquoi la partie « Environnement de programmation » existe.
+    Conséquence pratique : lancer un programme Python suppose Python
+    installé, alors qu'un exécutable compilé se lance seul. C'est ce que
+    la manipulation fera constater, et pourquoi la partie « Environnement
+    de programmation » existe.
 
-    Le navigateur est le second exemple, et le plus parlant : il interprète
-    trois langages sans que personne ne l'appelle « interpréteur ». Le mot
-    désigne un rôle, pas une catégorie de logiciel. Sous les trois couches il
-    y a le matériel, comme à la diapositive « Le système d'exploitation ».
+    Le navigateur interprète trois langages sans qu'on l'appelle «
+    interpréteur » : le mot désigne un rôle, pas une catégorie de
+    logiciel.
   ]
 ]
 #d("Il n'existe pas qu'un interpréteur Python")[
@@ -207,25 +199,21 @@
   ]
 
   #notes[
-    Diapositive de remarque, à passer en une minute. Elle sert à décoller le
-    langage de son interpréteur, distinction que la précédente a rendue
-    visible : un langage est une convention d'écriture, et plusieurs
-    programmes peuvent l'appliquer.
+    Une minute. Elle décolle le langage de son interpréteur : un langage
+    est une convention d'écriture, plusieurs programmes peuvent
+    l'appliquer.
 
-    Le seul qu'ils rencontreront est CPython, et il faut le dire ainsi pour
-    qu'ils ne cherchent pas à choisir. Ce qui le distingue à l'écran est la
-    bannière de la session interactive : PyPy et Jython annoncent leur nom,
-    CPython ne dit que sa version et le compilateur qui l'a produit,
-    `[GCC 15.3.0]` sur la machine du cours. Bannière relevée dans `info01` ;
-    elle varie avec le canal et la version, la mention `packaged by
-    conda-forge` n'apparaissant pas sur toutes les constructions.
+    Le seul qu'ils rencontreront est CPython ; le dire ainsi pour qu'ils
+    ne cherchent pas à choisir. PyPy et Jython annoncent leur nom dans la
+    bannière interactive, CPython ne donne que sa version et le
+    compilateur qui l'a produit, `[GCC 15.3.0]` ici. Bannière relevée dans
+    `info01` ; elle varie avec le canal et la version.
 
-    Le fait que l'interpréteur de référence soit écrit en C boucle avec « Code
-    source et fichier exécutable » : les octets montrés étaient ceux de ce
-    programme, compilé comme le `bonjour.exe` de la manipulation.
+    L'interpréteur de référence est écrit en C : les octets de « Code
+    source et fichier exécutable » étaient ceux de ce programme.
 
-    Ne pas ouvrir la question de la vitesse ici. Elle revient au cours 6 avec
-    numpy, et la réponse n'est pas « changer d'interpréteur ».
+    Ne pas ouvrir la question de la vitesse : elle est au cours 6, et la
+    réponse n'est pas de changer d'interpréteur.
   ]
 ]
 #d("L'éditeur de code")[
@@ -254,13 +242,13 @@
 
   #notes[
     Un éditeur de code n'est pas un traitement de texte : il enregistre du
-    texte brut, sans mise en forme, et tout ce qu'il ajoute à l'écran (les
-    couleurs, les numéros de ligne) est un affichage, pas du contenu.
+    texte brut, et ce qu'il ajoute à l'écran — couleurs, numéros de ligne
+    — est un affichage, pas du contenu.
 
-    Les trois zones suffisent aujourd'hui. Le débogueur, les extensions et
-    l'intégration git viennent aux cours 2 et 3.
+    Les trois zones suffisent aujourd'hui ; débogueur, extensions et git
+    viennent aux cours 2 et 3.
 
-    VSCode s'affiche en anglais par défaut ; le module ne demande pas de le
+    VSCode s'affiche en anglais par défaut ; le module ne demande pas d'en
     changer.
   ]
 ]
@@ -291,24 +279,20 @@
   ]
 
   #notes[
-    Le sigle est anglais et le restera : « environnement de développement
-    intégré » est la traduction officielle, « EDI » son abréviation, et
-    personne ne l'emploie. Le dire une fois pour que le mot lu ailleurs soit
-    reconnu.
+    Le sigle reste anglais : « environnement de développement intégré »
+    est la traduction officielle, « EDI » son abréviation, que personne
+    n'emploie. Le dire une fois pour que le mot lu ailleurs soit reconnu.
 
-    Les deuxième et troisième lignes sont celles qui distinguent un IDE d'un
-    éditeur de texte, et ce sont elles qu'on va employer aujourd'hui : le
-    terminal intégré à la manipulation qui vient, l'arborescence dès qu'on
-    ouvre un dossier plutôt qu'un fichier.
+    Deuxième et troisième lignes : elles distinguent un IDE d'un éditeur
+    de texte, et ce sont celles qu'on emploie aujourd'hui — terminal
+    intégré à la manipulation qui vient, arborescence dès qu'on ouvre un
+    dossier.
 
-    Le débogage est nommé, pas montré : il vient au cours 2, une fois qu'il y
-    aura des programmes assez longs pour en avoir besoin. Le panneau git est
-    dans la même situation.
+    Débogage et panneau git sont nommés, pas montrés : cours 2.
 
-    Microsoft présente VSCode comme un éditeur de code plutôt que comme un
-    IDE, la différence étant que les fonctions avancées viennent d'extensions
-    installées. La frontière est commerciale autant que technique ; ne pas
-    s'y attarder si la question ne vient pas.
+    Microsoft présente VSCode comme un éditeur plutôt que comme un IDE,
+    ses fonctions avancées venant d'extensions. Ne pas s'y attarder si la
+    question ne vient pas.
   ]
 ]
 #d("Lancer un programme depuis l'éditeur")[
@@ -341,28 +325,21 @@
   ]
 
   #notes[
-    La diapositive répond à une question que la partie laissait ouverte : on a
-    dit qu'un IDE sert à lancer et tester, sans jamais montrer par où. Trois
-    menus, et c'est tout ce qu'il faut aujourd'hui.
+    Trois menus, et c'est tout ce qu'il faut aujourd'hui.
 
-    Le module fait écrire la commande à la main, et il faut dire pourquoi
-    plutôt que de l'imposer : elle est identique sur les trois systèmes, elle
-    se relit, et c'est elle qu'on enchaînera au cours 2 puis qu'on mettra dans
-    un script au cours 3. Le bouton, lui, est différent d'un langage à
-    l'autre et masque ce qu'il fait.
+    Dire pourquoi le module fait écrire la commande à la main : elle est
+    identique sur les trois systèmes, elle se relit, et c'est elle qu'on
+    enchaînera au cours 2 puis qu'on mettra en script au cours 3. Le
+    bouton diffère d'un langage à l'autre et masque ce qu'il fait.
 
-    La dernière ligne est celle qui coûte le plus cher si elle est sautée. Le
-    bouton exécute avec l'interpréteur sélectionné, qui n'est pas forcément
-    celui de l'environnement du module : c'est l'origine du `ModuleNotFoundError`
-    « sur un paquet qu'on vient d'installer », annoncé à la partie 4. La
-    sélection vaut aussi pour le terminal, que l'extension Python active
-    ensuite toute seule.
+    Dernière ligne, la plus coûteuse si elle est sautée : le bouton
+    exécute avec l'interpréteur sélectionné, pas forcément celui du module
+    — origine du `ModuleNotFoundError` annoncé à la partie 4. La sélection
+    vaut aussi pour le terminal.
 
-    Sur le bouton C++ : il existe, il s'appelle « Run C/C++ File », et il
-    demande de choisir un compilateur au premier lancement, puis écrit un
-    `tasks.json` dans le projet. Ne pas l'employer en séance — cela ajoute un
-    fichier de configuration à expliquer — mais savoir répondre à celui qui
-    l'aura trouvé.
+    Le bouton C++ existe, « Run C/C++ File » : il demande un compilateur
+    au premier lancement et écrit un `tasks.json`. Ne pas l'employer en
+    séance, mais savoir répondre.
   ]
 ]
 #d("De quoi compiler du C++")[
@@ -393,24 +370,20 @@
   ]
 
   #notes[
-    À faire avant la séance si possible, l'installation prenant quelques
-    minutes et le réseau de la salle n'étant pas garanti. À défaut, la lancer
-    au début de la manipulation et enchaîner sur Python pendant qu'elle
-    tourne.
+    À faire avant la séance si possible : quelques minutes, et le réseau
+    de la salle n'est pas garanti. À défaut, lancer l'installation au
+    début de la manipulation et enchaîner sur Python pendant ce temps.
 
-    Le nom de l'exécutable est le piège, et il faut le projeter : sous
-    Windows, conda-forge installe `x86_64-w64-mingw32-g++.exe`, pas `g++`.
-    C'est le nom complet de la cible — architecture, système, format — et il
-    ne s'invente pas. Relevé dans le contenu du paquet `gxx_win-64` ; à
-    confirmer sur une machine Windows, ce qui n'a pas pu être fait ici.
+    Le nom de l'exécutable est le piège, à projeter : sous Windows, conda-
+    forge installe `x86_64-w64-mingw32-g++.exe`, pas `g++`. C'est le nom
+    complet de la cible, et il ne s'invente pas. Relevé dans le contenu du
+    paquet `gxx_win-64` ; non confirmé sur une machine Windows.
 
-    Ne pas employer `m2w64-toolchain`, qu'on trouve encore dans de vieilles
-    réponses en ligne : le paquet affiche lui-même à l'activation qu'il est
-    obsolète et renvoie vers `gcc`, `gxx` et `gfortran`.
+    Ne pas employer `m2w64-toolchain`, encore présent dans de vieilles
+    réponses en ligne : le paquet s'annonce lui-même obsolète et renvoie
+    vers `gcc`, `gxx` et `gfortran`.
 
-    La justification de l'environnement est repoussée à la partie 4, et il
-    faut le dire plutôt que de laisser la question en suspens : aujourd'hui on
-    s'en sert, on l'expliquera tout à l'heure.
+    L'environnement est expliqué à la partie 4 : aujourd'hui on s'en sert.
   ]
 ]
 #separateur-manip(
@@ -445,22 +418,20 @@
   ]
 
   #notes[
-    Les postes de la salle ont Anaconda installé : c'est lui qui fournit
-    l'« Anaconda Prompt » du menu Démarrer. Le terminal Windows ordinaire,
-    `cmd` ou PowerShell, ne connaît pas `conda` tant qu'il n'a pas été
-    initialisé, et c'est la première cause de « la commande n'existe pas ».
+    Les postes de la salle ont Anaconda, d'où l'« Anaconda Prompt » du
+    menu Démarrer. `cmd` et PowerShell ne connaissent pas `conda` tant
+    qu'ils n'ont pas été initialisés : première cause de « la commande
+    n'existe pas ».
 
-    La troisième ligne est celle qui sert le reste de l'année : choisir
-    l'interpréteur dans l'éditeur suffit, l'extension Python plaçant ensuite
-    tous les terminaux intégrés dans cet environnement. On n'a alors plus à
-    taper `conda activate`.
+    Troisième ligne, utile toute l'année : choisir l'interpréteur dans
+    l'éditeur suffit, l'extension Python plaçant ensuite les terminaux
+    intégrés dans cet environnement. Plus besoin de `conda activate`.
 
-    Faire lire l'invite à voix haute une fois. `(base)` et `(info01)` ne sont
-    pas la même chose, et confondre les deux fait installer les paquets dans
-    l'environnement de base, où ils ne serviront pas.
+    Faire lire l'invite à voix haute : `(base)` et `(info01)` ne sont pas
+    la même chose, et les confondre fait installer les paquets là où ils
+    ne serviront pas.
 
-    Ce que fait exactement un environnement est repoussé à la partie 4. Ici on
-    s'en sert, on ne l'explique pas.
+    Ce que fait un environnement est expliqué à la partie 4.
   ]
 ]
 #d("Lancer les deux programmes")[
@@ -492,40 +463,34 @@
   ]
 
   #notes[
-    Les gestes sont écrits un par un, et il faut les projeter tels quels.
-    L'objectif seul ne suffit pas à cette séance : une étape sous-entendue
-    est une étape où la moitié de la salle s'arrête sans le dire.
+    Projeter les gestes un par un : une étape sous-entendue est une étape
+    où la moitié de la salle s'arrête sans le dire.
 
-    Le bouton d'exécution fait la même chose que l'étape 4, et il existe aussi
-    pour le C++ — c'est la diapositive précédente. Le montrer après, jamais
-    avant : c'est la commande écrite à la main qui doit rester, parce qu'elle
-    est la même partout et qu'elle se relit.
+    Étape 2 : elle évite le `ModuleNotFoundError` de fin de séance, le
+    terminal pouvant ouvrir un autre Python que celui du module. Elle ne
+    coûte rien aujourd'hui, aucune bibliothèque n'étant importée.
 
-    L'étape 2 évite le `ModuleNotFoundError` de fin de séance : sans elle, le
-    terminal peut ouvrir un autre Python que celui du module. Elle ne coûte
-    rien aujourd'hui, où aucune bibliothèque n'est importée, et c'est
-    justement pourquoi on la fait maintenant.
-
-    L'étape 5 est celle où l'on attend une question, puisqu'il ne se passe
-    rien à l'écran. Faire regarder l'arborescence à gauche plutôt que le
-    terminal : le fichier `cpp/bonjour` vient d'y apparaître.
+    Étape 5 : rien ne s'affiche, la question vient. Faire regarder
+    l'arborescence à gauche, où `cpp/bonjour` vient d'apparaître.
 
     Sous Windows, le compilateur est celui installé deux diapositives plus
-    tôt, et il s'appelle `x86_64-w64-mingw32-g++`. Vérifier avant la séance
-    que l'installation est passée : c'est la seule étape qui demande du
+    tôt, `x86_64-w64-mingw32-g++`. Vérifier avant la séance que
+    l'installation est passée : c'est la seule étape qui demande du
     réseau.
 
-    L'étape 7 est facultative et vaut la minute qu'elle prend. Tout
-    `bonjour.cpp` tient sur une ligne — `#include <iostream>` doit rester
-    seul, c'est une directive — et le programme compile et affiche la même
-    chose. Le compilateur ne voit pas les retours à la ligne, seulement les
-    points-virgules et les accolades. Personne n'écrit ainsi, et c'est le
-    propos : la mise en page du code est pour les humains.
+    Étape 7, facultative : tout `bonjour.cpp` tient sur une ligne —
+    `#include <iostream>` doit rester seul, c'est une directive — et le
+    programme compile et affiche la même chose. Le compilateur ne voit pas
+    les retours à la ligne, seulement les points-virgules et les
+    accolades. La mise en page du code est pour les humains.
 
-    Faire ensuite tenter la même chose sur un programme Python à boucle. Cela
-    ne marche pas : le retour à la ligne y sépare les instructions et
-    l'indentation y délimite les blocs. C'est « Espaces, tabulations et fins
-    de ligne », démontré au lieu d'être annoncé.
+    Faire ensuite tenter la même chose sur un programme Python à boucle :
+    cela échoue, le retour à la ligne y séparant les instructions et
+    l'indentation y délimitant les blocs. C'est « Espaces, tabulations et
+    fins de ligne » démontré.
+
+    Le bouton d'exécution fait la même chose que l'étape 4 ; le montrer
+    après, jamais avant.
   ]
 ]
 #d("Ce que chaque lancement a produit")[
@@ -554,22 +519,20 @@
   ]
 
   #notes[
-    C'est la diapositive « Deux chemins du texte à l'exécution », faite à la
-    main. Y renvoyer explicitement : la chaîne compilée a une étape de plus,
-    mais elle ne la refait pas.
+    C'est « Deux chemins du texte à l'exécution » fait à la main : y
+    renvoyer.
 
-    Le rapport de taille est le chiffre à faire dire. L'exécutable embarque
-    de quoi tourner sans le compilateur, d'où le facteur cent ; le fichier
-    Python, lui, ne peut rien faire sans l'interpréteur, qui est déjà
-    installé et qu'on ne compte donc pas.
+    Le rapport de taille est le chiffre à faire dire. L'exécutable
+    embarque de quoi tourner sans le compilateur, d'où le facteur cent ;
+    le fichier Python ne peut rien sans l'interpréteur, déjà installé et
+    qu'on ne compte donc pas.
 
-    Faire ouvrir `cpp/bonjour` dans l'éditeur pour constater qu'il est
-    illisible : c'est la diapositive « Code source et fichier exécutable »,
-    vérifiée par eux. Ajouter que `python` est un exécutable de la même
-    espèce, ce qui referme la diapositive sur l'interpréteur.
+    Faire ouvrir `cpp/bonjour` dans l'éditeur : illisible, c'est « Code
+    source et fichier exécutable » vérifié par eux. Ajouter que `python`
+    est un exécutable de la même espèce.
 
-    Le terminal est repris pour lui-même à la partie « Environnement de
-    programmation », et c'est là que la notion de dossier courant est nommée.
+    Le terminal est repris à la partie « Environnement de programmation »,
+    où le dossier courant est nommé.
   ]
 ]
 // Le résultat de la manipulation, quand la capture est disponible.
@@ -594,11 +557,10 @@ d("Les deux exécutions dans l'éditeur")[
   ]
 
   #notes[
-    Trois commandes, deux langages, une seule fenêtre : c'est aussi
-    l'argument de l'éditeur de code, montré plutôt qu'énoncé.
+    Trois commandes, deux langages, une seule fenêtre : l'argument de
+    l'éditeur de code, montré plutôt qu'énoncé.
 
-    Faire remarquer que la sortie affichée est identique, alors que le chemin
-    pour l'obtenir ne l'est pas. C'est le fil de toute la partie.
+    La sortie est identique, le chemin pour l'obtenir non.
   ]
 ]
 }
@@ -643,17 +605,14 @@ d("Les deux exécutions dans l'éditeur")[
   ]
 
   #notes[
-    Le programme est choisi pour trois raisons : il tient en six lignes, il a
-    une boucle donc un état qui change, et son résultat se vérifie de tête.
-    Le `hello world` n'avait aucune de ces propriétés.
+    Six lignes, une boucle donc un état qui change, un résultat vérifiable
+    de tête : le `hello world` n'avait aucune de ces propriétés.
 
-    Les altitudes sont celles de la diapositive « Coloration syntaxique » :
-    le même extrait, devenu un programme qui tourne. Le dire, cela ferme une
-    boucle et ne coûte rien.
+    Les altitudes sont celles de « Coloration syntaxique », devenues un
+    programme qui tourne.
 
-    Le point à poser avant la suite : ce programme ne montre que sa dernière
-    ligne. Les deux façons suivantes servent précisément à voir ce qu'il fait
-    entre le début et la fin.
+    Ce programme ne montre que sa dernière ligne ; les deux façons
+    suivantes servent à voir ce qu'il fait entre le début et la fin.
   ]
 ]
 #d("Python en interactif")[
@@ -683,21 +642,21 @@ d("Les deux exécutions dans l'éditeur")[
   ]
 
   #notes[
-    Faire remarquer les trois chevrons : c'est l'invite de Python, et non
-    celle du terminal. Confondre les deux est l'erreur de début de semestre,
-    et elle produit un `SyntaxError` quand on tape une commande du système
-    dans Python. Les trois points sont la suite d'un bloc commencé.
+    Faire remarquer les trois chevrons : c'est l'invite de Python, pas
+    celle du terminal. Les confondre produit un `SyntaxError` quand on
+    tape une commande du système. Les trois points sont la suite d'un bloc
+    commencé.
 
-    On y entre par `python`, on en sort par `exit()` ou `Ctrl` + `D`. Le dire
-    tout de suite : on ne devine pas comment sortir.
+    On entre par `python`, on sort par `exit()` ou `Ctrl` + `D`. Le dire
+    tout de suite.
 
-    Ce que la session apporte ici est l'accès à `total`, que le script ne
-    montrait pas. Faire refaire la boucle en affichant `total` à chaque tour
-    si la salle suit : 128,4 puis 259,4 puis 387,0.
+    La session donne accès à `total`, que le script ne montrait pas. Si la
+    salle suit, refaire la boucle en affichant `total` à chaque tour :
+    128,4 puis 259,4 puis 387,0.
 
     Un script se relance à l'identique et ne laisse rien à l'écran ; une
-    session interactive montre tout et ne laisse rien sur le disque. Ce sont
-    deux usages, pas deux niveaux.
+    session montre tout et ne laisse rien sur le disque. Deux usages, pas
+    deux niveaux.
 
     Amorce de la dernière partie : un notebook est cette session, avec le
     texte conservé autour.
@@ -728,24 +687,20 @@ d("Les deux exécutions dans l'éditeur")[
   ]
 
   #notes[
-    C'est la troisième façon, et celle qui restera. Les deux premières
-    montrent le début et la fin ; celle-ci montre le milieu, ligne par ligne,
-    sur le programme tel qu'il est écrit.
+    Les deux premières façons montrent le début et la fin ; celle-ci
+    montre le milieu, ligne par ligne.
 
-    Le réflexe à installer contre celui qu'ils ont déjà : on n'ajoute pas des
-    `print` partout pour savoir ce qui se passe, on pose un point d'arrêt.
-    C'est plus rapide, et cela ne laisse pas de traces à effacer ensuite.
+    Réflexe à installer : on ne sème pas des `print`, on pose un point
+    d'arrêt. Plus rapide, et rien à effacer ensuite.
 
-    Ligne 4 est choisie exprès : c'est le corps de la boucle, donc l'arrêt se
+    Ligne 4 est choisie exprès, c'est le corps de la boucle : l'arrêt se
     répète trois fois et `total` change sous leurs yeux. Faire prédire la
     valeur avant chaque `F10`.
 
-    Ne pas aller plus loin. `F11` entre dans les fonctions appelées, ce qui
-    n'a pas d'intérêt ici et perd tout le monde dans les entrailles de
-    Python. Le débogage pour lui-même vient au cours 2.
+    Ne pas aller plus loin : `F11` entre dans les fonctions appelées et
+    perd tout le monde. Le débogage pour lui-même est au cours 2.
 
-    Raccourcis par défaut, relevés dans la documentation de VSCode et non sur
-    les postes de la salle : vérifier que personne n'a un jeu de raccourcis
-    modifié.
+    Raccourcis par défaut, relevés dans la documentation de VSCode et non
+    sur les postes : vérifier que personne n'a un jeu modifié.
   ]
 ]

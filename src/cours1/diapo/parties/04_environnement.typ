@@ -43,15 +43,13 @@
   )
 
   #notes[
-    L'image qui marche : une recette qui commence par « prenez une pâte
-    brisée ». Vous ne la fabriquez pas, mais il faut qu'elle soit dans le
-    placard, et que ce soit la bonne.
+    Une recette qui commence par « prenez une pâte brisée » : vous ne la
+    fabriquez pas, mais il faut qu'elle soit dans le placard, et que ce
+    soit la bonne.
 
-    C'est ici qu'on nomme le mot *bibliothèque*, et qu'on écarte
-    « librairie », faux ami de *library*.
+    Nommer *bibliothèque* ; écarter « librairie », faux ami de *library*.
 
-    Ne pas encore parler d'installation : la diapositive suivante montre ce
-    que celle-ci entraîne.
+    Ne pas parler d'installation : c'est la diapositive suivante.
   ]
 ]
 #d("Une bibliothèque en entraîne d'autres")[
@@ -72,15 +70,15 @@
   ]
 
   #notes[
-    Le chiffre surprend, et c'est son intérêt : personne ne peut tenir cette
-    liste à la main, d'où l'outil qui la résout.
+    Personne ne tient cette liste à la main : c'est ce qui justifie
+    l'outil.
 
-    Conséquence à énoncer : une installation n'est pas reproductible parce
-    qu'on se souvient de ce qu'on a tapé, mais parce qu'un fichier la décrit.
-    C'est ce que fait `environment.yml`, et c'est ce qui est demandé au rendu.
+    Une installation est reproductible parce qu'un fichier la décrit, non
+    parce qu'on se souvient de ce qu'on a tapé. C'est le rôle
+    d'`environment.yml`, et ce qui est demandé au rendu.
 
-    Les versions exactes sont dans le fichier produit par
-    `conda env export` ; ne pas y entrer aujourd'hui.
+    Les versions exactes sont dans la sortie de `conda env export` ; ne
+    pas y entrer aujourd'hui.
   ]
 ]
 #d("Ce qu'une bibliothèque contient vraiment")[
@@ -107,29 +105,21 @@
   ]
 
   #notes[
-    Le point pratique est la troisième ligne. Une bibliothèque tout en Python
-    s'installe partout de la même façon ; une enveloppe doit exister
-    précompilée pour Windows, macOS, Linux, et pour chaque version de Python.
-    Quand elle n'existe pas, l'installation tente de compiler sur place, ce
-    qui échoue faute de compilateur — le message « Microsoft Visual C++ 14.0
-    is required » que tout le monde a déjà vu vient de là.
+    Troisième ligne : une bibliothèque tout en Python s'installe partout
+    de la même façon ; une enveloppe doit exister précompilée par système
+    et par version de Python. À défaut, l'installation compile sur place
+    et échoue faute de compilateur — d'où « Microsoft Visual C++ 14.0 is
+    required ».
 
-    C'est exactement le problème que conda résout, et c'est pourquoi le module
-    l'emploie plutôt que `pip` seul : conda distribue les binaires
-    précompilés, et sait aussi installer ce qui n'est pas du Python, comme le
-    compilateur C++ de tout à l'heure ou `ffmpeg`.
+    C'est ce que conda résout, et pourquoi le module l'emploie plutôt que
+    `pip` seul : il distribue des binaires précompilés, et installe aussi
+    ce qui n'est pas du Python, `ffmpeg` ou un compilateur C++.
 
-    Ne pas entrer dans le détail des formats de paquet. Ce qu'il faut retenir
-    tient en une phrase : installer une bibliothèque, ce n'est pas toujours
-    copier du texte.
+    Ne pas détailler les formats de paquet.
 
-    Les quatre exemples sont choisis pour être compris aujourd'hui, sans
-    notion préalable. `markdown` convertit en HTML ce qu'ils viennent
-    d'écrire à la manipulation précédente, et c'est du Python de bout en
-    bout. `pillow` ouvre les `.jpg` et les `.png` de la grille des
-    extensions : il ne les décode pas lui-même, il appelle `libjpeg` et
-    `libpng`, deux bibliothèques C plus vieilles qu'eux, que personne ne
-    réécrira en Python.
+    `markdown` convertit la recette de la manipulation précédente, en
+    Python de bout en bout. `pillow` ne décode pas les images lui-même :
+    il appelle `libjpeg` et `libpng`, écrites en C.
   ]
 ]
 #d("Pourquoi isoler un environnement")[
@@ -161,13 +151,12 @@
   ]
 
   #notes[
+    Réponse au symptôme le plus fréquent du semestre :
+    `ModuleNotFoundError` sur un paquet « qu'on vient d'installer ». Le
+    paquet est installé, mais hors de l'environnement actif.
 
-    C'est la réponse au symptôme le plus fréquent du semestre, le
-    `ModuleNotFoundError` sur un paquet « qu'on vient d'installer » : le paquet
-    est installé, mais ailleurs que dans l'environnement actif.
-
-    Le réflexe à donner, et à redemander toute l'année : afficher quel Python
-    tourne avant de chercher plus loin.
+    Réflexe à redemander toute l'année : afficher quel Python tourne avant
+    de chercher plus loin.
   ]
 ]
 #d("L'outil qui installe un environnement")[
@@ -191,21 +180,16 @@
   ]
 
   #notes[
-    C'est la charnière de la partie, et elle explique pourquoi la ligne de
-    commande arrive maintenant plutôt qu'au début de la séance : on ne
-    l'apprend pas pour elle-même, on la rencontre parce que l'outil dont on a
-    besoin n'existe que sous cette forme.
+    La ligne de commande arrive ici parce que l'outil dont on a besoin
+    n'existe que sous cette forme, non pour elle-même. Beaucoup de
+    programmes n'ont pas de fenêtre, faute que quelqu'un en ait écrit une.
 
-    Le dire simplement : beaucoup de programmes n'ont pas de fenêtre, parce
-    que personne n'en a écrit une. Ce n'est pas un choix d'austérité.
+    Les deux diapositives suivantes donnent de quoi lire ces trois lignes.
+    Les chemins, le dossier courant et les motifs comme `*.odt` sont au
+    cours 2 ; les diapositives correspondantes sont en annexe.
 
-    Les deux diapositives qui suivent donnent le minimum pour lire ces trois
-    lignes. Le reste, les chemins, le dossier courant, les motifs comme
-    `*.odt`, est au cours 2 ; les diapositives correspondantes sont en annexe
-    de ce deck si la salle avance vite.
-
-    Ne pas lancer la création maintenant : elle prend plusieurs minutes et
-    c'est la manipulation de la fin de partie.
+    Ne pas lancer la création maintenant : plusieurs minutes, et c'est la
+    manipulation de fin de partie.
   ]
 ]
 #d("Les outils qui installent des paquets")[
@@ -231,31 +215,24 @@
   ]
 
   #notes[
-    Diapositive de culture, à passer en deux minutes. Elle répond à une
-    question qui viendra de toute façon, en cherchant sur le web : « pourquoi
-    conda alors que tout le monde dit `pip install` ? »
+    Deux minutes. Elle répond à « pourquoi conda alors que tout le monde
+    dit `pip install` ? », question qui vient du web de toute façon.
 
-    Ce qu'il faut dire, et rien de plus. `pip` installe des bibliothèques
-    Python et rien d'autre : il ne sait pas installer `ffmpeg` ni un
-    compilateur C++, qui ne sont pas du Python. `pyenv` ne fait pas le même
-    travail du tout — il choisit quelle version de Python est active, et
-    n'installe aucun paquet ; il est ici parce que son nom se confond avec le
-    reste. `conda` fait les deux, et c'est pour cela que le module l'emploie.
+    `pip` n'installe que des bibliothèques Python : ni `ffmpeg`, ni un
+    compilateur C++. `pyenv` ne fait pas ce travail — il choisit la
+    version de Python active et n'installe aucun paquet ; il figure ici
+    parce que son nom prête à confusion. `conda` fait les deux.
 
-    Les deux derniers sont récents et écrits en Rust, tous deux pour la même
-    raison : la résolution des dépendances est lente, et ils la font en
-    quelques secondes. `uv` reprend le monde de `pip`, `pixi` celui de conda.
-    Ils sont excellents et ils ne sont pas au programme : le module reste sur
-    conda pour n'avoir qu'un outil à enseigner.
+    `uv` et `pixi`, récents et écrits en Rust, résolvent les dépendances
+    en quelques secondes : `uv` du côté de `pip`, `pixi` de celui de
+    conda. Hors programme, le module s'en tenant à un seul outil.
 
-    Ne pas laisser croire à une succession où le dernier remplace les autres.
-    `pip` a dix-huit ans et reste l'outil le plus employé au monde ; il est
-    d'ailleurs installé dans l'environnement du module, et `uv` l'appelle
-    encore par-dessous.
+    Pas de succession où le dernier remplace les autres : `pip` a dix-huit
+    ans, reste le plus employé, est installé dans l'environnement du
+    module, et `uv` l'appelle encore par-dessous.
 
-    Ce qu'ils doivent retenir tient en une phrase : on ne mélange pas deux
-    outils sur le même environnement sans savoir ce qu'on fait, parce qu'aucun
-    ne voit ce que l'autre a posé.
+    À retenir : on ne mélange pas deux outils sur un même environnement,
+    aucun ne voyant ce que l'autre a posé.
   ]
 ]
 #d("D'où viennent les paquets")[
@@ -293,28 +270,24 @@
   ]
 
   #notes[
-    Les deux dépôts ne rendent pas le même service et il ne faut pas les
-    classer en bon et mauvais. PyPI est l'index de référence du monde Python,
-    et c'est là que la plupart des bibliothèques paraissent d'abord ; un
-    paquet conda-forge est le plus souvent construit à partir des mêmes
-    sources, quelques jours plus tard.
+    Ne pas classer les deux dépôts en bon et mauvais. PyPI est l'index de
+    référence du monde Python, où la plupart des bibliothèques paraissent
+    d'abord ; un paquet conda-forge en est le plus souvent construit
+    quelques jours plus tard.
 
-    Ce qui change est la porte d'entrée. Sur PyPI, publier est un geste
-    immédiat et sans relecture : c'est ce qui en fait la richesse, et c'est
-    aussi ce que la diapositive suivante exploite. conda-forge demande une
-    recette et une relecture par des humains, ce qui élève la barrière sans
-    rien prouver sur le code en amont.
+    Ce qui change est la porte d'entrée. Publier sur PyPI est immédiat et
+    sans relecture, ce qui fait sa richesse et ce qu'exploite la
+    diapositive suivante ; conda-forge demande une recette et une
+    relecture humaine, ce qui élève la barrière sans rien prouver sur le
+    code en amont.
 
-    L'ordre de grandeur est le point à faire remarquer : trente fois plus de
-    projets d'un côté. La différence ne tient pas au langage, elle tient à ce
-    que conda-forge n'empaquette que ce que quelqu'un a pris la peine de
-    proposer.
+    Trente fois plus de projets d'un côté : conda-forge n'empaquette que
+    ce que quelqu'un a proposé.
 
-    Sur le canal `defaults` d'Anaconda, si la question vient : le module
-    emploie Miniforge, qui n'installe que depuis conda-forge, parce que les
-    conditions d'utilisation du dépôt d'Anaconda demandent une licence payante
-    aux organisations au-delà d'une certaine taille. La raison est écrite dans
-    `INSTALLATION.md` et n'a pas à être développée en séance.
+    Si la question du canal `defaults` vient : Miniforge n'installe que
+    depuis conda-forge, les conditions d'Anaconda demandant une licence
+    payante aux grandes organisations. Raison écrite dans
+    `INSTALLATION.md`.
   ]
 ]
 #d("Ce qu'une installation exécute")[
@@ -355,29 +328,22 @@
   ]
 
   #notes[
-    C'est la diapositive la plus importante de la partie pour la suite de leur
-    vie professionnelle, et elle tient en une idée : `conda install` et
-    `pip install` ne téléchargent pas un document, ils exécutent du code, tout
-    de suite, avec les droits de celui qui a tapé la commande.
+    `conda install` et `pip install` n'apportent pas un document : ils
+    exécutent du code, tout de suite, avec les droits de qui a tapé la
+    commande.
 
-    Le procédé s'appelle le typosquattage, et il n'a rien de théorique : des
-    campagnes de plusieurs centaines de faux paquets ont été relevées sur
-    PyPI, calqués sur les noms les plus téléchargés. La commande passe, rien
-    ne se voit à l'écran, et le paquet a lu les fichiers du compte pendant son
-    installation.
+    Le procédé s'appelle le typosquattage. Des campagnes de plusieurs
+    centaines de faux paquets ont été relevées sur PyPI, calqués sur les
+    noms les plus téléchargés. La commande passe, rien ne s'affiche, et le
+    paquet a lu les fichiers du compte pendant l'installation.
 
-    Le brun de l'encadré de droite n'est pas décoratif : c'est la couleur du
-    travail sur machine, employée ici parce que c'est bien la ligne qu'ils
-    vont taper.
+    Ne pas en faire une peur d'installer : la conclusion est un geste,
+    copier le nom depuis la page du projet.
 
-    Ne pas transformer cela en peur de tout installer. La conclusion est un
-    geste, pas une abstention : copier le nom depuis la page du projet. Cela
-    coûte trois secondes et supprime la classe entière du problème.
+    Second réflexe, si la salle suit : se méfier d'un paquet très récent,
+    très peu téléchargé, au nom proche d'un autre.
 
-    Un second réflexe, à donner seulement si la salle suit : se méfier d'un
-    paquet très récent, très peu téléchargé, dont le nom ressemble à un autre.
-
-    Le sujet est repris au cours 5 avec les secrets. Ici on sème.
+    Repris au cours 5 avec les secrets.
   ]
 ]
 #d("Le terminal de l'éditeur de code")[
@@ -402,23 +368,22 @@
   ]
 
   #notes[
-    Ils s'en sont déjà servis sans qu'on le nomme, à la manipulation « hello
-    world » : c'est le moment de revenir dessus.
+    Ils s'en sont servis à la manipulation « hello world » sans qu'on le
+    nomme.
 
-    La troisième ligne est celle qui évite le `ModuleNotFoundError` de la
-    diapositive précédente. L'interpréteur choisi ici est celui que l'éditeur
-    activera dans chaque nouveau terminal, et la barre d'état permet de le
-    vérifier sans rien taper.
+    La troisième ligne évite le `ModuleNotFoundError` de la diapositive
+    précédente : l'interpréteur choisi est celui que l'éditeur active dans
+    chaque nouveau terminal, et la barre d'état le vérifie sans rien
+    taper.
 
-    Le terminal intégré n'est pas un autre terminal : c'est le même programme,
-    affiché dans la fenêtre de l'éditeur. Le dire, parce que la question vient.
+    Le terminal intégré est le même programme, affiché dans la fenêtre de
+    l'éditeur. Le dire, la question vient.
 
-    Les libellés dépendent de la version de VSCode et de la langue de
-    l'interface, qui est l'anglais par défaut. Vérifier les intitulés sur le
-    poste de démonstration avant la séance.
+    Libellés dépendants de la version de VSCode et de la langue de
+    l'interface, anglaise par défaut : à vérifier sur le poste de
+    démonstration.
 
-    Le terminal ouvert hors de l'éditeur, et la façon de l'ouvrir sur chaque
-    système, sont en annexe : c'est le cours 2 qui s'en occupe.
+    Ouvrir un terminal hors de l'éditeur est en annexe, et au cours 2.
   ]
 ]
 #d("L'environnement de développement")[
@@ -444,9 +409,9 @@
   #legende[Le chemin doit contenir `info01`.]
 
   #notes[
-    Message à marteler : un `ModuleNotFoundError` sur un paquet « qu'on vient
-    d'installer » signifie presque toujours que le mauvais environnement est
-    actif. Prévoir l'installation en amont ; c'est le point qui déborde.
+    `ModuleNotFoundError` sur un paquet « qu'on vient d'installer »
+    signifie presque toujours que le mauvais environnement est actif.
+    Prévoir l'installation en amont ; c'est le point qui déborde.
   ]
 ]
 // --------------------- Manipulation : installer une bibliothèque -------------
@@ -482,31 +447,27 @@
   ]
 
   #notes[
-    Le point de la diapositive est l'étape 4, et il faut la faire lire à voix
-    haute. Un environnement « Python seul » n'est pas vide : il contient
-    28 paquets, dont une douzaine de bibliothèques C — `openssl`, `sqlite`,
-    `zlib` — sans lesquelles l'interpréteur ne démarre pas. `pip`,
-    `setuptools` et `wheel` y sont aussi, et c'est la raison pour laquelle
-    `pip install` marche dans un environnement conda sans qu'on l'ait
-    installé.
+    Étape 4, à faire lire à voix haute : un environnement « Python seul »
+    n'est pas vide, il contient 28 paquets, dont une douzaine de
+    bibliothèques C — `openssl`, `sqlite`, `zlib` — sans lesquelles
+    l'interpréteur ne démarre pas. `pip`, `setuptools` et `wheel` y sont
+    aussi, d'où `pip install` qui fonctionne dans un environnement conda
+    sans qu'on l'ait installé.
 
-    Ce qui n'y est pas est tout aussi instructif : ni `numpy`, ni `jupyterlab`,
-    ni `markdown`. Rien de ce que fait un programme utile.
+    Ce qui n'y est pas : ni `numpy`, ni `jupyterlab`, ni `markdown`.
 
-    L'étape 2 est la nouveauté. `pyproject.toml` est au projet ce
-    qu'`environment.yml` est à l'environnement : un fichier qui décrit ce qu'il
-    faut avoir. Faire remarquer qu'on a donc lu, avant de lancer quoi que ce
-    soit, que le programme réclamerait `markdown`.
+    Étape 2 : `pyproject.toml` est au projet ce qu'`environment.yml` est à
+    l'environnement. On a donc lu, avant de rien lancer, que le programme
+    réclamerait `markdown`.
 
-    L'étape 5 ne se saute pas. C'est la seule fois de la séance où ils voient
-    `ModuleNotFoundError` dans des conditions où la cause est connue d'avance :
-    le message annoncé deux fois depuis la partie 2 devient une chose qui leur
-    est arrivée. Le fichier est là, il se lit, sa syntaxe est correcte — c'est
-    le code qu'il emprunte qui manque.
+    Étape 5, à ne pas sauter : le `ModuleNotFoundError` annoncé deux fois
+    depuis la partie 2 leur arrive dans des conditions où la cause est
+    connue. Le fichier est là, sa syntaxe est correcte ; c'est le code
+    emprunté qui manque.
 
-    `python -m page_html` lance un paquet plutôt qu'un fichier. Une phrase
-    suffit : le dossier `page_html/` porte un nom de paquet, et `-m` demande à
-    Python de l'exécuter. C'est ce que `pyproject.toml` décrit.
+    `python -m page_html` lance un paquet et non un fichier : le dossier
+    `page_html/` porte un nom de paquet, `-m` demande à Python de
+    l'exécuter.
 
     Libellés de menu non vérifiés sur un poste Windows.
   ]
@@ -537,30 +498,23 @@
   ]
 
   #notes[
-    Le chiffre à faire dire à l'étape 6, et il vaut la comparaison : ici trois
-    paquets s'installent, alors que la même commande dans `info01` n'en
-    installe qu'un seul, de 85 ko. `importlib-metadata` et `zipp` y étaient
-    déjà, tirés par autre chose. C'est « Une bibliothèque en entraîne
-    d'autres » vérifié par eux, et la démonstration que ce qui est déjà là ne
-    se réinstalle pas.
+    Étape 6 : trois paquets s'installent ici, contre un seul de 85 ko avec
+    la même commande dans `info01`, où `importlib-metadata` et `zipp`
+    étaient déjà présents. C'est « Une bibliothèque en entraîne d'autres »
+    vérifié par eux, et la preuve que ce qui est là ne se réinstalle pas.
 
-    Trois choses de la séance se referment à l'étape 8, et il vaut de les
-    nommer une par une. Le `recette.md` est celui qu'ils ont écrit une
-    demi-heure plus tôt. La page sépare le contenu de la présentation, comme
-    les deux pages du poème de la partie 1. Elle s'ouvre par une adresse
+    Étape 8, trois renvois : le `recette.md` est celui qu'ils ont écrit
+    une demi-heure plus tôt ; la page sépare contenu et présentation,
+    comme les deux pages du poème de la partie 1 ; elle s'ouvre en
     `file:///`, sans serveur.
 
-    La question à poser avant de répondre : pourquoi le diagramme n'est-il pas
-    dessiné ? Le bloc `mermaid` arrive dans la page sous la forme de ses six
-    lignes de texte. Mermaid est un service de l'aperçu de l'éditeur, pas du
-    HTML : le navigateur reçoit du texte et affiche du texte. C'est la
-    distinction tenue toute la séance entre ce qu'un fichier contient et ce
-    qu'un logiciel en affiche, déjà rencontrée avec la coloration syntaxique
-    et avec la chasse fixe.
+    Poser la question avant de répondre : pourquoi le diagramme n'est-il
+    pas dessiné ? Le bloc `mermaid` arrive dans la page sous forme de six
+    lignes de texte. Mermaid est un service de l'aperçu de l'éditeur, pas
+    du HTML.
 
-    Prévoir le cas du poste sans réseau : l'installation échoue et la suite ne
-    se fait pas. Projeter le résultat, et faire la diapositive suivante quand
-    même — elle ne demande que d'éditer un fichier.
+    Poste sans réseau : l'installation échoue. Projeter le résultat et
+    faire la diapositive suivante, qui ne demande que d'éditer un fichier.
   ]
 ]
 #d("Écrire ce qu'on vient d'installer")[
@@ -607,28 +561,25 @@
   ]
 
   #notes[
-    C'est la diapositive qui referme la partie, et elle vaut les deux minutes
-    qu'elle prend. La phrase à dire, qui a été annoncée à la deuxième
-    diapositive sans être démontrée : une installation n'est pas reproductible
-    parce qu'on se souvient de ce qu'on a tapé, elle l'est parce qu'un fichier
-    la décrit.
+    La phrase annoncée à la deuxième diapositive, démontrée ici : une
+    installation est reproductible parce qu'un fichier la décrit, non
+    parce qu'on se souvient de ce qu'on a tapé.
 
-    Faire le geste devant eux plutôt que de l'énoncer : une ligne ajoutée,
-    quatre caractères d'indentation, et l'environnement se recrée ailleurs.
+    Faire le geste devant eux : une ligne ajoutée, quatre caractères
+    d'indentation, l'environnement se recrée ailleurs.
 
-    Ne pas laisser croire que l'un remplace l'autre. `environment.yml` dit de
-    quoi la machine a besoin, y compris ce qui n'est pas du Python ;
-    `pyproject.toml` dit de quoi le code a besoin, et rien d'autre. Les deux
-    coexistent dans la plupart des projets, et c'est le cas ici.
+    Les deux fichiers ne se remplacent pas. `environment.yml` dit de quoi
+    la machine a besoin, y compris ce qui n'est pas du Python ;
+    `pyproject.toml` de quoi le code a besoin. Les deux coexistent ici
+    comme dans la plupart des projets.
 
-    Pour ceux qui vont vite, et seulement pour eux : `pip install -e .` dans
-    l'environnement installe le projet lui-même, après quoi la commande
-    `page-html` existe et fait la même chose que `python -m page_html`. C'est
-    la section `[project.scripts]` de `pyproject.toml`, et c'est le sujet du
-    cours 3. Vérifié sur la machine de préparation.
+    Pour ceux qui vont vite : `pip install -e .` installe le projet lui-
+    même, et la commande `page-html` existe alors, équivalente à `python
+    -m page_html`. C'est `[project.scripts]`, sujet du cours 3. Vérifié
+    sur la machine de préparation.
 
-    Rendre la main ensuite : `conda deactivate`, puis `conda activate info01`
-    pour la suite de la séance. L'environnement `recette` peut être supprimé,
-    `conda env remove -n recette`, ou gardé — il pèse peu.
+    Rendre la main : `conda deactivate`, puis `conda activate info01`.
+    L'environnement `recette` peut être supprimé, `conda env remove -n
+    recette`.
   ]
 ]

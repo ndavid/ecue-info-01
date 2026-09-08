@@ -88,20 +88,18 @@
   ]
 
   #notes[
-    Les trois blocs sont les fils rouges : chaque séance en reprend au moins
-    un, et les deux TD les mobilisent ensemble.
+    Les trois blocs sont les fils rouges : chaque séance en reprend au
+    moins un, les deux TD les mobilisent ensemble.
 
-    Le bandeau n'est pas un quatrième domaine, et c'est pour cela qu'il n'a
-    pas la même forme. Il désigne ce qui revient en apartés : ce que pèse un
-    fichier, ce que coûte un calcul, ce qui circule sur le réseau, ce qu'on ne
-    met pas dans un dépôt. La séance 5 lui est consacrée, les autres le
-    croisent.
+    Le bandeau n'est pas un quatrième domaine, d'où sa forme différente.
+    Il désigne ce qui revient en apartés : ce que pèse un fichier, ce que
+    coûte un calcul, ce qui circule sur le réseau, ce qu'on ne met pas
+    dans un dépôt. La séance 5 lui est consacrée.
 
-    Dire pourquoi ce registre existe plutôt que de le laisser en liste. Il
-    porte le « pourquoi » des gestes demandés : on ne versionne pas du
-    binaire, on ne recopie pas une boucle Python là où numpy va cent fois plus
-    vite. Ces deux règles ne se retiennent que si l'ordre de grandeur qui les
-    justifie a été donné une fois.
+    Il porte le « pourquoi » des gestes demandés : on ne versionne pas du
+    binaire, on ne recopie pas une boucle Python là où numpy va cent fois
+    plus vite. Ces règles ne se retiennent que si l'ordre de grandeur qui
+    les justifie a été donné une fois.
   ]
 ]
 #d("Ce que vous avez peut-être déjà vu")[
@@ -129,15 +127,14 @@
   ]
 
   #notes[
-    Diapositive à commenter en trente secondes. Dire qu'on a conscience que
-    ce sera une redite pour une partie de la salle.
+    Trente secondes. Dire qu'on a conscience que ce sera une redite pour
+    une partie de la salle.
 
-    Formulation qui passe bien : ce qui est reproché aux étudiants dans les
-    autres cours n'est pas toujours l'algorithmique. C'est un chemin de fichier
-    faux, un environnement mal installé, une documentation peu claire, un code
-    qui ne s'installe pas sur une autre machine. Ces gestes ne sont enseignés
-    nulle part ailleurs : le module fait le choix de les enseigner plutôt que
-    d'attendre que chacun se forme seul.
+    Formulation qui passe bien : ce qui est reproché aux étudiants dans
+    les autres cours n'est pas toujours l'algorithmique. C'est un chemin
+    de fichier faux, un environnement mal installé, un code qui ne
+    s'installe pas sur une autre machine. Ces gestes ne sont enseignés
+    nulle part ailleurs.
   ]
 ]
 #d("Le rythme de la première partie")[
@@ -158,24 +155,21 @@
   ]
 
   #notes[
-    Diapositive courte, mais à ne pas expédier : c'est le contrat de la
-    séance, et il vaut la peine de s'arrêter dessus dix secondes de plus que
-    le contenu ne le demande.
+    C'est le contrat de la séance : s'y arrêter.
 
     Dire les deux moitiés dans cet ordre. D'abord la raison du rythme, qui
-    est un choix et non de la précipitation : la partie 1 reprend ce qui a pu
-    être vu au lycée, et le temps ainsi gagné va aux manipulations. Ensuite
-    la contrepartie, qui est à leur charge.
+    est un choix : la partie 1 reprend ce qui a pu être vu au lycée, et le
+    temps gagné va aux manipulations. Ensuite la contrepartie, qui est à
+    leur charge.
 
-    Formulation qui fonctionne mieux qu'une invitation générale à poser des
-    questions : dire qu'ici, ne pas comprendre est probable et normal, parce
-    qu'on va vite exprès. La question n'est donc pas un aveu, c'est ce que le
-    rythme suppose.
+    Formulation plus efficace qu'une invitation générale à poser des
+    questions : ne pas comprendre est ici probable et normal, parce qu'on
+    va vite exprès. La question n'est pas un aveu, c'est ce que le rythme
+    suppose.
 
-    Le passage à surveiller en pratique est le vocabulaire de la partie 1 —
-    logiciel, application, format, extension, chemin. Ce sont des mots qu'ils
-    croient connaître, et c'est là que les malentendus s'installent sans
-    bruit.
+    Le passage à surveiller est le vocabulaire de la partie 1 — logiciel,
+    application, format, extension, chemin. Ce sont des mots qu'ils
+    croient connaître.
   ]
 ]
 #d("Organisation : sept séances de deux heures")[
@@ -232,29 +226,25 @@
   ]
 
   #notes[
-    Diapositive à montrer une fois, et à laquelle on revient à chaque
-    manipulation. La question « on est où, là ? » revient sinon à chaque bloc
-    sur machine, et elle coûte deux minutes à chaque fois.
+    À montrer une fois, et à rappeler à chaque manipulation. Sans quoi la
+    question « on est où, là ? » revient à chaque bloc sur machine.
 
-    Faire ouvrir le dossier du cours dans l'éditeur maintenant, une fois pour
-    toutes : c'est le dossier de projet de toute la séance, et les chemins
-    affichés sur les ouvertures de manipulation partent de lui.
+    Faire ouvrir le dossier du cours dans l'éditeur maintenant : c'est le
+    dossier de projet de toute la séance, et les chemins affichés sur les
+    ouvertures de manipulation en partent.
 
-    Les deux noms réservés valent partout et sont la seule règle à retenir :
-    `produit/` est refabricable, `fourni/` ne l'est pas. Les fichiers du
-    premier ne sont pas distribués, ils se fabriquent avec `make_data.py` au
-    début de la première manipulation. Le dire, sinon la salle les cherche.
+    Les deux noms réservés sont la seule règle à retenir : `produit/` est
+    refabricable, `fourni/` ne l'est pas. Elle dit ce qu'on peut effacer
+    sans crainte. Les fichiers de `produit/` ne sont pas distribués : ils
+    se fabriquent avec `make_data.py` au début de la première
+    manipulation. Le dire, sinon la salle les cherche.
 
-    Cette distinction n'est pas de la comptabilité : elle dit ce qu'on peut
-    effacer sans crainte, et ce qu'on ne retrouvera pas. Les tuiles de fond de
-    carte du bonus vidéo sont dans un `fourni/` pour cette raison, les
-    conditions d'usage d'OpenStreetMap interdisant de les retélécharger en
-    masse.
+    Les tuiles du bonus vidéo sont dans un `fourni/`, les conditions
+    d'usage d'OpenStreetMap interdisant de les retélécharger en masse.
 
-    À compléter avant la séance : la façon dont le dossier leur est remis n'est
-    écrite nulle part dans le dépôt. Nommer ici le canal réellement employé,
-    dépôt à cloner, archive déposée sur l'intranet ou clé, et le rappeler sur
-    la consigne d'installation envoyée avant la rentrée.
+    À compléter avant la séance : la façon dont le dossier leur est remis
+    n'est écrite nulle part dans le dépôt. Nommer ici le canal employé, et
+    le rappeler sur la consigne d'installation envoyée avant la rentrée.
   ]
 ]
 
@@ -280,19 +270,17 @@
   ]
 
   #notes[
-    Diapositive d'orientation : on y revient à chaque changement de partie, en
-    s'appuyant sur les diapositives de séparation.
+    Diapositive d'orientation : on y revient à chaque changement de
+    partie, en s'appuyant sur les diapositives de séparation.
 
-    Les diapositives brunes du déroulé sont les manipulations : sept, dans les
-    cinq parties. Annoncer dès maintenant que la séance n'est pas un exposé
-    continu.
+    Les diapositives brunes sont les manipulations : sept, dans les cinq
+    parties. Annoncer que la séance n'est pas un exposé continu.
 
-    L'ordre a une logique à énoncer en une phrase : on décrit d'abord ce qu'est
-    un logiciel et ce qu'il manipule, puis comment on en écrit un, puis ce
-    qu'un fichier contient vraiment, puis comment on installe de quoi
-    travailler, et enfin l'outil qui réunit tout cela.
+    L'ordre, en une phrase : ce qu'est un logiciel et ce qu'il manipule,
+    comment on en écrit un, ce qu'un fichier contient vraiment, comment on
+    installe de quoi travailler, et l'outil qui réunit tout cela.
 
-    Les durées sont le budget visé, pas le contenu du deck, qui est plus large :
+    Les durées sont le budget visé, pas le contenu du deck, plus large :
     ce qui n'est pas traité part en annexe.
   ]
 ]

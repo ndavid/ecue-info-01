@@ -33,18 +33,16 @@
   ]
 
   #notes[
-    L'ouverture de la partie, et son argument : tout ce qui sera produit cette
-    année passe par l'édition d'un fichier texte — le programme, ses réglages,
-    sa documentation, et jusqu'à ce que git doit ignorer. Ce n'est donc pas un
-    détail d'outillage, c'est le geste de base.
+    Tout ce qui sera produit cette année passe par l'édition d'un fichier
+    texte : le programme, ses réglages, sa documentation, et jusqu'à ce
+    que git doit ignorer.
 
     La colonne de gauche n'est pas une caricature : c'est ce que fait
     quelqu'un qui écrit son code dans le Bloc-notes, et plusieurs l'auront
-    fait au lycée. Ne pas se moquer, montrer ce que cela coûte.
+    fait au lycée. Montrer ce que cela coûte, sans se moquer.
 
-    Les quatre lignes annoncent le plan de la partie : ce que l'éditeur
-    affiche, ce qu'il vérifie, et ce qu'il rend visible. Ils viennent de faire
-    la troisième colonne sans le savoir, en lançant leurs deux programmes
+    Les quatre lignes annoncent le plan de la partie. Ils viennent de
+    faire la troisième colonne sans le savoir, en lançant leurs programmes
     depuis le terminal intégré.
   ]
 ]
@@ -76,24 +74,22 @@
   ]
 
   #notes[
-    La règle, énoncée une fois et sans nuance : on n'écrit jamais de code
-    dans Word ni dans LibreOffice. Pas de gras, pas de taille de police, pas
-    de style — non parce que ce serait laid, mais parce que rien de tout cela
-    n'a d'endroit où être enregistré dans un `.py`.
+    La règle, sans nuance : on n'écrit jamais de code dans Word ni dans
+    LibreOffice. Ni gras, ni taille, ni style — non que ce soit laid, mais
+    rien de tout cela n'a d'endroit où être enregistré dans un `.py`.
 
-    Le piège qui coûtera une heure à quelqu'un cette année est plus discret :
-    un traitement de texte remplace tout seul les guillemets droits par des
-    guillemets typographiques, et le tiret par un tiret cadratin. Le
-    programme recopié depuis un document Word refuse alors de s'exécuter, sur
-    un message qui ne parle pas de guillemets. Le dire maintenant, et le
-    rappeler au premier cas rencontré.
+    Le piège qui coûtera une heure à quelqu'un cette année : un traitement
+    de texte remplace tout seul les guillemets droits par des guillemets
+    typographiques. Le programme recopié depuis un document Word refuse
+    alors de s'exécuter, sur un message qui ne parle pas de guillemets. Le
+    dire maintenant, le rappeler au premier cas.
 
-    Rattacher à la manipulation du début de séance : ils ont ouvert le
-    `content.xml` d'un `.odt` et vu le texte noyé dans les balises de style.
-    C'est exactement ce que recevrait l'interpréteur.
+    Rattacher au début de séance : ils ont ouvert le `content.xml` d'un
+    `.odt` et vu le texte noyé dans les balises. C'est ce que recevrait
+    l'interpréteur.
 
-    Le Bloc-notes, lui, enregistre bien du texte brut : il conviendrait, mais
-    il ne rend aucun des services énumérés à la partie précédente.
+    Le Bloc-notes enregistre bien du texte brut, mais ne rend aucun des
+    services de la partie précédente.
   ]
 ]
 #d("Les règles d'écriture d'un langage")[
@@ -121,21 +117,19 @@
   ]
 
   #notes[
-    La comparaison avec l'orthographe est là pour désamorcer une inquiétude,
-    et il faut la formuler dans ce sens : un langage de programmation
-    s'apprend plus vite qu'une langue, parce qu'il a peu de règles et presque
-    pas d'exceptions. Ce qui est dur n'est pas la syntaxe, c'est de savoir
-    quoi écrire — et cela relève du cours de programmation.
+    La comparaison avec l'orthographe désamorce une inquiétude : un
+    langage de programmation s'apprend plus vite qu'une langue, ayant peu
+    de règles et presque pas d'exceptions. Ce qui est dur n'est pas la
+    syntaxe mais de savoir quoi écrire, et cela relève du cours de
+    programmation.
 
-    La contrepartie est la dernière ligne : la machine n'interprète pas les
+    Contrepartie, dernière ligne : la machine n'interprète pas les
     intentions. Une virgule oubliée arrête tout, là où un lecteur humain
-    aurait rétabli le sens sans y penser. C'est déroutant au début et cela ne
-    l'est plus ensuite.
+    aurait rétabli le sens.
 
-    C'est aussi ce qui rend la vérification automatique possible. On ne peut
-    pas écrire un logiciel qui corrige un texte français de façon sûre ; on
-    peut en écrire un qui vérifie un programme, et c'est exactement ce que
-    fait l'extension installée tout à l'heure.
+    C'est ce qui rend la vérification automatique possible : on ne peut
+    pas écrire un logiciel qui corrige un texte français de façon sûre, on
+    peut en écrire un qui vérifie un programme.
   ]
 ]
 // La coloration est ici le sujet de la diapositive, et non un ornement : c'est
@@ -181,18 +175,16 @@
   ]
 
   #notes[
-    Faire nommer par la salle ce que la couleur distingue avant de le dire :
-    les mots du langage, les nombres, le texte entre guillemets, les noms
-    choisis par celui qui écrit. Quatre catégories, quatre traitements.
+    Faire nommer par la salle ce que la couleur distingue avant de le dire
+    : mots du langage, nombres, texte entre guillemets, noms choisis par
+    celui qui écrit.
 
-    L'intérêt n'est pas le confort. Un mot-clé mal orthographié perd sa
-    couleur, et cela se voit avant d'exécuter quoi que ce soit. C'est le
-    premier des deux services rendus, le second étant la vérification, deux
-    diapositives plus loin.
+    L'intérêt n'est pas le confort : un mot-clé mal orthographié perd sa
+    couleur, ce qui se voit avant toute exécution. Le second service est
+    la vérification, deux diapositives plus loin.
 
-    Rattacher à la diapositive précédente : la couleur est un affichage, elle
-    n'est pas dans le fichier. Ouvrir le même fichier dans le Bloc-notes le
-    montre en une seconde.
+    La couleur est un affichage, elle n'est pas dans le fichier. Ouvrir le
+    même fichier dans le Bloc-notes le montre en une seconde.
   ]
 ]
 #d("Vérification de l'écriture")[
@@ -222,19 +214,18 @@
   ]
 
   #notes[
-    La comparaison qui fait comprendre : un correcteur orthographique souligne
-    le mot pendant qu'on tape, il n'attend pas qu'on imprime la page.
+    Un correcteur orthographique souligne le mot pendant qu'on tape, il
+    n'attend pas l'impression.
 
-    Le décalage de ligne est le point à faire retenir. Un compilateur signale
-    l'endroit où il ne peut plus continuer, pas l'endroit de la faute : ici il
-    lit `12.0`, attend la fin de l'instruction, trouve `std` et proteste. Lire
-    le message, puis remonter d'une ligne, est un réflexe qui servira tout le
-    semestre.
+    Le décalage de ligne est à retenir : un compilateur signale l'endroit
+    où il ne peut plus continuer, pas celui de la faute. Ici il lit
+    `12.0`, attend la fin de l'instruction, trouve `std` et proteste. Lire
+    le message puis remonter d'une ligne servira tout le semestre.
 
-    C'est aussi l'argument de l'extension : elle signale la faute au bon
-    endroit, et sans rien lancer.
+    C'est l'argument de l'extension : la faute est signalée au bon
+    endroit, sans rien lancer.
 
-    Le fichier est `data/cours1/erreurs/cpp/aire.cpp`, corrigé à la
+    Fichier : `data/cours1/erreurs/cpp/aire.cpp`, corrigé à la
     manipulation qui suit.
   ]
 ]
@@ -273,23 +264,21 @@
   ]
 
   #notes[
-    Culture : un éditeur de code emploie toujours une police à *chasse fixe*,
-    où toutes les lettres occupent la même largeur, alors qu'un traitement de
-    texte emploie une police *proportionnelle*, où le `i` est plus étroit que
-    le `m`. Le petit exemple le montre : à droite, les deux `=` ne sont plus
-    alignés alors que le texte est identique.
+    Un éditeur de code emploie une police à *chasse fixe*, où toutes les
+    lettres ont la même largeur ; un traitement de texte une police
+    *proportionnelle*, où le `i` est plus étroit que le `m`. À droite, les
+    deux `=` ne sont plus alignés alors que le texte est identique.
 
-    L'intérêt n'est pas esthétique. Une chasse fixe rend les espaces
-    comptables : trois espaces se distinguent de quatre, et une tabulation se
-    repère. C'est exactement ce dont Python a besoin.
+    L'intérêt n'est pas esthétique : une chasse fixe rend les espaces
+    comptables, trois se distinguent de quatre et une tabulation se
+    repère. C'est ce dont Python a besoin.
 
-    Faire le lien avec LibreOffice, manipulé en début de séance : on y choisit
-    une police pour la mise en page, ici on la subit pour une raison
-    technique. Le mot vient de l'imprimerie, où la chasse est la largeur d'un
-    caractère.
+    Lien avec LibreOffice, manipulé en début de séance : on y choisit une
+    police pour la mise en page, ici on la subit pour une raison
+    technique.
 
-    Ne pas confondre l'indentation, qui est dans le fichier et compte, avec la
-    coloration, qui n'y est pas. C'est le sens de la dernière colonne.
+    Ne pas confondre l'indentation, qui est dans le fichier et compte,
+    avec la coloration, qui n'y est pas.
   ]
 ]
 #d("Espaces, tabulations et fins de ligne")[
@@ -325,19 +314,17 @@
     maintenant : le message ne dit pas « il manque un espace », il dit que
     l'indentation mélange deux caractères. À l'œil, rien ne se voit.
 
-    Faire activer l'affichage des espaces sur les postes, tout de suite. C'est
-    le seul moyen de voir la différence, et cela reste utile toute l'année.
+    Faire activer l'affichage des espaces tout de suite : seul moyen de
+    voir la différence, utile toute l'année.
 
-    Sur les fins de ligne : Windows termine ses lignes par deux caractères
-    (`CRLF`), Linux et macOS par un seul (`LF`). Un même fichier n'a donc pas
-    la même taille selon la machine qui l'a écrit, et un diff peut signaler
-    toutes les lignes comme modifiées alors qu'aucune ne l'est. Le point est
-    repris au cours 2 avec git ; aujourd'hui il suffit de savoir où l'éditeur
-    l'affiche.
+    Fins de ligne : Windows en met deux (`CRLF`), Linux et macOS un seul
+    (`LF`). Un même fichier n'a donc pas la même taille selon la machine,
+    et un diff peut signaler toutes les lignes comme modifiées. Repris au
+    cours 2 avec git ; aujourd'hui, savoir où l'éditeur l'affiche suffit.
 
-    Annoncer le rapprochement : le saut de ligne est un caractère comme les
-    autres. La diapositive « Ce que contient un fichier texte », en annexe,
-    le compte sur un poème tenant tout entier sur une ligne.
+    Le saut de ligne est un caractère comme les autres : « Ce que contient
+    un fichier texte », en annexe, le compte sur un poème tenant sur une
+    ligne.
   ]
 ]
 // Sans capture, cette diapositive n'ajouterait rien au bloc de la précédente.
@@ -362,11 +349,11 @@ d("Les caractères invisibles, affichés")[
   ]
 
   #notes[
-    Faire pointer la ligne 3 par la salle avant de la désigner : c'est la seule
-    qui diffère, et elle ne se distingue pas sans cet affichage.
+    Faire pointer la ligne 3 par la salle avant de la désigner : c'est la
+    seule qui diffère, et elle ne se distingue pas sans cet affichage.
 
-    Le message d'erreur du terminal désigne la bonne ligne. Insister : lire le
-    numéro de ligne d'une erreur est un réflexe à prendre aujourd'hui.
+    Le message d'erreur désigne la bonne ligne. Lire le numéro de ligne
+    d'une erreur est un réflexe à prendre aujourd'hui.
   ]
 ]
 }
@@ -398,34 +385,29 @@ d("Les caractères invisibles, affichés")[
   ]
 
   #notes[
-    Deux sens pour un mot, et la confusion est réelle : « installe l'extension
-    Python » et « le fichier a l'extension `.py` » ne parlent pas de la même
-    chose. Le dire une fois explicitement vaut mieux que de laisser chacun
-    trancher.
+    Deux sens pour un mot : « installe l'extension Python » et « le
+    fichier a l'extension `.py` » ne parlent pas de la même chose. Le dire
+    une fois.
 
-    La colonne de gauche est le point neuf. Un `.py` et un `.cpp` sont des
-    fichiers texte, et rien dans leurs octets ne les distingue : pas de marque
-    binaire, pas d'en-tête, pas de signature. L'extension est purement
-    informative — elle dit ce qu'on peut espérer trouver dedans, elle ne le
-    garantit pas. `python bonjour.txt` exécute parfaitement un programme
-    Python : la démonstration tient en cinq secondes et se retient.
+    Colonne de gauche, le point neuf : un `.py` et un `.cpp` sont des
+    fichiers texte, et rien dans leurs octets ne les distingue — ni marque
+    binaire, ni en-tête, ni signature. L'extension dit ce qu'on peut
+    espérer trouver, elle ne le garantit pas. `python bonjour.txt` exécute
+    parfaitement un programme Python.
 
-    C'est aussi ce que la manipulation « Les premiers octets d'un fichier »
-    fera constater plus loin dans la partie : les formats texte n'ont aucune
-    signature, contrairement au ZIP et au PDF.
+    C'est ce que la manipulation « Les premiers octets d'un fichier » fera
+    constater : les formats texte n'ont aucune signature, contrairement au
+    ZIP et au PDF.
 
-    La vérification annoncée à droite porte sur les règles d'écriture, pas sur
-    le sens : un programme peut être irréprochable pour l'extension et faire
-    exactement le contraire de ce qu'on voulait. C'est la limite à poser, et
-    elle prolonge « Les règles d'écriture d'un langage ».
+    La vérification porte sur les règles d'écriture, pas sur le sens : un
+    programme peut être irréprochable pour l'extension et faire le
+    contraire de ce qu'on voulait.
 
-    L'identifiant en chasse fixe est ce qu'il faut chercher dans le panneau :
-    les noms affichés se ressemblent tous et plusieurs extensions non
-    officielles portent le même titre. Le réflexe vaut au-delà de ce cours.
-
-    L'extension Python installe elle-même Pylance, qui fait la vérification.
-    Ne le dire que si quelqu'un remarque qu'une deuxième extension est
-    apparue. Identifiants relevés sur le poste de préparation.
+    Chercher l'identifiant en chasse fixe et non le nom affiché :
+    plusieurs extensions non officielles portent le même titre.
+    L'extension Python installe elle-même Pylance, qui fait la
+    vérification ; ne le dire que si quelqu'un le remarque. Identifiants
+    relevés sur le poste de préparation.
   ]
 ]
 #separateur-manip(
@@ -463,29 +445,25 @@ d("Les caractères invisibles, affichés")[
   ]
 
   #notes[
-    La première ligne est là pour vérifier de leurs mains ce que « Ce que
-    l'éditeur ajoute au texte » a montré : le fichier ne contient aucune
-    police, et le même texte s'aligne ou non selon celle qu'on lui donne.
-    Format #sym.arrow.r Caractère, puis une police à chasse fixe — Liberation
-    Mono ou DejaVu Sans Mono sont présentes partout. Enchaîner en disant que
-    l'éditeur fait ce choix d'office, et qu'on n'a donc jamais à y penser.
+    Première ligne : vérifier de leurs mains ce que « Ce que l'éditeur
+    ajoute au texte » a montré. Format #sym.arrow.r Caractère, puis une
+    police à chasse fixe — Liberation Mono ou DejaVu Sans Mono sont
+    présentes partout. L'éditeur fait ce choix d'office.
 
-    La troisième ligne est celle qui surprend, et elle est voulue : la
-    coloration ne vient pas de l'extension, elle est fournie d'origine pour
-    les langages courants. Ce que l'extension apporte est la ligne suivante,
-    le soulignement.
+    Troisième ligne, la surprise voulue : la coloration ne vient pas de
+    l'extension, elle est fournie d'origine pour les langages courants. Ce
+    que l'extension apporte est la ligne suivante, le soulignement.
 
-    Enchaîner sur « Extension de fichier et extension de VSCode » si la
-    question de l'identifiant revient : c'est lui qu'on cherche, pas le nom
-    affiché.
+    Si la question de l'identifiant revient, enchaîner sur « Extension de
+    fichier et extension de VSCode ».
 
-    L'éditeur n'a pas pu être piloté sur le poste de préparation : le
-    comportement des deux dernières lignes vient de la documentation de
-    VSCode et reste à vérifier sur les postes de la salle, notamment la
-    proposition automatique d'extension, qui dépend d'un réglage.
+    L'éditeur n'a pas pu être piloté sur le poste de préparation : les
+    deux dernières lignes viennent de la documentation de VSCode et
+    restent à vérifier en salle, notamment la proposition automatique
+    d'extension, qui dépend d'un réglage.
 
-    Prévoir le cas du poste sans réseau : les extensions ne s'installent pas,
-    et la suite de la manipulation se fait quand même, sans le soulignement.
+    Poste sans réseau : les extensions ne s'installent pas, la suite se
+    fait quand même, sans le soulignement.
   ]
 ]
 
@@ -516,27 +494,26 @@ d("Les caractères invisibles, affichés")[
   ]
 
   #notes[
-    L'ordre des trois fautes est celui de leur difficulté de lecture, et il
-    faut le suivre.
+    L'ordre des trois fautes est celui de leur difficulté de lecture ; le
+    suivre.
 
-    La première ne se voit pas à l'œil : les deux lignes sont alignées à
-    l'écran. C'est là qu'on fait activer l'affichage des espaces, Affichage
-    #sym.arrow.r Rendu des espaces #sym.arrow.r Tout, et la flèche apparaît.
-    Réglage à garder toute l'année.
+    La première ne se voit pas à l'œil, les deux lignes étant alignées à
+    l'écran. C'est là qu'on fait activer l'affichage des espaces,
+    Affichage #sym.arrow.r Rendu des espaces #sym.arrow.r Tout. Réglage à
+    garder toute l'année.
 
     La deuxième se voit dans le message, qui nomme le caractère attendu et
-    place un accent circonflexe sous l'endroit exact. Faire lire le message
-    en entier plutôt que la seule dernière ligne.
+    place un accent circonflexe sous l'endroit exact. Faire lire le
+    message en entier.
 
-    La troisième désigne la ligne 7 pour une faute ligne 6 : c'est la
-    diapositive « Vérification de l'écriture », vérifiée par eux.
+    La troisième désigne la ligne 7 pour une faute ligne 6 : «
+    Vérification de l'écriture », vérifiée par eux.
 
     La vérification demandée n'est pas que le programme affiche le bon
-    résultat, mais qu'il n'affiche plus de message. C'est la définition de
-    « ça marche » à ce stade, et elle suffit aujourd'hui.
+    résultat, mais qu'il n'affiche plus de message.
 
-    Sous Windows sans compilateur, le fichier C++ se lit et se corrige mais ne
-    se compile pas : le soulignement de l'éditeur reste la seule vérification.
+    Sous Windows sans compilateur, le fichier C++ se lit et se corrige
+    mais ne se compile pas.
   ]
 ]
 #separateur-reprise(
@@ -568,18 +545,16 @@ d("Les caractères invisibles, affichés")[
   ]
 
   #notes[
-    La diapositive corrige une impression que la partie a pu laisser jusqu'ici :
-    on n'écrit pas que du code dans un éditeur de code. Sur un projet réel, les
-    fichiers de réglage et la documentation sont souvent plus nombreux que les
-    fichiers de programme.
+    On n'écrit pas que du code dans un éditeur de code : sur un projet
+    réel, les fichiers de réglage et la documentation sont souvent plus
+    nombreux que les fichiers de programme.
 
     `.json` et `.yaml` portent la même chose et se convertissent l'un en
-    l'autre ; le premier est celui que les programmes écrivent, le second
-    celui que les humains écrivent, parce qu'il accepte des commentaires. Une
-    phrase, pas plus.
+    l'autre ; le premier est écrit par les programmes, le second par les
+    humains, parce qu'il accepte des commentaires. Une phrase, pas plus.
 
-    Le `README` est nommé dès maintenant parce qu'il est le livrable de fin de
-    séance et le premier commit du cours 2.
+    Le `README` est nommé dès maintenant : livrable de fin de séance, et
+    premier commit du cours 2.
   ]
 ]
 #d("Structure d'une page HTML")[
@@ -695,20 +670,19 @@ d("Les caractères invisibles, affichés")[
   ]
 
   #notes[
-    Markdown est annoncé le 15 mars 2004 par John Gruber sur son site Daring
-    Fireball. Aaron Swartz en est l'unique bêta-testeur et discute la syntaxe ;
-    les titres en `#` viennent d'atx, son propre format. L'inspiration
-    revendiquée est le courriel en texte brut, où l'on encadrait déjà d'astérisques
-    ce qu'on voulait mettre en valeur.
+    Markdown est annoncé le 15 mars 2004 par John Gruber sur Daring
+    Fireball. Aaron Swartz en est l'unique bêta-testeur ; les titres en
+    `#` viennent d'atx, son propre format. L'inspiration revendiquée est
+    le courriel en texte brut.
 
-    L'intention à faire entendre, parce qu'elle n'est pas évidente : Markdown
-    n'est pas un HTML simplifié pour ceux qui n'y arriveraient pas. Sa
-    contrainte de départ est que la source reste lisible sans conversion. Tout
-    le reste en découle, y compris ce qu'il ne sait pas faire.
+    L'intention, qui n'est pas évidente : Markdown n'est pas un HTML
+    simplifié pour ceux qui n'y arriveraient pas. Sa contrainte de départ
+    est que la source reste lisible sans conversion, et tout le reste en
+    découle, y compris ce qu'il ne sait pas faire.
 
-    Depuis 2014, CommonMark en fixe une spécification et une suite de tests,
-    les implémentations divergeant sur les cas limites. Ne le dire que si
-    quelqu'un signale qu'un même fichier ne rend pas pareil partout.
+    Depuis 2014, CommonMark en fixe une spécification et une suite de
+    tests. Ne le dire que si quelqu'un signale qu'un fichier ne rend pas
+    pareil partout.
   ]
 ]
 #d("La syntaxe de Markdown")[
@@ -757,22 +731,19 @@ d("Les caractères invisibles, affichés")[
   ]
 
   #notes[
-    Ne pas faire apprendre la liste. Ce qu'il faut faire remarquer est que la
-    colonne de gauche se lit déjà : c'est l'intention de Gruber, vue à la
-    diapositive précédente, rendue concrète.
+    Ne pas faire apprendre la liste. Ce qui compte est que la colonne de
+    gauche se lise déjà : l'intention de Gruber rendue concrète.
 
-    Les deux pièges à signaler, parce qu'ils coûtent une minute chacun. Une
-    ligne vide sépare les paragraphes, sans quoi deux lignes consécutives
-    n'en font qu'un. Et le dièse veut un espace après lui : `#Titre` ne
-    produit pas un titre.
+    Deux pièges, une minute chacun. Une ligne vide sépare les paragraphes,
+    sans quoi deux lignes consécutives n'en font qu'un. Le dièse veut un
+    espace : `#Titre` ne produit pas un titre.
 
-    Sur le lien et l'image : même syntaxe, avec un point d'exclamation devant
-    pour l'image. Le chemin de l'image est relatif au fichier `.md`, ce qui
-    est l'occasion de rappeler les chemins de la partie 1.
+    Lien et image : même syntaxe, un point d'exclamation devant pour
+    l'image. Le chemin de l'image est relatif au `.md`, occasion de
+    rappeler les chemins de la partie 1.
 
-    L'aperçu `Ctrl` + `Maj` + `V` est le moyen de vérifier, et il est côte à
-    côte avec `Ctrl` + `K` puis `V`. C'est ce qu'ils emploieront pendant la
-    manipulation.
+    L'aperçu est `Ctrl` + `Maj` + `V`, côte à côte avec `Ctrl` + `K` puis
+    `V`.
   ]
 ]
 #d("Trois façons d'écrire un document")[
@@ -801,18 +772,17 @@ d("Les caractères invisibles, affichés")[
   ]
 
   #notes[
-    La ligne qui décide est la dernière, et les trois colonnes ne s'opposent
-    pas : elles répondent à trois besoins qu'on a tour à tour dans la même
-    semaine.
+    Les trois colonnes ne s'opposent pas : elles répondent à trois besoins
+    qu'on a tour à tour dans la même semaine.
 
-    Le piège à désamorcer tout de suite, sans quoi ils retournent à
-    LibreOffice : « mon rapport doit être en PDF » n'est pas un argument
-    contre Markdown, puisque `pandoc` produit le PDF depuis le `.md`. Ce qu'on
-    perd est le contrôle fin de la mise en page, ce qu'on gagne est de pouvoir
-    relire, comparer et versionner. C'est l'arbitrage, il faut le nommer.
+    Piège à désamorcer, sans quoi ils retournent à LibreOffice : « mon
+    rapport doit être en PDF » n'est pas un argument contre Markdown,
+    `pandoc` produisant le PDF depuis le `.md`. On perd le contrôle fin de
+    la mise en page, on gagne de pouvoir relire, comparer et versionner.
+    Nommer l'arbitrage.
 
-    Le `.txt` n'est pas un format inférieur : c'est celui des sorties de
-    programme et des relevés, où toute structure serait une gêne. Le poème du
+    Le `.txt` n'est pas inférieur : c'est le format des sorties de
+    programme et des relevés, où toute structure gênerait. Le poème du
     début de séance en est un.
   ]
 ]
@@ -841,21 +811,19 @@ d("Les caractères invisibles, affichés")[
   ]
 
   #notes[
-    Le point de la diapositive n'est pas la liste mais ce qu'elle permet de
-    conclure : pour tout ce qu'on écrira cette année en dehors du code, il n'y
-    a rien à installer. C'est le contraste avec Python et C++, qui exigent une
-    extension, et il vaut d'être dit ainsi.
+    La conclusion à tirer : pour tout ce qu'on écrira cette année en
+    dehors du code, il n'y a rien à installer. C'est le contraste avec
+    Python et C++, qui exigent une extension.
 
-    L'aperçu Markdown est à montrer en direct, `Ctrl` + `Maj` + `V` sur le
-    fichier de notes du jour : c'est le geste qu'ils emploieront le plus cette
-    année.
+    Montrer l'aperçu Markdown en direct, `Ctrl` + `Maj` + `V` sur le
+    fichier de notes du jour : c'est le geste le plus employé de l'année.
 
-    La dernière colonne porte la différence de nature : le Markdown se rend
-    dans l'éditeur, le HTML dans le navigateur. Les deux diapositives qui
-    suivent la manipulation le montrent sur la page du poème.
+    Dernière colonne, différence de nature : le Markdown se rend dans
+    l'éditeur, le HTML dans le navigateur. Les deux diapositives après la
+    manipulation le montrent sur la page du poème.
 
-    Sur JSON et YAML, si la question vient : même principe, mais l'éditeur ne
-    les sert pas également. La diapositive est en annexe.
+    JSON et YAML, si la question vient : même principe, mais l'éditeur ne
+    les sert pas également. Diapositive en annexe.
   ]
 ]
 #d("Un diagramme écrit en texte")[
@@ -888,22 +856,19 @@ d("Les caractères invisibles, affichés")[
   ]
 
   #notes[
-    L'intérêt n'est pas de dessiner joli, c'est que le schéma soit du texte :
-    il se compare ligne à ligne, il se versionne, et on le corrige sans
-    rouvrir un logiciel de dessin. C'est l'argument de toute la partie,
-    appliqué à autre chose qu'à de la prose.
+    L'intérêt n'est pas de dessiner joli mais que le schéma soit du texte
+    : il se compare ligne à ligne, se versionne, et se corrige sans
+    rouvrir un logiciel de dessin.
 
-    Faire remarquer que le dessin n'est pas dans le fichier. Le `.md` ne
-    contient que les six lignes ; les boîtes sont calculées à l'affichage,
+    Faire remarquer que le dessin n'est pas dans le fichier : le `.md` ne
+    contient que six lignes, les boîtes sont calculées à l'affichage,
     comme la coloration l'était pour le code.
 
-    Le vocabulaire minimal suffit : `flowchart LR` pour un schéma de gauche à
-    droite, un identifiant, le texte entre crochets, et `-->` pour une
-    flèche. Tout le reste s'invente en lisant la documentation de Mermaid.
+    Le vocabulaire minimal suffit : `flowchart LR`, un identifiant, le
+    texte entre crochets, `-->` pour une flèche.
 
-    Ne pas ouvrir le catalogue des types de diagrammes. Un organigramme
-    aujourd'hui, le reste quand ils en auront besoin — le cours 2 s'en sert
-    pour représenter l'historique d'un dépôt git.
+    Ne pas ouvrir le catalogue des types de diagrammes. Le cours 2 s'en
+    sert pour représenter l'historique d'un dépôt git.
   ]
 ]
 #separateur-manip(
@@ -935,25 +900,23 @@ d("Les caractères invisibles, affichés")[
   ]
 
   #notes[
-    Le texte de départ n'a aucune structure, et c'est voulu : ils doivent la
-    décider, pas la recopier. La discussion utile est de savoir ce qui est un
-    titre et ce qui est une étape — la mise en forme est une lecture du
-    contenu, pas une décoration.
+    Le texte de départ n'a aucune structure, et c'est voulu : ils doivent
+    la décider, pas la recopier. La discussion utile est de savoir ce qui
+    est un titre et ce qui est une étape — la mise en forme est une
+    lecture du contenu.
 
-    L'aperçu côte à côte est le geste à installer, `Ctrl` + `K` puis `V`. On
-    écrit à gauche, on voit à droite, et on corrige sans rien lancer.
+    Geste à installer, l'aperçu côte à côte : `Ctrl` + `K` puis `V`. On
+    écrit à gauche, on voit à droite, sans rien lancer.
 
-    Étape 5 : le tableau se tape à la main, ou se produit depuis le CSV par
-    une extension du catalogue — chercher « CSV to Markdown Table ». Le faire
-    à la main la première fois, montrer l'extension ensuite : l'intérêt est de
-    voir qu'un tableau Markdown n'est que des barres verticales alignées, et
-    que l'alignement n'est même pas obligatoire.
+    Étape 5 : le tableau se tape à la main, ou se produit depuis le CSV
+    par une extension du catalogue. À la main la première fois,
+    l'extension ensuite — un tableau Markdown n'est que des barres
+    verticales, dont l'alignement n'est même pas obligatoire.
 
-    Étape 6 : le diagramme de la diapositive précédente, avec les deux
-    entrées qui se rejoignent. Rien à installer.
+    Étape 6 : le diagramme de la diapositive précédente. Rien à installer.
 
-    Pour ceux qui vont vite : ajouter une photo par `![](…)`, ce qui rappelle
-    les chemins relatifs, et une citation par `>` pour la remarque finale.
+    Pour ceux qui vont vite : une photo par `![](…)`, ce qui rappelle les
+    chemins relatifs, et une citation par `>`.
   ]
 ]
 // Le rendu attendu, quand la capture est disponible : sans elle, la
@@ -979,13 +942,12 @@ d("Le résultat attendu")[
   ]
 
   #notes[
-    À projeter après la manipulation, pas avant : c'est le corrigé. Faire
-    remarquer que rien ici n'a demandé de logiciel de mise en page, et que le
-    fichier source reste lisible tel quel.
+    À projeter après la manipulation : c'est le corrigé. Rien ici n'a
+    demandé de logiciel de mise en page, et le fichier source reste
+    lisible tel quel.
 
-    Le diagramme est le point à souligner. Il a la même nature que le reste :
-    du texte dans le fichier, une image seulement à l'écran. C'est la
-    troisième fois de la séance qu'on rencontre cette distinction, après la
+    Le diagramme a la même nature que le reste : du texte dans le fichier,
+    une image seulement à l'écran. Troisième fois de la séance, après la
     coloration et les polices.
   ]
 ]

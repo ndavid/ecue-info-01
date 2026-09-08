@@ -87,17 +87,14 @@
   #notes[
     Le même logiciel des deux côtés, et le même PDF produit.
 
-    Faire le lien explicitement avec la manipulation de la première partie :
-    ils ont exporté `raven.odt` en PDF en cliquant dans LibreOffice. `soffice` n'est
-    pas un autre outil, c'est le même, appelé par son nom.
+    Faire le lien avec la manipulation de la première partie : ils ont
+    exporté `raven.odt` en PDF en cliquant dans LibreOffice. `soffice`
+    n'est pas un autre outil, c'est le même appelé par son nom. Le nom
+    vient de StarOffice ; une phrase, et passer.
 
-    Le nom surprend toujours : il vient de StarOffice, l'ancêtre de la suite.
-    Le dire en une phrase et passer, l'anecdote n'a pas d'intérêt en soi.
-
-    La lecture option / argument est ce qu'il faut retenir : c'est la grille de
-    lecture de toutes les commandes du semestre, et elle rend une page d'aide
-    utilisable. Le cours 3 construit une commande de cette forme avec
-    `argparse`.
+    La lecture option / argument est la grille de lecture de toutes les
+    commandes du semestre, et elle rend une page d'aide utilisable. Le
+    cours 3 construit une commande de cette forme avec `argparse`.
 
     Ne pas taper la commande maintenant : c'est la manipulation qui suit.
   ]
@@ -129,25 +126,23 @@
   ]
 
   #notes[
-    C'est la diapositive qui justifie tout le reste de la partie. Y passer du
-    temps.
+    Y passer du temps : c'est ce qui justifie le reste de la partie.
 
-    L'étoile est le seul caractère qui change entre les deux colonnes, et à
-    partir de là la ligne ne changera plus : elle vaut pour trois cents
-    fichiers comme pour vingt. C'est ce qu'aucune suite de clics ne sait
-    faire, parce qu'un clic désigne un objet et un seul.
+    L'étoile est le seul caractère qui change entre les deux colonnes, et
+    la ligne ne changera plus : elle vaut pour trois cents fichiers comme
+    pour vingt. Aucune suite de clics ne sait le faire, un clic désignant
+    un objet et un seul.
 
-    La différence de fond est là, et elle n'est pas une question de
-    difficulté : à la souris on *montre* des objets déjà à l'écran ; au
-    clavier on *décrit* un ensemble, y compris des fichiers qu'on n'a pas
-    ouverts, qu'on ne voit pas, ou qui n'existent pas encore.
+    À la souris on montre des objets déjà à l'écran ; au clavier on décrit
+    un ensemble, y compris des fichiers qu'on ne voit pas ou qui
+    n'existent pas encore.
 
-    Ne pas commenter le nom `soffice` ni `--headless` : ils sont repris à la
-    diapositive « Anatomie d'une commande ».
+    Ne pas commenter `soffice` ni `--headless` : ils sont repris à «
+    Anatomie d'une commande ».
 
-    Si la question vient : oui, les explorateurs de fichiers savent
-    sélectionner par motif, et non, ils ne savent pas enchaîner l'opération
-    suivante sur le résultat.
+    Si la question vient : oui, les explorateurs savent sélectionner par
+    motif ; non, ils ne savent pas enchaîner l'opération suivante sur le
+    résultat.
   ]
 ]
 #d("Quand l'une, quand l'autre")[
@@ -174,22 +169,21 @@
   ]
 
   #notes[
-    Tableau à laisser lire, puis à résumer en une phrase : on clique pour
-    chercher, on tape pour répéter.
+    Laisser lire, puis résumer en une phrase : on clique pour chercher, on
+    tape pour répéter.
 
-    Contre-exemple à donner si la salle penche trop d'un côté : personne ne
-    retouche une photo au terminal, et personne ne renomme trois cents
-    fichiers à la souris. Les deux dérives existent, et la seconde coûte plus
-    cher parce qu'elle ne se voit pas.
+    Contre-exemple si la salle penche trop d'un côté : personne ne
+    retouche une photo au terminal, personne ne renomme trois cents
+    fichiers à la souris. La seconde dérive coûte plus cher parce qu'elle
+    ne se voit pas.
 
-    Les trois dernières lignes annoncent la suite du module : la commande qui
-    se relance, c'est le script du cours 3 ; la commande qui se transmet,
-    c'est le dépôt du cours 2.
+    Les trois dernières lignes annoncent la suite : la commande qui se
+    relance est le script du cours 3, celle qui se transmet le dépôt du
+    cours 2.
 
-    La distinction souvent citée en ergonomie éclaire le tableau : une
-    interface graphique fonctionne par *reconnaissance*, on voit et on
-    choisit ; une ligne de commande par *rappel*, il faut savoir avant de
-    taper. Elle est reprise deux diapositives plus loin, chiffrée.
+    Distinction d'ergonomie qui éclaire le tableau : le graphique
+    fonctionne par reconnaissance, la ligne de commande par rappel.
+    Reprise deux diapositives plus loin, chiffrée.
   ]
 ]
 // Hauteur des captures : la version annotée réserve le bas de la page aux
@@ -216,15 +210,16 @@ d("Le menu d'exportation de LibreOffice")[
   ]
 
   #notes[
-    Laisser la salle chercher l'entrée des yeux avant de la désigner : c'est
-    l'argument de la diapositive, et il se démontre mieux qu'il ne s'énonce.
+    Laisser la salle chercher l'entrée des yeux avant de la désigner :
+    c'est l'argument de la diapositive, et il se démontre mieux qu'il ne
+    s'énonce.
 
-    Le rapprochement avec la ligne de commande se fait ici sans le dire : la
-    commande ne se cherche pas, elle s'écrit, mais encore faut-il la connaître.
-    C'est exactement la première ligne du tableau qui suit.
+    Le rapprochement avec la ligne de commande se fait ici sans le dire :
+    la commande ne se cherche pas, elle s'écrit, mais encore faut-il la
+    connaître. C'est exactement la première ligne du tableau qui suit.
 
-    Le chemin exact change d'une version à l'autre, et c'est aussi ce qui rend
-    une consigne écrite en gestes fragile.
+    Le chemin exact change d'une version à l'autre, et c'est aussi ce qui
+    rend une consigne écrite en gestes fragile.
   ]
 ]
 }
@@ -414,18 +409,16 @@ d("Le menu d'exportation de LibreOffice")[
   ]
 
   #notes[
-    Trois pièges, dans l'ordre où ils se présentent : le `PATH`, le choix
-    entre `soffice.com` et `soffice.exe` que demande la documentation
-    officielle, et l'opérateur d'appel de PowerShell.
+    Trois pièges, dans l'ordre : le `PATH`, le choix de `soffice.com`
+    plutôt que `soffice.exe` que demande la documentation officielle, et
+    l'opérateur d'appel de PowerShell.
 
-    Honnêteté nécessaire : seule la ligne Linux a été exécutée. Celles de
-    Windows et macOS viennent de la documentation LibreOffice et n'ont pas
-    été vérifiées sur ces systèmes. Les tester avant la séance.
+    Seule la ligne Linux a été exécutée. Celles de Windows et macOS
+    viennent de la documentation LibreOffice : les tester avant la séance.
 
-    Repli si cela dérape sur quelques postes : `pandoc raven.odt -o raven.pdf`
-    dans l'environnement `info01`, qui lui est dans le `PATH` sur les trois
-    systèmes une fois `conda activate` fait. Même démonstration, sans le
-    problème de chemin.
+    Repli si cela dérape : `pandoc raven.odt -o raven.pdf` dans
+    l'environnement `info01`, qui est dans le `PATH` sur les trois
+    systèmes une fois `conda activate` fait.
   ]
 ]
 #d("Le navigateur en ligne de commande")[
@@ -494,25 +487,22 @@ d("Le menu d'exportation de LibreOffice")[
   ]
 
   #notes[
-    Diapositive d'annexe : la démonstration se fait en séance avec
-    `octets.py`, qui vaut sur les trois systèmes. Celle-ci sert si la salle
-    veut le voir au terminal, et au cours 2.
+    Annexe : la démonstration se fait en séance avec `octets.py`, qui vaut
+    sur les trois systèmes. Celle-ci sert si la salle veut le voir au
+    terminal, et au cours 2.
 
-    `Format-Hex` remplace à lui seul `head` et `xxd` : il affiche
-    l'hexadécimal et le texte côte à côte. Son paramètre `-Count` n'est
-    apparu qu'avec PowerShell 6.2, donc pas dans le PowerShell 5.1 livré avec
-    Windows, d'où le passage par `Select-Object -First 1`, qui prend la
-    première ligne de seize octets et marche dans les deux versions.
+    `Format-Hex` remplace `head` et `xxd` à lui seul, affichant
+    l'hexadécimal et le texte côte à côte. Son paramètre `-Count` n'existe
+    qu'à partir de PowerShell 6.2, absent du 5.1 livré avec Windows, d'où
+    `Select-Object -First 1`, qui prend la première ligne de seize octets
+    et marche dans les deux versions.
 
-    `PK` sont les initiales de Phil Katz, l'auteur du format ZIP. Anecdote à
-    donner en une phrase, elle fait retenir le reste.
+    Windows ne fournit pas d'équivalent de `file` : c'est la diapositive
+    suivante, facultative.
 
-    Windows ne fournit pas d'équivalent de `file`, qui déduit le type du
-    contenu : c'est la diapositive suivante, et elle est facultative.
-
-    Les lignes PowerShell viennent de la documentation Microsoft et n'ont pas
-    pu être exécutées ici, faute de Windows : à vérifier avant la séance. Les
-    valeurs d'octets, elles, sont mesurées.
+    Les lignes PowerShell viennent de la documentation Microsoft et n'ont
+    pas pu être exécutées ici : à vérifier avant la séance. Les valeurs
+    d'octets sont mesurées.
   ]
 ]
 #d("Le même test sous Linux et macOS")[
@@ -692,19 +682,19 @@ d("Le menu d'exportation de LibreOffice")[
   ]
 
   #notes[
-    Ouvrir `anime.sh` à l'écran si la salle le demande, sans le commenter ligne
-    à ligne. Ce qui compte est la forme : quatre blocs numérotés, un par
+    Ouvrir `anime.sh` si la salle le demande, sans le commenter ligne à
+    ligne. Ce qui compte est la forme : quatre blocs numérotés, un par
     fichier produit.
 
-    Deux outils seulement, tous deux pilotés en ligne de commande :
-    ImageMagick pour dessiner sur la carte, ffmpeg pour assembler. Ce sont
-    ceux du TD 4, qui reprend exactement cette chaîne.
+    Deux outils, tous deux en ligne de commande : ImageMagick pour
+    dessiner sur la carte, ffmpeg pour assembler. Ce sont ceux du TD 4,
+    qui reprend cette chaîne.
 
-    Le format `.srt` est du texte, lisible et modifiable : encore un cas où le
-    livrable est binaire mais la source ne l'est pas.
+    Le `.srt` est du texte, lisible et modifiable : le livrable est
+    binaire, la source ne l'est pas.
 
-    Question qui vient : « et si je veux changer la police des sous-titres ? »
-    Répondre que c'est une option de la dernière ligne, et ne pas y entrer.
+    « Et si je veux changer la police des sous-titres ? » : c'est une
+    option de la dernière ligne, ne pas y entrer.
   ]
 ]
 
@@ -893,27 +883,24 @@ d("Le menu d'exportation de LibreOffice")[
   ]
 
   #notes[
-    Faire ouvrir le dossier `formats/` dans l'éditeur et lancer le script au
-    terminal : c'est exactement le geste de la manipulation « hello world »,
-    refait sur un programme qui sert à quelque chose.
+    Faire ouvrir le dossier `formats/` dans l'éditeur et lancer le script
+    au terminal : c'est le geste de la manipulation « hello world »,
+    refait sur un programme utile.
 
-    Faire lire les quarante lignes du script avant de le lancer. Il tient en
-    trois fonctions, dont une qui compare le début du fichier à un
-    dictionnaire de signatures. Rien d'autre.
+    Faire lire les quarante lignes avant de lancer : trois fonctions, dont
+    une qui compare le début du fichier à un dictionnaire de signatures.
 
     Les deux premières lignes sont le cœur : deux extensions, les mêmes
-    octets. C'est la diapositive « Extension et contenu », vue autrement.
+    octets. Ils retrouvent « Extension et contenu ».
 
-    Les fichiers texte n'ont aucune signature, et c'est une information, pas
-    un manque : rien dans un fichier texte ne dit de quoi il est fait. C'est
-    au logiciel qui l'ouvre de décider, et c'est pourquoi `file` se trompe
-    parfois.
+    Les fichiers texte n'ont aucune signature, et c'est une information :
+    rien dans un fichier texte ne dit de quoi il est fait. C'est au
+    logiciel qui l'ouvre de décider, d'où les erreurs de `file`.
 
-    `PK` sont les initiales de Phil Katz, l'auteur du format ZIP. Une phrase,
-    pas plus, elle fait retenir le reste.
+    `PK` sont les initiales de Phil Katz, auteur du format ZIP.
 
-    `raven.pdf` est celui qu'ils ont produit eux-mêmes en première partie. Si
-    l'export n'a pas été fait, le script écrit `introuvable` et continue.
+    `raven.pdf` est celui qu'ils ont produit en première partie. Sans
+    l'export, le script écrit `introuvable` et continue.
   ]
 ]
 

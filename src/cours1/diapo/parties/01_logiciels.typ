@@ -96,20 +96,20 @@
   ]
 
   #notes[
-    Première question, réponse attendue : Android ou iOS. Ordre de grandeur
-    mondial, à donner si elle est demandée : environ 70 % Android, 30 % iOS
-    (StatCounter, 2026). Personne ne nomme « Linux » alors qu'Android en est
-    un : c'est le point à relever.
+    Première question, réponse attendue : Android ou iOS. Ordre de
+    grandeur mondial si elle est demandée : environ 70 % Android, 30 % iOS
+    (StatCounter, 2026). Personne ne nomme « Linux » alors qu'Android en
+    est un : c'est le point à relever.
 
     Deuxième question : laisser venir les réponses sans corriger. Attendu
     « un site où on fait des choses », « ça marche sans installer ». Les
-    exemples viendront seuls (messagerie, documents partagés, retouche
-    d'image, cartes). Les deux diapositives suivantes donnent la réponse.
+    exemples viennent seuls. Les deux diapositives suivantes donnent la
+    réponse.
 
-    Enchaînement à préparer : la question n'est pas de vocabulaire. Elle sert
-    à faire remarquer que des tâches qui demandaient un logiciel installé se
-    font aujourd'hui dans un navigateur, et que le lieu du calcul, donc celui
-    des fichiers, a changé sans qu'on le dise.
+    La question n'est pas de vocabulaire : elle sert à faire remarquer que
+    des tâches qui demandaient un logiciel installé se font dans un
+    navigateur, et que le lieu du calcul, donc celui des fichiers, a
+    changé sans qu'on le dise.
   ]
 ]
 #d("L'application web")[
@@ -147,15 +147,17 @@
   ]
 
   #notes[
-    Le navigateur fait ici le travail d'un système d'exploitation : il charge
-    du code, l'exécute dans une machine virtuelle, lui donne du stockage et un
-    accès réseau, et l'empêche de toucher au reste de la machine. La
-    documentation de Mozilla emploie le mot « machine virtuelle » pour le
-    moteur qui exécute JavaScript et WebAssembly ; ce dernier tourne à une
-    vitesse proche du natif. Une page web n'est donc plus un document : c'est
-    un programme qu'on n'installe pas.
+    Le navigateur fait ici le travail d'un système d'exploitation : il
+    charge du code, l'exécute dans une machine virtuelle, lui donne du
+    stockage et un accès réseau, et l'empêche de toucher au reste de la
+    machine. La documentation de Mozilla emploie le mot « machine
+    virtuelle » pour le moteur qui exécute JavaScript et WebAssembly, ce
+    dernier tournant à une vitesse proche du natif.
 
-    Ne pas entrer dans les technologies. Ce qui compte est la conséquence,
+    Une page web n'est donc plus un document : c'est un programme qu'on
+    n'installe pas.
+
+    Ne pas entrer dans les technologies : la conséquence est à la
     diapositive suivante.
   ]
 ]
@@ -185,20 +187,18 @@
   ]
 
   #notes[
-    La dernière ligne est la plus importante, et c'est pour cela qu'elle vient
-    après les cas purs : presque aucune application web n'est entièrement d'un
-    côté. Une messagerie affiche et met en page chez vous, mais cherche dans
-    vos messages sur son serveur ; un éditeur de documents partagés fait de
-    même. La question utile n'est donc pas « où est-ce que ça tourne ? » mais
-    « qu'est-ce qui part, et quand ? ».
+    Dernière ligne, la plus importante, et c'est pourquoi elle vient après
+    les cas purs : presque aucune application web n'est entièrement d'un
+    côté. Une messagerie affiche chez vous mais cherche dans vos messages
+    sur son serveur. La question utile n'est pas « où est-ce que ça tourne
+    ? » mais « qu'est-ce qui part, et quand ? ».
 
-    Rattacher à la manipulation vidéo de la fin de partie : l'outil en ligne
-    proposé y annonce que le rendu se fait sur l'appareil, ce qui explique
-    qu'il n'ait besoin ni de compte ni de connexion permanente.
+    Rattacher à la manipulation vidéo de fin de partie : l'outil en ligne
+    proposé annonce que le rendu se fait sur l'appareil, d'où ni compte ni
+    connexion permanente.
 
-    Ne pas ouvrir le dossier des données personnelles maintenant. La phrase
-    « ce qu'on dépose quelque part y reste » est semée ici et reprise au
-    cours 5 avec les secrets.
+    Ne pas ouvrir le dossier des données personnelles. « Ce qu'on dépose
+    quelque part y reste » est semé ici et repris au cours 5.
   ]
 ]
 #d("Entrées et sorties d'un programme")[
@@ -250,22 +250,21 @@
   ]
 
   #notes[
-    Schéma réutilisé tout le semestre. Les deux colonnes se répondent, et
-    c'est ce qu'il faut faire remarquer : un programme ne reçoit pas
-    seulement des fichiers, et n'en produit pas seulement.
+    Schéma réutilisé tout le semestre. Les deux colonnes se répondent : un
+    programme ne reçoit pas seulement des fichiers, et n'en produit pas
+    seulement.
 
-    Le réflexe à corriger est du côté droit : les étudiants pensent
-    spontanément qu'un programme « affiche », et oublient qu'il peut écrire.
-    Le module s'intéresse surtout à ce qui laisse un fichier, parce qu'un
-    fichier se relit, se compare et se versionne — et surtout parce qu'il est
-    ce qui circule d'un logiciel à l'autre.
+    Le réflexe à corriger est à droite : ils pensent qu'un programme «
+    affiche » et oublient qu'il peut écrire. Le module s'intéresse à ce
+    qui laisse un fichier, parce qu'un fichier se relit, se compare, se
+    versionne, et surtout circule d'un logiciel à l'autre.
 
-    Le réseau est mis du côté des périphériques, avec le clavier et la souris.
-    Ce n'est pas une approximation : pour le programme, ce sont trois choses
-    qu'on lit sans qu'elles restent. Le rapprochement est repris au cours 5.
+    Le réseau est du côté des périphériques, avec le clavier et la souris
+    : pour le programme, ce sont trois choses qu'on lit sans qu'elles
+    restent. Repris au cours 5.
 
-    D'où vient le programme lui-même : la question est ouverte ici et traitée
-    dans la partie « Programmation ».
+    D'où vient le programme lui-même : question ouverte ici, traitée à la
+    partie « Programmation ».
   ]
 ]
 // --------------------------- Fichiers et extensions -------------------------
@@ -296,19 +295,17 @@
   ]
 
   #notes[
-    Diapositive de liaison, à passer en une minute : elle justifie la suite
-    plutôt qu'elle n'apporte une notion. Sans elle, la partie enchaîne sur les
-    extensions et les chemins sans avoir dit pourquoi ces détails méritent
-    qu'on s'y arrête.
+    Une minute. Sans elle, la partie enchaîne sur les extensions et les
+    chemins sans avoir dit pourquoi ces détails méritent qu'on s'y arrête.
 
-    Le fil vient de la diapositive précédente : parmi les deux natures de
+    Le fil vient de la diapositive précédente : des deux natures de
     sortie, c'est le fichier qui reste. Les quatre lignes disent ce que ce
-    « rester » permet, et elles sont toutes vraies dès cette semaine — les
-    trois premières aujourd'hui, la quatrième au cours 2.
+    « rester » permet, toutes vraies dès cette semaine — les trois
+    premières aujourd'hui, la quatrième au cours 2.
 
-    La deuxième ligne est celle qui porte le plus loin : un format de fichier
-    est ce sur quoi deux logiciels se mettent d'accord sans se connaître. Ne
-    pas développer, la partie 3 y revient longuement.
+    Deuxième ligne, celle qui porte le plus loin : un format de fichier
+    est ce sur quoi deux logiciels se mettent d'accord sans se connaître.
+    La partie 3 y revient.
   ]
 ]
 #d("Fichier, extension et type de fichier")[
@@ -569,15 +566,17 @@
   ]
 
   #notes[
-    `0x50 0x4b` est « PK » : la visionneuse nomme elle-même les octets qu'elle a
-    lus. Y revenir à la diapositive « Comment un logiciel reconnaît un fichier ».
+    `0x50 0x4b` est « PK » : la visionneuse nomme elle-même les octets
+    qu'elle a lus. Y revenir à « Comment un logiciel reconnaît un fichier
+    ».
 
-    La quatrième ligne est celle qui surprend, et c'est la plus utile : avec une
-    extension inventée, le système n'a plus de convention à appliquer, donc il
-    se rabat sur les premiers octets. Laisser inventer l'extension par la salle.
+    La quatrième ligne surprend et c'est la plus utile : avec une
+    extension inventée, le système n'a plus de convention à appliquer et
+    se rabat sur les premiers octets. Laisser la salle inventer
+    l'extension.
 
-    Sous Windows et macOS, activer d'abord l'affichage des extensions, sans quoi
-    `F2` ne montre pas ce qu'on renomme.
+    Sous Windows et macOS, activer d'abord l'affichage des extensions,
+    sans quoi `F2` ne montre pas ce qu'on renomme.
   ]
 ]
 #d[Contenu de l'archive `.odt`][
@@ -603,13 +602,12 @@
   ]
 
   #notes[
-    Faire ouvrir `content.xml` dans l'éditeur de texte : le poème est là, en
-    clair. C'est aussi la réponse à « pourquoi un `.odt` se versionne mal » :
-    le fichier livré est compressé, donc illisible pour `git diff`.
+    Faire ouvrir `content.xml` dans l'éditeur : le poème est là, en clair.
+    C'est aussi la réponse à « pourquoi un `.odt` se versionne mal » : le
+    fichier livré est compressé, donc illisible pour `git diff`.
 
-    Ne pas confondre les deux fichiers : le texte est dans `content.xml`, la
-    mise en forme dans `styles.xml`. C'est la séparation contenu / présentation
-    déjà vue avec HTML et CSS.
+    Le texte est dans `content.xml`, la mise en forme dans `styles.xml` :
+    la séparation contenu / présentation déjà vue avec HTML et CSS.
   ]
 ]
 #d[`content.xml`, avant et après][
@@ -648,28 +646,25 @@
   ]
 
   #notes[
-    `content.xml` fait ici 4 ko sur 21 lignes, dont une de 1 300 caractères :
-    lisible au Bloc-notes en activant le retour à la ligne, nettement plus
-    confortable dans l'éditeur de code, qui colore et replie les balises.
+    `content.xml` fait ici 4 ko sur 21 lignes, dont une de 1 300
+    caractères : lisible au Bloc-notes en activant le retour à la ligne,
+    plus confortable dans l'éditeur de code, qui colore et replie les
+    balises.
 
-    Le `_20_` intrigue toujours, et la réponse tient en deux phrases : un nom
-    de style est un nom XML, où l'espace est interdit ; ODF encode donc chaque
-    caractère interdit par son code hexadécimal entouré de tirets bas, et
-    l'espace vaut 20 en hexadécimal. Le nom lisible est rangé à côté, dans
-    l'attribut `style:display-name`, et c'est celui que LibreOffice affiche
-    dans son panneau des styles.
+    Le `_20_` intrigue toujours. Un nom de style est un nom XML, où
+    l'espace est interdit ; ODF encode chaque caractère interdit par son
+    code hexadécimal entouré de tirets bas, et l'espace vaut 20. Ce n'est
+    donc pas un nom en trois morceaux, c'est « Text body ». Le nom lisible
+    est dans l'attribut `style:display-name`, celui que LibreOffice
+    affiche. Rapprochement utile : le `%20` des adresses web, même
+    interdiction, même encodage. Référence OpenDocument v1.3 partie 3,
+    donnée dans le notebook.
 
-    Ce n'est donc pas un nom en trois morceaux : c'est « Text body » avec son
-    espace encodé. Le rapprochement à faire, s'il aide, est celui du `%20` des
-    adresses web, où l'espace est interdit pour la même raison et encodé de la
-    même façon. La référence est OpenDocument v1.3, partie 3, sur `style:name`
-    et `style:display-name` ; elle est donnée dans le notebook.
-
-    Sur la couleur, question fréquente : ODF n'accepte pas de nom de couleur.
-    Vérifié, `fo:color="red"` est ignoré et le titre reste noir ; il faut
-    `fo:color="#c0392b"`. C'est l'occasion de dire ce qu'est un code
-    hexadécimal, deux chiffres par composante rouge, verte et bleue. CSS, lui,
-    accepte les deux écritures : on le verra à la manipulation suivante.
+    Sur la couleur : ODF n'accepte pas de nom de couleur. Vérifié,
+    `fo:color="red"` est ignoré et le titre reste noir ; il faut
+    `fo:color="#c0392b"`. Occasion de dire ce qu'est un code hexadécimal,
+    deux chiffres par composante. CSS accepte les deux écritures, on le
+    verra à la manipulation suivante.
   ]
 ]
 #d("Modifier un document sans logiciel de bureautique")[

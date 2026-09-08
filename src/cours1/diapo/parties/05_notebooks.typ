@@ -62,32 +62,29 @@
   ]
 
   #notes[
-    La ligne à faire lire est la dernière : `jupyter lab` démarre un serveur
-    web sur la machine de l'étudiant, et le navigateur n'est que l'interface.
-    C'est l'application web de la première partie, avec le calcul de leur côté.
+    Faire lire la dernière ligne : `jupyter lab` démarre un serveur web
+    sur la machine de l'étudiant, le navigateur n'étant que l'interface.
+    C'est l'application web de la première partie, avec le calcul de leur
+    côté.
 
-    Le jeton dans l'adresse est un mot de passe à usage unique, qui empêche
-    qu'un autre poste du réseau ouvre le notebook et exécute du code. Le dire
-    en une phrase ; le sujet revient au cours 5 avec les secrets.
+    Le jeton dans l'adresse est un mot de passe à usage unique, qui
+    empêche qu'un autre poste du réseau exécute du code. Une phrase ;
+    repris au cours 5.
 
-    `Serving notebooks from local directory` désigne le dossier courant : le
-    notebook ne voit que ce qui est dessous. Encore les chemins relatifs.
+    `Serving notebooks from local directory` désigne le dossier courant :
+    le notebook ne voit que ce qui est dessous.
 
-    La troisième ligne est celle qui surprend, et elle referme « Le lieu du
-    calcul » de la première partie : JupyterLite n'a pas de serveur. Le noyau
-    Python y est compilé en WebAssembly et tourne dans l'onglet, si bien que
-    rien de ce qu'on écrit ne part sur le réseau. C'est un service en ligne où
-    le calcul se fait chez vous, et c'est exactement le cas qu'on annonçait
-    sans pouvoir le montrer.
+    La troisième ligne referme « Le lieu du calcul » de la première partie
+    : JupyterLite n'a pas de serveur, le noyau Python y est compilé en
+    WebAssembly et tourne dans l'onglet, si bien que rien ne part sur le
+    réseau. Un service en ligne où le calcul se fait chez vous.
 
-    Ne pas le proposer comme environnement de travail : tous les paquets n'y
-    sont pas, et ce qu'on y dépose vit dans le navigateur. Il sert à ouvrir un
-    notebook en dix secondes, sans compte et sans installation — c'est
-    beaucoup, et c'est tout.
+    Ne pas le proposer comme environnement de travail : tous les paquets
+    n'y sont pas, et ce qu'on y dépose vit dans le navigateur. Il sert à
+    ouvrir un notebook en dix secondes, sans compte ni installation.
 
-    Sur les autres services, Colab et consorts : ils exigent un compte, et ce
-    qu'on y dépose part sur leurs serveurs. Pratique pour dépanner, pas pour
-    rendre un travail.
+    Colab et consorts exigent un compte, et ce qu'on y dépose part sur
+    leurs serveurs. Pratique pour dépanner, pas pour rendre un travail.
   ]
 ]
 #d("Deux formats de notebook")[
@@ -139,25 +136,20 @@
   ]
 
   #notes[
-    La diapositive répond à la question que la partie ne posait pas : à quoi
-    un notebook sert-il mieux qu'un fichier `.py` ? Sans elle, ils savent en
-    lancer un sans savoir quand en ouvrir un.
+    Sans cette diapositive, ils savent lancer un notebook sans savoir
+    quand en ouvrir un.
 
-    Le cas d'usage à décrire, parce qu'il se reconnaît : on ouvre un notebook
-    parce qu'on ne sait pas encore ce qu'on cherche. On essaie, on regarde, on
-    garde le commentaire à côté du résultat. Le jour où cela marche et doit
-    tourner chaque semaine sans surveillance, cela devient un script — et
-    c'est le cours 3.
+    Le cas d'usage se reconnaît : on ouvre un notebook parce qu'on ne sait
+    pas encore ce qu'on cherche. On essaie, on regarde, on garde le
+    commentaire à côté du résultat. Le jour où cela marche et doit tourner
+    chaque semaine sans surveillance, cela devient un script — cours 3.
 
-    La ligne qui surprend est la dernière. Un notebook donné à quelqu'un
-    d'autre demande le bon noyau, les bonnes bibliothèques et que les cellules
-    soient exécutées dans l'ordre ; un script se donne avec une ligne de
-    commande. Rattacher à la diapositive précédente : c'est aussi pourquoi le
-    `.ipynb` se versionne mal.
+    Dernière ligne : un notebook donné à quelqu'un d'autre demande le bon
+    noyau, les bonnes bibliothèques et des cellules exécutées dans l'ordre
+    ; un script se donne avec une ligne de commande. C'est aussi pourquoi
+    le `.ipynb` se versionne mal.
 
-    Ne pas opposer les deux. Le notebook n'est pas un brouillon honteux et le
-    script n'est pas la version sérieuse : ce sont deux moments du même
-    travail.
+    Ne pas opposer les deux : ce sont deux moments du même travail.
   ]
 ]
 #d("À retenir")[
@@ -213,25 +205,25 @@
 
   #notes[
     L'ordre est celui de l'engagement croissant : rien à installer, puis
-    l'éditeur qu'ils ont déjà, puis un serveur qu'ils lancent eux-mêmes. Si le
-    réseau de la salle est mauvais, sauter la première et la montrer au
-    tableau.
+    l'éditeur qu'ils ont déjà, puis un serveur qu'ils lancent eux-mêmes.
+    Si le réseau de la salle est mauvais, sauter la première et la montrer
+    au tableau.
 
     Le contenu du notebook n'est pas neuf : c'est la lecture des premiers
-    octets, passée en annexe des diapositives parce qu'elle se prête mieux à
-    un notebook qu'à une projection. Ils y retrouvent le `50 4B 03 04` du
-    `.odt` et l'absence de signature des fichiers texte, mais en l'exécutant.
+    octets, passée en annexe des diapositives parce qu'elle se prête mieux
+    à un notebook qu'à une projection. Ils y retrouvent le `50 4B 03 04`
+    du `.odt` et l'absence de signature des fichiers texte, en
+    l'exécutant.
 
-    La dernière cellule est celle à faire attendre : elle copie le `.odt` sous
-    un nom en `.pdf`, relit les octets, et montre que le nom ment. C'est la
-    manipulation « Deux extensions échangées » faite par eux, en trois lignes.
+    Faire attendre la dernière cellule : elle copie le `.odt` sous un nom
+    en `.pdf`, relit les octets, et montre que le nom ment. C'est « Deux
+    extensions échangées » faite par eux, en trois lignes.
 
-    Sur le noyau à choisir dans l'éditeur : c'est la même question que
-    l'interpréteur de la partie 2, et la même réponse — `info01`. Le dire
-    ainsi plutôt que comme une nouveauté.
+    Le noyau à choisir dans l'éditeur est la même question que
+    l'interpréteur de la partie 2, et la même réponse : `info01`.
 
     Le fichier source est en MyST, donc du texte, donc comparable ligne à
-    ligne : c'est la diapositive « Deux formats de notebook », vérifiée sur le
-    support qu'ils ont sous les yeux.
+    ligne : « Deux formats de notebook » vérifié sur le support qu'ils ont
+    sous les yeux.
   ]
 ]
