@@ -8,11 +8,11 @@
 )
 // ------------------------------- Vocabulaire --------------------------------
 
+// --------------------------------------------
 #d("Logiciel, application, app")[
   #annonce[
     « Logiciel » est le terme général. Une application est un logiciel destiné
-    à une tâche de l'utilisateur ; « appli » et « app » en sont des
-    abréviations, pas d'autres objets.
+    à une tâche de l'utilisateur ; souvent abrégé par « appli » et « app ».
   ]
 
   #block(
@@ -53,13 +53,14 @@
     « App » est l'abréviation anglaise d'_application_, répandue par les
     magasins d'applications des téléphones. Le mot ne désigne pas une
     technologie particulière : le même logiciel existe souvent en site web, en
-    programme de bureau et en application mobile. Ne pas laisser croire qu'une
-    app serait « plus légère » ou « moins un vrai logiciel ».
+    programme de bureau et en application mobile.
   ]
 ]
+
+// --------------------------------------------
 #d("Le système d'exploitation")[
   #annonce[
-    Un programme ne s'adresse pas au matériel : il passe par le système.
+    Un programme ne s'adresse pas directement au matériel : il passe par le système.
   ]
 
   #couche(
@@ -85,6 +86,8 @@
     cours 5.
   ]
 ]
+
+// --------------------------------------------
 #d("Téléphone et application web")[
   #v(0.5em)
   #question(1)[Quel système d'exploitation tourne sur votre téléphone ?]
@@ -98,13 +101,7 @@
   #notes[
     Première question, réponse attendue : Android ou iOS. Ordre de
     grandeur mondial si elle est demandée : environ 70 % Android, 30 % iOS
-    (StatCounter, 2026). Personne ne nomme « Linux » alors qu'Android en
-    est un : c'est le point à relever.
-
-    Deuxième question : laisser venir les réponses sans corriger. Attendu
-    « un site où on fait des choses », « ça marche sans installer ». Les
-    exemples viennent seuls. Les deux diapositives suivantes donnent la
-    réponse.
+    (StatCounter, 2026). Eventuelleent évouer le lien entre Linux et Android
 
     La question n'est pas de vocabulaire : elle sert à faire remarquer que
     des tâches qui demandaient un logiciel installé se font dans un
@@ -112,6 +109,8 @@
     changé sans qu'on le dise.
   ]
 ]
+
+// --------------------------------------------
 #d("L'application web")[
   #annonce[
     Une application web fonctionne dans un navigateur, sans installation. Le
@@ -147,8 +146,8 @@
   ]
 
   #notes[
-    Le navigateur fait ici le travail d'un système d'exploitation : il
-    charge du code, l'exécute dans une machine virtuelle, lui donne du
+    Le navigateur fait ici le travail d'un système d'exploitation ou 
+    machine virtuelle : il charge du code, l'exécute, lui donne du
     stockage et un accès réseau, et l'empêche de toucher au reste de la
     machine. La documentation de Mozilla emploie le mot « machine
     virtuelle » pour le moteur qui exécute JavaScript et WebAssembly, ce
@@ -156,55 +155,67 @@
 
     Une page web n'est donc plus un document : c'est un programme qu'on
     n'installe pas.
-
-    Ne pas entrer dans les technologies : la conséquence est à la
-    diapositive suivante.
   ]
 ]
+
+// --------------------------------------------
 #d("Où s'exécute une application web ?")[
   #annonce[
-    Deux applications d'apparence identique peuvent calculer à deux endroits
-    différents, et la plupart calculent aux deux. C'est ce qui décide du sort
-    de vos fichiers.
+    Les calculs d'une application web s'exécutent soit dans le navigateur, sur
+    votre machine, soit sur un serveur distant. La plupart des applications
+    répartissent le travail entre les deux.
   ]
 
-  #tableau(
-    columns: (auto, 1fr, 1fr),
-    align: left + horizon,
-    [], [Dans le navigateur], [Sur un serveur],
-    [Votre fichier], [ne quitte pas la machine], [part sur le réseau],
-    [Sans connexion], [peut continuer], [s'arrête],
-    [Qui calcule], [votre processeur], [celui du service],
-    [Exemples], [retouche d'image en ligne], [traduction, IA générative],
-    [Le cas courant : les deux],
-      [l'affichage, la mise en page, les interactions],
-      [les données, la recherche, les traitements lourds],
+  #face-a-face(
+    panneau("Dans le navigateur, sur votre machine")[
+      #block(inset: 9pt, width: 100%, height: 116pt,
+             stroke: 0.8pt + estompe.lighten(50%))[
+        #set text(size: 14.5pt)
+        L'affichage des pages et les interactions. Votre processeur travaille.
+        #v(1fr)
+        #text(fill: estompe)[retouche d'image en ligne]
+      ]
+    ],
+    panneau("Sur un serveur, à distance")[
+      #block(inset: 9pt, width: 100%, height: 116pt,
+             fill: accent.lighten(93%), stroke: 0.8pt + accent.lighten(50%))[
+        #set text(size: 14.5pt)
+        La recherche dans les données et les traitements lourds. Le service
+        calcule, les résultats sont transmis via le réseau.
+        #v(1fr)
+        #text(fill: estompe)[traduction, IA générative]
+      ]
+    ],
   )
 
-  #legende[
-    Les deux colonnes sont les cas purs ; une application ordinaire répartit
-    son travail entre elles. Reste à savoir où part le fichier déposé.
+  #v(0.6em)
+  #block(
+    width: 100%, inset: (x: 14pt, y: 9pt), fill: gris,
+    stroke: 1pt + accent.lighten(62%),
+  )[
+    #set text(size: 15pt)
+    Ce qui est traité à distance sort de votre ordinateur. Le partage local/distant 
+    suit souvent la complexité du calcul.
   ]
 
   #notes[
-    Dernière ligne, la plus importante, et c'est pourquoi elle vient après
-    les cas purs : presque aucune application web n'est entièrement d'un
-    côté. Une messagerie affiche chez vous mais cherche dans vos messages
-    sur son serveur. La question utile n'est pas « où est-ce que ça tourne
-    ? » mais « qu'est-ce qui part, et quand ? ».
+    Presque aucune application web n'est entièrement
+    d'un côté. Une messagerie affiche chez vous mais cherche dans vos
+    messages sur son serveur. La question utile n'est pas « où est-ce que
+    ça tourne ? » mais « qu'est-ce qui part, et quand ? ».
 
-    Rattacher à la manipulation vidéo de fin de partie : l'outil en ligne
-    proposé annonce que le rendu se fait sur l'appareil, d'où ni compte ni
-    connexion permanente.
-
-    Ne pas ouvrir le dossier des données personnelles. « Ce qu'on dépose
-    quelque part y reste » est semé ici et repris au cours 5.
+    Le critère de complexité explique les exemples : recadrer une image
+    tient dans le navigateur, entraîner ou faire tourner un grand modèle
+    non. Il explique aussi les évolutions : ce qui se calculait à distance
+    il y a dix ans se calcule parfois en local aujourd'hui.
   ]
 ]
+
+// --------------------------------------------
 #d("Entrées et sorties d'un programme")[
   #annonce[
     Ce qu'un programme reçoit et ce qu'il produit sont de deux natures : un
-    fichier, qui se conserve, ou un périphérique, qui ne garde rien.
+    fichier, qui se conserve, ou un flux vers un périphérique, qui ne garde rien.
   ]
 
   #layout(dispo => context {
@@ -250,29 +261,26 @@
   ]
 
   #notes[
-    Schéma réutilisé tout le semestre. Les deux colonnes se répondent : un
-    programme ne reçoit pas seulement des fichiers, et n'en produit pas
-    seulement.
-
-    Le réflexe à corriger est à droite : ils pensent qu'un programme «
-    affiche » et oublient qu'il peut écrire. Le module s'intéresse à ce
-    qui laisse un fichier, parce qu'un fichier se relit, se compare, se
-    versionne, et surtout circule d'un logiciel à l'autre.
-
+    Le module s'intéresse à ce qui laisse un fichier, parce qu'un fichier
+    se relit, se compare, se versionne, et surtout circule d'un logiciel
+    à l'autre.
+    
+    Pas de sauvegarde en RAM. 
+    
     Le réseau est du côté des périphériques, avec le clavier et la souris
     : pour le programme, ce sont trois choses qu'on lit sans qu'elles
-    restent. Repris au cours 5.
-
-    D'où vient le programme lui-même : question ouverte ici, traitée à la
-    partie « Programmation ».
+    restent.
   ]
 ]
 // --------------------------- Fichiers et extensions -------------------------
-
-#d("Ce qu'un fichier permet")[
+// --------------------------------------------
+#d("Utilisation / utilité d'un fichier")[
   #annonce[
-    Un fichier est ce qui reste quand le programme s'arrête. C'est pour cela
-    qu'il faut savoir le nommer, reconnaître ce qu'il contient et le retrouver.
+    Un fichier est une sauvegarde d'un résultat. Peut être un résultat / état 
+    temporaire (reprendre l'édition d'un rapport) ou au résultat final (imprimer
+    un document). 
+    C'est pour cela qu'il faut savoir le nommer, reconnaître 
+    ce qu'il contient et le retrouver.
   ]
 
   #tableau(
@@ -295,23 +303,22 @@
   ]
 
   #notes[
-    Une minute. Sans elle, la partie enchaîne sur les extensions et les
-    chemins sans avoir dit pourquoi ces détails méritent qu'on s'y arrête.
-
-    Le fil vient de la diapositive précédente : des deux natures de
-    sortie, c'est le fichier qui reste. Les quatre lignes disent ce que ce
+     c'est le fichier qui reste. Les quatre lignes disent ce que ce
     « rester » permet, toutes vraies dès cette semaine — les trois
     premières aujourd'hui, la quatrième au cours 2.
 
-    Deuxième ligne, celle qui porte le plus loin : un format de fichier
+    Deuxième ligne: un format de fichier
     est ce sur quoi deux logiciels se mettent d'accord sans se connaître.
     La partie 3 y revient.
   ]
 ]
+
+// --------------------------------------------
 #d("Fichier, extension et type de fichier")[
   #annonce[
     L'extension est la fin du nom, après le dernier point. Le système s'en
-    sert pour choisir le logiciel à lancer ; elle ne dit rien du contenu.
+    sert pour choisir le logiciel à lancer. 
+    L'extension est une indication sur le type de contenu mais pas une garantie.
   ]
 
   #align(center)[
@@ -348,9 +355,11 @@
     tout le semestre.
   ]
 ]
+
+// --------------------------------------------
 #d("Reconnaître un format à son extension")[
   #annonce[
-    Pour chacune, dites de quel type de contenu il s'agit, et si le fichier
+    Pour chacune de ces extensions, dites de quel type de contenu il s'agit, et si le fichier
     est lisible dans un éditeur de texte.
   ]
 
@@ -365,7 +374,7 @@
 
   #notes[
     Interroger la salle, en trois minutes, sans commenter chaque réponse. Les
-    deux qui font débat : `.svg` (une image, mais du texte XML) et `.csv` (du
+    deux qui peuvent faire débat : `.svg` (une image, mais du texte XML) et `.csv` (du
     texte, pas un fichier Excel). Ne pas s'attarder sur `.tif`.
 
     La dernière ligne est celle du module, et elle est volontairement groupée :
@@ -373,6 +382,8 @@
     `.yaml` ; c'est attendu, la partie suivante y répond.
   ]
 ]
+
+// --------------------------------------------
 #d("Reconnaître un format à son extension — réponses")[
   #grid(
     columns: (1fr, 1fr, 1fr, 1fr),
@@ -404,17 +415,15 @@
     Les six formats texte de la grille : `.svg`, `.csv`, `.py`, `.md`, `.json`
     et `.yaml`. Deux autres sont des archives ZIP de XML, `.odt` et `.xlsx`,
     ouvertes en direct plus loin dans la séance.
-
-    Faire compter les six par la salle plutôt que de les énoncer : c'est le
-    critère de tout le module, et il vaut d'être trouvé une fois.
   ]
 ]
-// --------------------------- Chemins et adresses ----------------------------
 
+// --------------------------- Chemins et adresses ----------------------------
+// --------------------------------------------
 #d("Le chemin d'un fichier")[
   #annonce[
-    Un chemin dit où trouver un fichier, en partant d'un point que la machine
-    connaît. Chaque partie du chemin réduit la recherche.
+    Un chemin dit où trouver un fichier dans l'aborescence des dossiers, 
+    en partant d'un point que la machine connaît (racine).
   ]
 
   #align(center)[
@@ -453,6 +462,8 @@
     que le séparateur diffère, et que Python accepte la barre normale partout.
   ]
 ]
+
+// --------------------------------------------
 #d("L'adresse d'une page")[
   #annonce[
     Une adresse web est un chemin de fichier, précédé de la machine sur
@@ -499,7 +510,7 @@
   ]
 ]
 // ------------------------ TD : fichiers et extensions -----------------------
-
+// --------------------------------------------
 #separateur-manip(
   "Fichiers, formats et extensions",
   annonce: "Sur votre machine. Premier geste : afficher les extensions, que Windows masque par défaut.",
@@ -531,11 +542,12 @@
     page décrite (PDF, texte vectoriel) et une page photographiée (PNG, JPEG).
 
     Faire remarquer la perte : le PDF garde le texte mais fige la mise en page ;
-    l'image perd tout sauf l'apparence. Chaque conversion enlève quelque chose,
-    et rien ne la remonte.
+    l'image perd tout sauf l'apparence.
   ]
 ]
-#d("Renommer, et voir qui se laisse tromper")[
+
+// --------------------------------------------
+#d("Renommer une extension, et voir qui se laisse tromper")[
   #annonce[
     Renommer des copies de `raven.odt` avec `F2`, puis les ouvrir par
     double-clic.
@@ -579,7 +591,9 @@
     sans quoi `F2` ne montre pas ce qu'on renomme.
   ]
 ]
-#d[Contenu de l'archive `.odt`][
+
+// --------------------------------------------
+#d[`.odt` un format qui est une archive de plusieurs fichiers][
   #annonce[
     Renommer `raven.odt` en `raven.zip`, puis l'ouvrir avec le gestionnaire
     d'archives : il s'extrait comme n'importe quelle archive.
@@ -610,6 +624,8 @@
     la séparation contenu / présentation déjà vue avec HTML et CSS.
   ]
 ]
+
+// --------------------------------------------
 #d[`content.xml`, avant et après][
   #annonce[
     Ouvrir `content.xml` avec un éditeur de texte : le Bloc-notes suffit,
@@ -667,6 +683,8 @@
     verra à la manipulation suivante.
   ]
 ]
+
+// --------------------------------------------
 #d("Modifier un document sans logiciel de bureautique")[
   #annonce[
     Éditer les fichiers extraits, recompresser, renommer en `.odt` : LibreOffice
@@ -699,6 +717,8 @@
     C'est l'argument à retenir, plus que la manipulation elle-même.
   ]
 ]
+
+// --------------------------------------------
 #d("Ouvrir une page html depuis son disque")[
   #annonce[
     Double-cliquer sur `raven_brut.html` : le navigateur l'ouvre sans réseau.

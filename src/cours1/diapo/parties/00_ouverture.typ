@@ -10,6 +10,8 @@
   auteur: "1re année géomatique",
   date: "15 septembre",
 )
+
+// --------------------------------------------
 #d("Objectif du cours")[
   #annonce[
     Consolider ou acquérir les bases informatiques nécessaires aux autres
@@ -36,11 +38,15 @@
     ou rendu de projet sous forme de code.
   ]
 ]
+
+// --------------------------------------------
 #d("Objectifs du module liés à la programmation")[
   #annonce[
     Maîtriser les bonnes pratiques de gestion d'un projet de code :
-    documentation (`README`), organisation des fichiers, et usage des
-    bibliothèques permettant d'écrire un programme facile à utiliser et à
+    documentation (`README`), organisation des fichiers, usage des
+    bibliothèques pour faciliter la programmation, et des environnements 
+    pour faciliter la contruction ET la distribution d'un programme. 
+    Savoir construire un programma mais aussi le rendre facile à utiliser et à
     reprendre.
   ]
 
@@ -60,11 +66,12 @@
     aussi de ce module.
   ]
 ]
+
+// --------------------------------------------
 #d("Les trois compétences du module")[
   #annonce[
-    Trois savoir-faire reviennent à chaque séance. Une culture des ordres de
-    grandeur s'y ajoute par apartés, pour expliquer pourquoi les outils sont
-    faits ainsi.
+    Trois savoir-faire reviennent à chaque séance. Des notion  de culture informatique les accompagnent, 
+    rattachés aux enseignements et TD qui viennent d'être vus.
   ]
 
   #grid(
@@ -93,18 +100,10 @@
   #notes[
     Les trois blocs sont les fils rouges : chaque séance en reprend au
     moins un, les deux TD les mobilisent ensemble.
-
-    Le bandeau n'est pas un quatrième domaine, d'où sa forme différente.
-    Il désigne ce qui revient en apartés : ce que pèse un fichier, ce que
-    coûte un calcul, ce qui circule sur le réseau, ce qu'on ne met pas
-    dans un dépôt. La séance 5 lui est consacrée.
-
-    Il porte le « pourquoi » des gestes demandés : on ne versionne pas du
-    binaire, on ne recopie pas une boucle Python là où numpy va cent fois
-    plus vite. Ces règles ne se retiennent que si l'ordre de grandeur qui
-    les justifie a été donné une fois.
   ]
 ]
+
+// --------------------------------------------
 #d("Ce que vous avez peut-être déjà vu")[
   #annonce[
     Une bonne part de la première séance reprend des notions déjà au programme
@@ -133,48 +132,15 @@
     Trente secondes. Dire qu'on a conscience que ce sera une redite pour
     une partie de la salle.
 
-    Formulation qui passe bien : ce qui est reproché aux étudiants dans
+    Justification, origine du choix: ce qui est reproché aux étudiants dans
     les autres cours n'est pas toujours l'algorithmique. C'est un chemin
     de fichier faux, un environnement mal installé, un code qui ne
     s'installe pas sur une autre machine. Ces gestes ne sont enseignés
     nulle part ailleurs.
   ]
 ]
-#d("Le rythme de la première partie")[
-  #annonce[
-    La première partie reprend ces notions, et avance donc plus vite que les
-    suivantes. C'est la seule de la séance où le rythme est délibérément élevé.
-  ]
 
-  #v(0.4em)
-  #bloc-titre("Point d'attention")[
-    #set text(size: 19pt)
-    Si quelque chose n'est pas clair dans cette partie, posez la question
-    tout de suite, sans attendre la fin.
-    #v(0.5em)
-    Tout ce qui suit s'appuie dessus. Une notion laissée de côté aujourd'hui
-    se paiera sur les six séances suivantes, et c'est le retard pris au début
-    qui est le plus difficile à rattraper.
-  ]
-
-  #notes[
-    C'est le contrat de la séance : s'y arrêter.
-
-    Dire les deux moitiés dans cet ordre. D'abord la raison du rythme, qui
-    est un choix : la partie 1 reprend ce qui a pu être vu au lycée, et le
-    temps gagné va aux manipulations. Ensuite la contrepartie, qui est à
-    leur charge.
-
-    Formulation plus efficace qu'une invitation générale à poser des
-    questions : ne pas comprendre est ici probable et normal, parce qu'on
-    va vite exprès. La question n'est pas un aveu, c'est ce que le rythme
-    suppose.
-
-    Le passage à surveiller est le vocabulaire de la partie 1 — logiciel,
-    application, format, extension, chemin. Ce sont des mots qu'ils
-    croient connaître.
-  ]
-]
+// --------------------------------------------
 #d("Organisation : sept séances de deux heures")[
   #annonce[
     Chaque séance alterne des explications courtes et des manipulations faites
@@ -207,10 +173,36 @@
   auteur: "1re année géomatique",
   date: "15 septembre",
 )
+
+// --------------------------------------------
+#d("Le rythme de la première partie")[
+  #annonce[
+    La première partie reprend des notions qui devraient être connues, 
+    et avance donc plus vite que les suivantes. 
+  ]
+
+  #v(0.4em)
+  #bloc-titre("Point d'attention")[
+    #set text(size: 19pt)
+    Si quelque chose n'est pas clair dans cette partie, posez la question
+    tout de suite, sans attendre la fin.
+    #v(0.5em)
+    Tout ce qui suit s'appuie dessus. Une notion laissée de côté aujourd'hui
+    se paiera sur les six séances suivantes, et c'est le retard pris au début
+    qui est le plus difficile à rattraper.
+  ]
+
+  #notes[
+    La raison du choix de rythme : la partie 1 reprend ce qui a pu être vu au lycée, 
+    préférence à accorder plus de temps pour la suite du cours et les TD pratiques
+  ]
+]
+
+// --------------------------------------------
 #d("Les fichiers du cours")[
   #annonce[
-    Les fichiers des manipulations sont rangés par séance, puis par
-    manipulation. Chaque ouverture de manipulation rappelle son dossier.
+    Les fichiers nécessaires aux TD sont rangés par séance, puis par
+    TD. Chaque ouverture de TD rappelle son dossier.
   ]
 
   #tableau(
@@ -232,25 +224,16 @@
     À montrer une fois, et à rappeler à chaque manipulation. Sans quoi la
     question « on est où, là ? » revient à chaque bloc sur machine.
 
-    Faire ouvrir le dossier du cours dans l'éditeur maintenant : c'est le
-    dossier de projet de toute la séance, et les chemins affichés sur les
-    ouvertures de manipulation en partent.
+    Faire ouvrir le dossier du cours dans l'éditeur maintenant pour vérifier
+    qu'ils l'ont tous.
 
-    Les deux noms réservés sont la seule règle à retenir : `produit/` est
-    refabricable, `fourni/` ne l'est pas. Elle dit ce qu'on peut effacer
-    sans crainte. Les fichiers de `produit/` ne sont pas distribués : ils
-    se fabriquent avec `make_data.py` au début de la première
-    manipulation. Le dire, sinon la salle les cherche.
-
-    Les tuiles du bonus vidéo sont dans un `fourni/`, les conditions
-    d'usage d'OpenStreetMap interdisant de les retélécharger en masse.
-
-    À compléter avant la séance : la façon dont le dossier leur est remis
+    REM : À compléter avant la séance : la façon dont le dossier leur est remis
     n'est écrite nulle part dans le dépôt. Nommer ici le canal employé, et
     le rappeler sur la consigne d'installation envoyée avant la rentrée.
   ]
 ]
 
+// --------------------------------------------
 #d("Contenu de la séance")[
   #annonce[
     Cinq parties, des notions les plus générales jusqu'à l'installation de
@@ -273,9 +256,6 @@
   ]
 
   #notes[
-    Diapositive d'orientation : on y revient à chaque changement de
-    partie, en s'appuyant sur les diapositives de séparation.
-
     Les diapositives brunes sont les manipulations : sept, dans les cinq
     parties. Annoncer que la séance n'est pas un exposé continu.
 
@@ -283,7 +263,5 @@
     comment on en écrit un, ce qu'un fichier contient vraiment, comment on
     installe de quoi travailler, et l'outil qui réunit tout cela.
 
-    Les durées sont le budget visé, pas le contenu du deck, plus large :
-    ce qui n'est pas traité part en annexe.
   ]
 ]
