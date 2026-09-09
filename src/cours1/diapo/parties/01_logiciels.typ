@@ -4,7 +4,7 @@
 
 #separateur(
   "Logiciels et formats de fichier",
-  annonce: "Première partie du module",
+  annonce: "Ce qu'un logiciel fait, où il s'exécute et ce qu'il laisse comme fichiers. Savoir cela avant d'apprendre à en écrire un.",
 )
 // ------------------------------- Vocabulaire --------------------------------
 
@@ -212,9 +212,9 @@
 ]
 
 // --------------------------------------------
-#d("Entrées et sorties d'un programme")[
+#d("Entrées et sorties d'un logiciel")[
   #annonce[
-    Ce qu'un programme reçoit et ce qu'il produit sont de deux natures : un
+    Ce qu'un logiciel reçoit et ce qu'il produit sont de deux natures : un
     fichier, qui se conserve, ou un flux vers un périphérique, qui ne garde rien.
   ]
 
@@ -234,7 +234,7 @@
     // Les colonnes latérales portent deux boîtes, celle du milieu une seule :
     // la hauteur commune est celle de la plus haute des trois colonnes.
     let hauteur = calc.max(
-      measure(bloc("Traitement", "le programme"), width: largeur).height,
+      measure(bloc("Traitement", "le logiciel"), width: largeur).height,
       ..(entrees + sorties).map(
         s => 2 * measure(bloc(..s), width: largeur).height + gouttiere,
       ),
@@ -249,7 +249,7 @@
       align: horizon,
       colonne(entrees),
       fleche,
-      bloc("Traitement", "le programme", plein: true, hauteur: hauteur),
+      bloc("Traitement", "le logiciel", plein: true, hauteur: hauteur),
       fleche,
       colonne(sorties),
     )
@@ -268,7 +268,7 @@
     Pas de sauvegarde en RAM. 
     
     Le réseau est du côté des périphériques, avec le clavier et la souris
-    : pour le programme, ce sont trois choses qu'on lit sans qu'elles
+    : pour le logiciel, ce sont trois choses qu'on lit sans qu'elles
     restent.
   ]
 ]
@@ -826,5 +826,68 @@
     Fichiers dans `data/cours1/produit/`. Si `style.css` n'est pas dans le même
     dossier que le `.html`, la page s'affiche sans mise en forme : bonne
     occasion de reparler des chemins relatifs.
+  ]
+]
+
+
+// ---------------------- Vocabulaire : où va la programmation ----------------
+// --------------------------------------------
+#d("Les domaines de la programmation")[
+  #annonce[
+    Ces six expressions nomment des domaines de la programmation. Chacune se
+    rattache à un des objets vus dans cette partie : dites lequel.
+  ]
+
+  #v(0.3em)
+  #tableau(
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [L'expression], [L'objet de cette partie qu'elle vise],
+    [programmation web], [],
+    [programmation mobile], [],
+    [programmation système], [],
+    [programmation embarquée], [],
+    [programmation graphique], [],
+    [programmation scientifique], [],
+  )
+
+  #notes[
+    Trois minutes, à l'oral. L'exercice n'est pas de définir chaque domaine
+    mais de constater que les objets de la partie — système, navigateur,
+    fichier, périphérique — sont ce que ces métiers manipulent.
+
+    Deux termes reviennent souvent et manquent ici : la programmation réseau,
+    du côté des périphériques avec le clavier et l'écran, et le développement
+    de données, qui est de la programmation scientifique appliquée à des
+    fichiers plus gros. Les ajouter à l'oral si la question vient.
+
+    Ne pas laisser croire à des cases étanches : une application de
+    cartographie fait du web, du graphique et du scientifique à la fois.
+  ]
+]
+
+// --------------------------------------------
+#d("Les domaines de la programmation — réponses")[
+  #tableau(
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [L'expression], [L'objet de cette partie qu'elle vise],
+    [programmation web], [l'application web : le navigateur l'exécute, l'adresse désigne ce qu'on va chercher],
+    [programmation mobile], [l'application installée, sur le système d'exploitation du téléphone],
+    [programmation système], [le système d'exploitation, qui donne aux logiciels l'accès au matériel],
+    [programmation embarquée], [le matériel presque seul : peu ou pas de système, et rarement des fichiers],
+    [programmation graphique], [la sortie vers l'écran, et les formats d'image],
+    [programmation scientifique], [les fichiers de données en entrée, les résultats et figures en sortie],
+  )
+
+  #legende[
+    Les intitulés sont ceux des offres d'emploi et des fiches métier, où ils
+    servent surtout à dire sur quoi le logiciel s'exécute.
+  ]
+
+  #notes[
+    La partie 2 change de question : non plus sur quoi un logiciel s'exécute,
+    mais comment on l'écrit. Le module ne fait aucun de ces domaines en
+    particulier : il travaille ce qui leur est commun, la forme du projet.
   ]
 ]
