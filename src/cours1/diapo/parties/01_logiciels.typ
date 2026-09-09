@@ -315,13 +315,42 @@
 ]
 
 // --------------------------- Chemins et adresses ----------------------------
+
 // --------------------------------------------
-#d("Le chemin d'un fichier")[
+#d("Quizz : vocabulaire associé aux chemins de fichier")[
   #annonce[
-    Un chemin dit où trouver un fichier dans l'aborescence des dossiers, 
-    en partant d'un point que la machine connaît (racine).
+    Un chemin dit où trouver un fichier dans l'arborescence des dossiers.
+    Plusieurs mots en désignent les parties : dites à quoi chacun correspond
+    dans cet exemple.
   ]
 
+  #align(center)[
+    #text(font: police-code, size: 25pt, fill: encre)[C:\\Users\\alice\\Documents\\raven.odt]
+  ]
+
+  #v(0.5em)
+  #tableau(
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [Le mot], [Ce qu'il désigne dans l'exemple],
+    [la racine, ou le disque], [],
+    [un nom de dossier], [],
+    [le nom du fichier], [],
+    [le chemin du fichier], [],
+    [le dossier parent], [],
+  )
+
+  #notes[
+    Trois minutes, à l'oral, sans commenter chaque réponse : la diapositive
+    suivante donne les réponses.
+
+    Racine : le point de départ que la machine connaît. `C:` désigne le
+    disque sous Windows ; sous macOS et Linux, la racine est `/`
+  ]
+]
+
+// --------------------------------------------
+#d("Quizz : vocabulaire associé aux chemins de fichier - Réponse")[
   #align(center)[
     #grid(
       columns: (auto, auto, auto, auto),
@@ -336,71 +365,6 @@
       text(size: 14pt, fill: estompe)[le nom],
       text(size: 14pt, fill: accent)[l'extension],
     )
-  ]
-
-  #v(0.6em)
-  #tableau(
-    columns: (auto, 1fr),
-    align: left + horizon,
-    [Ce qui change d'un système à l'autre], [Exemple],
-    [Windows sépare par une barre inversée], [`C:\Users\alice\raven.odt`],
-    [macOS et Linux séparent par une barre], [`/home/alice/raven.odt`],
-    [Un chemin relatif part du dossier courant], [`produit\raven.odt`],
-  )
-
-  #notes[
-    Le chemin absolu part du disque, le chemin relatif du dossier où l'on se
-    trouve. C'est la distinction qui fera échouer la moitié des scripts au
-    cours 3 : « le fichier existe pourtant » signifie presque toujours qu'on
-    ne l'a pas cherché depuis le bon dossier.
-
-    Ne pas entrer dans les subtilités de Windows maintenant. Retenir seulement
-    que le séparateur diffère, et que Python accepte la barre normale partout.
-  ]
-]
-
-// --------------------------------------------
-#d("Les mots d'un chemin")[
-  #annonce[
-    Cinq mots servent à désigner les parties d'un chemin. Dites à quoi chacun
-    correspond dans cet exemple.
-  ]
-
-  #align(center)[
-    #text(font: police-code, size: 25pt, fill: encre)[C:\\Users\\alice\\Documents\\raven.odt]
-  ]
-
-  #v(0.6em)
-  #tableau(
-    columns: (auto, 1fr),
-    align: left + horizon,
-    [Le mot], [Ce qu'il désigne dans l'exemple],
-    [la racine, ou le disque], [],
-    [un nom de dossier], [],
-    [le nom du fichier], [],
-    [le chemin du fichier], [],
-    [le dossier parent], [],
-  )
-
-  #notes[
-    Trois minutes, à l'oral, sans commenter chaque réponse : la diapositive
-    suivante les donne toutes.
-
-    Les deux qui font hésiter sont « le nom du fichier », que beaucoup
-    donnent sans l'extension, et « le dossier parent », qu'on confond avec
-    le chemin entier. Ce sont les deux mots employés dans les messages
-    d'erreur qu'ils liront au cours 3.
-
-    Racine : le point de départ que la machine connaît. `C:` désigne le
-    disque sous Windows ; sous macOS et Linux, la racine est `/` et les
-    disques s'y rattachent, ce qui suffit pour aujourd'hui.
-  ]
-]
-
-// --------------------------------------------
-#d("Les mots d'un chemin — réponses")[
-  #align(center)[
-    #text(font: police-code, size: 25pt, fill: encre)[C:\\Users\\alice\\Documents\\raven.odt]
   ]
 
   #v(0.6em)
@@ -428,10 +392,47 @@
 ]
 
 // --------------------------------------------
-#d("L'adresse d'une page")[
+#d("Le chemin d'un fichier")[
+  #annonce[
+    Un chemin dit où trouver un fichier dans l'arborescence des dossiers. Un
+    chemin #text(fill: attention, weight: demi-gras)[absolu] part de la racine,
+    un chemin #text(fill: attention, weight: demi-gras)[relatif] du dossier où
+    l'on se trouve.
+  ]
+
+  #v(0.5em)
+  #tableau(
+    columns: (auto, 1fr, 1fr),
+    align: left + horizon,
+    [], [Windows], [macOS et Linux],
+    [Le séparateur], [la barre inversée `\`], [la barre `/`],
+    [Un chemin absolu], [`C:\Users\alice\raven.odt`], [`/home/alice/raven.odt`],
+    [Un chemin relatif], [`produit\raven.odt`], [`produit/raven.odt`],
+    [Le dossier parent], [`..\raven.odt`], [`../raven.odt`],
+  )
+
+  #notes[
+    C'est la distinction qui fera échouer la moitié des scripts au cours 3 :
+    « le fichier existe pourtant » signifie presque toujours qu'on ne l'a pas
+    cherché depuis le bon dossier.
+
+    Deux notations à donner en passant : `..` est le dossier parent, `.` le
+    dossier courant. Elles s'écrivent pareil partout, seul le séparateur qui
+    les suit change.
+
+    Ne pas entrer dans les subtilités de Windows maintenant. Retenir seulement
+    que le séparateur diffère, et que Python accepte la barre normale partout,
+    y compris sous Windows.
+  ]
+]
+
+// --------------------------------------------
+#d("L'adresse d'une page web - URL")[
   #annonce[
     Une adresse web est un chemin de fichier, précédé de la machine sur
-    laquelle il faut aller le chercher.
+    laquelle il faut aller le chercher. On l'appelle une
+    #sigle("URL")[#initiale("U")niform #initiale("R")esource #initiale("L")ocator],
+    l'adresse qui localise une ressource.
   ]
 
   #align(center)[
@@ -464,9 +465,7 @@
 
   #notes[
     C'est la diapositive qui explique pourquoi une page ouverte par double-clic
-    affiche `file:///` : aucun serveur, aucun réseau, le navigateur lit un
-    fichier du disque. Point repris tout de suite en manipulation, et utile
-    tout le semestre.
+    affiche `file:///`.
 
     Le `///` surprend toujours : après `file:`, la place de la machine est vide,
     puisque c'est la machine locale. On peut le faire remarquer sans le
@@ -544,8 +543,8 @@
     texte, pas un fichier Excel). Ne pas s'attarder sur `.tif`.
 
     La dernière ligne est celle du module, et elle est volontairement groupée :
-    ce sont les quatre fichiers qu'ils éditeront eux-mêmes. Peu sauront nommer
-    `.yaml` ; c'est attendu, la partie suivante y répond.
+    ce sont les quatre fichiers qu'ils éditeront eux-mêmes. Probable que les étudiants
+    ne les connaissent pas.
   ]
 ]
 
@@ -589,13 +588,16 @@
 // --------------------------------------------
 #separateur-manip(
   "Fichiers, formats et extensions",
-  annonce: "Sur votre machine. Premier geste : afficher les extensions, que Windows masque par défaut.",
   dossier: "data/cours1/produit/",
 )
 #d("Un même document, trois formats")[
   #annonce[
     Ouvrir `data/cours1/produit/raven.odt` dans LibreOffice Writer, puis
     l'enregistrer sous deux autres formes et comparer ce qu'il en reste.
+  ]
+
+  #avertissement[
+    Sur votre machine. Premier geste : vérifier que les extensions sont affichés, que Windows masque par défaut.
   ]
 
   #tableau(

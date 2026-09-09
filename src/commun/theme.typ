@@ -101,6 +101,16 @@
 
 // Petites capitales : ni Fira Sans ni Lato ne portent de table `smcp`, donc
 // `smallcaps()` resterait sans effet. On les fabrique.
+// Un sigle et son développement. Le sigle porte la couleur des termes de
+// vocabulaire, et les initiales du développement la reprennent : on voit d'où
+// viennent les lettres sans avoir à le dire. `initiale` sert aussi seule,
+// quand le développement est écrit ailleurs.
+#let initiale(lettre) = text(fill: attention, weight: demi-gras)[#lettre]
+
+// Le corps tient sur une ligne : un retour avant le crochet fermant laisserait
+// une espace, et le sigle est presque toujours suivi d'une virgule.
+#let sigle(nom, developpement) = [#text(fill: attention, weight: demi-gras)[#nom], pour #emph(developpement)]
+
 #let petites-capitales(corps) = text(size: 0.85em, tracking: 0.08em)[
   #upper(corps)
 ]
