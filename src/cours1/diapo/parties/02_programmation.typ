@@ -39,20 +39,75 @@
     Motiver avant de définir : renommer 300 photos par leur date prend une
     soirée à la main, quelques secondes par programme ; la deuxième
     exécution ne coûte rien, et une erreur de recopie devient
-    systématique, donc repérable. C'est le genre de programme demandé ici
-    — automatisation et traitement de données, pas applications.
+    systématique, donc repérable. 
 
     Trois mots à séparer : « programmation » nomme l'activité, « programme
     » son résultat, « application » ce que reçoit celui qui s'en sert.
-    Dire que la frontière entre les deux derniers est floue : un même code
-    se lance depuis un terminal, puis s'empaquette avec une interface. Ce
-    qui change est ce que reçoit l'utilisateur.
-
-    Reprendre le schéma entrée → traitement → sortie du début de séance :
-    la boîte du milieu est un fichier, et les deux diapositives suivantes
-    disent comment il est fabriqué.
   ]
 ]
+
+// --------------------------------------------
+#d("Les domaines de la programmation")[
+  #annonce[
+    Ces six expressions nomment des domaines de la programmation. Chacune se
+    rattache à un des objets vus dans la partie précédente : dites lequel.
+  ]
+
+  #v(0.3em)
+  #tableau(
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [L'expression], [L'objet de cette partie qu'elle vise],
+    [programmation web], [],
+    [programmation mobile], [],
+    [programmation système], [],
+    [programmation embarquée], [],
+    [programmation graphique], [],
+    [programmation scientifique], [],
+  )
+
+  #notes[
+    Trois minutes, à l'oral. L'exercice n'est pas de définir chaque domaine
+    mais de constater que les objets de la partie — système, navigateur,
+    fichier, périphérique — sont ce que ces métiers manipulent.
+
+    Deux termes reviennent souvent et manquent ici : la programmation réseau,
+    du côté des périphériques avec le clavier et l'écran, et le développement
+    de données, qui est de la programmation scientifique appliquée à des
+    fichiers plus gros. Les ajouter à l'oral si la question vient.
+
+    Ne pas laisser croire à des cases étanches : une application de
+    cartographie fait du web, du graphique et du scientifique à la fois.
+  ]
+]
+
+// --------------------------------------------
+#d("Les domaines de la programmation — réponses")[
+  #tableau(
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [L'expression], [L'objet de cette partie qu'elle vise],
+    [programmation web], [l'application web : le navigateur l'exécute, l'adresse désigne ce qu'on va chercher],
+    [programmation mobile], [l'application installée, sur le système d'exploitation du téléphone],
+    [programmation système], [le système d'exploitation, qui donne aux logiciels l'accès au matériel],
+    [programmation embarquée], [le matériel presque seul : peu ou pas de système, et rarement des fichiers],
+    [programmation graphique], [la sortie vers l'écran, et les formats d'image],
+    [programmation scientifique], [les fichiers de données en entrée, les résultats et figures en sortie],
+  )
+
+  #legende[
+    Les intitulés sont ceux des offres d'emploi et des fiches métier, où ils
+    servent surtout à dire sur quoi le logiciel s'exécute.
+  ]
+
+  #notes[
+    La partie 2 change de question : non plus sur quoi un logiciel s'exécute,
+    mais comment on l'écrit. Le module ne fait aucun de ces domaines en
+    particulier : il travaille ce qui leur est commun, la forme du projet.
+  ]
+]
+
+// --------------------------------------------
 #d("Deux chemins du texte à l'exécution")[
   #annonce[
     Compiler traduit tout le programme une fois pour toutes. Interpréter lit
@@ -95,10 +150,12 @@
     Les noms de fichiers sont ceux de la manipulation à venir ; le dire
     une fois.
 
-    « Et Java ? » vient toujours : répondre en une phrase, les deux à la
-    fois.
+    Si question « Et Java ? » répondre en une phrase, les deux à la
+    fois comme js et JIT
   ]
 ]
+
+// --------------------------------------------
 #d("Code source et fichier exécutable")[
   #annonce[
     Au bout de la chaîne compilée, un fichier que le processeur lit et
@@ -135,6 +192,8 @@
     C'est la diapositive suivante.
   ]
 ]
+
+// --------------------------------------------
 #d("La place de l'interpréteur")[
   #annonce[
     Un programme compilé s'adresse directement au système. Un programme
@@ -177,6 +236,8 @@
     logiciel.
   ]
 ]
+
+// --------------------------------------------
 #d("Il n'existe pas qu'un interpréteur Python")[
   #annonce[
     « Python » nomme le langage. Plusieurs programmes savent l'exécuter, et
@@ -216,6 +277,8 @@
     réponse n'est pas de changer d'interpréteur.
   ]
 ]
+
+// --------------------------------------------
 #d("L'éditeur de code")[
   #annonce[
     Un éditeur de code réunit trois choses dans une fenêtre : à gauche

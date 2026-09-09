@@ -437,22 +437,18 @@
   ]
 
   #notes[
-    C'est la distinction qui fera échouer la moitié des scripts au cours 3 :
-    « le fichier existe pourtant » signifie presque toujours qu'on ne l'a pas
-    cherché depuis le bon dossier.
+    Intérêt pour la programmation, on ne connait pas a priori les chemins absolu
+    du dossier d'un utilisateur mais on peut connaitre/forcer une arborescence
+    relative pour un programme.
 
     Lire l'arborescence avant le tableau : les trois chemins désignent le
     même fichier, `raven.odt`, et ne diffèrent que par l'endroit d'où on le
-    demande. C'est la colonne de droite qui porte la leçon.
+    demande. 
 
     Deux notations à donner en passant, et à écrire au tableau plutôt qu'à
     projeter : deux points désignent le dossier parent, un point le dossier
     courant. Elles s'écrivent pareil sur les trois systèmes, seul le
     séparateur qui les suit change.
-
-    Ne pas entrer dans les subtilités de Windows maintenant. Retenir seulement
-    que le séparateur diffère, et que Python accepte la barre normale partout,
-    y compris sous Windows.
   ]
 ]
 
@@ -627,7 +623,9 @@
   ]
 
   #avertissement[
-    Sur votre machine. Premier geste : vérifier que les extensions sont affichés, que Windows masque par défaut.
+    Sur votre machine. Premier geste : afficher les extensions, que Windows
+    masque par défaut. Explorateur #sym.arrow.r Affichage #sym.arrow.r Afficher
+    #sym.arrow.r Extensions de noms de fichiers.
   ]
 
   #tableau(
@@ -655,17 +653,10 @@
 ]
 
 // --------------------------------------------
-#d("Renommer une extension, et voir qui se laisse tromper")[
+#d("Renommer une extension, et voir l'incidence pour leur ouverture")[
   #annonce[
     Renommer des copies de `raven.odt` avec `F2`, puis les ouvrir par
     double-clic.
-  ]
-
-  #block(width: 100%, fill: gris, inset: (x: 12pt, y: 7pt), below: 0.7em)[
-    #set text(size: 15pt)
-    #text(weight: demi-gras)[À faire d'abord :] Explorateur
-    #sym.arrow.r Affichage #sym.arrow.r Afficher
-    #sym.arrow.r Extensions de noms de fichiers.
   ]
 
   #tableau(
@@ -861,65 +852,3 @@
   ]
 ]
 
-
-// ---------------------- Vocabulaire : où va la programmation ----------------
-// --------------------------------------------
-#d("Les domaines de la programmation")[
-  #annonce[
-    Ces six expressions nomment des domaines de la programmation. Chacune se
-    rattache à un des objets vus dans cette partie : dites lequel.
-  ]
-
-  #v(0.3em)
-  #tableau(
-    columns: (auto, 1fr),
-    align: left + horizon,
-    [L'expression], [L'objet de cette partie qu'elle vise],
-    [programmation web], [],
-    [programmation mobile], [],
-    [programmation système], [],
-    [programmation embarquée], [],
-    [programmation graphique], [],
-    [programmation scientifique], [],
-  )
-
-  #notes[
-    Trois minutes, à l'oral. L'exercice n'est pas de définir chaque domaine
-    mais de constater que les objets de la partie — système, navigateur,
-    fichier, périphérique — sont ce que ces métiers manipulent.
-
-    Deux termes reviennent souvent et manquent ici : la programmation réseau,
-    du côté des périphériques avec le clavier et l'écran, et le développement
-    de données, qui est de la programmation scientifique appliquée à des
-    fichiers plus gros. Les ajouter à l'oral si la question vient.
-
-    Ne pas laisser croire à des cases étanches : une application de
-    cartographie fait du web, du graphique et du scientifique à la fois.
-  ]
-]
-
-// --------------------------------------------
-#d("Les domaines de la programmation — réponses")[
-  #tableau(
-    columns: (auto, 1fr),
-    align: left + horizon,
-    [L'expression], [L'objet de cette partie qu'elle vise],
-    [programmation web], [l'application web : le navigateur l'exécute, l'adresse désigne ce qu'on va chercher],
-    [programmation mobile], [l'application installée, sur le système d'exploitation du téléphone],
-    [programmation système], [le système d'exploitation, qui donne aux logiciels l'accès au matériel],
-    [programmation embarquée], [le matériel presque seul : peu ou pas de système, et rarement des fichiers],
-    [programmation graphique], [la sortie vers l'écran, et les formats d'image],
-    [programmation scientifique], [les fichiers de données en entrée, les résultats et figures en sortie],
-  )
-
-  #legende[
-    Les intitulés sont ceux des offres d'emploi et des fiches métier, où ils
-    servent surtout à dire sur quoi le logiciel s'exécute.
-  ]
-
-  #notes[
-    La partie 2 change de question : non plus sur quoi un logiciel s'exécute,
-    mais comment on l'écrit. Le module ne fait aucun de ces domaines en
-    particulier : il travaille ce qui leur est commun, la forme du projet.
-  ]
-]
