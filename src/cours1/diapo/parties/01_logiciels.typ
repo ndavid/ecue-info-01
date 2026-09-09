@@ -400,16 +400,31 @@
     l'on se trouve.
   ]
 
-  #v(0.5em)
+  #v(0.4em)
   #tableau(
     columns: (auto, 1fr, 1fr),
     align: left + horizon,
     [], [Windows], [macOS et Linux],
-    [Le séparateur], [la barre inversée `\`], [la barre `/`],
-    [Un chemin absolu], [`C:\Users\alice\raven.odt`], [`/home/alice/raven.odt`],
-    [Un chemin relatif], [`produit\raven.odt`], [`produit/raven.odt`],
-    [Le dossier parent], [`..\raven.odt`], [`../raven.odt`],
+    [Le séparateur de dossiers], [la barre inversée `\`, _backslash_], [la barre `/`, _slash_],
   )
+
+  #v(0.5em)
+  #tableau(
+    columns: (auto, 1fr, 1fr, auto),
+    align: left + horizon,
+    [], [Windows], [macOS et Linux], [Compté à partir de],
+    [Un chemin absolu], [`C:\Users\alice\raven.odt`], [`/home/alice/raven.odt`],
+      [la racine, `C:\` ou `/`],
+    [Un chemin relatif], [`produit\raven.odt`], [`produit/raven.odt`],
+      [le dossier courant],
+    [Le dossier parent], [`..\raven.odt`], [`../raven.odt`],
+      [le dossier au-dessus],
+  )
+
+  #legende[
+    Depuis le dossier courant `C:\Users\alice`, le chemin relatif
+    `produit\raven.odt` désigne `C:\Users\alice\produit\raven.odt`.
+  ]
 
   #notes[
     C'est la distinction qui fera échouer la moitié des scripts au cours 3 :
