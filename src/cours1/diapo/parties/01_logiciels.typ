@@ -37,8 +37,7 @@
           #set text(size: 14.5pt)
           Sert à accomplir une tâche : écrire, cartographier, écouter.
           #v(0.35em)
-          #text(fill: estompe)[LibreOffice, Firefox, un lecteur de musique.
-          Dit aussi application, appli, app.]
+          #text(fill: estompe)[LibreOffice, Firefox, un lecteur de musique.]
         ]
       ],
     )
@@ -171,7 +170,8 @@
       #block(inset: 9pt, width: 100%, height: 116pt,
              stroke: 0.8pt + estompe.lighten(50%))[
         #set text(size: 14.5pt)
-        L'affichage des pages et les interactions. Votre processeur travaille.
+        L'affichage des pages et les interactions. Votre processeur "travaille"
+        par exemple pour générer le rendu des pages.
         #v(1fr)
         #text(fill: estompe)[retouche d'image en ligne]
       ]
@@ -276,9 +276,10 @@
 // --------------------------------------------
 #d("Utilisation / utilité d'un fichier")[
   #annonce[
-    Un fichier est une sauvegarde d'un résultat. Peut être un résultat / état 
-    temporaire (reprendre l'édition d'un rapport) ou au résultat final (imprimer
-    un document). 
+    Un fichier est une sauvegarde d'un résultat. 
+    
+    Peut être un résultat / état  temporaire (reprendre l'édition d'un rapport)
+    ou un résultat final (imprimer un document). 
     C'est pour cela qu'il faut savoir le nommer, reconnaître 
     ce qu'il contient et le retrouver.
   ]
@@ -316,8 +317,10 @@
 // --------------------------------------------
 #d("Fichier, extension et type de fichier")[
   #annonce[
-    L'extension est la fin du nom, après le dernier point. Le système s'en
-    sert pour choisir le logiciel à lancer. 
+    Le type d'un fichier (texte, video, ...) est indiqué par son extension.
+    L'extension est la partie du nom de fichier qui est la fin, après le dernier point. 
+    Le système s'en sert pour choisir le logiciel à lancer. 
+    
     L'extension est une indication sur le type de contenu mais pas une garantie.
   ]
 

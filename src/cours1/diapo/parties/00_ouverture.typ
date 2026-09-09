@@ -26,7 +26,7 @@
     [« ouvrez le projet fourni »], [travailler dans un éditeur de code, lire une arborescence],
     [« installez Python et numpy »], [créer un environnement et le réinstaller ailleurs],
     [« le script lit `donnees.csv` »], [manipuler des fichiers depuis Python],
-    [« rendez votre code »], [versionner avec git, partager un dépôt],
+    [« rendez votre code »], [versionner avec git, partager un dépôt, documentation README.md],
   )
 
   #notes[
@@ -42,12 +42,13 @@
 // --------------------------------------------
 #d("Objectifs du module liés à la programmation")[
   #annonce[
-    Maîtriser les bonnes pratiques de gestion d'un projet de code :
+    Maîtriser les bonnes pratiques de gestion d'un projet de code.
     documentation (`README`), organisation des fichiers, usage des
-    bibliothèques pour faciliter la programmation, et des environnements 
-    pour faciliter la contruction ET la distribution d'un programme. 
-    Savoir construire un programma mais aussi le rendre facile à utiliser et à
-    reprendre.
+    bibliothèques pour faciliter la programmation, et des environnements.
+
+    Connaissances utiles pour la programmation individuelle mais nécessaires
+    pour la progrmmation en équipe et pour la distribution de son progamme à un 
+    utilisateur.
   ]
 
   #tableau(
@@ -70,8 +71,8 @@
 // --------------------------------------------
 #d("Les trois compétences du module")[
   #annonce[
-    Trois savoir-faire reviennent à chaque séance. Des notion  de culture informatique les accompagnent, 
-    rattachés aux enseignements et TD qui viennent d'être vus.
+    Trois savoir-faire reviennent à chaque séance. Des notions de culture informatique les accompagnent, 
+    rattachées aux enseignements et TD qui viennent d'être vus.
   ]
 
   #grid(
@@ -115,9 +116,9 @@
     columns: (1fr, auto),
     align: (left + horizon, left + horizon),
     [Notion reprise en séance 1], [Où elle a pu être abordée],
+    [Données en tableau, fichiers `.csv`], [SNT, seconde],
     [Le Web, HTML et CSS, adresses de pages], [SNT, seconde],
     [Formats d'image, compression avec et sans perte], [SNT, seconde],
-    [Données en tableau, fichiers `.csv`], [SNT, seconde],
     [Binaire, hexadécimal, encodage du texte], [NSI, première],
     [Système d'exploitation, ligne de commande], [NSI, première],
     [Écrire et exécuter un programme Python], [NSI, ou tronc commun en CPGE],
@@ -129,7 +130,7 @@
   ]
 
   #notes[
-    Trente secondes. Dire qu'on a conscience que ce sera une redite pour
+    passer rapidement. Dire qu'on a conscience que ce sera une redite pour
     une partie de la salle.
 
     Justification, origine du choix: ce qui est reproché aux étudiants dans
@@ -145,7 +146,8 @@
   #annonce[
     Chaque séance alterne des explications courtes et des manipulations faites
     sur votre machine. Deux d'entre elles sont des travaux dirigés, qui
-    reprennent sur un livrable complet ce que les séances précédentes ont vu.
+    font revoir et pratiquer le contenu des séances précédentes via 
+    l'élaboration d'un livrable de code complet.
   ]
 
   #tableau(
@@ -163,6 +165,9 @@
 
   #notes[
     Les deux TD appliquent ce qui précède sur un livrable complet.
+    L'important est ici plus la qualité de la forme que le fond,
+    c'est à dire est-ce que le projet est bien structuré et documenté
+    et moins est-ce que le code est bon/performant. 
   ]
 ]
 // ================================ Séance 1 ==================================
@@ -188,8 +193,8 @@
     tout de suite, sans attendre la fin.
     #v(0.5em)
     Tout ce qui suit s'appuie dessus. Une notion laissée de côté aujourd'hui
-    se paiera sur les six séances suivantes, et c'est le retard pris au début
-    qui est le plus difficile à rattraper.
+    se paiera sur les six séances suivantes, un retard pris au début
+    peut s'accumuler très vite.
   ]
 
   #notes[
