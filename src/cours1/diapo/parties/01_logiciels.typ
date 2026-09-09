@@ -272,14 +272,14 @@
     restent.
   ]
 ]
-// --------------------------- Fichiers et extensions -------------------------
+// ------------------------------ Fichiers -----------------------------------
 // --------------------------------------------
 #d("Utilisation / utilité d'un fichier")[
   #annonce[
     Un fichier est une sauvegarde d'un résultat. 
     
-    Peut être un résultat / état  temporaire (reprendre l'édition d'un rapport)
-    ou un résultat final (imprimer un document). 
+    Un fichier peut être une sauvegarde d'un état temporaire (reprendre l'édition d'un rapport)
+    ou celle d'un résultat final (envoyer un document pdf). 
     C'est pour cela qu'il faut savoir le nommer, reconnaître 
     ce qu'il contient et le retrouver.
   ]
@@ -311,113 +311,6 @@
     Deuxième ligne: un format de fichier
     est ce sur quoi deux logiciels se mettent d'accord sans se connaître.
     La partie 3 y revient.
-  ]
-]
-
-// --------------------------------------------
-#d("Fichier, extension et type de fichier")[
-  #annonce[
-    Le type d'un fichier (texte, video, ...) est indiqué par son extension.
-    L'extension est la partie du nom de fichier qui est la fin, après le dernier point. 
-    Le système s'en sert pour choisir le logiciel à lancer. 
-    
-    L'extension est une indication sur le type de contenu mais pas une garantie.
-  ]
-
-  #align(center)[
-    #grid(
-      columns: (auto, auto),
-      row-gutter: 13pt,
-      align: center,
-      text(font: police-code, size: 32pt, fill: estompe)[releve\_2026],
-      text(font: police-code, size: 32pt, fill: accent, weight: "bold")[.csv],
-      text(size: 14pt, fill: estompe)[le nom, que vous choisissez],
-      text(size: 14pt, fill: accent)[l'extension],
-    )
-  ]
-
-  #v(0.6em)
-  #tableau(
-    columns: (auto, 1fr),
-    align: left + horizon,
-    [L'extension], [Ce qu'elle décide],
-    [ce qu'elle fait], [le système choisit le logiciel à lancer au double-clic],
-    [ce qu'elle ne fait pas], [elle ne modifie aucun octet du fichier],
-    [comment on la change], [en renommant le fichier, comme le reste du nom],
-  )
-
-  #notes[
-    Faire activer l'affichage des extensions dans l'explorateur, sans quoi la
-    manipulation qui suit est impossible à suivre : `F2` ne montrerait pas ce
-    qu'on renomme.
-
-    État vérifié en 2026 : Windows 11 masque toujours les extensions des types
-    connus par défaut, et le réglage se trouve dans Explorateur > Affichage >
-    Afficher > Extensions de noms de fichiers. Sous macOS, Finder > Réglages >
-    Avancé > « Afficher tous les suffixes de fichiers ». À faire une fois, utile
-    tout le semestre.
-  ]
-]
-
-// --------------------------------------------
-#d("Reconnaître un format à son extension")[
-  #annonce[
-    Pour chacune de ces extensions, dites de quel type de contenu il s'agit, et si le fichier
-    est lisible dans un éditeur de texte.
-  ]
-
-  #grid(
-    columns: (1fr, 1fr, 1fr, 1fr),
-    gutter: 9pt,
-    etiquette(".mp3"), etiquette(".mp4"), etiquette(".jpg"), etiquette(".png"),
-    etiquette(".svg"), etiquette(".tif"), etiquette(".pdf"), etiquette(".odt"),
-    etiquette(".xlsx"), etiquette(".csv"), etiquette(".zip"), etiquette(".exe"),
-    etiquette(".py"), etiquette(".md"), etiquette(".json"), etiquette(".yaml"),
-  )
-
-  #notes[
-    Interroger la salle, en trois minutes, sans commenter chaque réponse. Les
-    deux qui peuvent faire débat : `.svg` (une image, mais du texte XML) et `.csv` (du
-    texte, pas un fichier Excel). Ne pas s'attarder sur `.tif`.
-
-    La dernière ligne est celle du module, et elle est volontairement groupée :
-    ce sont les quatre fichiers qu'ils éditeront eux-mêmes. Peu sauront nommer
-    `.yaml` ; c'est attendu, la partie suivante y répond.
-  ]
-]
-
-// --------------------------------------------
-#d("Reconnaître un format à son extension — réponses")[
-  #grid(
-    columns: (1fr, 1fr, 1fr, 1fr),
-    gutter: 9pt,
-    etiquette(".mp3", reponse: "son, avec perte"),
-    etiquette(".mp4", reponse: "vidéo, la plus courante"),
-    etiquette(".jpg", reponse: "photo, avec perte"),
-    etiquette(".png", reponse: "image, sans perte"),
-    etiquette(".svg", reponse: "image vectorielle : texte"),
-    etiquette(".tif", reponse: "image, y compris GeoTIFF"),
-    etiquette(".pdf", reponse: "document mis en page"),
-    etiquette(".odt", reponse: "LibreOffice, archive ZIP"),
-    etiquette(".xlsx", reponse: "Excel, archive ZIP"),
-    etiquette(".csv", reponse: "tableau : du texte"),
-    etiquette(".zip", reponse: "archive de fichiers"),
-    etiquette(".exe", reponse: "programme Windows"),
-    etiquette(".py", reponse: "code Python : du texte"),
-    etiquette(".md", reponse: "documentation : du texte"),
-    etiquette(".json", reponse: "données, réglages : texte"),
-    etiquette(".yaml", reponse: "réglages : du texte"),
-  )
-
-  #legende[
-    Six de ces seize formats sont du texte : ceux qu'on peut ouvrir dans un
-    éditeur, comparer ligne à ligne et versionner.
-  ]
-
-  #notes[
-    Les six formats texte de la grille : `.svg`, `.csv`, `.py`, `.md`, `.json`
-    et `.yaml`. Deux autres sont des archives ZIP de XML, `.odt` et `.xlsx`,
-    ouvertes en direct plus loin dans la séance.
   ]
 ]
 
@@ -467,6 +360,74 @@
 ]
 
 // --------------------------------------------
+#d("Les mots d'un chemin")[
+  #annonce[
+    Cinq mots servent à désigner les parties d'un chemin. Dites à quoi chacun
+    correspond dans cet exemple.
+  ]
+
+  #align(center)[
+    #text(font: police-code, size: 25pt, fill: encre)[C:\\Users\\alice\\Documents\\raven.odt]
+  ]
+
+  #v(0.6em)
+  #tableau(
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [Le mot], [Ce qu'il désigne dans l'exemple],
+    [la racine, ou le disque], [],
+    [un nom de dossier], [],
+    [le nom du fichier], [],
+    [le chemin du fichier], [],
+    [le dossier parent], [],
+  )
+
+  #notes[
+    Trois minutes, à l'oral, sans commenter chaque réponse : la diapositive
+    suivante les donne toutes.
+
+    Les deux qui font hésiter sont « le nom du fichier », que beaucoup
+    donnent sans l'extension, et « le dossier parent », qu'on confond avec
+    le chemin entier. Ce sont les deux mots employés dans les messages
+    d'erreur qu'ils liront au cours 3.
+
+    Racine : le point de départ que la machine connaît. `C:` désigne le
+    disque sous Windows ; sous macOS et Linux, la racine est `/` et les
+    disques s'y rattachent, ce qui suffit pour aujourd'hui.
+  ]
+]
+
+// --------------------------------------------
+#d("Les mots d'un chemin — réponses")[
+  #align(center)[
+    #text(font: police-code, size: 25pt, fill: encre)[C:\\Users\\alice\\Documents\\raven.odt]
+  ]
+
+  #v(0.6em)
+  #tableau(
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [Le mot], [Ce qu'il désigne dans l'exemple],
+    [la racine, ou le disque], [`C:\`, le point de départ ; `/` sous macOS et Linux],
+    [un nom de dossier], [`Users`, `alice`, `Documents` : trois, du plus large au plus précis],
+    [le nom du fichier], [`raven.odt`, extension comprise],
+    [le chemin du fichier], [tout, de la racine au fichier],
+    [le dossier parent], [`C:\Users\alice\Documents`, le dossier qui le contient],
+  )
+
+  #legende[
+    Un chemin se lit de gauche à droite, de la racine au fichier ; chaque
+    séparateur descend d'un dossier.
+  ]
+
+  #notes[
+    Insister sur la dernière ligne : « dossier parent » est le mot des
+    messages d'erreur et des fonctions de Python (`Path.parent`). Le cours 3
+    s'en sert sans le redéfinir.
+  ]
+]
+
+// --------------------------------------------
 #d("L'adresse d'une page")[
   #annonce[
     Une adresse web est un chemin de fichier, précédé de la machine sur
@@ -512,6 +473,118 @@
     développer.
   ]
 ]
+// -------------------------- Extensions et formats ---------------------------
+// --------------------------------------------
+#d("Fichier, extension et type de fichier")[
+  #annonce[
+    Le type d'un fichier (texte, vidéo…) est indiqué par son *extension*, la
+    fin du nom après le dernier point. Le système s'en sert pour choisir le
+    logiciel à lancer, mais elle reste une indication sur le contenu, pas une
+    garantie.
+  ]
+
+  #align(center)[
+    #grid(
+      columns: (auto, auto),
+      row-gutter: 9pt,
+      align: center,
+      text(font: police-code, size: 27pt, fill: estompe)[releve\_2026],
+      text(font: police-code, size: 27pt, fill: accent, weight: "bold")[.csv],
+      text(size: 13pt, fill: estompe)[le nom, que vous choisissez],
+      text(size: 13pt, fill: accent)[l'extension],
+    )
+  ]
+  #avertissement[
+    Windows masque les extensions qu'il connaît : `raven.odt` s'affiche
+    `raven`. Réglage à changer une fois, avant la manipulation.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [L'extension], [Ce qu'elle décide],
+    [ce qu'elle fait], [le système choisit le logiciel à lancer au double-clic],
+    [ce qu'elle ne fait pas], [elle ne modifie aucun octet du fichier],
+    [comment on la change], [en renommant le fichier, comme le reste du nom],
+  )
+
+  #notes[
+    Faire activer l'affichage des extensions dans l'explorateur, sans quoi la
+    manipulation qui suit est impossible à suivre : `F2` ne montrerait pas ce
+    qu'on renomme.
+
+    État vérifié en 2026 : Windows 11 masque toujours les extensions des types
+    connus par défaut, et le réglage se trouve dans Explorateur > Affichage >
+    Afficher > Extensions de noms de fichiers. Sous macOS, Finder > Réglages >
+    Avancé > « Afficher tous les suffixes de fichiers ». À faire une fois, utile
+    tout le semestre.
+  ]
+]
+
+// --------------------------------------------
+#d("Reconnaître un format à son extension")[
+  #annonce[
+    Pour chacune de ces extensions, dites de quel type de contenu il s'agit, et si le fichier
+    est lisible dans un éditeur de texte.
+  ]
+
+  #grid(
+    columns: (1fr, 1fr, 1fr, 1fr),
+    gutter: 9pt,
+    etiquette(".mp3"), etiquette(".mp4"), etiquette(".jpg"), etiquette(".png"),
+    etiquette(".svg"), etiquette(".tif"), etiquette(".pdf"), etiquette(".odt"),
+    etiquette(".xlsx"), etiquette(".csv"), etiquette(".zip"), etiquette(".exe"),
+    etiquette(".py", couleur: attention), etiquette(".md", couleur: attention),
+    etiquette(".json", couleur: attention), etiquette(".yaml", couleur: attention),
+  )
+
+  #notes[
+    Interroger la salle, en trois minutes, sans commenter chaque réponse. Les
+    deux qui peuvent faire débat : `.svg` (une image, mais du texte XML) et `.csv` (du
+    texte, pas un fichier Excel). Ne pas s'attarder sur `.tif`.
+
+    La dernière ligne est celle du module, et elle est volontairement groupée :
+    ce sont les quatre fichiers qu'ils éditeront eux-mêmes. Peu sauront nommer
+    `.yaml` ; c'est attendu, la partie suivante y répond.
+  ]
+]
+
+// --------------------------------------------
+#d("Reconnaître un format à son extension — réponses")[
+  #grid(
+    columns: (1fr, 1fr, 1fr, 1fr),
+    gutter: 9pt,
+    etiquette(".mp3", reponse: "son, avec perte"),
+    etiquette(".mp4", reponse: "vidéo, la plus courante"),
+    etiquette(".jpg", reponse: "photo, avec perte"),
+    etiquette(".png", reponse: "image, sans perte"),
+    etiquette(".svg", reponse: "image vectorielle : texte"),
+    etiquette(".tif", reponse: "image, y compris GeoTIFF"),
+    etiquette(".pdf", reponse: "document mis en page"),
+    etiquette(".odt", reponse: "LibreOffice, archive ZIP"),
+    etiquette(".xlsx", reponse: "Excel, archive ZIP"),
+    etiquette(".csv", reponse: "tableau : du texte"),
+    etiquette(".zip", reponse: "archive de fichiers"),
+    etiquette(".exe", reponse: "programme Windows"),
+    etiquette(".py", reponse: "code Python : du texte", couleur: attention),
+    etiquette(".md", reponse: "documentation : du texte", couleur: attention),
+    etiquette(".json", reponse: "données, réglages : texte", couleur: attention),
+    etiquette(".yaml", reponse: "réglages : du texte", couleur: attention),
+  )
+
+  #legende[
+    Six de ces seize formats sont du texte : ceux qu'on peut ouvrir dans un
+    éditeur, comparer ligne à ligne et versionner. En bleu, les quatre que vous
+    écrirez vous-mêmes dans ce module.
+  ]
+
+  #notes[
+    Les six formats texte de la grille : `.svg`, `.csv`, `.py`, `.md`, `.json`
+    et `.yaml`. Deux autres sont des archives ZIP de XML, `.odt` et `.xlsx`,
+    ouvertes en direct plus loin dans la séance.
+  ]
+]
+
 // ------------------------ TD : fichiers et extensions -----------------------
 // --------------------------------------------
 #separateur-manip(

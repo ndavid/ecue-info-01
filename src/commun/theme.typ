@@ -490,6 +490,18 @@
   )
 ]
 
+// Erreur fréquente, et sa conséquence. Répondant en diapositive à l'encadré
+// `warning` des pages de cours : une forme qu'on reconnaît à la deuxième
+// occurrence, ce qu'un mot en couleur ne fait pas. Un par diapositive au plus,
+// et pas dans une partie TD, où le brun est déjà à l'écran.
+#let avertissement(corps) = block(
+  width: 100%, inset: (x: 13pt, y: 10pt), above: 0.7em,
+  fill: alerte.lighten(92%), stroke: (left: 3pt + alerte),
+)[
+  #set text(size: 18pt)
+  #text(fill: alerte, weight: demi-gras)[Attention. ] #corps
+]
+
 // Ce que la manipulation fait constater : masqué à la projection, remplacé par
 // un filet à compléter, et affiché dans la compilation « corrigé ».
 #let reponse(corps) = if corrige-visible {
@@ -501,12 +513,19 @@
 }
 
 // Étiquette d'extension, en chasse fixe, pour les grilles de reconnaissance.
-#let etiquette(nom, reponse: none) = block(
+//
+// `couleur` distingue un sous-ensemble de la grille — les formats du module,
+// que les étudiants éditeront eux-mêmes. Elle teinte le fond autant que le
+// texte : sur une grille de seize étiquettes, une couleur de texte seule ne se
+// voit pas à la projection.
+#let etiquette(nom, reponse: none, couleur: none) = block(
   width: 100%, inset: (x: 8pt, y: 5pt),
-  fill: gris, stroke: 0.8pt + gris.darken(12%),
+  fill: if couleur == none { gris } else { couleur.lighten(88%) },
+  stroke: 0.8pt + if couleur == none { gris.darken(12%) } else { couleur.lighten(45%) },
 )[
   #align(center)[
-    #text(font: police-code, size: 15pt, weight: demi-gras, fill: accent)[#nom]
+    #text(font: police-code, size: 15pt, weight: demi-gras,
+          fill: if couleur == none { accent } else { couleur })[#nom]
     #if reponse != none [
       #v(0.2em)
       #text(size: 11.5pt, fill: estompe)[#reponse]
