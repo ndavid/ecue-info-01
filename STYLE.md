@@ -51,10 +51,16 @@ assertion compressée.
   partie à l'autre.
 - Principe de cohérence (Mayer) : tout élément qui ne sert pas nuit. Pas
   d'emoji décoratif, pas de couleur qui ne code rien. Le thème n'emploie que
-  trois couleurs : le bleu du texte et des diapositives de section, le brun des
-  parties TD et des manipulations (`separateur-td`, `separateur-manip`), et le
-  gris des encadrés. Le brun code une information réelle et répétée, le passage
-  de l'exposé au travail sur machine.
+  cinq couleurs, et chacune code une information réelle et répétée : le bleu du
+  texte et des diapositives de section, le brun des parties TD et des
+  manipulations (`separateur-td`, `separateur-manip`) qui marque le passage de
+  l'exposé au travail sur machine, le gris des encadrés, puis deux couleurs de
+  signalement — `attention`, un bleu clair, sur un point à ne pas manquer, et
+  `alerte`, un orange, sur une erreur fréquente et ses conséquences. Ces deux
+  dernières répondent aux encadrés `note` et `warning` des pages de cours, et
+  ne servent jamais à mettre un mot en valeur : le gras s'en charge, et
+  seulement sur un terme défini. `alerte` ne s'emploie pas dans une partie TD,
+  où le brun est déjà présent.
 
 **Formulations à éviter**, relevées sur une première version de ce deck :
 

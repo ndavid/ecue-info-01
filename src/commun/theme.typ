@@ -26,6 +26,19 @@
 #let manip = rgb("#704730")       // brunomarroon : filet, et parties TD
 #let gris = rgb("#E6E6E6")        // brunolightgray : pied de page, blocs
 
+// Deux couleurs de signalement, ajoutées au thème d'origine. Elles codent une
+// information et ne servent pas à mettre en valeur : `attention` sur un point
+// à ne pas manquer, `alerte` sur une erreur fréquente et ses conséquences —
+// la distinction des encadrés `note` et `warning` des pages de cours.
+//
+// `attention` est `brunoblue` éclairci et saturé : même teinte que le texte,
+// donc lisible comme une variante de la structure et non comme une couleur
+// nouvelle. `alerte` est un orange franc, choisi loin de `manip` : les deux
+// sont chaudes, et un brun désaturé projeté à côté d'un orange se confond.
+// Ne pas employer `alerte` dans une partie TD, où `manip` est déjà présente.
+#let attention = rgb("#2A6F97")   // bleu clair : note, point d'attention
+#let alerte = rgb("#B35309")      // orange : avertissement, erreur fréquente
+
 // Le « gras » du thème, qui est un demi-gras.
 #let demi-gras = 500
 
