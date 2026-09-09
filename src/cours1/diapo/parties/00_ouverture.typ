@@ -42,13 +42,13 @@
 // --------------------------------------------
 #d("Objectifs du module liés à la programmation")[
   #annonce[
-    Maîtriser les bonnes pratiques de gestion d'un projet de code.
+    Maîtriser les bonnes pratiques de gestion d'un projet de code :
     documentation (`README`), organisation des fichiers, usage des
     bibliothèques pour faciliter la programmation, et des environnements.
 
-    Connaissances utiles pour la programmation individuelle mais nécessaires
-    pour la progrmmation en équipe et pour la distribution de son progamme à un 
-    utilisateur.
+    Ces connaissances sont utiles pour la programmation individuelle, et
+    nécessaires pour la programmation en équipe et pour la distribution de son
+    programme à un utilisateur.
   ]
 
   #tableau(
