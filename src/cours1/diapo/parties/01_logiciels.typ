@@ -412,18 +412,19 @@
   #tableau(
     columns: (auto, 1fr, 1fr, auto),
     align: left + horizon,
-    [], [Windows], [macOS et Linux], [Compté à partir de],
+    [], [Windows], [macOS et Linux], [Compté depuis],
     [Un chemin absolu], [`C:\Users\alice\raven.odt`], [`/home/alice/raven.odt`],
-      [la racine, `C:\` ou `/`],
+      [la racine],
     [Un chemin relatif], [`produit\raven.odt`], [`produit/raven.odt`],
       [le dossier courant],
-    [Le dossier parent], [`..\raven.odt`], [`../raven.odt`],
-      [le dossier au-dessus],
+    [Un relatif qui remonte], [`..\raven.odt`], [`../raven.odt`],
+      [le dossier courant],
   )
 
   #legende[
-    Depuis le dossier courant `C:\Users\alice`, le chemin relatif
-    `produit\raven.odt` désigne `C:\Users\alice\produit\raven.odt`.
+    Depuis le dossier courant `C:\Users\alice` : `produit\raven.odt` désigne
+    `C:\Users\alice\produit\raven.odt`, et `..\raven.odt` désigne
+    `C:\Users\raven.odt`.
   ]
 
   #notes[
@@ -431,9 +432,10 @@
     « le fichier existe pourtant » signifie presque toujours qu'on ne l'a pas
     cherché depuis le bon dossier.
 
-    Deux notations à donner en passant : `..` est le dossier parent, `.` le
-    dossier courant. Elles s'écrivent pareil partout, seul le séparateur qui
-    les suit change.
+    Deux notations à donner en passant, et à écrire au tableau plutôt qu'à
+    projeter : deux points désignent le dossier parent, un point le dossier
+    courant. Elles s'écrivent pareil sur les trois systèmes, seul le
+    séparateur qui les suit change.
 
     Ne pas entrer dans les subtilités de Windows maintenant. Retenir seulement
     que le séparateur diffère, et que Python accepte la barre normale partout,
