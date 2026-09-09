@@ -409,28 +409,41 @@
   )
 
   #v(0.5em)
-  #tableau(
-    columns: (auto, 1fr, 1fr, auto),
-    align: left + horizon,
-    [], [Windows], [macOS et Linux], [Compté depuis],
-    [Un chemin absolu], [`C:\Users\alice\raven.odt`], [`/home/alice/raven.odt`],
-      [la racine],
-    [Un chemin relatif], [`produit\raven.odt`], [`produit/raven.odt`],
-      [le dossier courant],
-    [Un relatif qui remonte], [`..\raven.odt`], [`../raven.odt`],
-      [le dossier courant],
+  #grid(
+    columns: (auto, 1fr), column-gutter: 18pt, align: horizon,
+    block(inset: (x: 10pt, y: 8pt), fill: gris)[
+      #set text(font: police-code, size: 12.5pt)
+      #set par(leading: 0.6em)
+      C:\\Users\\alice\\ \
+      └─ info01\\ \
+      #h(0.75em)├─ rapport\\ \
+      #h(0.75em)│#h(0.3em)└─ notes.md \
+      #h(0.75em)└─ produit\\ \
+      #h(2.05em)└─ raven.odt
+    ],
+    tableau(
+      columns: (auto, 1fr, auto),
+      align: left + horizon,
+      [], [Le chemin de `raven.odt`], [Depuis],
+      [Absolu], [`C:\Users\alice\info01\produit\raven.odt`], [la racine],
+      [Relatif], [`produit\raven.odt`], [`info01`],
+      [Relatif qui remonte], [`..\produit\raven.odt`], [`rapport`],
+    ),
   )
 
   #legende[
-    Depuis le dossier courant `C:\Users\alice` : `produit\raven.odt` désigne
-    `C:\Users\alice\produit\raven.odt`, et `..\raven.odt` désigne
-    `C:\Users\raven.odt`.
+    Sous macOS et Linux, l'autre séparateur : `/home/alice/info01/produit/raven.odt`,
+    `produit/raven.odt`, `../produit/raven.odt`.
   ]
 
   #notes[
     C'est la distinction qui fera échouer la moitié des scripts au cours 3 :
     « le fichier existe pourtant » signifie presque toujours qu'on ne l'a pas
     cherché depuis le bon dossier.
+
+    Lire l'arborescence avant le tableau : les trois chemins désignent le
+    même fichier, `raven.odt`, et ne diffèrent que par l'endroit d'où on le
+    demande. C'est la colonne de droite qui porte la leçon.
 
     Deux notations à donner en passant, et à écrire au tableau plutôt qu'à
     projeter : deux points désignent le dossier parent, un point le dossier
