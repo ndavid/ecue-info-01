@@ -544,6 +544,108 @@
   ]
 ]
 
+#d("Extension de fichier et extension de VSCode")[
+  #annonce[
+    Le même mot désigne deux choses sans rapport : la fin du nom d'un fichier,
+    et un greffon qu'on installe dans l'éditeur.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr, 1fr),
+    align: left + horizon,
+    [], [L'extension du fichier], [L'extension de l'éditeur],
+    [Ce que c'est],
+      [la fin du nom, après le dernier point : `.py`, `.cpp`, `.md`],
+      [un greffon installé dans VSCode : `ms-python.python`],
+    [Dans le fichier],
+      [rien : les trois sont du texte, sans marque ni en-tête],
+      [rien non plus : elle n'agit que sur l'affichage],
+    [Ce qu'elle apporte],
+      [une indication de langage, à qui lit le nom],
+      [la coloration fine, et la vérification des règles d'écriture],
+  )
+
+  #legende[
+    Les trois du module : `ms-python.python`, `ms-vscode.cpptools`,
+    `ms-toolsai.jupyter`. Panneau Extensions, `Ctrl` + `Maj` + `X`, où l'on
+    cherche l'identifiant et jamais le nom affiché.
+  ]
+
+  #notes[
+    Deux sens pour un mot : « installe l'extension Python » et « le
+    fichier a l'extension `.py` » ne parlent pas de la même chose. Le dire
+    une fois.
+
+    Colonne de gauche, le point neuf : un `.py` et un `.cpp` sont des
+    fichiers texte, et rien dans leurs octets ne les distingue — ni marque
+    binaire, ni en-tête, ni signature. L'extension dit ce qu'on peut
+    espérer trouver, elle ne le garantit pas. `python bonjour.txt` exécute
+    parfaitement un programme Python.
+
+    C'est ce que la manipulation « Les premiers octets d'un fichier » fera
+    constater : les formats texte n'ont aucune signature, contrairement au
+    ZIP et au PDF.
+
+    La vérification porte sur les règles d'écriture, pas sur le sens : un
+    programme peut être irréprochable pour l'extension et faire le
+    contraire de ce qu'on voulait.
+
+    Chercher l'identifiant en chasse fixe et non le nom affiché :
+    plusieurs extensions non officielles portent le même titre.
+    L'extension Python installe elle-même Pylance, qui fait la
+    vérification ; ne le dire que si quelqu'un le remarque. Identifiants
+    relevés sur le poste de préparation.
+  ]
+]
+#d("Installer l'extension d'un langage")[
+  #annonce[
+    Ouvrir le dossier de la manipulation, puis installer l'extension Python :
+    c'est elle qui fera tout ce qui suit.
+  ]
+
+  #tableau(
+    columns: (1.1fr, 1fr),
+    align: left + horizon,
+    [Le geste], [Ce que vous observez],
+    [Fichier #sym.arrow.r Ouvrir le dossier, sur `data/cours1/hello/`],
+      [deux dossiers, `python/` et `cpp/`, et un `README.md`],
+    [Ouvrir `python/bonjour.py` avant toute installation],
+      reponse[le texte est déjà coloré : l'éditeur connaît Python de naissance],
+    [`Ctrl` + `Maj` + `X`, chercher `ms-python.python`, installer],
+      reponse[Pylance et le débogueur s'installent avec, et la barre d'état
+              propose un interpréteur],
+    [Ouvrir `cpp/bonjour.cpp`],
+      reponse[l'éditeur propose l'extension C/C++, installée plus tard],
+  )
+
+  #legende[
+    Une extension s'installe une fois pour toutes : elle sera là aux séances
+    suivantes, et pour les autres cours.
+  ]
+
+  #notes[
+    C'est le premier geste de la séance sur l'éditeur, et il sert partout
+    ensuite : le choix de l'interpréteur, le lancement, le débogueur pas à
+    pas, et la manipulation des programmes fautifs en fin de partie.
+
+    Deuxième ligne, la surprise voulue : la coloration ne vient pas de
+    l'extension, elle est fournie d'origine pour les langages courants. Ce
+    que l'extension apporte vient après — l'interpréteur, l'exécution, la
+    vérification des règles d'écriture.
+
+    Chercher l'identifiant `ms-python.python` et non le nom affiché :
+    plusieurs extensions non officielles portent le même titre. Celle de
+    Microsoft entraîne Pylance, qui vérifie l'écriture, et le débogueur ;
+    il n'y a donc qu'une extension à chercher.
+
+    L'éditeur n'a pas pu être piloté sur le poste de préparation : la
+    proposition automatique de l'extension C/C++ dépend d'un réglage, à
+    vérifier en salle.
+
+    Poste sans réseau : les extensions ne s'installent pas. Le prévoir,
+    car la suite de la manipulation en dépend cette fois.
+  ]
+]
 #d("Choisir l'interpréteur Python")[
   #annonce[
     Plusieurs Python peuvent coexister sur une machine. Dire à l'éditeur lequel
@@ -958,8 +1060,8 @@ d("Les deux exécutions dans l'éditeur")[
 ]
 }
 #separateur-manip(
-  "Extensions de langage et programmes fautifs",
-  annonce: "Installer l'extension d'un langage, puis corriger trois fichiers qui refusent de s'exécuter",
+  "Trois programmes fautifs",
+  annonce: "Afficher les caractères invisibles, puis corriger trois fichiers qui refusent de s'exécuter",
   dossier: "data/cours1/erreurs/",
 )
 
@@ -1035,110 +1137,6 @@ d("Les caractères invisibles, affichés")[
   ]
 ]
 }
-#d("Extension de fichier et extension de VSCode")[
-  #annonce[
-    Le même mot désigne deux choses sans rapport : la fin du nom d'un fichier,
-    et un greffon qu'on installe dans l'éditeur.
-  ]
-
-  #tableau(
-    columns: (auto, 1fr, 1fr),
-    align: left + horizon,
-    [], [L'extension du fichier], [L'extension de l'éditeur],
-    [Ce que c'est],
-      [la fin du nom, après le dernier point : `.py`, `.cpp`, `.md`],
-      [un greffon installé dans VSCode : `ms-python.python`],
-    [Dans le fichier],
-      [rien : les trois sont du texte, sans marque ni en-tête],
-      [rien non plus : elle n'agit que sur l'affichage],
-    [Ce qu'elle apporte],
-      [une indication de langage, à qui lit le nom],
-      [la coloration fine, et la vérification des règles d'écriture],
-  )
-
-  #legende[
-    Les trois du module : `ms-python.python`, `ms-vscode.cpptools`,
-    `ms-toolsai.jupyter`. Panneau Extensions, `Ctrl` + `Maj` + `X`, où l'on
-    cherche l'identifiant et jamais le nom affiché.
-  ]
-
-  #notes[
-    Deux sens pour un mot : « installe l'extension Python » et « le
-    fichier a l'extension `.py` » ne parlent pas de la même chose. Le dire
-    une fois.
-
-    Colonne de gauche, le point neuf : un `.py` et un `.cpp` sont des
-    fichiers texte, et rien dans leurs octets ne les distingue — ni marque
-    binaire, ni en-tête, ni signature. L'extension dit ce qu'on peut
-    espérer trouver, elle ne le garantit pas. `python bonjour.txt` exécute
-    parfaitement un programme Python.
-
-    C'est ce que la manipulation « Les premiers octets d'un fichier » fera
-    constater : les formats texte n'ont aucune signature, contrairement au
-    ZIP et au PDF.
-
-    La vérification porte sur les règles d'écriture, pas sur le sens : un
-    programme peut être irréprochable pour l'extension et faire le
-    contraire de ce qu'on voulait.
-
-    Chercher l'identifiant en chasse fixe et non le nom affiché :
-    plusieurs extensions non officielles portent le même titre.
-    L'extension Python installe elle-même Pylance, qui fait la
-    vérification ; ne le dire que si quelqu'un le remarque. Identifiants
-    relevés sur le poste de préparation.
-  ]
-]
-#d("Installer l'extension d'un langage")[
-  #annonce[
-    Ouvrir le dossier des programmes fautifs, installer l'extension Python,
-    puis rouvrir les fichiers.
-  ]
-
-  #tableau(
-    columns: (1.1fr, 1fr),
-    align: left + horizon,
-    [Le geste], [Ce que vous observez],
-    [Ouvrir `python/surface.py` dans LibreOffice Writer, puis lui donner une
-     police à chasse fixe],
-      reponse[les colonnes s'alignent, comme dans l'éditeur],
-    [Fichier #sym.arrow.r Ouvrir le dossier, sur `data/cours1/erreurs/`],
-      [trois fichiers, deux `.py` et un `.cpp`],
-    [Ouvrir `python/surface.py` avant toute installation],
-      reponse[le texte est coloré : l'éditeur connaît déjà Python],
-    [`Ctrl` + `Maj` + `X`, chercher `ms-python.python`, installer],
-      reponse[une ligne se souligne, sans que rien ait été exécuté],
-    [Ouvrir `cpp/aire.cpp`],
-      reponse[l'éditeur propose l'extension C/C++ correspondante],
-  )
-
-  #legende[
-    Les trois fichiers sont fautifs volontairement. Travailler sur eux
-    directement : ils sont remis en état après la séance.
-  ]
-
-  #notes[
-    Première ligne : vérifier de leurs mains ce que « Ce que l'éditeur
-    ajoute au texte » a montré. Format #sym.arrow.r Caractère, puis une
-    police à chasse fixe — Liberation Mono ou DejaVu Sans Mono sont
-    présentes partout. L'éditeur fait ce choix d'office.
-
-    Troisième ligne, la surprise voulue : la coloration ne vient pas de
-    l'extension, elle est fournie d'origine pour les langages courants. Ce
-    que l'extension apporte est la ligne suivante, le soulignement.
-
-    Si la question de l'identifiant revient, enchaîner sur « Extension de
-    fichier et extension de VSCode ».
-
-    L'éditeur n'a pas pu être piloté sur le poste de préparation : les
-    deux dernières lignes viennent de la documentation de VSCode et
-    restent à vérifier en salle, notamment la proposition automatique
-    d'extension, qui dépend d'un réglage.
-
-    Poste sans réseau : les extensions ne s'installent pas, la suite se
-    fait quand même, sans le soulignement.
-  ]
-]
-
 #d("Corriger trois programmes")[
   #annonce[
     Chacun des trois fichiers porte une faute d'écriture d'un genre différent.
