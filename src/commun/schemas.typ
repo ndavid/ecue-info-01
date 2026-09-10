@@ -84,6 +84,23 @@
   }
 })
 
+// La même chaîne, empilée de haut en bas.
+//
+// Sert quand la largeur manque, par exemple lorsqu'une diapositive porte deux
+// schémas côte à côte. Les boîtes y prennent la largeur disponible et leur
+// hauteur propre : rien à mesurer, l'empilement n'ayant pas à les égaliser.
+#let fleche-bas = align(center, text(size: 24pt, fill: accent)[↓])
+
+#let chaine-verticale(..cellules, gabarit: etape, ecart: 4pt) = {
+  let items = cellules.pos()
+  let contenu = ()
+  for (i, cellule) in items.enumerate() {
+    if i > 0 { contenu.push(fleche-bas) }
+    contenu.push(gabarit(..cellule))
+  }
+  grid(columns: 1, row-gutter: ecart, ..contenu)
+}
+
 // Une couche du schéma en pile : pictogramme, nom, exemples.
 #let couche(icone, titre, exemples, plein: false) = block(
   width: 100%, inset: (x: 14pt, y: 5pt),
