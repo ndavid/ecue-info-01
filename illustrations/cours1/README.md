@@ -30,6 +30,7 @@ prennent la place des images.
 | `vscode_hello.png` | VSCode : les deux projets hello world, et le terminal ayant lancé Python puis compilé et exécuté le C++ | « Les deux exécutions dans l'éditeur » | produite ici |
 | `page_html_brut.png` | `raven_brut.html` dans le navigateur, sans feuille de style | « Contenu et présentation » | **reproductible**, voir plus bas |
 | `page_html_style.png` | `raven_style.html` avec `style.css`, dans le navigateur | « Contenu et présentation » | **reproductible**, voir plus bas |
+| `notebook_jupyterlab.png` | JupyterLab, `trajet.ipynb` ouvert : bloc de texte mis en forme, bloc de code numéroté, sa sortie | « Un notebook dans JupyterLab » | **reproductible**, voir plus bas |
 | `apercu_recette.png` | `recette.md` rendu : titre, tableau, liste numérotée, diagramme Mermaid | « Le résultat attendu » | **reproductible**, voir plus bas |
 
 Le nom du fichier est celui du tableau ci-dessus, à la lettre : c'est lui qui
@@ -37,7 +38,7 @@ est écrit dans le `.typ`.
 
 ## Captures reproductibles
 
-Trois d'entre elles ne demandent aucune manipulation à la souris : ce sont des
+Quatre d'entre elles ne demandent aucune manipulation à la souris : ce sont des
 pages web, et un navigateur sans fenêtre les photographie. Elles peuvent donc
 être refaites à l'identique quand les données changent.
 
@@ -62,12 +63,37 @@ convert "$D/apercu_recette.png" -trim +repage -bordercolor white -border 12 \
     "$D/apercu_recette.png"
 ```
 
+Le notebook se photographie de la même façon, JupyterLab étant lui aussi une
+page web. Le notebook de démonstration est fabriqué puis exécuté, pour que la
+capture porte de vraies sorties, et le serveur est lancé sur un dossier qui ne
+contient que lui — l'arborescence de gauche reste ainsi lisible. Le recadrage
+retire le bas de la fenêtre, vide, et la bulle « Jupyter news » qui s'y affiche.
+
+```bash
+D=illustrations/cours1
+mkdir -p "$D/demo"
+# … écrire $D/demo/trajet.ipynb : un bloc Markdown, un bloc de code numpy,
+#   un second bloc Markdown qui commente le résultat
+jupyter nbconvert --execute --to notebook --inplace "$D/demo/trajet.ipynb"
+
+jupyter lab --no-browser --port=8901 --ServerApp.token=info01demo \
+    --ServerApp.root_dir="$D/demo" --ServerApp.open_browser=False &
+sleep 8
+chromium --headless --disable-gpu --hide-scrollbars --virtual-time-budget=40000 \
+    --screenshot="$D/brut.png" --window-size=1400,880 \
+    "http://localhost:8901/lab/tree/trajet.ipynb?token=info01demo"
+python -c "from PIL import Image; im = Image.open('$D/brut.png'); \
+    im.crop((0, 0, im.width, 535)).save('$D/notebook_jupyterlab.png')"
+pkill -f "[j]upyter-lab"
+rm -rf "$D/demo" "$D/brut.png"
+```
+
 > Sous Ubuntu, le Chromium installé en *snap* ne lit ni n'écrit hors de
 > `$HOME`, ni dans les dossiers commençant par un point : passer par un dossier
 > ordinaire du répertoire personnel, sans quoi la capture montre un
 > « Accès au fichier refusé ».
 
-Les trois autres montrent des fenêtres d'application — VSCode, LibreOffice, un
+Les autres montrent des fenêtres d'application — VSCode, LibreOffice, un
 terminal — et se font à la main : il faut mettre l'interface dans l'état voulu
 (un point d'arrêt posé, l'affichage des espaces activé), ce qu'aucun outil ne
 reproduit fidèlement.

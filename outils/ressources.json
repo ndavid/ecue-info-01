@@ -1,5 +1,5 @@
 {
-  "genere_le": "2026-09-08",
+  "genere_le": "2026-09-10",
   "avec_produit": false,
   "fichiers": {
     "data/cours1/fourni/auld_lang_syne.txt": {
@@ -65,6 +65,10 @@
     "illustrations/cours1/libreoffice_export_pdf.png": {
       "taille": 58886,
       "sha256": "1a5b19cb21849c2836740503027b2551e01edef2e55cf1c58428b4a65d88a31a"
+    },
+    "illustrations/cours1/notebook_jupyterlab.png": {
+      "taille": 61841,
+      "sha256": "513f8af1f376121d362b97ef46b0950d41ce0bd1e9619b5848e220bdbd543ab3"
     },
     "illustrations/cours1/page_html_brut.png": {
       "taille": 80729,

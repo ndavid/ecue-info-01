@@ -63,6 +63,57 @@
     sous les yeux.
   ]
 ]
+#d("Le noyau d'un autre environnement")[
+  #annonce[
+    Dans `info01`, le client et le noyau sont ensemble. On les sépare ici, et
+    le notebook s'exécute quand même.
+  ]
+
+  #tableau(
+    columns: (auto, 1.7fr, 1fr),
+    align: left + horizon,
+    [], [Ce qu'il faut faire], [Ce que vous constatez],
+    [1], [`conda create -n analyse -c conda-forge python=3.12 ipykernel numpy`], [],
+    [2], [`conda run -n analyse python -m ipykernel install --user --name analyse`],
+      reponse[`Installed kernelspec analyse`],
+    [3], [`conda activate info01`, puis `jupyter kernelspec list`],
+      reponse[deux noyaux, dont `analyse`, absent d'`info01`],
+    [4], [ouvrir le notebook dans VSCode, choisir le noyau `analyse`],
+      reponse[`import numpy` passe sans que `info01` soit actif],
+  )
+
+  #legende[
+    Sorties réelles. `analyse` n'a pas `jupyterlab`, et n'en a pas besoin : le
+    `kernel.json` écrit à l'étape 2 ne contient qu'un chemin,
+    `…/envs/analyse/bin/python`.
+  ]
+
+  #notes[
+    Le cas du module est le plus simple : `jupyterlab` tire `ipykernel`
+    avec lui, et les deux moitiés du schéma sont dans le même dossier. Le
+    faire vérifier avant de commencer, `conda list -n info01`.
+
+    Le cas d'ici est celui qu'ils rencontreront en stage : un client
+    installé une fois, et un environnement par projet.
+
+    Étape 2, à faire lire : le client ne devine pas les environnements. Il
+    lit un dossier de déclarations, et `ipykernel install` y écrit un
+    `kernel.json` qui n'est qu'un chemin vers un interpréteur. Ouvrir le
+    fichier si le temps le permet, c'est trois lignes utiles.
+
+    Étape 4 : VSCode est un client au même titre que JupyterLab, et il lit
+    la même liste. C'est la réponse à « pourquoi VSCode me demande de
+    choisir un noyau ».
+
+    À retenir pour l'année : une bibliothèque manquante s'installe dans
+    l'environnement du *noyau*, jamais dans celui du client. C'est le
+    `ModuleNotFoundError` de la partie précédente, dans sa version
+    notebook.
+
+    Rendre la main : `conda env remove -n analyse`, et
+    `jupyter kernelspec remove analyse` pour retirer la déclaration.
+  ]
+]
 #d("À retenir")[
   #tableau(
     entete: false,
@@ -75,7 +126,7 @@
     [Un format], [décide de ce qu'on peut relire, comparer et versionner],
     [Une dépendance], [du code écrit par d'autres, réutilisé, qu'il faut installer et déclarer],
     [Un environnement], [rend l'outillage reproductible d'un poste à l'autre],
-    [Un notebook], [exécute dans un noyau, qui garde l'état entre les cellules],
+    [Un notebook], [un client qui affiche, un noyau qui exécute et qui retient],
   )
 
   #notes[

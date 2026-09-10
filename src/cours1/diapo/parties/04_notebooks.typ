@@ -1,6 +1,7 @@
 // Partie du cours 1 — incluse par `cours1.typ`, qui porte les réglages
 // globaux. Un fichier inclus n'hérite pas des imports de son appelant.
 #import "../../../commun/prelude.typ": *
+#import "../schemas_notebooks.typ": schema-notebook, schema-client-serveur, schema-trois-serveurs, schema-deux-clients
 
 // ================================ Notebooks ================================
 
@@ -8,147 +9,229 @@
   "Notebooks",
   annonce: "Écrire, exécuter et garder du code dans un même document",
 )
-#d("Interface et noyau d'un notebook")[
+#d("Programmation littérale")[
   #annonce[
-    L'interface affiche le texte et les résultats. Le noyau exécute le code
-    et conserve les variables entre les cellules.
+    Le texte, le code et son résultat tiennent dans un seul document.
   ]
 
-  #grid(
-    columns: (1fr, 88pt, 1fr),
-    rows: 110pt,
-    bloc("Interface", "navigateur ou VSCode, affiche"),
-    align(horizon + center)[
-      #text(size: 20pt, fill: accent)[→] \
-      #text(size: 13pt, fill: estompe)[code] \
-      #v(0.2em)
-      #text(size: 20pt, fill: accent)[←] \
-      #text(size: 13pt, fill: estompe)[résultats]
-    ],
-    bloc("Noyau", "un processus Python, calcule et retient", plein: true),
-  )
-
-  #notes[
-    Démonstration en direct : `x = 10`, puis `print(x * 2)` → 20. Modifier la
-    première cellule en `x = 3` sans l'exécuter : la seconde affiche toujours
-    20. Puis Restart & Run All. Conclure sur le réflexe avant tout partage.
-  ]
-]
-#d("Trois façons d'ouvrir un notebook")[
-  #annonce[
-    Le même fichier `.ipynb` s'ouvre de trois façons. Ce qui change n'est pas
-    le notebook, c'est l'endroit où tourne le noyau.
-  ]
-
-  #tableau(
-    columns: (auto, 1fr, 1fr),
-    align: left + horizon,
-    [Comment], [Ce que vous lancez], [Où tourne le noyau],
-    [Dans l'éditeur de code], [le `.ipynb` ouvert dans VSCode], [sur votre machine],
-    [JupyterLab en local], [`jupyter lab` dans un terminal], [sur votre machine],
-    [Dans le navigateur], [JupyterLite, une adresse à ouvrir], [dans l'onglet, chez vous],
-  )
-
-  #v(0.3em)
-  ```console
-  $ jupyter lab
-  [I ServerApp] Serving notebooks from local directory: /home/alice/projets
-  [I ServerApp] http://localhost:8888/lab?token=7882e00fbc72e4…
-  ```
+  #align(center, schema-notebook())
 
   #legende[
-    Sortie réelle : la deuxième façon est bien une application web, mais le
-    serveur est le vôtre.
+    Trois sortes de blocs, dans l'ordre où on les écrit. Le terme est de Donald
+    Knuth, 1984.
   ]
 
   #notes[
-    Faire lire la dernière ligne : `jupyter lab` démarre un serveur web
-    sur la machine de l'étudiant, le navigateur n'étant que l'interface.
-    C'est l'application web de la première partie, avec le calcul de leur
-    côté.
+    L'idée à faire passer, et la seule : ailleurs, le code est dans un
+    fichier, l'explication dans un autre, et le résultat nulle part. Ici
+    les trois sont au même endroit, et dans l'ordre du raisonnement.
 
-    Le jeton dans l'adresse est un mot de passe à usage unique, qui
-    empêche qu'un autre poste du réseau exécute du code. Une phrase ;
-    repris au cours 5.
+    Le bloc de texte s'écrit en Markdown — celui de la partie précédente,
+    sans rien de neuf à apprendre.
 
-    `Serving notebooks from local directory` désigne le dossier courant :
-    le notebook ne voit que ce qui est dessous.
+    Le résultat est enregistré dans le document : rouvert demain, il
+    affiche encore ce que le code a produit aujourd'hui. C'est ce qui rend
+    un notebook lisible sans l'exécuter, et ce qui le fait mal se
+    versionner, diapositive suivante.
 
-    La troisième ligne referme « Le lieu du calcul » de la première partie
-    : JupyterLite n'a pas de serveur, le noyau Python y est compilé en
-    WebAssembly et tourne dans l'onglet, si bien que rien ne part sur le
-    réseau. Un service en ligne où le calcul se fait chez vous.
+    Knuth : « Considérons les programmes comme des œuvres de littérature ».
+    Une phrase, sans développer ; c'est le nom de l'idée qui sert, pas son
+    histoire.
 
-    Ne pas le proposer comme environnement de travail : tous les paquets
+    Ce qu'un notebook n'est pas : un moyen de livrer un outil. On y
+    explore et on y explique ; ce qui doit tourner tout seul devient un
+    script, au cours 3.
+  ]
+]
+#d("Le bloc de texte : du Markdown")[
+  #annonce[
+    Le bloc de texte s'écrit en Markdown, et s'affiche mis en forme.
+  ]
+
+  #face-a-face(
+    panneau("Ce qu'on tape dans le bloc")[
+      ```markdown
+      # Longueur d'un trajet
+
+      Les points du trajet sont donnés en
+      **coordonnées projetées**, en mètres.
+      ```
+    ],
+    panneau("Ce que le notebook affiche")[
+      #v(0.4em)
+      #text(size: 24pt, weight: demi-gras)[Longueur d'un trajet]
+      #v(0.5em)
+      #text(size: 16pt)[
+        Les points du trajet sont donnés en #strong[coordonnées projetées],
+        en mètres.
+      ]
+    ],
+  )
+
+  #legende[
+    Le `#` fait un titre, les deux astérisques mettent en gras : rien de neuf
+    depuis la manipulation Markdown.
+  ]
+
+  #notes[
+    Rien à apprendre ici, et c'est le propos : le Markdown écrit une demi-
+    heure plus tôt sert tel quel dans un notebook. Le dire, puis passer.
+
+    Le bloc bascule entre les deux états : `Maj` + `Entrée` affiche la mise
+    en forme, un double clic revient au texte source. C'est la même
+    alternance que l'aperçu de l'éditeur.
+
+    Un bloc de texte ne s'exécute pas au sens du code : il n'y a pas de
+    noyau derrière, seulement une mise en forme. Le numéro `[1]` n'apparaît
+    donc que sur les blocs de code.
+  ]
+]
+#d("Un notebook dans JupyterLab")[
+  #annonce[
+    Les trois sortes de blocs dans une vraie fenêtre.
+  ]
+
+  #align(center)[
+    #if captures-disponibles {
+      box(stroke: 1pt + accent.lighten(55%),
+          image("/illustrations/cours1/notebook_jupyterlab.png", width: 88%))
+    } else {
+      scale(78%, reflow: true, schema-notebook())
+    }
+  ]
+
+  #legende[
+    Capture réelle. Le code y calcule la longueur d'un trajet de quatre points.
+  ]
+
+  #notes[
+    Montrer où sont les trois blocs de la diapositive précédente, dans
+    l'ordre : le titre et la phrase en haut, la cellule de code au milieu
+    avec son `[1]`, la sortie juste en dessous, puis le texte qui commente
+    le résultat.
+
+    Le `[1]` est le rang d'exécution, pas le rang dans le document. Une
+    cellule relancée passe à `[2]` : c'est ce qui trahit un notebook
+    exécuté dans le désordre.
+
+    À droite en haut, le nom du noyau, `Python 3 (ipykernel)`. C'est ce
+    qu'on choisit à l'ouverture, et le sujet de la manipulation.
+
+    À gauche, l'arborescence : un notebook est un fichier dans un dossier,
+    comme le reste.
+  ]
+]
+#d("Le client et le serveur d'un notebook")[
+  #annonce[
+    Un notebook est une application web : un client qui affiche, un serveur qui
+    exécute.
+  ]
+
+  #align(center, schema-client-serveur())
+
+  #legende[
+    Changer de client ne change pas le noyau : JupyterLab et l'éditeur de code
+    ouvrent le même fichier et parlent au même serveur.
+  ]
+
+  #notes[
+    Reprendre le schéma de la première partie : là-bas le serveur était
+    ailleurs, ici il est sur la même machine. Le navigateur ne sait pas
+    faire la différence, et c'est pourquoi l'adresse ressemble à une
+    adresse de site.
+
+    Le noyau est le processus Python qui exécute et qui retient. La
+    démonstration en trois gestes : `x = 10`, puis `print(x * 2)` → 20 ;
+    modifier la première cellule en `x = 3` sans l'exécuter, la seconde
+    affiche toujours 20 ; puis Restart & Run All. Réflexe avant tout
+    partage.
+
+    VSCode est un client comme JupyterLab : il ouvre le même fichier et
+    parle au même noyau. C'est le sens de la question « choisir le noyau »
+    qu'il pose à l'ouverture, et la manipulation le vérifie.
+
+    Le jeton dans l'adresse `localhost:8888/lab?token=…` est un mot de
+    passe à usage unique, qui empêche qu'un autre poste du réseau exécute
+    du code. Une phrase ; repris au cours 5.
+
+    JupyterLite n'a pas de serveur : le noyau y est compilé en
+    WebAssembly et tourne dans l'onglet. Utile pour ouvrir un notebook en
+    dix secondes, sans compte ni installation ; pas pour travailler, tous
+    les paquets n'y étant pas. Colab, à l'inverse, exige un compte et
+    exécute sur ses serveurs.
+  ]
+]
+#d("Les trois emplacements du serveur")[
+  #annonce[
+    Client et serveur sont deux rôles, pas deux machines.
+  ]
+
+  #align(center, schema-trois-serveurs())
+
+  #legende[
+    Seul le premier cas fait sortir quelque chose de votre machine. Dans le
+    troisième, le noyau Python est exécuté par le navigateur lui-même.
+  ]
+
+  #notes[
+    C'est « Où s'exécute une application web » repris sur un cas précis :
+    la question utile n'est pas « est-ce que ça tourne chez moi ? » mais
+    « qu'est-ce qui sort, et quand ? ».
+
+    Premier cas : le code part sur une machine qu'on ne possède pas. Colab
+    exige un compte, et ce qu'on y dépose part sur les serveurs de
+    Google. Pratique pour dépanner, pas pour rendre un travail.
+
+    Deuxième cas, celui du module : `jupyter lab` démarre un serveur sur
+    leur poste, et l'adresse `localhost:8888` en est la preuve. Le jeton
+    dans l'adresse est un mot de passe à usage unique, qui empêche qu'un
+    autre poste du réseau exécute du code. Repris au cours 5.
+
+    Troisième cas, à relier à « La place de l'interpréteur » : le
+    navigateur y figurait déjà comme interpréteur, à côté de `python`.
+    JupyterLite ne fait que pousser cela plus loin — le noyau Python y est
+    compilé en WebAssembly et tourne dans l'onglet, si bien qu'il n'y a
+    plus de serveur du tout. Un navigateur est devenu assez complet pour
+    faire tourner un interpréteur Python.
+
+    Sa limite, à dire pour qu'ils ne s'y installent pas : tous les paquets
     n'y sont pas, et ce qu'on y dépose vit dans le navigateur. Il sert à
     ouvrir un notebook en dix secondes, sans compte ni installation.
-
-    Colab et consorts exigent un compte, et ce qu'on y dépose part sur
-    leurs serveurs. Pratique pour dépanner, pas pour rendre un travail.
   ]
 ]
-#d("Deux formats de notebook")[
+#d("Les clients d'un notebook")[
   #annonce[
-    Un `.ipynb` enregistre les résultats dans le fichier. Un fichier MyST ne
-    garde que le code, et les résultats sont recalculés.
+    Le même fichier s'ouvre par plusieurs clients. Tous ont besoin du même
+    noyau.
   ]
 
-  #tableau(
-    columns: (1fr, auto, auto),
-    align: (left + horizon, center + horizon, center + horizon),
-    [Même modification : `1920` → `3840`], [`.ipynb`], [MyST `.md`],
-    [Lignes modifiées dans le `diff`], [23], [2],
-    [Taille du fichier], [17,3 ko], [11,3 ko],
-  )
+  #align(center, schema-deux-clients())
 
   #legende[
-    Mesuré sur la page « Environnement Python » de ce cours, le `.ipynb` ayant
-    été exécuté : il contient aussi les résultats, qui changent à chaque
-    exécution.
+    L'éditeur de code n'a pas besoin de `jupyterlab` : il démarre `ipykernel`
+    lui-même. `ipykernel` est le noyau Python ; il en existe pour d'autres
+    langages, et le nom _Jupyter_ vient de Julia, Python et R.
   ]
 
   #notes[
-    Boucler explicitement : même contenu, deux formats — la question du début de
-    séance, appliquée à leur propre travail. Et transition vers le cours 2 :
-    c'est pour cette raison que le texte se versionne bien.
-  ]
-]
-#d("Quand un notebook, quand un script")[
-  #annonce[
-    Un notebook sert à comprendre et à montrer, un script à refaire. Le même
-    code passe souvent de l'un à l'autre.
-  ]
+    Le point pratique, et il sert dès la manipulation : un environnement
+    ouvert dans l'éditeur n'a besoin que d'`ipykernel`. C'est pourquoi
+    l'environnement `analyse` de tout à l'heure n'a pas `jupyterlab` et
+    fonctionne quand même.
 
-  #tableau(
-    columns: (1fr, 1fr, 1fr),
-    align: left + horizon,
-    [], [Notebook], [Script `.py`],
-    [Ce qu'on y cherche], [explorer, expliquer, montrer], [refaire, automatiser],
-    [Exécution], [cellule par cellule, l'état reste], [du début à la fin],
-    [Le résultat], [dans le document, avec le texte qui l'explique], [à l'écran ou dans un fichier],
-    [Se relance seul], [non], [oui],
-    [Se partage comme outil], [mal : il faut le noyau, et le bon ordre], [bien : une commande],
-  )
+    L'éditeur parle directement au noyau, sans passer par un serveur — la
+    documentation de l'extension le dit : « vous n'avez pas besoin
+    d'installer jupyter dans l'environnement, seul `ipykernel` est
+    nécessaire ». Il sait aussi se connecter à un serveur existant, en
+    collant son adresse ; c'est le premier cas du schéma précédent.
 
-  #legende[
-    On explore dans un notebook, on livre un script. Ce passage est le sujet
-    du cours 3.
-  ]
+    Les langages, pour information et sans y insister : le noyau décide du
+    langage, pas le format de fichier. Il existe des noyaux pour R
+    (`IRkernel`), Julia (`IJulia`), C++, et le `kernel.json` porte une
+    ligne `language` qui dit lequel. Le projet s'appelait IPython jusqu'en
+    2014.
 
-  #notes[
-    Sans cette diapositive, ils savent lancer un notebook sans savoir
-    quand en ouvrir un.
-
-    Le cas d'usage se reconnaît : on ouvre un notebook parce qu'on ne sait
-    pas encore ce qu'on cherche. On essaie, on regarde, on garde le
-    commentaire à côté du résultat. Le jour où cela marche et doit tourner
-    chaque semaine sans surveillance, cela devient un script — cours 3.
-
-    Dernière ligne : un notebook donné à quelqu'un d'autre demande le bon
-    noyau, les bonnes bibliothèques et des cellules exécutées dans l'ordre
-    ; un script se donne avec une ligne de commande. C'est aussi pourquoi
-    le `.ipynb` se versionne mal.
-
-    Ne pas opposer les deux : ce sont deux moments du même travail.
+    Ne pas en faire une invitation à changer de langage : le module reste
+    en Python.
   ]
 ]
