@@ -178,7 +178,7 @@ L'argument à retenir dépasse la manipulation : un format **ouvert et document�
 
 ### 🎓 10′ — Du code source à l'exécution *(ouverture de la partie)*
 
-La partie s'ouvre sur le **vocabulaire**, diapositive « Programmes et applications » : un programme est un texte d'instructions, programmer c'est écrire ce texte, une application est un programme empaqueté pour celui qui s'en sert. Dire que la frontière entre les deux derniers tient à l'empaquetage et à l'usage, non à la technique, plutôt que de la laisser deviner — c'est la question qui revient chaque année. Le schéma entrée → traitement → sortie du début de séance se reprend ici **à l'oral**, pour poser ce qui suit : la boîte du milieu est un fichier, d'où vient-elle ?
+La partie s'ouvre sur le **vocabulaire**, diapositive « D'un programme à une application » : programme, logiciel et application nomment la même chose, et c'est l'usage qui les spécialise. La diapositive montre désormais les deux chaînes qui mènent du code à une application, l'empaquetage et le déploiement : la frontière tient à l'empaquetage et à l'usage, non à la technique, et c'est la question qui revient chaque année. Le schéma entrée → traitement → sortie du début de séance se reprend ici **à l'oral**, pour poser ce qui suit : la boîte du milieu est un fichier, d'où vient-elle ?
 
 **Code source et fichier exécutable** répond en montrant les deux côte à côte, trois lignes de Python d'un côté, les premiers octets de l'exécutable `python3` de l'autre.
 
@@ -308,11 +308,207 @@ Diapositive de remarque, une minute. « Python » nomme le langage ; plusieurs p
 
 ---
 
-## Partie 3 — Édition de texte et contenu des fichiers
+## Partie 3 — Environnement de programmation
 
-La partie s'ouvre là où commence le fil du texte, et son titre ne reprend plus celui de la partie 1. Elle enchaîne quatre choses : programmer c'est éditer du texte, ce que l'éditeur apporte à cette édition, les formats de texte d'un projet — Markdown en tête —, puis ce que contient vraiment un fichier, jusqu'à ses premiers octets.
+La partie ne s'ouvre plus sur les interfaces mais sur le problème qui rend l'outil nécessaire. L'ordre est : ce qu'un programme emprunte, pourquoi il faut isoler ces emprunts, l'outil qui le fait, comment lire ses commandes, où les taper, puis l'installation elle-même.
 
-La manipulation « hello world » reste à la partie 2 : elle clôt l'exposé sur l'exécution, dont elle est la vérification. Celle des programmes fautifs vient ici, après les extensions et la vérification de l'écriture, dont elle dépend.
+### 🎓 6′ — Bibliothèques et dépendances
+
+Trois diapositives, dans cet ordre. Elles répondent à la question que les étudiants ne posent pas : pourquoi s'embêter avec un environnement.
+
+- **Ce qu'un programme emprunte** : les lignes `import` désignent du code écrit par d'autres. Nommer le mot *bibliothèque*, écarter « librairie », faux ami de *library*. L'image qui passe bien : une recette qui commence par « prenez une pâte brisée » — vous ne la fabriquez pas, mais il faut qu'elle soit dans le placard, et que ce soit la bonne.
+- **Une bibliothèque en entraîne d'autres** : `environment.yml` nomme 15 paquets, l'environnement en contient 352. Personne ne tient cette liste à la main, d'où l'outil. Conséquence à énoncer : une installation est reproductible parce qu'un fichier la décrit, pas parce qu'on se souvient de ce qu'on a tapé.
+- **Pourquoi isoler un environnement** : la même machine porte numpy 1.21.5 hors environnement et 2.5.2 dans `info01`. C'est la réponse au `ModuleNotFoundError` sur un paquet « qu'on vient d'installer », symptôme le plus fréquent du semestre.
+
+### 🎓 4′ — Ce qu'une bibliothèque contient vraiment
+
+Certaines bibliothèques ne sont que du Python ; d'autres enveloppent du code écrit dans un autre langage, déjà compilé.
+
+| | Tout en Python | Une enveloppe autour d'un autre langage |
+|---|---|---|
+| Exemples | `requests`, `markdown` | `numpy`, `pillow` |
+| Ce qui est distribué | du texte, lisible | du texte, plus un binaire compilé |
+| Selon la machine | le même fichier partout | un fichier par système et par version de Python |
+| Pourquoi | rien à compiler | la vitesse, ou une bibliothèque qui existait déjà |
+
+> **C'est la troisième ligne qui compte.** Une enveloppe doit exister précompilée pour chaque système et chaque version de Python ; quand elle n'existe pas, l'installation tente de compiler sur place et échoue faute de compilateur — le « Microsoft Visual C++ 14.0 is required » que tout le monde a déjà vu. C'est exactement ce que conda résout, et pourquoi le module l'emploie plutôt que `pip` seul : il distribue les binaires précompilés, et sait installer ce qui n'est pas du Python, comme le compilateur C++ de la partie 2 ou `ffmpeg`. Les quatre exemples sont choisis pour être compris **sans notion préalable** : `markdown` convertit en HTML ce qu'ils viennent d'écrire à la manipulation précédente, et c'est du Python de bout en bout ; `pillow` ouvre les `.jpg` et `.png` de la grille des extensions, mais ne les décode pas lui-même — il appelle `libjpeg` et `libpng`, deux bibliothèques C plus vieilles que les étudiants.
+
+### 🎓 6′ — L'outil, et le minimum de ligne de commande pour s'en servir
+
+**C'est la charnière de la séance**, et elle explique pourquoi la ligne de commande arrive ici plutôt qu'au début : on ne l'apprend pas pour elle-même, on la rencontre parce que l'outil dont on a besoin n'existe que sous cette forme. Le dire simplement — beaucoup de programmes n'ont pas de fenêtre, parce que personne n'en a écrit une — sans en faire une question d'austérité.
+
+Trois commandes pour tout le semestre :
+
+| Ce que vous voulez | Ce que vous tapez |
+|---|---|
+| créer l'environnement du module | `conda env create -f environment.yml` |
+| l'activer dans le terminal courant | `conda activate info01` |
+| savoir ce qui est installé dedans | `conda list` |
+
+Suivent **deux diapositives seulement**, le minimum pour lire ces lignes :
+
+1. **Ligne de commande et interface graphique** — la comparaison sur cinq points, dont « ce qui en reste », qui prépare git au cours 2 et les scripts au cours 3. Aucune des deux ne remplace l'autre : on clique pour chercher, on tape pour répéter.
+2. **Anatomie d'une commande** — le programme, l'option, l'argument, sur `soffice --convert-to pdf raven.odt`, avec le geste équivalent à la souris. Le lien est direct avec la première partie, où ils ont exporté `raven.odt` en PDF en cliquant : `soffice` n'est pas un autre outil, c'est le même appelé par son nom.
+
+> **Ce qui a été retiré d'ici**, et qui reste en annexe du deck : la démonstration chiffrée `*.odt` (vingt fichiers en 2,1 s contre 1,4 s pour un seul), le tableau de décision « quand l'une, quand l'autre », les critères d'expérience utilisateur, le terminal sur les trois systèmes et la façon de l'ouvrir, et le TD de conversion LibreOffice / navigateur. **Le cours 2 traite la ligne de commande pour elle-même** : ces diapositives y sont reprises. Le dire à la salle en une phrase, pour que le survol ne passe pas pour de l'escamotage.
+
+### 🎓 4′ — Le terminal de l'éditeur de code
+
+Ils s'en sont déjà servis sans qu'on le nomme, à la manipulation « hello world » : c'est le moment d'y revenir. Le terminal intégré n'est pas un autre terminal, c'est le même programme affiché dans la fenêtre de l'éditeur — le dire, parce que la question vient.
+
+| Le geste | Ce qu'il règle |
+|---|---|
+| Terminal → Nouveau terminal | un terminal dans le dossier ouvert |
+| le sélecteur, à droite du panneau | l'interpréteur de commandes : PowerShell, bash, zsh |
+| `Ctrl`+`Maj`+`P`, `Python: Select Interpreter` | l'environnement activé dans chaque nouveau terminal |
+| la barre d'état, en bas | l'environnement en cours |
+
+La troisième ligne est celle qui évite le `ModuleNotFoundError`, et la quatrième permet de le vérifier sans rien taper. Le dossier du projet est le **dossier courant** : c'est de lui que partent les chemins relatifs.
+
+> Les libellés dépendent de la version de VSCode et de la langue de l'interface, qui est l'anglais par défaut : à vérifier sur le poste de démonstration avant la séance. Le terminal ouvert hors de l'éditeur, et la façon de l'ouvrir sur chaque système, sont en annexe du deck ; c'est le cours 2 qui s'en occupe.
+
+### 🎓 3′ — L'environnement de développement
+
+Un environnement réunit une version de Python et les outils choisis, dans un dossier isolé, décrit par un fichier et recréable ailleurs. Le problème d'abord — « ça marche sur ma machine » — puis le dossier qui y répond.
+
+**L'environnement est créé avant la séance**, par la consigne d'installation envoyée à la rentrée : sa création prend plusieurs minutes et ne peut pas être le geste de la séance. Ce qui est projeté est la commande, pour qu'ils sachent la relire, pas pour qu'ils la lancent maintenant.
+
+```bash
+conda create -n info01 -c conda-forge python=3.12 \
+    jupyterlab numpy pillow pandoc typst ffmpeg imagemagick
+conda activate info01
+```
+
+- **Miniforge** : <https://conda-forge.org/download/>. La liste exacte des paquets est dans [`environment.yml`](../../../environment.yml), qui est ce qu'on distribue ; la ligne ci-dessus en est le résumé projetable.
+- Vérification : invite `(info01)`, puis `import sys; print(sys.executable)`, dont le chemin doit contenir `info01`.
+- **Message à marteler** : `ModuleNotFoundError` alors qu'« on vient d'installer » = presque toujours le **mauvais environnement actif**. La manipulation qui suit le fait constater.
+- L'environnement sert à **installer des outils**, pas à packager un projet (décision de conception du module).
+
+> ⚠️ **Point de bascule de la séance.** Si l'environnement manque sur quelques postes, la manipulation qui suit ne se fait pas, et le cours 3 démarre mal. Prévoir : consigne d'installation **avant** la rentrée, une clé USB avec l'installeur Miniforge (Windows/macOS), et un binôme d'entraide. Voir les leviers d'allègement dans [`inversion_c1_c3.md`](../../inversion_c1_c3.md).
+
+### 🎓 3′ — Les outils d'installation, et d'où viennent les paquets
+
+Trois diapositives courtes, insérées après « L'outil qui installe un environnement ». Elles répondent à ce que les étudiants trouveront de toute façon en cherchant sur le web, et sèment la question de la confiance.
+
+1. **Les outils qui installent des paquets** — une frise dessinée : `pip` (2008), `conda` (2012), `conda-forge` (2015), `mamba` (2019), `pixi` (2023), `uv` (2024). Ce qu'il faut dire, et rien de plus : `pip` installe des bibliothèques Python et rien d'autre, il ne sait pas installer `ffmpeg` ni un compilateur C++ ; `conda` fait les deux, d'où le choix du module. `pyenv` est nommé dans la légende pour ce qu'il est — un sélecteur de version de Python, qui n'installe aucun paquet — parce que son nom le fait confondre avec les autres. `uv` et `pixi` sont récents, écrits en Rust, excellents, et hors programme : le module s'en tient à un seul outil. Ne pas laisser croire à une succession où le dernier remplace les précédents ; `pip` a dix-huit ans, il est installé dans l'environnement du module, et `uv` l'appelle encore par-dessous.
+2. **D'où viennent les paquets** — PyPI, 886 022 projets, publication immédiate et sans relecture ; conda-forge, 29 411 paquets, chacun avec une recette relue par des humains. Ni bon ni mauvais dépôt : un paquet conda-forge est le plus souvent construit à partir des mêmes sources que le paquet PyPI, quelques jours plus tard. Ce qui change est la porte d'entrée.
+3. **Ce qu'une installation exécute** — `requests` contre `reqeusts`, en grand, côte à côte. Installer un paquet exécute du code écrit par quelqu'un d'autre, avec les droits de celui qui a tapé la commande. Le typosquattage n'a rien de théorique : des campagnes de plusieurs centaines de faux paquets ont été relevées sur PyPI, calqués sur les noms les plus téléchargés.
+
+> **Le réflexe, et c'est la seule chose à retenir** : le nom d'un paquet se copie depuis la documentation du projet, il ne se tape pas de mémoire. Ne pas transformer cela en peur de tout installer — la conclusion est un geste, pas une abstention. Chiffres relevés le 8 septembre 2026 (index de PyPI, API de GitHub) ; 454 600 nouveaux paquets malveillants recensés en 2025, tous dépôts confondus, *State of the Software Supply Chain*, Sonatype, 2026.
+
+> **Sur le canal `defaults` d'Anaconda**, si la question vient : le module emploie Miniforge, qui n'installe que depuis conda-forge, parce que les conditions d'utilisation du dépôt d'Anaconda demandent une licence payante aux organisations au-delà d'une certaine taille. La raison est dans [`INSTALLATION.md`](../../../INSTALLATION.md) et n'a pas à être développée en séance.
+
+### ⌨️ 12′ — Installer une bibliothèque et s'en servir *(manipulation)*
+
+Fichiers : [`data/cours1/environnement/`](../../../data/cours1/environnement/) — un petit projet Python écrit comme les dépôts qu'ils ouvriront cette année : `pyproject.toml`, `environment.yml`, `README.md`, le paquet `page_html/` et `style.css`. Le README y donne le déroulé complet. Trois diapositives d'étapes, après l'ouverture brune.
+
+C'est la seule manipulation de la partie, et elle en est la conclusion : la partie a dit ce qu'un programme emprunte et quel outil l'installe, sans que personne n'ait encore installé quoi que ce soit. `page_html` convertit en page HTML le `recette.md` écrit à la partie 3, avec la bibliothèque `markdown`, qui n'est nulle part.
+
+**On repart d'un environnement neuf**, et non de `info01` : c'est ce qui permet de voir ce qu'un environnement contient d'origine, ce qui manque, et ce qu'une installation ajoute.
+
+| # | Le geste | Ce qu'ils constatent |
+|---|---|---|
+| 1 | Ouvrir le dossier `data/cours1/environnement/` | l'arborescence d'un projet, pas un script isolé |
+| 2 | Lire la ligne `dependencies` de `pyproject.toml` | le projet annonce avoir besoin de `markdown` |
+| 3 | `conda env create -f environment.yml`, puis `conda activate recette` | l'invite passe de `(info01)` à `(recette)` |
+| 4 | `conda list` | **28 paquets**, dont `pip`, `setuptools`, et une douzaine de bibliothèques C — aucun `markdown` |
+| 5 | `python -m page_html` | `ModuleNotFoundError: No module named 'markdown'` |
+| 6 | `conda install -c conda-forge markdown` | **trois** paquets : `markdown`, `importlib-metadata`, `zipp` |
+| 7 | `python -m page_html`, à nouveau | `recette.md -> recette.html, 1282 octets` |
+| 8 | Ouvrir la page par l'adresse `file:///` affichée | la recette mise en page, sans serveur |
+| 9 | Changer une couleur dans `style.css`, `F5` | la page change, le `.html` n'a pas bougé |
+| 10 | Ajouter `- markdown` sous `dependencies` dans `environment.yml` | le fichier décrit enfin ce qu'on a installé |
+| 11 | `conda env update -f environment.yml` | rien ne s'installe : c'était déjà fait |
+
+**L'étape 4 est la surprise de la manipulation.** Un environnement « Python seul » n'est pas vide : 28 paquets, dont une douzaine de bibliothèques C — `openssl`, `libsqlite`, `libzlib` — sans lesquelles l'interpréteur ne démarre pas. `pip`, `setuptools` et `wheel` y sont aussi, ce qui explique que `pip install` fonctionne dans un environnement conda sans qu'on l'ait installé. Et rien de ce que fait un programme utile : ni `numpy`, ni `jupyterlab`, ni `markdown`.
+
+**L'étape 5 ne se saute pas.** C'est la seule fois de la séance où ils voient `ModuleNotFoundError` dans des conditions où la cause est connue d'avance : le message annoncé deux fois depuis la partie 2 devient une chose qui leur est arrivée. Dire en une phrase ce que `-m` fait — exécuter un paquet plutôt qu'un fichier — et ne pas s'y attarder.
+
+**Le chiffre de l'étape 6 vaut la comparaison** : trois paquets ici, un seul dans `info01`, où `importlib-metadata` et `zipp` avaient déjà été tirés par autre chose. C'est « Une bibliothèque en entraîne d'autres » vérifié par eux, et la démonstration que ce qui est déjà là ne se réinstalle pas.
+
+Trois choses de la séance se referment à l'étape 8, et elles se nomment une par une : le `recette.md` est celui qu'ils ont écrit une demi-heure plus tôt ; la page sépare le contenu de la présentation, comme les deux pages du poème de la partie 1 ; elle s'ouvre par une adresse `file:///`, sans serveur.
+
+**Les étapes 10 et 11 sont la conclusion de la partie**, et elles démontrent enfin ce que la deuxième diapositive annonçait : une installation n'est pas reproductible parce qu'on se souvient de ce qu'on a tapé, elle l'est parce qu'un fichier la décrit. Faire le geste devant eux — une ligne ajoutée, quatre caractères d'indentation.
+
+**La question à poser avant de répondre** : pourquoi le diagramme n'est-il pas dessiné ? Le bloc `mermaid` arrive dans la page sous la forme de ses six lignes de texte. Mermaid est un service de l'aperçu de l'éditeur, pas du HTML. C'est la distinction tenue toute la séance entre ce qu'un fichier contient et ce qu'un logiciel en affiche, déjà rencontrée avec la coloration syntaxique et avec la chasse fixe.
+
+**Pour ceux qui vont vite**, et seulement pour eux : `pip install -e .` installe le projet lui-même, après quoi la commande `page-html` existe. C'est la section `[project.scripts]` de `pyproject.toml`, et c'est le sujet du cours 3. Rendre la main ensuite par `conda deactivate` puis `conda activate info01`.
+
+> **Mesuré sur la machine de préparation**, sous Linux, avec le solveur `libmamba` de conda 24.7 : création de l'environnement en 10 s (index en cache), 28 paquets ; `conda install markdown` en 7 s et 3 paquets dans l'environnement neuf, contre 1 paquet de 85 ko et 1 min 52 s à froid dans `info01`. Trente postes en même temps iront moins vite. Commenter la sortie de `conda install` pendant qu'elle tourne plutôt que d'attendre en silence. Les libellés de menu de l'éditeur n'ont pas été vérifiés sur un poste Windows. Poste sans réseau : les étapes 3 et 6 échouent ; projeter le résultat, et faire quand même les étapes 10 et 11, qui ne demandent que d'éditer un fichier.
+
+> **Pourquoi `markdown` et pas `jinja2`.** L'idée d'un `.odt` produit depuis un modèle, par substitution dans `content.xml`, a été écartée pour une raison mesurée : `jinja2` **est déjà installé** dans `info01`, tiré comme dépendance de Sphinx et de JupyterLab, et `conda install jinja2` n'installerait rien. `markdown` est absent des deux environnements, et il est l'exemple « tout en Python » de la diapositive « Ce qu'une bibliothèque contient vraiment » : l'installation la vérifie. Il n'est **pas** ajouté à l'`environment.yml` du module, le geste de la manipulation étant d'ajouter une bibliothèque à un environnement qui existe déjà.
+### 🎓 4′ — Python en interactif
+
+Taper `python` sans nom de fichier ouvre une session interactive : chaque ligne est lue, exécutée, et son résultat affiché aussitôt, sans `print`. La trace projetée est une session réelle, dans `data/cours1/formats/`, qui réimporte le script des octets de tête.
+
+Deux façons d'exécuter du Python, et elles ne servent pas à la même chose : un script se lance en entier et se relance à l'identique, une session interactive s'essaie ligne à ligne et ne laisse rien.
+
+- Faire remarquer les **trois chevrons** : c'est l'invite de Python, pas celle du terminal. Les confondre est l'erreur de début de semestre, et elle produit un `SyntaxError` quand on tape une commande du système dans Python.
+- On y entre par `python`, on en sort par `exit()` ou `Ctrl`+`D`. Le dire tout de suite : on ne devine pas comment sortir.
+- Le module réimporte ici son propre script comme une bibliothèque : c'est « Ce qu'un programme emprunte » vu de l'autre côté, le code de quelqu'un d'autre étant aussi du code écrit par eux dix minutes plus tôt.
+
+**Amorce de la partie suivante** : un notebook est cette session interactive, avec le texte conservé autour.
+
+---
+
+## Partie 4 — Notebooks
+
+### 🎓 10′ — Notebooks
+
+- **Deux moitiés** : l'interface (navigateur ou VSCode) affiche, le **noyau** (un processus Python) calcule et *retient les variables*.
+- Deux conséquences, à faire vivre plutôt qu'à énoncer :
+  - « Redémarrer le noyau » efface les variables — le texte des cellules reste, son effet disparaît ;
+  - l'ordre d'exécution (`[1]`, `[2]`…) n'est pas l'ordre d'affichage.
+- **Démonstration en direct** (2′) : `x = 10` / `print(x*2)` → modifier la première cellule sans l'exécuter → la seconde ment. Puis *Restart & Run All*.
+- **`.ipynb` vs MyST** : JSON généré (résultats et images inclus, `git diff` illisible) vs Markdown écrit (résultats recalculés, `diff` lisible). Montrer que **le support projeté est lui-même un fichier MyST**.
+- **Trois façons d'ouvrir un notebook**, et la troisième referme « Le lieu du calcul » de la partie 1 :
+
+| Comment | Ce que vous lancez | Où tourne le noyau |
+|---|---|---|
+| Dans l'éditeur de code | le `.ipynb` ouvert dans VSCode | sur votre machine |
+| JupyterLab en local | `jupyter lab` dans un terminal | sur votre machine |
+| Dans le navigateur | **JupyterLite**, une adresse à ouvrir | dans l'onglet, chez vous |
+
+> JupyterLite n'a **pas de serveur** : son noyau Python est compilé en WebAssembly et tourne dans l'onglet, si bien que rien de ce qu'on écrit ne part sur le réseau. C'est un service en ligne où le calcul se fait chez soi — exactement le cas qu'on annonçait en partie 1 sans pouvoir le montrer. Ni compte ni installation, ce qui le distingue de Colab et de Binder. Ne pas le proposer comme environnement de travail : tous les paquets n'y sont pas, et ce qu'on y dépose vit dans le navigateur.
+
+- **Bouclage explicite** : « même contenu, deux formats » — la leçon d'il y a une heure, appliquée à leur propre travail. Et amorce du cours 2 : *pourquoi le texte se versionne bien*.
+- **Quand un notebook, quand un script** *(diapositive de clôture)*. La partie disait ce qu'est un notebook sans jamais dire quand en ouvrir un ; c'est ce que cette diapositive corrige.
+
+| | Notebook | Script `.py` |
+|---|---|---|
+| Ce qu'on y cherche | explorer, expliquer, montrer | refaire, automatiser |
+| Exécution | cellule par cellule, l'état reste | du début à la fin |
+| Le résultat | dans le document, avec le texte qui l'explique | à l'écran ou dans un fichier |
+| Se relance seul | non | oui |
+| Se partage comme outil | mal : il faut le noyau, et le bon ordre | bien : une commande |
+
+> La formule à laisser : **on explore dans un notebook, on livre un script.** Le cas d'usage se reconnaît — on ouvre un notebook parce qu'on ne sait pas encore ce qu'on cherche ; le jour où cela marche et doit tourner sans surveillance, cela devient un script, et c'est le cours 3. Ne pas opposer les deux : le notebook n'est pas un brouillon honteux, le script n'est pas la version sérieuse. La progression notebook → script → CLI est l'arc du module, et c'est ici qu'elle s'énonce.
+
+Cette diapositive **remplace** « Ce que le notebook réunit », récapitulation que le minutage désignait déjà comme la première à sauter : la partie garde donc sa longueur, et « À retenir » assure seule la clôture de la séance.
+
+### ⌨️ 10′ — Le notebook du cours, ouvert de trois façons *(manipulation)*
+
+Support : `src/cours1/notebook/04_premiers_octets.md`, écrit en MyST et converti par `python outils/construire_notebooks.py`. Le notebook lit les premiers octets d'un fichier et en déduit son format — contenu passé en annexe des diapositives parce qu'il se prête mieux à un notebook qu'à une projection.
+
+| | Le geste | Ce qu'on observe |
+|---|---|---|
+| Dans le navigateur | ouvrir [jupyter.org/try-jupyter](https://jupyter.org/try-jupyter/lab/), y déposer le fichier | aucun compte, aucune installation, et le calcul se fait chez vous |
+| Dans l'éditeur | ouvrir le `.ipynb`, choisir le noyau `info01` | les cellules s'exécutent par `Maj`+`Entrée` |
+| Dans JupyterLab | `jupyter lab` au terminal, puis le fichier dans l'arborescence | une adresse `localhost`, donc un serveur qui est le vôtre |
+
+L'ordre est celui de l'engagement croissant : rien à installer, puis l'éditeur qu'ils ont déjà, puis un serveur qu'ils lancent eux-mêmes. Si le réseau de la salle est mauvais, sauter la première et la montrer au tableau ; le premier chargement de JupyterLite prend une dizaine de secondes.
+
+> **La dernière cellule est celle à faire attendre** : elle copie le `.odt` sous un nom en `.pdf`, relit les octets, et montre que le nom ment. C'est « Deux extensions échangées » fait par eux, en trois lignes. Ils y retrouvent aussi le `50 4B 03 04` du `.odt` et l'absence de signature des fichiers texte, mais en l'exécutant.
+
+> Le noyau à choisir dans l'éditeur est la même question que l'interpréteur de la partie 2, et la même réponse — `info01`. Le dire ainsi plutôt que comme une nouveauté. Et le fichier source étant en MyST, donc du texte comparable ligne à ligne, c'est « Deux formats de notebook » vérifié sur le support qu'ils ont sous les yeux.
+
+---
+
+## Partie 5 — Markdown et les autres fichiers texte
+
+La partie ne traite plus que des formats de texte d'un projet, en dehors du code : ce qu'on édite dans un projet, Markdown en tête, une page HTML et sa feuille de style, et un diagramme écrit en texte.
+
+Ce qui relève de l'édition du code est passé à la partie 2, dont il prolonge l'exposé sur l'éditeur : programmer c'est éditer du texte, les règles d'écriture d'un langage, la coloration, la vérification, les espaces et les tabulations. La manipulation des programmes fautifs les suit, à la partie 2 également, puisqu'elle en dépend.
 
 ### 🎓 4′ — Programmation et édition de texte *(ouverture de la partie)*
 
@@ -485,202 +681,6 @@ C'est l'aspect graphique du fil « texte » : le même contenu, deux présentati
 > Étape 5 : le tableau se tape à la main la première fois — l'intérêt est de voir qu'un tableau Markdown n'est que des barres verticales, et que leur alignement n'est même pas obligatoire. Une extension du catalogue le fait ensuite en une commande, chercher « CSV to Markdown Table » ; plusieurs existent et se valent, aucune n'est indispensable. Pour ceux qui vont vite : une photo par `![](…)`, ce qui fait retravailler les chemins relatifs, et la remarque finale en citation par `>`.
 
 > **Ce qui est sorti de la séance.** La manipulation comptait cinq étapes : remettre en forme un `.txt` d'une seule ligne, renommer un `.donnees`, ouvrir un `.odt` comme une archive ZIP. Les trois premières travaillaient l'édition d'un poème plus que le format, et n'employaient pas Markdown : elles sont conservées en annexe, avec leurs diapositives, en attendant d'être reprises ou supprimées. Le même sort échoit à « Binaire, hexadécimal et encodage du texte » et au mini-projet « Les premiers octets d'un fichier ».
-## Partie 4 — Environnement de programmation
-
-La partie ne s'ouvre plus sur les interfaces mais sur le problème qui rend l'outil nécessaire. L'ordre est : ce qu'un programme emprunte, pourquoi il faut isoler ces emprunts, l'outil qui le fait, comment lire ses commandes, où les taper, puis l'installation elle-même.
-
-### 🎓 6′ — Bibliothèques et dépendances
-
-Trois diapositives, dans cet ordre. Elles répondent à la question que les étudiants ne posent pas : pourquoi s'embêter avec un environnement.
-
-- **Ce qu'un programme emprunte** : les lignes `import` désignent du code écrit par d'autres. Nommer le mot *bibliothèque*, écarter « librairie », faux ami de *library*. L'image qui passe bien : une recette qui commence par « prenez une pâte brisée » — vous ne la fabriquez pas, mais il faut qu'elle soit dans le placard, et que ce soit la bonne.
-- **Une bibliothèque en entraîne d'autres** : `environment.yml` nomme 15 paquets, l'environnement en contient 352. Personne ne tient cette liste à la main, d'où l'outil. Conséquence à énoncer : une installation est reproductible parce qu'un fichier la décrit, pas parce qu'on se souvient de ce qu'on a tapé.
-- **Pourquoi isoler un environnement** : la même machine porte numpy 1.21.5 hors environnement et 2.5.2 dans `info01`. C'est la réponse au `ModuleNotFoundError` sur un paquet « qu'on vient d'installer », symptôme le plus fréquent du semestre.
-
-### 🎓 4′ — Ce qu'une bibliothèque contient vraiment
-
-Certaines bibliothèques ne sont que du Python ; d'autres enveloppent du code écrit dans un autre langage, déjà compilé.
-
-| | Tout en Python | Une enveloppe autour d'un autre langage |
-|---|---|---|
-| Exemples | `requests`, `markdown` | `numpy`, `pillow` |
-| Ce qui est distribué | du texte, lisible | du texte, plus un binaire compilé |
-| Selon la machine | le même fichier partout | un fichier par système et par version de Python |
-| Pourquoi | rien à compiler | la vitesse, ou une bibliothèque qui existait déjà |
-
-> **C'est la troisième ligne qui compte.** Une enveloppe doit exister précompilée pour chaque système et chaque version de Python ; quand elle n'existe pas, l'installation tente de compiler sur place et échoue faute de compilateur — le « Microsoft Visual C++ 14.0 is required » que tout le monde a déjà vu. C'est exactement ce que conda résout, et pourquoi le module l'emploie plutôt que `pip` seul : il distribue les binaires précompilés, et sait installer ce qui n'est pas du Python, comme le compilateur C++ de la partie 2 ou `ffmpeg`. Les quatre exemples sont choisis pour être compris **sans notion préalable** : `markdown` convertit en HTML ce qu'ils viennent d'écrire à la manipulation précédente, et c'est du Python de bout en bout ; `pillow` ouvre les `.jpg` et `.png` de la grille des extensions, mais ne les décode pas lui-même — il appelle `libjpeg` et `libpng`, deux bibliothèques C plus vieilles que les étudiants.
-
-### 🎓 6′ — L'outil, et le minimum de ligne de commande pour s'en servir
-
-**C'est la charnière de la séance**, et elle explique pourquoi la ligne de commande arrive ici plutôt qu'au début : on ne l'apprend pas pour elle-même, on la rencontre parce que l'outil dont on a besoin n'existe que sous cette forme. Le dire simplement — beaucoup de programmes n'ont pas de fenêtre, parce que personne n'en a écrit une — sans en faire une question d'austérité.
-
-Trois commandes pour tout le semestre :
-
-| Ce que vous voulez | Ce que vous tapez |
-|---|---|
-| créer l'environnement du module | `conda env create -f environment.yml` |
-| l'activer dans le terminal courant | `conda activate info01` |
-| savoir ce qui est installé dedans | `conda list` |
-
-Suivent **deux diapositives seulement**, le minimum pour lire ces lignes :
-
-1. **Ligne de commande et interface graphique** — la comparaison sur cinq points, dont « ce qui en reste », qui prépare git au cours 2 et les scripts au cours 3. Aucune des deux ne remplace l'autre : on clique pour chercher, on tape pour répéter.
-2. **Anatomie d'une commande** — le programme, l'option, l'argument, sur `soffice --convert-to pdf raven.odt`, avec le geste équivalent à la souris. Le lien est direct avec la première partie, où ils ont exporté `raven.odt` en PDF en cliquant : `soffice` n'est pas un autre outil, c'est le même appelé par son nom.
-
-> **Ce qui a été retiré d'ici**, et qui reste en annexe du deck : la démonstration chiffrée `*.odt` (vingt fichiers en 2,1 s contre 1,4 s pour un seul), le tableau de décision « quand l'une, quand l'autre », les critères d'expérience utilisateur, le terminal sur les trois systèmes et la façon de l'ouvrir, et le TD de conversion LibreOffice / navigateur. **Le cours 2 traite la ligne de commande pour elle-même** : ces diapositives y sont reprises. Le dire à la salle en une phrase, pour que le survol ne passe pas pour de l'escamotage.
-
-### 🎓 4′ — Le terminal de l'éditeur de code
-
-Ils s'en sont déjà servis sans qu'on le nomme, à la manipulation « hello world » : c'est le moment d'y revenir. Le terminal intégré n'est pas un autre terminal, c'est le même programme affiché dans la fenêtre de l'éditeur — le dire, parce que la question vient.
-
-| Le geste | Ce qu'il règle |
-|---|---|
-| Terminal → Nouveau terminal | un terminal dans le dossier ouvert |
-| le sélecteur, à droite du panneau | l'interpréteur de commandes : PowerShell, bash, zsh |
-| `Ctrl`+`Maj`+`P`, `Python: Select Interpreter` | l'environnement activé dans chaque nouveau terminal |
-| la barre d'état, en bas | l'environnement en cours |
-
-La troisième ligne est celle qui évite le `ModuleNotFoundError`, et la quatrième permet de le vérifier sans rien taper. Le dossier du projet est le **dossier courant** : c'est de lui que partent les chemins relatifs.
-
-> Les libellés dépendent de la version de VSCode et de la langue de l'interface, qui est l'anglais par défaut : à vérifier sur le poste de démonstration avant la séance. Le terminal ouvert hors de l'éditeur, et la façon de l'ouvrir sur chaque système, sont en annexe du deck ; c'est le cours 2 qui s'en occupe.
-
-### 🎓 3′ — L'environnement de développement
-
-Un environnement réunit une version de Python et les outils choisis, dans un dossier isolé, décrit par un fichier et recréable ailleurs. Le problème d'abord — « ça marche sur ma machine » — puis le dossier qui y répond.
-
-**L'environnement est créé avant la séance**, par la consigne d'installation envoyée à la rentrée : sa création prend plusieurs minutes et ne peut pas être le geste de la séance. Ce qui est projeté est la commande, pour qu'ils sachent la relire, pas pour qu'ils la lancent maintenant.
-
-```bash
-conda create -n info01 -c conda-forge python=3.12 \
-    jupyterlab numpy pillow pandoc typst ffmpeg imagemagick
-conda activate info01
-```
-
-- **Miniforge** : <https://conda-forge.org/download/>. La liste exacte des paquets est dans [`environment.yml`](../../../environment.yml), qui est ce qu'on distribue ; la ligne ci-dessus en est le résumé projetable.
-- Vérification : invite `(info01)`, puis `import sys; print(sys.executable)`, dont le chemin doit contenir `info01`.
-- **Message à marteler** : `ModuleNotFoundError` alors qu'« on vient d'installer » = presque toujours le **mauvais environnement actif**. La manipulation qui suit le fait constater.
-- L'environnement sert à **installer des outils**, pas à packager un projet (décision de conception du module).
-
-> ⚠️ **Point de bascule de la séance.** Si l'environnement manque sur quelques postes, la manipulation qui suit ne se fait pas, et le cours 3 démarre mal. Prévoir : consigne d'installation **avant** la rentrée, une clé USB avec l'installeur Miniforge (Windows/macOS), et un binôme d'entraide. Voir les leviers d'allègement dans [`inversion_c1_c3.md`](../../inversion_c1_c3.md).
-
-### 🎓 3′ — Les outils d'installation, et d'où viennent les paquets
-
-Trois diapositives courtes, insérées après « L'outil qui installe un environnement ». Elles répondent à ce que les étudiants trouveront de toute façon en cherchant sur le web, et sèment la question de la confiance.
-
-1. **Les outils qui installent des paquets** — une frise dessinée : `pip` (2008), `conda` (2012), `conda-forge` (2015), `mamba` (2019), `pixi` (2023), `uv` (2024). Ce qu'il faut dire, et rien de plus : `pip` installe des bibliothèques Python et rien d'autre, il ne sait pas installer `ffmpeg` ni un compilateur C++ ; `conda` fait les deux, d'où le choix du module. `pyenv` est nommé dans la légende pour ce qu'il est — un sélecteur de version de Python, qui n'installe aucun paquet — parce que son nom le fait confondre avec les autres. `uv` et `pixi` sont récents, écrits en Rust, excellents, et hors programme : le module s'en tient à un seul outil. Ne pas laisser croire à une succession où le dernier remplace les précédents ; `pip` a dix-huit ans, il est installé dans l'environnement du module, et `uv` l'appelle encore par-dessous.
-2. **D'où viennent les paquets** — PyPI, 886 022 projets, publication immédiate et sans relecture ; conda-forge, 29 411 paquets, chacun avec une recette relue par des humains. Ni bon ni mauvais dépôt : un paquet conda-forge est le plus souvent construit à partir des mêmes sources que le paquet PyPI, quelques jours plus tard. Ce qui change est la porte d'entrée.
-3. **Ce qu'une installation exécute** — `requests` contre `reqeusts`, en grand, côte à côte. Installer un paquet exécute du code écrit par quelqu'un d'autre, avec les droits de celui qui a tapé la commande. Le typosquattage n'a rien de théorique : des campagnes de plusieurs centaines de faux paquets ont été relevées sur PyPI, calqués sur les noms les plus téléchargés.
-
-> **Le réflexe, et c'est la seule chose à retenir** : le nom d'un paquet se copie depuis la documentation du projet, il ne se tape pas de mémoire. Ne pas transformer cela en peur de tout installer — la conclusion est un geste, pas une abstention. Chiffres relevés le 8 septembre 2026 (index de PyPI, API de GitHub) ; 454 600 nouveaux paquets malveillants recensés en 2025, tous dépôts confondus, *State of the Software Supply Chain*, Sonatype, 2026.
-
-> **Sur le canal `defaults` d'Anaconda**, si la question vient : le module emploie Miniforge, qui n'installe que depuis conda-forge, parce que les conditions d'utilisation du dépôt d'Anaconda demandent une licence payante aux organisations au-delà d'une certaine taille. La raison est dans [`INSTALLATION.md`](../../../INSTALLATION.md) et n'a pas à être développée en séance.
-
-### ⌨️ 12′ — Installer une bibliothèque et s'en servir *(manipulation)*
-
-Fichiers : [`data/cours1/environnement/`](../../../data/cours1/environnement/) — un petit projet Python écrit comme les dépôts qu'ils ouvriront cette année : `pyproject.toml`, `environment.yml`, `README.md`, le paquet `page_html/` et `style.css`. Le README y donne le déroulé complet. Trois diapositives d'étapes, après l'ouverture brune.
-
-C'est la seule manipulation de la partie, et elle en est la conclusion : la partie a dit ce qu'un programme emprunte et quel outil l'installe, sans que personne n'ait encore installé quoi que ce soit. `page_html` convertit en page HTML le `recette.md` écrit à la partie 3, avec la bibliothèque `markdown`, qui n'est nulle part.
-
-**On repart d'un environnement neuf**, et non de `info01` : c'est ce qui permet de voir ce qu'un environnement contient d'origine, ce qui manque, et ce qu'une installation ajoute.
-
-| # | Le geste | Ce qu'ils constatent |
-|---|---|---|
-| 1 | Ouvrir le dossier `data/cours1/environnement/` | l'arborescence d'un projet, pas un script isolé |
-| 2 | Lire la ligne `dependencies` de `pyproject.toml` | le projet annonce avoir besoin de `markdown` |
-| 3 | `conda env create -f environment.yml`, puis `conda activate recette` | l'invite passe de `(info01)` à `(recette)` |
-| 4 | `conda list` | **28 paquets**, dont `pip`, `setuptools`, et une douzaine de bibliothèques C — aucun `markdown` |
-| 5 | `python -m page_html` | `ModuleNotFoundError: No module named 'markdown'` |
-| 6 | `conda install -c conda-forge markdown` | **trois** paquets : `markdown`, `importlib-metadata`, `zipp` |
-| 7 | `python -m page_html`, à nouveau | `recette.md -> recette.html, 1282 octets` |
-| 8 | Ouvrir la page par l'adresse `file:///` affichée | la recette mise en page, sans serveur |
-| 9 | Changer une couleur dans `style.css`, `F5` | la page change, le `.html` n'a pas bougé |
-| 10 | Ajouter `- markdown` sous `dependencies` dans `environment.yml` | le fichier décrit enfin ce qu'on a installé |
-| 11 | `conda env update -f environment.yml` | rien ne s'installe : c'était déjà fait |
-
-**L'étape 4 est la surprise de la manipulation.** Un environnement « Python seul » n'est pas vide : 28 paquets, dont une douzaine de bibliothèques C — `openssl`, `libsqlite`, `libzlib` — sans lesquelles l'interpréteur ne démarre pas. `pip`, `setuptools` et `wheel` y sont aussi, ce qui explique que `pip install` fonctionne dans un environnement conda sans qu'on l'ait installé. Et rien de ce que fait un programme utile : ni `numpy`, ni `jupyterlab`, ni `markdown`.
-
-**L'étape 5 ne se saute pas.** C'est la seule fois de la séance où ils voient `ModuleNotFoundError` dans des conditions où la cause est connue d'avance : le message annoncé deux fois depuis la partie 2 devient une chose qui leur est arrivée. Dire en une phrase ce que `-m` fait — exécuter un paquet plutôt qu'un fichier — et ne pas s'y attarder.
-
-**Le chiffre de l'étape 6 vaut la comparaison** : trois paquets ici, un seul dans `info01`, où `importlib-metadata` et `zipp` avaient déjà été tirés par autre chose. C'est « Une bibliothèque en entraîne d'autres » vérifié par eux, et la démonstration que ce qui est déjà là ne se réinstalle pas.
-
-Trois choses de la séance se referment à l'étape 8, et elles se nomment une par une : le `recette.md` est celui qu'ils ont écrit une demi-heure plus tôt ; la page sépare le contenu de la présentation, comme les deux pages du poème de la partie 1 ; elle s'ouvre par une adresse `file:///`, sans serveur.
-
-**Les étapes 10 et 11 sont la conclusion de la partie**, et elles démontrent enfin ce que la deuxième diapositive annonçait : une installation n'est pas reproductible parce qu'on se souvient de ce qu'on a tapé, elle l'est parce qu'un fichier la décrit. Faire le geste devant eux — une ligne ajoutée, quatre caractères d'indentation.
-
-**La question à poser avant de répondre** : pourquoi le diagramme n'est-il pas dessiné ? Le bloc `mermaid` arrive dans la page sous la forme de ses six lignes de texte. Mermaid est un service de l'aperçu de l'éditeur, pas du HTML. C'est la distinction tenue toute la séance entre ce qu'un fichier contient et ce qu'un logiciel en affiche, déjà rencontrée avec la coloration syntaxique et avec la chasse fixe.
-
-**Pour ceux qui vont vite**, et seulement pour eux : `pip install -e .` installe le projet lui-même, après quoi la commande `page-html` existe. C'est la section `[project.scripts]` de `pyproject.toml`, et c'est le sujet du cours 3. Rendre la main ensuite par `conda deactivate` puis `conda activate info01`.
-
-> **Mesuré sur la machine de préparation**, sous Linux, avec le solveur `libmamba` de conda 24.7 : création de l'environnement en 10 s (index en cache), 28 paquets ; `conda install markdown` en 7 s et 3 paquets dans l'environnement neuf, contre 1 paquet de 85 ko et 1 min 52 s à froid dans `info01`. Trente postes en même temps iront moins vite. Commenter la sortie de `conda install` pendant qu'elle tourne plutôt que d'attendre en silence. Les libellés de menu de l'éditeur n'ont pas été vérifiés sur un poste Windows. Poste sans réseau : les étapes 3 et 6 échouent ; projeter le résultat, et faire quand même les étapes 10 et 11, qui ne demandent que d'éditer un fichier.
-
-> **Pourquoi `markdown` et pas `jinja2`.** L'idée d'un `.odt` produit depuis un modèle, par substitution dans `content.xml`, a été écartée pour une raison mesurée : `jinja2` **est déjà installé** dans `info01`, tiré comme dépendance de Sphinx et de JupyterLab, et `conda install jinja2` n'installerait rien. `markdown` est absent des deux environnements, et il est l'exemple « tout en Python » de la diapositive « Ce qu'une bibliothèque contient vraiment » : l'installation la vérifie. Il n'est **pas** ajouté à l'`environment.yml` du module, le geste de la manipulation étant d'ajouter une bibliothèque à un environnement qui existe déjà.
-### 🎓 4′ — Python en interactif
-
-Taper `python` sans nom de fichier ouvre une session interactive : chaque ligne est lue, exécutée, et son résultat affiché aussitôt, sans `print`. La trace projetée est une session réelle, dans `data/cours1/formats/`, qui réimporte le script des octets de tête.
-
-Deux façons d'exécuter du Python, et elles ne servent pas à la même chose : un script se lance en entier et se relance à l'identique, une session interactive s'essaie ligne à ligne et ne laisse rien.
-
-- Faire remarquer les **trois chevrons** : c'est l'invite de Python, pas celle du terminal. Les confondre est l'erreur de début de semestre, et elle produit un `SyntaxError` quand on tape une commande du système dans Python.
-- On y entre par `python`, on en sort par `exit()` ou `Ctrl`+`D`. Le dire tout de suite : on ne devine pas comment sortir.
-- Le module réimporte ici son propre script comme une bibliothèque : c'est « Ce qu'un programme emprunte » vu de l'autre côté, le code de quelqu'un d'autre étant aussi du code écrit par eux dix minutes plus tôt.
-
-**Amorce de la partie suivante** : un notebook est cette session interactive, avec le texte conservé autour.
-
----
-
-## Partie 5 — Notebooks
-
-### 🎓 10′ — Notebooks
-
-- **Deux moitiés** : l'interface (navigateur ou VSCode) affiche, le **noyau** (un processus Python) calcule et *retient les variables*.
-- Deux conséquences, à faire vivre plutôt qu'à énoncer :
-  - « Redémarrer le noyau » efface les variables — le texte des cellules reste, son effet disparaît ;
-  - l'ordre d'exécution (`[1]`, `[2]`…) n'est pas l'ordre d'affichage.
-- **Démonstration en direct** (2′) : `x = 10` / `print(x*2)` → modifier la première cellule sans l'exécuter → la seconde ment. Puis *Restart & Run All*.
-- **`.ipynb` vs MyST** : JSON généré (résultats et images inclus, `git diff` illisible) vs Markdown écrit (résultats recalculés, `diff` lisible). Montrer que **le support projeté est lui-même un fichier MyST**.
-- **Trois façons d'ouvrir un notebook**, et la troisième referme « Le lieu du calcul » de la partie 1 :
-
-| Comment | Ce que vous lancez | Où tourne le noyau |
-|---|---|---|
-| Dans l'éditeur de code | le `.ipynb` ouvert dans VSCode | sur votre machine |
-| JupyterLab en local | `jupyter lab` dans un terminal | sur votre machine |
-| Dans le navigateur | **JupyterLite**, une adresse à ouvrir | dans l'onglet, chez vous |
-
-> JupyterLite n'a **pas de serveur** : son noyau Python est compilé en WebAssembly et tourne dans l'onglet, si bien que rien de ce qu'on écrit ne part sur le réseau. C'est un service en ligne où le calcul se fait chez soi — exactement le cas qu'on annonçait en partie 1 sans pouvoir le montrer. Ni compte ni installation, ce qui le distingue de Colab et de Binder. Ne pas le proposer comme environnement de travail : tous les paquets n'y sont pas, et ce qu'on y dépose vit dans le navigateur.
-
-- **Bouclage explicite** : « même contenu, deux formats » — la leçon d'il y a une heure, appliquée à leur propre travail. Et amorce du cours 2 : *pourquoi le texte se versionne bien*.
-- **Quand un notebook, quand un script** *(diapositive de clôture)*. La partie disait ce qu'est un notebook sans jamais dire quand en ouvrir un ; c'est ce que cette diapositive corrige.
-
-| | Notebook | Script `.py` |
-|---|---|---|
-| Ce qu'on y cherche | explorer, expliquer, montrer | refaire, automatiser |
-| Exécution | cellule par cellule, l'état reste | du début à la fin |
-| Le résultat | dans le document, avec le texte qui l'explique | à l'écran ou dans un fichier |
-| Se relance seul | non | oui |
-| Se partage comme outil | mal : il faut le noyau, et le bon ordre | bien : une commande |
-
-> La formule à laisser : **on explore dans un notebook, on livre un script.** Le cas d'usage se reconnaît — on ouvre un notebook parce qu'on ne sait pas encore ce qu'on cherche ; le jour où cela marche et doit tourner sans surveillance, cela devient un script, et c'est le cours 3. Ne pas opposer les deux : le notebook n'est pas un brouillon honteux, le script n'est pas la version sérieuse. La progression notebook → script → CLI est l'arc du module, et c'est ici qu'elle s'énonce.
-
-Cette diapositive **remplace** « Ce que le notebook réunit », récapitulation que le minutage désignait déjà comme la première à sauter : la partie garde donc sa longueur, et « À retenir » assure seule la clôture de la séance.
-
-### ⌨️ 10′ — Le notebook du cours, ouvert de trois façons *(manipulation)*
-
-Support : `src/cours1/notebook/04_premiers_octets.md`, écrit en MyST et converti par `python outils/construire_notebooks.py`. Le notebook lit les premiers octets d'un fichier et en déduit son format — contenu passé en annexe des diapositives parce qu'il se prête mieux à un notebook qu'à une projection.
-
-| | Le geste | Ce qu'on observe |
-|---|---|---|
-| Dans le navigateur | ouvrir [jupyter.org/try-jupyter](https://jupyter.org/try-jupyter/lab/), y déposer le fichier | aucun compte, aucune installation, et le calcul se fait chez vous |
-| Dans l'éditeur | ouvrir le `.ipynb`, choisir le noyau `info01` | les cellules s'exécutent par `Maj`+`Entrée` |
-| Dans JupyterLab | `jupyter lab` au terminal, puis le fichier dans l'arborescence | une adresse `localhost`, donc un serveur qui est le vôtre |
-
-L'ordre est celui de l'engagement croissant : rien à installer, puis l'éditeur qu'ils ont déjà, puis un serveur qu'ils lancent eux-mêmes. Si le réseau de la salle est mauvais, sauter la première et la montrer au tableau ; le premier chargement de JupyterLite prend une dizaine de secondes.
-
-> **La dernière cellule est celle à faire attendre** : elle copie le `.odt` sous un nom en `.pdf`, relit les octets, et montre que le nom ment. C'est « Deux extensions échangées » fait par eux, en trois lignes. Ils y retrouvent aussi le `50 4B 03 04` du `.odt` et l'absence de signature des fichiers texte, mais en l'exécutant.
-
-> Le noyau à choisir dans l'éditeur est la même question que l'interpréteur de la partie 2, et la même réponse — `info01`. Le dire ainsi plutôt que comme une nouveauté. Et le fichier source étant en MyST, donc du texte comparable ligne à ligne, c'est « Deux formats de notebook » vérifié sur le support qu'ils ont sous les yeux.
-
----
-
 ## Annexes et bonus
 
 ### ⌨️ 8′ — Les premiers octets d'un fichier *(mini-projet Python)*
@@ -812,10 +812,10 @@ Le budget visé, celui de la diapositive « Contenu de la séance », est :
 | Partie | Contenu | Durée |
 |--------|---------|-------|
 | Logiciels et formats de fichier | logiciel, vocabulaire, système d'exploitation, application web, extension, chemins, TD fichiers | 25′ |
-| Programmation et éditeur de code | programmes et applications, compilé et interprété, code source et exécutable, place de l'interpréteur, éditeur et fonctions d'un IDE, lancer un programme, de quoi compiler du C++, hello world | 25′ |
-| Édition de texte et contenu des fichiers | programmation et édition de texte, texte brut, règles d'un langage, coloration et vérification, chasse fixe, espaces et tabulations, extensions de fichier et de VSCode, programmes fautifs, fichiers texte et Markdown, une page HTML et sa feuille de style | 30′ |
+| Programmation et éditeur de code | d'un programme à une application, compilé et interprété, code source et instructions machine, place de l'interpréteur, fonctions d'un IDE, édition de texte, règles d'un langage, coloration et vérification, espaces et tabulations, extensions de fichier et de VSCode, hello world, programmes fautifs | 40′ |
 | Environnement de programmation | bibliothèques et dépendances, conda, les outils et les dépôts, terminal de l'éditeur, installation d'une bibliothèque | 25′ |
 | Notebooks | interface et noyau, trois façons de l'ouvrir, deux formats | 10′ |
+| Markdown et les autres fichiers texte | fichiers texte d'un projet, structure d'une page HTML, contenu et présentation, Markdown, trois façons d'écrire un document, un diagramme en texte, mise en forme d'une recette | 15′ |
 
 La partie 1 perd cinq minutes par rapport au budget précédent, et la partie 2 en gagne dix : le levier employé est celui qui était déjà prévu, l'étape ODT-ZIP de la manipulation d'ouverture passant en exercice complémentaire.
 

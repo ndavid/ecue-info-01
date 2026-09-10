@@ -105,7 +105,7 @@ existants ; aucune ne demande d'image externe.
 ### À laisser tel quel
 
 Les tableaux de **comparaison** restent la bonne forme quand la comparaison
-*est* le propos, et ils ne sont pas à remplacer : « Programmes et applications »,
+*est* le propos, et ils ne sont pas à remplacer :
 « Les règles d'écriture d'un langage », « Extension de fichier et extension de
 VSCode », « Trois façons d'écrire un document », « Quand un notebook, quand un
 script ». Les diapositives de manipulation gardent aussi leur tableau : la

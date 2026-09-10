@@ -1085,7 +1085,7 @@ d("Le menu d'exportation de LibreOffice")[
 )
 #d("Modifier sous un autre nom, puis comparer")[
   #annonce[
-    On repart de la recette mise en forme à la partie 3. Une copie sous un autre
+    On repart de la recette mise en forme à la partie 5. Une copie sous un autre
     nom, deux corrections, et l'éditeur montre ce qui les sépare.
   ]
 
@@ -1210,5 +1210,116 @@ d("Le menu d'exportation de LibreOffice")[
     Ouvrir sur le cours 2 : ce qu'ils viennent de faire à la main sur deux
     fichiers, git le fait sur un projet entier et sur toute son histoire,
     et il commence par leur demander quels fichiers valent d'être suivis.
+  ]
+]
+
+// ------------------- Annexe : les interpréteurs de Python -------------------
+
+#separateur(
+  "Les interpréteurs de Python",
+  annonce: "Diapositive non traitée en séance : « Python » nomme le langage, plusieurs programmes savent l'exécuter",
+)
+#d("Il n'existe pas qu'un interpréteur Python")[
+  #annonce[
+    « Python » nomme le langage. Plusieurs programmes savent l'exécuter, et
+    celui que tout le monde emploie est écrit en C.
+  ]
+
+  #tableau(
+    columns: (auto, auto, 1fr),
+    align: left + horizon,
+    [Interpréteur], [Écrit en], [Ce qui le distingue],
+    [CPython], [C], [la référence, celle que vous installez sans le savoir],
+    [PyPy], [Python], [plus rapide sur les longs calculs, compatible en partie],
+    [Jython], [Java], [permet d'employer les bibliothèques Java],
+    [MicroPython], [C], [tient dans un microcontrôleur],
+  )
+
+  #legende[
+    `python --version` ne dit pas lequel tourne ; la première ligne de la
+    session interactive, si.
+  ]
+
+  #notes[
+    Une minute. Elle décolle le langage de son interpréteur : un langage
+    est une convention d'écriture, plusieurs programmes peuvent
+    l'appliquer.
+
+    Le seul qu'ils rencontreront est CPython ; le dire ainsi pour qu'ils
+    ne cherchent pas à choisir. PyPy et Jython annoncent leur nom dans la
+    bannière interactive, CPython ne donne que sa version et le
+    compilateur qui l'a produit, `[GCC 15.3.0]` ici. Bannière relevée dans
+    `info01` ; elle varie avec le canal et la version.
+
+    L'interpréteur de référence est écrit en C : les octets de « Code
+    source et fichier exécutable » étaient ceux de ce programme.
+
+    Ne pas ouvrir la question de la vitesse : elle est au cours 6, et la
+    réponse n'est pas de changer d'interpréteur.
+  ]
+]
+
+// ------------- Annexe : les domaines de la programmation --------------------
+
+#separateur(
+  "Les domaines de la programmation",
+  annonce: "Diapositives non traitées en séance : ce que les intitulés de métier désignent, et l'objet du cours 1 auquel chacun se rattache",
+)
+#d("Les domaines de la programmation")[
+  #annonce[
+    Ces six expressions nomment des domaines de la programmation. Chacune se
+    rattache à un des objets vus dans la partie précédente : dites lequel.
+  ]
+
+  #v(0.3em)
+  #tableau(
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [L'expression], [L'objet de cette partie qu'elle vise],
+    [programmation web], [],
+    [programmation mobile], [],
+    [programmation système], [],
+    [programmation embarquée], [],
+    [programmation graphique], [],
+    [programmation scientifique], [],
+  )
+
+  #notes[
+    Trois minutes, à l'oral. L'exercice n'est pas de définir chaque domaine
+    mais de constater que les objets de la partie — système, navigateur,
+    fichier, périphérique — sont ce que ces métiers manipulent.
+
+    Deux termes reviennent souvent et manquent ici : la programmation réseau,
+    du côté des périphériques avec le clavier et l'écran, et le développement
+    de données, qui est de la programmation scientifique appliquée à des
+    fichiers plus gros. Les ajouter à l'oral si la question vient.
+
+    Ne pas laisser croire à des cases étanches : une application de
+    cartographie fait du web, du graphique et du scientifique à la fois.
+  ]
+]
+
+#d("Les domaines de la programmation — réponses")[
+  #tableau(
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [L'expression], [L'objet de cette partie qu'elle vise],
+    [programmation web], [l'application web : le navigateur l'exécute, l'adresse désigne ce qu'on va chercher],
+    [programmation mobile], [l'application installée, sur le système d'exploitation du téléphone],
+    [programmation système], [le système d'exploitation, qui donne aux logiciels l'accès au matériel],
+    [programmation embarquée], [le matériel presque seul : peu ou pas de système, et rarement des fichiers],
+    [programmation graphique], [la sortie vers l'écran, et les formats d'image],
+    [programmation scientifique], [les fichiers de données en entrée, les résultats et figures en sortie],
+  )
+
+  #legende[
+    Les intitulés sont ceux des offres d'emploi et des fiches métier, où ils
+    servent surtout à dire sur quoi le logiciel s'exécute.
+  ]
+
+  #notes[
+    La partie 2 change de question : non plus sur quoi un logiciel s'exécute,
+    mais comment on l'écrit. Le module ne fait aucun de ces domaines en
+    particulier : il travaille ce qui leur est commun, la forme du projet.
   ]
 ]

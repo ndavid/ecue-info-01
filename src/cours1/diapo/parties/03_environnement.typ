@@ -1,6 +1,7 @@
 // Partie du cours 1 — incluse par `cours1.typ`, qui porte les réglages
 // globaux. Un fichier inclus n'hérite pas des imports de son appelant.
 #import "../../../commun/prelude.typ": *
+#import "../schemas.typ": schema-isolation, schema-depots
 
 // ===================== Environnement de programmation ======================
 
@@ -153,29 +154,23 @@
     environnement permet aux deux de coexister sur la même machine.
   ]
 
-  ```bash
-  $ python -c "import numpy; print(numpy.__version__)"
-  1.21.5
-  $ conda activate info01
-  $ python -c "import numpy; print(numpy.__version__)"
-  2.5.2
-  ```
-
-  #v(0.4em)
-  #tableau(
-    entete: false,
-    columns: (auto, 1fr),
-    align: left + horizon,
-    [Sans environnement], [une seule version par machine, et le projet qui exige l'autre ne tourne plus],
-    [Avec un environnement], [un dossier par projet, sa version de Python et ses bibliothèques],
-  )
+  #align(center, schema-isolation())
 
   #legende[
-    Sortie réelle, relevée sur la machine du cours : le même mot `python`
-    désigne deux programmes différents selon l'environnement actif.
+    Un environnement est un dossier : sa version de Python et ses bibliothèques
+    y tiennent, et rien n'en sort.
   ]
 
   #notes[
+    Le faire constater en direct plutôt que de le projeter, la sortie est
+    courte et elle a plus de force tapée devant eux :
+    `python -c "import numpy; print(numpy.__version__)"` donne une version,
+    puis `conda activate info01` et la même commande en donne une autre. Le
+    même mot `python` désigne deux programmes différents.
+
+    Sans environnement : une seule version par machine, et le projet qui exige
+    l'autre ne tourne plus. Avec : un dossier par projet.
+
     Réponse au symptôme le plus fréquent du semestre :
     `ModuleNotFoundError` sur un paquet « qu'on vient d'installer ». Le
     paquet est installé, mais hors de l'environnement actif.
@@ -430,32 +425,12 @@
     que vous croiserez n'y laissent pas entrer la même chose.
   ]
 
-  #face-a-face(
-    panneau[PyPI, ce que `pip` installe][
-      #block(inset: 11pt, width: 100%, height: 118pt,
-             stroke: 0.8pt + estompe.lighten(50%))[
-        #set text(size: 15pt)
-        #text(size: 30pt, weight: demi-gras)[886 022] #h(5pt) projets
-        #v(0.5em)
-        Publication immédiate, par qui veut, sans relecture. Un nom libre
-        s'obtient en une minute.
-      ]
-    ],
-    panneau[conda-forge, ce que `conda` installe ici][
-      #block(inset: 11pt, width: 100%, height: 118pt,
-             fill: accent.lighten(93%), stroke: 0.8pt + accent.lighten(50%))[
-        #set text(size: 15pt)
-        #text(size: 30pt, weight: demi-gras)[29 411] #h(5pt) paquets
-        #v(0.5em)
-        Chaque paquet a une recette, relue par des humains avant d'entrer, et
-        construite pour les trois systèmes.
-      ]
-    ],
-  )
+  #align(center, schema-depots())
 
   #legende[
-    Projets relevés le 8 septembre 2026 dans l'index de PyPI ; recettes
-    conda-forge le même jour, par l'API de GitHub.
+    Les deux ne s'opposent pas : un paquet conda-forge est le plus souvent
+    construit à partir de PyPI, quelques jours plus tard. Projets relevés le
+    8 septembre 2026 dans l'index de PyPI, recettes conda-forge le même jour.
   ]
 
   #notes[

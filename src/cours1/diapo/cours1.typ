@@ -22,9 +22,9 @@
 #include "parties/00_ouverture.typ"
 #include "parties/01_logiciels.typ"
 #include "parties/02_programmation.typ"
-#include "parties/03_edition_texte.typ"
-#include "parties/04_environnement.typ"
-#include "parties/05_notebooks.typ"
+#include "parties/03_environnement.typ"
+#include "parties/04_notebooks.typ"
+#include "parties/05_formats_texte.typ"
 
 // Les annexes gardent des diapo avce du contenu de test ou au final plus
 // approprié pour d'autres seance 

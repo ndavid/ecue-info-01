@@ -192,6 +192,17 @@ Depuis la version qui suit, les schémas mesurent leurs boîtes avant de les
 poser : le texte ne peut plus déborder, même sans aucune police système. La
 police reste néanmoins nécessaire pour retrouver la mise en page voulue.
 
+### Paquet typst — récupéré à la première compilation
+
+Les diapositives emploient un seul paquet, `@preview/cetz`, pour les schémas
+dessinés à la main dans le code — celui du lieu d'exécution d'une application
+web, au cours 1. La version est figée dans le source (`cetz:0.4.2`) : typst la
+télécharge depuis le registre à la première compilation, puis la garde en cache
+local (`~/.cache/typst/packages` sous Linux).
+
+La première compilation demande donc un accès réseau. Les suivantes n'en ont
+plus besoin, et une machine dont le cache est déjà rempli compile hors ligne.
+
 ### Compiler
 
 Le script de compilation évite d'avoir à retenir les options : il place la

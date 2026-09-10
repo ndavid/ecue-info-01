@@ -1,47 +1,40 @@
 // Partie du cours 1 — incluse par `cours1.typ`, qui porte les réglages
 // globaux. Un fichier inclus n'hérite pas des imports de son appelant.
 #import "../../../commun/prelude.typ": *
+// Import nominatif, et non `: *` : `schemas.typ` ouvre `cetz.draw`, dont les
+// noms (`grid`, `line`, `circle`, `content`…) masqueraient ceux de typst.
+#import "../schemas.typ": schema-ou-sexecute
 
 #separateur(
   "Logiciels et formats de fichier",
-  annonce: "Ce qu'un logiciel fait, où il s'exécute et ce qu'il laisse comme fichiers. Savoir cela avant d'apprendre à en écrire un.",
+  annonce: "Ce qu'un logiciel fait, où il s'exécute, notions de base sur la manipulation et rôles des fichiers."
 )
 // ------------------------------- Vocabulaire --------------------------------
 
 // --------------------------------------------
-#d("Logiciel, application, app")[
+#d("Logiciel et les termes courants")[
   #annonce[
-    « Logiciel » est le terme général. Une application est un logiciel destiné
-    à une tâche de l'utilisateur ; souvent abrégé par « appli » et « app ».
+    Un seul de ces mots est défini officiellement. Les autres sont d'usage
+    courant.
   ]
 
-  #block(
-    width: 100%, inset: (x: 12pt, y: 8pt),
-    stroke: 1pt + accent.lighten(50%),
-  )[
-    #align(center, text(size: 15pt, fill: accent, weight: "semibold")[logiciel])
-    #v(0.3em)
-    #face-a-face(
-      panneau("Logiciel de base")[
-        #block(inset: 9pt, width: 100%,
-               stroke: 0.8pt + estompe.lighten(50%))[
-          #set text(size: 14.5pt)
-          Fait fonctionner la machine et donne accès au matériel.
-          #v(0.35em)
-          #text(fill: estompe)[Windows, macOS, Linux, et les pilotes]
-        ]
-      ],
-      panneau("Logiciel d'application")[
-        #block(inset: 9pt, width: 100%, fill: accent.lighten(93%),
-               stroke: 0.8pt + accent.lighten(50%))[
-          #set text(size: 14.5pt)
-          Sert à accomplir une tâche : écrire, cartographier, écouter.
-          #v(0.35em)
-          #text(fill: estompe)[LibreOffice, Firefox, un lecteur de musique.]
-        ]
-      ],
-    )
+  #bloc-titre("logiciel")[
+    #set text(size: 19pt)
+    Ensemble des programmes, procédés et règles, et éventuellement de la
+    documentation, relatifs au fonctionnement d'un ensemble de traitement de
+    données.
   ]
+
+  #v(0.7em)
+  #grid(
+    columns: (1fr,) * 5, gutter: 12pt,
+    ..("application", "app", "webapp", "OS", "driver").map(terme => block(
+      width: 100%, inset: (x: 8pt, y: 13pt), fill: gris,
+      stroke: 0.8pt + accent.lighten(50%),
+    )[
+      #align(center, text(size: 19pt, weight: demi-gras)[#terme])
+    ]),
+  )
 
   #legende[
     Sources : _Journal officiel_ du 22/09/2000 ; Grand dictionnaire
@@ -49,10 +42,22 @@
   ]
 
   #notes[
-    « App » est l'abréviation anglaise d'_application_, répandue par les
-    magasins d'applications des téléphones. Le mot ne désigne pas une
-    technologie particulière : le même logiciel existe souvent en site web, en
-    programme de bureau et en application mobile.
+    Les cinq termes se traitent à l'oral, en demandant à la salle ce que chacun
+    désigne et en quoi ils diffèrent. Ne rien écrire de plus à l'écran.
+
+    Ce qu'il faut en tirer : aucun de ces mots n'a de définition arrêtée, et
+    tous désignent des logiciels. « App » est l'abréviation anglaise
+    d'application, répandue par les magasins d'applications des téléphones ; le
+    mot ne désigne pas une technologie particulière, le même logiciel existant
+    souvent en site web, en programme de bureau et en application mobile.
+
+    OS et driver ramènent à la vieille partition du vocabulaire officiel :
+    logiciel de base, qui fait fonctionner la machine et donne accès au
+    matériel (Windows, macOS, Linux, et les pilotes), contre logiciel
+    d'application, qui sert à accomplir une tâche (LibreOffice, Firefox, un
+    lecteur de musique). La dire, sans l'afficher.
+
+    « Webapp » est repris à la diapositive sur le lieu d'exécution.
   ]
 ]
 
@@ -63,19 +68,28 @@
   ]
 
   #couche(
-    icone-fenetre(taille: 30pt), "Vos programmes",
+    icone-fenetre(taille: 26pt), "Vos programmes",
     "LibreOffice, un navigateur, votre script", plein: true,
   )
   #liaison("« ouvre releve.csv »", "le contenu")
   #couche(
-    icone-engrenage(taille: 30pt), "Système d'exploitation",
+    icone-engrenage(taille: 26pt), "Système d'exploitation",
     "Windows, macOS, Linux",
   )
   #liaison("« écris ces octets »", "les octets lus sur le disque")
   #couche(
-    icone-puce(taille: 30pt), "Matériel",
+    icone-puce(taille: 26pt), "Matériel",
     "processeur, mémoire, disque, réseau",
   )
+
+  // Une seule question : le numéro de `question()` ne code plus rien, et la
+  // place qu'il prend manque à la troisième couche.
+  #block(
+    width: 100%, inset: (x: 14pt, y: 7pt), above: 0.5em,
+    fill: gris, stroke: (left: 3pt + accent),
+  )[
+    #text(size: 18pt)[Quel système d'exploitation tourne sur votre téléphone ?]
+  ]
 
   #notes[
     Le système arbitre entre tous les programmes ouverts en même temps : c'est
@@ -83,135 +97,14 @@
     pratique : les chemins de fichiers ne s'écrivent pas pareil d'un système à
     l'autre et les outils installés diffèrent. Le matériel est repris au
     cours 5.
+
+    La question sert à faire constater que le schéma vaut aussi pour ce qu'ils
+    ont en poche. Réponse attendue : Android ou iOS. Ordre de grandeur mondial
+    si elle est demandée : environ 70 % Android, 30 % iOS (StatCounter, 2026).
+    Éventuellement évoquer le lien entre Linux et Android.
   ]
 ]
 
-// --------------------------------------------
-#d("Téléphone et application web")[
-  #v(0.5em)
-  #question(1)[Quel système d'exploitation tourne sur votre téléphone ?]
-
-  #v(0.9em)
-  #question(2)[
-    Qu'est-ce qu'une application web, une « webapp » ? Citez-en une que vous
-    utilisez.
-  ]
-
-  #notes[
-    Première question, réponse attendue : Android ou iOS. Ordre de
-    grandeur mondial si elle est demandée : environ 70 % Android, 30 % iOS
-    (StatCounter, 2026). Eventuelleent évouer le lien entre Linux et Android
-
-    La question n'est pas de vocabulaire : elle sert à faire remarquer que
-    des tâches qui demandaient un logiciel installé se font dans un
-    navigateur, et que le lieu du calcul, donc celui des fichiers, a
-    changé sans qu'on le dise.
-  ]
-]
-
-// --------------------------------------------
-#d("L'application web")[
-  #annonce[
-    Une application web fonctionne dans un navigateur, sans installation. Le
-    navigateur est devenu la plateforme qui l'exécute.
-  ]
-
-  #face-a-face(
-    panneau("Application installée")[
-      #block(inset: 9pt, width: 100%, height: 108pt,
-             stroke: 0.8pt + estompe.lighten(50%))[
-        #set text(size: 14.5pt)
-        Des fichiers déposés sur votre disque par une installation, lancés par
-        le système.
-        #v(1fr)
-        #text(fill: estompe)[LibreOffice, un lecteur de musique]
-      ]
-    ],
-    panneau("Application web")[
-      #block(inset: 9pt, width: 100%, height: 108pt,
-             fill: accent.lighten(93%), stroke: 0.8pt + accent.lighten(50%))[
-        #set text(size: 14.5pt)
-        Du code téléchargé à chaque visite et exécuté par le navigateur, dans
-        un environnement isolé.
-        #v(1fr)
-        #text(fill: estompe)[messagerie, documents partagés, cartes]
-      ]
-    ],
-  )
-
-  #legende[
-    Définition : « application fonctionnant dynamiquement avec le concours
-    d'un navigateur web », Grand dictionnaire terminologique de l'OQLF.
-  ]
-
-  #notes[
-    Le navigateur fait ici le travail d'un système d'exploitation ou 
-    machine virtuelle : il charge du code, l'exécute, lui donne du
-    stockage et un accès réseau, et l'empêche de toucher au reste de la
-    machine. La documentation de Mozilla emploie le mot « machine
-    virtuelle » pour le moteur qui exécute JavaScript et WebAssembly, ce
-    dernier tournant à une vitesse proche du natif.
-
-    Une page web n'est donc plus un document : c'est un programme qu'on
-    n'installe pas.
-  ]
-]
-
-// --------------------------------------------
-#d("Où s'exécute une application web ?")[
-  #annonce[
-    Les calculs d'une application web s'exécutent soit dans le navigateur, sur
-    votre machine, soit sur un serveur distant. La plupart des applications
-    répartissent le travail entre les deux.
-  ]
-
-  #face-a-face(
-    panneau("Dans le navigateur, sur votre machine")[
-      #block(inset: 9pt, width: 100%, height: 116pt,
-             stroke: 0.8pt + estompe.lighten(50%))[
-        #set text(size: 14.5pt)
-        L'affichage des pages et les interactions. Votre processeur "travaille"
-        par exemple pour générer le rendu des pages.
-        #v(1fr)
-        #text(fill: estompe)[retouche d'image en ligne]
-      ]
-    ],
-    panneau("Sur un serveur, à distance")[
-      #block(inset: 9pt, width: 100%, height: 116pt,
-             fill: accent.lighten(93%), stroke: 0.8pt + accent.lighten(50%))[
-        #set text(size: 14.5pt)
-        La recherche dans les données et les traitements lourds. Le service
-        calcule, les résultats sont transmis via le réseau.
-        #v(1fr)
-        #text(fill: estompe)[traduction, IA générative]
-      ]
-    ],
-  )
-
-  #v(0.6em)
-  #block(
-    width: 100%, inset: (x: 14pt, y: 9pt), fill: gris,
-    stroke: 1pt + accent.lighten(62%),
-  )[
-    #set text(size: 15pt)
-    Ce qui est traité à distance sort de votre ordinateur. Le partage local/distant 
-    suit souvent la complexité du calcul.
-  ]
-
-  #notes[
-    Presque aucune application web n'est entièrement
-    d'un côté. Une messagerie affiche chez vous mais cherche dans vos
-    messages sur son serveur. La question utile n'est pas « où est-ce que
-    ça tourne ? » mais « qu'est-ce qui part, et quand ? ».
-
-    Le critère de complexité explique les exemples : recadrer une image
-    tient dans le navigateur, entraîner ou faire tourner un grand modèle
-    non. Il explique aussi les évolutions : ce qui se calculait à distance
-    il y a dix ans se calcule parfois en local aujourd'hui.
-  ]
-]
-
-// --------------------------------------------
 #d("Entrées et sorties d'un logiciel")[
   #annonce[
     Ce qu'un logiciel reçoit et ce qu'il produit sont de deux natures : un
@@ -274,14 +167,31 @@
 ]
 // ------------------------------ Fichiers -----------------------------------
 // --------------------------------------------
+#d("Où s'exécute une application web ?")[
+  #align(center, schema-ou-sexecute())
+
+  #notes[
+    Ce que la diapositive fait remarquer, et qui ne se dit pas tout seul : des
+    tâches qui demandaient un logiciel installé se font dans un navigateur, et
+    le lieu du calcul, donc celui des fichiers, a changé sans qu'on le dise.
+
+    Presque aucune application web n'est entièrement
+    d'un côté. Une messagerie affiche chez vous mais cherche dans vos
+    messages sur son serveur. La question utile n'est pas « où est-ce que
+    ça tourne ? » mais « qu'est-ce qui part, et quand ? ».
+
+    Le critère de complexité explique les exemples : recadrer une image
+    tient dans le navigateur, entraîner ou faire tourner un grand modèle
+    non. Il explique aussi les évolutions : ce qui se calculait à distance
+    il y a dix ans se calcule parfois en local aujourd'hui.
+  ]
+]
+
+// --------------------------------------------
 #d("Utilisation / utilité d'un fichier")[
   #annonce[
-    Un fichier est une sauvegarde d'un résultat. 
-    
-    Un fichier peut être une sauvegarde d'un état temporaire (reprendre l'édition d'un rapport)
-    ou celle d'un résultat final (envoyer un document pdf). 
-    C'est pour cela qu'il faut savoir le nommer, reconnaître 
-    ce qu'il contient et le retrouver.
+    Un fichier conserve un résultat après l'arrêt du programme : un état de
+    travail à reprendre, ou un document final à transmettre.
   ]
 
   #tableau(
@@ -310,7 +220,7 @@
 
     Deuxième ligne: un format de fichier
     est ce sur quoi deux logiciels se mettent d'accord sans se connaître.
-    La partie 3 y revient.
+    La partie 5 y revient.
   ]
 ]
 
@@ -353,17 +263,19 @@
 #d("Quizz : vocabulaire associé aux chemins de fichier - Réponse")[
   #align(center)[
     #grid(
-      columns: (auto, auto, auto, auto),
+      columns: (auto, auto, auto),
       row-gutter: 13pt,
       align: center,
       text(font: police-code, size: 25pt, fill: estompe, "C:\\"),
-      text(font: police-code, size: 25pt, fill: estompe, "Users\\alice\\Documents\\"),
-      text(font: police-code, size: 25pt, fill: encre, "raven"),
-      text(font: police-code, size: 25pt, fill: accent, weight: demi-gras, ".odt"),
-      text(size: 14pt, fill: estompe)[le disque],
-      text(size: 14pt, fill: estompe)[les dossiers, du plus large au plus précis],
-      text(size: 14pt, fill: estompe)[le nom],
-      text(size: 14pt, fill: accent)[l'extension],
+      text(font: police-code, size: 25pt, fill: manip, weight: demi-gras,
+           "Users\\alice\\Documents\\"),
+      // Le nom du fichier est `raven.odt` tout entier, comme le dit la table :
+      // une seule cellule, pour que la répartition des colonnes ne vienne pas
+      // couper le nom de son extension.
+      text(font: police-code, size: 25pt, fill: accent, "raven.odt"),
+      text(size: 14pt, fill: estompe)[la racine, ou le disque],
+      text(size: 14pt, fill: manip)[trois noms de dossier],
+      text(size: 14pt, fill: accent)[le nom du fichier, extension comprise],
     )
   ]
 
@@ -372,11 +284,15 @@
     columns: (auto, 1fr),
     align: left + horizon,
     [Le mot], [Ce qu'il désigne dans l'exemple],
-    [la racine, ou le disque], [`C:\`, le point de départ ; `/` sous macOS et Linux],
-    [un nom de dossier], [`Users`, `alice`, `Documents` : trois, du plus large au plus précis],
-    [le nom du fichier], [`raven.odt`, extension comprise],
+    [la racine, ou le disque],
+      [#text(fill: estompe)[`C:\`], le point de départ ; `/` sous macOS et Linux],
+    [un nom de dossier],
+      [#text(fill: manip)[`Users`, `alice`, `Documents`] : trois, du plus large au plus précis],
+    [le nom du fichier],
+      [`raven.odt`, extension comprise],
     [le chemin du fichier], [tout, de la racine au fichier],
-    [le dossier parent], [`C:\Users\alice\Documents`, le dossier qui le contient],
+    [le dossier parent],
+      [#text(fill: estompe)[`C:\`]#text(fill: manip)[`Users\alice\Documents`], le dossier qui le contient],
   )
 
   #legende[
@@ -394,10 +310,9 @@
 // --------------------------------------------
 #d("Le chemin d'un fichier")[
   #annonce[
-    Un chemin dit où trouver un fichier dans l'arborescence des dossiers. Un
-    chemin #text(fill: attention, weight: demi-gras)[absolu] part de la racine,
-    un chemin #text(fill: attention, weight: demi-gras)[relatif] du dossier où
-    l'on se trouve.
+    Un chemin #text(fill: attention, weight: demi-gras)[absolu] part de la
+    racine, un chemin #text(fill: attention, weight: demi-gras)[relatif] du
+    dossier où l'on se trouve.
   ]
 
   #v(0.4em)

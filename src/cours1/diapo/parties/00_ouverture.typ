@@ -42,13 +42,8 @@
 // --------------------------------------------
 #d("Objectifs du module liés à la programmation")[
   #annonce[
-    Maîtriser les bonnes pratiques de gestion d'un projet de code :
-    documentation (`README`), organisation des fichiers, usage des
-    bibliothèques pour faciliter la programmation, et des environnements.
-
-    Ces connaissances sont utiles pour la programmation individuelle, et
-    nécessaires pour la programmation en équipe et pour la distribution de son
-    programme à un utilisateur.
+    Maîtriser la forme d'un projet de code : documentation, organisation des
+    fichiers, bibliothèques et environnements.
   ]
 
   #tableau(
@@ -65,15 +60,15 @@
     L'algorithmique relève du cours de programmation, qui se déroule en
     parallèle. Ajouter oralement : « retrouver la version qui marchait » relève
     aussi de ce module.
+
+    Développer l'annonce à l'oral : ces pratiques servent déjà quand on
+    programme seul, et deviennent nécessaires dès qu'on travaille en équipe ou
+    qu'on distribue son programme à un utilisateur.
   ]
 ]
 
 // --------------------------------------------
 #d("Les trois compétences du module")[
-  #annonce[
-    Trois savoir-faire reviennent à chaque séance. Des notions de culture informatique les accompagnent, 
-    rattachées aux enseignements et TD qui viennent d'être vus.
-  ]
 
   #grid(
     columns: (1fr, 1fr, 1fr),
@@ -84,6 +79,10 @@
     bloc("Structurer", "README, environnement, ligne de commande"),
   )
 
+  #annonce[
+    Des notions de culture informatique au fil de l'eau, rattachées aux enseignements et TD en cours.
+  ]
+
   #v(0.6em)
   #block(
     width: 100%, inset: (x: 14pt, y: 9pt), fill: gris,
@@ -91,7 +90,7 @@
   )[
     #grid(
       columns: (auto, 1fr), column-gutter: 16pt, align: horizon,
-      text(size: 17pt, weight: demi-gras)[Et, par apartés],
+      text(size: 17pt, weight: demi-gras)[Culture informatique],
       align(right, text(size: 14pt, fill: estompe)[
         ordres de grandeur, sécurité : pourquoi les outils sont faits ainsi
       ]),
@@ -105,49 +104,9 @@
 ]
 
 // --------------------------------------------
-#d("Ce que vous avez peut-être déjà vu")[
-  #annonce[
-    Une bonne part de la première séance reprend des notions déjà au programme
-    du lycée. Elles sont rappelées pour que la suite du module parte du même
-    point pour tout le monde.
-  ]
-
-  #tableau(
-    columns: (1fr, auto),
-    align: (left + horizon, left + horizon),
-    [Notion reprise en séance 1], [Où elle a pu être abordée],
-    [Données en tableau, fichiers `.csv`], [SNT, seconde],
-    [Le Web, HTML et CSS, adresses de pages], [SNT, seconde],
-    [Formats d'image, compression avec et sans perte], [SNT, seconde],
-    [Binaire, hexadécimal, encodage du texte], [NSI, première],
-    [Système d'exploitation, ligne de commande], [NSI, première],
-    [Écrire et exécuter un programme Python], [NSI, ou tronc commun en CPGE],
-  )
-
-  #legende[
-    Programmes de SNT et de NSI : Bulletin officiel spécial n°1 du 22 janvier
-    2019. Informatique du tronc commun des CPGE scientifiques.
-  ]
-
-  #notes[
-    passer rapidement. Dire qu'on a conscience que ce sera une redite pour
-    une partie de la salle.
-
-    Justification, origine du choix: ce qui est reproché aux étudiants dans
-    les autres cours n'est pas toujours l'algorithmique. C'est un chemin
-    de fichier faux, un environnement mal installé, un code qui ne
-    s'installe pas sur une autre machine. Ces gestes ne sont enseignés
-    nulle part ailleurs.
-  ]
-]
-
-// --------------------------------------------
 #d("Organisation : sept séances de deux heures")[
   #annonce[
-    Chaque séance alterne des explications courtes et des manipulations faites
-    sur votre machine. Deux d'entre elles sont des travaux dirigés, qui
-    font revoir et pratiquer le contenu des séances précédentes via 
-    l'élaboration d'un livrable de code complet.
+    Chaque séance alterne explications courtes et manipulations sur machine.
   ]
 
   #tableau(
@@ -163,11 +122,33 @@
     [7], [Benchmark image et rapport], [TD],
   )
 
+  #avertissement[
+    Une partie de la séance 1 reprend des notions surement vues au lycée et/ou prépa.
+  ]
+
   #notes[
+    Développer l'annonce à l'oral : les deux TD font revoir et pratiquer le
+    contenu des séances précédentes, par l'élaboration d'un livrable de code
+    complet.
+
     Les deux TD appliquent ce qui précède sur un livrable complet.
     L'important est ici plus la qualité de la forme que le fond,
     c'est à dire est-ce que le projet est bien structuré et documenté
-    et moins est-ce que le code est bon/performant. 
+    et moins est-ce que le code est bon/performant.
+
+    Sur l'avertissement : ces notions sont rappelées pour que la suite du
+    module parte du même point pour tout le monde. Passer vite, en disant qu'on
+    a conscience que ce sera une redite pour une partie de la salle. Notions concernées : données en
+    tableau et fichiers csv, le Web, HTML et CSS, les formats d'image (SNT,
+    seconde) ; binaire, hexadécimal, encodage du texte, système d'exploitation
+    et ligne de commande (NSI, première) ; écrire et exécuter un programme
+    Python (NSI, ou tronc commun en CPGE). Programmes de SNT et de NSI :
+    Bulletin officiel spécial n°1 du 22 janvier 2019.
+
+    Justification du choix : ce qui est reproché aux étudiants dans les autres
+    cours n'est pas toujours l'algorithmique. C'est un chemin de fichier faux,
+    un environnement mal installé, un code qui ne s'installe pas sur une autre
+    machine. Ces gestes ne sont enseignés nulle part ailleurs.
   ]
 ]
 // ================================ Séance 1 ==================================
@@ -180,45 +161,32 @@
 )
 
 // --------------------------------------------
-#d("Le rythme de la première partie")[
-  #annonce[
-    La première partie reprend des notions qui devraient être connues, 
-    et avance donc plus vite que les suivantes. 
-  ]
-
-  #v(0.4em)
-  #bloc-titre("Point d'attention")[
-    #set text(size: 19pt)
-    Si quelque chose n'est pas clair dans cette partie, posez la question
-    tout de suite, sans attendre la fin.
-    #v(0.5em)
-    Tout ce qui suit s'appuie dessus. Une notion laissée de côté aujourd'hui
-    se paiera sur les six séances suivantes, un retard pris au début
-    peut s'accumuler très vite.
-  ]
-
-  #notes[
-    La raison du choix de rythme : la partie 1 reprend ce qui a pu être vu au lycée, 
-    préférence à accorder plus de temps pour la suite du cours et les TD pratiques
-  ]
-]
-
-// --------------------------------------------
 #d("Les fichiers du cours")[
   #annonce[
-    Les fichiers nécessaires aux TD sont rangés par séance, puis par
-    TD. Chaque ouverture de TD rappelle son dossier.
+    Un dossier par séance. Aujourd'hui, tout est dans `data/cours1/`.
   ]
 
-  #tableau(
-    columns: (auto, 1fr),
-    align: left + horizon,
-    [Dossier], [Ce qu'il contient],
-    [`data/cours1/`], [les fichiers des manipulations, un dossier par manipulation],
-    [`data/cours1/*/produit/`], [ce qu'une commande fabrique : on peut le supprimer, il se refait],
-    [`data/cours1/*/fourni/`], [ce qui vient d'ailleurs et ne se refait pas],
-    [`src/cours1/notebook/`], [les pages du cours, qui s'exécutent],
-  )
+  #align(center)[
+    #block(
+      inset: (x: 20pt, y: 13pt), fill: gris,
+      stroke: 1pt + accent.lighten(62%),
+    )[
+      #set text(size: 23pt)
+      #set align(left)
+      #raw(
+"data/
+├── cours1/            la séance du jour
+│   ├── hello/         un dossier par manipulation
+│   ├── formats/
+│   ├── markdown/
+│   ├── fourni/        ce qui vous est donné
+│   └── produit/       ce que vos commandes fabriquent
+├── cours2/
+├── cours3/
+├── ...
+└── cours7/")
+    ]
+  ]
 
   #legende[
     Les diapositives brunes qui ouvrent une manipulation portent le chemin de
@@ -231,6 +199,11 @@
 
     Faire ouvrir le dossier du cours dans l'éditeur maintenant pour vérifier
     qu'ils l'ont tous.
+
+    Un seul niveau est déplié, et seulement pour la séance du jour : le reste
+    de l'arborescence est celle de qui écrit le cours, elle ne leur sert pas.
+    Nommer au passage `src/cours1/notebook/`, les pages du cours qui
+    s'exécutent, sans l'afficher.
 
     REM : À compléter avant la séance : la façon dont le dossier leur est remis
     n'est écrite nulle part dans le dépôt. Nommer ici le canal employé, et
@@ -250,11 +223,16 @@
     align: (left + horizon, left + horizon, right + horizon),
     [Partie], [Nature], [Durée],
     [Logiciels et formats de fichier], [cours et manipulation], [25′],
-    [Programmation et éditeur de code], [cours et manipulation], [25′],
-    [Édition de texte et contenu des fichiers], [cours et manipulation], [30′],
+    [Programmation et éditeur de code], [cours et manipulations], [40′],
     [Environnement de programmation], [cours et manipulation], [25′],
-    [Notebooks], [cours], [10′],
+    [Notebooks], [cours et manipulation], [10′],
+    [Markdown et les autres fichiers texte], [cours et manipulation], [15′],
   )
+
+  #avertissement[
+    La première partie de révision avance vite : posez vos questions tout de suite, tout ce
+    qui suit s'appuie dessus.
+  ]
 
   #legende[
     Durées indicatives ; ce qui n'a pas été traité est repris en annexe.
@@ -268,5 +246,9 @@
     comment on en écrit un, ce qu'un fichier contient vraiment, comment on
     installe de quoi travailler, et l'outil qui réunit tout cela.
 
+    Sur le point d'attention : la partie 1 reprend ce qui a pu être vu au
+    lycée, et va vite pour garder du temps sur la suite et les manipulations.
+    Une notion laissée de côté aujourd'hui se paiera sur les six séances
+    suivantes, un retard pris au début s'accumule.
   ]
 ]

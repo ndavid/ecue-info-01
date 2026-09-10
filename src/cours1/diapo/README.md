@@ -27,10 +27,10 @@ python outils/compiler_diapos.py --corrige        # corrigé des manipulations
 python outils/compiler_diapos.py --avec-annexes   # + les annexes
 ```
 
-`cours1.pdf` est la séance elle-même, 97 pages : c'est ce qu'on projette. Les
+`cours1.pdf` est la séance elle-même, 94 pages : c'est ce qu'on projette. Les
 annexes gardent ce que la séance n'a pas le temps de jouer et ce que les séances
 suivantes reprennent ; elles ne s'ajoutent que sur demande, et le document sort
-alors sous le nom `cours1-annexes.pdf`, 128 pages, à distribuer après coup.
+alors sous le nom `cours1-annexes.pdf`, 138 pages, à distribuer après coup.
 
 Les options se combinent : `--avec-annexes --notes` produit
 `cours1-annexes-notes.pdf`.
@@ -86,10 +86,10 @@ Les images se désignent depuis la racine du projet, `"/data/cours1/…"` : typs
 résout un chemin relatif par rapport au fichier où `image` est appelé,
 c'est-à-dire au thème, et non par rapport au fichier qui écrit le chemin.
 
-`cours1.typ` produit 123 pages, 127 avec les captures d'écran : titre,
+`cours1.typ` produit 134 pages, 138 avec les captures d'écran : titre,
 introduction au module, le contenu de la séance, ses cinq parties (logiciels et
-formats de fichier, programmation et éditeur de code, édition de texte et
-contenu des fichiers, environnement de programmation, notebooks), puis les
+formats de fichier, programmation et éditeur de code, environnement de
+programmation, notebooks, markdown et les autres fichiers texte), puis les
 annexes.
 
 ## Identité visuelle
@@ -209,7 +209,7 @@ plat ou imprimée, elle donne la diapositive et ses notes côte à côte.
 La moitié gauche est **au millimètre celle qui est projetée** : les marges de
 droite absorbent toute la seconde moitié, et le fond plein des diapositives de
 séparation comme la barre de pied s'y arrêtent. Vérifié mot pour mot, aux mêmes
-coordonnées, sur les 97 pages.
+coordonnées, sur les 94 pages.
 
 Aucun format de PDF ne distingue une note d'un contenu de page : ce que le
 lecteur affiche, il l'affiche en entier, et aucun lecteur Windows courant ne
