@@ -8,17 +8,17 @@
 # La ligne qui compte pour la manipulation est `dependencies`.
 
 [project]
-name = "page-html"
+name = "recette"
 version = "0.1.0"
-description = "Convertit un fichier Markdown en page HTML, avec sa feuille de style."
+description = "Met une recette Markdown à l'échelle et en fait une page HTML."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = ["markdown>=3.5"]
 
-# Ce que la commande `page-html` doit appeler, une fois le projet installé.
-# Sans installation, la même chose se lance par `python -m page_html`.
+# Ce que la commande `recette` doit appeler, une fois le projet installé.
+# Sans installation, la même chose se lance par `python -m recette`.
 [project.scripts]
-page-html = "page_html.__main__:main"
+recette = "recette.__main__:main"
 
 # Quel outil sait fabriquer le paquet à partir de ce dossier. Aucun projet
 # Python n'a à choisir autre chose tant qu'il n'a rien de particulier à
@@ -28,4 +28,4 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = ["page_html"]
+packages = ["recette"]

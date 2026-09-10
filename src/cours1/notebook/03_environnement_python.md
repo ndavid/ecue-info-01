@@ -163,10 +163,10 @@ liste à la main, et c'est ce qui justifie l'outil.
 Quand une dépendance n'est pas présente dans l'environnement actif, l'exécution
 s'arrête avant la première ligne utile.
 
-Le dossier `data/cours1/environnement/` contient un petit projet Python écrit
+Le dossier `data/cours1/recette/` contient un petit projet Python écrit
 comme ceux que vous ouvrirez cette année : un `pyproject.toml` qui dit ce qu'est
 le projet et ce dont il dépend, un `environment.yml` qui décrit l'environnement,
-un `README.md`, et le paquet `page_html/`. Le programme convertit en page HTML
+un `README.md`, et le paquet `recette/`. Le programme convertit en page HTML
 le `recette.md` que vous avez écrit à la manipulation Markdown, avec la
 bibliothèque `markdown`.
 
@@ -227,7 +227,7 @@ est disponible parce que quelqu'un a écrit un fichier de cette forme.
 On repart d'un environnement vide plutôt que d'`info01`, pour voir ce qu'un
 environnement contient d'origine.
 
-1. Ouvrez `data/cours1/environnement/` dans l'éditeur, et lisez la ligne
+1. Ouvrez `data/cours1/recette/` dans l'éditeur, et lisez la ligne
    `dependencies` de `pyproject.toml` : le projet annonce avoir besoin de
    `markdown`.
 2. Créez l'environnement décrit par le fichier voisin, et activez-le :
@@ -240,7 +240,7 @@ environnement contient d'origine.
 3. Regardez ce qu'il contient : `conda list` affiche **28 paquets**, dont
    `pip`, `setuptools`, et une douzaine de bibliothèques C sans lesquelles
    l'interpréteur ne démarre pas. Aucun ne s'appelle `markdown`.
-4. Lancez `python -m page_html`. Le programme s'arrête sur
+4. Lancez `python -m recette`. Le programme s'arrête sur
    `ModuleNotFoundError: No module named 'markdown'`. Le paquet est là et sa
    syntaxe est correcte ; c'est la dépendance qui manque. (`-m`
    exécute un paquet plutôt qu'un fichier.)
@@ -248,7 +248,7 @@ environnement contient d'origine.
 
    ```bash
    conda install -c conda-forge markdown
-   python -m page_html
+   python -m recette
    ```
 
 6. Ouvrez `recette.html` par l'adresse `file:///` que le programme affiche.

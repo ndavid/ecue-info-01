@@ -10,7 +10,7 @@
 #separateur-manip(
   "Installer une bibliothèque et s'en servir",
   annonce: "Objectif : installer la dépendance qui manque à un programme, puis la déclarer dans le fichier qui décrit l'environnement",
-  dossier: "data/cours1/environnement/",
+  dossier: "data/cours1/recette/",
 )
 #d("L'outil d'installation du module")[
   #annonce[
@@ -99,13 +99,13 @@
     columns: (auto, 1.3fr, 1fr),
     align: left + horizon,
     [], [Ce qu'il faut faire], [Ce que vous constatez],
-    [1], [Fichier #sym.arrow.r Ouvrir le dossier, sur `data/cours1/environnement/`], [],
+    [1], [Fichier #sym.arrow.r Ouvrir le dossier, sur `data/cours1/recette/`], [],
     [2], [ouvrir `pyproject.toml` et lire la ligne `dependencies`],
       reponse[le projet déclare avoir besoin de `markdown`],
     [3], [Terminal #sym.arrow.r Nouveau terminal, puis `conda env create -f environment.yml`], [],
     [4], [`conda activate recette`, puis `conda list`],
       reponse[28 paquets, et aucun ne s'appelle `markdown`],
-    [5], [`python -m page_html`],
+    [5], [`python -m recette`],
       reponse[`ModuleNotFoundError: No module named 'markdown'`],
   )
 
@@ -133,8 +133,8 @@
     connue. Le fichier est là, sa syntaxe est correcte ; c'est la
     dépendance qui manque.
 
-    `python -m page_html` lance un paquet et non un fichier : le dossier
-    `page_html/` porte un nom de paquet, `-m` demande à Python de
+    `python -m recette` lance un paquet et non un fichier : le dossier
+    `recette/` porte un nom de paquet, `-m` demande à Python de
     l'exécuter.
 
     Libellés de menu non vérifiés sur un poste Windows.
@@ -152,8 +152,8 @@
     [], [Ce qu'il faut faire], [Ce que vous constatez],
     [6], [`conda install -c conda-forge markdown`, puis répondre `y`],
       reponse[trois paquets : `markdown`, `importlib-metadata`, `zipp`],
-    [7], [`python -m page_html`],
-      reponse[`recette.md -> recette.html, 1282 octets`],
+    [7], [`python -m recette`],
+      reponse[`recette.html : 4 personne(s), unités SI, 1027 octets`],
     [8], [ouvrir la page par l'adresse `file:///` que le programme affiche],
       reponse[la recette mise en page, sans serveur ni réseau],
     [9], [changer une couleur dans `style.css`, enregistrer, `F5`],
@@ -161,8 +161,8 @@
   )
 
   #legende[
-    Sortie réelle dans `data/cours1/environnement/`. Le `recette.md` converti
-    est celui que vous avez écrit à la partie précédente.
+    Sortie réelle dans `data/cours1/recette/`. Les quantités du tableau sont
+    calculées : le `recette.md` du projet n'en contient aucune.
   ]
 
   #notes[
@@ -243,7 +243,7 @@
 
     Pour ceux qui vont vite : `pip install -e .` installe le projet lui-
     même, et la commande `page-html` existe alors, équivalente à `python
-    -m page_html`. C'est `[project.scripts]`, sujet du cours 3. Vérifié
+    -m recette`. C'est `[project.scripts]`, sujet du cours 3. Vérifié
     sur la machine de préparation.
 
     Rendre la main : `conda deactivate`, puis `conda activate info01`.

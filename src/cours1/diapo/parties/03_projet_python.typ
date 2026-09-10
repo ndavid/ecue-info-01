@@ -30,9 +30,9 @@
   )
 
   #avertissement[
-    Les données de travail ne sont pas des fichiers du projet : elles vivent
-    ailleurs, et le programme va les y chercher. Un projet porte de quoi
-    l'essayer, pas ce sur quoi il tourne.
+    Les données de travail ne sont pas des fichiers du projet. Elles sont sotcker ailleur
+    et le programme doit pouvoir y acceder via des chemins de fichiers. Un projet peut 
+    contenir des données pour le tester (légères)
   ]
 
   #notes[
@@ -56,40 +56,41 @@
 ]
 #d("Le format de la documentation")[
   #annonce[
-    Un `.txt` n'a aucune mise en forme ; un `.odt` en a trop pour les outils
-    du code, qui ne savent pas le lire. Markdown tient le milieu : des signes
-    dans le texte, et un fichier qui reste du texte.
+    Un `.txt` n'a aucune mise en forme, un `.odt` en a mais son format se prête
+    mal aux outils du code. Markdown tient le milieu : des signes dans le texte,
+    que l'éditeur sait rendre.
   ]
 
   #face-a-face(
     panneau[Ce qu'on écrit, `README.md`][
+      #set text(size: 14pt)
       #raw(
-        "# Trajet\n\nTrace le trajet de la gare à l'école.\n\n## Lancer\n\n    python trajet.py\n\nLe résultat est écrit dans *trajet.png*.",
+        "# Trajet\n\nTrace le trajet de la gare à l'école.\n\n## Lancer\n\n    python trajet.py\n\nLe résultat est *trajet.png*.",
         block: true, lang: "md",
       )
     ],
     panneau("Ce que l'aperçu montre")[
-      #block(width: 100%, inset: (x: 11pt, y: 9pt), stroke: 0.8pt + estompe.lighten(50%))[
-        #text(size: 19pt, weight: "bold")[Trajet]
-        #v(0.35em)
-        #set text(size: 14.5pt)
+      #block(width: 100%, inset: (x: 10pt, y: 7pt), stroke: 0.8pt + estompe.lighten(50%))[
+        #text(size: 17pt, weight: "bold")[Trajet]
+        #v(0.3em)
+        #set text(size: 13.5pt)
         Trace le trajet de la gare à l'école.
         #v(0.35em)
-        #text(size: 16pt, weight: "bold")[Lancer]
+        #text(size: 15pt, weight: "bold")[Lancer]
         #v(0.25em)
         #block(fill: gris, inset: (x: 7pt, y: 5pt), width: 100%)[
-          #text(font: police-code, size: 13pt)[python trajet.py]
+          #text(font: police-code, size: 12pt)[python trajet.py]
         ]
         #v(0.25em)
-        Le résultat est écrit dans #emph[trajet.png].
+        Le résultat est #emph[trajet.png].
       ]
     ],
   )
 
   #legende[
-    Moins de possibilités qu'un traitement de texte, et c'est le prix payé.
-    En échange : l'éditeur, la comparaison ligne à ligne, le versionnement,
-    et une conversion vers PDF ou HTML quand il en faut une.
+    Moins de possibilités qu'un traitement de texte. En échange : l'éditeur, la
+    comparaison ligne à ligne, le versionnement, et une conversion quand il en
+    faut une.
   ]
 
   #notes[
@@ -115,21 +116,21 @@
   #face-a-face(
     panneau[Le fichier `.md`][
       ```markdown
-      # The Raven
+      # Crêpes
 
-      Poème d'*Edgar Allan Poe*, 1845.
+      *1 heure de repos.*
 
-      - publié en janvier
-      - 108 vers
+      1. Mélanger la farine
+      2. Casser les **œufs**
       ```
     ],
     panneau[Le même contenu en HTML][
       ```html
-      <h1>The Raven</h1>
-      <p>Poème d'<em>Edgar Allan
-      Poe</em>, 1845.</p>
-      <ul><li>publié en janvier</li>
-      <li>108 vers</li></ul>
+      <h1>Crêpes</h1>
+      <p><em>1 heure de repos.</em></p>
+      <ol><li>Mélanger la farine</li>
+      <li>Casser les <strong>œufs</strong>
+      </li></ol>
       ```
     ],
   )
@@ -219,14 +220,16 @@
 
 // ------------------ Les bibliothèques dont le projet dépend -----------------
 
-#d("Convertir un format en un autre")[
+#d("Librairie : illustration de l'intérêt")[
   #annonce[
-    Le `README` qu'on vient d'écrire, publié en page web. Deux lignes
-    suffisent, parce que quelqu'un a écrit les huit mille autres.
+    Ecrire un programme qui convertit markdown en html peut être complexe avec seulement les
+    fonctions fournies par l'interpréteur python. 
+    Des librairies permettent de faire cela plus facilement. On ré-utilise du code fait par 
+    d'autres personnes.
   ]
 
   #face-a-face(
-    panneau("Ce qu'il faudrait traiter sans bibliothèque")[
+    panneau("Ce qu'il faudrait reconnaitre sans bibliothèque")[
       #tableau(
         entete: false,
         columns: (auto, 1fr),
@@ -323,6 +326,50 @@
     principe. La manipulation qui suit s'en sert.
   ]
 ]
+#d("Le programme de la manipulation")[
+  #annonce[
+    Le projet lit les quantités pour une personne, les met à l'échelle, les
+    convertit si on le demande, puis pose le tableau dans la recette. Une
+    fonction par étape.
+  ]
+
+  ```python
+  def pour_personnes(ingredients, personnes):
+      return [i | {"quantite": i["quantite"] * personnes} for i in ingredients]
+
+
+  def en_unites(ingredients, systeme):
+      if systeme == "SI":
+          return ingredients
+      return [i | convertir(i) for i in ingredients]
+  ```
+
+  #legende[
+    Code réel du projet. `ingredients` vient de
+    `ingredients.csv`, trois colonnes et cinq lignes : `Farine,60,g` pour une
+    personne. La conversion lit un facteur par unité, `1/28.3495` pour les
+    grammes, et laisse passer ce qui se compte, les œufs.
+  ]
+
+  #notes[
+    Deux fonctions séparées parce qu'elles répondent à deux questions
+    différentes, et qu'on peut vouloir l'une sans l'autre. C'est aussi ce
+    qui permet de les essayer une par une dans l'interpréteur.
+
+    Ce que ce code n'installe pas : convertir des unités ne vaut pas une
+    bibliothèque. `pint` existe et le fait très bien, à l'échelle de la
+    physique ; deux facteurs et un dictionnaire suffisent ici. La
+    bibliothèque se justifie pour le Markdown, huit mille lignes, pas pour
+    diviser par 28,3495. C'est l'arbitrage de la partie, en un exemple.
+
+    Le tableau n'est pas dans `recette.md` : il est calculé, puis inséré
+    sous le titre « Ingrédients ». Le même fichier sert donc pour deux
+    personnes et pour douze, en grammes ou en onces.
+
+    `i | {…}` fabrique un dictionnaire neuf : la ligne de départ n'est pas
+    modifiée. Ne pas s'y arrêter, c'est du cours 3.
+  ]
+]
 #d("Deux sortes de bibliothèques")[
   #annonce[
     Certaines viennent avec Python et s'importent sans rien faire. Les autres
@@ -383,80 +430,42 @@
     outils du métier.
   ]
 ]
-#d("Dépendances directes et transitives")[
+#d("Installation de bibliothèques : les dépendances")[
   #annonce[
-    Une bibliothèque installée en réclame d'autres, qui en réclament d'autres.
-    La liste complète se calcule au lieu de s'énumérer.
+    Une bibliothèque en réclame d'autres. Les installer demande d'abord la
+    liste complète, puis une version par paquet qui convienne à tous.
   ]
 
-  ```python
-  import numpy as np
-  from PIL import Image
-  ```
-
-  #v(0.5em)
-
-  #chaine(
-    ecart: 30pt,
-    ("environment.yml", "7 dépendances directes"),
-    ("ce qu'elles déclarent", "pillow en déclare 14, ffmpeg 53"),
-    ("l'environnement obtenu", "293 paquets installés"),
+  #grid(
+    columns: (0.72fr, 1.28fr), column-gutter: 26pt, align: horizon,
+    chaine-verticale(
+      ("les bibliothèques utilisées", "numpy, pillow, pandoc, ffmpeg… 7 en tout"),
+      ("ce qu'elles déclarent", "pillow en déclare 14, ffmpeg 53"),
+      ("l'environnement obtenu", "293 paquets installés"),
+    ),
+    align(center, scale(72%, reflow: true, schema-diamant())),
   )
 
   #legende[
-    Une bibliothèque dont un programme a besoin pour s'exécuter est une
-    _dépendance_ ; celles qu'elle entraîne à son tour sont _transitives_.
-    Relevé le 8 septembre 2026 : sept paquets demandés, 293 installés d'après
-    `conda create --dry-run`.
+    À gauche : les paquets écrits dans le fichier sont les dépendances
+    _directes_, celles qu'ils entraînent sont _transitives_. À droite :
+    `pillow` et ses deux dépendances réclament le même `libzlib`, dont une
+    seule version sera installée. Sept bibliothèques demandées, 293 paquets
+    installés, relevés les 8 et 10 septembre 2026.
   ]
 
   #notes[
-    Deux mots à poser, employés toute l'année : les paquets écrits dans le
-    fichier sont les dépendances *directes*, celles qu'ils entraînent sont
-    *transitives*. Calculer l'ensemble à partir du fichier s'appelle
-    *résoudre* les dépendances.
-
-    Écarter « librairie », faux ami de *library*.
-
-    Ce qu'on gagne à réutiliser n'est pas du temps de frappe : du code
-    publié a été relu, corrigé et éprouvé par d'autres, ce qu'un programme
-    écrit dans la semaine ne peut pas être. Réécrire `pillow` serait
-    refaire trente ans de corrections sur les formats d'image.
-
-    Une recette qui commence par « prenez une pâte brisée » : on ne la
-    fabrique pas, mais il faut qu'elle soit dans le placard, et que ce
-    soit la bonne.
-
-    Récursif au sens propre : la même règle s'applique à chaque paquet
-    atteint, jusqu'à n'en plus trouver de nouveau. Le dernier nombre n'est
+    Deux temps, et deux moitiés de diapositive. À gauche, la liste : la
+    relation est récursive, la même règle s'appliquant à chaque paquet
+    atteint jusqu'à n'en plus trouver de nouveau. Le dernier nombre n'est
     la somme d'aucun des précédents, les dépendances se recouvrant.
     Personne ne tient cette liste à la main, et c'est ce qui justifie
     l'outil.
 
-    L'autre face du même geste vient plus tard dans la partie : ce code
-    est réutilisable parce que quelqu'un l'a distribué, et distribuer le
-    sien demande de décrire son projet dans un fichier.
-
-    Ne pas parler d'installation ici : c'est la suite de la partie.
-  ]
-]
-#d("Résoudre les dépendances")[
-  #annonce[
-    `pillow` réclame `libtiff` et `openjpeg` ; tous deux réclament `libzlib`,
-    dont une seule version sera installée.
-  ]
-
-  #align(center, scale(92%, reflow: true, schema-diamant()))
-
-  #legende[
-    Exigences réelles de `pillow` 12.3.0, relevées sur `conda-forge` le
-    10 septembre 2026.
-  ]
-
-  #notes[
-    C'est ce qui distingue une résolution d'un parcours du graphe : il ne
-    suffit pas de suivre les flèches, il faut choisir une version par
-    paquet, et le même paquet n'apparaît qu'une fois dans l'environnement.
+    À droite, le choix : calculer l'ensemble à partir du fichier s'appelle
+    *résoudre* les dépendances, et ce n'est pas un simple parcours du
+    graphe. Il faut choisir une version par paquet, le même paquet
+    n'apparaissant qu'une fois dans l'environnement.
 
     Ici les deux exigences se recouvrent, et `libzlib 1.3.2` convient aux
     deux. Si l'une disait `libzlib <1.3`, aucune version ne conviendrait,
@@ -467,14 +476,82 @@
     Ne pas dire « conflit » comme si c'était une panne : c'est le cas
     ordinaire, et il se règle presque toujours seul.
 
+    Écarter « librairie », faux ami de *library*.
+
     Les noms en `lib…` peuvent surprendre dans un environnement Python :
     `libtiff`, `openjpeg` et `libzlib` ne sont pas écrits en Python. Une
     bibliothèque d'images enveloppe du code C déjà compilé, et ce sont ces
-    morceaux-là qui rendent l'installation difficile — d'où l'outil qui
-    vient plus loin.
+    morceaux-là qui rendent l'installation difficile.
   ]
 ]
-#d("Deux projets, deux versions de la même bibliothèque")[
+#d("Le numéro de version d'une dépendance")[
+  #annonce[
+    D'une version à l'autre, une bibliothèque gagne des fonctions et en retire
+    d'autres. Le même code ne passe donc pas partout.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr, 1fr),
+    align: left + horizon,
+    [Le code], [avec `numpy` 1.26.4], [avec `numpy` 2.5.2],
+    [`np.trapezoid([0, 1, 2])`],
+      [`AttributeError: module 'numpy' has no attribute 'trapezoid'`],
+      [`2.0`],
+    [`np.NaN`],
+      [`nan`],
+      [`AttributeError: np.NaN was removed in the NumPy 2.0 release`],
+  )
+
+  #v(0.5em)
+  #align(center)[
+    #text(size: 17pt)[
+      La valeur n'a pas disparu. En 1.26, `np.nan`, `np.NaN` et `np.NAN`
+      désignent la même chose ; la version 2.0 n'en garde qu'une.
+    ]
+  ]
+
+  #legende[
+    Sorties réelles, relevées le 10 septembre 2026 dans deux environnements.
+    D'où deux exigences opposées : `numpy>=2` pour la première ligne,
+    `numpy<2` pour la seconde tant que le code n'est pas repris.
+  ]
+
+  #notes[
+    La diapositive répond à la question qui vient toujours : pourquoi ne
+    pas prendre la dernière version de tout ?
+
+    Première ligne, le motif de monter : `trapezoid` n'existe pas avant
+    numpy 2.0. Un projet qui l'emploie exige au moins cette version, et
+    c'est le cas ordinaire — on veut ce qui a été ajouté et corrigé.
+
+    Seconde ligne, le motif de ne pas monter : `np.NaN` a disparu dans la
+    même version. Le code qui l'emploie s'arrête, et la reprise a un coût,
+    parfois sur des milliers de lignes. D'où des projets qui restent
+    volontairement sur une version ancienne.
+
+    Pourquoi retirer quelque chose qui marchait ? Ici, rien n'est perdu :
+    `np.nan` reste, et seules ses orthographes en double partent. NumPy 1.26
+    acceptait trois façons d'écrire « pas un nombre » et cinq d'écrire
+    « l'infini » — `np.inf`, `np.Inf`, `np.Infinity`, `np.infty`, `np.PINF`.
+    La version 2.0 n'en garde qu'une de chaque, pour qu'il n'y ait qu'une
+    façon d'écrire chaque chose.
+
+    C'est le motif ordinaire d'un retrait : non pas supprimer une
+    possibilité, mais cesser d'en offrir plusieurs pour la même. Le coût est
+    quand même réel, puisqu'il tombe sur le code déjà écrit.
+
+    Le second message d'erreur est exemplaire : il dit ce qui a été retiré,
+    dans quelle version, et par quoi le remplacer. Tous ne le font pas.
+
+    Le mot à poser : une dépendance ne se déclare pas par un nom seul, mais
+    par un nom et une exigence de version. C'est ce que porte la ligne
+    `dependencies` du fichier, diapositives suivantes.
+
+    Ne pas entrer dans la numérotation sémantique : le cours 3 y revient
+    quand ils publieront quelque chose.
+  ]
+]
+#d("Environnement : un moyen de gérer les conflits de dépendances")[
   #annonce[
     Un projet suit `numpy 1.26`, l'autre `numpy 2.1` : installées ensemble, la
     seconde chasse la première. D'où un dossier par projet, un *environnement*.
@@ -505,207 +582,10 @@
     de chercher plus loin.
   ]
 ]
-#d("Ce que l'activation d'un environnement change")[
+#d("Comment installer des librairies python")[
   #annonce[
-    Activer un environnement n'installe rien et ne déplace rien : cela pose un
-    dossier de plus en tête de la liste où le terminal cherche les commandes.
-  ]
-
-  #align(center, schema-chemin())
-
-  #legende[
-    Chemins relevés sur un poste, avant et après `conda activate`. La liste
-    parcourue est celle de la variable `PATH`.
-  ]
-
-  #notes[
-    La diapositive répond à la question qui revient tout le semestre :
-    « pourquoi `python` n'est pas le même selon le terminal ? ». Le mot
-    `python` ne désigne pas un programme, mais le premier fichier de ce nom
-    trouvé dans la liste.
-
-    Conséquence immédiate, à énoncer : `conda install` pose le paquet dans
-    l'environnement actif, et un terminal ouvert avant l'activation ne le
-    verra pas. C'est le `ModuleNotFoundError` de la diapositive précédente,
-    vu par son mécanisme.
-
-    Deuxième conséquence : désactiver ne désinstalle rien, cela retire le
-    dossier de la tête de la liste.
-
-    Sous Windows, la liste est la même variable, les dossiers s'y séparent
-    par un point-virgule et non par un deux-points. Ne pas s'y attarder.
-
-    `PATH` est repris au cours 2, avec les chemins et le dossier courant ;
-    ici, seul l'ordre de parcours compte.
-  ]
-]
-#d("Le fichier de dépendances")[
-  #annonce[
-    Les dépendances directes d'un projet ne se retiennent pas : elles s'écrivent
-    dans un fichier, rangé avec le code, que l'outil d'installation lit.
-  ]
-
-  #face-a-face(
-    panneau("Le fichier, écrit à la main")[
-      ```yaml
-      name: info01
-      channels:
-        - conda-forge
-      dependencies:
-        - python=3.12
-        - jupyterlab
-        - numpy
-      ```
-    ],
-    panneau("Ce qu'on en fait")[
-      ```bash
-      conda env create -f environment.yml
-      ```
-      #v(0.5em)
-      #tableau(
-        entete: false,
-        columns: (auto, 1fr),
-        align: left + horizon,
-        [Sur ce poste], [l'environnement décrit est créé],
-        [Sur un autre poste], [le même, à partir du même fichier],
-        [Dans six mois], [le même, sans se souvenir de rien],
-      )
-    ],
-  )
-
-  #legende[
-    Extrait d'`environment.yml`, à la racine du dépôt du module. Le fichier
-    n'installe rien : il dit ce qu'il faut installer.
-  ]
-
-  #notes[
-    La phrase à retenir de la partie : une installation est reproductible
-    parce qu'un fichier la décrit, non parce qu'on se souvient de ce qu'on
-    a tapé. C'est aussi ce qui est demandé au rendu.
-
-    Le fichier ne contient que les dépendances directes, sept ici : les
-    293 autres sont recalculées à chaque création. Écrire la liste
-    complète serait la figer, et l'attacher à un système.
-
-    Il se range avec le code et le suit partout : c'est un fichier texte
-    de quelques lignes, comme le reste du projet. Le versionner est le
-    sujet du cours 2.
-
-    Ce qui manque encore : ce fichier obtenu à la main après coup ne dit
-    pas d'où vient chaque paquet ni en quelle version exacte. `conda env
-    export` le fait ; ne pas y entrer aujourd'hui.
-  ]
-]
-#d("Ce qu'un projet déclare")[
-  #annonce[
-    Un projet ne déclare pas que ses dépendances : le même fichier porte son
-    nom, sa version et la commande qu'il installe.
-  ]
-
-  #tableau(
-    columns: (auto, 1fr, auto),
-    align: left + horizon,
-    [Ce qui est écrit], [Ce que c'est], [Qui le lit],
-    [`name`, `version`, `description`], [les métadonnées du projet], [le dépôt, et qui l'installe],
-    surligne[`dependencies`],
-      surligne[les bibliothèques que le code importe],
-      surligne[l'outil d'installation],
-    [`requires-python`], [les versions de Python acceptées], [l'outil d'installation],
-    [`[project.scripts]`], [la commande créée à l'installation], [le système],
-    [`[build-system]`], [l'outil qui fabrique le paquet distribuable], [les outils de construction],
-  )
-
-  #legende[
-    Contenu réel de `data/cours1/environnement/pyproject.toml`. Aujourd'hui vous
-    lisez ce fichier pour installer ; l'écrire est ce qui rend un code
-    installable par quelqu'un d'autre.
-  ]
-
-  #notes[
-    Boucler la partie : le code réutilisé au début de la partie est
-    disponible parce que quelqu'un a écrit un fichier de cette forme, puis
-    déposé le résultat sur un dépôt. Les deux bouts se rejoignent ici.
-
-    Distribuer n'est pas au programme du jour, et le mot suffit : mettre
-    son code à disposition sous une forme qu'une commande installe.
-    Fabriquer le paquet est au cours 3, avec `[project.scripts]`.
-
-    La ligne surlignée est celle que la manipulation fait lire avant de
-    lancer quoi que ce soit : le projet annonce avoir besoin de
-    `markdown`.
-
-    Ne pas détailler `[build-system]` : dire qu'aucun projet ordinaire n'a
-    à en changer.
-
-    Diapositive à passer vite si l'horaire déborde ; elle prépare le cours
-    3 plus qu'elle ne sert la manipulation du jour.
-  ]
-]
-#d("YAML et TOML")[
-  #annonce[
-    Deux formats de fichier texte faits pour décrire et non pour calculer : des
-    données structurées, écrites par un humain, relues par un programme.
-  ]
-
-  #face-a-face(
-    panneau[YAML, ici `environment.yml`][
-      ```yaml
-      name: info01
-      channels:
-        - conda-forge
-      dependencies:
-        - python=3.12
-        - numpy
-      ```
-      #text(size: 14pt, fill: estompe)[
-        L'indentation porte la structure, le tiret marque un élément de liste.
-      ]
-    ],
-    panneau[TOML, ici `pyproject.toml`][
-      ```toml
-      [project]
-      name = "page-html"
-      version = "0.1.0"
-      requires-python = ">=3.10"
-      dependencies = ["markdown>=3.5"]
-      ```
-      #text(size: 14pt, fill: estompe)[
-        Des sections entre crochets, et une valeur par nom.
-      ]
-    ],
-  )
-
-  #legende[
-    Extraits réels des deux fichiers de la manipulation qui suit. Comme `.json`,
-    ils décrivent des données ; contrairement à lui, ils acceptent des
-    commentaires, ce qui explique qu'un humain les écrive.
-  ]
-
-  #notes[
-    Deux minutes. Le propos n'est pas la syntaxe : c'est qu'un troisième
-    usage du texte apparaît, après le code et la documentation. Décrire.
-
-    Ils les ont déjà croisés à « Les fichiers texte d'un projet », dans la
-    ligne `.json`, `.yaml`. Ce sont les mêmes formats, employés ici pour
-    déclarer des dépendances.
-
-    On les retrouve hors de Python : réglages d'un outil, description
-    d'une chaîne d'intégration, composition de conteneurs. Citer sans
-    développer.
-
-    Piège du YAML, à mentionner si quelqu'un tape le fichier : deux
-    espaces d'indentation, jamais de tabulation, et l'éditeur le signale.
-    C'est « Espaces, tabulations et fins de ligne » qui resurgit.
-
-    Ne pas comparer les deux formats point par point : ce qui compte est
-    qu'un projet Python emploie l'un et l'autre pour deux descriptions
-    différentes, diapositive suivante.
-  ]
-]
-#d("Les outils qui installent des paquets")[
-  #annonce[
-    `conda` n'est ni le seul ni le premier. Aucun de ces outils n'a fait
-    disparaître les précédents.
+    Plusieurs outils existent et l'ecosytème évolue encore. Ici on utilisera `conda`.
+    Vocabulaire : en python librairie est appelée package.
   ]
 
   #frise(
@@ -778,6 +658,233 @@
     depuis conda-forge, les conditions d'Anaconda demandant une licence
     payante aux grandes organisations. Raison écrite dans
     `INSTALLATION.md`.
+  ]
+]
+#d("Créer un environnement avec conda")[
+  #annonce[
+    `conda` fait les deux. Soit on compose l'environnement commande par
+    commande, soit un fichier le décrit et une seule commande le recrée.
+  ]
+
+  #face-a-face(
+    panneau("Composer un environnement")[
+      ```bash
+      conda create -n info01 \
+          -c conda-forge python=3.12
+
+      conda install -n info01 \
+          -c conda-forge numpy pillow
+
+      conda activate info01
+      ```
+      #text(size: 14pt, fill: estompe)[
+        `-n` nomme l'environnement visé, `conda activate` y entre.
+      ]
+    ],
+    panneau("Recréer un environnement décrit")[
+      ```bash
+      conda env create -f environment.yml
+
+      conda activate info01
+      ```
+      #v(0.4em)
+      ```yaml
+      name: info01
+      channels:
+        - conda-forge
+      dependencies:
+        - python=3.12
+        - numpy
+        - pillow
+      ```
+    ],
+  )
+
+  #legende[
+    Le même environnement des deux façons. `-c conda-forge` désigne le dépôt
+    d'où viennent les paquets.
+  ]
+
+  #notes[
+    Deux gestes, et un seul outil. À gauche, on tape ; à droite, on lit un
+    fichier que quelqu'un a écrit — le plus souvent soi-même, la semaine
+    d'avant.
+
+    `-n info01` nomme l'environnement visé sans y entrer. Entrer dedans,
+    c'est `conda activate`, diapositive suivante : le distinguer ici évite
+    la confusion la plus fréquente.
+
+    L'environnement du module s'installe par la colonne de droite, le
+    fichier étant à la racine du dépôt. La colonne de gauche est ce
+    qu'ils feront pour leur propre projet.
+
+    Ne pas lancer la création maintenant : plusieurs minutes, et c'est la
+    manipulation de fin de partie.
+
+    Le fichier n'installe rien : il dit ce qu'il faut installer. Pourquoi
+    l'écrire plutôt que retaper les commandes est la diapositive
+    « Déclarer des dépendances ».
+  ]
+]
+#d("Ce que l'activation d'un environnement change")[
+  #annonce[
+    Activer un environnement n'installe rien et ne déplace rien : cela pose un
+    dossier de plus en tête de la liste où le terminal cherche les commandes.
+  ]
+
+  #align(center, schema-chemin())
+
+  #legende[
+    Chemins relevés sur un poste, avant et après `conda activate`. La liste
+    parcourue est celle de la variable `PATH`.
+  ]
+
+  #notes[
+    La diapositive répond à la question qui revient tout le semestre :
+    « pourquoi `python` n'est pas le même selon le terminal ? ». Le mot
+    `python` ne désigne pas un programme, mais le premier fichier de ce nom
+    trouvé dans la liste.
+
+    Conséquence immédiate, à énoncer : `conda install` pose le paquet dans
+    l'environnement actif, et un terminal ouvert avant l'activation ne le
+    verra pas. C'est le `ModuleNotFoundError` de la diapositive précédente,
+    vu par son mécanisme.
+
+    Deuxième conséquence : désactiver ne désinstalle rien, cela retire le
+    dossier de la tête de la liste.
+
+    Sous Windows, la liste est la même variable, les dossiers s'y séparent
+    par un point-virgule et non par un deux-points. Ne pas s'y attarder.
+
+    `PATH` est repris au cours 2, avec les chemins et le dossier courant ;
+    ici, seul l'ordre de parcours compte.
+  ]
+]
+#d("Déclarer des dépendances")[
+  #annonce[
+    Ce qu'on a tapé ne se retrouve pas. Écrit dans un fichier rangé avec le
+    code, cela se refait ailleurs et plus tard.
+  ]
+
+  #face-a-face(
+    panneau("Installé à la main")[
+      ```bash
+      conda install -n info01 \
+          -c conda-forge numpy pillow
+      ```
+      #v(0.3em)
+      #text(size: 15pt, fill: estompe)[
+        La commande a marché, et rien n'en garde trace. Sur un autre poste, il
+        faut se souvenir de ce qu'on avait tapé.
+      ]
+    ],
+    panneau("Déclaré dans le fichier")[
+      ```yaml
+      dependencies:
+        - python=3.12
+        - numpy
+        - pillow
+      ```
+      #v(0.3em)
+      #text(size: 15pt, fill: estompe)[
+        Le fichier suit le code partout, et `conda env create` refait le même
+        environnement : ici, ailleurs, dans six mois.
+      ]
+    ],
+  )
+
+  #legende[
+    Le fichier ne porte que les dépendances directes, sept pour le module : les
+    293 autres sont recalculées à chaque création.
+  ]
+
+  #notes[
+    La phrase à retenir de la partie : une installation est reproductible
+    parce qu'un fichier la décrit, non parce qu'on se souvient de ce qu'on
+    a tapé. C'est aussi ce qui est demandé au rendu.
+
+    Écrire la liste complète des 293 serait la figer, et l'attacher à un
+    système : les paquets compilés ne sont pas les mêmes sous Windows et
+    sous Linux.
+
+    Le fichier se range avec le code et le suit partout : c'est un fichier
+    texte de quelques lignes, comme le reste du projet. Le versionner est
+    le sujet du cours 2.
+
+    Ce qui manque encore : ce fichier écrit à la main ne dit pas d'où vient
+    chaque paquet ni en quelle version exacte. `conda env export` le fait ;
+    ne pas y entrer aujourd'hui.
+
+    Dernière étape de la manipulation : ajouter la ligne oubliée au
+    fichier, et constater que rien ne s'installe puisque c'était déjà fait.
+  ]
+]
+#d("Projet : déclaration des informations & métadonnées")[
+  #annonce[
+    Un projet se décrit dans un fichier texte : son nom, sa version, et ce
+    dont son code a besoin.
+  ]
+
+  #face-a-face(
+    panneau[`pyproject.toml`, à la racine du projet][
+      ```toml
+      [project]
+      name = "recette"
+      version = "0.1.0"
+      requires-python = ">=3.10"
+      dependencies = ["markdown>=3.5"]
+
+      [project.scripts]
+      recette = "recette.__main__:main"
+      ```
+    ],
+    panneau("Ce que chaque ligne déclare")[
+      #tableau(
+        columns: (auto, 1fr),
+        align: left + horizon,
+        [Ce qui est écrit], [Ce que c'est],
+        [`name`, `version`], [les métadonnées],
+        surligne[`dependencies`], surligne[ce que le code importe],
+        [`requires-python`], [les versions de Python],
+        [`[project.scripts]`], [la commande installée],
+      )
+    ],
+  )
+
+  #legende[
+    Contenu réel de `pyproject.toml`, écrit en TOML : des sections entre
+    crochets, une valeur par nom. `environment.yml` est en YAML, où
+    l'indentation porte la structure.
+  ]
+
+  #notes[
+    Deux fichiers, deux descriptions, et il faut les distinguer :
+    `environment.yml` dit de quoi la *machine* a besoin, y compris ce qui
+    n'est pas du Python ; `pyproject.toml` dit de quoi le *code* a besoin.
+    Les deux coexistent dans la plupart des projets, et dans celui de la
+    manipulation.
+
+    C'est un troisième usage du texte, après le code et la documentation :
+    décrire. Ils ont croisé `.json` et `.yaml` à « Les fichiers texte d'un
+    projet » ; ce sont les mêmes formats, employés ici pour déclarer. Comme
+    `.json`, YAML et TOML décrivent des données ; contrairement à lui, ils
+    acceptent des commentaires, ce qui explique qu'un humain les écrive. On
+    les retrouve hors de Python : réglages d'un outil, description d'une
+    chaîne d'intégration, composition de conteneurs.
+
+    Piège du YAML, à mentionner si quelqu'un tape le fichier : deux espaces
+    d'indentation, jamais de tabulation, et l'éditeur le signale. C'est
+    « Espaces, tabulations et fins de ligne » qui resurgit.
+
+    La ligne surlignée est celle que la manipulation fait lire avant de
+    lancer quoi que ce soit : le projet annonce avoir besoin de `markdown`.
+
+    Boucler la partie : le code réutilisé au début est disponible parce que
+    quelqu'un a écrit un fichier de cette forme, puis déposé le résultat sur
+    un dépôt. Fabriquer le paquet est au cours 3, avec `[project.scripts]`.
+
+    Ne pas détailler `[build-system]`, absent de l'extrait : aucun projet
+    ordinaire n'a à en changer.
   ]
 ]
 #d("Le terminal de l'éditeur de code")[
