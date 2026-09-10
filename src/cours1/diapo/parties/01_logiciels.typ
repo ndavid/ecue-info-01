@@ -261,22 +261,38 @@
 
 // --------------------------------------------
 #d("Quizz : vocabulaire associé aux chemins de fichier - Réponse")[
+  // Le chemin s'écrit d'un seul tenant, sans blanc entre les segments : c'est
+  // ainsi qu'il apparaît dans l'explorateur. Les colonnes sont donc mesurées
+  // sur les segments eux-mêmes, et les étiquettes, plus larges, sont posées
+  // par `place` : elles débordent de leur colonne sans l'élargir.
   #align(center)[
-    #grid(
-      columns: (auto, auto, auto),
-      row-gutter: 13pt,
-      align: center,
-      text(font: police-code, size: 25pt, fill: estompe, "C:\\"),
-      text(font: police-code, size: 25pt, fill: manip, weight: demi-gras,
-           "Users\\alice\\Documents\\"),
-      // Le nom du fichier est `raven.odt` tout entier, comme le dit la table :
-      // une seule cellule, pour que la répartition des colonnes ne vienne pas
-      // couper le nom de son extension.
-      text(font: police-code, size: 25pt, fill: accent, "raven.odt"),
-      text(size: 14pt, fill: estompe)[la racine, ou le disque],
-      text(size: 14pt, fill: manip)[trois noms de dossier],
-      text(size: 14pt, fill: accent)[le nom du fichier, extension comprise],
-    )
+    #context {
+      let taille = 25pt
+      let segments = (
+        (estompe, "C:\\", "la racine, ou le disque"),
+        (manip, "Users\\alice\\Documents\\", "trois noms de dossier"),
+        (accent, "raven.odt", "le nom du fichier, extension comprise"),
+      )
+      let morceau(couleur, chaine) = text(
+        font: police-code, size: taille, fill: couleur,
+        weight: if couleur == manip { demi-gras } else { "regular" },
+        chaine,
+      )
+      grid(
+        columns: segments.map(((c, t, _)) => measure(morceau(c, t)).width),
+        column-gutter: 0pt,
+        row-gutter: 13pt,
+        ..segments.map(((c, t, _)) => morceau(c, t)),
+        ..segments.map(((c, _, e)) => {
+          // L'étiquette est mesurée puis posée à sa largeur naturelle : sans
+          // cela, elle se replierait sur la largeur de son segment.
+          let etiq = text(size: 14pt, fill: c)[#e]
+          box(width: 100%, height: 1.2em)[
+            #place(center + top, box(width: measure(etiq).width, etiq))
+          ]
+        }),
+      )
+    }
   ]
 
   #v(0.6em)
