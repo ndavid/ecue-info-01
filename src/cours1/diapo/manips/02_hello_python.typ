@@ -15,7 +15,7 @@
   dossier: "data/cours1/hello/",
 )
 #d("Visual Studio Code")[
-  #align(center, capture-ide(hauteur: 345pt))
+  #align(center, capture-ide(hauteur: 330pt))
 
   #notes[
     L'annonce est passée ici pour laisser la place à la capture : l'éditeur du

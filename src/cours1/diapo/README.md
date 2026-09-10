@@ -27,12 +27,12 @@ python outils/compiler_diapos.py --corrige        # corrigé des manipulations
 python outils/compiler_manips.py                 # une feuille par manipulation
 ```
 
-`cours1.pdf` est la séance elle-même, 101 pages : c'est ce qu'on projette. Les
+`cours1.pdf` est la séance elle-même, 95 pages : c'est ce qu'on projette. Les
 options se combinent : `--notes --corrige` produit `cours1-notes-corrige.pdf`.
 
 L'exposé et les manipulations sont dans deux dossiers, `parties/` et `manips/`,
 et un fichier par manipulation. Deux compilations en découlent : `--input
-manips=false` donne le seul fil du cours, 61 pages, pour le relire sans les
+manips=false` donne le seul fil du cours, 54 pages, pour le relire sans les
 gestes ; et `outils/compiler_manips.py` compile chaque manipulation seule, en
 feuille d'instructions déposée dans le dossier de données qu'elle annonce, sous
 le nom `instructions-<nom>.pdf`. C'est le même fichier source dans les deux
@@ -90,10 +90,10 @@ Les images se désignent depuis la racine du projet, `"/data/cours1/…"` : typs
 résout un chemin relatif par rapport au fichier où `image` est appelé,
 c'est-à-dire au thème, et non par rapport au fichier qui écrit le chemin.
 
-`cours1.typ` produit 100 pages avec les captures d'écran : titre, introduction
-au module, le contenu de la séance, puis ses cinq parties (logiciels et formats
-de fichier, programmation et éditeur de code, environnement de programmation,
-notebooks, markdown et les autres fichiers texte).
+`cours1.typ` produit 95 pages avec les captures d'écran : titre, introduction au
+module, le contenu de la séance, puis ses quatre parties (logiciels et formats
+de fichier, programmation et éditeur de code, structure d'un projet Python,
+notebooks).
 
 ## Identité visuelle
 

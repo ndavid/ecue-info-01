@@ -214,8 +214,8 @@
 // --------------------------------------------
 #d("Contenu de la séance")[
   #annonce[
-    Cinq parties, des notions les plus générales jusqu'à l'installation de
-    l'environnement de programmation.
+    Quatre parties, des notions les plus générales jusqu'à la structure d'un
+    projet Python.
   ]
 
   #tableau(
@@ -224,9 +224,8 @@
     [Partie], [Nature], [Durée],
     [Logiciels et formats de fichier], [cours et manipulation], [25′],
     [Programmation et éditeur de code], [cours et manipulations], [40′],
-    [Environnement de programmation], [cours et manipulation], [25′],
+    [Structure d'un projet Python], [cours et deux manipulations], [40′],
     [Notebooks], [cours et manipulation], [10′],
-    [Markdown et les autres fichiers texte], [cours et manipulation], [15′],
   )
 
   #avertissement[
@@ -239,7 +238,7 @@
   ]
 
   #notes[
-    Les diapositives brunes sont les manipulations : sept, dans les cinq
+    Les diapositives brunes sont les manipulations : sept, dans les quatre
     parties. Annoncer que la séance n'est pas un exposé continu.
 
     L'ordre, en une phrase : ce qu'est un logiciel et ce qu'il manipule,

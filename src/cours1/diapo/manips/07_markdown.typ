@@ -8,10 +8,49 @@
 
 
 #separateur-manip(
-  "Formatage HTML et Markdown",
-  annonce: "Une page web et sa feuille de style, puis un texte brut mis en forme en Markdown",
+  "Mettre en forme une recette en Markdown",
+  annonce: "Un texte brut sans structure, repris en Markdown, avec l'aperçu ouvert à côté",
   dossier: "data/cours1/markdown/",
 )
+#d("Voir le rendu sans quitter l'éditeur")[
+  #annonce[
+    VSCode connaît le Markdown d'origine : rien à installer, et l'aperçu
+    s'ouvre à côté du fichier, dans la même fenêtre.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr, 1fr),
+    align: left + horizon,
+    [Le geste], [Ce qu'il ouvre], [Quand s'en servir],
+    [`Ctrl` + `K` puis `V`],
+      [l'aperçu à droite, l'éditeur reste à gauche],
+      [pendant qu'on écrit : le rendu suit la frappe],
+    [`Ctrl` + `Maj` + `V`],
+      [l'aperçu seul, dans un onglet],
+      [pour relire, une fois le texte écrit],
+  )
+
+  #legende[
+    Les deux aperçus défilent avec le fichier. Ils ne changent rien au `.md` :
+    ce qui est enregistré reste le texte que vous avez tapé.
+  ]
+
+  #notes[
+    Le geste le plus employé de l'année : l'installer maintenant, et écrire
+    le fichier de notes du jour avec l'aperçu ouvert.
+
+    Le montrer en direct plutôt que le décrire. Faire remarquer que
+    l'éditeur et l'aperçu se suivent quand on fait défiler l'un des deux.
+
+    Rien n'est installé pour cela : `markdown-language-features` est livré
+    avec l'éditeur, contrairement à Python et C++, qui ont demandé une
+    extension. C'est le contraste à nommer.
+
+    En français, l'entrée du menu est Affichage #sym.arrow.r Ouvrir
+    l'aperçu sur le côté. Libellés dépendants de la version, à vérifier sur
+    le poste de démonstration.
+  ]
+]
 #d("Mettre en forme une recette")[
   #annonce[
     Un texte brut sans aucune structure, à reprendre en Markdown. Le rendu se
@@ -53,6 +92,51 @@
 
     Pour ceux qui vont vite : une photo par `![](…)`, ce qui rappelle les
     chemins relatifs, et une citation par `>`.
+  ]
+]
+#d("Un diagramme écrit en texte")[
+  #annonce[
+    Un schéma se décrit aussi en texte. Six lignes dans un bloc `mermaid`, et
+    l'aperçu dessine les boîtes et les flèches.
+  ]
+
+  #face-a-face(
+    panneau("Ce qu'on écrit")[
+      #raw(
+        "```mermaid\nflowchart LR\n  A[Pâte] --> B[Repos, 1 h]\n  B --> C[Cuisson]\n```",
+        block: true,
+      )
+    ],
+    panneau("Ce qui s'affiche")[
+      #v(0.6em)
+      #chaine(
+        ("Pâte", ""),
+        ("Repos, 1 h", ""),
+        ("Cuisson", ""),
+      )
+    ],
+  )
+
+  #legende[
+    Rien à installer : depuis la version 1.121, VSCode rend les diagrammes
+    Mermaid dans l'aperçu Markdown d'origine. Vérifié sur le poste de
+    préparation, où `mermaid-markdown-features` est livré avec l'éditeur.
+  ]
+
+  #notes[
+    L'intérêt n'est pas de dessiner joli mais que le schéma soit du texte
+    : il se compare ligne à ligne, se versionne, et se corrige sans
+    rouvrir un logiciel de dessin.
+
+    Faire remarquer que le dessin n'est pas dans le fichier : le `.md` ne
+    contient que six lignes, les boîtes sont calculées à l'affichage,
+    comme la coloration l'était pour le code.
+
+    Le vocabulaire minimal suffit : `flowchart LR`, un identifiant, le
+    texte entre crochets, `-->` pour une flèche.
+
+    Ne pas ouvrir le catalogue des types de diagrammes. Le cours 2 s'en
+    sert pour représenter l'historique d'un dépôt git.
   ]
 ]
 // Le rendu attendu, quand la capture est disponible : sans elle, la

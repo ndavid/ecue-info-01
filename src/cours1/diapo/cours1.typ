@@ -38,11 +38,11 @@
   include "manips/04_programmes_fautifs.typ"
 }
 
-#include "parties/03_environnement.typ"
-#if manips { include "manips/05_environnement.typ" }
+#include "parties/03_projet_python.typ"
+#if manips {
+  include "manips/05_environnement.typ"
+  include "manips/07_markdown.typ"
+}
 
 #include "parties/04_notebooks.typ"
 #if manips { include "manips/06_notebooks.typ" }
-
-#include "parties/05_formats_texte.typ"
-#if manips { include "manips/07_markdown.typ" }
