@@ -541,12 +541,160 @@
   ]
 ]
 
+// --------------------------- Texte et binaire -------------------------------
+// --------------------------------------------
+#d("Fichier texte et fichier binaire")[
+  #annonce[
+    Tout fichier est une suite d'octets. Un fichier *texte* est celui dont les
+    octets se lisent un à un comme des caractères, par une table d'encodage.
+    Les autres sont dits *binaires*.
+  ]
+
+  #face-a-face(
+    panneau("raven_une_ligne.txt")[
+      #block(width: 100%, inset: (x: 10pt, y: 10pt), fill: gris)[
+        #octets(
+          ("4F", "6E", "63", "65", "20", "75", "70", "6F"),
+          ("O", "n", "c", "e", "␣", "u", "p", "o"),
+        )
+      ]
+      #v(0.35em)
+      #text(size: 14pt, fill: estompe)[
+        chaque octet est un caractère, et leur suite fait le poème
+      ]
+    ],
+    panneau("une tuile de carte, en PNG")[
+      #block(width: 100%, inset: (x: 10pt, y: 10pt), fill: gris)[
+        #octets(
+          ("89", "50", "4E", "47", "0D", "0A", "1A", "0A"),
+          (none, "P", "N", "G", none, none, none, none),
+        )
+      ]
+      #v(0.35em)
+      #text(size: 14pt, fill: estompe)[
+        trois octets font `PNG` ; les autres ne désignent aucun caractère
+      ]
+    ],
+  )
+
+  #legende[
+    Octets réels, relevés sur les fichiers du cours. La différence n'est pas
+    dans les octets : elle est dans la façon dont le logiciel les lit.
+  ]
+
+  #notes[
+    Insister sur le sens de « binaire » : ce n'est pas que le fichier soit
+    écrit en binaire, ils le sont tous. C'est qu'il n'est pas fait pour être
+    lu caractère par caractère.
+
+    Conséquence, déjà rencontrée en annexe sur le `.odt` : ce qui est du
+    texte se compare ligne à ligne, se corrige à la main et se versionne. Ce
+    qui est binaire, non.
+
+    Les `0D 0A` de droite sont un hasard utile : ce sont aussi les deux
+    caractères de fin de ligne sous Windows. Ne pas s'y arrêter aujourd'hui.
+
+    Rappel du tableau des extensions : six formats sur seize étaient du
+    texte. C'est la même distinction, vue par le contenu au lieu du nom.
+  ]
+]
+
+// --------------------------------------------
+#d("Un octet, 256 valeurs, une table")[
+  #annonce[
+    Les bits se comptent par groupes de huit. Ce groupe est un *octet*, et il
+    prend 256 valeurs différentes. Une table d'encodage dit quel caractère
+    chaque valeur désigne.
+  ]
+
+  #chaine(
+    ecart: 24pt,
+    ("Huit bits", "01010010"),
+    ("Une valeur", "82 sur 256 possibles"),
+    ("Un caractère", "R, par la table ASCII"),
+  )
+
+  #v(0.5em)
+  #avertissement[
+    ASCII est la table historique : 128 caractères, l'anglais sans accents.
+    Aujourd'hui les fichiers sont en UTF-8, qui garde ces valeurs et code les
+    autres caractères sur plusieurs octets : `é` en occupe deux, `C3 A9`.
+  ]
+
+  #legende[
+    2#super[8] = 256. C'est aussi pourquoi une valeur d'octet s'écrit avec deux
+    chiffres hexadécimaux, ce que le cours 3 reprendra.
+  ]
+
+  #notes[
+    Ne pas faire calculer : donner 2 puissance 8, et passer. Le binaire est
+    ouvert pour de bon au cours 3, avec les images ; aujourd'hui il ne sert
+    qu'à rendre la table crédible.
+
+    L'intuition à laisser : « texte » veut dire « octets plus une table de
+    correspondance ». Un fichier écrit avec une table et relu avec une autre
+    donne des caractères abîmés — l'origine des accents cassés que tout le
+    monde a déjà vus, et un sujet du cours 2 avec git.
+
+    Si la question vient sur UTF-8 : les 128 valeurs d'ASCII y gardent leur
+    sens, ce qui fait qu'un fichier anglais est identique dans les deux
+    tables. Les autres caractères prennent de deux à quatre octets.
+
+    Ne pas dire « ASCII » pour parler d'un fichier texte d'aujourd'hui : le
+    mot traîne dans beaucoup de documentations, il est faux depuis vingt ans.
+  ]
+]
+
 // ------------------------ TD : fichiers et extensions -----------------------
 // --------------------------------------------
 #separateur-manip(
   "Fichiers, formats et extensions",
   dossier: "data/cours1/produit/",
 )
+#d("Ouvrir chaque fichier avec le Bloc-notes")[
+  #annonce[
+    Le Bloc-notes n'affiche rien d'autre que des caractères : il lit chaque
+    octet et montre le caractère correspondant. Il permet donc de voir de quoi
+    un fichier est fait.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [Fichier ouvert], [Ce que vous constatez],
+    [`raven_une_ligne.txt`], reponse[le poème, lisible en entier],
+    [`style.css`], reponse[des règles de mise en forme, lisibles elles aussi],
+    [`raven_brut.html`], reponse[le texte et ses balises : du texte, malgré l'extension],
+    [`raven.odt`], reponse[`PK` en tête, puis du charabia : une archive, donc binaire],
+    [une tuile `.png`], reponse[`PNG` en tête, puis rien de lisible],
+  )
+
+  #avertissement[
+    Ne rien enregistrer, et fermer sans sauver : un `.odt` ou un `.png`
+    réenregistré par le Bloc-notes est détruit.
+  ]
+
+  #notes[
+    Clic droit #sym.arrow.r Ouvrir avec #sym.arrow.r Bloc-notes. Sous macOS et
+    Linux, l'éditeur de texte du système refuse souvent les fichiers non
+    texte : le faire alors en démonstration depuis le poste enseignant.
+
+    Les deux règles du Bloc-notes, à dire avant : il affiche un caractère par
+    octet, selon un encodage qu'il devine, et il n'interprète rien d'autre —
+    ni image, ni mise en forme. Ce qui n'a pas de caractère correspondant
+    apparaît en carré ou en signe étrange.
+
+    Choisir de petits fichiers : ceux du dossier font de 0,5 à 20 ko. Un
+    fichier de plusieurs mégaoctets fige l'affichage sans rien apprendre.
+
+    Le `PK` et le `PNG` viennent d'être vus sur la diapositive des octets. Les
+    faire retrouver par la salle plutôt que les désigner.
+
+    Faire le lien avec l'extension : `raven_brut.html` est du texte, `.odt`
+    n'en est pas, et le nom ne le disait pas.
+  ]
+]
+
 #d("Un même document, trois formats")[
   #annonce[
     Ouvrir `data/cours1/produit/raven.odt` dans LibreOffice Writer, puis

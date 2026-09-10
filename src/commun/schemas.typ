@@ -9,7 +9,7 @@
 // fixe dépendrait de la police effectivement installée, et c'est ainsi que du
 // texte est passé par-dessus le bord de ses cadres.
 
-#import "theme.typ": accent, estompe, demi-gras
+#import "theme.typ": accent, estompe, manip, demi-gras, police-code
 
 #let bloc(titre, detail, plein: false, hauteur: auto) = block(
   width: 100%, height: hauteur, inset: 12pt,
@@ -200,3 +200,22 @@
     })
   }
 }
+
+// ---------------------------------------------------------------------------
+// Une poignée d'octets, et ce qu'ils donnent lus comme des caractères
+//
+// Deux lignes alignées colonne par colonne : la valeur hexadécimale au-dessus,
+// le caractère au-dessous. Un octet qui ne correspond à aucun caractère
+// affichable porte un point médian estompé, comme le montrerait un éditeur.
+// La colonne, et non la flèche, fait le lien entre les deux lectures.
+#let octets(valeurs, caracteres, taille: 15pt) = grid(
+  columns: valeurs.len(),
+  column-gutter: 6pt,
+  row-gutter: 5pt,
+  ..valeurs.map(v => align(center, text(font: police-code, size: taille, fill: accent)[#v])),
+  ..caracteres.map(c => align(center, if c == none {
+    text(font: police-code, size: taille, fill: estompe)[·]
+  } else {
+    text(font: police-code, size: taille, weight: demi-gras, fill: manip)[#c]
+  })),
+)
