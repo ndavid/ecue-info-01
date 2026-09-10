@@ -651,50 +651,6 @@
   "Fichiers, formats et extensions",
   dossier: "data/cours1/produit/",
 )
-#d("Ouvrir chaque fichier avec le Bloc-notes")[
-  #annonce[
-    Le Bloc-notes n'affiche rien d'autre que des caractères : il lit chaque
-    octet et montre le caractère correspondant. Il permet donc de voir de quoi
-    un fichier est fait.
-  ]
-
-  #tableau(
-    columns: (auto, 1fr),
-    align: left + horizon,
-    [Fichier ouvert], [Ce que vous constatez],
-    [`raven_une_ligne.txt`], reponse[le poème, lisible en entier],
-    [`style.css`], reponse[des règles de mise en forme, lisibles elles aussi],
-    [`raven_brut.html`], reponse[le texte et ses balises : du texte, malgré l'extension],
-    [`raven.odt`], reponse[`PK` en tête, puis du charabia : une archive, donc binaire],
-    [une tuile `.png`], reponse[`PNG` en tête, puis rien de lisible],
-  )
-
-  #avertissement[
-    Ne rien enregistrer, et fermer sans sauver : un `.odt` ou un `.png`
-    réenregistré par le Bloc-notes est détruit.
-  ]
-
-  #notes[
-    Clic droit #sym.arrow.r Ouvrir avec #sym.arrow.r Bloc-notes. Sous macOS et
-    Linux, l'éditeur de texte du système refuse souvent les fichiers non
-    texte : le faire alors en démonstration depuis le poste enseignant.
-
-    Les deux règles du Bloc-notes, à dire avant : il affiche un caractère par
-    octet, selon un encodage qu'il devine, et il n'interprète rien d'autre —
-    ni image, ni mise en forme. Ce qui n'a pas de caractère correspondant
-    apparaît en carré ou en signe étrange.
-
-    Choisir de petits fichiers : ceux du dossier font de 0,5 à 20 ko. Un
-    fichier de plusieurs mégaoctets fige l'affichage sans rien apprendre.
-
-    Le `PK` et le `PNG` viennent d'être vus sur la diapositive des octets. Les
-    faire retrouver par la salle plutôt que les désigner.
-
-    Faire le lien avec l'extension : `raven_brut.html` est du texte, `.odt`
-    n'en est pas, et le nom ne le disait pas.
-  ]
-]
-
 #d("Un même document, trois formats")[
   #annonce[
     Ouvrir `data/cours1/produit/raven.odt` dans LibreOffice Writer, puis
@@ -1032,5 +988,205 @@
 
     Le code hexadécimal lui-même est au cours 3 : dire « le code du
     caractère espace » et rien de plus.
+  ]
+]
+
+// --------------------------------------------
+#d("La table ASCII, caractère par caractère")[
+  #annonce[
+    Les 95 caractères affichables d'ASCII et leur valeur, lue en hexadécimal :
+    le rang donne le premier chiffre, la colonne le second. `R` est ainsi à la
+    ligne `5_` et dans la colonne `2`, soit `52`.
+  ]
+
+  #align(center)[
+    #block(inset: (x: 16pt, y: 13pt), fill: gris)[
+      #grid(
+        columns: 17,
+        column-gutter: 11pt,
+        row-gutter: 9pt,
+    [],
+    align(center, text(size: 15pt, fill: estompe)[0]),
+    align(center, text(size: 15pt, fill: estompe)[1]),
+    align(center, text(size: 15pt, fill: estompe)[2]),
+    align(center, text(size: 15pt, fill: estompe)[3]),
+    align(center, text(size: 15pt, fill: estompe)[4]),
+    align(center, text(size: 15pt, fill: estompe)[5]),
+    align(center, text(size: 15pt, fill: estompe)[6]),
+    align(center, text(size: 15pt, fill: estompe)[7]),
+    align(center, text(size: 15pt, fill: estompe)[8]),
+    align(center, text(size: 15pt, fill: estompe)[9]),
+    align(center, text(size: 15pt, fill: estompe)[A]),
+    align(center, text(size: 15pt, fill: estompe)[B]),
+    align(center, text(size: 15pt, fill: estompe)[C]),
+    align(center, text(size: 15pt, fill: estompe)[D]),
+    align(center, text(size: 15pt, fill: estompe)[E]),
+    align(center, text(size: 15pt, fill: estompe)[F]),
+    align(center, text(size: 15pt, fill: estompe)[2\_]),
+    align(center, text(font: police-code, size: 21pt)[#"␣"]),
+    align(center, text(font: police-code, size: 21pt)[#"!"]),
+    align(center, text(font: police-code, size: 21pt)[#"\""]),
+    align(center, text(font: police-code, size: 21pt)[#"#"]),
+    align(center, text(font: police-code, size: 21pt)[#"$"]),
+    align(center, text(font: police-code, size: 21pt)[#"%"]),
+    align(center, text(font: police-code, size: 21pt)[#"&"]),
+    align(center, text(font: police-code, size: 21pt)[#"'"]),
+    align(center, text(font: police-code, size: 21pt)[#"("]),
+    align(center, text(font: police-code, size: 21pt)[#")"]),
+    align(center, text(font: police-code, size: 21pt)[#"*"]),
+    align(center, text(font: police-code, size: 21pt)[#"+"]),
+    align(center, text(font: police-code, size: 21pt)[#","]),
+    align(center, text(font: police-code, size: 21pt)[#"-"]),
+    align(center, text(font: police-code, size: 21pt)[#"."]),
+    align(center, text(font: police-code, size: 21pt)[#"/"]),
+    align(center, text(size: 15pt, fill: estompe)[3\_]),
+    align(center, text(font: police-code, size: 21pt)[#"0"]),
+    align(center, text(font: police-code, size: 21pt)[#"1"]),
+    align(center, text(font: police-code, size: 21pt)[#"2"]),
+    align(center, text(font: police-code, size: 21pt)[#"3"]),
+    align(center, text(font: police-code, size: 21pt)[#"4"]),
+    align(center, text(font: police-code, size: 21pt)[#"5"]),
+    align(center, text(font: police-code, size: 21pt)[#"6"]),
+    align(center, text(font: police-code, size: 21pt)[#"7"]),
+    align(center, text(font: police-code, size: 21pt)[#"8"]),
+    align(center, text(font: police-code, size: 21pt)[#"9"]),
+    align(center, text(font: police-code, size: 21pt)[#":"]),
+    align(center, text(font: police-code, size: 21pt)[#";"]),
+    align(center, text(font: police-code, size: 21pt)[#"<"]),
+    align(center, text(font: police-code, size: 21pt)[#"="]),
+    align(center, text(font: police-code, size: 21pt)[#">"]),
+    align(center, text(font: police-code, size: 21pt)[#"?"]),
+    align(center, text(size: 15pt, fill: estompe)[4\_]),
+    align(center, text(font: police-code, size: 21pt)[#"@"]),
+    align(center, text(font: police-code, size: 21pt)[#"A"]),
+    align(center, text(font: police-code, size: 21pt)[#"B"]),
+    align(center, text(font: police-code, size: 21pt)[#"C"]),
+    align(center, text(font: police-code, size: 21pt)[#"D"]),
+    align(center, text(font: police-code, size: 21pt)[#"E"]),
+    align(center, text(font: police-code, size: 21pt)[#"F"]),
+    align(center, text(font: police-code, size: 21pt)[#"G"]),
+    align(center, text(font: police-code, size: 21pt)[#"H"]),
+    align(center, text(font: police-code, size: 21pt)[#"I"]),
+    align(center, text(font: police-code, size: 21pt)[#"J"]),
+    align(center, text(font: police-code, size: 21pt)[#"K"]),
+    align(center, text(font: police-code, size: 21pt)[#"L"]),
+    align(center, text(font: police-code, size: 21pt)[#"M"]),
+    align(center, text(font: police-code, size: 21pt)[#"N"]),
+    align(center, text(font: police-code, size: 21pt)[#"O"]),
+    align(center, text(size: 15pt, fill: estompe)[5\_]),
+    align(center, text(font: police-code, size: 21pt)[#"P"]),
+    align(center, text(font: police-code, size: 21pt)[#"Q"]),
+    align(center, text(font: police-code, size: 21pt)[#"R"]),
+    align(center, text(font: police-code, size: 21pt)[#"S"]),
+    align(center, text(font: police-code, size: 21pt)[#"T"]),
+    align(center, text(font: police-code, size: 21pt)[#"U"]),
+    align(center, text(font: police-code, size: 21pt)[#"V"]),
+    align(center, text(font: police-code, size: 21pt)[#"W"]),
+    align(center, text(font: police-code, size: 21pt)[#"X"]),
+    align(center, text(font: police-code, size: 21pt)[#"Y"]),
+    align(center, text(font: police-code, size: 21pt)[#"Z"]),
+    align(center, text(font: police-code, size: 21pt)[#"["]),
+    align(center, text(font: police-code, size: 21pt)[#"\\"]),
+    align(center, text(font: police-code, size: 21pt)[#"]"]),
+    align(center, text(font: police-code, size: 21pt)[#"^"]),
+    align(center, text(font: police-code, size: 21pt)[#"_"]),
+    align(center, text(size: 15pt, fill: estompe)[6\_]),
+    align(center, text(font: police-code, size: 21pt)[#"`"]),
+    align(center, text(font: police-code, size: 21pt)[#"a"]),
+    align(center, text(font: police-code, size: 21pt)[#"b"]),
+    align(center, text(font: police-code, size: 21pt)[#"c"]),
+    align(center, text(font: police-code, size: 21pt)[#"d"]),
+    align(center, text(font: police-code, size: 21pt)[#"e"]),
+    align(center, text(font: police-code, size: 21pt)[#"f"]),
+    align(center, text(font: police-code, size: 21pt)[#"g"]),
+    align(center, text(font: police-code, size: 21pt)[#"h"]),
+    align(center, text(font: police-code, size: 21pt)[#"i"]),
+    align(center, text(font: police-code, size: 21pt)[#"j"]),
+    align(center, text(font: police-code, size: 21pt)[#"k"]),
+    align(center, text(font: police-code, size: 21pt)[#"l"]),
+    align(center, text(font: police-code, size: 21pt)[#"m"]),
+    align(center, text(font: police-code, size: 21pt)[#"n"]),
+    align(center, text(font: police-code, size: 21pt)[#"o"]),
+    align(center, text(size: 15pt, fill: estompe)[7\_]),
+    align(center, text(font: police-code, size: 21pt)[#"p"]),
+    align(center, text(font: police-code, size: 21pt)[#"q"]),
+    align(center, text(font: police-code, size: 21pt)[#"r"]),
+    align(center, text(font: police-code, size: 21pt)[#"s"]),
+    align(center, text(font: police-code, size: 21pt)[#"t"]),
+    align(center, text(font: police-code, size: 21pt)[#"u"]),
+    align(center, text(font: police-code, size: 21pt)[#"v"]),
+    align(center, text(font: police-code, size: 21pt)[#"w"]),
+    align(center, text(font: police-code, size: 21pt)[#"x"]),
+    align(center, text(font: police-code, size: 21pt)[#"y"]),
+    align(center, text(font: police-code, size: 21pt)[#"z"]),
+    align(center, text(font: police-code, size: 21pt)[#"{"]),
+    align(center, text(font: police-code, size: 21pt)[#"|"]),
+    align(center, text(font: police-code, size: 21pt)[#"}"]),
+    align(center, text(font: police-code, size: 21pt)[#"~"]),
+    align(center, text(font: police-code, size: 21pt, fill: estompe)[·]),
+      )
+    ]
+  ]
+
+  #legende[
+    Les valeurs de `00` à `1F` ne sont pas des caractères affichables : ce sont
+    des commandes, dont le saut de ligne `0A`. `7F` non plus. Les majuscules
+    commencent à `41`, les minuscules `20` plus loin, à `61`.
+  ]
+
+  #notes[
+    Ne pas la lire ligne à ligne : elle est là pour être consultée pendant la
+    manipulation qui suit, et pour que « une table d'encodage » cesse d'être
+    une abstraction.
+
+    Trois lectures à faire faire, pas plus : `R` en `52`, l'espace en `20`,
+    et le passage de `A` à `a` en ajoutant `20`.
+
+    UTF-8 reprend ces 95 valeurs à l'identique : cette table reste vraie
+    pour tout ce qui s'écrit sans accent.
+  ]
+]
+
+#d("Ouvrir chaque fichier avec le Bloc-notes")[
+  #annonce[
+    Le Bloc-notes n'affiche rien d'autre que des caractères : il lit chaque
+    octet et montre le caractère correspondant. Il permet donc de voir de quoi
+    un fichier est fait.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [Fichier ouvert], [Ce que vous constatez],
+    [`raven_une_ligne.txt`], reponse[le poème, lisible en entier],
+    [`style.css`], reponse[des règles de mise en forme, lisibles elles aussi],
+    [`raven_brut.html`], reponse[le texte et ses balises : du texte, malgré l'extension],
+    [`raven.odt`], reponse[`PK` en tête, puis du charabia : une archive, donc binaire],
+    [une tuile `.png`], reponse[`PNG` en tête, puis rien de lisible],
+  )
+
+  #avertissement[
+    Ne rien enregistrer, et fermer sans sauver : un `.odt` ou un `.png`
+    réenregistré par le Bloc-notes est détruit.
+  ]
+
+  #notes[
+    Clic droit #sym.arrow.r Ouvrir avec #sym.arrow.r Bloc-notes. Sous macOS et
+    Linux, l'éditeur de texte du système refuse souvent les fichiers non
+    texte : le faire alors en démonstration depuis le poste enseignant.
+
+    Les deux règles du Bloc-notes, à dire avant : il affiche un caractère par
+    octet, selon un encodage qu'il devine, et il n'interprète rien d'autre —
+    ni image, ni mise en forme. Ce qui n'a pas de caractère correspondant
+    apparaît en carré ou en signe étrange.
+
+    Choisir de petits fichiers : ceux du dossier font de 0,5 à 20 ko. Un
+    fichier de plusieurs mégaoctets fige l'affichage sans rien apprendre.
+
+    Le `PK` et le `PNG` viennent d'être vus sur la diapositive des octets. Les
+    faire retrouver par la salle plutôt que les désigner.
+
+    Faire le lien avec l'extension : `raven_brut.html` est du texte, `.odt`
+    n'en est pas, et le nom ne le disait pas.
   ]
 ]
