@@ -228,58 +228,66 @@
 
   #grid(
     columns: (auto, auto, auto, auto, 1fr),
-    column-gutter: 12pt,
+    column-gutter: 11pt,
     align: horizon,
-    // Les deux entrées, l'une sous l'autre.
+    // Les deux entrées, avec un extrait de leur contenu réel.
     grid(
-      rows: 2, row-gutter: 10pt,
-      block(width: 132pt, inset: (x: 9pt, y: 7pt), fill: gris,
+      rows: 2, row-gutter: 9pt,
+      block(width: 158pt, inset: (x: 9pt, y: 7pt), fill: gris,
             stroke: 0.8pt + gris.darken(15%))[
-        #text(font: police-code, size: 12.5pt)[ingredients.csv]
-        #v(0.25em)
-        #text(size: 11.5pt, fill: estompe)[pour une personne, \ en unités SI]
+        #text(font: police-code, size: 12pt, weight: demi-gras)[ingredients.csv]
+        #v(0.3em)
+        #set text(font: police-code, size: 10.5pt, fill: estompe)
+        #set par(leading: 0.55em)
+        ingredient,quantite,unite \
+        Farine,60,g \
+        Lait,125,ml
       ],
-      block(width: 132pt, inset: (x: 9pt, y: 7pt), fill: gris,
+      block(width: 158pt, inset: (x: 9pt, y: 7pt), fill: gris,
             stroke: 0.8pt + gris.darken(15%))[
-        #text(font: police-code, size: 12.5pt)[recette.md]
-        #v(0.25em)
-        #text(size: 11.5pt, fill: estompe)[le texte, sans \ son tableau]
+        #text(font: police-code, size: 12pt, weight: demi-gras)[recette.md]
+        #v(0.3em)
+        #set text(font: police-code, size: 10.5pt, fill: estompe)
+        #set par(leading: 0.55em)
+        \# Crêpes \
+        \*10 minutes de préparation.\* \
+        … \
+        \#\# Ingrédients
       ],
     ),
     fleche,
-    block(width: 150pt, inset: (x: 10pt, y: 8pt), fill: accent.lighten(92%),
+    block(width: 152pt, inset: (x: 10pt, y: 9pt), fill: accent.lighten(92%),
           stroke: 0.8pt + accent.lighten(55%))[
-      #set text(font: police-code, size: 12.5pt)
-      #set par(leading: 0.7em)
-      lire_ingredients \
-      adapter \
-      en_table \
-      tabulate \
-      markdown
+      #set text(size: 13pt)
+      Multiplier les quantités, les convertir, et poser le tableau sous le
+      titre qui l'annonce.
     ],
     fleche,
-    // Le résultat, tel qu'il s'affiche dans le navigateur.
+    // La sortie, où l'on retrouve les mêmes lignes.
     block(width: 100%, inset: (x: 11pt, y: 9pt),
           stroke: 0.8pt + estompe.lighten(50%))[
-      #text(size: 17pt, weight: "bold")[Crêpes]
-      #v(0.3em)
-      #set text(size: 12.5pt)
+      #text(size: 16pt, weight: "bold")[Crêpes]
+      #v(0.2em)
+      #text(size: 12pt, style: "italic", fill: estompe)[10 minutes de préparation.]
+      #v(0.2em)
+      #text(size: 12pt, fill: estompe)[…]
+      #v(0.25em)
+      #text(size: 14pt, weight: "bold")[Ingrédients]
+      #v(0.2em)
+      #set text(size: 12pt)
       #tableau(
         columns: (1fr, auto),
         align: left + horizon,
         [Ingrédient], [Quantité],
         [Farine], [240 g],
         [Lait], [500 ml],
-        [Œufs], [4],
       )
-      #v(0.3em)
-      #text(fill: estompe)[1. Mélanger la farine et le sel…]
     ],
   )
 
   #legende[
-    Le tableau affiché est calculé : il n'existe dans aucun des deux fichiers
-    d'entrée.
+    Pour quatre personnes : les 60 g du fichier en font 240. Le tableau de
+    droite n'existe dans aucun des deux fichiers d'entrée, il est calculé.
   ]
 
   #notes[
