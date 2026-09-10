@@ -48,13 +48,21 @@ def main(arguments=None) -> int:
     if options.personnes < 1:
         analyseur.error("le nombre de personnes doit valoir au moins 1")
 
-    ingredients = list(csv.DictReader(open(ICI / "ingredients.csv", encoding="utf-8")))
+    ingredients = []
+    with open(ICI / "ingredients.csv", encoding="utf-8") as fichier:
+        lecteur = csv.reader(fichier)
+        next(lecteur)                      # la première ligne nomme les colonnes
+        for nom, quantite, unite in lecteur:
+            ingredients.append((nom, float(quantite), unite))
+
     ingredients = pour_personnes(ingredients, options.personnes)
     ingredients = en_unites(ingredients, options.unites)
 
-    table = [[i["ingredient"], f"{i['quantite']:g} {i['unite']}".strip()]
-             for i in ingredients]
-    tableau = tabulate(table, headers=["Ingrédient", "Quantité"], tablefmt="pipe")
+    table = []
+    for nom, quantite, unite in ingredients:
+        table.append((nom, f"{quantite:.3g} {unite}".strip()))
+
+    tableau = tabulate(table, headers=["Ingrédient", "Quantité"], tablefmt="github")
 
     source = (ICI / "recette.md").read_text(encoding="utf-8")
     source = source.replace("## Ingrédients", "## Ingrédients\n\n" + tableau)

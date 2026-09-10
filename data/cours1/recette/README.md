@@ -67,14 +67,16 @@ Les trois programmes se lisent de haut en bas : lire le CSV, mettre à
 l'échelle, convertir, écrire le tableau, l'insérer sous le titre
 « Ingrédients », convertir en HTML, écrire la page.
 
-Deux calculs seulement sont des fonctions, dans `recette/__init__.py`, parce
-qu'ils répondent à deux questions différentes et qu'on peut vouloir l'un sans
-l'autre :
+Un ingrédient est un triplet — son nom, sa quantité, son unité — et une
+recette est la liste de ses ingrédients. Trois calculs seulement sont des
+fonctions, dans `recette/__init__.py`, parce qu'ils répondent à des questions
+qu'on peut se poser séparément :
 
 | Fonction | Ce qu'elle fait |
 |---|---|
 | `pour_personnes` | multiplie les quantités par le nombre de convives |
-| `en_unites` | convertit les grammes en onces et les millilitres en cups |
+| `convertir` | une quantité et son unité, en onces ou en cups |
+| `en_unites` | applique `convertir` à toute la recette, si on la demande |
 
 Les unités qui se comptent — les œufs — n'ont pas d'équivalent américain :
 elles traversent la conversion inchangées, faute d'entrée dans la table.

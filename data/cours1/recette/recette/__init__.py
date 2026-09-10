@@ -6,48 +6,44 @@ posé. Tout le reste — lire le CSV, écrire le tableau, l'insérer dans la
 recette — se lit de haut en bas dans `recette_a_la_main.py`,
 `recette_avec_tabulate.py` et `recette/__main__.py`.
 
-Deux fonctions, parce qu'elles répondent à deux questions différentes et
-qu'on peut vouloir l'une sans l'autre : combien de convives, et dans quelles
-unités.
+Un ingrédient est un triplet : son nom, sa quantité, son unité. Une recette
+est la liste de ses ingrédients. Les deux fonctions ci-dessous en prennent
+une et en rendent une autre, sans jamais modifier celle qu'on leur a donnée.
 """
 
-__all__ = ["pour_personnes", "convertir", "en_unites", "GABARIT", "VERS_US"]
-
-# Un facteur par unité de départ, et le nom de l'unité d'arrivée. Les unités
-# de comptage — un œuf, une pincée — n'ont pas d'équivalent : elles ne sont pas
-# dans la table, et traversent la conversion inchangées.
-VERS_US = {
-    "g": (1 / 28.3495, "oz"),      # once, 28,3495 g
-    "ml": (1 / 236.588, "cup"),    # cup, 236,588 ml
-}
+__all__ = ["pour_personnes", "convertir", "en_unites", "GABARIT"]
 
 
-def pour_personnes(ingredients: list[dict], personnes: int) -> list[dict]:
-    """Les mêmes ingrédients, pour ce nombre de convives.
+def pour_personnes(ingredients, personnes):
+    """Les mêmes ingrédients, pour ce nombre de convives."""
+    resultat = []
+    for nom, quantite, unite in ingredients:
+        resultat.append((nom, quantite * personnes, unite))
+    return resultat
 
-    Le CSV ne contient que du texte : `float` en fait un nombre, sans quoi
-    multiplier « 60 » par 4 donnerait « 60606060 ».
+
+def convertir(quantite, unite):
+    """Une quantité et son unité, exprimées en unités américaines.
+
+    Ce qui se compte — les œufs — n'a pas d'équivalent : la quantité et
+    l'unité ressortent inchangées, « une once d'œuf » ne voulant rien dire.
     """
-    return [i | {"quantite": float(i["quantite"]) * personnes} for i in ingredients]
+    if unite == "g":
+        return quantite / 28.3495, "oz"      # une once vaut 28,3495 g
+    if unite == "ml":
+        return quantite / 236.588, "cup"     # une cup vaut 236,588 ml
+    return quantite, unite
 
 
-def convertir(ingredient: dict) -> dict:
-    """La quantité et l'unité de cet ingrédient, en unités américaines.
-
-    Une unité absente de la table est laissée telle quelle : c'est le cas de
-    ce qui se compte, où « une once d'œuf » ne voudrait rien dire.
-    """
-    facteur, unite = VERS_US.get(ingredient["unite"], (1, ingredient["unite"]))
-    return {"quantite": ingredient["quantite"] * facteur, "unite": unite}
-
-
-def en_unites(ingredients: list[dict], systeme: str) -> list[dict]:
+def en_unites(ingredients, systeme):
     """Les mêmes ingrédients, exprimés dans le système demandé."""
     if systeme == "SI":
         return ingredients
-    return [i | convertir(i) for i in ingredients]
-
-
+    resultat = []
+    for nom, quantite, unite in ingredients:
+        quantite, unite = convertir(quantite, unite)
+        resultat.append((nom, quantite, unite))
+    return resultat
 
 
 # L'enveloppe de la page. `markdown.markdown` ne rend qu'un fragment : les
