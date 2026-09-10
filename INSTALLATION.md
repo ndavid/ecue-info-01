@@ -260,6 +260,15 @@ for f in src/cours*/diapo/cours*.typ; do typst compile --root . "$f"; done
 | `--input corrige=true` | distribué après la séance | ces colonnes sont remplies |
 | `--input notes=true` | l'enseignant | page deux fois plus large : la diapositive à gauche, ses notes à droite (format « second écran » de Beamer) |
 | `--input captures=true` | partout, si les images sont là | les captures d'écran remplacent les schémas dessinés |
+| `--input manips=false` | relecture du fil du cours | les manipulations sont laissées de côté |
+
+Chaque manipulation se compile aussi seule, en feuille d'instructions déposée
+dans le dossier de données qu'elle annonce :
+
+```bash
+python outils/compiler_manips.py            # les sept manipulations du cours 1
+python outils/compiler_manips.py --corrige  # + la version avec les réponses
+```
 
 Les options se combinent. Ce que la manipulation fait constater n'est pas
 projeté pendant qu'elle se fait : la tentative, même infructueuse, améliore la

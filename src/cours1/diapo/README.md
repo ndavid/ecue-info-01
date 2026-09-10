@@ -24,10 +24,20 @@ présentes :
 python outils/compiler_diapos.py                  # à projeter
 python outils/compiler_diapos.py --notes          # version annotée
 python outils/compiler_diapos.py --corrige        # corrigé des manipulations
+python outils/compiler_manips.py                 # une feuille par manipulation
 ```
 
-`cours1.pdf` est la séance elle-même, 100 pages : c'est ce qu'on projette. Les
+`cours1.pdf` est la séance elle-même, 101 pages : c'est ce qu'on projette. Les
 options se combinent : `--notes --corrige` produit `cours1-notes-corrige.pdf`.
+
+L'exposé et les manipulations sont dans deux dossiers, `parties/` et `manips/`,
+et un fichier par manipulation. Deux compilations en découlent : `--input
+manips=false` donne le seul fil du cours, 61 pages, pour le relire sans les
+gestes ; et `outils/compiler_manips.py` compile chaque manipulation seule, en
+feuille d'instructions déposée dans le dossier de données qu'elle annonce, sous
+le nom `instructions-<nom>.pdf`. C'est le même fichier source dans les deux
+cas : ce qui est projeté et ce que l'étudiant garde sous les yeux ne peuvent
+pas diverger.
 
 Les commandes équivalentes, à la main :
 
@@ -42,6 +52,9 @@ typst compile --root . --input notes=true src/cours1/diapo/cours1.typ cours1-not
 
 # avec les captures d'écran, si l'archive a été décompressée dans data/
 typst compile --root . --input captures=true src/cours1/diapo/cours1.typ
+
+# le seul fil du cours, sans les manipulations
+typst compile --root . --input manips=false src/cours1/diapo/cours1.typ cours1-sans-manips.pdf
 
 # corrigé des manipulations, à distribuer après la séance
 typst compile --root . --input corrige=true src/cours1/diapo/cours1.typ cours1-corrige.pdf
@@ -64,7 +77,8 @@ src/commun/theme.typ        mise en page, couleurs, polices et gabarits
 src/commun/schemas.typ      bloc, etape, chaine, couche, liaison, frise
 src/commun/prelude.typ      ré-exporte les deux, seul import à écrire
 src/cours1/diapo/cours1.typ assemblage : réglages, puis les #include
-src/cours1/diapo/parties/   00 ouverture, puis 01 à 05, une partie par fichier
+src/cours1/diapo/parties/   l'exposé : 00 ouverture, puis 01 à 05
+src/cours1/diapo/manips/    les manipulations, une par fichier
 ```
 
 Un fichier inclus par `#include` **n'hérite pas** des imports de celui qui

@@ -18,9 +18,31 @@
   auteur-court: "1re année géomatique",
 )
 
+// L'exposé est dans `parties/`, les manipulations dans `manips/`, une par
+// fichier : chacune se compile aussi seule, en feuille d'instructions déposée
+// dans son dossier de données (`outils/compiler_manips.py`).
+//
+// `--input manips=false` produit le support sans les manipulations, pour une
+// relecture du seul fil du cours.
+#let manips = sys.inputs.at("manips", default: "") != "false"
+
 #include "parties/00_ouverture.typ"
+
 #include "parties/01_logiciels.typ"
+#if manips { include "manips/01_fichiers_formats.typ" }
+
 #include "parties/02_programmation.typ"
+#if manips {
+  include "manips/02_hello_python.typ"
+  include "manips/03_hello_cpp.typ"
+  include "manips/04_programmes_fautifs.typ"
+}
+
 #include "parties/03_environnement.typ"
+#if manips { include "manips/05_environnement.typ" }
+
 #include "parties/04_notebooks.typ"
+#if manips { include "manips/06_notebooks.typ" }
+
 #include "parties/05_formats_texte.typ"
+#if manips { include "manips/07_markdown.typ" }

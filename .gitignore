@@ -42,3 +42,8 @@ _build/
 
 # Notebooks dérivés des sources MyST par outils/construire_notebooks.py
 src/*/notebook/*.ipynb
+
+# Feuilles d'instructions des manipulations, déposées par
+# `outils/compiler_manips.py` dans le dossier que chaque manipulation annonce :
+# elles se refabriquent depuis `src/cours<n>/diapo/manips/`.
+instructions-*.pdf
