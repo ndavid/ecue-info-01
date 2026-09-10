@@ -1,26 +1,17 @@
-"""Une recette écrite en Markdown, mise à l'échelle et convertie en page HTML.
+"""Le calcul des quantités, et le gabarit de la page.
 
-Le fichier `ingredients.csv` donne les quantités **pour une personne, en
-unités SI**. Tout le reste s'en déduit : multiplier par le nombre de convives,
-convertir dans un autre système d'unités, en faire un tableau, et poser ce
-tableau dans la recette à l'endroit où le titre « Ingrédients » l'annonce.
+Ce fichier ne porte que ce que les trois programmes du projet ont en commun :
+les deux conversions, et l'enveloppe HTML dans laquelle le texte converti est
+posé. Tout le reste — lire le CSV, écrire le tableau, l'insérer dans la
+recette — se lit de haut en bas dans `recette_a_la_main.py`,
+`recette_avec_tabulate.py` et `recette/__main__.py`.
 
-Chaque étape est une fonction séparée. C'est ce qui permet de les lire, de les
-essayer une par une dans l'interpréteur, et d'en changer une sans toucher aux
-autres.
-
-Ce fichier porte les fonctions. Ce qui s'exécute est dans `__main__.py`.
+Deux fonctions, parce qu'elles répondent à deux questions différentes et
+qu'on peut vouloir l'une sans l'autre : combien de convives, et dans quelles
+unités.
 """
 
-import csv
-from pathlib import Path
-
-import markdown
-
-__all__ = [
-    "lire_ingredients", "pour_personnes", "convertir", "en_unites",
-    "tableau_markdown", "inserer_ingredients", "page_html",
-]
+__all__ = ["pour_personnes", "convertir", "en_unites", "GABARIT", "VERS_US"]
 
 # Un facteur par unité de départ, et le nom de l'unité d'arrivée. Les unités
 # de comptage — un œuf, une pincée — n'ont pas d'équivalent : elles ne sont pas
@@ -30,23 +21,14 @@ VERS_US = {
     "ml": (1 / 236.588, "cup"),    # cup, 236,588 ml
 }
 
-TITRE_INGREDIENTS = "## Ingrédients"
-
-
-def lire_ingredients(chemin: Path) -> list[dict]:
-    """Les lignes du CSV, quantités converties en nombres."""
-    with open(chemin, encoding="utf-8", newline="") as fichier:
-        return [
-            {"ingredient": l["ingredient"],
-             "quantite": float(l["quantite"]),
-             "unite": l["unite"]}
-            for l in csv.DictReader(fichier)
-        ]
-
 
 def pour_personnes(ingredients: list[dict], personnes: int) -> list[dict]:
-    """Les mêmes ingrédients, pour ce nombre de convives."""
-    return [i | {"quantite": i["quantite"] * personnes} for i in ingredients]
+    """Les mêmes ingrédients, pour ce nombre de convives.
+
+    Le CSV ne contient que du texte : `float` en fait un nombre, sans quoi
+    multiplier « 60 » par 4 donnerait « 60606060 ».
+    """
+    return [i | {"quantite": float(i["quantite"]) * personnes} for i in ingredients]
 
 
 def convertir(ingredient: dict) -> dict:
@@ -66,29 +48,12 @@ def en_unites(ingredients: list[dict], systeme: str) -> list[dict]:
     return [i | convertir(i) for i in ingredients]
 
 
-def tableau_markdown(ingredients: list[dict]) -> str:
-    """Le tableau Markdown des ingrédients, en-tête compris."""
-    lignes = ["| Ingrédient | Quantité |", "|---|---|"]
-    for i in ingredients:
-        quantite = f"{i['quantite']:.2f}".rstrip("0").rstrip(".")
-        # Une unité vide est celle des ingrédients qui se comptent : « 4 »,
-        # et non « 4 unité ».
-        lignes.append(f"| {i['ingredient']} | {quantite} {i['unite']} |".replace("  |", " |"))
-    return "\n".join(lignes)
 
 
-def inserer_ingredients(source: str, tableau: str) -> str:
-    """La recette, avec le tableau posé sous le titre « Ingrédients »."""
-    if TITRE_INGREDIENTS not in source:
-        raise ValueError(f"{TITRE_INGREDIENTS!r} est absent de la recette")
-    return source.replace(
-        TITRE_INGREDIENTS, f"{TITRE_INGREDIENTS}\n\n{tableau}", 1,
-    )
-
-
-# La page est volontairement minimale : un en-tête, un lien vers la feuille de
-# style, et le contenu converti. C'est la structure vue à la première partie,
-# où le `.html` porte le contenu et le `.css` la présentation.
+# L'enveloppe de la page. `markdown.markdown` ne rend qu'un fragment : les
+# titres et les paragraphes convertis, sans `<!doctype>`, sans `<head>`, et
+# donc sans lien vers la feuille de style. C'est ici que la page devient un
+# document : un type déclaré, un encodage, un titre d'onglet, et `style.css`.
 GABARIT = """<!doctype html>
 <html lang="fr">
 <head>
@@ -103,11 +68,3 @@ GABARIT = """<!doctype html>
 </body>
 </html>
 """
-
-
-def page_html(texte: str, titre: str) -> str:
-    """La page HTML complète de cette recette Markdown."""
-    # Ni les tableaux ni les blocs de code ne font partie du Markdown publié en
-    # 2004 : la bibliothèque sait les traduire, mais il faut le lui demander.
-    corps = markdown.markdown(texte, extensions=["tables", "fenced_code"])
-    return GABARIT.format(titre=titre, corps=corps)

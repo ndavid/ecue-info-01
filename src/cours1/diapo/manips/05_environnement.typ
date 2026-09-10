@@ -105,7 +105,7 @@
     [3], [Terminal #sym.arrow.r Nouveau terminal, puis `conda env create -f environment.yml`], [],
     [4], [`conda activate recette`, puis `conda list`],
       reponse[28 paquets, et aucun ne s'appelle `markdown`],
-    [5], [`python -m recette`],
+    [5], [`python recette_a_la_main.py`],
       reponse[`ModuleNotFoundError: No module named 'markdown'`],
   )
 
@@ -133,9 +133,11 @@
     connue. Le fichier est là, sa syntaxe est correcte ; c'est la
     dépendance qui manque.
 
-    `python -m recette` lance un paquet et non un fichier : le dossier
-    `recette/` porte un nom de paquet, `-m` demande à Python de
-    l'exécuter.
+    Le programme lancé ici est celui qui n'a besoin que de `markdown` :
+    `recette_avec_tabulate.py` en réclamerait une seconde, et `python -m
+    recette` aussi. Les deux sont déclarées dans `pyproject.toml`, et
+    `pip install -e .` les installerait toutes les deux d'un coup — à
+    montrer si le temps le permet.
 
     Libellés de menu non vérifiés sur un poste Windows.
   ]
@@ -152,8 +154,8 @@
     [], [Ce qu'il faut faire], [Ce que vous constatez],
     [6], [`conda install -c conda-forge markdown`, puis répondre `y`],
       reponse[trois paquets : `markdown`, `importlib-metadata`, `zipp`],
-    [7], [`python -m recette`],
-      reponse[`recette.html : 4 personne(s), unités SI, 1027 octets`],
+    [7], [`python recette_a_la_main.py`],
+      reponse[`recette.html écrit pour 4 personne(s), en unités SI`],
     [8], [ouvrir la page par l'adresse `file:///` que le programme affiche],
       reponse[la recette mise en page, sans serveur ni réseau],
     [9], [changer une couleur dans `style.css`, enregistrer, `F5`],

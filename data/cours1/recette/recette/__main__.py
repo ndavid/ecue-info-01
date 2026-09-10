@@ -1,25 +1,27 @@
-"""La même recette, en ligne de commande.
+"""La même recette, avec les valeurs données au lancement.
 
     python -m recette                       # 4 personnes, unités SI
     python -m recette --personnes 12        # pour douze
     python -m recette --unites US           # en onces et en cups
-    python -m recette --aide
+    python -m recette --help                # ce que la commande accepte
 
 Après `pip install -e .`, la commande s'appelle `recette` : c'est ce que
 déclare la section `[project.scripts]` de `pyproject.toml`.
 
-Ce que la ligne de commande apporte au script `recette_simple.py` : les
-valeurs se donnent au lancement, sans ouvrir le fichier, et `--help` dit ce
-qu'on peut demander.
+Le corps du programme est celui de `recette_avec_tabulate.py`, à ceci près que
+le nombre de convives et le système d'unités ne sont plus écrits dans le
+fichier : `argparse` les lit sur la ligne de commande, refuse ce qui n'est pas
+prévu, et répond tout seul à `--help`.
 """
 
 import argparse
+import csv
 from pathlib import Path
 
-from . import (
-    en_unites, inserer_ingredients, lire_ingredients, page_html,
-    pour_personnes, tableau_markdown,
-)
+import markdown
+from tabulate import tabulate
+
+from . import GABARIT, en_unites, pour_personnes
 
 ICI = Path(__file__).resolve().parent.parent
 
@@ -39,22 +41,28 @@ def main(arguments=None) -> int:
     )
     analyseur.add_argument(
         "-s", "--sortie", type=Path, default=ICI / "recette.html",
-        help="où écrire la page (défaut : recette.html, à côté du projet)",
+        help="où écrire la page (défaut : recette.html, dans le projet)",
     )
     options = analyseur.parse_args(arguments)
 
     if options.personnes < 1:
         analyseur.error("le nombre de personnes doit valoir au moins 1")
 
-    ingredients = lire_ingredients(ICI / "ingredients.csv")
+    ingredients = list(csv.DictReader(open(ICI / "ingredients.csv", encoding="utf-8")))
     ingredients = pour_personnes(ingredients, options.personnes)
     ingredients = en_unites(ingredients, options.unites)
 
-    recette = inserer_ingredients(
-        (ICI / "recette.md").read_text(encoding="utf-8"),
-        tableau_markdown(ingredients),
-    )
-    options.sortie.write_text(page_html(recette, "Crêpes"), encoding="utf-8")
+    table = [[i["ingredient"], f"{i['quantite']:g} {i['unite']}".strip()]
+             for i in ingredients]
+    tableau = tabulate(table, headers=["Ingrédient", "Quantité"], tablefmt="pipe")
+
+    source = (ICI / "recette.md").read_text(encoding="utf-8")
+    source = source.replace("## Ingrédients", "## Ingrédients\n\n" + tableau)
+
+    corps = markdown.markdown(source, extensions=["tables"])
+    page = GABARIT.format(titre="Crêpes", corps=corps)
+    options.sortie.write_text(page, encoding="utf-8")
+
     print(
         f"{options.sortie.name} : {options.personnes} personne(s), "
         f"unités {options.unites}, {options.sortie.stat().st_size} octets"
