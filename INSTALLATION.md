@@ -259,7 +259,6 @@ for f in src/cours*/diapo/cours*.typ; do typst compile --root . "$f"; done
 | aucune | projeté en séance | la séance seule, colonnes d'observation vides |
 | `--input corrige=true` | distribué après la séance | ces colonnes sont remplies |
 | `--input notes=true` | l'enseignant | page deux fois plus large : la diapositive à gauche, ses notes à droite (format « second écran » de Beamer) |
-| `--input annexes=true` | l'enseignant, et après la séance | les annexes s'ajoutent à la fin |
 | `--input captures=true` | partout, si les images sont là | les captures d'écran remplacent les schémas dessinés |
 
 Les options se combinent. Ce que la manipulation fait constater n'est pas

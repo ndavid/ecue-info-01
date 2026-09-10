@@ -24,16 +24,10 @@ présentes :
 python outils/compiler_diapos.py                  # à projeter
 python outils/compiler_diapos.py --notes          # version annotée
 python outils/compiler_diapos.py --corrige        # corrigé des manipulations
-python outils/compiler_diapos.py --avec-annexes   # + les annexes
 ```
 
-`cours1.pdf` est la séance elle-même, 94 pages : c'est ce qu'on projette. Les
-annexes gardent ce que la séance n'a pas le temps de jouer et ce que les séances
-suivantes reprennent ; elles ne s'ajoutent que sur demande, et le document sort
-alors sous le nom `cours1-annexes.pdf`, 138 pages, à distribuer après coup.
-
-Les options se combinent : `--avec-annexes --notes` produit
-`cours1-annexes-notes.pdf`.
+`cours1.pdf` est la séance elle-même, 100 pages : c'est ce qu'on projette. Les
+options se combinent : `--notes --corrige` produit `cours1-notes-corrige.pdf`.
 
 Les commandes équivalentes, à la main :
 
@@ -51,9 +45,6 @@ typst compile --root . --input captures=true src/cours1/diapo/cours1.typ
 
 # corrigé des manipulations, à distribuer après la séance
 typst compile --root . --input corrige=true src/cours1/diapo/cours1.typ cours1-corrige.pdf
-
-# la séance augmentée de ses annexes
-typst compile --root . --input annexes=true src/cours1/diapo/cours1.typ cours1-annexes.pdf
 
 # recompilation à chaque sauvegarde
 typst watch --root . src/cours1/diapo/cours1.typ
@@ -73,8 +64,7 @@ src/commun/theme.typ        mise en page, couleurs, polices et gabarits
 src/commun/schemas.typ      bloc, etape, chaine, couche, liaison, frise
 src/commun/prelude.typ      ré-exporte les deux, seul import à écrire
 src/cours1/diapo/cours1.typ assemblage : réglages, puis les #include
-                            (celui des annexes est conditionné par --input annexes)
-src/cours1/diapo/parties/   00 ouverture, 01 à 05 les parties, 09 annexes
+src/cours1/diapo/parties/   00 ouverture, puis 01 à 05, une partie par fichier
 ```
 
 Un fichier inclus par `#include` **n'hérite pas** des imports de celui qui
@@ -86,11 +76,10 @@ Les images se désignent depuis la racine du projet, `"/data/cours1/…"` : typs
 résout un chemin relatif par rapport au fichier où `image` est appelé,
 c'est-à-dire au thème, et non par rapport au fichier qui écrit le chemin.
 
-`cours1.typ` produit 134 pages, 138 avec les captures d'écran : titre,
-introduction au module, le contenu de la séance, ses cinq parties (logiciels et
-formats de fichier, programmation et éditeur de code, environnement de
-programmation, notebooks, markdown et les autres fichiers texte), puis les
-annexes.
+`cours1.typ` produit 100 pages avec les captures d'écran : titre, introduction
+au module, le contenu de la séance, puis ses cinq parties (logiciels et formats
+de fichier, programmation et éditeur de code, environnement de programmation,
+notebooks, markdown et les autres fichiers texte).
 
 ## Identité visuelle
 

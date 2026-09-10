@@ -11,16 +11,15 @@ et passe les options qui conviennent.
     python outils/compiler_diapos.py                  # le cours 1, à projeter
     python outils/compiler_diapos.py --notes          # + les notes de conduite
     python outils/compiler_diapos.py --corrige        # + le corrigé des manipulations
-    python outils/compiler_diapos.py --avec-annexes   # + les annexes
     python outils/compiler_diapos.py --tous           # les sept jeux
     python outils/compiler_diapos.py --cours 3        # un autre cours
 
 `--sans-captures` force le repli dessiné, pour vérifier que le document tient
 aussi sans les images.
 
-`cours<n>.pdf` est la séance elle-même, celle qu'on projette. Les annexes
-gardent ce que la séance n'a pas le temps de jouer : elles ne sont ajoutées que
-sur demande, et le document sort alors sous le nom `cours<n>-annexes.pdf`.
+`cours<n>.pdf` est la séance elle-même, celle qu'on projette ; `--notes` et
+`--corrige` en donnent les variantes, sous les noms `cours<n>-notes.pdf` et
+`cours<n>-corrige.pdf`.
 """
 
 from __future__ import annotations
@@ -71,14 +70,11 @@ def compiler(cours: int, options: argparse.Namespace) -> int:
         commande += ["--input", "notes=true"]
     if options.corrige:
         commande += ["--input", "corrige=true"]
-    if options.avec_annexes:
-        commande += ["--input", "annexes=true"]
     commande.append(str(source))
 
     suffixe = "".join(
         s
         for s, actif in (
-            ("-annexes", options.avec_annexes),
             ("-notes", options.notes),
             ("-corrige", options.corrige),
         )
@@ -108,10 +104,6 @@ def main() -> int:
     analyseur.add_argument(
         "--sans-captures", action="store_true",
         help="ignorer les captures d'écran, pour vérifier le repli dessiné",
-    )
-    analyseur.add_argument(
-        "--avec-annexes", action="store_true",
-        help="ajouter les annexes, que la séance ne joue pas",
     )
     options = analyseur.parse_args()
 
