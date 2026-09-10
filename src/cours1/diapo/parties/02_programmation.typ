@@ -1,7 +1,7 @@
 // Partie du cours 1 — incluse par `cours1.typ`, qui porte les réglages
 // globaux. Un fichier inclus n'hérite pas des imports de son appelant.
 #import "../../../commun/prelude.typ": *
-#import "../schemas.typ": capture-ide, souligne-ondule
+#import "../schemas.typ": blancs, capture-ide, souligne-ondule
 
 // ==================== Programmation et éditeur de code =====================
 
@@ -9,7 +9,7 @@
 #d("D'un programme à une application")[
   #annonce[
     Programme est souvent un logiciel. Une distinction entre les deux est 
-    la façon dont ils sont distributé et ce que doit faire un utilisateur pour
+    la façon dont ils sont distribués et ce que doit faire un utilisateur pour
     arriver à s'en servir.
   ]
 
@@ -411,69 +411,101 @@
   ]
 ]
 
-#d("Espaces, tabulations et fins de ligne")[
+#d("Chasse fixe et chasse proportionnelle")[
   #annonce[
-    Un espace et une tabulation sont deux caractères différents. Python refuse
-    qu'on mélange les deux dans une même indentation.
-  ]
-
-  ```console
-  $ python python/surface.py
-    File "…/data/cours1/erreurs/python/surface.py", line 6
-      return aire
-  TabError: inconsistent use of tabs and spaces in indentation
-  ```
-
-  #v(0.5em)
-  #annonce[
-    D'où la chasse fixe de l'éditeur : toutes les lettres y ont la même
-    largeur, donc les espaces se comptent et les colonnes s'alignent.
+    Un éditeur de code emploie une police à chasse fixe, où toutes les lettres
+    ont la même largeur. Le même programme dans la police d'un traitement de
+    texte :
   ]
 
   #face-a-face(
     panneau("Chasse fixe (éditeur de code)")[
-      #raw("aire  = 12\ntotal = 480", block: true)
+      #raw("def surface(longueur, largeur):\n    aire = longueur * largeur\n    if aire > 250:\n        categorie = \"grande\"\n    else:\n        categorie = \"petite\"\n    return aire, categorie", block: true)
     ],
     // Le même texte, à la même taille, dans la police du corps : seules les
-    // largeurs de caractère changent, et l'alignement se perd.
+    // largeurs de caractère changent.
     panneau("Chasse proportionnelle (traitement de texte)")[
       #{
         show raw: set text(font: police-texte)
-        raw("aire  = 12\ntotal = 480", block: true)
+        raw("def surface(longueur, largeur):\n    aire = longueur * largeur\n    if aire > 250:\n        categorie = \"grande\"\n    else:\n        categorie = \"petite\"\n    return aire, categorie", block: true)
       }
     ],
   )
 
   #legende[
-    Sortie réelle sur `data/cours1/erreurs/python/surface.py`, chemin abrégé.
+    Même texte, même taille, deux polices. À droite, rien ne dit de combien
+    chaque ligne est décalée.
   ]
 
   #notes[
-    Les lignes 5 et 6 du fichier sont indentées pareil à l'écran, différemment
-    dans le fichier : c'est tout le propos.
+    Faire chercher par la salle ce qui se perd à droite avant de le dire :
+    l'entrée du `if`, celle du `else`, et le fait que `categorie` est au même
+    niveau des deux côtés.
 
-    Sur la chasse fixe : une police proportionnelle fait le `i` plus étroit que
-    le `m`, et les deux `=` de droite ne s'alignent plus alors que le texte est
-    identique. L'intérêt n'est pas esthétique — trois espaces s'y distinguent
-    de quatre et une tabulation s'y repère, ce dont Python a besoin. Lien avec
-    LibreOffice, manipulé en début de séance : on y choisit une police pour la
-    mise en page, ici on la subit pour une raison technique.
+    L'intérêt de la chasse fixe n'est pas esthétique. Python compte les
+    espaces qui commencent une ligne ; il faut donc les voir. Une police
+    proportionnelle fait le `i` plus étroit que le `m`, et deux lignes
+    décalées pareil ne le paraissent plus.
 
-    Erreur qui coûtera des heures au semestre si elle n'est pas nommée
-    maintenant : le message ne dit pas « il manque un espace », il dit que
-    l'indentation mélange deux caractères. À l'œil, rien ne se voit.
+    Ne pas confondre l'indentation, qui est dans le fichier et compte, avec
+    la police et la coloration, qui n'y sont pas.
 
-    Ne pas montrer ici comment les afficher : la manipulation s'en charge, et
-    c'est un geste qui se fait, pas qui se regarde.
+    Lien avec LibreOffice, manipulé en début de séance : on y choisit une
+    police pour la mise en page ; ici on la subit pour une raison technique.
+  ]
+]
 
-    Fins de ligne : Windows en met deux (`CRLF`), Linux et macOS un seul
-    (`LF`). Un même fichier n'a donc pas la même taille selon la machine,
-    et un diff peut signaler toutes les lignes comme modifiées. Repris au
-    cours 2 avec git ; aujourd'hui, savoir où l'éditeur l'affiche suffit.
+#d("L'indentation, en espaces ou en tabulation")[
+  #annonce[
+    Un espace et une tabulation sont deux caractères différents. Une
+    tabulation vaut le nombre de colonnes que l'éditeur lui donne, et ce
+    réglage change d'un éditeur à l'autre.
+  ]
 
-    Le saut de ligne est un caractère comme les autres : « Ce que contient
-    un fichier texte », en annexe, le compte sur un poème tenant sur une
-    ligne.
+  #face-a-face(
+    panneau("Tabulation réglée sur 4 colonnes")[
+      #blancs[#raw("def surface(longueur, largeur):\n····aire = longueur * largeur\n→   return aire", block: true)]
+      #v(0.3em)
+      #text(size: 14pt, fill: estompe)[les deux lignes semblent alignées]
+    ],
+    panneau("Le même fichier, tabulation sur 8")[
+      #blancs[#raw("def surface(longueur, largeur):\n····aire = longueur * largeur\n→       return aire", block: true)]
+      #v(0.3em)
+      #text(size: 14pt, fill: manip)[le décalage apparaît]
+    ],
+  )
+
+  #legende[
+    `·` marque un espace, `→` une tabulation, comme l'éditeur les dessine.
+    Les octets du fichier sont les mêmes des deux côtés : seul le réglage de
+    l'éditeur change.
+  ]
+
+  #notes[
+    Les deux lignes sont celles de `data/cours1/erreurs/python/surface.py` :
+    la cinquième indentée par quatre espaces, la sixième par une tabulation.
+    C'est le fichier que la manipulation fera corriger ; le message d'erreur
+    s'y lit à ce moment, ne pas le projeter ici.
+
+    Python refuse ce mélange dans une même indentation, et le dit par
+    `TabError`. Le message ne parle pas d'espace manquant : il dit que
+    l'indentation mélange deux caractères. À l'œil nu, sur un éditeur réglé
+    sur 4, rien ne se voit — c'est ce que montre la colonne de gauche.
+
+    Le réglage se lit en bas à droite de l'éditeur, `Spaces: 4`. L'extension
+    Python l'impose à 4, convention du langage ; un fichier venu d'ailleurs
+    peut être écrit autrement.
+
+    Ne pas montrer ici comment afficher les blancs : la manipulation s'en
+    charge, et c'est un geste qui se fait, pas qui se regarde.
+
+    Fins de ligne, à dire en passant : Windows en met deux (`CRLF`), Linux et
+    macOS un seul (`LF`). Un même fichier n'a donc pas la même taille selon la
+    machine, et une comparaison peut signaler toutes les lignes comme
+    modifiées. Repris au cours 2 avec git.
+
+    Le saut de ligne est un caractère comme les autres : « Ce que contient un
+    fichier texte », en annexe, le compte sur un poème tenant sur une ligne.
   ]
 ]
 #separateur-manip(

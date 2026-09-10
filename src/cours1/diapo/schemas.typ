@@ -213,6 +213,18 @@
 }
 
 // ---------------------------------------------------------------------------
+// Espaces et tabulations rendus visibles
+//
+// L'éditeur dessine un point médian par espace et une flèche par tabulation ;
+// les extraits projetés emploient les mêmes signes, écrits dans le texte. Ce
+// `show` les teinte pour qu'ils se lisent comme des marques et non comme des
+// caractères du programme.
+#let blancs(corps) = {
+  show regex("[·→]"): it => text(fill: attention)[#it]
+  corps
+}
+
+// ---------------------------------------------------------------------------
 // Soulignement ondulé
 //
 // Ce que l'éditeur de code trace sous une faute, plutôt qu'un trait droit :
