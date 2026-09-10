@@ -16,8 +16,6 @@ data/*/*/fourni/
 # Images des supports : volumineuses, elles vieillissent avec les versions des
 # logiciels et n'ont pas à peser sur l'historique. Seul le README qui décrit
 # l'arborescence attendue est suivi.
-illustrations/*/*
-!illustrations/*/README.md
 
 # Exécutables et pages que les manipulations produisent à côté de leur source :
 # ils y naissent parce que c'est la commande que les étudiants tapent, et non
