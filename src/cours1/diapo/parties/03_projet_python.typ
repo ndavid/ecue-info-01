@@ -377,6 +377,64 @@
     modifiée. Ne pas s'y arrêter, c'est du cours 3.
   ]
 ]
+#d("D'où vient chaque ligne du programme")[
+  #annonce[
+    Le programme entier, et l'origine de chaque appel. Deux lignes seulement
+    demandent une bibliothèque à installer.
+  ]
+
+  #set text(size: 18pt)
+  ```python
+  ingredients = lire_ingredients(ICI / "ingredients.csv")   # le projet
+  ingredients = adapter(ingredients, PERSONNES, UNITES)     # le projet
+  lignes = en_table(ingredients)                            # le projet
+
+  tableau = tabulate(lignes, headers=EN_TETE)               # installée
+  source = (ICI / "recette.md").read_text(encoding="utf-8") # avec Python
+  source = source.replace("## Ingrédients", tableau)        # Python seul
+
+  corps = markdown.markdown(source, extensions=["tables"])  # installée
+  page = GABARIT.format(titre="Crêpes", corps=corps)        # Python seul
+  sortie.write_text(page, encoding="utf-8")                 # avec Python
+  ```
+
+  #legende[
+    Trois appels au code du projet, deux à des bibliothèques installées, deux
+    à `pathlib`, livrée avec Python, et deux à rien du tout. La ligne
+    `source.replace` est resserrée : elle garde le titre.
+  ]
+
+  #notes[
+    Reprendre ligne à ligne, sans s'attarder :
+
+    1. `lire_ingredients` ouvre le CSV et rend une liste de triplets, avec
+    des nombres et non du texte.
+    2. `adapter` multiplie par le nombre de convives, puis convertit si on
+    demande les unités américaines.
+    3. `en_table` fabrique les lignes à afficher : c'est là que les nombres
+    redeviennent du texte.
+    4. `tabulate` en fait un tableau Markdown. C'est la ligne qu'on sait
+    écrire soi-même, et l'autre fichier du projet le fait.
+    5. `read_text` lit la recette. `pathlib` est livrée avec Python : rien
+    à installer, mais c'est bien une bibliothèque.
+    6. `replace` pose le tableau sous le titre. Une méthode des chaînes,
+    donc du langage lui-même.
+    7. `markdown.markdown` convertit en HTML. C'est la ligne qu'on ne
+    saurait pas écrire : huit mille lignes derrière elle.
+    8. `format` remplit le gabarit de la page. Du langage, encore.
+    9. `write_text` écrit le fichier, et la page est prête.
+
+    La leçon tient dans le décompte : sur neuf lignes, deux dépendent d'une
+    installation. C'est peu, et c'est pourtant ce qui décide qu'un
+    programme marche ou non sur une autre machine. D'où le fichier qui les
+    déclare.
+
+    Distinguer les trois origines : le code du projet, qu'on écrit et qu'on
+    versionne ; la bibliothèque standard, qui vient avec l'interpréteur ;
+    les bibliothèques installées, qui manquent tant qu'on ne les a pas
+    demandées. Seules les dernières produisent un `ModuleNotFoundError`.
+  ]
+]
 #d("Deux sortes de bibliothèques")[
   #annonce[
     Certaines viennent avec Python et s'importent sans rien faire. Les autres
