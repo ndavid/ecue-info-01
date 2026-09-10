@@ -445,35 +445,35 @@
 
   group(name: "py", {
     translate((13.0, y-haut))
-    _boite-paquet("python", "3.12.14", "b", largeur: 5.4)
+    _boite-paquet("pillow", "12.3.0", "b", largeur: 5.4)
   })
   group(name: "lzma", {
     translate((6.2, y-milieu))
-    _boite-paquet("liblzma", "5.8.3", "b")
+    _boite-paquet("libtiff", "4.7.2", "b")
   })
   group(name: "nsl", {
     translate((19.8, y-milieu))
-    _boite-paquet("libnsl", "2.0.1", "b")
+    _boite-paquet("openjpeg", "2.5.4", "b")
   })
   group(name: "gcc", {
     translate((13.0, y-bas))
-    _boite-paquet("libgcc", "16.2.0", "b", couleur: attention, largeur: 5.4)
+    _boite-paquet("libzlib", "1.3.2", "b", couleur: attention, largeur: 5.4)
   })
 
   line("py.b.west", "lzma.b.north")
   line("py.b.east", "nsl.b.north")
-  line("py.b.south", "gcc.b.north")
   line("lzma.b.south", "gcc.b.west")
   line("nsl.b.south", "gcc.b.east")
 
-  _exigence("py.b.south", "gcc.b.north", "libgcc >=15", position: 42%)
-  _exigence("lzma.b.south", "gcc.b.west", "libgcc >=14", position: 45%)
-  _exigence("nsl.b.south", "gcc.b.east", "libgcc >=13", position: 45%)
+  _exigence("py.b.west", "lzma.b.north", "libtiff >=4.7.2", position: 52%)
+  _exigence("py.b.east", "nsl.b.north", "openjpeg >=2.5.4", position: 52%)
+  _exigence("lzma.b.south", "gcc.b.west", "libzlib >=1.3.2", position: 45%)
+  _exigence("nsl.b.south", "gcc.b.east", "libzlib >=1.3.2", position: 45%)
 
   content((13.0, y-bas - 1.35), anchor: "north", box(width: 17cm)[
     #align(center)[
       #text(size: 16pt, fill: attention, weight: demi-gras)[
-        une seule version installée, qui satisfait les trois exigences
+        une seule version installée, qui satisfait les deux exigences
       ]
     ]
   ])

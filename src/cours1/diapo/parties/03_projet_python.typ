@@ -13,8 +13,8 @@
 
 #d("Les fichiers texte d'un projet")[
   #annonce[
-    Le code n'est pas le seul texte d'un projet. Les réglages, les données et
-    la documentation s'écrivent aussi en texte, dans le même éditeur.
+    Le code n'est pas le seul texte d'un projet. Ses réglages et sa
+    documentation s'écrivent aussi en texte, dans le même éditeur.
   ]
 
   #tableau(
@@ -22,70 +22,88 @@
     align: left + horizon,
     [Fichier], [Ce qu'il porte], [Qui le lit],
     [`.py`], [les instructions du programme], [l'interpréteur],
-    [`.csv`], [des données en tableau], [un programme, un tableur],
     surligne[`.md`],
       surligne[la documentation, les notes, le `README`],
       surligne[un humain],
-    [`.json`, `.yaml`], [les réglages, des données structurées], [un programme],
+    [`.toml`, `.yml`], [les réglages du projet et ses dépendances], [un outil],
+    [`.csv`], [un petit jeu d'essai, pour vérifier que le programme marche], [un programme],
   )
 
-  #legende[
-    Tous s'ouvrent dans l'éditeur, se comparent ligne à ligne et se
-    versionnent. C'est le `.md` qui occupe la suite de cette partie : c'est
-    celui que vous écrirez le plus tôt et le plus souvent.
+  #avertissement[
+    Les données de travail ne sont pas des fichiers du projet : elles vivent
+    ailleurs, et le programme va les y chercher. Un projet porte de quoi
+    l'essayer, pas ce sur quoi il tourne.
   ]
 
   #notes[
-    On n'écrit pas que du code dans un éditeur de code : sur un projet
-    réel, les fichiers de réglage et la documentation sont souvent plus
-    nombreux que les fichiers de programme.
+    On n'écrit pas que du code dans un éditeur de code : sur un projet réel,
+    les fichiers de réglage et la documentation sont souvent plus nombreux
+    que les fichiers de programme.
 
-    `.json` et `.yaml` portent la même chose et se convertissent l'un en
-    l'autre ; le premier est écrit par les programmes, le second par les
-    humains, parce qu'il accepte des commentaires. Une phrase, pas plus.
+    L'avertissement est la règle qui compte pour le cours 2 : un dépôt
+    n'avale pas les données. Un `.csv` de dix lignes qui sert à essayer le
+    programme, oui ; le relevé de trois cents mégaoctets, non, et une image
+    ou un `.xlsx` encore moins — ils ne se comparent pas ligne à ligne et
+    alourdissent l'historique pour toujours.
+
+    Où vont les données, alors : à côté du projet, dans un dossier que le
+    programme reçoit en paramètre. C'est ce que fait `make_data.py` du
+    module, et ce que le TD du cours 7 demandera.
 
     Le `README` est nommé dès maintenant : livrable de fin de séance, et
     premier commit du cours 2.
   ]
 ]
-#d("Trois façons d'écrire un document")[
+#d("Le format de la documentation")[
   #annonce[
-    Le choix se fait sur ce qu'on veut pouvoir faire ensuite : relire,
-    comparer, ou mettre en page.
+    Un `.txt` n'a aucune mise en forme ; un `.odt` en a trop pour les outils
+    du code, qui ne savent pas le lire. Markdown tient le milieu : des signes
+    dans le texte, et un fichier qui reste du texte.
   ]
 
-  #tableau(
-    columns: (1.1fr, 0.9fr, 1fr, 1fr),
-    align: left + horizon,
-    [], [`.txt`], [`.md`], [`.odt`, `.docx`],
-    [Titres, listes, emphase], [aucun], [dans le texte], [dans des balises],
-    [Lisible sans logiciel], [oui], [oui], [non],
-    [Se compare ligne à ligne], [oui], [oui], [non],
-    [Mise en page fine], [non], [non], [oui],
-    [Quand l'employer],
-      [une note jetable, la sortie d'un programme],
-      [`README`, notes, doc d'un projet],
-      [un rapport à rendre, une charte imposée],
+  #face-a-face(
+    panneau[Ce qu'on écrit, `README.md`][
+      #raw(
+        "# Trajet\n\nTrace le trajet de la gare à l'école.\n\n## Lancer\n\n    python trajet.py\n\nLe résultat est écrit dans *trajet.png*.",
+        block: true, lang: "md",
+      )
+    ],
+    panneau("Ce que l'aperçu montre")[
+      #block(width: 100%, inset: (x: 11pt, y: 9pt), stroke: 0.8pt + estompe.lighten(50%))[
+        #text(size: 19pt, weight: "bold")[Trajet]
+        #v(0.35em)
+        #set text(size: 14.5pt)
+        Trace le trajet de la gare à l'école.
+        #v(0.35em)
+        #text(size: 16pt, weight: "bold")[Lancer]
+        #v(0.25em)
+        #block(fill: gris, inset: (x: 7pt, y: 5pt), width: 100%)[
+          #text(font: police-code, size: 13pt)[python trajet.py]
+        ]
+        #v(0.25em)
+        Le résultat est écrit dans #emph[trajet.png].
+      ]
+    ],
   )
 
   #legende[
-    Markdown se convertit vers les autres, `pandoc notes.md -o notes.pdf` au
-    cours 2 : le choix n'engage pas le rendu final.
+    Moins de possibilités qu'un traitement de texte, et c'est le prix payé.
+    En échange : l'éditeur, la comparaison ligne à ligne, le versionnement,
+    et une conversion vers PDF ou HTML quand il en faut une.
   ]
 
   #notes[
-    Les trois colonnes ne s'opposent pas : elles répondent à trois besoins
-    qu'on a tour à tour dans la même semaine.
-
-    Piège à désamorcer, sans quoi ils retournent à LibreOffice : « mon
+    Le piège à désamorcer, sans quoi ils retournent à LibreOffice : « mon
     rapport doit être en PDF » n'est pas un argument contre Markdown,
     `pandoc` produisant le PDF depuis le `.md`. On perd le contrôle fin de
     la mise en page, on gagne de pouvoir relire, comparer et versionner.
-    Nommer l'arbitrage.
 
-    Le `.txt` n'est pas inférieur : c'est le format des sorties de
-    programme et des relevés, où toute structure gênerait. Le poème du
-    début de séance en est un.
+    Le `.txt` n'est pas inférieur : c'est le format des sorties de programme
+    et des relevés, où toute structure gênerait.
+
+    Quatre signes suffisent pour un `README` : `#` pour un titre, une ligne
+    vide entre deux paragraphes, quatre espaces pour du code, des étoiles
+    pour l'emphase. La syntaxe complète est la diapositive suivante.
   ]
 ]
 #d("L'intention de Markdown")[
@@ -201,103 +219,108 @@
 
 // ------------------ Les bibliothèques dont le projet dépend -----------------
 
-#d("Ce qu'une bibliothèque a déjà prévu")[
+#d("Convertir un format en un autre")[
   #annonce[
-    Le code d'une bibliothèque a rencontré les cas particuliers que le vôtre
-    n'a pas encore vus.
+    Le `README` qu'on vient d'écrire, publié en page web. Deux lignes
+    suffisent, parce que quelqu'un a écrit les huit mille autres.
   ]
 
   #face-a-face(
-    panneau("Découper la ligne soi-même")[
-      ```python
-      ligne = 'Beurre,"50 g, fondu"'
-      print(ligne.split(","))
-      ```
-      ```
-      ['Beurre', '"50 g', ' fondu"']
-      ```
-      #text(size: 14pt, fill: estompe)[
-        Trois champs au lieu de deux : la virgule du commentaire a été prise
-        pour un séparateur.
+    panneau("Ce qu'il faudrait traiter sans bibliothèque")[
+      #tableau(
+        entete: false,
+        columns: (auto, 1fr),
+        align: left + horizon,
+        [`#`], [un titre, et son niveau],
+        [`-`, `1.`], [des listes, imbriquées ou non],
+        [`|`], [des tableaux, alignés ou non],
+        [`*`], [l'emphase, sauf dans du code],
+        [`[…](…)`], [des liens, et leurs parenthèses],
+      )
+      #v(0.3em)
+      #text(size: 13.5pt, fill: estompe)[
+        et les combinaisons des cinq
       ]
     ],
-    panneau[Avec la bibliothèque #raw("csv")][
+    panneau("Avec la bibliothèque")[
       ```python
-      import csv
-      print(next(csv.reader([ligne])))
+      import markdown
+
+      html = markdown.markdown(source)
       ```
+      #v(0.4em)
       ```
-      ['Beurre', '50 g, fondu']
+      <h1>Trajet</h1>
+      <p>Trace le trajet de la gare
       ```
-      #text(size: 14pt, fill: estompe)[
-        Les guillemets protègent le champ, et la règle du format est
-        appliquée.
-      ]
     ],
   )
 
   #legende[
-    Le fichier `ingredients.csv` de la manipulation Markdown se découpe très
-    bien à la main, jusqu'à la première virgule écrite dans un champ.
+    Sortie réelle. `markdown` 3.10.3 compte 33 fichiers et 8 480 lignes de
+    Python, relevés le 10 septembre 2026 : dix-huit ans de cas particuliers,
+    signalés par des utilisateurs et corrigés un par un.
   ]
 
   #notes[
-    Le premier motif, et le moins visible : on ne gagne pas du temps de
-    frappe, on hérite de cas que personne n'avait prévus seul. Le format
-    CSV en réserve d'autres — un retour à la ligne dans un champ, un
-    guillemet doublé, un séparateur qui est un point-virgule.
-
-    Faire remarquer que le code de gauche n'est pas faux, il est
-    incomplet : il marche sur le fichier de la manipulation, et cesse de
-    marcher sur le suivant. C'est la forme ordinaire du bogue.
-
-    `csv` vient avec Python et ne s'installe pas : c'est la diapositive
-    « Deux sortes de bibliothèques ». Ne pas l'annoncer ici.
-
-    Question à poser plutôt qu'à traiter : combien de cas particuliers un
-    format de fichier peut-il avoir ?
-  ]
-]
-#d("Ce qu'on n'écrirait pas soi-même")[
-  #annonce[
-    Trois lignes convertissent la recette en page web. La bibliothèque qui les
-    exécute en compte huit mille.
-  ]
-
-  ```python
-  import markdown
-  from pathlib import Path
-
-  source = Path("recette.md").read_text(encoding="utf-8")
-  print(markdown.markdown(source)[:78])
-  ```
-
-  #v(0.4em)
-  ```
-  <h1>Crêpes</h1>
-  <p><em>Pour 12 crêpes — 10 minutes de préparation, 1 heure de
-  ```
-
-  #legende[
-    Sortie réelle sur le `recette.md` de la manipulation Markdown. La
-    bibliothèque `markdown` 3.10.3 compte 33 fichiers et 8 480 lignes de
-    Python, relevés le 10 septembre 2026.
-  ]
-
-  #notes[
-    Le second motif : il ne s'agit plus de gagner du temps, mais de faire
-    ce qu'on ne saurait pas faire dans la semaine. Écrire un analyseur de
-    Markdown demande de traiter les titres, les listes imbriquées, les
-    tableaux, le code, les liens, et les combinaisons des six.
-
-    Les 8 480 lignes ne sont pas un exploit d'écriture : ce sont dix-huit
-    ans de cas particuliers rapportés par des utilisateurs et corrigés un
-    par un. C'est cela qu'on installe, pas seulement du code.
+    Le motif n'est plus de gagner du temps de frappe, c'est de faire ce
+    qu'on ne saurait pas faire dans la semaine. Faire lire la colonne de
+    gauche à voix haute : chaque ligne est un analyseur à écrire.
 
     C'est la ligne `import markdown` de la manipulation qui suit, sur le
     fichier qu'ils auront écrit eux-mêmes.
+  ]
+]
+#d("Une bibliothèque ou un convertisseur tout fait")[
+  #annonce[
+    Un programme de conversion existe déjà, `pandoc`, et fait très bien la
+    même chose. La bibliothèque, elle, se règle depuis le code.
+  ]
 
-    Ne pas montrer le HTML complet ; les 78 premiers caractères suffisent.
+  #face-a-face(
+    panneau("Le tableau de la recette, converti tel quel")[
+      ```python
+      html = markdown.markdown(source)
+      ```
+      #v(0.3em)
+      ```
+      <p>| Ingrédient | Quantité |
+      |---|---|
+      | Farine | 250 g |
+      ```
+    ],
+    panneau("Le même, en demandant les tableaux")[
+      ```python
+      html = markdown.markdown(source,
+                               extensions=["tables"])
+      ```
+      #v(0.3em)
+      ```
+      <table>
+      <thead>
+      <tr><th>Ingrédient</th><th>Quantité</th></tr>
+      ```
+    ],
+  )
+
+  #legende[
+    Sorties réelles sur le `recette.md` de la manipulation. Le tableau reste
+    du texte brut à gauche ; à droite, un argument de plus le rend en vrai
+    tableau HTML.
+  ]
+
+  #notes[
+    La question vient toujours : « pourquoi ne pas lancer `pandoc` ? »
+    Réponse honnête : pour une conversion unique, `pandoc` suffit et
+    demande moins. La bibliothèque sert quand la conversion est une étape
+    d'un programme — quand il faut choisir ce qui est traduit, l'insérer
+    dans une page à soi, ou refaire l'opération sur cent fichiers.
+
+    C'est aussi la différence entre un outil qu'on installe et du code
+    qu'on appelle : le premier fait ce qu'il fait, le second se règle.
+
+    Ne pas détailler les extensions : `tables` suffit à faire voir le
+    principe. La manipulation qui suit s'en sert.
   ]
 ]
 #d("Deux sortes de bibliothèques")[
@@ -418,12 +441,16 @@
   ]
 ]
 #d("Résoudre les dépendances")[
-  #align(center, schema-diamant())
+  #annonce[
+    `pillow` réclame `libtiff` et `openjpeg` ; tous deux réclament `libzlib`,
+    dont une seule version sera installée.
+  ]
+
+  #align(center, scale(92%, reflow: true, schema-diamant()))
 
   #legende[
-    Exigences réelles, lues dans l'environnement `recette` de la manipulation
-    qui suit. `libgcc` y est réclamé par seize paquets, et une seule version en
-    est installée.
+    Exigences réelles de `pillow` 12.3.0, relevées sur `conda-forge` le
+    10 septembre 2026.
   ]
 
   #notes[
@@ -431,73 +458,33 @@
     suffit pas de suivre les flèches, il faut choisir une version par
     paquet, et le même paquet n'apparaît qu'une fois dans l'environnement.
 
-    Ici les trois exigences se recouvrent, et `libgcc 16.2.0` convient à
-    toutes. Si l'une d'elles disait `libgcc <15`, aucune version ne
-    conviendrait, et `conda` refuserait de créer l'environnement plutôt
-    que d'en fabriquer un cassé. C'est aussi ce qui explique qu'une
-    installation soit lente.
+    Ici les deux exigences se recouvrent, et `libzlib 1.3.2` convient aux
+    deux. Si l'une disait `libzlib <1.3`, aucune version ne conviendrait,
+    et `conda` refuserait de créer l'environnement plutôt que d'en
+    fabriquer un cassé. C'est aussi ce qui explique qu'une installation
+    soit lente.
 
     Ne pas dire « conflit » comme si c'était une panne : c'est le cas
     ordinaire, et il se règle presque toujours seul.
 
-    Le nom `libgcc` peut surprendre dans un environnement Python : c'est la
-    bibliothèque d'exécution du compilateur C, et l'interpréteur lui-même
-    est écrit en C. Diapositive « Ce qu'une bibliothèque contient
-    vraiment ».
+    Les noms en `lib…` peuvent surprendre dans un environnement Python :
+    `libtiff`, `openjpeg` et `libzlib` ne sont pas écrits en Python. Une
+    bibliothèque d'images enveloppe du code C déjà compilé, et ce sont ces
+    morceaux-là qui rendent l'installation difficile — d'où l'outil qui
+    vient plus loin.
   ]
 ]
-#d("Ce qu'une bibliothèque contient vraiment")[
+#d("Deux projets, deux versions de la même bibliothèque")[
   #annonce[
-    Certaines bibliothèques ne sont que du Python. D'autres enveloppent du
-    code écrit dans un autre langage, déjà compilé pour votre machine.
+    Un projet suit `numpy 1.26`, l'autre `numpy 2.1` : installées ensemble, la
+    seconde chasse la première. D'où un dossier par projet, un *environnement*.
   ]
 
-  #tableau(
-    columns: (auto, 1fr, 1fr),
-    align: left + horizon,
-    [], [Tout en Python], [Une enveloppe autour d'un autre langage],
-    [Exemples], [`requests`, `markdown`], [`numpy`, `pillow`],
-    [Ce qui est distribué], [du texte, lisible], [du texte, plus un binaire compilé],
-    [Selon la machine],
-      [le même fichier partout],
-      [un fichier par système et par version de Python],
-    [Pourquoi], [rien à compiler], [la vitesse, ou une bibliothèque qui existait déjà],
-  )
+  #align(center, scale(92%, reflow: true, schema-isolation()))
 
   #legende[
-    C'est la deuxième catégorie qui rend l'installation difficile, et qui
-    explique l'outil de la diapositive suivante.
-  ]
-
-  #notes[
-    Troisième ligne : une bibliothèque tout en Python s'installe partout
-    de la même façon ; une enveloppe doit exister précompilée par système
-    et par version de Python. À défaut, l'installation compile sur place
-    et échoue faute de compilateur — d'où « Microsoft Visual C++ 14.0 is
-    required ».
-
-    C'est ce que conda résout, et pourquoi le module l'emploie plutôt que
-    `pip` seul : il distribue des binaires précompilés, et installe aussi
-    ce qui n'est pas du Python, `ffmpeg` ou un compilateur C++.
-
-    Ne pas détailler les formats de paquet.
-
-    `markdown` convertit la recette de la manipulation précédente, en
-    Python de bout en bout. `pillow` ne décode pas les images lui-même :
-    il appelle `libjpeg` et `libpng`, écrites en C.
-  ]
-]
-#d("Pourquoi isoler un environnement")[
-  #annonce[
-    Deux projets peuvent réclamer deux versions de la même bibliothèque. Un
-    environnement permet aux deux de coexister sur la même machine.
-  ]
-
-  #align(center, schema-isolation())
-
-  #legende[
-    Un environnement est un dossier : sa version de Python et ses bibliothèques
-    y tiennent, et rien n'en sort.
+    Les deux versions coexistent sans se croiser, et le Python du système n'est
+    pas touché.
   ]
 
   #notes[
