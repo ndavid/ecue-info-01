@@ -686,9 +686,8 @@
   )
 
   #legende[
-    `_20_` est le code hexadécimal de l'espace : `Text_20_body` se lit
-    « Text body », et `Heading_20_1` « Heading 1 ». Le texte, lui, n'a pas
-    bougé — seul le nom du style a changé.
+    Le texte n'a pas bougé : seul le nom du style a changé. Ce que `_20_` vient
+    faire dans ce nom est la dernière diapositive de la partie.
   ]
 
   #notes[
@@ -783,3 +782,107 @@
   ]
 ]
 
+// --------------------------------------------
+#d("Un espace dans le nom d'un fichier")[
+  #annonce[
+    Renommer `raven_brut.html` en `raven brut.html`, l'ouvrir par double-clic,
+    puis regarder l'adresse que le navigateur affiche.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [Étape], [Ce que vous constatez],
+    [renommer avec `F2`],
+      [l'explorateur accepte l'espace et l'affiche tel quel],
+    [ouvrir par double-clic],
+      reponse[la page s'affiche comme avant : le nom n'a rien changé au contenu],
+    [lire l'adresse],
+      reponse[`file:///.../raven%20brut.html`, l'espace y est écrit `%20`],
+    [copier l'adresse, la coller dans l'éditeur],
+      reponse[`%20` s'y retrouve, même si la barre du navigateur montrait un espace],
+  )
+
+  #legende[
+    Une adresse ne peut pas contenir d'espace : le navigateur le remplace par
+    `%20`, le code du caractère espace.
+  ]
+
+  #notes[
+    Vérifié sur cette machine : quel que soit ce qui est tapé, le navigateur
+    ramène l'adresse à `file:///.../raven%20brut.html`. L'affichage dans la
+    barre, lui, dépend du navigateur et de sa version, certains y montrant
+    l'espace. D'où la dernière ligne : l'adresse copiée, elle, porte toujours
+    `%20`. À essayer une fois sur un poste de la salle avant la séance.
+
+    Ne pas ouvrir le dossier des caractères permis dans un nom de fichier.
+    Retenir : un espace dans un nom passe partout aujourd'hui, mais il se
+    paiera en ligne de commande au cours 3, où il faudra des guillemets.
+  ]
+]
+
+// --------------------------------------------
+#d("Le même espace dans un nom de style")[
+  #annonce[
+    Un nom de style suit la même règle : LibreOffice affiche un nom lisible, et
+    `content.xml` écrit l'espace `_20_`.
+  ]
+
+  // Le volet des styles, à gauche, et ce que `content.xml` écrit à leur place.
+  // Une ligne par style : la répétition fait voir la règle mieux qu'un seul
+  // exemple commenté.
+  #v(0.2em)
+  #align(center)[
+    #let ligne(nom, interne) = (
+      block(width: 100%, inset: (x: 12pt, y: 7pt), fill: gris,
+            stroke: (bottom: 0.8pt + gris.darken(12%)))[
+        #text(size: 16pt)[#nom]
+      ],
+      align(horizon + center, text(size: 20pt, fill: accent)[→]),
+      align(horizon, text(font: police-code, size: 16pt, fill: manip,
+                          weight: demi-gras)[#interne]),
+    )
+    #grid(
+      columns: (215pt, auto, auto),
+      column-gutter: 16pt,
+      row-gutter: 0pt,
+      align: left,
+      block(width: 100%, inset: (x: 12pt, y: 6pt), fill: accent)[
+        #text(size: 14pt, fill: white, weight: demi-gras)[Styles]
+      ],
+      [], align(horizon, text(size: 14pt, fill: estompe)[dans `content.xml`]),
+      ..ligne("Corps de texte", "Text_20_body"),
+      ..ligne("Titre 1", "Heading_20_1"),
+      ..ligne("Titre 2", "Heading_20_2"),
+    )
+  ]
+
+  #v(0.6em)
+  #tableau(
+    columns: (auto, 1fr, auto),
+    align: left + horizon,
+    [], [Ce qui interdit l'espace], [L'espace s'y écrit],
+    [Une adresse web], [la syntaxe des URL], [`%20`],
+    [Un nom de style ODF], [la syntaxe des noms XML], [`_20_`],
+  )
+
+  #legende[
+    20 est le code du caractère espace. Les deux l'écrivent parce que les deux
+    l'interdisent, chacun avec sa marque.
+  ]
+
+  #notes[
+    Boucler la partie ici : c'est le `_20_` aperçu dans `content.xml`, et
+    l'étudiant vient de produire le `%20` lui-même en renommant un fichier.
+
+    Le nom lisible est dans l'attribut `style:display-name` ; c'est lui que
+    LibreOffice affiche, traduit en français dans l'interface. La chaîne
+    montre donc deux passages : la traduction, puis l'encodage.
+
+    Référence OpenDocument v1.3 partie 3 pour l'encodage des noms, donnée
+    dans le notebook. Ne pas la citer à l'oral.
+
+    Le code hexadécimal lui-même est au cours 3 : dire « le code du
+    caractère espace » et rien de plus.
+  ]
+]
