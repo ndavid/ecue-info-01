@@ -328,31 +328,34 @@
 ]
 #d("Le programme de la manipulation")[
   #annonce[
-    Deux calculs, écrits comme des fonctions : le nombre de convives, et le
-    système d'unités.
+    Un ingrédient est un triplet : son nom, sa quantité, son unité. `adapter`
+    prend la liste des ingrédients et rend la même, mise à l'échelle et
+    convertie.
   ]
 
   #set text(size: 19pt)
   ```python
-  def pour_personnes(ingredients, personnes):
+  def adapter(ingredients, personnes, unites):
       resultat = []
       for nom, quantite, unite in ingredients:
-          resultat.append((nom, quantite * personnes, unite))
+          quantite = quantite * personnes
+          if unites == "US":
+              quantite, unite = convertir(quantite, unite)
+          resultat.append((nom, quantite, unite))
       return resultat
+  ```
 
-
-  def convertir(quantite, unite):
-      if unite == "g":
-          return quantite / 28.3495, "oz"      # une once vaut 28,3495 g
-      if unite == "ml":
-          return quantite / 236.588, "cup"     # une cup vaut 236,588 ml
-      return quantite, unite
+  #v(0.3em)
+  ```python
+  ingredients = lire_ingredients("ingredients.csv")
+  ingredients = adapter(ingredients, PERSONNES, UNITES)
+  lignes = en_table(ingredients)
   ```
 
   #legende[
-    Code réel du projet. Un ingrédient est un triplet, son nom, sa quantité et
-    son unité, lu dans `ingredients.csv` : `Farine,60,g` pour une personne. Ce
-    qui se compte, les œufs, n'a pas d'unité et ressort inchangé.
+    Code réel du projet. `convertir` divise par 28,3495 ou par 236,588 selon
+    l'unité, et laisse passer ce qui se compte. Le programme, en bas, tient en
+    trois lignes.
   ]
 
   #notes[

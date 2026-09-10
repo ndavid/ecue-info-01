@@ -1,25 +1,37 @@
-"""Le calcul des quantités, et le gabarit de la page.
+"""Les ingrédients : les lire, les adapter, les mettre en tableau.
 
-Ce fichier ne porte que ce que les trois programmes du projet ont en commun :
-les deux conversions, et l'enveloppe HTML dans laquelle le texte converti est
-posé. Tout le reste — lire le CSV, écrire le tableau, l'insérer dans la
-recette — se lit de haut en bas dans `recette_a_la_main.py`,
-`recette_avec_tabulate.py` et `recette/__main__.py`.
+Un ingrédient est un triplet — son nom, sa quantité, son unité — et une
+recette est la liste de ses ingrédients. Les trois fonctions ci-dessous se
+suivent dans cet ordre, et aucune ne modifie ce qu'on lui donne :
 
-Un ingrédient est un triplet : son nom, sa quantité, son unité. Une recette
-est la liste de ses ingrédients. Les deux fonctions ci-dessous en prennent
-une et en rendent une autre, sans jamais modifier celle qu'on leur a donnée.
+    ingredients = lire_ingredients("ingredients.csv")
+    ingredients = adapter(ingredients, personnes=4, unites="SI")
+    lignes = en_table(ingredients)
+
+Ce qui reste — poser le tableau dans la recette et en faire une page — se lit
+de haut en bas dans `recette_a_la_main.py`, `recette_avec_tabulate.py` et
+`recette/__main__.py`. Le gabarit de la page est en fin de fichier.
 """
 
-__all__ = ["pour_personnes", "convertir", "en_unites", "GABARIT"]
+import csv
+
+__all__ = ["lire_ingredients", "convertir", "adapter", "en_table", "GABARIT"]
 
 
-def pour_personnes(ingredients, personnes):
-    """Les mêmes ingrédients, pour ce nombre de convives."""
-    resultat = []
-    for nom, quantite, unite in ingredients:
-        resultat.append((nom, quantite * personnes, unite))
-    return resultat
+def lire_ingredients(chemin):
+    """Les ingrédients du fichier CSV, quantités converties en nombres.
+
+    La première ligne du fichier nomme les colonnes : elle est sautée. Les
+    suivantes donnent un ingrédient chacune, dans l'ordre nom, quantité,
+    unité, et pour une personne.
+    """
+    ingredients = []
+    with open(chemin, encoding="utf-8") as fichier:
+        lecteur = csv.reader(fichier)
+        next(lecteur)
+        for nom, quantite, unite in lecteur:
+            ingredients.append((nom, float(quantite), unite))
+    return ingredients
 
 
 def convertir(quantite, unite):
@@ -35,15 +47,32 @@ def convertir(quantite, unite):
     return quantite, unite
 
 
-def en_unites(ingredients, systeme):
-    """Les mêmes ingrédients, exprimés dans le système demandé."""
-    if systeme == "SI":
-        return ingredients
+def adapter(ingredients, personnes, unites):
+    """La recette pour ce nombre de convives, dans ce système d'unités.
+
+    Les deux réglages tiennent dans la même boucle : la quantité lue vaut
+    pour une personne, on la multiplie, puis on la convertit si le système
+    demandé n'est pas celui du fichier.
+    """
     resultat = []
     for nom, quantite, unite in ingredients:
-        quantite, unite = convertir(quantite, unite)
+        quantite = quantite * personnes
+        if unites == "US":
+            quantite, unite = convertir(quantite, unite)
         resultat.append((nom, quantite, unite))
     return resultat
+
+
+def en_table(ingredients):
+    """Les ingrédients en lignes de tableau : un nom, une quantité écrite.
+
+    C'est ici, et seulement ici, que les nombres deviennent du texte : trois
+    chiffres significatifs, suivis de l'unité quand il y en a une.
+    """
+    lignes = []
+    for nom, quantite, unite in ingredients:
+        lignes.append((nom, f"{quantite:.3g} {unite}".strip()))
+    return lignes
 
 
 # L'enveloppe de la page. `markdown.markdown` ne rend qu'un fragment : les

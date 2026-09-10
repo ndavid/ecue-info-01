@@ -15,13 +15,12 @@ prévu, et répond tout seul à `--help`.
 """
 
 import argparse
-import csv
 from pathlib import Path
 
 import markdown
 from tabulate import tabulate
 
-from . import GABARIT, en_unites, pour_personnes
+from . import GABARIT, adapter, en_table, lire_ingredients
 
 ICI = Path(__file__).resolve().parent.parent
 
@@ -48,21 +47,11 @@ def main(arguments=None) -> int:
     if options.personnes < 1:
         analyseur.error("le nombre de personnes doit valoir au moins 1")
 
-    ingredients = []
-    with open(ICI / "ingredients.csv", encoding="utf-8") as fichier:
-        lecteur = csv.reader(fichier)
-        next(lecteur)                      # la première ligne nomme les colonnes
-        for nom, quantite, unite in lecteur:
-            ingredients.append((nom, float(quantite), unite))
+    ingredients = lire_ingredients(ICI / "ingredients.csv")
+    ingredients = adapter(ingredients, options.personnes, options.unites)
 
-    ingredients = pour_personnes(ingredients, options.personnes)
-    ingredients = en_unites(ingredients, options.unites)
-
-    table = []
-    for nom, quantite, unite in ingredients:
-        table.append((nom, f"{quantite:.3g} {unite}".strip()))
-
-    tableau = tabulate(table, headers=["Ingrédient", "Quantité"], tablefmt="github")
+    lignes = en_table(ingredients)
+    tableau = tabulate(lignes, headers=["Ingrédient", "Quantité"], tablefmt="github")
 
     source = (ICI / "recette.md").read_text(encoding="utf-8")
     source = source.replace("## Ingrédients", "## Ingrédients\n\n" + tableau)

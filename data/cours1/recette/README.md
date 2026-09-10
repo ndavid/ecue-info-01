@@ -63,20 +63,20 @@ Une fois le projet installé, `python -m recette` s'écrit aussi `recette`.
 Les étapes sont séparées pour qu'on puisse les lire, les essayer une par une
 dans l'interpréteur, et en changer une sans toucher aux autres.
 
-Les trois programmes se lisent de haut en bas : lire le CSV, mettre à
-l'échelle, convertir, écrire le tableau, l'insérer sous le titre
-« Ingrédients », convertir en HTML, écrire la page.
-
 Un ingrédient est un triplet — son nom, sa quantité, son unité — et une
-recette est la liste de ses ingrédients. Trois calculs seulement sont des
-fonctions, dans `recette/__init__.py`, parce qu'ils répondent à des questions
-qu'on peut se poser séparément :
+recette est la liste de ses ingrédients. Ce qui touche aux ingrédients est
+dans `recette/__init__.py` :
 
 | Fonction | Ce qu'elle fait |
 |---|---|
-| `pour_personnes` | multiplie les quantités par le nombre de convives |
+| `lire_ingredients` | lit le CSV et rend des nombres, pas du texte |
+| `adapter` | met à l'échelle et convertit, en une passe |
 | `convertir` | une quantité et son unité, en onces ou en cups |
-| `en_unites` | applique `convertir` à toute la recette, si on la demande |
+| `en_table` | rend les lignes du tableau, quantités écrites |
+
+Les trois programmes appellent ces fonctions dans cet ordre, puis posent le
+tableau sous le titre « Ingrédients » et convertissent le tout en HTML. Leur
+corps tient en une dizaine de lignes, qui se lisent de haut en bas.
 
 Les unités qui se comptent — les œufs — n'ont pas d'équivalent américain :
 elles traversent la conversion inchangées, faute d'entrée dans la table.
