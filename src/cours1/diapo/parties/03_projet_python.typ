@@ -7,14 +7,363 @@
 
 #separateur(
   "Structure d'un projet Python",
-  annonce: "Ce qu'un projet contient en plus du code : les bibliothèques dont il dépend, les fichiers qui les déclarent, et sa documentation",
+  annonce: "Ce qu'un projet contient en plus du code : sa documentation, les bibliothèques dont il dépend, et les fichiers qui déclarent les unes et les autres",
 )
-// ------------------------- Dépendances et environnement -----------------------
+// ---------------------- La documentation du projet --------------------------
 
+#d("Les fichiers texte d'un projet")[
+  #annonce[
+    Le code n'est pas le seul texte d'un projet. Les réglages, les données et
+    la documentation s'écrivent aussi en texte, dans le même éditeur.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr, auto),
+    align: left + horizon,
+    [Fichier], [Ce qu'il porte], [Qui le lit],
+    [`.py`], [les instructions du programme], [l'interpréteur],
+    [`.csv`], [des données en tableau], [un programme, un tableur],
+    surligne[`.md`],
+      surligne[la documentation, les notes, le `README`],
+      surligne[un humain],
+    [`.json`, `.yaml`], [les réglages, des données structurées], [un programme],
+  )
+
+  #legende[
+    Tous s'ouvrent dans l'éditeur, se comparent ligne à ligne et se
+    versionnent. C'est le `.md` qui occupe la suite de cette partie : c'est
+    celui que vous écrirez le plus tôt et le plus souvent.
+  ]
+
+  #notes[
+    On n'écrit pas que du code dans un éditeur de code : sur un projet
+    réel, les fichiers de réglage et la documentation sont souvent plus
+    nombreux que les fichiers de programme.
+
+    `.json` et `.yaml` portent la même chose et se convertissent l'un en
+    l'autre ; le premier est écrit par les programmes, le second par les
+    humains, parce qu'il accepte des commentaires. Une phrase, pas plus.
+
+    Le `README` est nommé dès maintenant : livrable de fin de séance, et
+    premier commit du cours 2.
+  ]
+]
+#d("Trois façons d'écrire un document")[
+  #annonce[
+    Le choix se fait sur ce qu'on veut pouvoir faire ensuite : relire,
+    comparer, ou mettre en page.
+  ]
+
+  #tableau(
+    columns: (1.1fr, 0.9fr, 1fr, 1fr),
+    align: left + horizon,
+    [], [`.txt`], [`.md`], [`.odt`, `.docx`],
+    [Titres, listes, emphase], [aucun], [dans le texte], [dans des balises],
+    [Lisible sans logiciel], [oui], [oui], [non],
+    [Se compare ligne à ligne], [oui], [oui], [non],
+    [Mise en page fine], [non], [non], [oui],
+    [Quand l'employer],
+      [une note jetable, la sortie d'un programme],
+      [`README`, notes, doc d'un projet],
+      [un rapport à rendre, une charte imposée],
+  )
+
+  #legende[
+    Markdown se convertit vers les autres, `pandoc notes.md -o notes.pdf` au
+    cours 2 : le choix n'engage pas le rendu final.
+  ]
+
+  #notes[
+    Les trois colonnes ne s'opposent pas : elles répondent à trois besoins
+    qu'on a tour à tour dans la même semaine.
+
+    Piège à désamorcer, sans quoi ils retournent à LibreOffice : « mon
+    rapport doit être en PDF » n'est pas un argument contre Markdown,
+    `pandoc` produisant le PDF depuis le `.md`. On perd le contrôle fin de
+    la mise en page, on gagne de pouvoir relire, comparer et versionner.
+    Nommer l'arbitrage.
+
+    Le `.txt` n'est pas inférieur : c'est le format des sorties de
+    programme et des relevés, où toute structure gênerait. Le poème du
+    début de séance en est un.
+  ]
+]
+#d("L'intention de Markdown")[
+  #annonce[
+    John Gruber, 2004 : un format de texte facile à lire et à écrire,
+    convertible en HTML, et publiable tel quel sans avoir l'air balisé.
+  ]
+
+  #face-a-face(
+    panneau[Le fichier `.md`][
+      ```markdown
+      # The Raven
+
+      Poème d'*Edgar Allan Poe*, 1845.
+
+      - publié en janvier
+      - 108 vers
+      ```
+    ],
+    panneau[Le même contenu en HTML][
+      ```html
+      <h1>The Raven</h1>
+      <p>Poème d'<em>Edgar Allan
+      Poe</em>, 1845.</p>
+      <ul><li>publié en janvier</li>
+      <li>108 vers</li></ul>
+      ```
+    ],
+  )
+
+  #legende[
+    Les deux produisent le même affichage. Celui de gauche se lit sans être
+    converti, et c'est très exactement le but que Gruber s'était fixé.
+  ]
+
+  #notes[
+    Markdown est annoncé le 15 mars 2004 par John Gruber sur Daring
+    Fireball. Aaron Swartz en est l'unique bêta-testeur ; les titres en
+    `#` viennent d'atx, son propre format. L'inspiration revendiquée est
+    le courriel en texte brut.
+
+    L'intention, qui n'est pas évidente : Markdown n'est pas un HTML
+    simplifié pour ceux qui n'y arriveraient pas. Sa contrainte de départ
+    est que la source reste lisible sans conversion, et tout le reste en
+    découle, y compris ce qu'il ne sait pas faire.
+
+    Depuis 2014, CommonMark en fixe une spécification et une suite de
+    tests. Ne le dire que si quelqu'un signale qu'un fichier ne rend pas
+    pareil partout.
+  ]
+]
+#d("La syntaxe de Markdown")[
+  #annonce[
+    Une dizaine de marques suffisent, et chacune se lit telle quelle : le
+    dièse annonce un titre, le tiret une puce, les astérisques une emphase.
+  ]
+
+  #face-a-face(
+    panneau("Ce qu'on écrit")[
+      ```markdown
+      # Un titre
+      ## Un sous-titre
+
+      Du texte, de l'*emphase*,
+      du **gras**.
+
+      - une puce
+      1. une étape
+
+      [un lien](https://typst.app)
+      ![une photo](poele.jpg)
+      ```
+    ],
+    panneau("Ce qui s'affiche")[
+      #block(inset: 9pt, stroke: 0.8pt + estompe.lighten(50%), width: 100%)[
+        #set text(size: 13pt)
+        #text(size: 19pt, weight: "bold")[Un titre] \
+        #text(size: 15pt, weight: "bold")[Un sous-titre]
+        #v(0.3em)
+        Du texte, de l'#text(style: "italic")[emphase], du
+        #text(weight: "bold")[gras].
+        #v(0.3em)
+        • une puce \
+        1. une étape
+        #v(0.3em)
+        #text(fill: accent)[#underline[un lien]] \
+        #text(fill: estompe)[▭ une photo]
+      ]
+    ],
+  )
+
+  #legende[
+    Un tableau s'écrit avec des barres verticales, un bloc de code entre
+    trois accents graves. Le reste s'apprend en le lisant.
+  ]
+
+  #notes[
+    Ne pas faire apprendre la liste. Ce qui compte est que la colonne de
+    gauche se lise déjà : l'intention de Gruber rendue concrète.
+
+    Deux pièges, une minute chacun. Une ligne vide sépare les paragraphes,
+    sans quoi deux lignes consécutives n'en font qu'un. Le dièse veut un
+    espace : `#Titre` ne produit pas un titre.
+
+    Lien et image : même syntaxe, un point d'exclamation devant pour
+    l'image. Le chemin de l'image est relatif au `.md`, occasion de
+    rappeler les chemins de la partie 1.
+
+    L'aperçu est `Ctrl` + `Maj` + `V`, côte à côte avec `Ctrl` + `K` puis
+    `V`.
+  ]
+]
+
+// ------------------ Les bibliothèques dont le projet dépend -----------------
+
+#d("Ce qu'une bibliothèque a déjà prévu")[
+  #annonce[
+    Le code d'une bibliothèque a rencontré les cas particuliers que le vôtre
+    n'a pas encore vus.
+  ]
+
+  #face-a-face(
+    panneau("Découper la ligne soi-même")[
+      ```python
+      ligne = 'Beurre,"50 g, fondu"'
+      print(ligne.split(","))
+      ```
+      ```
+      ['Beurre', '"50 g', ' fondu"']
+      ```
+      #text(size: 14pt, fill: estompe)[
+        Trois champs au lieu de deux : la virgule du commentaire a été prise
+        pour un séparateur.
+      ]
+    ],
+    panneau[Avec la bibliothèque #raw("csv")][
+      ```python
+      import csv
+      print(next(csv.reader([ligne])))
+      ```
+      ```
+      ['Beurre', '50 g, fondu']
+      ```
+      #text(size: 14pt, fill: estompe)[
+        Les guillemets protègent le champ, et la règle du format est
+        appliquée.
+      ]
+    ],
+  )
+
+  #legende[
+    Le fichier `ingredients.csv` de la manipulation Markdown se découpe très
+    bien à la main, jusqu'à la première virgule écrite dans un champ.
+  ]
+
+  #notes[
+    Le premier motif, et le moins visible : on ne gagne pas du temps de
+    frappe, on hérite de cas que personne n'avait prévus seul. Le format
+    CSV en réserve d'autres — un retour à la ligne dans un champ, un
+    guillemet doublé, un séparateur qui est un point-virgule.
+
+    Faire remarquer que le code de gauche n'est pas faux, il est
+    incomplet : il marche sur le fichier de la manipulation, et cesse de
+    marcher sur le suivant. C'est la forme ordinaire du bogue.
+
+    `csv` vient avec Python et ne s'installe pas : c'est la diapositive
+    « Deux sortes de bibliothèques ». Ne pas l'annoncer ici.
+
+    Question à poser plutôt qu'à traiter : combien de cas particuliers un
+    format de fichier peut-il avoir ?
+  ]
+]
+#d("Ce qu'on n'écrirait pas soi-même")[
+  #annonce[
+    Trois lignes convertissent la recette en page web. La bibliothèque qui les
+    exécute en compte huit mille.
+  ]
+
+  ```python
+  import markdown
+  from pathlib import Path
+
+  source = Path("recette.md").read_text(encoding="utf-8")
+  print(markdown.markdown(source)[:78])
+  ```
+
+  #v(0.4em)
+  ```
+  <h1>Crêpes</h1>
+  <p><em>Pour 12 crêpes — 10 minutes de préparation, 1 heure de
+  ```
+
+  #legende[
+    Sortie réelle sur le `recette.md` de la manipulation Markdown. La
+    bibliothèque `markdown` 3.10.3 compte 33 fichiers et 8 480 lignes de
+    Python, relevés le 10 septembre 2026.
+  ]
+
+  #notes[
+    Le second motif : il ne s'agit plus de gagner du temps, mais de faire
+    ce qu'on ne saurait pas faire dans la semaine. Écrire un analyseur de
+    Markdown demande de traiter les titres, les listes imbriquées, les
+    tableaux, le code, les liens, et les combinaisons des six.
+
+    Les 8 480 lignes ne sont pas un exploit d'écriture : ce sont dix-huit
+    ans de cas particuliers rapportés par des utilisateurs et corrigés un
+    par un. C'est cela qu'on installe, pas seulement du code.
+
+    C'est la ligne `import markdown` de la manipulation qui suit, sur le
+    fichier qu'ils auront écrit eux-mêmes.
+
+    Ne pas montrer le HTML complet ; les 78 premiers caractères suffisent.
+  ]
+]
+#d("Deux sortes de bibliothèques")[
+  #annonce[
+    Certaines viennent avec Python et s'importent sans rien faire. Les autres
+    doivent être installées avant que la ligne `import` passe.
+  ]
+
+  #face-a-face(
+    panneau("Livrées avec Python")[
+      ```python
+      import math
+      print(math.sqrt(2))
+      ```
+      ```
+      1.4142135623730951
+      ```
+      #text(size: 14pt, fill: estompe)[
+        `math`, `csv`, `pathlib`, `json` : environ deux cents modules,
+        installés en même temps que l'interpréteur.
+      ]
+    ],
+    panneau("Publiées par d'autres")[
+      ```python
+      import numpy
+      ```
+      ```
+      ModuleNotFoundError:
+      No module named 'numpy'
+      ```
+      #text(size: 14pt, fill: estompe)[
+        `numpy`, `pillow`, `markdown` : il faut les installer, et savoir
+        lesquelles.
+      ]
+    ],
+  )
+
+  #legende[
+    Sorties réelles dans un environnement réduit à Python. C'est la colonne de
+    droite qui rend nécessaire tout ce qui suit : installer, puis décrire ce
+    qu'on a installé.
+  ]
+
+  #notes[
+    Diapositive charnière : tout le reste de la partie répond à la colonne
+    de droite. Y revenir si la salle décroche sur les fichiers de
+    description.
+
+    La bibliothèque livrée avec Python s'appelle la *bibliothèque
+    standard*. Elle explique pourquoi `import csv` a marché deux
+    diapositives plus tôt sans qu'on installe quoi que ce soit.
+
+    Le message d'erreur est le même que celui de la partie 2 et que celui
+    de la manipulation à venir. Troisième rencontre, et cette fois la
+    cause est nommée : la bibliothèque n'est pas dans l'environnement
+    actif.
+
+    Ne pas dire que la bibliothèque standard suffit : ni `numpy`, ni
+    `pillow`, ni `pandas` n'en font partie, et c'est là que sont les
+    outils du métier.
+  ]
+]
 #d("Dépendances directes et transitives")[
   #annonce[
-    Une ligne `import` désigne du code publié par d'autres. Chaque bibliothèque
-    réclame à son tour les siennes.
+    Une bibliothèque installée en réclame d'autres, qui en réclament d'autres.
+    La liste complète se calcule au lieu de s'énumérer.
   ]
 
   ```python
@@ -482,194 +831,5 @@
     démonstration.
 
     Ouvrir un terminal hors de l'éditeur est en annexe, et au cours 2.
-  ]
-]
-// ---------------------- La documentation du projet --------------------------
-
-#d("Les fichiers texte d'un projet")[
-  #annonce[
-    Le code n'est pas le seul texte d'un projet. Les réglages, les données et
-    la documentation s'écrivent aussi en texte, dans le même éditeur.
-  ]
-
-  #tableau(
-    columns: (auto, 1fr, auto),
-    align: left + horizon,
-    [Fichier], [Ce qu'il porte], [Qui le lit],
-    [`.py`], [les instructions du programme], [l'interpréteur],
-    [`.csv`], [des données en tableau], [un programme, un tableur],
-    surligne[`.md`],
-      surligne[la documentation, les notes, le `README`],
-      surligne[un humain],
-    [`.json`, `.yaml`], [les réglages, des données structurées], [un programme],
-  )
-
-  #legende[
-    Tous s'ouvrent dans l'éditeur, se comparent ligne à ligne et se
-    versionnent. C'est le `.md` qui occupe la suite de cette partie : c'est
-    celui que vous écrirez le plus tôt et le plus souvent.
-  ]
-
-  #notes[
-    On n'écrit pas que du code dans un éditeur de code : sur un projet
-    réel, les fichiers de réglage et la documentation sont souvent plus
-    nombreux que les fichiers de programme.
-
-    `.json` et `.yaml` portent la même chose et se convertissent l'un en
-    l'autre ; le premier est écrit par les programmes, le second par les
-    humains, parce qu'il accepte des commentaires. Une phrase, pas plus.
-
-    Le `README` est nommé dès maintenant : livrable de fin de séance, et
-    premier commit du cours 2.
-  ]
-]
-#d("Trois façons d'écrire un document")[
-  #annonce[
-    Le choix se fait sur ce qu'on veut pouvoir faire ensuite : relire,
-    comparer, ou mettre en page.
-  ]
-
-  #tableau(
-    columns: (1.1fr, 0.9fr, 1fr, 1fr),
-    align: left + horizon,
-    [], [`.txt`], [`.md`], [`.odt`, `.docx`],
-    [Titres, listes, emphase], [aucun], [dans le texte], [dans des balises],
-    [Lisible sans logiciel], [oui], [oui], [non],
-    [Se compare ligne à ligne], [oui], [oui], [non],
-    [Mise en page fine], [non], [non], [oui],
-    [Quand l'employer],
-      [une note jetable, la sortie d'un programme],
-      [`README`, notes, doc d'un projet],
-      [un rapport à rendre, une charte imposée],
-  )
-
-  #legende[
-    Markdown se convertit vers les autres, `pandoc notes.md -o notes.pdf` au
-    cours 2 : le choix n'engage pas le rendu final.
-  ]
-
-  #notes[
-    Les trois colonnes ne s'opposent pas : elles répondent à trois besoins
-    qu'on a tour à tour dans la même semaine.
-
-    Piège à désamorcer, sans quoi ils retournent à LibreOffice : « mon
-    rapport doit être en PDF » n'est pas un argument contre Markdown,
-    `pandoc` produisant le PDF depuis le `.md`. On perd le contrôle fin de
-    la mise en page, on gagne de pouvoir relire, comparer et versionner.
-    Nommer l'arbitrage.
-
-    Le `.txt` n'est pas inférieur : c'est le format des sorties de
-    programme et des relevés, où toute structure gênerait. Le poème du
-    début de séance en est un.
-  ]
-]
-#d("L'intention de Markdown")[
-  #annonce[
-    John Gruber, 2004 : un format de texte facile à lire et à écrire,
-    convertible en HTML, et publiable tel quel sans avoir l'air balisé.
-  ]
-
-  #face-a-face(
-    panneau[Le fichier `.md`][
-      ```markdown
-      # The Raven
-
-      Poème d'*Edgar Allan Poe*, 1845.
-
-      - publié en janvier
-      - 108 vers
-      ```
-    ],
-    panneau[Le même contenu en HTML][
-      ```html
-      <h1>The Raven</h1>
-      <p>Poème d'<em>Edgar Allan
-      Poe</em>, 1845.</p>
-      <ul><li>publié en janvier</li>
-      <li>108 vers</li></ul>
-      ```
-    ],
-  )
-
-  #legende[
-    Les deux produisent le même affichage. Celui de gauche se lit sans être
-    converti, et c'est très exactement le but que Gruber s'était fixé.
-  ]
-
-  #notes[
-    Markdown est annoncé le 15 mars 2004 par John Gruber sur Daring
-    Fireball. Aaron Swartz en est l'unique bêta-testeur ; les titres en
-    `#` viennent d'atx, son propre format. L'inspiration revendiquée est
-    le courriel en texte brut.
-
-    L'intention, qui n'est pas évidente : Markdown n'est pas un HTML
-    simplifié pour ceux qui n'y arriveraient pas. Sa contrainte de départ
-    est que la source reste lisible sans conversion, et tout le reste en
-    découle, y compris ce qu'il ne sait pas faire.
-
-    Depuis 2014, CommonMark en fixe une spécification et une suite de
-    tests. Ne le dire que si quelqu'un signale qu'un fichier ne rend pas
-    pareil partout.
-  ]
-]
-#d("La syntaxe de Markdown")[
-  #annonce[
-    Une dizaine de marques suffisent, et chacune se lit telle quelle : le
-    dièse annonce un titre, le tiret une puce, les astérisques une emphase.
-  ]
-
-  #face-a-face(
-    panneau("Ce qu'on écrit")[
-      ```markdown
-      # Un titre
-      ## Un sous-titre
-
-      Du texte, de l'*emphase*,
-      du **gras**.
-
-      - une puce
-      1. une étape
-
-      [un lien](https://typst.app)
-      ![une photo](poele.jpg)
-      ```
-    ],
-    panneau("Ce qui s'affiche")[
-      #block(inset: 9pt, stroke: 0.8pt + estompe.lighten(50%), width: 100%)[
-        #set text(size: 13pt)
-        #text(size: 19pt, weight: "bold")[Un titre] \
-        #text(size: 15pt, weight: "bold")[Un sous-titre]
-        #v(0.3em)
-        Du texte, de l'#text(style: "italic")[emphase], du
-        #text(weight: "bold")[gras].
-        #v(0.3em)
-        • une puce \
-        1. une étape
-        #v(0.3em)
-        #text(fill: accent)[#underline[un lien]] \
-        #text(fill: estompe)[▭ une photo]
-      ]
-    ],
-  )
-
-  #legende[
-    Un tableau s'écrit avec des barres verticales, un bloc de code entre
-    trois accents graves. Le reste s'apprend en le lisant.
-  ]
-
-  #notes[
-    Ne pas faire apprendre la liste. Ce qui compte est que la colonne de
-    gauche se lise déjà : l'intention de Gruber rendue concrète.
-
-    Deux pièges, une minute chacun. Une ligne vide sépare les paragraphes,
-    sans quoi deux lignes consécutives n'en font qu'un. Le dièse veut un
-    espace : `#Titre` ne produit pas un titre.
-
-    Lien et image : même syntaxe, un point d'exclamation devant pour
-    l'image. Le chemin de l'image est relatif au `.md`, occasion de
-    rappeler les chemins de la partie 1.
-
-    L'aperçu est `Ctrl` + `Maj` + `V`, côte à côte avec `Ctrl` + `K` puis
-    `V`.
   ]
 ]

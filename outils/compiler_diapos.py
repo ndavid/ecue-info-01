@@ -42,8 +42,14 @@ MOTIF_IMAGE = re.compile(
 
 
 def sources(source: Path) -> list[Path]:
-    """Le fichier d'assemblage, et les parties qu'il inclut."""
-    return [source] + sorted((source.parent / "parties").glob("*.typ"))
+    """Le fichier d'assemblage et tout ce qu'il entraîne.
+
+    Tous les `.typ` du dossier de la séance : l'exposé de `parties/`, les
+    manipulations de `manips/`, et les schémas, qui citent eux aussi des
+    images. Glober le dossier plutôt que suivre les `include` évite de rater
+    un fichier quand l'assemblage change de forme.
+    """
+    return sorted(source.parent.rglob("*.typ"))
 
 
 def captures_presentes(source: Path) -> tuple[bool, list[str]]:

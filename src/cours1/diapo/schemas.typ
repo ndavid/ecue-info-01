@@ -408,3 +408,159 @@
     ]
   ])
 })
+
+// ---------------------------------------------------------------------------
+// Résoudre les dépendances : le cas du diamant
+//
+// Trois paquets réclament le même quatrième, chacun avec sa propre exigence de
+// version. L'outil doit trouver une version qui les satisfasse toutes : c'est
+// ce qui distingue une résolution d'un simple parcours du graphe.
+//
+// Contraintes relevées dans `conda-meta/` de l'environnement `recette`, le
+// 10 septembre 2026. Elles ne sont pas inventées : `python` exige libgcc >= 15,
+// `liblzma` >= 14 et `libnsl` >= 13, et une seule version est installée.
+
+#let _boite-paquet(nom, version, nom-cetz, couleur: accent, largeur: 5.0) = {
+  rect((-largeur / 2, -0.72), (largeur / 2, 0.72), radius: 0.1,
+       stroke: 1.5pt + couleur, fill: couleur.lighten(94%), name: nom-cetz)
+  content((0, 0.26),
+          text(size: 18pt, weight: demi-gras, font: police-code, fill: couleur)[#nom])
+  content((0, -0.36), text(size: 14pt, fill: estompe)[#version])
+}
+
+// L'exigence portée par une arête, posée sur le trait.
+#let _exigence(depuis, vers, texte, position: 50%) = {
+  content((depuis, position, vers), anchor: "center",
+          box(fill: white, inset: 3pt,
+              text(size: 15pt, font: police-code, fill: alerte)[#texte]))
+}
+
+#let schema-diamant() = cetz.canvas(length: 1cm, {
+  set-style(stroke: 1.2pt + accent.lighten(30%),
+            mark: (end: ">", fill: accent.lighten(30%), scale: 1.2))
+
+  let y-haut = 8.4
+  let y-milieu = 5.0
+  let y-bas = 1.7
+
+  group(name: "py", {
+    translate((13.0, y-haut))
+    _boite-paquet("python", "3.12.14", "b", largeur: 5.4)
+  })
+  group(name: "lzma", {
+    translate((6.2, y-milieu))
+    _boite-paquet("liblzma", "5.8.3", "b")
+  })
+  group(name: "nsl", {
+    translate((19.8, y-milieu))
+    _boite-paquet("libnsl", "2.0.1", "b")
+  })
+  group(name: "gcc", {
+    translate((13.0, y-bas))
+    _boite-paquet("libgcc", "16.2.0", "b", couleur: attention, largeur: 5.4)
+  })
+
+  line("py.b.west", "lzma.b.north")
+  line("py.b.east", "nsl.b.north")
+  line("py.b.south", "gcc.b.north")
+  line("lzma.b.south", "gcc.b.west")
+  line("nsl.b.south", "gcc.b.east")
+
+  _exigence("py.b.south", "gcc.b.north", "libgcc >=15", position: 42%)
+  _exigence("lzma.b.south", "gcc.b.west", "libgcc >=14", position: 45%)
+  _exigence("nsl.b.south", "gcc.b.east", "libgcc >=13", position: 45%)
+
+  content((13.0, y-bas - 1.35), anchor: "north", box(width: 17cm)[
+    #align(center)[
+      #text(size: 16pt, fill: attention, weight: demi-gras)[
+        une seule version installée, qui satisfait les trois exigences
+      ]
+    ]
+  ])
+})
+
+// ---------------------------------------------------------------------------
+// Ce que l'activation d'un environnement change
+//
+// Le terminal ne cherche pas `python` partout : il parcourt les dossiers de
+// `PATH` de gauche à droite et s'arrête au premier trouvé. Activer un
+// environnement n'installe rien et ne déplace rien : cela pose un dossier de
+// plus en tête de cette liste.
+//
+// Chemins relevés le 10 septembre 2026, avant et après `conda activate`.
+
+#let _dossier(x, y, l, texte, trouve: false) = {
+  rect((x, y), (x + l, y + 1.0), radius: 0.08,
+       stroke: (if trouve { 1.8pt + attention } else { 1pt + estompe.lighten(35%) }),
+       fill: (if trouve { attention.lighten(92%) } else { white }))
+  content((x + l / 2, y + 0.5),
+          text(size: 15pt, font: police-code,
+               fill: (if trouve { attention } else { estompe }))[#texte])
+}
+
+// Largeur d'une boîte de dossier, déduite du nombre de caractères : la police
+// du code est à chasse fixe, une lettre y avance de 0,318 cm à 15 pt. Écrire
+// les largeurs à la main les désaccorderait du texte au premier chemin changé.
+#let _largeur-dossier(texte) = 0.318 * texte.clusters().len() + 0.7
+
+// Une ligne du schéma : son intitulé, les dossiers parcourus de gauche à
+// droite, et le programme qui finit par s'exécuter. `decalage` sert à aligner
+// les dossiers du système d'une ligne à l'autre, la seconde en portant un de
+// plus en tête.
+#let _ligne-chemin(y, intitule, dossiers, resultat, indice-trouve,
+                   decalage: 0.0) = {
+  content((0.4, y + 1.5), anchor: "west",
+          text(size: pt-footnotesize, fill: accent, weight: demi-gras)[#intitule])
+
+  let x = 0.4 + decalage
+  for (i, d) in dossiers.enumerate() {
+    let l = _largeur-dossier(d)
+    _dossier(x, y, l, d, trouve: i == indice-trouve)
+    if i + 1 < dossiers.len() {
+      line((x + l + 0.16, y + 0.5), (x + l + 0.62, y + 0.5),
+           stroke: 1pt + estompe.lighten(50%),
+           mark: (end: ">", fill: estompe.lighten(50%), scale: 0.8))
+    }
+    x = x + l + 0.78
+  }
+
+  content((x + 0.15, y + 0.5), anchor: "west",
+          text(size: 16pt, font: police-code, fill: attention,
+               weight: demi-gras)[#resultat])
+}
+
+#let schema-chemin() = cetz.canvas(length: 1cm, {
+  set-style(stroke: 0.9pt + _trait)
+
+  let dossiers-systeme = ("/usr/local/bin", "/usr/bin", "/bin")
+  let dossier-env = "…/envs/info01/bin"
+  let decalage = _largeur-dossier(dossier-env) + 0.78
+
+  // Ce que l'on tape, une fois pour les deux lignes.
+  content((0.4, 8.5), anchor: "west", box[
+    #text(size: 16pt, fill: estompe)[vous tapez] #h(6pt)
+    #box(fill: gris, inset: (x: 8pt, y: 4pt), radius: 3pt,
+         text(size: 18pt, font: police-code, weight: demi-gras)[python])
+    #h(10pt)
+    #text(size: 16pt, fill: estompe)[
+      et le terminal parcourt #raw("PATH") de gauche à droite
+    ]
+  ])
+
+  _ligne-chemin(5.4, [sans environnement actif],
+                dossiers-systeme, [/usr/bin/python3], 1,
+                decalage: decalage)
+
+  _ligne-chemin(1.8, [après #raw("conda activate info01")],
+                (dossier-env,) + dossiers-systeme,
+                […/envs/info01/bin/python], 0)
+
+  // Le dossier que l'activation ajoute, et rien d'autre.
+  content((0.4 + decalage / 2 - 0.39, 1.6), anchor: "north", box(width: 7cm)[
+    #align(center)[
+      #text(size: 14pt, fill: alerte, weight: demi-gras)[
+        posé en tête par l'activation
+      ]
+    ]
+  ])
+})

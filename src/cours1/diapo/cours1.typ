@@ -40,8 +40,8 @@
 
 #include "parties/03_projet_python.typ"
 #if manips {
-  include "manips/05_environnement.typ"
   include "manips/07_markdown.typ"
+  include "manips/05_environnement.typ"
 }
 
 #include "parties/04_notebooks.typ"

@@ -12,6 +12,83 @@
   annonce: "Objectif : installer la dépendance qui manque à un programme, puis la déclarer dans le fichier qui décrit l'environnement",
   dossier: "data/cours1/environnement/",
 )
+#d("L'outil d'installation du module")[
+  #annonce[
+    Le module installe ses outils avec `conda`, depuis le dépôt `conda-forge`.
+    L'outil n'a pas de fenêtre : il s'emploie en tapant une commande.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [Ce que vous voulez], [Ce que vous tapez],
+    [créer un environnement décrit par un fichier], [`conda env create -f environment.yml`],
+    [l'activer dans le terminal courant], [`conda activate recette`],
+    [savoir ce qui est installé dedans], [`conda list`],
+    [y ajouter une bibliothèque], [`conda install -c conda-forge markdown`],
+  )
+
+  #legende[
+    Quatre commandes pour tout le semestre, et ce sont celles de la
+    manipulation qui suit. La séance 2 revient sur la ligne de commande pour
+    elle-même ; ici, elle est un outil.
+  ]
+
+  #notes[
+    Le choix du module, à énoncer une fois : `conda` plutôt que `pip`,
+    parce qu'il installe aussi ce qui n'est pas du Python — `ffmpeg`,
+    `pandoc`, un compilateur — et `conda-forge` comme dépôt, parce que
+    Miniforge n'installe que depuis lui et que les conditions d'Anaconda
+    demandent une licence payante aux grandes organisations. Raison écrite
+    dans `INSTALLATION.md`.
+
+    La ligne de commande arrive ici parce que l'outil dont on a besoin
+    n'existe que sous cette forme, non pour elle-même. Beaucoup de
+    programmes n'ont pas de fenêtre, faute que quelqu'un en ait écrit une.
+
+    Les chemins, le dossier courant et les motifs comme `*.odt` sont au
+    cours 2 ; les diapositives correspondantes sont en annexe.
+
+    `-c conda-forge` désigne le canal : sur un poste installé avec
+    Miniforge il est déjà le défaut, et l'écrire ne coûte rien.
+  ]
+]
+#d("Les deux environnements de la séance")[
+  #annonce[
+    L'environnement `info01` porte les outils de toute l'année. La
+    manipulation en crée un second, réduit à Python, pour voir ce qui manque.
+  ]
+
+  ```bash
+  conda create -n info01 -c conda-forge python=3.12 \
+      jupyterlab numpy pillow pandoc ffmpeg imagemagick
+  conda activate info01
+  ```
+
+  #v(0.5em)
+  ```python
+  import sys; print(sys.executable)
+  ```
+  ```
+  /home/…/miniforge3/envs/info01/bin/python
+  ```
+
+  #legende[
+    Le chemin affiché doit contenir le nom de l'environnement actif : c'est la
+    vérification à faire avant toute autre hypothèse.
+  ]
+
+  #notes[
+    `ModuleNotFoundError` sur un paquet « qu'on vient d'installer »
+    signifie presque toujours que le mauvais environnement est actif.
+    Prévoir l'installation d'`info01` en amont ; c'est le point qui
+    déborde.
+
+    Les deux environnements coexistent sans se voir, comme au schéma
+    « Pourquoi isoler un environnement ». On revient dans `info01` à la fin
+    de la manipulation.
+  ]
+]
 #d("Un environnement neuf")[
   #annonce[
     On repart d'un environnement qui ne contient que Python, pour voir ce qui
@@ -91,7 +168,7 @@
   #notes[
     Étape 6 : trois paquets s'installent ici, contre un seul de 85 ko avec
     la même commande dans `info01`, où `importlib-metadata` et `zipp`
-    étaient déjà présents. C'est « Dépendances directes et dépendances transitives »
+    étaient déjà présents. C'est « Dépendances directes et transitives »
     vérifié par eux, et la preuve que ce qui est là ne se réinstalle pas.
 
     Étape 8, trois renvois : le `recette.md` est celui qu'ils ont écrit
