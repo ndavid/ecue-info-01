@@ -220,161 +220,87 @@
 
 // ------------------ Les bibliothèques dont le projet dépend -----------------
 
-#d("Librairie : illustration de l'intérêt")[
+#d("Ce que le programme fabrique")[
   #annonce[
-    Ecrire un programme qui convertit markdown en html peut être complexe avec seulement les
-    fonctions fournies par l'interpréteur python. 
-    Des librairies permettent de faire cela plus facilement. On ré-utilise du code fait par 
-    d'autres personnes.
+    Deux fichiers d'entrée, une page de recette en sortie, mise à l'échelle
+    demandée et dans les unités demandées.
   ]
 
-  #face-a-face(
-    panneau("Ce qu'il faudrait reconnaitre sans bibliothèque")[
+  #grid(
+    columns: (auto, auto, auto, auto, 1fr),
+    column-gutter: 12pt,
+    align: horizon,
+    // Les deux entrées, l'une sous l'autre.
+    grid(
+      rows: 2, row-gutter: 10pt,
+      block(width: 132pt, inset: (x: 9pt, y: 7pt), fill: gris,
+            stroke: 0.8pt + gris.darken(15%))[
+        #text(font: police-code, size: 12.5pt)[ingredients.csv]
+        #v(0.25em)
+        #text(size: 11.5pt, fill: estompe)[pour une personne, \ en unités SI]
+      ],
+      block(width: 132pt, inset: (x: 9pt, y: 7pt), fill: gris,
+            stroke: 0.8pt + gris.darken(15%))[
+        #text(font: police-code, size: 12.5pt)[recette.md]
+        #v(0.25em)
+        #text(size: 11.5pt, fill: estompe)[le texte, sans \ son tableau]
+      ],
+    ),
+    fleche,
+    block(width: 150pt, inset: (x: 10pt, y: 8pt), fill: accent.lighten(92%),
+          stroke: 0.8pt + accent.lighten(55%))[
+      #set text(font: police-code, size: 12.5pt)
+      #set par(leading: 0.7em)
+      lire_ingredients \
+      adapter \
+      en_table \
+      tabulate \
+      markdown
+    ],
+    fleche,
+    // Le résultat, tel qu'il s'affiche dans le navigateur.
+    block(width: 100%, inset: (x: 11pt, y: 9pt),
+          stroke: 0.8pt + estompe.lighten(50%))[
+      #text(size: 17pt, weight: "bold")[Crêpes]
+      #v(0.3em)
+      #set text(size: 12.5pt)
       #tableau(
-        entete: false,
-        columns: (auto, 1fr),
+        columns: (1fr, auto),
         align: left + horizon,
-        [`#`], [un titre, et son niveau],
-        [`-`, `1.`], [des listes, imbriquées ou non],
-        [`|`], [des tableaux, alignés ou non],
-        [`*`], [l'emphase, sauf dans du code],
-        [`[…](…)`], [des liens, et leurs parenthèses],
+        [Ingrédient], [Quantité],
+        [Farine], [240 g],
+        [Lait], [500 ml],
+        [Œufs], [4],
       )
       #v(0.3em)
-      #text(size: 13.5pt, fill: estompe)[
-        et les combinaisons des cinq
-      ]
-    ],
-    panneau("Avec la bibliothèque")[
-      ```python
-      import markdown
-
-      html = markdown.markdown(source)
-      ```
-      #v(0.4em)
-      ```
-      <h1>Trajet</h1>
-      <p>Trace le trajet de la gare
-      ```
+      #text(fill: estompe)[1. Mélanger la farine et le sel…]
     ],
   )
 
   #legende[
-    Sortie réelle. `markdown` 3.10.3 compte 33 fichiers et 8 480 lignes de
-    Python, relevés le 10 septembre 2026 : dix-huit ans de cas particuliers,
-    signalés par des utilisateurs et corrigés un par un.
+    Le tableau affiché est calculé : il n'existe dans aucun des deux fichiers
+    d'entrée.
   ]
 
   #notes[
-    Le motif n'est plus de gagner du temps de frappe, c'est de faire ce
-    qu'on ne saurait pas faire dans la semaine. Faire lire la colonne de
-    gauche à voix haute : chaque ligne est un analyseur à écrire.
+    Poser le besoin avant le code : une recette s'écrit pour un nombre de
+    convives, et se relit dans le système d'unités du lecteur. Les
+    quantités du fichier valent pour une personne ; tout le reste se
+    calcule.
 
-    C'est la ligne `import markdown` de la manipulation qui suit, sur le
-    fichier qu'ils auront écrit eux-mêmes.
-  ]
-]
-#d("Une bibliothèque ou un convertisseur tout fait")[
-  #annonce[
-    Un programme de conversion existe déjà, `pandoc`, et fait très bien la
-    même chose. La bibliothèque, elle, se règle depuis le code.
-  ]
+    Faire remarquer que `recette.md` ne contient pas de tableau, seulement
+    le titre « Ingrédients ». C'est ce qui permet au même fichier de servir
+    pour deux personnes comme pour douze.
 
-  #face-a-face(
-    panneau("Le tableau de la recette, converti tel quel")[
-      ```python
-      html = markdown.markdown(source)
-      ```
-      #v(0.3em)
-      ```
-      <p>| Ingrédient | Quantité |
-      |---|---|
-      | Farine | 250 g |
-      ```
-    ],
-    panneau("Le même, en demandant les tableaux")[
-      ```python
-      html = markdown.markdown(source,
-                               extensions=["tables"])
-      ```
-      #v(0.3em)
-      ```
-      <table>
-      <thead>
-      <tr><th>Ingrédient</th><th>Quantité</th></tr>
-      ```
-    ],
-  )
+    Les cinq noms de la boîte du milieu sont l'ordre du programme, et
+    l'ordre des deux diapositives qui suivent : ce que fait chaque
+    fonction, puis d'où elle vient.
 
-  #legende[
-    Sorties réelles sur le `recette.md` de la manipulation. Le tableau reste
-    du texte brut à gauche ; à droite, un argument de plus le rend en vrai
-    tableau HTML.
-  ]
-
-  #notes[
-    La question vient toujours : « pourquoi ne pas lancer `pandoc` ? »
-    Réponse honnête : pour une conversion unique, `pandoc` suffit et
-    demande moins. La bibliothèque sert quand la conversion est une étape
-    d'un programme — quand il faut choisir ce qui est traduit, l'insérer
-    dans une page à soi, ou refaire l'opération sur cent fichiers.
-
-    C'est aussi la différence entre un outil qu'on installe et du code
-    qu'on appelle : le premier fait ce qu'il fait, le second se règle.
-
-    Ne pas détailler les extensions : `tables` suffit à faire voir le
-    principe. La manipulation qui suit s'en sert.
-  ]
-]
-#d("Le programme de la manipulation")[
-  #annonce[
-    Un ingrédient est un triplet : son nom, sa quantité, son unité. `adapter`
-    prend la liste des ingrédients et rend la même, mise à l'échelle et
-    convertie.
-  ]
-
-  #set text(size: 19pt)
-  ```python
-  def adapter(ingredients, personnes, unites):
-      resultat = []
-      for nom, quantite, unite in ingredients:
-          quantite = quantite * personnes
-          if unites == "US":
-              quantite, unite = convertir(quantite, unite)
-          resultat.append((nom, quantite, unite))
-      return resultat
-  ```
-
-  #v(0.3em)
-  ```python
-  ingredients = lire_ingredients("ingredients.csv")
-  ingredients = adapter(ingredients, PERSONNES, UNITES)
-  lignes = en_table(ingredients)
-  ```
-
-  #legende[
-    Code réel du projet. `convertir` divise par 28,3495 ou par 236,588 selon
-    l'unité, et laisse passer ce qui se compte. Le programme, en bas, tient en
-    trois lignes.
-  ]
-
-  #notes[
-    Deux fonctions séparées parce qu'elles répondent à deux questions
-    différentes, et qu'on peut vouloir l'une sans l'autre. C'est aussi ce
-    qui permet de les essayer une par une dans l'interpréteur.
-
-    Ce que ce code n'installe pas : convertir des unités ne vaut pas une
-    bibliothèque. `pint` existe et le fait très bien, à l'échelle de la
-    physique ; deux facteurs et un dictionnaire suffisent ici. La
-    bibliothèque se justifie pour le Markdown, huit mille lignes, pas pour
-    diviser par 28,3495. C'est l'arbitrage de la partie, en un exemple.
-
-    Le tableau n'est pas dans `recette.md` : il est calculé, puis inséré
-    sous le titre « Ingrédients ». Le même fichier sert donc pour deux
-    personnes et pour douze, en grammes ou en onces.
-
-    `i | {…}` fabrique un dictionnaire neuf : la ligne de départ n'est pas
-    modifiée. Ne pas s'y arrêter, c'est du cours 3.
+    Ce que la bibliothèque apporte, en une phrase : reconnaître les titres,
+    les listes, les tableaux, l'emphase et les liens d'un texte Markdown,
+    et leurs combinaisons. Huit mille lignes que personne n'écrit dans la
+    semaine — c'est l'argument de la partie, et il ne vaut pas pour les
+    conversions d'unités, qui tiennent en deux divisions.
   ]
 ]
 #d("D'où vient chaque ligne du programme")[
@@ -383,8 +309,12 @@
     demandent une bibliothèque à installer.
   ]
 
-  #set text(size: 18pt)
+  #set text(size: 16pt)
   ```python
+  import markdown                                           # installée
+  from tabulate import tabulate                             # installée
+  from recette import adapter, en_table, lire_ingredients   # le projet
+
   ingredients = lire_ingredients(ICI / "ingredients.csv")   # le projet
   ingredients = adapter(ingredients, PERSONNES, UNITES)     # le projet
   lignes = en_table(ingredients)                            # le projet
@@ -399,9 +329,8 @@
   ```
 
   #legende[
-    Trois appels au code du projet, deux à des bibliothèques installées, deux
-    à `pathlib`, livrée avec Python, et deux à rien du tout. La ligne
-    `source.replace` est resserrée : elle garde le titre.
+    Deux lignes seulement demandent une bibliothèque installée. `source.replace`
+    est resserrée ici : elle garde le titre.
   ]
 
   #notes[
