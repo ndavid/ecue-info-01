@@ -27,10 +27,33 @@ son texte est à l'écran. En cas de doute : *Restart & Run All*.
 
 ## Où sont les fichiers
 
+Ceux du TD 1a : `cours1/1a_formats/depart/`, et le PDF que vous avez exporté
+dans `cours1/1a_formats/travail/`.
+
 ```{code-cell} ipython3
 from pathlib import Path
 
-GENERE = Path("../../../data/cours1/produit")
+def dossier_seance(depart: Path = Path.cwd()) -> Path:
+    """Le dossier de la séance, celui qui contient `1a_formats/`.
+
+    Le notebook s'ouvre depuis l'archive du cours, depuis le dépôt ou pendant
+    la construction du book, et le dossier courant change à chaque fois : on
+    remonte donc jusqu'à le trouver.
+    """
+    for dossier in [depart, *depart.parents]:
+        for candidat in (dossier, dossier / "data" / "cours1"):
+            if (candidat / "1a_formats").is_dir():
+                return candidat
+    raise FileNotFoundError("dossier de la séance introuvable depuis " + str(depart))
+
+# Dans le dépôt du cours, les fichiers fabriqués sont rangés dans produit/.
+def dossier_td(nom: str) -> Path:
+    td = dossier_seance() / nom
+    return td / "produit" if (td / "produit").is_dir() else td
+
+GENERE = dossier_td("1a_formats") / "depart"    # les fichiers donnés
+EXPORTE = dossier_td("1a_formats") / "travail"  # ce que vous avez exporté
+
 sorted(p.name for p in GENERE.glob("raven*"))
 ```
 
@@ -84,15 +107,20 @@ def format_reconnu(octets):
             return description
     return "aucune signature : sans doute du texte"
 
-format_reconnu(entete(GENERE / "raven.pdf"))
+# raven.pdf est celui que vous avez exporté depuis raven.odt au TD 1a.
+pdf = EXPORTE / "raven.pdf"
+if pdf.exists():
+    print(format_reconnu(entete(pdf)))
+else:
+    print("raven.pdf manque : exportez-le depuis raven.odt (TD 1a), puis relancez")
 ```
 
 ## Le tableau complet
 
 ```{code-cell} ipython3
-for nom in ["raven_une_ligne.txt", "raven_une_ligne.donnees",
-            "raven.odt", "raven_brut.html", "raven.pdf"]:
-    chemin = GENERE / nom
+for chemin in [GENERE / "raven_une_ligne.txt", GENERE / "raven_une_ligne.donnees",
+               GENERE / "raven.odt", GENERE / "raven_brut.html", EXPORTE / "raven.pdf"]:
+    nom = chemin.name
     if not chemin.exists():
         print(f"{nom:26} introuvable")
         continue
@@ -119,7 +147,7 @@ Copiez un fichier en changeant son extension, puis relisez ses octets.
 ```{code-cell} ipython3
 import shutil
 
-menteur = GENERE / "raven_odt.pdf"
+menteur = EXPORTE / "raven_odt.pdf"
 shutil.copy(GENERE / "raven.odt", menteur)
 
 octets = entete(menteur)

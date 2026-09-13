@@ -70,7 +70,7 @@
 
   #legende[
     Le `#` fait un titre, les deux astérisques mettent en gras : rien de neuf
-    depuis la manipulation Markdown.
+    depuis le TD 3a, Markdown.
   ]
 
   #notes[
@@ -115,7 +115,7 @@
     exécuté dans le désordre.
 
     À droite en haut, le nom du noyau, `Python 3 (ipykernel)`. C'est ce
-    qu'on choisit à l'ouverture, et le sujet de la manipulation.
+    qu'on choisit à l'ouverture, et le sujet du TD 4.
 
     À gauche, l'arborescence : un notebook est un fichier dans un dossier,
     comme le reste.
@@ -148,7 +148,7 @@
 
     VSCode est un client comme JupyterLab : il ouvre le même fichier et
     parle au même noyau. C'est le sens de la question « choisir le noyau »
-    qu'il pose à l'ouverture, et la manipulation le vérifie.
+    qu'il pose à l'ouverture, et le TD le vérifie.
 
     Le jeton dans l'adresse `localhost:8888/lab?token=…` est un mot de
     passe à usage unique, qui empêche qu'un autre poste du réseau exécute
@@ -214,7 +214,7 @@
   ]
 
   #notes[
-    Le point pratique, et il sert dès la manipulation : un environnement
+    Le point pratique, et il sert dès le TD : un environnement
     ouvert dans l'éditeur n'a besoin que d'`ipykernel`. C'est pourquoi
     l'environnement `analyse` de tout à l'heure n'a pas `jupyterlab` et
     fonctionne quand même.

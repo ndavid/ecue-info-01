@@ -27,7 +27,7 @@ conda --version
 Il y en a deux, et il faut savoir lequel on veut.
 
 `info01` est l'environnement de **travail** : celui des étudiants, celui dans
-lequel se jouent toutes les manipulations. Il contient Python, JupyterLab, numpy,
+lequel se jouent tous les TD. Il contient Python, JupyterLab, numpy,
 pillow, ffmpeg, ImageMagick et pandoc — rien de la chaîne documentaire.
 
 ```bash
@@ -58,8 +58,8 @@ python  --version    # Python 3.12.x
 sphinx-build --version   # 9.x   → book
 typst   --version    # 0.15.x    → diapositives
 pandoc  --version    # 3.11      → conversions de documents
-ffmpeg  -version     # → TD 4
-magick  --version    # ImageMagick 7 → TD 4
+ffmpeg  -version     # → projet 4
+magick  --version    # ImageMagick 7 → projet 4
 
 python -c "import numpy, PIL; print(numpy.__version__, PIL.__version__)"
 ```
@@ -94,8 +94,8 @@ conda env remove -n info01
 | `sphinx-autobuild` | aperçu live pendant la rédaction | supports |
 | `typst` | diapositives | supports |
 | `pandoc` | conversions de documents | c2, `make_data.py` |
-| `numpy`, `pillow` | calcul et images | c6, TD 7 |
-| `ffmpeg`, `imagemagick` | pipeline d'animation | c3, TD 4 |
+| `numpy`, `pillow` | calcul et images | c6, projet 7 |
+| `ffmpeg`, `imagemagick` | pipeline d'animation | c3, projet 4 |
 
 ---
 
@@ -107,10 +107,10 @@ Le dépôt versionne le script, pas les textes (voir [`data/cours1/README.md`](d
 conda activate info01
 cd data/cours1
 python make_data.py fetch    # télécharge les sources — une seule fois, réseau requis
-python make_data.py build    # dérive les fichiers de l'exercice dans produit/
+python make_data.py build    # dérive les fichiers du TD 1a dans 1a_formats/produit/depart/
 ```
 
-Sans réseau : déposer un `.txt` dans `data/cours1/fourni/` (le nom du
+Sans réseau : déposer un `.txt` dans `data/cours1/1a_formats/fourni/` (le nom du
 fichier est la clé, ex. `raven.txt`) puis lancer directement `build`.
 
 `build` produit, pour chaque texte : la version `.txt` **sur une ligne**, la
@@ -136,7 +136,7 @@ python outils/ressources.py exporter /media/…/info01-ressources  # publier ver
 `exporter` met à jour `outils/ressources.json`, qui retient la taille et
 l'empreinte de chaque fichier. Ce manifeste étant versionné, `verifier`
 fonctionne sur un poste fraîchement cloné, avant toute copie : il dit ce qui
-manque plutôt que de laisser une manipulation s'arrêter en séance.
+manque plutôt que de laisser un TD s'arrêter en séance.
 
 Les copies sont relues après écriture, `importer` n'efface jamais rien et
 refuse d'écraser un fichier dont le contenu diffère tant qu'on ne lui passe pas
@@ -214,7 +214,8 @@ conda activate info01
 
 python outils/compiler_diapos.py             # le cours 1, à projeter
 python outils/compiler_diapos.py --notes     # version annotée
-python outils/compiler_diapos.py --corrige   # corrigé des manipulations
+python outils/compiler_diapos.py --corrige   # corrigé des TD
+python outils/compiler_diapos.py --sans-tds  # le fil du cours, un sommaire par bloc de TD
 python outils/compiler_diapos.py --tous      # les sept jeux
 python outils/compiler_diapos.py --sans-captures   # vérifier le repli dessiné
 ```
@@ -233,7 +234,7 @@ typst compile --root . --input notes=true src/cours1/diapo/cours1.typ cours1-not
 # avec les captures d'écran, si l'archive a été décompressée
 typst compile --root . --input captures=true src/cours1/diapo/cours1.typ
 
-# avec le corrigé des manipulations, à distribuer après la séance
+# avec le corrigé des TD, à distribuer après la séance
 typst compile --root . --input corrige=true src/cours1/diapo/cours1.typ cours1-corrige.pdf
 
 # recompilation à chaque sauvegarde (confortable pour rédiger)
@@ -260,21 +261,22 @@ for f in src/cours*/diapo/cours*.typ; do typst compile --root . "$f"; done
 | `--input corrige=true` | distribué après la séance | ces colonnes sont remplies |
 | `--input notes=true` | l'enseignant | page deux fois plus large : la diapositive à gauche, ses notes à droite (format « second écran » de Beamer) |
 | `--input captures=true` | partout, si les images sont là | les captures d'écran remplacent les schémas dessinés |
-| `--input manips=false` | relecture du fil du cours | les manipulations sont laissées de côté |
+| `--input tds=false` | une séance où les TD se font sur feuille | chaque bloc de TD est remplacé par une diapositive qui les liste |
 
-Chaque manipulation se compile aussi seule, en feuille d'instructions déposée
-dans le dossier de données qu'elle annonce :
+Chaque TD se compile aussi seul, en feuille de TD déposée dans le dossier de
+données qu'il annonce, et l'archive remise aux étudiants s'assemble à partir
+de là :
 
 ```bash
-python outils/compiler_manips.py            # les sept manipulations du cours 1
-python outils/compiler_manips.py --corrige  # + la version avec les réponses
+python outils/compiler_tds.py            # les dix TD du cours 1, td_<dossier>.pdf
+python outils/compiler_tds.py --corrige  # + la version avec les réponses
+python outils/livrer_tds.py              # livraison/cours1/ et livraison/info01-cours1.zip
 ```
 
-Les options se combinent. Ce que la manipulation fait constater n'est pas
-projeté pendant qu'elle se fait : la tentative, même infructueuse, améliore la
-rétention de la réponse donnée ensuite, et un support à trous est plus efficace
-qu'un support complet. Les références sont dans
-[`STYLE.md`](STYLE.md#manipulations-et-corrigé).
+Les options se combinent. Ce que le TD fait constater n'est pas projeté
+pendant qu'il se fait : la tentative, même infructueuse, améliore la rétention
+de la réponse donnée ensuite, et un support à trous est plus efficace qu'un
+support complet. Les références sont dans [`STYLE.md`](STYLE.md#td-et-corrigé).
 
 ### Vérifier une fois compilé
 
@@ -328,7 +330,7 @@ import les apporte tous :
 |--------|------|
 | `diapos(titre-court:, auteur-court:)` | réglages globaux, pied de page |
 | `d(titre)[…]` | une diapositive ordinaire |
-| `separateur(…)` / `separateur-td(…)` / `separateur-manip(…)` | diapositives de section |
+| `separateur(…)` / `separateur-td(..td)` / `sommaire-td(…)` | diapositives de section, ouverture et sommaire des TD |
 | `annonce[…]`, `legende[…]`, `notes[…]` | phrase sous le titre, source, notes de conduite |
 | `tableau(…)`, `face-a-face(…)`, `panneau(…)` | preuves visuelles |
 | `fenetre(titre)[…]` | fenêtre d'application dessinée |
@@ -392,7 +394,7 @@ rm -rf _build
 ### Prérequis d'exécution
 
 Les cellules de `src/cours1/notebook/02_formats_de_fichier.md` lisent les fichiers
-de `data/cours1/produit/` : **générer les données avant de construire**
+de `data/cours1/1a_formats/produit/depart/` : **générer les données avant de construire**
 (section 2), sinon la build échoue (`nb_execution_raise_on_error = True` — une
 cellule cassée doit se voir).
 

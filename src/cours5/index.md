@@ -15,7 +15,7 @@ Deux moitiés indépendantes ; la 2ᵉ prépare directement la forge (cours 6).
 - **🎓 12′ · Composants d'un PC** : CPU, RAM, disque (SSD/HDD), GPU — rôle de chacun en une phrase.
 - **🎓 13′ · Réseau, le minimum** : local vs distant, client ↔ serveur, débit vs latence (motive « pourquoi un `push` est plus lent qu'un `commit` »).
 - **🎓 20′ · Ordres de grandeur** (fil rouge de la séance) : temps d'accès (RAM ≪ SSD ≪ réseau), tailles (Ko/Mo/Go/To), coûts ; rendus incarnés par une échelle relative mémorable (« si la RAM = 1 s, le disque = …, le réseau = … »).
-- **⌨️ 15′ · Manipulation légère** : comparer la taille d'une même image en png vs jpg (compression → cours 1) ; chronométrer la lecture d'un petit vs gros fichier (→ cours 2).
+- **⌨️ 15′ · TD léger** : comparer la taille d'une même image en png vs jpg (compression → cours 1) ; chronométrer la lecture d'un petit vs gros fichier (→ cours 2).
 - **Cohérence** : se raccroche à trois fils déjà vus/à venir — tailles & compression (c.1), timing fichier (c.2), local vs distant (forge, c.6). *(Si un point ne se raccroche pas, tant pis : toutes les notions de base ne sont pas interdépendantes.)*
 
 **B. SSH, clés & secrets (~1 h) — pratique, juste avant la forge.**

@@ -3,8 +3,8 @@ title: Introduction à l'informatique
 ---
 
 Supports du module « Introduction à l'informatique » (14 h, 1re année
-géomatique). Les pages contiennent le texte du cours, les manipulations à faire
-en séance, et le code exécuté pour produire les résultats affichés.
+géomatique). Les pages contiennent le texte du cours, les TD à faire en
+séance, et le code exécuté pour produire les résultats affichés.
 
 Commencez par l'[introduction](introduction.md), qui décrit l'objectif du module
 et son articulation avec les autres cours.

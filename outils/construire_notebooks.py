@@ -3,8 +3,12 @@
 
 Les sources sont en MyST Markdown : c'est du texte, qui se relit, se compare
 ligne à ligne et se versionne — la démonstration du cours 1 appliquée à ses
-propres supports. Le `.ipynb` en est dérivé, comme un PDF l'est d'un `.typ`, et
-il est dans `.gitignore`.
+propres supports. Le `.ipynb` en est dérivé, comme un PDF l'est d'un `.typ`.
+
+Il est déposé dans `produit/` du TD sur les notebooks de la séance, le dossier
+de `data/cours<n>/` dont le nom finit par `_notebooks` : c'est là que le TD
+envoie les étudiants, et `outils/livrer_tds.py` le prend au passage, comme le
+reste de `produit/`.
 
     python outils/construire_notebooks.py            # convertit
     python outils/construire_notebooks.py --executer # convertit puis exécute
@@ -27,8 +31,21 @@ RACINE = Path(__file__).resolve().parent.parent
 SOURCES = sorted((RACINE / "src").glob("cours*/notebook/*.md"))
 
 
+def destination(source: Path) -> Path | None:
+    """`produit/` du TD notebooks de la séance, ou None s'il n'y en a pas."""
+    cours = source.parent.parent.name
+    tds = sorted((RACINE / "data" / cours).glob("*_notebooks"))
+    return tds[0] / "produit" if tds else None
+
+
 def convertir(source: Path, executer: bool) -> bool:
-    cible = source.with_suffix(".ipynb")
+    dossier = destination(source)
+    if dossier is None:
+        print(f"{source.relative_to(RACINE)} : aucun dossier *_notebooks dans "
+              f"data/{source.parent.parent.name}/, ignoré", file=sys.stderr)
+        return False
+    dossier.mkdir(parents=True, exist_ok=True)
+    cible = dossier / source.with_suffix(".ipynb").name
     conversion = subprocess.run(
         ["jupytext", "--to", "ipynb", "--output", str(cible), str(source)],
         capture_output=True, text=True,

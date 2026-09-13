@@ -1,5 +1,5 @@
-# Données des séances : deux conventions, et rien à ajouter ici quand une
-# manipulation nouvelle arrive.
+# Données des séances : deux conventions, et rien à ajouter ici quand un TD
+# nouveau arrive.
 #
 #   produit/   ce qu'une commande refabrique — make_data.py, anime.sh, une
 #              compilation. Perdre ce dossier ne coûte qu'un temps de calcul.
@@ -8,26 +8,32 @@
 #              interdisent le téléchargement en masse. Hors dépôt pour son
 #              poids, mais il doit voyager — c'est l'objet de
 #              `outils/ressources.py`.
-data/*/produit/
+#
+# Ni l'un ni l'autre n'apparaît dans l'archive remise aux étudiants :
+# `outils/livrer_tds.py` met le contenu de produit/ à plat dans le dossier du
+# TD, et laisse fourni/ au dépôt.
 data/*/*/produit/
-data/*/fourni/
 data/*/*/fourni/
 
 # Images des supports : volumineuses, elles vieillissent avec les versions des
 # logiciels et n'ont pas à peser sur l'historique. Seul le README qui décrit
 # l'arborescence attendue est suivi.
 
-# Exécutables et pages que les manipulations produisent à côté de leur source :
-# ils y naissent parce que c'est la commande que les étudiants tapent, et non
-# par manque de rangement.
-data/*/hello/cpp/bonjour
-data/*/erreurs/cpp/aire
-data/*/*/cpp/*.exe
-data/*/recette/*.html
-data/*/recette/*.egg-info/
-data/*/markdown/recette_v*.md
-data/*/markdown/*.diff
-data/*/markdown/*.odt
+# Exécutables et pages que les TD produisent à côté de leur source : ils y
+# naissent parce que c'est la commande que les étudiants tapent, et non par
+# manque de rangement.
+data/*/2c_hello_cpp/bonjour
+data/*/*/*.exe
+data/*/5a_octets/raven_*
+data/*/5b_trajet/etape_*.png
+data/*/5b_trajet/trajet.srt
+data/*/5b_trajet/trajet.mp4
+data/*/5b_trajet/montage.txt
+data/*/3b_recette/*.html
+data/*/3b_recette/*.egg-info/
+data/*/3a_markdown/recette_v*.md
+data/*/3a_markdown/*.diff
+data/*/3a_markdown/*.odt
 
 # Environnement & outillage
 __pycache__/
@@ -35,13 +41,11 @@ __pycache__/
 _build/
 .venv/
 
-# Sorties typst
+# Sorties typst, dont les feuilles de TD que `outils/compiler_tds.py` dépose
+# dans le dossier de chaque TD : elles se refabriquent depuis
+# `src/cours<n>/diapo/tds/`.
 *.pdf
 
-# Notebooks dérivés des sources MyST par outils/construire_notebooks.py
-src/*/notebook/*.ipynb
+# Archives remises aux étudiants, assemblées par `outils/livrer_tds.py`
+livraison/
 
-# Feuilles d'instructions des manipulations, déposées par
-# `outils/compiler_manips.py` dans le dossier que chaque manipulation annonce :
-# elles se refabriquent depuis `src/cours<n>/diapo/manips/`.
-instructions-*.pdf

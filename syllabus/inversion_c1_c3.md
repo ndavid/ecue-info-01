@@ -66,7 +66,7 @@ l'allège pas mécaniquement.
 **Leviers d'ajustement, dans cet ordre :**
 
 1. **Installer conda en amont** (consigne avant la rentrée + créneau d'assistance).
-   La manipulation en séance retombe alors à ~10′ de vérification. C'est le
+   Le TD en séance retombe alors à ~10′ de vérification. C'est le
    levier le plus efficace : l'installation est ce qui déborde le plus, et ce qui
    dépend le plus des postes.
 2. **Basculer la partie ODT-comme-ZIP en exercice complémentaire** (−8′).
@@ -83,7 +83,7 @@ la séance 1 passait à ~130′ et l'installation, placée en fin de créneau, e
 justement ce qui déborde. Aucun allègement en compensation.
 
 **Déplacer conda en séance 2.** Rejetée : la séance 2 est déjà pleine (CLI + git
-local + 40′ de manipulation guidée), et une semaine de retard ne résout qu'à
+local + 40′ de TD guidé), et une semaine de retard ne résout qu'à
 moitié la contrainte externe.
 
 **Créer une séance 0 d'installation.** Séduisante mais hors budget : le module
@@ -94,18 +94,18 @@ fait 14 h fermes.
 - **Cours 2** (CLI & git) : inchangé. Bénéficie même d'un environnement déjà
   installé (`pandoc`, `typst` disponibles pour la conversion de document).
 - **Cours 3** : conserve `pathlib`/`subprocess`/`argparse` ; l'ancien créneau
-  conda (20′) est repris par le bloc binaire (15′ + 20′ de manipulation), ce qui
+  conda (20′) est repris par le bloc binaire (15′ + 20′ de TD), ce qui
   le densifie légèrement → surveiller, le mini-pipeline de 40′ est le premier à
   raboter.
-- **Cours 6 / TD 7** : bénéficient d'un rappel binaire beaucoup plus frais
+- **Cours 6 / projet 7** : bénéficient d'un rappel binaire beaucoup plus frais
   (séance 3 au lieu de séance 1).
-- **TD 4** : le prérequis « env conda prêt » est acquis depuis trois semaines au
+- **Projet 4** : le prérequis « env conda prêt » est acquis depuis trois semaines au
   lieu d'une.
 
 ## À vérifier après la première exécution
 
 - [ ] L'installation conda tient-elle en 25′ sur les postes du labo *et* sur les
       portables personnels ?
-- [ ] La manipulation « un texte, quatre formes » tient-elle en 30′ ?
+- [ ] Le TD « un texte, quatre formes » tient-il en 30′ ?
 - [ ] Le bloc notebooks passe-t-il sans avoir vu `pathlib` (cours 3) ?
 - [ ] Les étudiants retrouvent-ils leur environnement en séance 2 sans aide ?

@@ -133,8 +133,8 @@
   _etiquettes(x-local, "dans le navigateur",
               "affichage, interactions, rendu", "retouche d'image en ligne")
   _etiquettes(x-distant, "sur un serveur, à distance",
-              "recherche dans les données, calculs lourds",
-              "traduction, IA générative")
+              "requêtes sur une base de données, calculs lourds",
+              "recherche, itinéraire, IA générative")
 
   // — la traversée du réseau
   //
@@ -198,7 +198,7 @@
       #image("/illustrations/cours1/vscode_projet.png", width: 100%, height: 100%)
       #_zone-ide(attention, 3%, 6%, 21%, 92.5%, "l'arborescence",
                  bottom + left, dx: 5pt, dy: -5pt)
-      #_zone-ide(manip, 24.3%, 6%, 54.7%, 75.5%, "le code",
+      #_zone-ide(brun, 24.3%, 6%, 54.7%, 75.5%, "le code",
                  top + right, dx: -5pt, dy: 5pt)
       #_zone-ide(alerte, 24.3%, 82.6%, 54.7%, 16.4%, "le terminal",
                  bottom + right, dx: -5pt, dy: -5pt)
@@ -532,8 +532,10 @@
 #let schema-chemin() = cetz.canvas(length: 1cm, {
   set-style(stroke: 0.9pt + _trait)
 
-  let dossiers-systeme = ("/usr/local/bin", "/usr/bin", "/bin")
-  let dossier-env = "…/envs/info01/bin"
+  // Chemins d'un poste Windows, celui de la salle ; la légende de la
+  // diapositive donne les équivalents macOS et Linux.
+  let dossiers-systeme = ("C:\\Windows\\System32", "C:\\Windows")
+  let dossier-env = "…\\envs\\info01"
   let decalage = _largeur-dossier(dossier-env) + 0.78
 
   // Ce que l'on tape, une fois pour les deux lignes.
@@ -548,12 +550,12 @@
   ])
 
   _ligne-chemin(5.4, [sans environnement actif],
-                dossiers-systeme, [/usr/bin/python3], 1,
+                dossiers-systeme, [introuvable, ou un autre python], -1,
                 decalage: decalage)
 
   _ligne-chemin(1.8, [après #raw("conda activate info01")],
                 (dossier-env,) + dossiers-systeme,
-                […/envs/info01/bin/python], 0)
+                […\\envs\\info01\\python.exe], 0)
 
   // Le dossier que l'activation ajoute, et rien d'autre.
   content((0.4 + decalage / 2 - 0.39, 1.6), anchor: "north", box(width: 7cm)[

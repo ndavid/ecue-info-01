@@ -94,8 +94,8 @@ existants ; aucune ne demande d'image externe.
 
 | Diapositive | Partie | Ce que l'illustration montrerait |
 |---|---|---|
-| **Contenu de la séance** | 0 | Une bande horizontale où la largeur de chaque partie est sa durée : la forme de la séance se lit d'un coup, et les manipulations s'y voient. |
-| **Organisation : sept séances** | 0 | La même bande, sur le semestre, avec les deux TD marqués. Le gabarit `frise()` ajouté pour la partie 4 s'y prête. |
+| **Contenu de la séance** | 0 | Une bande horizontale où la largeur de chaque partie est sa durée : la forme de la séance se lit d'un coup, et les TD s'y voient. |
+| **Organisation : sept séances** | 0 | La même bande, sur le semestre, avec les deux projets marqués. Le gabarit `frise()` ajouté pour la partie 4 s'y prête. |
 | **Où s'exécute une application web ?** | 1 | Le fichier qui reste sur la machine, ou qui part vers un serveur. Deux dessins de trois boîtes suffisent. |
 | **Ce que chaque lancement a produit** | 2 | 121 octets contre 20 000 : deux barres proportionnelles rendent le facteur cent visible, là où deux nombres dans un tableau ne le rendent pas. |
 | **Deux formats de notebook** | 5 | Les deux `diff` côte à côte, 2 lignes contre 23. Montrer les diffs plutôt que leurs longueurs. |
@@ -108,7 +108,7 @@ Les tableaux de **comparaison** restent la bonne forme quand la comparaison
 *est* le propos, et ils ne sont pas à remplacer :
 « Les règles d'écriture d'un langage », « Extension de fichier et extension de
 VSCode », « Trois façons d'écrire un document », « Quand un notebook, quand un
-script ». Les diapositives de manipulation gardent aussi leur tableau : la
+script ». Les diapositives de TD gardent aussi leur tableau : la
 colonne masquée par `reponse[…]` est un dispositif, pas un pis-aller.
 
 ---

@@ -3,10 +3,10 @@
 Le dépôt ne versionne pas les textes : ce script les récupère (domaine public)
 puis en dérive les variantes utilisées en séance.
 
-    python make_data.py fetch    # télécharge les sources dans fourni/
-    python make_data.py build    # génère les fichiers dans produit/
+    python make_data.py fetch    # télécharge les sources dans 1a_formats/fourni/
+    python make_data.py build    # génère les fichiers dans 1a_formats/produit/depart/
 
-Hors ligne : déposer un .txt dans fourni/ (nom = clé, ex. raven.txt)
+Hors ligne : déposer un .txt dans 1a_formats/fourni/ (nom = clé, ex. raven.txt)
 et lancer directement `build`.
 """
 
@@ -18,9 +18,16 @@ import urllib.request
 from pathlib import Path
 
 ICI = Path(__file__).parent
-SOURCES = ICI / "fourni"
-SORTIE = ICI / "produit"
-CORRIGE = SORTIE / "_corrige"
+SOURCES = ICI / "1a_formats" / "fourni"
+PRODUIT = ICI / "1a_formats" / "produit"
+# L'étudiant reçoit deux dossiers : `depart/`, les fichiers donnés, et
+# `travail/`, vide, où vont ses copies et ce qu'il fabrique. Distinguer les
+# deux évite qu'une copie renommée passe pour un fichier du cours.
+SORTIE = PRODUIT / "depart"
+TRAVAIL = PRODUIT / "travail"
+CORRIGE = PRODUIT / "_corrige"
+# Le TD 1b, l'archive .odt, repart du même `raven.odt`, dans son propre dossier.
+ARCHIVE = ICI / "1b_archive_odt" / "produit"
 
 # Textes du domaine public. `debut`/`fin` délimitent l'extrait utile dans le
 # fichier brut (Gutenberg entoure le texte d'un long préambule de licence).
@@ -88,8 +95,18 @@ def lignes_du_texte(chemin: Path) -> list[str]:
 
 
 def build() -> None:
-    SORTIE.mkdir(exist_ok=True)
-    CORRIGE.mkdir(exist_ok=True)
+    # produit/ ne contient que ce que ce script fabrique : on repart de zéro,
+    # pour que rien de ce qu'un TD joué depuis le dépôt y a laissé (un
+    # `raven.pdf` exporté, une copie renommée) ne parte dans l'archive remise
+    # aux étudiants, qui reprend produit/ tel quel.
+    for dossier in (PRODUIT, ARCHIVE):
+        if dossier.exists():
+            for ancien in dossier.iterdir():
+                if ancien.name == ".gitkeep":
+                    continue
+                shutil.rmtree(ancien) if ancien.is_dir() else ancien.unlink()
+    for dossier in (SORTIE, TRAVAIL, CORRIGE, ARCHIVE / "depart", ARCHIVE / "travail"):
+        dossier.mkdir(parents=True, exist_ok=True)
     (SORTIE / "style.css").write_text(CSS, encoding="utf-8")
 
     trouve = False
@@ -138,6 +155,8 @@ def construire_un(cle: str, meta: dict, source: Path) -> None:
     md.write_text(f"# {titre}\n\n*{auteur}*\n\n" + "\n".join(lignes) + "\n", encoding="utf-8")
     try:
         subprocess.run(["pandoc", str(md), "-o", str(odt)], check=True)
+        if cle == "raven":
+            shutil.copy(odt, ARCHIVE / "depart" / odt.name)
     except (FileNotFoundError, subprocess.CalledProcessError):
         print(f"! pandoc indisponible — {odt.name} non généré")
     finally:

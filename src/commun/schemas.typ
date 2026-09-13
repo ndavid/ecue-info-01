@@ -9,7 +9,7 @@
 // fixe dépendrait de la police effectivement installée, et c'est ainsi que du
 // texte est passé par-dessus le bord de ses cadres.
 
-#import "theme.typ": accent, estompe, manip, demi-gras, police-code
+#import "theme.typ": accent, estompe, brun, demi-gras, police-code
 
 #let bloc(titre, detail, plein: false, hauteur: auto) = block(
   width: 100%, height: hauteur, inset: 12pt,
@@ -233,6 +233,6 @@
   ..caracteres.map(c => align(center, if c == none {
     text(font: police-code, size: taille, fill: estompe)[·]
   } else {
-    text(font: police-code, size: taille, weight: demi-gras, fill: manip)[#c]
+    text(font: police-code, size: taille, weight: demi-gras, fill: brun)[#c]
   })),
 )

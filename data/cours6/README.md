@@ -14,7 +14,7 @@ Objectif : maîtriser la forge (remote, push/pull) et branches/merge **en constr
 - **🎓 15′ · Outil trajectoire** : distance totale et **vitesse moyenne** sur une suite de points ; deux comparaisons — boucle vs **numpy** (« Python interprété vs boucle **C** compilée ») et lecture **texte ligne par ligne** vs **binaire d'un bloc**.
 - **⌨️ 10′ · numpy** introduit ici comme *ajout de dépendance* à l'env (`conda install numpy`, rappel c3).
 
-**⌨️ ~55′ · Jalons de code = étapes git** (manipulation guidée) sur outils calcul stat gpx:
+**⌨️ ~55′ · Jalons de code = étapes git** (TD guidé) sur outils calcul stat gpx:
 
 | Jalon | Code | Étape git |
 |------|------|-----------|

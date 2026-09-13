@@ -5,8 +5,8 @@ title: "Séance 1 — Logiciel, programmation et formats de fichier"
 ## Contenu de la séance
 
 Cinq parties, des notions les plus générales jusqu'à l'installation de
-l'environnement de programmation. Chacune alterne une explication courte et une
-manipulation faite sur votre machine.
+l'environnement de programmation. Chacune alterne une explication courte et un
+TD fait sur votre machine.
 
 ```{list-table}
 :header-rows: 1
@@ -33,22 +33,16 @@ manipulation faite sur votre machine.
 
 ## Avant la séance
 
-Les fichiers manipulés sont produits à partir de textes du domaine public. À
-lancer une fois, depuis la racine du dépôt :
-
-```bash
-cd data/cours1
-python make_data.py fetch
-python make_data.py build
-```
+Les fichiers des TD sont dans l'archive `cours1/` remise avec la séance : un
+dossier par TD, numéroté dans l'ordre où ils viennent, et dans chacun la
+feuille du TD en PDF. Les textes sont du domaine public.
 
 La dernière page de la liste ci-dessous est une annexe : elle n'est pas jouée
 en séance, se fait seule, et prépare le cours 2.
 
 L'environnement `info01` doit être en place, par la consigne d'installation
 envoyée avant la rentrée. La bibliothèque `markdown`, elle, ne l'est pas : elle
-s'installe pendant la séance, et c'est le sujet de la manipulation de la
-quatrième partie.
+s'installe pendant la séance, et c'est le sujet du TD 3b.
 
 ```{toctree}
 :maxdepth: 1

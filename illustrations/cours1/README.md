@@ -46,15 +46,15 @@ pages web, et un navigateur sans fenêtre les photographie. Elles peuvent donc
 D=illustrations/cours1
 
 # les deux pages du poème, avec et sans feuille de style
-cd data/cours1/produit
+cd data/cours1/1a_formats/produit/depart
 for f in raven_brut raven_style; do
     chromium --headless --disable-gpu --hide-scrollbars \
-        --screenshot="../../../$D/page_html_${f#raven_}.png" \
+        --screenshot="../../../../../$D/page_html_${f#raven_}.png" \
         --window-size=900,620 "file://$PWD/$f.html"
 done
 
 # le rendu de la recette : pandoc produit le HTML, mermaid dessine le schéma
-pandoc data/cours1/markdown/recette.md -t html -o page.html   # + script mermaid
+pandoc data/cours1/3a_markdown/recette.md -t html -o page.html   # + script mermaid
 chromium --headless --disable-gpu --hide-scrollbars \
     --virtual-time-budget=25000 --screenshot="$D/apercu_recette.png" \
     --window-size=760,1180 "file://$PWD/page.html"

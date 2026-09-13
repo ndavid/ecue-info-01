@@ -13,7 +13,7 @@ kernelspec:
 :::{note}
 Cette page n'est pas jouée en séance : elle se fait seule, et prépare le cours 2.
 Elle repart d'un fichier déjà écrit, la recette mise en forme en Markdown en
-séance, dans `data/cours1/markdown/`.
+séance, dans `cours1/3a_markdown/`.
 :::
 
 Le choix d'un format décide de ce qu'on peut faire du fichier ; comparer deux
@@ -35,7 +35,20 @@ raison de plus d'écrire une instruction par ligne.
 import difflib
 from pathlib import Path
 
-recette = Path("../../../data/cours1/markdown/recette.md")
+def dossier_seance(depart: Path = Path.cwd()) -> Path:
+    """Le dossier de la séance, celui qui contient `1a_formats/`.
+
+    Le notebook s'ouvre depuis l'archive du cours, depuis le dépôt ou pendant
+    la construction du book, et le dossier courant change à chaque fois : on
+    remonte donc jusqu'à le trouver.
+    """
+    for dossier in [depart, *depart.parents]:
+        for candidat in (dossier, dossier / "data" / "cours1"):
+            if (candidat / "1a_formats").is_dir():
+                return candidat
+    raise FileNotFoundError("dossier de la séance introuvable depuis " + str(depart))
+
+recette = dossier_seance() / "3a_markdown" / "recette.md"
 avant = recette.read_text(encoding="utf-8").splitlines(keepends=True)
 apres = [
     ligne.replace("1 heure de repos", "2 heures de repos")
@@ -72,10 +85,10 @@ partir de la première : c'est ce qu'on appelle un **correctif**, ou *patch*.
 Pendant vingt ans, les contributions aux projets libres se sont envoyées ainsi,
 par courriel.
 
-:::{admonition} Manipulation — modifier, comparer, appliquer
+:::{admonition} À faire — modifier, comparer, appliquer
 :class: tip
 
-Le dossier `data/cours1/markdown/` contient `comparer.py`, un programme d'une
+Le dossier `cours1/3a_markdown/` contient `comparer.py`, un programme d'une
 quarantaine de lignes qui n'emploie que la bibliothèque standard.
 
 1. Ouvrez `recette.md`, puis **Fichier → Enregistrer sous**, sous le nom

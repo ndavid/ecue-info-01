@@ -16,5 +16,5 @@
 )
 
 #d("Plan de la séance")[
-  À rédiger — voir `syllabus/cours/7_td_benchmark_image/contenu_detaille.md`.
+  À rédiger — voir `syllabus/cours/7_projet_benchmark_image/contenu_detaille.md`.
 ]

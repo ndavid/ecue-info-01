@@ -59,7 +59,7 @@ pandoc --version
 ffmpeg -version
 ```
 
-:::{admonition} Manipulation 1 — vérifier quel Python s'exécute
+:::{admonition} À faire 1 — vérifier quel Python s'exécute
 :class: tip
 
 Exécutez la cellule suivante. Elle affiche le chemin de l'interpréteur qui
@@ -163,11 +163,11 @@ liste à la main, et c'est ce qui justifie l'outil.
 Quand une dépendance n'est pas présente dans l'environnement actif, l'exécution
 s'arrête avant la première ligne utile.
 
-Le dossier `data/cours1/recette/` contient un petit projet Python écrit
+Le dossier `cours1/3b_recette/` contient un petit projet Python écrit
 comme ceux que vous ouvrirez cette année : un `pyproject.toml` qui dit ce qu'est
 le projet et ce dont il dépend, un `environment.yml` qui décrit l'environnement,
 un `README.md`, et le paquet `recette/`. Le programme convertit en page HTML
-le `recette.md` que vous avez écrit à la manipulation Markdown, avec la
+le `recette.md` que vous avez écrit au TD 3a, avec la
 bibliothèque `markdown`.
 
 Les deux fichiers de description ne font pas le même travail, et aucun des deux
@@ -221,13 +221,13 @@ par quelqu'un d'autre, c'est-à-dire distribuable. La fabrication d'un paquet es
 le sujet du cours 3 : le code que vous réutilisez depuis le début de cette page
 est disponible parce que quelqu'un a écrit un fichier de cette forme.
 
-:::{admonition} Manipulation 2 — un environnement neuf, et ce qu'il faut y ajouter
+:::{admonition} À faire 2 — un environnement neuf, et ce qu'il faut y ajouter
 :class: tip
 
 On repart d'un environnement vide plutôt que d'`info01`, pour voir ce qu'un
 environnement contient d'origine.
 
-1. Ouvrez `data/cours1/recette/` dans l'éditeur, et lisez la ligne
+1. Ouvrez `cours1/3b_recette/` dans l'éditeur, et lisez la ligne
    `dependencies` de `pyproject.toml` : le projet annonce avoir besoin de
    `markdown`.
 2. Créez l'environnement décrit par le fichier voisin, et activez-le :
@@ -272,7 +272,20 @@ tapé et l'avoir écrit.
 ```{code-cell} python
 from pathlib import Path
 
-source = Path("../../../data/cours1/markdown/recette.md")
+def dossier_seance(depart: Path = Path.cwd()) -> Path:
+    """Le dossier de la séance, celui qui contient `1a_formats/`.
+
+    Le notebook s'ouvre depuis l'archive du cours, depuis le dépôt ou pendant
+    la construction du book, et le dossier courant change à chaque fois : on
+    remonte donc jusqu'à le trouver.
+    """
+    for dossier in [depart, *depart.parents]:
+        for candidat in (dossier, dossier / "data" / "cours1"):
+            if (candidat / "1a_formats").is_dir():
+                return candidat
+    raise FileNotFoundError("dossier de la séance introuvable depuis " + str(depart))
+
+source = dossier_seance() / "3a_markdown" / "recette.md"
 
 try:
     import markdown
@@ -408,7 +421,7 @@ compteurs `[1]`, `[2]` indiquent l'ordre réel. Un notebook qui fonctionne chez
 vous peut échouer chez quelqu'un d'autre s'il n'a jamais été relancé depuis le
 début.
 
-:::{admonition} Manipulation 3 — provoquer puis réparer l'incohérence
+:::{admonition} À faire 3 — provoquer puis réparer l'incohérence
 :class: tip
 
 1. Lancez `jupyter lab` depuis le terminal, avec `info01` activé.
@@ -477,7 +490,7 @@ c'est là que sont les résultats qui gonflent la différence.
   - n'importe quel éditeur
 ```
 
-:::{admonition} Manipulation 4 — convertir dans les deux sens
+:::{admonition} À faire 4 — convertir dans les deux sens
 :class: tip
 
 ```bash

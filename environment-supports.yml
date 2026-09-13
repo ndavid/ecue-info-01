@@ -1,7 +1,7 @@
 # Environnement de fabrication des supports du module.
 #
 # Il n'intéresse que qui recompile les diapositives ou le book : les étudiants
-# n'en ont pas besoin, et les manipulations ne s'en servent pas. Leur
+# n'en ont pas besoin, et les TD ne s'en servent pas. Leur
 # environnement est `environment.yml`.
 #
 # Il reprend le contenu de `environment.yml` — les notebooks du book s'exécutent

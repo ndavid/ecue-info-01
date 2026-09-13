@@ -74,13 +74,13 @@
     columns: (1fr, 1fr, 1fr),
     rows: 88pt,
     gutter: 12pt,
-    bloc("Éditer", "éditeur de code, arborescence de projet"),
-    bloc("Versionner", "git : enregistrer, revenir, partager"),
-    bloc("Structurer", "README, environnement, ligne de commande"),
+    bloc("Éditer", "éditeur de code, arborescence de projet", hauteur: 100%),
+    bloc("Versionner", "git : enregistrer, revenir, partager", hauteur: 100%),
+    bloc("Structurer", "README, environnement, ligne de commande", hauteur: 100%),
   )
 
   #annonce[
-    Des notions de culture informatique au fil de l'eau, rattachées aux enseignements et TD en cours.
+    Des notions de culture informatique au fil de l'eau, rattachées aux enseignements et projets en cours.
   ]
 
   #v(0.6em)
@@ -92,21 +92,21 @@
       columns: (auto, 1fr), column-gutter: 16pt, align: horizon,
       text(size: 17pt, weight: demi-gras)[Culture informatique],
       align(right, text(size: 14pt, fill: estompe)[
-        ordres de grandeur, sécurité : pourquoi les outils sont faits ainsi
+        ordres de grandeur, sécurité informatique, du programme au logiciel
       ]),
     )
   ]
 
   #notes[
     Les trois blocs sont les fils rouges : chaque séance en reprend au
-    moins un, les deux TD les mobilisent ensemble.
+    moins un, les deux projets les mobilisent ensemble.
   ]
 ]
 
 // --------------------------------------------
 #d("Organisation : sept séances de deux heures")[
   #annonce[
-    Chaque séance alterne explications courtes et manipulations sur machine.
+    Chaque séance alterne explications courtes et TD sur machine.
   ]
 
   #tableau(
@@ -116,10 +116,10 @@
     [1], [Logiciel, programmation et formats de fichier], [cours],
     [2], [Ligne de commande et git local], [cours],
     [3], [Binaire, données et construction d'une CLI], [cours],
-    [4], [Studio d'automatisation (animation vidéo)], [TD],
+    [4], [Premier projet : les séances 1 à 3 appliquées], [projet],
     [5], [Matériel, réseau, SSH et secrets], [cours],
-    [6], [Forge, git en équipe, outil « trajectoire »], [cours],
-    [7], [Benchmark image et rapport], [TD],
+    [6], [Forge et git en équipe], [cours],
+    [7], [Second projet : tout le module appliqué], [projet],
   )
 
   #avertissement[
@@ -127,11 +127,11 @@
   ]
 
   #notes[
-    Développer l'annonce à l'oral : les deux TD font revoir et pratiquer le
-    contenu des séances précédentes, par l'élaboration d'un livrable de code
-    complet.
+    Développer l'annonce à l'oral : les deux projets font revoir et pratiquer
+    le contenu des séances précédentes, par l'élaboration d'un livrable de
+    code complet.
 
-    Les deux TD appliquent ce qui précède sur un livrable complet.
+    Les deux projets appliquent ce qui précède sur un livrable complet.
     L'important est ici plus la qualité de la forme que le fond,
     c'est à dire est-ce que le projet est bien structuré et documenté
     et moins est-ce que le code est bon/performant.
@@ -163,7 +163,8 @@
 // --------------------------------------------
 #d("Les fichiers du cours")[
   #annonce[
-    Un dossier par séance. Aujourd'hui, tout est dans `data/cours1/`.
+    Une archive par séance, un dossier par TD. Aujourd'hui, tout est dans
+    `cours1/`.
   ]
 
   #align(center)[
@@ -174,40 +175,39 @@
       #set text(size: 23pt)
       #set align(left)
       #raw(
-"data/
-├── cours1/            la séance du jour
-│   ├── hello/         un dossier par manipulation
-│   ├── formats/
-│   ├── markdown/
-│   ├── fourni/        ce qui vous est donné
-│   └── produit/       ce que vos commandes fabriquent
-├── cours2/
-├── cours3/
-├── ...
-└── cours7/")
+"cours1/                un dossier par TD, dans l'ordre de la séance
+├── 1a_formats/
+├── 1b_archive_odt/    facultatif
+├── 2a_vscode_python/
+├── 2b_erreurs/
+├── 2c_hello_cpp/      facultatif
+├── 3a_markdown/
+├── 3b_recette/
+├── 4_notebooks/
+├── 5a_octets/         facultatif
+└── 5b_trajet/         facultatif")
     ]
   ]
 
   #legende[
-    Les diapositives brunes qui ouvrent une manipulation portent le chemin de
-    son dossier, sous leur titre.
+    Dans chaque dossier, la feuille du TD en PDF.
   ]
 
   #notes[
-    À montrer une fois, et à rappeler à chaque manipulation. Sans quoi la
-    question « on est où, là ? » revient à chaque bloc sur machine.
+    À montrer une fois, et à rappeler à chaque TD. Sans quoi la question « on
+    est où, là ? » revient à chaque bloc sur machine.
 
-    Faire ouvrir le dossier du cours dans l'éditeur maintenant pour vérifier
-    qu'ils l'ont tous.
+    Faire décompresser l'archive et ouvrir `cours1/` dans l'éditeur maintenant,
+    pour vérifier qu'ils l'ont tous. Chaque TD demande ensuite d'ouvrir son
+    propre dossier : c'est le dossier ouvert qui fixe où s'ouvre le terminal.
 
-    Un seul niveau est déplié, et seulement pour la séance du jour : le reste
-    de l'arborescence est celle de qui écrit le cours, elle ne leur sert pas.
-    Nommer au passage `src/cours1/notebook/`, les pages du cours qui
-    s'exécutent, sans l'afficher.
+    Les TD facultatifs ne sont pas faits en séance : ils sont là pour qui va
+    plus vite, ou pour après. Le `2c`, C++, demande un compilateur qui n'est
+    pas installé d'origine sous Windows.
 
-    REM : À compléter avant la séance : la façon dont le dossier leur est remis
-    n'est écrite nulle part dans le dépôt. Nommer ici le canal employé, et
-    le rappeler sur la consigne d'installation envoyée avant la rentrée.
+    L'archive `info01-cours1.zip` est assemblée par `outils/livrer_tds.py`.
+    REM : nommer ici le canal par lequel elle leur est remise, et le rappeler
+    sur la consigne d'installation envoyée avant la rentrée.
   ]
 ]
 
@@ -222,10 +222,10 @@
     columns: (1fr, auto, auto),
     align: (left + horizon, left + horizon, right + horizon),
     [Partie], [Nature], [Durée],
-    [Logiciels et formats de fichier], [cours et manipulation], [25′],
-    [Programmation et éditeur de code], [cours et manipulations], [40′],
-    [Structure d'un projet Python], [cours et deux manipulations], [40′],
-    [Notebooks], [cours et manipulation], [10′],
+    [Logiciels et formats de fichier], [cours et TD 1a], [25′],
+    [Programmation et éditeur de code], [cours et TD 2a, 2b], [40′],
+    [Structure d'un projet Python], [cours et TD 3a, 3b], [40′],
+    [Notebooks], [cours et TD 4], [10′],
   )
 
   #avertissement[
@@ -234,19 +234,20 @@
   ]
 
   #legende[
-    Durées indicatives ; ce qui n'a pas été traité est repris en annexe.
+    Durées indicatives. Les TD 1b, 2c, 5a et 5b sont facultatifs.
   ]
 
   #notes[
-    Les diapositives brunes sont les manipulations : sept, dans les quatre
-    parties. Annoncer que la séance n'est pas un exposé continu.
+    Les diapositives brunes sont les TD : six en séance, quatre facultatifs,
+    dans les quatre parties. Annoncer que la séance n'est pas un exposé
+    continu.
 
     L'ordre, en une phrase : ce qu'est un logiciel et ce qu'il manipule,
     comment on en écrit un, ce qu'un fichier contient vraiment, comment on
     installe de quoi travailler, et l'outil qui réunit tout cela.
 
     Sur le point d'attention : la partie 1 reprend ce qui a pu être vu au
-    lycée, et va vite pour garder du temps sur la suite et les manipulations.
+    lycée, et va vite pour garder du temps sur la suite et les TD.
     Une notion laissée de côté aujourd'hui se paiera sur les six séances
     suivantes, un retard pris au début s'accumule.
   ]

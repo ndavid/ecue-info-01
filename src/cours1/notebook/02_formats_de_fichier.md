@@ -12,27 +12,31 @@ kernelspec:
 
 ## Préparation
 
-Les fichiers de cette page sont fabriqués à partir de textes du domaine public.
-Depuis un terminal, à la racine du dépôt :
-
-```bash
-cd data/cours1
-python make_data.py fetch    # télécharge les sources, une seule fois
-python make_data.py build    # produit les fichiers dans produit/
-```
+Les fichiers de cette page sont ceux du TD 1a, dans `cours1/1a_formats/depart/`.
+Ils sont fabriqués à partir de textes du domaine public, et livrés avec le cours.
 
 ```{code-cell} python
 from pathlib import Path
 
-# Le dossier courant dépend de l'outil qui exécute la page (JupyterLab, VSCode,
-# sphinx-build) : on remonte donc jusqu'à la racine du dépôt.
-def racine_du_depot(depart: Path = Path.cwd()) -> Path:
-    for dossier in [depart, *depart.parents]:
-        if (dossier / "data" / "cours1").is_dir():
-            return dossier
-    raise FileNotFoundError("racine du dépôt introuvable depuis " + str(depart))
+def dossier_seance(depart: Path = Path.cwd()) -> Path:
+    """Le dossier de la séance, celui qui contient `1a_formats/`.
 
-DONNEES = racine_du_depot() / "data" / "cours1" / "produit"
+    Le notebook s'ouvre depuis l'archive du cours, depuis le dépôt ou pendant
+    la construction du book, et le dossier courant change à chaque fois : on
+    remonte donc jusqu'à le trouver.
+    """
+    for dossier in [depart, *depart.parents]:
+        for candidat in (dossier, dossier / "data" / "cours1"):
+            if (candidat / "1a_formats").is_dir():
+                return candidat
+    raise FileNotFoundError("dossier de la séance introuvable depuis " + str(depart))
+
+# Dans le dépôt du cours, les fichiers fabriqués sont rangés dans produit/.
+DONNEES = dossier_seance() / "1a_formats"
+if (DONNEES / "produit").is_dir():
+    DONNEES = DONNEES / "produit"
+DONNEES = DONNEES / "depart"
+
 for fichier in sorted(DONNEES.iterdir()):
     if fichier.is_file():
         print(f"{fichier.name:<34} {fichier.stat().st_size:>6} octets")
@@ -54,14 +58,14 @@ Le poème entier tient sur une seule ligne. Un fichier texte ne contient pas des
 lignes : il contient des caractères, dont l'un, noté `\n`, signifie « saut de
 ligne ». En l'absence de ce caractère, le texte n'est pas découpé.
 
-:::{admonition} Manipulation 1 — remettre le texte en forme
+:::{admonition} À faire 1 — remettre le texte en forme
 :class: tip
 
-Ouvrez `raven_une_ligne.txt` dans VSCode et rendez-le lisible : un vers par
-ligne, une ligne vide entre les strophes. La ponctuation (`,` `—` `?`) et les
+Copiez `depart/raven_une_ligne.txt` dans `travail/`, ouvrez la copie dans
+VSCode et rendez-la lisible : un vers par ligne, une ligne vide entre les strophes. La ponctuation (`,` `—` `?`) et les
 majuscules en début de vers vous servent de repères.
 
-Comparez ensuite votre résultat avec `produit/_corrige/raven.txt`.
+Comparez ensuite votre résultat avec le corrigé, distribué après la séance.
 
 En ajoutant ces sauts de ligne, vous avez ajouté au fichier une information
 qu'il ne contenait pas : sa structure. Elle n'était pas déductible
@@ -80,15 +84,15 @@ Ces deux fichiers portent des extensions différentes et contiennent exactement
 les mêmes octets. L'extension n'agit pas sur le contenu : elle indique au
 système quel logiciel proposer par défaut.
 
-:::{admonition} Manipulation 2 — renommer une extension
+:::{admonition} À faire 2 — renommer une extension
 :class: tip
 
 1. Affichez les extensions dans votre explorateur de fichiers. Elles sont
    masquées par défaut sous Windows et macOS ; activez-les une fois, vous en
    aurez besoin tout le semestre.
-2. Double-cliquez sur `raven_une_ligne.donnees`. Le système ne sait pas quoi en
-   faire.
-3. Renommez-le en `.txt` : il s'ouvre dans un éditeur. Renommez-le en `.html` :
+2. Copiez `raven_une_ligne.donnees` dans `travail/` et double-cliquez sur la
+   copie. Le système ne sait pas quoi en faire.
+3. Renommez-la en `.txt` : il s'ouvre dans un éditeur. Renommez-le en `.html` :
    le navigateur l'ouvre. Le fichier lui-même n'a pas changé.
 :::
 
@@ -130,13 +134,14 @@ styles. La règle est fixée par la spécification OpenDocument, partie 3, aux
 sections sur [`style:name` et
 `style:display-name`](https://docs.oasis-open.org/office/OpenDocument/v1.3/OpenDocument-v1.3-part3-schema.html).
 
-:::{admonition} Manipulation 3 — ouvrir l'ODT, puis l'ouvrir autrement
+:::{admonition} À faire 3 — ouvrir l'ODT, puis l'ouvrir autrement
 :class: tip
 
 Ouvrez `raven.odt` avec LibreOffice Writer et observez la mise en page.
 
-Copiez-le ensuite sous le nom `raven.zip`, ouvrez-le comme une archive, et lisez
-`content.xml` dans VSCode.
+Copiez-le ensuite dans `travail/` sous le nom `raven.zip`, ouvrez-le comme une
+archive, et lisez `content.xml` dans VSCode. C'est le TD 1b, facultatif,
+dans `cours1/1b_archive_odt/`.
 :::
 
 ## Contenu et présentation en HTML
@@ -148,7 +153,7 @@ présentation est décrite ailleurs, dans une feuille de style CSS.
 print((DONNEES / "raven_brut.html").read_text(encoding="utf-8")[:400])
 ```
 
-:::{admonition} Manipulation 4 — comparer deux rendus
+:::{admonition} À faire 4 — comparer deux rendus
 :class: tip
 
 1. Ouvrez `raven_brut.html` dans votre navigateur, par double-clic ou par

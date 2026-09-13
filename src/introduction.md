@@ -78,8 +78,8 @@ inexploitable ne sert à personne, et l'inverse est vrai aussi.
 ## Organisation
 
 Sept séances de deux heures. Chaque séance alterne des explications courtes et
-des manipulations faites en direct sur votre machine. Aucune séance n'est un
-exposé continu.
+des TD faits en direct sur votre machine. Aucune séance n'est un exposé
+continu.
 
 ```{list-table}
 :header-rows: 1
@@ -98,7 +98,7 @@ exposé continu.
   - cours
 * - 4
   - Studio d'automatisation (animation vidéo)
-  - TD
+  - projet
 * - 5
   - Matériel, réseau, SSH et secrets
   - cours
@@ -107,7 +107,7 @@ exposé continu.
   - cours
 * - 7
   - Benchmark image et rapport
-  - TD
+  - projet
 ```
 
 Les exemples empruntent parfois au domaine de la géomatique (des coordonnées,

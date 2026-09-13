@@ -23,7 +23,7 @@
 #let accent = rgb("#182936")      // brunoblue : texte, titres, structure
 #let encre = rgb("#182936")
 #let estompe = rgb("#6b7683")     // dérivée pour le texte secondaire
-#let manip = rgb("#704730")       // brunomarroon : filet, et parties TD
+#let brun = rgb("#704730")        // brunomarroon : filet, et parties TD
 #let gris = rgb("#E6E6E6")        // brunolightgray : pied de page, blocs
 
 // Deux couleurs de signalement, ajoutées au thème d'origine. Elles codent une
@@ -33,9 +33,9 @@
 //
 // `attention` est `brunoblue` éclairci et saturé : même teinte que le texte,
 // donc lisible comme une variante de la structure et non comme une couleur
-// nouvelle. `alerte` est un orange franc, choisi loin de `manip` : les deux
+// nouvelle. `alerte` est un orange franc, choisi loin de `brun` : les deux
 // sont chaudes, et un brun désaturé projeté à côté d'un orange se confond.
-// Ne pas employer `alerte` dans une partie TD, où `manip` est déjà présente.
+// Ne pas employer `alerte` dans un TD, où `brun` est déjà présente.
 #let attention = rgb("#2A6F97")   // bleu clair : note, point d'attention
 #let alerte = rgb("#B35309")      // orange : avertissement, erreur fréquente
 
@@ -86,9 +86,9 @@
 // rendre le même verdict sur l'une et sur l'autre.
 #let ecart-titre = 17pt
 
-// Corrigé des manipulations.
+// Corrigé des TD.
 //
-// Ce qu'une manipulation fait constater ne se projette pas pendant qu'elle se
+// Ce qu'un TD fait constater ne se projette pas pendant qu'il se
 // fait : la tentative, même infructueuse, améliore la rétention de la réponse
 // donnée ensuite (effet de pré-test, Richland, Kornell & Kao 2009 ; Kornell,
 // Hays & Bjork 2009), et un support à trous est plus efficace qu'un support
@@ -218,7 +218,7 @@
         block(width: 70%)[
           #text(size: pt-LARGE, weight: demi-gras)[#titre]
           #v(0.2em)
-          #line(length: 70%, stroke: 0.955pt + manip)
+          #line(length: 70%, stroke: 0.955pt + brun)
           #v(1.35em)
           #text(size: pt-normalsize)[#sous-titre]
           #v(1.4em)
@@ -238,13 +238,13 @@
 #let separateur-module(titre-module, annonce: none, auteur: "", date: "") = {
   set page(foreground: none, fill: accent)
   align(horizon + left, block(width: 82%)[
-    #text(size: pt-footnotesize, fill: manip.lighten(30%), weight: demi-gras)[
+    #text(size: pt-footnotesize, fill: brun.lighten(30%), weight: demi-gras)[
       #petites-capitales("Module")
     ]
     #v(0.5em)
     #text(size: pt-LARGE * 1.15, fill: white, weight: demi-gras)[#titre-module]
     #v(0.45em)
-    #line(length: 45%, stroke: 1.5pt + manip.lighten(25%))
+    #line(length: 45%, stroke: 1.5pt + brun.lighten(25%))
     #if annonce != none [
       #v(0.6em)
       #text(size: pt-normalsize, fill: white.darken(18%))[#annonce]
@@ -298,7 +298,7 @@
   align(horizon + left, block(width: 78%)[
     #if mention != none [
       #text(size: pt-footnotesize, fill: filet, weight: demi-gras)[
-        #petites-capitales(mention)
+        #if type(mention) == str { petites-capitales(mention) } else { mention }
       ]
       #v(0.5em)
     ]
@@ -324,29 +324,100 @@
 
 // Diapositive de section, entre deux parties de la séance : fond bleu.
 #let separateur(titre-partie, annonce: none, mention: none, dossier: none) = _separation(
-  accent, white, manip.lighten(25%), titre-partie, annonce, mention, dossier,
+  accent, white, brun.lighten(25%), titre-partie, annonce, mention, dossier,
 )
 
-// Ouverture d'une partie de travaux dirigés : fond brun, la seconde couleur du
-// thème. Elle code une information réelle et répétée, le passage de l'exposé au
-// travail sur machine.
-// `dossier` nomme le dossier où se trouvent les fichiers de la manipulation.
-// Toute ouverture de travail sur machine doit le porter : sans lui, la salle
-// cherche ses fichiers au lieu d'écouter la consigne.
-#let separateur-td(titre-td, annonce: none, mention: "Travaux dirigés", dossier: none) = {
-  _separation(manip, white, gris, titre-td, annonce, mention, dossier)
+// Ouverture d'un TD : fond brun, la seconde couleur du thème. Elle code une
+// information réelle et répétée, le passage de l'exposé au travail sur machine.
+//
+// Un TD se décrit par un dictionnaire, défini en tête de son fichier et passé
+// ici par `..td`. Le même dictionnaire sert au sommaire des TD (`sommaire-td`)
+// quand le support est compilé sans eux, et `outils/compiler_tds.py` y lit le
+// dossier où déposer la feuille de TD : une seule description, trois emplois.
+//
+//   #let td = (
+//     numero: "2c",                      // chiffre : le bloc ; lettre : l'ordre dedans
+//     titre: "Le même programme en C++",
+//     annonce: "…",                      // une phrase, facultative
+//     dossier: "cours1/2c_hello_cpp/",   // tel que l'étudiant le voit
+//     duree: "10′",                      // indicative, facultative
+//     facultatif: true,                  // ce que la séance ne fait pas
+//   )
+//   #separateur-td(..td)
+//
+// `dossier` est le chemin dans l'archive remise aux étudiants — sans `data/`,
+// ni `produit/`, ni `fourni/`, qui sont l'affaire du dépôt. Toute ouverture de
+// TD doit le porter : sans lui, la salle cherche ses fichiers au lieu d'écouter
+// la consigne.
+#let mention-td(numero, facultatif) = {
+  petites-capitales("TD")
+  if numero != none [ #numero]
+  if facultatif [ #h(0.3em) #sym.dot.c #h(0.3em) #petites-capitales("facultatif")]
 }
 
-// Ouverture d'un bloc de manipulation à l'intérieur d'un cours : même gabarit
-// que les travaux dirigés, mention différente.
-#let separateur-manip(titre-manip, annonce: none, dossier: none) = separateur-td(
-  titre-manip, annonce: annonce, mention: "Manipulation", dossier: dossier,
-)
+#let separateur-td(
+  numero: none, titre: "", annonce: none, dossier: none,
+  duree: none, facultatif: false,
+) = {
+  let dossier-et-duree = if dossier != none and duree != none [
+    #dossier #h(1.5em) #text(font: police-texte, fill: white.darken(30%))[#sym.approx #duree]
+  ] else { dossier }
+  _separation(brun, white, gris, titre, annonce, mention-td(numero, facultatif), dossier-et-duree)
+}
 
-// Reprise de l'exposé après un bloc de manipulation placé au milieu d'une
-// partie, et non à sa fin. Sans elle, rien ne dit où le travail sur machine
-// s'arrête : la diapositive suivante reprend le fond blanc de l'exposé, mais
-// après quatre diapositives blanches de manipulation, ce n'est pas un signal.
+// Sommaire des TD d'un bloc, projeté à leur place quand le support est compilé
+// sans eux (`--input tds=false`) : une seule diapositive, sur le fond brun des
+// TD, qui dit ce qu'il y a à faire, dans quel dossier, et ce qui est
+// facultatif. Les dictionnaires sont ceux des fichiers de TD, importés par
+// l'assemblage : ce que le sommaire liste et ce que le TD projette ne peuvent
+// pas diverger.
+#let sommaire-td(..tds) = {
+  set page(
+    foreground: none,
+    fill: if notes-visibles { white } else { brun },
+    background: if notes-visibles {
+      place(top + left, rect(width: largeur-diapo, height: 100%, fill: brun))
+    },
+  )
+  align(horizon + left, block(width: 100%)[
+    #text(size: pt-footnotesize, fill: gris, weight: demi-gras)[
+      #petites-capitales("Travaux dirigés")
+    ]
+    #v(0.5em)
+    #line(length: 40%, stroke: 1.5pt + gris)
+    #v(1.1em)
+    #set text(fill: white)
+    #grid(
+      columns: (auto, 1fr, auto),
+      column-gutter: 24pt, row-gutter: 1.05em,
+      align: (left + top, left + top, right + top),
+      ..for td in tds.pos() {
+        let facultatif = td.at("facultatif", default: false)
+        let duree = td.at("duree", default: none)
+        (
+          text(weight: demi-gras)[TD #td.numero],
+          [
+            #td.titre
+            #if facultatif [
+              #text(size: pt-footnotesize, fill: white.darken(30%))[— facultatif]
+            ]
+            #linebreak()
+            #text(size: pt-footnotesize, font: police-code, fill: white.darken(20%))[#td.dossier]
+          ],
+          text(size: pt-footnotesize, fill: white.darken(30%))[
+            #if duree != none [#sym.approx #duree]
+          ],
+        )
+      }
+    )
+  ])
+  pagebreak(weak: true)
+}
+
+// Reprise de l'exposé après un TD placé au milieu d'une partie, et non à sa
+// fin. Sans elle, rien ne dit où le travail sur machine s'arrête : la
+// diapositive suivante reprend le fond blanc de l'exposé, mais après quatre
+// diapositives blanches de TD, ce n'est pas un signal.
 // Même fond que les diapositives de section, et la couleur ne code toujours
 // qu'une chose : le bleu ouvre un bloc de cours, le brun un bloc sur machine.
 #let separateur-reprise(titre, annonce: none) = separateur(
@@ -503,7 +574,7 @@
 // Erreur fréquente, et sa conséquence. Répondant en diapositive à l'encadré
 // `warning` des pages de cours : une forme qu'on reconnaît à la deuxième
 // occurrence, ce qu'un mot en couleur ne fait pas. Un par diapositive au plus,
-// et pas dans une partie TD, où le brun est déjà à l'écran.
+// et pas dans un TD, où le brun est déjà à l'écran.
 #let avertissement(corps) = block(
   width: 100%, inset: (x: 13pt, y: 10pt), above: 0.7em,
   fill: alerte.lighten(92%), stroke: (left: 3pt + alerte),
@@ -512,7 +583,7 @@
   #text(fill: alerte, weight: demi-gras)[Attention. ] #corps
 ]
 
-// Ce que la manipulation fait constater : masqué à la projection, remplacé par
+// Ce que le TD fait constater : masqué à la projection, remplacé par
 // un filet à compléter, et affiché dans la compilation « corrigé ».
 #let reponse(corps) = if corrige-visible {
   corps

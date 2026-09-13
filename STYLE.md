@@ -12,7 +12,7 @@ Un même contenu ne s'écrit pas pareil selon qui le lit et quand.
 | Fichier | Lu par | Lu quand | Registre |
 |---------|--------|----------|----------|
 | `src/cours<n>/diapo/` | l'étudiant, projeté | pendant que l'enseignant parle | **assertion + preuve visuelle**, texte minimal |
-| `src/cours<n>/notebook/` | l'étudiant, seul | pendant la manipulation, et après | **prose autonome**, phrases complètes |
+| `src/cours<n>/notebook/` | l'étudiant, seul | pendant le TD, et après | **prose autonome**, phrases complètes |
 | `syllabus/cours/<n>/` | l'enseignant | à la préparation | **notes de conduite**, télégraphique assumé |
 
 L'erreur à ne pas refaire : écrire les diapositives comme la page de cours.
@@ -52,14 +52,14 @@ assertion compressée.
 - Principe de cohérence (Mayer) : tout élément qui ne sert pas nuit. Pas
   d'emoji décoratif, pas de couleur qui ne code rien. Le thème n'emploie que
   cinq couleurs, et chacune code une information réelle et répétée : le bleu du
-  texte et des diapositives de section, le brun des parties TD et des
-  manipulations (`separateur-td`, `separateur-manip`) qui marque le passage de
-  l'exposé au travail sur machine, le gris des encadrés, puis deux couleurs de
+  texte et des diapositives de section, le brun des TD (`separateur-td`,
+  `sommaire-td`) qui marque le passage de l'exposé au travail sur machine,
+  le gris des encadrés, puis deux couleurs de
   signalement — `attention`, un bleu clair, sur un point à ne pas manquer, et
   `alerte`, un orange, sur une erreur fréquente et ses conséquences. Ces deux
   dernières répondent aux encadrés `note` et `warning` des pages de cours, et
   ne servent jamais à mettre un mot en valeur : le gras s'en charge, et
-  seulement sur un terme défini. `alerte` ne s'emploie pas dans une partie TD,
+  seulement sur un terme défini. `alerte` ne s'emploie pas dans un TD,
   où le brun est déjà présent.
 
 **Formulations à éviter**, relevées sur une première version de ce deck :
@@ -102,14 +102,13 @@ s'écrit donc en **phrases complètes et déclaratives**.
 | Triplets systématiques | tout par groupes de trois | suivre le contenu, pas le rythme |
 
 **Sur les émoji** : `🎓` et `⌨️` sont conservés dans le *syllabus* et les notes
-enseignant, où ils codent une information réelle (exposé / manipulation) et
+enseignant, où ils codent une information réelle (exposé / TD) et
 répétée. Ailleurs, ils sont décoratifs — donc supprimés.
 
-## Manipulations et corrigé
+## TD et corrigé
 
-Ce qu'une manipulation fait constater ne se projette pas pendant qu'elle se
-fait. La colonne d'observation d'un tableau de manipulation s'écrit dans
-`reponse[…]` : elle devient un filet à compléter à la projection, et n'apparaît
+Ce qu'un TD fait constater ne se projette pas pendant qu'il se fait. La
+colonne d'observation d'un tableau de TD s'écrit dans `reponse[…]` : elle devient un filet à compléter à la projection, et n'apparaît
 que dans la compilation `--input corrige=true`, distribuée après la séance.
 
 Deux résultats motivent ce choix, et fixent aussi sa limite.
@@ -157,7 +156,7 @@ changement de nature du contenu :
 
 | Encadré | Contenu |
 |---------|---------|
-| `:::{admonition} Manipulation` | ce que l'étudiant doit faire, à l'impératif |
+| `:::{admonition} À faire` | ce que l'étudiant doit faire, à l'impératif |
 | `:::{note}` | une précision qu'on peut sauter en première lecture |
 | `:::{warning}` | une erreur fréquente et ses conséquences |
 
@@ -177,7 +176,9 @@ Pas d'encadré « à retenir » qui recopie le paragraphe précédent.
 - [ ] Le gras ne marque que des termes définis.
 - [ ] Aucun encadré ne répète le paragraphe voisin.
 - [ ] Les commandes montrées ont été exécutées.
-- [ ] Ce que la manipulation fait constater est dans `reponse[…]`.
+- [ ] Ce que le TD fait constater est dans `reponse[…]`.
+- [ ] Un TD nouveau est un fichier de `tds/` nommé comme son dossier, avec son dictionnaire `td` en tête, importé et inclus par `cours<n>.typ`.
+- [ ] Les chemins cités dans un TD sont ceux de l'archive livrée : `cours1/2a_vscode_python/`, sans `data/` ni `produit/`.
 - [ ] `python outils/verifier_diapos.py` ne signale rien.
 
 ## Sources

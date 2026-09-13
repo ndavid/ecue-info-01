@@ -30,9 +30,9 @@
   )
 
   #avertissement[
-    Les données de travail ne sont pas des fichiers du projet. Elles sont sotcker ailleur
-    et le programme doit pouvoir y acceder via des chemins de fichiers. Un projet peut 
-    contenir des données pour le tester (légères)
+    Les données de travail ne sont pas des fichiers du projet. Elles sont
+    stockées ailleurs, et le programme y accède par un chemin de fichier. Un
+    projet ne contient qu'un petit jeu de données, pour le tester.
   ]
 
   #notes[
@@ -56,9 +56,9 @@
 ]
 #d("Le format de la documentation")[
   #annonce[
-    Un `.txt` n'a aucune mise en forme, un `.odt` en a mais son format se prête
-    mal aux outils du code. Markdown tient le milieu : des signes dans le texte,
-    que l'éditeur sait rendre.
+    Un `.txt` n'a aucune mise en forme, un `.odt` en a mais se prête mal aux
+    outils du code. Markdown est du texte brut où quelques signes portent la
+    mise en forme, que l'éditeur sait rendre.
   ]
 
   #face-a-face(
@@ -136,8 +136,8 @@
   )
 
   #legende[
-    Les deux produisent le même affichage. Celui de gauche se lit sans être
-    converti, et c'est très exactement le but que Gruber s'était fixé.
+    Les deux produisent le même affichage. Seul celui de gauche se lit sans
+    être converti.
   ]
 
   #notes[
@@ -220,10 +220,55 @@
 
 // ------------------ Les bibliothèques dont le projet dépend -----------------
 
+#d("Un programme s'appuie sur des bibliothèques")[
+  #annonce[
+    Un programme ne réécrit pas tout à partir de zéro. Il appelle des fonctions
+    déjà écrites, regroupées en *bibliothèques*, qui ont trois origines.
+  ]
+
+  #grid(
+    columns: (1fr, 1fr, 1fr),
+    gutter: 12pt,
+    rows: 96pt,
+    bloc("Livrées avec Python", "la bibliothèque standard : math, csv, pathlib, json…", hauteur: 100%),
+    bloc("Écrites pour le projet", "vos propres fichiers, importés les uns par les autres", hauteur: 100%),
+    bloc("Publiées par d'autres", "numpy, pillow, markdown… à installer depuis un dépôt de paquets", plein: true, hauteur: 100%),
+  )
+
+  #v(0.4em)
+  #tableau(
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [Ce qu'on écrit], [Ce que cela demande],
+    [`import csv`], [rien : installé avec l'interpréteur],
+    [`from recette import adapter`], [que le fichier `recette/` soit à côté],
+    [`import markdown`], [que la bibliothèque ait été installée avant],
+  )
+
+  #legende[
+    Les deux diapositives qui suivent le montrent sur un programme réel.
+  ]
+
+  #notes[
+    C'est la diapositive de contexte de tout le bloc : sans elle, le
+    programme qui suit tombe du ciel. Un programme est court parce que
+    presque tout ce qu'il fait est déjà écrit ailleurs — lire un CSV,
+    convertir du Markdown en HTML — et ce qu'il écrit vraiment, c'est
+    l'assemblage.
+
+    « Dépôt de paquets » traduit *repository* : conda-forge, PyPI. On y
+    revient trois diapositives plus loin, avec l'outil qui va y chercher.
+
+    La troisième colonne est celle qui coûte : elle marche ici et pas
+    ailleurs tant qu'on n'a pas dit ce qu'il faut installer. C'est la
+    problématique de la fin de la partie, l'environnement et le fichier
+    qui le décrit.
+  ]
+]
 #d("Ce que le programme fabrique")[
   #annonce[
-    Deux fichiers d'entrée, une page de recette en sortie, mise à l'échelle
-    demandée et dans les unités demandées.
+    Le programme du TD 3b, en exemple. Deux fichiers d'entrée, une page de
+    recette en sortie, mise à l'échelle demandée et dans les unités demandées.
   ]
 
   #grid(
@@ -313,8 +358,9 @@
 ]
 #d("D'où vient chaque ligne du programme")[
   #annonce[
-    Le programme entier, et l'origine de chaque appel. Deux lignes seulement
-    demandent une bibliothèque à installer.
+    Le programme entier tient en neuf lignes, parce que presque tout est déjà
+    écrit. L'origine de chaque appel, et deux lignes seulement qui demandent
+    une bibliothèque à installer.
   ]
 
   #set text(size: 16pt)
@@ -423,7 +469,7 @@
     diapositives plus tôt sans qu'on installe quoi que ce soit.
 
     Le message d'erreur est le même que celui de la partie 2 et que celui
-    de la manipulation à venir. Troisième rencontre, et cette fois la
+    du TD 3b à venir. Troisième rencontre, et cette fois la
     cause est nommée : la bibliothèque n'est pas dans l'environnement
     actif.
 
@@ -673,10 +719,8 @@
       ```bash
       conda create -n info01 \
           -c conda-forge python=3.12
-
       conda install -n info01 \
           -c conda-forge numpy pillow
-
       conda activate info01
       ```
       #text(size: 14pt, fill: estompe)[
@@ -686,19 +730,23 @@
     panneau("Recréer un environnement décrit")[
       ```bash
       conda env create -f environment.yml
-
       conda activate info01
       ```
-      #v(0.4em)
-      ```yaml
-      name: info01
-      channels:
-        - conda-forge
-      dependencies:
-        - python=3.12
-        - numpy
-        - pillow
-      ```
+      #block(width: 100%, inset: (x: 10pt, y: 6pt), fill: gris,
+             stroke: 0.8pt + gris.darken(15%))[
+        #text(size: 13pt, fill: estompe)[`-f` désigne ce fichier :] #h(8pt)
+        #text(font: police-code, size: 12pt, weight: demi-gras)[environment.yml]
+        #set text(size: 15pt)
+        ```yaml
+        name: info01
+        channels:
+          - conda-forge
+        dependencies:
+          - python=3.12
+          - numpy
+          - pillow
+        ```
+      ]
     ],
   )
 
@@ -720,8 +768,8 @@
     fichier étant à la racine du dépôt. La colonne de gauche est ce
     qu'ils feront pour leur propre projet.
 
-    Ne pas lancer la création maintenant : plusieurs minutes, et c'est la
-    manipulation de fin de partie.
+    Ne pas lancer la création maintenant : plusieurs minutes, et c'est le
+    TD de fin de partie.
 
     Le fichier n'installe rien : il dit ce qu'il faut installer. Pourquoi
     l'écrire plutôt que retaper les commandes est la diapositive
@@ -737,8 +785,9 @@
   #align(center, schema-chemin())
 
   #legende[
-    Chemins relevés sur un poste, avant et après `conda activate`. La liste
-    parcourue est celle de la variable `PATH`.
+    Chemins d'un poste Windows, avant et après `conda activate` ; sous macOS et
+    Linux, `…/envs/info01/bin` passe devant `/usr/bin`. La liste parcourue est
+    la variable `PATH`.
   ]
 
   #notes[
@@ -755,8 +804,12 @@
     Deuxième conséquence : désactiver ne désinstalle rien, cela retire le
     dossier de la tête de la liste.
 
-    Sous Windows, la liste est la même variable, les dossiers s'y séparent
-    par un point-virgule et non par un deux-points. Ne pas s'y attarder.
+    Sous Windows, `python.exe` est à la racine de l'environnement, et
+    l'activation ajoute aussi `…\envs\info01\Scripts` et `Library\bin`,
+    non montrés. Sans environnement, `python` renvoie souvent au Microsoft
+    Store, ou à une autre installation : ne pas s'y attarder, dire
+    « introuvable ou un autre ». Sous macOS et Linux, le même mécanisme avec
+    `…/envs/info01/bin` devant `/usr/bin`.
 
     `PATH` est repris au cours 2, avec les chemins et le dossier courant ;
     ici, seul l'ordre de parcours compte.
@@ -764,8 +817,8 @@
 ]
 #d("Déclarer des dépendances")[
   #annonce[
-    Ce qu'on a tapé ne se retrouve pas. Écrit dans un fichier rangé avec le
-    code, cela se refait ailleurs et plus tard.
+    Une commande tapée ne laisse aucune trace. La même chose écrite dans un
+    fichier rangé avec le code se refait ailleurs, et plus tard.
   ]
 
   #face-a-face(
@@ -817,7 +870,7 @@
     chaque paquet ni en quelle version exacte. `conda env export` le fait ;
     ne pas y entrer aujourd'hui.
 
-    Dernière étape de la manipulation : ajouter la ligne oubliée au
+    Dernière étape du TD 3b : ajouter la ligne oubliée au
     fichier, et constater que rien ne s'installe puisque c'était déjà fait.
   ]
 ]
@@ -863,8 +916,8 @@
     Deux fichiers, deux descriptions, et il faut les distinguer :
     `environment.yml` dit de quoi la *machine* a besoin, y compris ce qui
     n'est pas du Python ; `pyproject.toml` dit de quoi le *code* a besoin.
-    Les deux coexistent dans la plupart des projets, et dans celui de la
-    manipulation.
+    Les deux coexistent dans la plupart des projets, et dans celui du
+    TD 3b.
 
     C'est un troisième usage du texte, après le code et la documentation :
     décrire. Ils ont croisé `.json` et `.yaml` à « Les fichiers texte d'un
@@ -878,7 +931,7 @@
     d'indentation, jamais de tabulation, et l'éditeur le signale. C'est
     « Espaces, tabulations et fins de ligne » qui resurgit.
 
-    La ligne surlignée est celle que la manipulation fait lire avant de
+    La ligne surlignée est celle que le TD 3b fait lire avant de
     lancer quoi que ce soit : le projet annonce avoir besoin de `markdown`.
 
     Boucler la partie : le code réutilisé au début est disponible parce que
@@ -911,7 +964,7 @@
   ]
 
   #notes[
-    Ils s'en sont servis à la manipulation « hello world » sans qu'on le
+    Ils s'en sont servis au TD 2a, « hello world », sans qu'on le
     nomme.
 
     La troisième ligne évite le `ModuleNotFoundError` de la diapositive

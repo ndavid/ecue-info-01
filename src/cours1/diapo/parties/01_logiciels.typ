@@ -12,20 +12,22 @@
 // ------------------------------- Vocabulaire --------------------------------
 
 // --------------------------------------------
-#d("Logiciel et les termes courants")[
-  #annonce[
-    Un seul de ces mots est défini officiellement. Les autres sont d'usage
-    courant.
-  ]
-
-  #bloc-titre("logiciel")[
+#d("Logiciel : définition et termes courants")[
+  #bloc-titre("Définition : logiciel")[
     #set text(size: 19pt)
     Ensemble des programmes, procédés et règles, et éventuellement de la
     documentation, relatifs au fonctionnement d'un ensemble de traitement de
     données.
   ]
+  #legende[
+    Source : _Journal officiel_ du 22/09/2000 (vocabulaire de l'informatique).
+    Le seul de ces mots à avoir une définition officielle.
+  ]
 
-  #v(0.7em)
+  #v(0.6em)
+  #annonce[
+    Autres termes courants, qui désignent chacun un type de logiciel.
+  ]
   #grid(
     columns: (1fr,) * 5, gutter: 12pt,
     ..("application", "app", "webapp", "OS", "driver").map(terme => block(
@@ -37,8 +39,7 @@
   )
 
   #legende[
-    Sources : _Journal officiel_ du 22/09/2000 ; Grand dictionnaire
-    terminologique de l'OQLF.
+    Les définitions d'usage : Grand dictionnaire terminologique de l'OQLF.
   ]
 
   #notes[
@@ -122,7 +123,7 @@
     )
     let sorties = (
       ("Sortie : un fichier", "une image, un tableau, une vidéo"),
-      ("Sortie : un périphérique", "écran, son"),
+      ("Sortie : un périphérique", "écran, son, réseau"),
     )
     // Les colonnes latérales portent deux boîtes, celle du milieu une seule :
     // la hauteur commune est celle de la plus haute des trois colonnes.
@@ -160,9 +161,9 @@
     
     Pas de sauvegarde en RAM. 
     
-    Le réseau est du côté des périphériques, avec le clavier et la souris
-    : pour le logiciel, ce sont trois choses qu'on lit sans qu'elles
-    restent.
+    Le réseau est du côté des périphériques, en entrée comme en sortie :
+    pour le logiciel, c'est un flux qu'on lit ou qu'on écrit sans qu'il
+    reste, comme le clavier ou l'écran.
   ]
 ]
 // ------------------------------ Fichiers -----------------------------------
@@ -181,8 +182,11 @@
     ça tourne ? » mais « qu'est-ce qui part, et quand ? ».
 
     Le critère de complexité explique les exemples : recadrer une image
-    tient dans le navigateur, entraîner ou faire tourner un grand modèle
-    non. Il explique aussi les évolutions : ce qui se calculait à distance
+    tient dans le navigateur ; chercher dans l'index du web, calculer un
+    itinéraire sur tout le réseau routier ou faire tourner un grand modèle,
+    non — et surtout, les données sont là-bas, pas chez vous. Une requête
+    sur une base de données est le cas le plus courant : la page envoie la
+    question, le serveur renvoie les lignes qui correspondent. Il explique aussi les évolutions : ce qui se calculait à distance
     il y a dix ans se calcule parfois en local aujourd'hui.
   ]
 ]
@@ -270,12 +274,12 @@
       let taille = 25pt
       let segments = (
         (estompe, "C:\\", "la racine, ou le disque"),
-        (manip, "Users\\alice\\Documents\\", "trois noms de dossier"),
+        (brun, "Users\\alice\\Documents\\", "trois noms de dossier"),
         (accent, "raven.odt", "le nom du fichier, extension comprise"),
       )
       let morceau(couleur, chaine) = text(
         font: police-code, size: taille, fill: couleur,
-        weight: if couleur == manip { demi-gras } else { "regular" },
+        weight: if couleur == brun { demi-gras } else { "regular" },
         chaine,
       )
       grid(
@@ -303,12 +307,12 @@
     [la racine, ou le disque],
       [#text(fill: estompe)[`C:\`], le point de départ ; `/` sous macOS et Linux],
     [un nom de dossier],
-      [#text(fill: manip)[`Users`, `alice`, `Documents`] : trois, du plus large au plus précis],
+      [#text(fill: brun)[`Users`, `alice`, `Documents`] : trois, du plus large au plus précis],
     [le nom du fichier],
       [`raven.odt`, extension comprise],
     [le chemin du fichier], [tout, de la racine au fichier],
     [le dossier parent],
-      [#text(fill: estompe)[`C:\`]#text(fill: manip)[`Users\alice\Documents`], le dossier qui le contient],
+      [#text(fill: estompe)[`C:\`]#text(fill: brun)[`Users\alice\Documents`], le dossier qui le contient],
   )
 
   #legende[
@@ -346,31 +350,34 @@
       #set text(font: police-code, size: 12.5pt)
       #set par(leading: 0.6em)
       C:\\Users\\alice\\ \
-      └─ info01\\ \
-      #h(0.75em)├─ rapport\\ \
-      #h(0.75em)│#h(0.3em)└─ notes.md \
-      #h(0.75em)└─ produit\\ \
-      #h(2.05em)└─ raven.odt
+      └─ cours1\\ \
+      #h(0.75em)├─ 1a_formats\\ \
+      #h(0.75em)│#h(0.3em)└─ raven.odt \
+      #h(0.75em)└─ 5a_octets\\ \
+      #h(2.05em)└─ octets.py
     ],
     tableau(
       columns: (auto, 1fr, auto),
       align: left + horizon,
       [], [Le chemin de `raven.odt`], [Depuis],
-      [Absolu], [`C:\Users\alice\info01\produit\raven.odt`], [la racine],
-      [Relatif], [`produit\raven.odt`], [`info01`],
-      [Relatif qui remonte], [`..\produit\raven.odt`], [`rapport`],
+      [Absolu], [`C:\Users\alice\cours1\1a_formats\raven.odt`], [la racine],
+      [Relatif], [`1a_formats\raven.odt`], [`cours1`],
+      [Relatif qui remonte], [`..\1a_formats\raven.odt`], [`5a_octets`],
     ),
   )
 
   #legende[
-    Sous macOS et Linux, l'autre séparateur : `/home/alice/info01/produit/raven.odt`,
-    `produit/raven.odt`, `../produit/raven.odt`.
+    Sous macOS et Linux, l'autre séparateur : `/home/alice/cours1/1a_formats/raven.odt`.
+    Un projet qui n'écrit que des chemins relatifs se copie, se déplace et
+    s'envoie sans rien changer : `C:\Users\alice` n'existe que sur un poste.
   ]
 
   #notes[
-    Intérêt pour la programmation, on ne connait pas a priori les chemins absolu
-    du dossier d'un utilisateur mais on peut connaitre/forcer une arborescence
-    relative pour un programme.
+    L'intérêt du relatif, à dire avec la légende : un programme ne connaît
+    pas a priori le chemin absolu du dossier d'un utilisateur, mais il peut
+    imposer une arborescence relative — `octets.py` lit `../1a_formats/`,
+    et il tourne chez tout le monde. C'est le chemin en dur, absolu, qui
+    casse au premier changement de poste : le TD 2b en fait corriger un.
 
     Lire l'arborescence avant le tableau : les trois chemins désignent le
     même fichier, `raven.odt`, et ne diffèrent que par l'endroit d'où on le
@@ -383,52 +390,6 @@
   ]
 ]
 
-// --------------------------------------------
-#d("L'adresse d'une page web - URL")[
-  #annonce[
-    Une adresse web est un chemin de fichier, précédé de la machine sur
-    laquelle il faut aller le chercher. On l'appelle une
-    #sigle("URL")[#initiale("U")niform #initiale("R")esource #initiale("L")ocator],
-    l'adresse qui localise une ressource.
-  ]
-
-  #align(center)[
-    #grid(
-      columns: (auto, auto, auto, auto),
-      row-gutter: 13pt,
-      align: center,
-      text(font: police-code, size: 24pt, fill: estompe, "https://"),
-      text(font: police-code, size: 24pt, fill: manip, weight: demi-gras, "www.ensg.eu"),
-      text(font: police-code, size: 24pt, fill: encre, "/cours/info01/"),
-      text(font: police-code, size: 24pt, fill: accent, weight: demi-gras, "raven.html"),
-      text(size: 14pt, fill: estompe)[comment on parle],
-      text(size: 14pt, fill: manip)[à quelle machine],
-      text(size: 14pt, fill: estompe)[le chemin sur cette machine],
-      text(size: 14pt, fill: accent)[le fichier],
-    )
-  ]
-
-  #v(0.9em)
-  #align(center)[
-    #block(width: 92%, fill: gris, inset: (x: 12pt, y: 10pt))[
-      #set text(size: 16pt)
-      #text(font: police-code, size: 15pt, "file:///C:/Users/alice/Documents/raven.html")
-      #v(0.3em)
-      #text(fill: estompe)[
-        La même structure, sans machine distante : le fichier est sur le vôtre.
-      ]
-    ]
-  ]
-
-  #notes[
-    C'est la diapositive qui explique pourquoi une page ouverte par double-clic
-    affiche `file:///`.
-
-    Le `///` surprend toujours : après `file:`, la place de la machine est vide,
-    puisque c'est la machine locale. On peut le faire remarquer sans le
-    développer.
-  ]
-]
 // -------------------------- Extensions et formats ---------------------------
 // --------------------------------------------
 #d("Fichier, extension et type de fichier")[
@@ -452,7 +413,7 @@
   ]
   #avertissement[
     Windows masque les extensions qu'il connaît : `raven.odt` s'affiche
-    `raven`. Réglage à changer une fois, avant la manipulation.
+    `raven`. Réglage à changer une fois, avant le TD 1a.
   ]
 
   #tableau(
@@ -465,8 +426,8 @@
   )
 
   #notes[
-    Faire activer l'affichage des extensions dans l'explorateur, sans quoi la
-    manipulation qui suit est impossible à suivre : `F2` ne montrerait pas ce
+    Faire activer l'affichage des extensions dans l'explorateur, sans quoi le
+    TD qui suit est impossible à suivre : `F2` ne montrerait pas ce
     qu'on renomme.
 
     État vérifié en 2026 : Windows 11 masque toujours les extensions des types
@@ -474,6 +435,103 @@
     Afficher > Extensions de noms de fichiers. Sous macOS, Finder > Réglages >
     Avancé > « Afficher tous les suffixes de fichiers ». À faire une fois, utile
     tout le semestre.
+  ]
+]
+
+// --------------------------- Texte et binaire -------------------------------
+// --------------------------------------------
+#d("Fichiers binaires et fichiers texte")[
+  #annonce[
+    Tout fichier est une suite de *bits*, 0 ou 1, comptés par *octets* de huit :
+    256 valeurs, représentées par deux chiffres hexadécimaux. Fichier *texte* si
+    chaque octet est un caractère, *binaire* sinon.
+  ]
+
+  #chaine(
+    ecart: 22pt,
+    ("Huit bits", "01010010"),
+    ("Une valeur", "82 sur 256 possibles"),
+    ("Représentée par deux chiffres hexadécimaux", "52, de 00 à FF"),
+    ("Un caractère, si c'est du texte", "R, par la table ASCII"),
+  )
+
+  #v(0.3em)
+  #tableau(
+    columns: (auto, 1fr, 1fr),
+    align: left + horizon,
+    [], [Fichier texte], [Fichier binaire],
+    [Ses octets], [des caractères, tous], [ce que le format décide],
+    [Qui le lit], [n'importe quel éditeur de texte], [le logiciel qui connaît le format],
+    [Ce qu'on en fait], [lire, comparer, versionner], [l'ouvrir dans son logiciel],
+  )
+
+  #legende[
+    2#super[8] = 256 ; seize chiffres, de `0` à `F`. Le binaire est repris au cours 3.
+  ]
+
+  #notes[
+    Ne pas faire calculer : donner 2 puissance 8, et passer. L'hexadécimal
+    est là parce que c'est l'écriture de tous les outils : un chiffre par
+    groupe de quatre bits, donc deux par octet.
+
+    Insister sur le sens de « binaire » : ce n'est pas que le fichier soit
+    écrit en binaire, ils le sont tous. C'est qu'il n'est pas fait pour être
+    lu caractère par caractère.
+
+    La dernière ligne du tableau est celle qui porte le module : ce qui est
+    du texte se compare et se versionne, ce qui est binaire non. La grille
+    des extensions qui suit demande, pour chaque format, de quel côté il est.
+  ]
+]
+
+// --------------------------------------------
+#d("Le fichier texte")[
+  #annonce[
+    Un fichier texte est une suite de caractères, chacun rangé dans un octet
+    selon une table d'*encodage*. Il s'ouvre avec un éditeur de texte, qui
+    montre tout ce qu'il contient.
+  ]
+
+  #face-a-face(
+    panneau("raven_une_ligne.txt, les huit premiers octets")[
+      #block(width: 100%, inset: (x: 12pt, y: 10pt), fill: gris)[
+        #octets(
+          ("4F", "6E", "63", "65", "20", "75", "70", "6F"),
+          ("O", "n", "c", "e", "␣", "u", "p", "o"),
+          taille: 16pt,
+        )
+      ]
+    ],
+    panneau("Ce qui l'ouvre")[
+      #block(width: 100%, inset: (x: 12pt, y: 10pt), fill: gris)[
+        #set text(size: 16pt)
+        Bloc-notes, Notepad++, l'éditeur de code du module — pas un
+        traitement de texte, qui ajoute sa mise en forme
+      ]
+    ],
+  )
+
+  #v(0.4em)
+  #tableau(
+    columns: (auto, 1fr, auto),
+    align: left + horizon,
+    [La table], [Ce qu'elle code], [Où on la voit],
+    [ASCII], [128 caractères, l'anglais sans accent : `O` vaut `4F`], [en entier, au TD 1a],
+    [UTF-8], [toutes les langues, ASCII inclus ; `é` prend deux octets], [la suite du cours],
+  )
+
+  #legende[
+    Octets réels, relevés sur le fichier du TD 1a.
+  ]
+
+  #notes[
+    L'intuition à laisser : « texte » veut dire « octets plus une table de
+    correspondance ». Les accents cassés que tout le monde a déjà vus
+    viennent de là, une table pour écrire et une autre pour lire.
+
+    Ne pas dire « ASCII » pour parler d'un fichier texte d'aujourd'hui : le
+    mot traîne dans beaucoup de documentations, il est faux depuis vingt ans.
+    UTF-8 est détaillé plus tard dans le module.
   ]
 ]
 
@@ -538,110 +596,6 @@
     Les six formats texte de la grille : `.svg`, `.csv`, `.py`, `.md`, `.json`
     et `.yaml`. Deux autres sont des archives ZIP de XML, `.odt` et `.xlsx`,
     ouvertes en direct plus loin dans la séance.
-  ]
-]
-
-// --------------------------- Texte et binaire -------------------------------
-// --------------------------------------------
-#d("Fichier texte et fichier binaire")[
-  #annonce[
-    Tout fichier est une suite d'octets. Un fichier *texte* est celui dont les
-    octets se lisent un à un comme des caractères, par une table d'encodage.
-    Les autres sont dits *binaires*.
-  ]
-
-  #face-a-face(
-    panneau("raven_une_ligne.txt")[
-      #block(width: 100%, inset: (x: 10pt, y: 10pt), fill: gris)[
-        #octets(
-          ("4F", "6E", "63", "65", "20", "75", "70", "6F"),
-          ("O", "n", "c", "e", "␣", "u", "p", "o"),
-        )
-      ]
-      #v(0.35em)
-      #text(size: 14pt, fill: estompe)[
-        chaque octet est un caractère, et leur suite fait le poème
-      ]
-    ],
-    panneau("une tuile de carte, en PNG")[
-      #block(width: 100%, inset: (x: 10pt, y: 10pt), fill: gris)[
-        #octets(
-          ("89", "50", "4E", "47", "0D", "0A", "1A", "0A"),
-          (none, "P", "N", "G", none, none, none, none),
-        )
-      ]
-      #v(0.35em)
-      #text(size: 14pt, fill: estompe)[
-        trois octets font `PNG` ; les autres ne désignent aucun caractère
-      ]
-    ],
-  )
-
-  #legende[
-    Octets réels, relevés sur les fichiers du cours. La différence n'est pas
-    dans les octets : elle est dans la façon dont le logiciel les lit.
-  ]
-
-  #notes[
-    Insister sur le sens de « binaire » : ce n'est pas que le fichier soit
-    écrit en binaire, ils le sont tous. C'est qu'il n'est pas fait pour être
-    lu caractère par caractère.
-
-    Conséquence, déjà rencontrée en annexe sur le `.odt` : ce qui est du
-    texte se compare ligne à ligne, se corrige à la main et se versionne. Ce
-    qui est binaire, non.
-
-    Les `0D 0A` de droite sont un hasard utile : ce sont aussi les deux
-    caractères de fin de ligne sous Windows. Ne pas s'y arrêter aujourd'hui.
-
-    Rappel du tableau des extensions : six formats sur seize étaient du
-    texte. C'est la même distinction, vue par le contenu au lieu du nom.
-  ]
-]
-
-// --------------------------------------------
-#d("Un octet, 256 valeurs, une table")[
-  #annonce[
-    Les bits se comptent par groupes de huit. Ce groupe est un *octet*, et il
-    prend 256 valeurs différentes. Une table d'encodage dit quel caractère
-    chaque valeur désigne.
-  ]
-
-  #chaine(
-    ecart: 24pt,
-    ("Huit bits", "01010010"),
-    ("Une valeur", "82 sur 256 possibles"),
-    ("Un caractère", "R, par la table ASCII"),
-  )
-
-  #v(0.5em)
-  #avertissement[
-    ASCII est la table historique : 128 caractères, l'anglais sans accents.
-    Aujourd'hui les fichiers sont en UTF-8, qui garde ces valeurs et code les
-    autres caractères sur plusieurs octets : `é` en occupe deux, `C3 A9`.
-  ]
-
-  #legende[
-    2#super[8] = 256. C'est aussi pourquoi une valeur d'octet s'écrit avec deux
-    chiffres hexadécimaux, ce que le cours 3 reprendra.
-  ]
-
-  #notes[
-    Ne pas faire calculer : donner 2 puissance 8, et passer. Le binaire est
-    ouvert pour de bon au cours 3, avec les images ; aujourd'hui il ne sert
-    qu'à rendre la table crédible.
-
-    L'intuition à laisser : « texte » veut dire « octets plus une table de
-    correspondance ». Un fichier écrit avec une table et relu avec une autre
-    donne des caractères abîmés — l'origine des accents cassés que tout le
-    monde a déjà vus, et un sujet du cours 2 avec git.
-
-    Si la question vient sur UTF-8 : les 128 valeurs d'ASCII y gardent leur
-    sens, ce qui fait qu'un fichier anglais est identique dans les deux
-    tables. Les autres caractères prennent de deux à quatre octets.
-
-    Ne pas dire « ASCII » pour parler d'un fichier texte d'aujourd'hui : le
-    mot traîne dans beaucoup de documentations, il est faux depuis vingt ans.
   ]
 ]
 

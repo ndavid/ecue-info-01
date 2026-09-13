@@ -62,7 +62,7 @@
   _etiquette-bloc(x1 - 0.25, 7.05, "texte", attention)
 
   // — 2. le code, dans une cellule numérotée
-  rect((x0, 2.75), (x1, 5.00), radius: 0.08, stroke: 2.2pt + manip)
+  rect((x0, 2.75), (x1, 5.00), radius: 0.08, stroke: 2.2pt + brun)
   content((x0 + 0.45, 4.35), anchor: "west",
           text(size: 14pt, font: police-code, fill: estompe)[\[1\]:])
   rect((x0 + 1.35, 3.00), (x1 - 0.3, 4.72), stroke: none, fill: gris.lighten(45%))
@@ -74,7 +74,7 @@
   })
   content((x0 + 1.6, 3.29), anchor: "west",
           text(size: 15pt, font: police-code)[print(points.shape)])
-  _etiquette-bloc(x1 - 0.25, 4.80, "code", manip)
+  _etiquette-bloc(x1 - 0.25, 4.80, "code", brun)
 
   // — 3. ce que l'exécution a produit, gardé dans le document
   rect((x0, 1.20), (x1, 2.45), radius: 0.08, stroke: 2.2pt + alerte)
@@ -263,8 +263,8 @@
 
   // — 1. le client est une page web, servie par un serveur
   _machine(x1 + 0.4, 0.15, 10.2, 4.95)
-  _boite(x1 + dx, y-haut, lb, h, "jupyterlab", couleur: manip,
-         fond: manip.lighten(94%))
+  _boite(x1 + dx, y-haut, lb, h, "jupyterlab", couleur: brun,
+         fond: brun.lighten(94%))
   _boite(x1 + dx, y-milieu, lb, h, "jupyter-server")
   _boite(x1 + dx, y-bas, lb, h, "ipykernel")
   fleche(x1 + dx + lb / 2, y-haut - 0.05, y-milieu + h + 0.05)
@@ -273,8 +273,8 @@
 
   // — 2. l'éditeur est le client, et lance le noyau sans serveur
   _machine(x2 + 0.4, 0.15, 10.2, 4.95)
-  _boite(x2 + dx, y-haut, lb, h, "VSCode", couleur: manip,
-         fond: manip.lighten(94%))
+  _boite(x2 + dx, y-haut, lb, h, "VSCode", couleur: brun,
+         fond: brun.lighten(94%))
   rect((x2 + dx, y-milieu), (x2 + dx + lb - 1.5, y-milieu + h), radius: 0.09,
        stroke: (paint: estompe.lighten(40%), thickness: 1pt, dash: "dashed"))
   content((x2 + dx + (lb - 1.5) / 2, y-milieu + h / 2),

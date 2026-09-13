@@ -14,7 +14,7 @@ Objectif : lancer des outils au terminal (sans dépendre de l'OS) et versionner 
 - **🎓 5′ · Intérêt** : la CLI permet d'**enchaîner et d'automatiser** des étapes (motive le cours 3).
 - **⌨️ 13′ · Un outil utile tout de suite** : `pandoc fiche.md -o fiche.pdf --pdf-engine=typst` (conversion de document, sans LaTeX) ; éventuellement une conversion ImageMagick.
 - **🎓 20′ · Git local** : les 3 zones (working / staging / repo), `init`/`status`/`add`/`commit`/`log`/`diff`, `.gitignore`, annuler sans peur (`restore`).
-- **⌨️ 40′ ·Manipulation guidée** (chaque étudiant en parallèle du tableau) : (TODO : trouver idée de texte à ecrire/modifier)
+- **⌨️ 40′ · TD guidé** (chaque étudiant en parallèle du tableau) : (TODO : trouver idée de texte à ecrire/modifier)
   1. `git init` dans `notes-info/` (un dépôt = un dossier suivi) ;
   2. écrire les notes du jour en `.md` → `git add`/`commit` (staging → commit) ;
   3. `git status`/`log`/`diff` pour *lire* ce que git dit (démystifier) ;

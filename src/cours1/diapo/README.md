@@ -23,21 +23,32 @@ présentes :
 ```bash
 python outils/compiler_diapos.py                  # à projeter
 python outils/compiler_diapos.py --notes          # version annotée
-python outils/compiler_diapos.py --corrige        # corrigé des manipulations
-python outils/compiler_manips.py                 # une feuille par manipulation
+python outils/compiler_diapos.py --corrige        # corrigé des TD
+python outils/compiler_diapos.py --sans-tds       # le fil du cours, un sommaire par bloc de TD
+python outils/compiler_tds.py                     # une feuille par TD
+python outils/livrer_tds.py                       # l'archive remise aux étudiants
 ```
 
-`cours1.pdf` est la séance elle-même, 95 pages : c'est ce qu'on projette. Les
+`cours1.pdf` est la séance elle-même, 119 pages : c'est ce qu'on projette. Les
 options se combinent : `--notes --corrige` produit `cours1-notes-corrige.pdf`.
 
-L'exposé et les manipulations sont dans deux dossiers, `parties/` et `manips/`,
-et un fichier par manipulation. Deux compilations en découlent : `--input
-manips=false` donne le seul fil du cours, 54 pages, pour le relire sans les
-gestes ; et `outils/compiler_manips.py` compile chaque manipulation seule, en
-feuille d'instructions déposée dans le dossier de données qu'elle annonce, sous
-le nom `instructions-<nom>.pdf`. C'est le même fichier source dans les deux
-cas : ce qui est projeté et ce que l'étudiant garde sous les yeux ne peuvent
-pas diverger.
+L'exposé et les TD sont dans deux dossiers, `parties/` et `tds/`, et un fichier
+par TD, nommé comme le dossier que l'étudiant ouvre : `2c_hello_cpp.typ` pour
+`cours1/2c_hello_cpp/`. Le chiffre est le bloc, joué au même moment du cours ;
+la lettre, l'ordre dans le bloc. Chaque fichier commence par un dictionnaire
+`td` — numéro, titre, annonce, dossier, durée, `facultatif` — qui alimente
+l'ouverture brune du TD, et que `cours1.typ` importe.
+
+Trois compilations en découlent. `--sans-tds` (`--input tds=false`) donne le
+fil du cours, 62 pages, où chaque bloc de TD est remplacé par une seule
+diapositive, son sommaire : titres, dossiers, durées, et ce qui est facultatif.
+C'est le support d'une séance où les TD se font sur feuille sans être
+projetés. `outils/compiler_tds.py` compile chaque TD seul, en feuille de TD
+déposée dans le dossier de données qu'il annonce, sous le nom
+`td_<dossier>.pdf`. Et `outils/livrer_tds.py` assemble l'archive de la séance
+telle que les étudiants la reçoivent, feuilles comprises. C'est le même
+fichier source dans tous les cas : ce qui est projeté, ce que le sommaire
+liste et ce que l'étudiant garde sous les yeux ne peuvent pas diverger.
 
 Les commandes équivalentes, à la main :
 
@@ -53,10 +64,10 @@ typst compile --root . --input notes=true src/cours1/diapo/cours1.typ cours1-not
 # avec les captures d'écran, si l'archive a été décompressée dans data/
 typst compile --root . --input captures=true src/cours1/diapo/cours1.typ
 
-# le seul fil du cours, sans les manipulations
-typst compile --root . --input manips=false src/cours1/diapo/cours1.typ cours1-sans-manips.pdf
+# le seul fil du cours, un sommaire à la place de chaque bloc de TD
+typst compile --root . --input tds=false src/cours1/diapo/cours1.typ cours1-sans-tds.pdf
 
-# corrigé des manipulations, à distribuer après la séance
+# corrigé des TD, à distribuer après la séance
 typst compile --root . --input corrige=true src/cours1/diapo/cours1.typ cours1-corrige.pdf
 
 # recompilation à chaque sauvegarde
@@ -76,9 +87,9 @@ qu'il pose s'appliquent à tout ce qui est inclus ensuite.
 src/commun/theme.typ        mise en page, couleurs, polices et gabarits
 src/commun/schemas.typ      bloc, etape, chaine, couche, liaison, frise
 src/commun/prelude.typ      ré-exporte les deux, seul import à écrire
-src/cours1/diapo/cours1.typ assemblage : réglages, puis les #include
-src/cours1/diapo/parties/   l'exposé : 00 ouverture, puis 01 à 05
-src/cours1/diapo/manips/    les manipulations, une par fichier
+src/cours1/diapo/cours1.typ assemblage : réglages, puis les #import et #include
+src/cours1/diapo/parties/   l'exposé : 00 ouverture, puis 01 à 04
+src/cours1/diapo/tds/       les TD, un par fichier, nommés comme leurs dossiers
 ```
 
 Un fichier inclus par `#include` **n'hérite pas** des imports de celui qui
@@ -90,10 +101,10 @@ Les images se désignent depuis la racine du projet, `"/data/cours1/…"` : typs
 résout un chemin relatif par rapport au fichier où `image` est appelé,
 c'est-à-dire au thème, et non par rapport au fichier qui écrit le chemin.
 
-`cours1.typ` produit 95 pages avec les captures d'écran : titre, introduction au
-module, le contenu de la séance, puis ses quatre parties (logiciels et formats
-de fichier, programmation et éditeur de code, structure d'un projet Python,
-notebooks).
+`cours1.typ` produit 119 pages avec les captures d'écran : titre, introduction
+au module, le contenu de la séance, puis ses quatre parties (logiciels et
+formats de fichier, programmation et éditeur de code, structure d'un projet
+Python, notebooks), chacune suivie de son bloc de TD.
 
 ## Identité visuelle
 
@@ -105,7 +116,7 @@ d'origine. Trois couleurs, chacune à emploi unique :
 | Couleur | Valeur | Emploi |
 |---------|--------|--------|
 | `accent` | `#182936` | tout le texte, les titres, la structure |
-| `manip` | `#704730` | le filet de la page de titre, et le fond des parties TD |
+| `brun` | `#704730` | le filet de la page de titre, et le fond des TD |
 | `gris` | `#E6E6E6` | la barre de pied de page, les encadrés, les blocs |
 
 Deux partis pris viennent de Bruno : le texte n'est pas noir mais bleu très
@@ -126,14 +137,32 @@ n'arrondit jamais.
 | `page-titre(titre:, sous-titre:, auteur:, date:, fond:)` | page de titre d'une séance, posée où on la veut |
 | `d(titre, sous-titre: none)` | une diapositive ordinaire |
 | `separateur(titre, annonce:)` | diapositive de section, fond bleu |
-| `separateur-td(titre, annonce:, mention:)` | ouverture d'une partie de travaux dirigés, fond brun |
-| `separateur-reprise(titre, annonce:)` | retour à l'exposé après une manipulation en milieu de partie |
-| `separateur-manip(titre, annonce:)` | même gabarit, mention « Manipulation » |
+| `separateur-td(..td)` | ouverture d'un TD, fond brun : mention « TD 2b », « facultatif » s'il l'est, titre, annonce, dossier et durée |
+| `sommaire-td(td-1, td-2, …)` | la liste des TD d'un bloc, fond brun, à la place des TD dans la version `--sans-tds` |
+| `separateur-reprise(titre, annonce:)` | retour à l'exposé après un TD en milieu de partie |
 
-Les trois derniers marquent le passage de l'exposé au travail sur machine, et son retour, la
-distinction 🎓 / ⌨️ du syllabus. C'est la seule information que la couleur
-code, et elle ne sert à rien d'autre. Bruno ne fournit ni l'un ni l'autre :
-ces deux gabarits sont ajoutés ici, en n'employant que les couleurs du thème.
+Les trois derniers marquent le passage de l'exposé au travail sur machine, et
+son retour, la distinction 🎓 / ⌨️ du syllabus. C'est la seule information que
+la couleur code, et elle ne sert à rien d'autre. Bruno ne fournit aucun des
+trois : ils sont ajoutés ici, en n'employant que les couleurs du thème.
+
+`td` est le dictionnaire défini en tête de chaque fichier de `tds/` :
+
+```typst
+#let td = (
+  numero: "2c",                      // chiffre : le bloc ; lettre : l'ordre dedans
+  titre: "Le même programme en C++",
+  annonce: "…",                      // facultative
+  dossier: "cours1/2c_hello_cpp/",   // tel que l'étudiant le voit
+  duree: "10′",                      // indicative, facultative
+  facultatif: true,                  // ce que la séance ne fait pas
+)
+#separateur-td(..td)
+```
+
+`dossier` est le chemin dans l'archive remise aux étudiants, sans `data/` ni
+`produit/` : c'est lui que les diapositives du TD citent, et c'est là que
+`outils/compiler_tds.py` dépose la feuille de TD (sous `data/` dans le dépôt).
 
 ## Éléments
 
@@ -168,9 +197,9 @@ de ses cadres quand Fira Sans manquait. Les schémas en chaîne emploient donc
 qu'elles occuperont, retient la plus haute, et impose cette hauteur à toutes.
 Le résultat tient même compilé avec `--ignore-system-fonts`.
 
-## Manipulations et corrigé
+## TD et corrigé
 
-Ce qu'une manipulation fait constater n'est pas écrit sur la diapositive
+Ce qu'un TD fait constater n'est pas écrit sur la diapositive
 projetée : les colonnes d'observation sont remplacées par un filet à compléter,
 et `--input corrige=true` les remplit. Le gabarit est `reponse[…]`, et il
 s'applique aux colonnes « Ce qui se passe », « Ce que vous constatez »,
@@ -212,7 +241,7 @@ plat ou imprimée, elle donne la diapositive et ses notes côte à côte.
 La moitié gauche est **au millimètre celle qui est projetée** : les marges de
 droite absorbent toute la seconde moitié, et le fond plein des diapositives de
 séparation comme la barre de pied s'y arrêtent. Vérifié mot pour mot, aux mêmes
-coordonnées, sur les 94 pages.
+coordonnées, page pour page.
 
 Aucun format de PDF ne distingue une note d'un contenu de page : ce que le
 lecteur affiche, il l'affiche en entier, et aucun lecteur Windows courant ne

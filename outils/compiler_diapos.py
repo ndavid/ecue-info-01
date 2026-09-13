@@ -10,16 +10,20 @@ et passe les options qui conviennent.
 
     python outils/compiler_diapos.py                  # le cours 1, à projeter
     python outils/compiler_diapos.py --notes          # + les notes de conduite
-    python outils/compiler_diapos.py --corrige        # + le corrigé des manipulations
+    python outils/compiler_diapos.py --corrige        # + le corrigé des TD
+    python outils/compiler_diapos.py --sans-tds       # le fil du cours, un sommaire par bloc de TD
     python outils/compiler_diapos.py --tous           # les sept jeux
     python outils/compiler_diapos.py --cours 3        # un autre cours
 
 `--sans-captures` force le repli dessiné, pour vérifier que le document tient
 aussi sans les images.
 
-`cours<n>.pdf` est la séance elle-même, celle qu'on projette ; `--notes` et
-`--corrige` en donnent les variantes, sous les noms `cours<n>-notes.pdf` et
-`cours<n>-corrige.pdf`.
+`cours<n>.pdf` est la séance elle-même, celle qu'on projette ; `--notes`,
+`--corrige` et `--sans-tds` en donnent les variantes, sous les noms
+`cours<n>-notes.pdf`, `cours<n>-corrige.pdf` et `cours<n>-sans-tds.pdf`. Dans
+cette dernière, chaque bloc de TD est remplacé par une diapositive qui les
+liste : c'est le support d'une séance où les TD se font sur feuille, sans être
+projetés.
 """
 
 from __future__ import annotations
@@ -45,9 +49,9 @@ def sources(source: Path) -> list[Path]:
     """Le fichier d'assemblage et tout ce qu'il entraîne.
 
     Tous les `.typ` du dossier de la séance : l'exposé de `parties/`, les
-    manipulations de `manips/`, et les schémas, qui citent eux aussi des
-    images. Glober le dossier plutôt que suivre les `include` évite de rater
-    un fichier quand l'assemblage change de forme.
+    TD de `tds/`, et les schémas, qui citent eux aussi des images. Glober le
+    dossier plutôt que suivre les `include` évite de rater un fichier quand
+    l'assemblage change de forme.
     """
     return sorted(source.parent.rglob("*.typ"))
 
@@ -76,6 +80,8 @@ def compiler(cours: int, options: argparse.Namespace) -> int:
         commande += ["--input", "notes=true"]
     if options.corrige:
         commande += ["--input", "corrige=true"]
+    if options.sans_tds:
+        commande += ["--input", "tds=false"]
     commande.append(str(source))
 
     suffixe = "".join(
@@ -83,6 +89,7 @@ def compiler(cours: int, options: argparse.Namespace) -> int:
         for s, actif in (
             ("-notes", options.notes),
             ("-corrige", options.corrige),
+            ("-sans-tds", options.sans_tds),
         )
         if actif
     )
@@ -106,7 +113,11 @@ def main() -> int:
     analyseur.add_argument("--cours", type=int, default=1, help="numéro du cours (défaut : 1)")
     analyseur.add_argument("--tous", action="store_true", help="les sept jeux")
     analyseur.add_argument("--notes", action="store_true", help="version annotée")
-    analyseur.add_argument("--corrige", action="store_true", help="corrigé des manipulations")
+    analyseur.add_argument("--corrige", action="store_true", help="corrigé des TD")
+    analyseur.add_argument(
+        "--sans-tds", action="store_true",
+        help="le fil du cours seul, chaque bloc de TD remplacé par son sommaire",
+    )
     analyseur.add_argument(
         "--sans-captures", action="store_true",
         help="ignorer les captures d'écran, pour vérifier le repli dessiné",

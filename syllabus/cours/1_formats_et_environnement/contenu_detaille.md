@@ -3,7 +3,8 @@
 Vue d'ensemble : [../../01_syllabus_v1.md](../../01_syllabus_v1.md) (section « Cours 1 »).
 Inversion C1↔C3 : [../../inversion_c1_c3.md](../../inversion_c1_c3.md).
 
-**Supports** : [`src/cours1/notebook/`](../../../src/cours1/notebook/) (MyST, 4 pages) et [`src/cours1/diapo/`](../../../src/cours1/diapo/) (typst, 123 diapositives en assertion-evidence, 127 avec les captures d'écran ; `--input notes=true` pour la version annotée, `--input corrige=true` pour le corrigé des manipulations, `--input captures=true` si les captures d'écran sont en place).
+**Supports** : [`src/cours1/notebook/`](../../../src/cours1/notebook/) (MyST, 4 pages) et [`src/cours1/diapo/`](../../../src/cours1/diapo/) (typst, 119 diapositives en assertion-evidence avec les captures d'écran ; `--input notes=true` pour la version annotée, `--input corrige=true` pour le corrigé des TD, `--input tds=false` pour le fil du cours avec un sommaire à la place de chaque bloc de TD, `--input captures=true` si les captures d'écran sont en place).
+**TD** : dix, numérotés `1a`…`5b` (chiffre = bloc, lettre = ordre dans le bloc), quatre facultatifs (`1b`, `2c`, `5a`, `5b`). Un fichier par TD dans [`src/cours1/diapo/tds/`](../../../src/cours1/diapo/tds/), un dossier de même nom dans [`data/cours1/`](../../../data/cours1/), et l'archive remise aux étudiants assemblée par `outils/livrer_tds.py`.
 Conventions d'écriture : [`STYLE.md`](../../../STYLE.md).
 Illustrations manquantes, relevées diapositive par diapositive : [`illustrations_a_chercher.md`](illustrations_a_chercher.md).
 **Données** : [`data/cours1/`](../../../data/cours1/) — générées par `make_data.py`.
@@ -56,7 +57,7 @@ la détaillaient sont conservées en annexe du deck.
 
 ## Partie 1 — Logiciels et formats de fichier
 
-> **Le rythme est annoncé avant d'entrer dans la partie.** Une diapositive suit celle des notions déjà vues au lycée : la partie 1 les reprend, elle avance donc plus vite que les suivantes, et c'est la seule où le rythme est délibérément élevé. Le temps gagné va aux manipulations.
+> **Le rythme est annoncé avant d'entrer dans la partie.** Une diapositive suit celle des notions déjà vues au lycée : la partie 1 les reprend, elle avance donc plus vite que les suivantes, et c'est la seule où le rythme est délibérément élevé. Le temps gagné va aux TD.
 >
 > Elle porte un **point d'attention** encadré (`bloc-titre`) : si quelque chose n'est pas clair ici, la question se pose tout de suite. Formulation qui fonctionne mieux qu'une invitation générale — dire qu'ici, ne pas comprendre est probable et normal *parce qu'on va vite exprès*, si bien que la question n'est pas un aveu mais ce que le rythme suppose. Le passage à surveiller est le vocabulaire (logiciel, application, format, extension, chemin) : des mots qu'ils croient connaître, et où les malentendus s'installent sans bruit.
 
@@ -96,7 +97,7 @@ Réponse à la question 2, en deux diapositives. L'enjeu n'est pas le vocabulair
 
 > La dernière ligne est la plus importante, et elle vient après les cas purs parce qu'elle ne se comprend qu'ensuite : presque aucune application web n'est entièrement d'un côté. Une messagerie affiche et met en page chez vous, mais cherche dans vos messages sur son serveur. La question utile n'est donc pas « où est-ce que ça tourne ? » mais « qu'est-ce qui part, et quand ? ».
 
-- **Rattachement** : l'outil en ligne proposé pour la manipulation vidéo annonce que le rendu se fait sur l'appareil, ce qui explique qu'il n'exige ni compte ni connexion permanente. La phrase « ce qu'on dépose quelque part y reste » est semée ici et reprise au cours 5 avec les secrets.
+- **Rattachement** : l'outil en ligne proposé pour le TD vidéo (5b, facultatif) annonce que le rendu se fait sur l'appareil, ce qui explique qu'il n'exige ni compte ni connexion permanente. La phrase « ce qu'on dépose quelque part y reste » est semée ici et reprise au cours 5 avec les secrets.
 
 ### 🎓 1′ — Ce qu'un fichier permet *(liaison)*
 
@@ -110,7 +111,7 @@ Le fil vient de la diapositive précédente : parmi les deux natures de sortie, 
 
 - **Anatomie d'un nom de fichier** : le nom, puis l'extension après le dernier point. L'extension décide quel logiciel le système lance au double-clic ; elle ne modifie aucun octet.
 - **Fichiers et dossiers cachés** : nom commençant par `.` (`.gitignore`, dossier `.git/`) ; comment les afficher. *Prérequis du cours 2* — ne pas sauter.
-- Faire activer **l'affichage des extensions** dans l'explorateur (masquées par défaut sous Windows/macOS) : à faire une fois, utile tout le semestre, et **indispensable à la manipulation suivante**.
+- Faire activer **l'affichage des extensions** dans l'explorateur (masquées par défaut sous Windows/macOS) : à faire une fois, utile tout le semestre, et **indispensable au TD 1a**.
 
 ### 🎓 4′ — Reconnaître un format à son extension
 
@@ -127,9 +128,11 @@ Les trois qui font débat : `.svg` (une image, mais du texte XML), `.csv` (du te
 - **Le pont** : `file:///C:/Users/alice/Documents/raven.html`, même structure sans machine distante. C'est ce qui explique le `file:///` que les étudiants verront en ouvrant une page par double-clic, tout de suite après.
 - *Semé pour le cours 3* : « le fichier existe pourtant » signifie presque toujours qu'on ne l'a pas cherché depuis le bon dossier.
 
-### ⌨️ 20′ — TD : fichiers, formats et extensions *(manipulation, LibreOffice)*
+### ⌨️ 20′ — TD 1a : fichiers, formats et extensions, puis TD 1b : l'archive `.odt` *(facultatif)*
 
-Fichier de départ : `data/cours1/produit/raven.odt`, produit par `python make_data.py fetch && python make_data.py build`. Tous les résultats ci-dessous ont été observés, sur LibreOffice piloté en mode sans interface.
+Fichiers de départ dans `cours1/1a_formats/depart/`, produits dans le dépôt par `python make_data.py fetch && python make_data.py build`. Le TD ouvre sur **deux dossiers** : `depart/`, ce qui est donné et ne se modifie pas, et `travail/`, livré vide, où vont toutes les copies. La première diapositive écrit les deux chemins en entier, `C:\Users\alice\Documents\cours1\1a_formats\depart\raven.odt` et sa copie renommée dans `travail\`, pour que le vocabulaire des chemins serve tout de suite ; les suivantes abrègent à partir de `cours1/`. Une diapositive montre ensuite le geste de copie-renommage deux fois, dans l'explorateur (`Ctrl`+`C`, `Ctrl`+`V`, `F2`) et dans un terminal `cmd` (`copy depart\raven.odt travail\raven_odt.pdf`) : le terminal est pour ceux qui le connaissent déjà, aucune étape ne l'exige.
+
+Depuis septembre 2026, la partie « un `.odt` est une archive ZIP » — les étapes 3 et 4 ci-dessous — est un TD à part, **1b, facultatif**, dans `cours1/1b_archive_odt/` (même `raven.odt`, mêmes `depart/` et `travail/`), pour ceux qui vont vite. Le TD 1a garde l'export LibreOffice (étape 1), le renommage (2), la page HTML (5), la table ASCII et le Bloc-notes, plus la diapositive sur l'adresse `file:///`, venue de l'exposé.
 
 **1. Un même document, trois formats.** Ouvrir le `.odt` dans Writer, puis :
 
@@ -148,29 +151,29 @@ L'export en image se trouve sous *Fichier > Exporter*, pas sous *Enregistrer sou
 | `raven_odt.pdf` | un lecteur PDF | refus : le fichier n'est pas un PDF |
 | `raven_odt.jpg` | une visionneuse | refus : *Not a JPEG file: starts with 0x50 0x4b* |
 | `riri.fifi.loulou.odt` | LibreOffice Writer | s'ouvre : seule la fin du nom compte |
-| `raven.loulou` | LibreOffice Writer | s'ouvre : extension inconnue, le système regarde le contenu |
+| `raven.loulou` | rien : « Comment voulez-vous ouvrir ce fichier ? » | choisir LibreOffice : s'ouvre, le contenu n'a pas changé |
 
-La quatrième ligne est la plus instructive et n'est pas intuitive : avec une extension **inventée**, le système n'a plus de convention à appliquer et se rabat sur les premiers octets. Laisser la salle inventer l'extension. Le message de la visionneuse nomme lui-même les octets lus, `0x50 0x4b`, soit « PK ».
+La quatrième ligne est la plus instructive et n'est pas intuitive : avec une extension **inventée**, le système n'a plus de convention à appliquer. **Vérifié sous Windows 11** : il n'ouvre rien et ne regarde pas le contenu, il propose une liste de logiciels ; cocher « Toujours » associe l'extension au logiciel choisi, et le double-clic suivant ouvre directement. Sous Linux (GNOME), le système lit les premiers octets et propose LibreOffice de lui-même. La conclusion sur la diapositive : le système ne regarde que le nom. Laisser la salle inventer l'extension. Le message de la visionneuse nomme lui-même les octets lus, `0x50 0x4b`, soit « PK ».
 
-> **Prérequis, vérifié en 2026** : Windows 11 masque toujours les extensions des types connus **par défaut**. Le réglage est dans *Explorateur > Affichage > Afficher > Extensions de noms de fichiers* ; sous macOS, *Finder > Réglages > Avancé > « Afficher tous les suffixes de fichiers »*. Sans cela, `F2` ne montre pas ce qu'on renomme et toute la manipulation tombe à plat. C'est le premier geste de la séance, et il est rappelé sur la diapositive elle-même.
+> **Prérequis, vérifié en 2026** : Windows 11 masque toujours les extensions des types connus **par défaut**. Le réglage est dans *Explorateur > Affichage > Afficher > Extensions de noms de fichiers* ; sous macOS, *Finder > Réglages > Avancé > « Afficher tous les suffixes de fichiers »*. Sans cela, `F2` ne montre pas ce qu'on renomme et tout le TD tombe à plat. C'est le premier geste de la séance, et il est rappelé sur la diapositive elle-même.
 
-**3. Un `.odt` est une archive.** Renommer en `.zip`, ouvrir avec le gestionnaire d'archives : six fichiers, dont `mimetype`, `content.xml` (le texte) et `styles.xml` (la mise en forme). Ouvrir `content.xml` dans l'éditeur : le poème est en clair. C'est aussi la réponse à « pourquoi un `.odt` se versionne mal ».
+**3. Un `.odt` est une archive** *(TD 1b)*. Copier dans `travail/` sous le nom `raven.zip`, ouvrir avec le gestionnaire d'archives : six fichiers, dont `mimetype`, `content.xml` (le texte) et `styles.xml` (la mise en forme). Ouvrir `content.xml` dans l'éditeur : le poème est en clair. C'est aussi la réponse à « pourquoi un `.odt` se versionne mal ».
 
-**4. Modifier le document sans traitement de texte.** Éditer les fichiers extraits, recompresser, renommer en `.odt` :
+**4. Modifier le document sans traitement de texte** *(TD 1b)*. Éditer les fichiers extraits, recompresser, renommer en `.odt` :
 
 - le texte : dans `content.xml`, remplacer `>The Raven<` par `>Le Corbeau<` ;
 - **un style, sans code hexadécimal** : dans `content.xml`, remplacer `Text_20_body` par `Heading_20_1` sur un paragraphe, qui devient un titre. Une diapositive montre la ligne avant et après, la partie changée en couleur. Le `_20_` intrigue toujours : ce n'est pas un nom en trois morceaux, c'est « Text body » dont l'espace est encodé, un nom XML n'en acceptant pas. ODF écrit chaque caractère interdit sous la forme de son code hexadécimal entre tirets bas, et l'espace vaut 20 — le même principe que le `%20` des adresses web. Le nom lisible est dans l'attribut `style:display-name`, et l'explication est donnée aux étudiants dans le notebook, avec un lien vers la spécification ;
 - la taille : dans `styles.xml`, sur `Heading_20_1`, passer `fo:font-size` de `115%` à `220%`.
 
-> **Sur la couleur, question attendue** : ODF n'accepte **pas** de nom de couleur. Vérifié — `fo:color="red"` est ignoré et le titre reste noir ; il faut `fo:color="#c0392b"`. C'est donc l'occasion d'expliquer le code hexadécimal, deux chiffres par composante rouge, verte et bleue. CSS, lui, accepte les deux écritures, ce qui se vérifie à la manipulation suivante.
+> **Sur la couleur, question attendue** : ODF n'accepte **pas** de nom de couleur. Vérifié — `fo:color="red"` est ignoré et le titre reste noir ; il faut `fo:color="#c0392b"`. C'est donc l'occasion d'expliquer le code hexadécimal, deux chiffres par composante rouge, verte et bleue. CSS, lui, accepte les deux écritures, ce qui se vérifie au TD 3a.
 
 `content.xml` fait 4 ko sur 21 lignes, dont une de 1 300 caractères : le Bloc-notes l'ouvre, en activant le retour à la ligne, mais l'éditeur de code du module est nettement plus confortable, puisqu'il colore et replie les balises.
 
-> ⚠️ **Le piège, à annoncer avant qu'il ne se produise** : compresser les six fichiers, **pas le dossier qui les contient**. Sinon les chemins dans l'archive deviennent `extrait/content.xml` et LibreOffice refuse d'ouvrir, avec « source file could not be loaded ». Vérifié : c'est bien un échec, pas une dégradation silencieuse.
+> ⚠️ **Le piège, désormais écrit sur la diapositive** : compresser les six fichiers depuis l'intérieur du dossier, **pas le dossier qui les contient**. Sinon les chemins dans l'archive deviennent `raven/content.xml` et LibreOffice refuse d'ouvrir, avec « source file could not be loaded ». Vérifié : c'est bien un échec, pas une dégradation silencieuse.
 
-**5. Ouvrir une page depuis son disque.** Double-clic sur `raven_brut.html` : le navigateur l'affiche sans réseau, et l'adresse est un chemin du disque. Puis `raven_style.html`, même texte mis en forme, qui appelle `style.css` : changer une couleur dans le CSS et recharger avec `F5`. Le `.html` est identique dans les deux cas ; seule la ligne `<link rel="stylesheet" href="style.css">` les distingue. Si `style.css` n'est pas dans le même dossier, la page s'affiche sans mise en forme — bonne occasion de reparler des chemins relatifs.
+**5. Ouvrir une page depuis son disque.** Double-clic sur `depart/raven_brut.html` : le navigateur l'affiche sans réseau, et l'adresse est un chemin du disque. La diapositive suivante reprend l'anatomie d'une URL (`https://` / la machine / le chemin / le fichier) et pose la question des trois barres de `file:///` : la place de la machine est vide, c'est la vôtre, et la troisième barre est la racine. Puis `raven_style.html`, même texte mis en forme, qui appelle `style.css` : changer une couleur dans le CSS et recharger avec `F5`. Le `.html` est identique dans les deux cas ; seule la ligne `<link rel="stylesheet" href="style.css">` les distingue. Si `style.css` n'est pas dans le même dossier, la page s'affiche sans mise en forme — bonne occasion de reparler des chemins relatifs.
 
-L'argument à retenir dépasse la manipulation : un format **ouvert et documenté** se manipule avec des outils quelconques, et le contenu se sépare de sa présentation aussi bien dans un `.odt` que dans une page web.
+L'argument à retenir dépasse le TD : un format **ouvert et documenté** se manipule avec des outils quelconques, et le contenu se sépare de sa présentation aussi bien dans un `.odt` que dans une page web.
 
 ---
 
@@ -207,7 +210,7 @@ Une capture d'écran de VSCode ouvert sur un petit projet sert de support : les 
 
 ### 🎓 4′ — Lancer un programme depuis l'éditeur
 
-La partie a dit qu'un IDE sert à lancer et à tester, sans jamais montrer par où. Trois menus suffisent, et ils sont projetés avant la manipulation plutôt que découverts pendant.
+La partie a dit qu'un IDE sert à lancer et à tester, sans jamais montrer par où. Trois menus suffisent, et ils sont projetés avant le TD 2a plutôt que découverts pendant.
 
 | | Le bouton d'exécution | Le terminal intégré |
 |---|---|---|
@@ -236,7 +239,7 @@ Python vient avec l'environnement ; un compilateur C++, non. **Windows n'en four
 
 > Ne pas employer `m2w64-toolchain`, encore proposé par de vieilles réponses en ligne : le paquet affiche lui-même à l'activation qu'il est obsolète et renvoie vers `gcc`, `gxx` et `gfortran`.
 
-L'installation demande du réseau et quelques minutes : la lancer avant la séance si possible, sinon au début de la manipulation en enchaînant sur Python pendant qu'elle tourne. C'est la seule étape de la séance qui dépende du réseau de la salle. La justification de l'environnement est repoussée à la partie 4, et il faut le dire plutôt que de laisser la question en suspens.
+L'installation demande du réseau et quelques minutes : la lancer avant la séance si possible, sinon au début du TD 2c en enchaînant sur autre chose pendant qu'elle tourne. C'est la seule étape de la séance qui dépende du réseau de la salle. La justification de l'environnement est repoussée à la partie 4, et il faut le dire plutôt que de laisser la question en suspens.
 
 ### 🎓 3′ — Ouvrir un terminal où conda existe
 
@@ -252,42 +255,55 @@ Les postes de la salle ont Anaconda installé : c'est lui qui fournit l'« Anaco
 
 > **La troisième ligne est celle qui sert toute l'année** : choisir l'interpréteur dans l'éditeur suffit, l'extension Python plaçant ensuite tous les terminaux intégrés dans cet environnement — on n'a plus à taper `conda activate`. Faire lire l'invite à voix haute une fois : `(base)` et `(info01)` ne sont pas la même chose, et les confondre fait installer les paquets là où ils ne serviront pas.
 
-### ⌨️ 10′ — Un hello world en Python et en C++ *(manipulation)*
+### ⌨️ 25′ — TD 2a : configurer l'éditeur de code, et lancer un programme ; puis TD 2c, le même en C++ *(facultatif)*
 
-La manipulation tient sur deux diapositives : les gestes, puis ce qu'ils ont produit. **Les gestes sont écrits un par un et projetés tels quels** — l'objectif seul ne suffit pas à cette séance, une étape sous-entendue est une étape où la moitié de la salle s'arrête sans le dire.
+Le TD a été renommé et étoffé en septembre 2026, après des essais sur les postes de l'école (machines virtuelles Windows avec Anaconda) : la configuration de l'éditeur n'y est pas immédiate, et c'est elle, plus que le hello world, qui est le sujet. Le dossier s'appelle `2a_vscode_python/`. Le fil, dans l'ordre des diapositives :
 
-1. **Fichier → Ouvrir le dossier**, puis choisir `data/cours1/hello/` — le dossier, pas un fichier.
+1. **Lancer VS Code depuis Anaconda Navigator**, après avoir choisi `info01` dans la liste des environnements. Doc Anaconda : « When you launch VS Code from Navigator, it will automatically use the Python interpreter in the currently selected environment ». Que le terminal intégré hérite bien de l'environnement est **à vérifier sur un poste avant la séance** : la doc ne le dit pas.
+2. **L'extension Python**, `ms-python.python`, que Navigator n'installe pas.
+3. **La palette de commandes** (`Ctrl`+`Maj`+`P`) **et les réglages** (`Ctrl`+`,`, et `settings.json` à deux niveaux, User et Workspace) : une diapositive à part, parce que toutes les consignes du module passent par là.
+4. **Choisir l'interpréteur.**
+5. **VS Code hors Anaconda** (lancé depuis le bureau) : PowerShell refuse `activate.ps1` — « running scripts is disabled on this system » — et les élèves n'ont pas les droits pour changer la stratégie d'exécution. La solution retenue, sans droits : un profil de terminal `cmd.exe /K …\Scripts\activate.bat …`, la cible exacte du raccourci « Anaconda Prompt », posé en profil par défaut dans `settings.json` (User). Les autres pistes de l'issue vscode-python #2559 et leurs limites sont dans les notes de la diapositive : `Set-ExecutionPolicy -Scope CurrentUser` et le profil PowerShell `-ExecutionPolicy ByPass` cèdent devant une stratégie de groupe ; l'activation par variables d'environnement de l'extension (#11039) n'exécute aucun script mais la version des postes a montré l'erreur.
+6. **Lancer le programme**, puis les trois façons d'exécuter `altitudes.py`, dont le pas à pas détaillé sur deux diapositives (poser l'arrêt et lancer, avec le choix « Python Debugger › Python File » au premier `F5` ; puis avancer avec `F10` en prédisant `total`, la barre de boutons et ses touches).
+7. **En option, sans VS Code** : refaire lancement et session interactive depuis l'Anaconda Prompt (`conda activate info01`, `cd` en glissant le dossier dans la fenêtre), pour voir ce que l'éditeur faisait à leur place.
+
+**Les gestes sont écrits un par un et projetés tels quels** — l'objectif seul ne suffit pas à cette séance, une étape sous-entendue est une étape où la moitié de la salle s'arrête sans le dire.
+
+1. **Fichier → Ouvrir le dossier**, puis choisir `cours1/2a_vscode_python/` — le dossier, pas un fichier.
 2. **`Ctrl`+`Maj`+`P`**, taper « Python: Select Interpreter », choisir `info01`. Rien ne se passe visiblement, et c'est normal : le réglage sert au terminal qu'on ouvre juste après. Sans lui, `python` peut être un autre que celui du module.
-3. **Terminal → Nouveau terminal** : il s'ouvre en bas, déjà dans `hello/`, ce qu'il faut faire remarquer après les erreurs de chemin du début de séance.
-4. Taper `python python/bonjour.py`, puis Entrée.
-5. Taper `g++ cpp/bonjour.cpp -o cpp/bonjour`, puis Entrée. **Rien ne s'affiche**, et c'est l'étape où la question vient : faire regarder l'arborescence plutôt que le terminal, `cpp/bonjour` vient d'y apparaître.
-6. Taper `cpp/bonjour`, puis Entrée.
+3. **Terminal → Nouveau terminal** : il s'ouvre en bas, déjà dans `2a_vscode_python/`, ce qu'il faut faire remarquer après les erreurs de chemin du début de séance.
+4. Taper `python bonjour.py`, puis Entrée.
+
+Puis, au TD 2c, facultatif, dans `cours1/2c_hello_cpp/` :
+
+5. Taper `g++ bonjour.cpp -o bonjour`, puis Entrée. **Rien ne s'affiche**, et c'est l'étape où la question vient : faire regarder l'arborescence plutôt que le terminal, `bonjour` vient d'y apparaître.
+6. Taper `./bonjour`, puis Entrée.
 
 Le bouton d'exécution fait la même chose que l'étape 4, et il existe aussi pour le C++ : c'est la diapositive précédente. Le montrer après, jamais avant — la commande écrite à la main est celle qui reste.
 
-| | `python/bonjour.py` | `cpp/bonjour.cpp` |
+| | `bonjour.py` (TD 2a) | `bonjour.cpp` (TD 2c) |
 |---|---|---|
-| Ce qu'on tape | `python python/bonjour.py` | `g++ cpp/bonjour.cpp -o cpp/bonjour`, puis `cpp/bonjour` |
+| Ce qu'on tape | `python bonjour.py` | `g++ bonjour.cpp -o bonjour`, puis `./bonjour` |
 | Étapes | une | deux : compiler, puis exécuter |
-| Sur le disque | rien | `cpp/bonjour`, un exécutable |
+| Sur le disque | rien | `bonjour`, un exécutable |
 | Taille de la source | 121 octets | 230 octets |
 | Taille produite | aucun fichier | environ 20 000 octets, près de cent fois la source |
 
 La taille de l'exécutable dépend du compilateur et du système — 19 560 octets avec g++ 13.3, 23 624 relevés ailleurs — mais l'ordre de grandeur ne bouge pas, et c'est lui qu'on fait dire.
 
-C'est la diapositive « Deux chemins du texte à l'exécution » faite à la main : y renvoyer explicitement. Faire ensuite ouvrir `cpp/bonjour` dans l'éditeur pour constater qu'il est illisible — la diapositive « Code source et fichier exécutable », vérifiée par eux.
+C'est la diapositive « Deux chemins du texte à l'exécution » faite à la main : y renvoyer explicitement. Faire ensuite ouvrir `bonjour` dans l'éditeur pour constater qu'il est illisible — la diapositive « Code source et fichier exécutable », vérifiée par eux.
 
-Sous Windows, `g++` n'est pas fourni : MinGW-w64, MSYS2 ou le sous-système Windows pour Linux. Prévoir un poste de démonstration si personne ne l'a. Détails dans [`data/cours1/hello/README.md`](../../../data/cours1/hello/README.md).
+Sous Windows, `g++` n'est pas fourni : MinGW-w64, MSYS2 ou le sous-système Windows pour Linux. Prévoir un poste de démonstration si personne ne l'a. Détails dans [`data/cours1/2c_hello_cpp/README.md`](../../../data/cours1/2c_hello_cpp/README.md).
 
 ---
 
-### ⌨️ 8′ — Le même programme, trois façons de l'exécuter *(manipulation)*
+### ⌨️ 8′ — TD 2a, suite : le même programme, trois façons de l'exécuter
 
-`data/cours1/hello/python/altitudes.py`, six lignes qui calculent une moyenne d'altitudes. Choisi pour trois raisons : il tient à l'écran, il a une boucle donc un état qui change, et son résultat se vérifie de tête — le `hello world` n'avait aucune de ces propriétés. Les altitudes sont celles de la diapositive « Coloration syntaxique » : le même extrait, devenu un programme qui tourne.
+`cours1/2a_vscode_python/altitudes.py`, six lignes qui calculent une moyenne d'altitudes. Choisi pour trois raisons : il tient à l'écran, il a une boucle donc un état qui change, et son résultat se vérifie de tête — le `hello world` n'avait aucune de ces propriétés. Les altitudes sont celles de la diapositive « Coloration syntaxique » : le même extrait, devenu un programme qui tourne.
 
-1. **En entier** : `python python/altitudes.py` → `moyenne : 129.0 m`. Une seule ligne de sortie ; ce qui s'est passé entre-temps n'est pas visible.
+1. **En entier** : `python altitudes.py` → `moyenne : 129.0 m`. Une seule ligne de sortie ; ce qui s'est passé entre-temps n'est pas visible.
 2. **Ligne à ligne**, dans la session interactive : `total` s'affiche sans `print`, ce qui donne accès à l'intérieur du calcul. Faire refaire la boucle en affichant `total` à chaque tour — 128,4 puis 259,4 puis 387,0.
-3. **Pas à pas dans l'éditeur** : point d'arrêt en marge de la ligne 4 (`F9`), lancer (`F5`), avancer (`F10`), lire le panneau « Variables ».
+3. **Pas à pas dans l'éditeur** : point d'arrêt en marge de la ligne 4, lancer (`F5`, puis « Python Debugger » › « Python File » la première fois), avancer (`F10`), lire le panneau « Variables » ; `F5` pour finir, et enlever le point d'arrêt.
 
 > Le réflexe à installer contre celui qu'ils ont déjà : on n'ajoute pas des `print` partout pour savoir ce qui se passe, on pose un point d'arrêt. Ligne 4 est choisie exprès — c'est le corps de la boucle, l'arrêt se répète trois fois et `total` change sous leurs yeux. Faire prédire la valeur avant chaque `F10`. Ne pas aller jusqu'à `F11`, qui entre dans les fonctions appelées et perd tout le monde.
 
@@ -304,7 +320,7 @@ Diapositive de remarque, une minute. « Python » nomme le langage ; plusieurs p
 | Jython | Java | permet d'employer les bibliothèques Java |
 | MicroPython | C | tient dans un microcontrôleur |
 
-> Le seul qu'ils rencontreront est CPython, et il faut le dire ainsi pour qu'ils ne cherchent pas à choisir. Que l'interpréteur de référence soit écrit en C boucle avec « Code source et fichier exécutable » : les octets montrés étaient ceux de ce programme, compilé comme le `bonjour.exe` de la manipulation. Ne pas ouvrir la question de la vitesse, qui revient au cours 6.
+> Le seul qu'ils rencontreront est CPython, et il faut le dire ainsi pour qu'ils ne cherchent pas à choisir. Que l'interpréteur de référence soit écrit en C boucle avec « Code source et fichier exécutable » : les octets montrés étaient ceux de ce programme, compilé comme le `bonjour.exe` du TD 2c. Ne pas ouvrir la question de la vitesse, qui revient au cours 6.
 
 ---
 
@@ -331,7 +347,7 @@ Certaines bibliothèques ne sont que du Python ; d'autres enveloppent du code é
 | Selon la machine | le même fichier partout | un fichier par système et par version de Python |
 | Pourquoi | rien à compiler | la vitesse, ou une bibliothèque qui existait déjà |
 
-> **C'est la troisième ligne qui compte.** Une enveloppe doit exister précompilée pour chaque système et chaque version de Python ; quand elle n'existe pas, l'installation tente de compiler sur place et échoue faute de compilateur — le « Microsoft Visual C++ 14.0 is required » que tout le monde a déjà vu. C'est exactement ce que conda résout, et pourquoi le module l'emploie plutôt que `pip` seul : il distribue les binaires précompilés, et sait installer ce qui n'est pas du Python, comme le compilateur C++ de la partie 2 ou `ffmpeg`. Les quatre exemples sont choisis pour être compris **sans notion préalable** : `markdown` convertit en HTML ce qu'ils viennent d'écrire à la manipulation précédente, et c'est du Python de bout en bout ; `pillow` ouvre les `.jpg` et `.png` de la grille des extensions, mais ne les décode pas lui-même — il appelle `libjpeg` et `libpng`, deux bibliothèques C plus vieilles que les étudiants.
+> **C'est la troisième ligne qui compte.** Une enveloppe doit exister précompilée pour chaque système et chaque version de Python ; quand elle n'existe pas, l'installation tente de compiler sur place et échoue faute de compilateur — le « Microsoft Visual C++ 14.0 is required » que tout le monde a déjà vu. C'est exactement ce que conda résout, et pourquoi le module l'emploie plutôt que `pip` seul : il distribue les binaires précompilés, et sait installer ce qui n'est pas du Python, comme le compilateur C++ de la partie 2 ou `ffmpeg`. Les quatre exemples sont choisis pour être compris **sans notion préalable** : `markdown` convertit en HTML ce qu'ils viennent d'écrire au TD 3a, et c'est du Python de bout en bout ; `pillow` ouvre les `.jpg` et `.png` de la grille des extensions, mais ne les décode pas lui-même — il appelle `libjpeg` et `libpng`, deux bibliothèques C plus vieilles que les étudiants.
 
 ### 🎓 6′ — L'outil, et le minimum de ligne de commande pour s'en servir
 
@@ -354,7 +370,7 @@ Suivent **deux diapositives seulement**, le minimum pour lire ces lignes :
 
 ### 🎓 4′ — Le terminal de l'éditeur de code
 
-Ils s'en sont déjà servis sans qu'on le nomme, à la manipulation « hello world » : c'est le moment d'y revenir. Le terminal intégré n'est pas un autre terminal, c'est le même programme affiché dans la fenêtre de l'éditeur — le dire, parce que la question vient.
+Ils s'en sont déjà servis sans qu'on le nomme, au TD 2a, « hello world » : c'est le moment d'y revenir. Le terminal intégré n'est pas un autre terminal, c'est le même programme affiché dans la fenêtre de l'éditeur — le dire, parce que la question vient.
 
 | Le geste | Ce qu'il règle |
 |---|---|
@@ -381,10 +397,10 @@ conda activate info01
 
 - **Miniforge** : <https://conda-forge.org/download/>. La liste exacte des paquets est dans [`environment.yml`](../../../environment.yml), qui est ce qu'on distribue ; la ligne ci-dessus en est le résumé projetable.
 - Vérification : invite `(info01)`, puis `import sys; print(sys.executable)`, dont le chemin doit contenir `info01`.
-- **Message à marteler** : `ModuleNotFoundError` alors qu'« on vient d'installer » = presque toujours le **mauvais environnement actif**. La manipulation qui suit le fait constater.
+- **Message à marteler** : `ModuleNotFoundError` alors qu'« on vient d'installer » = presque toujours le **mauvais environnement actif**. Le TD 3b le fait constater.
 - L'environnement sert à **installer des outils**, pas à packager un projet (décision de conception du module).
 
-> ⚠️ **Point de bascule de la séance.** Si l'environnement manque sur quelques postes, la manipulation qui suit ne se fait pas, et le cours 3 démarre mal. Prévoir : consigne d'installation **avant** la rentrée, une clé USB avec l'installeur Miniforge (Windows/macOS), et un binôme d'entraide. Voir les leviers d'allègement dans [`inversion_c1_c3.md`](../../inversion_c1_c3.md).
+> ⚠️ **Point de bascule de la séance.** Si l'environnement manque sur quelques postes, le TD 3b ne se fait pas, et le cours 3 démarre mal. Prévoir : consigne d'installation **avant** la rentrée, une clé USB avec l'installeur Miniforge (Windows/macOS), et un binôme d'entraide. Voir les leviers d'allègement dans [`inversion_c1_c3.md`](../../inversion_c1_c3.md).
 
 ### 🎓 3′ — Les outils d'installation, et d'où viennent les paquets
 
@@ -398,11 +414,11 @@ Trois diapositives courtes, insérées après « L'outil qui installe un environ
 
 > **Sur le canal `defaults` d'Anaconda**, si la question vient : le module emploie Miniforge, qui n'installe que depuis conda-forge, parce que les conditions d'utilisation du dépôt d'Anaconda demandent une licence payante aux organisations au-delà d'une certaine taille. La raison est dans [`INSTALLATION.md`](../../../INSTALLATION.md) et n'a pas à être développée en séance.
 
-### ⌨️ 12′ — Installer une bibliothèque et s'en servir *(manipulation)*
+### ⌨️ 12′ — TD 3b : installer une bibliothèque et s'en servir
 
 Fichiers : [`data/cours1/environnement/`](../../../data/cours1/environnement/) — un petit projet Python écrit comme les dépôts qu'ils ouvriront cette année : `pyproject.toml`, `environment.yml`, `README.md`, le paquet `page_html/` et `style.css`. Le README y donne le déroulé complet. Trois diapositives d'étapes, après l'ouverture brune.
 
-C'est la seule manipulation de la partie, et elle en est la conclusion : la partie a dit ce qu'un programme emprunte et quel outil l'installe, sans que personne n'ait encore installé quoi que ce soit. `page_html` convertit en page HTML le `recette.md` écrit à la partie 3, avec la bibliothèque `markdown`, qui n'est nulle part.
+C'est le seul TD de la partie, et il en est la conclusion : la partie a dit ce qu'un programme emprunte et quel outil l'installe, sans que personne n'ait encore installé quoi que ce soit. `page_html` convertit en page HTML le `recette.md` écrit à la partie 3, avec la bibliothèque `markdown`, qui n'est nulle part.
 
 **On repart d'un environnement neuf**, et non de `info01` : c'est ce qui permet de voir ce qu'un environnement contient d'origine, ce qui manque, et ce qu'une installation ajoute.
 
@@ -420,7 +436,7 @@ C'est la seule manipulation de la partie, et elle en est la conclusion : la part
 | 10 | Ajouter `- markdown` sous `dependencies` dans `environment.yml` | le fichier décrit enfin ce qu'on a installé |
 | 11 | `conda env update -f environment.yml` | rien ne s'installe : c'était déjà fait |
 
-**L'étape 4 est la surprise de la manipulation.** Un environnement « Python seul » n'est pas vide : 28 paquets, dont une douzaine de bibliothèques C — `openssl`, `libsqlite`, `libzlib` — sans lesquelles l'interpréteur ne démarre pas. `pip`, `setuptools` et `wheel` y sont aussi, ce qui explique que `pip install` fonctionne dans un environnement conda sans qu'on l'ait installé. Et rien de ce que fait un programme utile : ni `numpy`, ni `jupyterlab`, ni `markdown`.
+**L'étape 4 est la surprise du TD.** Un environnement « Python seul » n'est pas vide : 28 paquets, dont une douzaine de bibliothèques C — `openssl`, `libsqlite`, `libzlib` — sans lesquelles l'interpréteur ne démarre pas. `pip`, `setuptools` et `wheel` y sont aussi, ce qui explique que `pip install` fonctionne dans un environnement conda sans qu'on l'ait installé. Et rien de ce que fait un programme utile : ni `numpy`, ni `jupyterlab`, ni `markdown`.
 
 **L'étape 5 ne se saute pas.** C'est la seule fois de la séance où ils voient `ModuleNotFoundError` dans des conditions où la cause est connue d'avance : le message annoncé deux fois depuis la partie 2 devient une chose qui leur est arrivée. Dire en une phrase ce que `-m` fait — exécuter un paquet plutôt qu'un fichier — et ne pas s'y attarder.
 
@@ -436,7 +452,7 @@ Trois choses de la séance se referment à l'étape 8, et elles se nomment une p
 
 > **Mesuré sur la machine de préparation**, sous Linux, avec le solveur `libmamba` de conda 24.7 : création de l'environnement en 10 s (index en cache), 28 paquets ; `conda install markdown` en 7 s et 3 paquets dans l'environnement neuf, contre 1 paquet de 85 ko et 1 min 52 s à froid dans `info01`. Trente postes en même temps iront moins vite. Commenter la sortie de `conda install` pendant qu'elle tourne plutôt que d'attendre en silence. Les libellés de menu de l'éditeur n'ont pas été vérifiés sur un poste Windows. Poste sans réseau : les étapes 3 et 6 échouent ; projeter le résultat, et faire quand même les étapes 10 et 11, qui ne demandent que d'éditer un fichier.
 
-> **Pourquoi `markdown` et pas `jinja2`.** L'idée d'un `.odt` produit depuis un modèle, par substitution dans `content.xml`, a été écartée pour une raison mesurée : `jinja2` **est déjà installé** dans `info01`, tiré comme dépendance de Sphinx et de JupyterLab, et `conda install jinja2` n'installerait rien. `markdown` est absent des deux environnements, et il est l'exemple « tout en Python » de la diapositive « Ce qu'une bibliothèque contient vraiment » : l'installation la vérifie. Il n'est **pas** ajouté à l'`environment.yml` du module, le geste de la manipulation étant d'ajouter une bibliothèque à un environnement qui existe déjà.
+> **Pourquoi `markdown` et pas `jinja2`.** L'idée d'un `.odt` produit depuis un modèle, par substitution dans `content.xml`, a été écartée pour une raison mesurée : `jinja2` **est déjà installé** dans `info01`, tiré comme dépendance de Sphinx et de JupyterLab, et `conda install jinja2` n'installerait rien. `markdown` est absent des deux environnements, et il est l'exemple « tout en Python » de la diapositive « Ce qu'une bibliothèque contient vraiment » : l'installation la vérifie. Il n'est **pas** ajouté à l'`environment.yml` du module, le geste du TD 3b étant d'ajouter une bibliothèque à un environnement qui existe déjà.
 ### 🎓 4′ — Python en interactif
 
 Taper `python` sans nom de fichier ouvre une session interactive : chaque ligne est lue, exécutée, et son résultat affiché aussitôt, sans `print`. La trace projetée est une session réelle, dans `data/cours1/formats/`, qui réimporte le script des octets de tête.
@@ -486,7 +502,7 @@ Deux façons d'exécuter du Python, et elles ne servent pas à la même chose : 
 
 Cette diapositive **remplace** « Ce que le notebook réunit », récapitulation que le minutage désignait déjà comme la première à sauter : la partie garde donc sa longueur, et « À retenir » assure seule la clôture de la séance.
 
-### ⌨️ 10′ — Le notebook du cours, ouvert de trois façons *(manipulation)*
+### ⌨️ 10′ — TD 4 : le notebook du cours, ouvert de trois façons
 
 Support : `src/cours1/notebook/04_premiers_octets.md`, écrit en MyST et converti par `python outils/construire_notebooks.py`. Le notebook lit les premiers octets d'un fichier et en déduit son format — contenu passé en annexe des diapositives parce qu'il se prête mieux à un notebook qu'à une projection.
 
@@ -508,7 +524,7 @@ L'ordre est celui de l'engagement croissant : rien à installer, puis l'éditeur
 
 La partie ne traite plus que des formats de texte d'un projet, en dehors du code : ce qu'on édite dans un projet, Markdown en tête, une page HTML et sa feuille de style, et un diagramme écrit en texte.
 
-Ce qui relève de l'édition du code est passé à la partie 2, dont il prolonge l'exposé sur l'éditeur : programmer c'est éditer du texte, les règles d'écriture d'un langage, la coloration, la vérification, les espaces et les tabulations. La manipulation des programmes fautifs les suit, à la partie 2 également, puisqu'elle en dépend.
+Ce qui relève de l'édition du code est passé à la partie 2, dont il prolonge l'exposé sur l'éditeur : programmer c'est éditer du texte, les règles d'écriture d'un langage, la coloration, la vérification, les espaces et les tabulations. Le TD des programmes fautifs les suit, à la partie 2 également, puisqu'elle en dépend.
 
 ### 🎓 4′ — Programmation et édition de texte *(ouverture de la partie)*
 
@@ -535,7 +551,7 @@ La preuve visuelle est un face-à-face de ce que coûte l'édition sans outil ad
 
 La comparaison sert à désamorcer une inquiétude, et il faut la formuler dans ce sens : un langage s'apprend plus vite qu'une langue, parce qu'il a peu de règles et presque pas d'exceptions. Ce qui est difficile n'est pas la syntaxe mais de savoir quoi écrire, et cela relève du cours de programmation. La contrepartie est la dernière ligne : la machine n'interprète pas les intentions.
 
-> On ne peut pas écrire un logiciel qui corrige un texte français de façon sûre ; on peut en écrire un qui vérifie un programme. C'est exactement ce que fait l'extension installée à la manipulation qui suit.
+> On ne peut pas écrire un logiciel qui corrige un texte français de façon sûre ; on peut en écrire un qui vérifie un programme. C'est exactement ce que fait l'extension installée au TD 2b.
 
 ### 🎓 4′ — Coloration et vérification
 
@@ -570,7 +586,7 @@ Un seul mot pour deux choses sans rapport, et la confusion est réelle : « inst
 | Dans le fichier | rien : les trois sont du texte, sans marque ni en-tête | rien non plus : elle n'agit que sur l'affichage |
 | Ce qu'elle apporte | une indication de langage, à qui lit le nom | la coloration fine, et la vérification des règles d'écriture |
 
-**La colonne de gauche est le point neuf.** Un `.py` et un `.cpp` sont des fichiers texte, et rien dans leurs octets ne les distingue : pas de marque binaire, pas d'en-tête, pas de signature. L'extension est purement informative — elle dit ce qu'on peut espérer trouver dedans, elle ne le garantit pas. `python bonjour.txt` exécute parfaitement un programme Python : la démonstration tient en cinq secondes et se retient. C'est aussi ce que la manipulation « Les premiers octets d'un fichier » fera constater plus loin dans la partie, les formats texte n'ayant aucune signature contrairement au ZIP et au PDF.
+**La colonne de gauche est le point neuf.** Un `.py` et un `.cpp` sont des fichiers texte, et rien dans leurs octets ne les distingue : pas de marque binaire, pas d'en-tête, pas de signature. L'extension est purement informative — elle dit ce qu'on peut espérer trouver dedans, elle ne le garantit pas. `python bonjour.txt` exécute parfaitement un programme Python : la démonstration tient en cinq secondes et se retient. C'est aussi ce que le TD 5a, « Les premiers octets d'un fichier », fera constater plus loin dans la partie, les formats texte n'ayant aucune signature contrairement au ZIP et au PDF.
 
 **La vérification est partielle**, et c'est la limite à poser : elle porte sur les règles d'écriture, pas sur le sens. Un programme peut être irréprochable pour l'extension et faire exactement le contraire de ce qu'on voulait. Cela prolonge « Les règles d'écriture d'un langage ».
 
@@ -584,11 +600,11 @@ Les trois du module, avec leur identifiant, qui est ce qu'il faut chercher dans 
 
 > Identifiants relevés sur le poste de préparation, où les trois extensions sont installées. L'extension Python installe elle-même Pylance, qui fait la vérification : ne le dire que si quelqu'un remarque qu'une deuxième extension est apparue.
 
-### ⌨️ 10′ — Extensions de langage et programmes fautifs *(manipulation)*
+### ⌨️ 10′ — TD 2b : extensions de langage et programmes fautifs
 
-Ouvrir `data/cours1/erreurs/` dans l'éditeur. Trois fichiers courts, chacun fautif d'un genre différent. Détails et messages complets dans [`data/cours1/erreurs/README.md`](../../../data/cours1/erreurs/README.md).
+Ouvrir `cours1/2b_erreurs/` dans l'éditeur. Trois fichiers Python courts, chacun fautif d'un genre différent. Détails et messages complets dans [`data/cours1/2b_erreurs/README.md`](../../../data/cours1/2b_erreurs/README.md).
 
-**1. Installer l'extension.** Ouvrir `python/surface.py` **avant** toute installation : le texte est déjà coloré, ce qui surprend et doit surprendre — la coloration ne vient pas de l'extension. Installer ensuite `ms-python.python` par `Ctrl`+`Maj`+`X`, rouvrir le fichier : une ligne se souligne, sans que rien ait été exécuté. C'est cela que l'extension apporte.
+**1. Installer l'extension.** Ouvrir `surface.py` **avant** toute installation : le texte est déjà coloré, ce qui surprend et doit surprendre — la coloration ne vient pas de l'extension. Installer ensuite `ms-python.python` par `Ctrl`+`Maj`+`X`, rouvrir le fichier : une ligne se souligne, sans que rien ait été exécuté. C'est cela que l'extension apporte.
 
 > L'éditeur n'a pas pu être piloté sur le poste de préparation. Le soulignement et la proposition automatique de l'extension C/C++ à l'ouverture d'un `.cpp` viennent de la documentation de VSCode et restent **à vérifier sur les postes de la salle**. Prévoir aussi le poste sans réseau : les extensions ne s'installent pas, et la suite se fait quand même.
 
@@ -596,13 +612,13 @@ Ouvrir `data/cours1/erreurs/` dans l'éditeur. Trois fichiers courts, chacun fau
 
 | Fichier | Message | La faute |
 |---|---|---|
-| `python/surface.py` | `TabError: inconsistent use of tabs and spaces`, ligne 6 | ligne 6 indentée par une tabulation, ligne 5 par des espaces |
-| `python/moyenne.py` | `SyntaxError: expected ':'`, ligne 6 | deux-points manquants après le `for` |
-| `cpp/aire.cpp` | `error: expected ',' or ';' before 'std'`, ligne 7 | point-virgule manquant en fin de ligne 6 |
+| `surface.py` | `TabError: inconsistent use of tabs and spaces`, ligne 6 | ligne 6 indentée par une tabulation, ligne 5 par des espaces |
+| `moyenne.py` | `SyntaxError: expected ':'`, ligne 6 | deux-points manquants après le `for` |
+| `chemin.py` | `FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/alice/…'` | un chemin absolu, celui du poste où le programme a été écrit ; la correction est `../1a_formats/depart/raven_une_ligne.txt` |
 
-Messages réels, obtenus avec Python 3.12.14 et g++ 13.3. La colonne « la faute » est masquée à la projection et remplie par `--input corrige=true`.
+Messages réels, obtenus avec Python 3.12.14. La colonne « la faute » est masquée à la projection et remplie par `--input corrige=true`. Une fois corrigés, les trois affichent `294.0`, `130.05` et `1341 caractères`.
 
-La première ne se voit pas à l'œil : c'est là qu'on fait activer **l'affichage des espaces**, Affichage → Rendu des espaces → Tout, réglage à garder toute l'année. La troisième est la diapositive « Vérification de l'écriture », vérifiée par eux.
+La première ne se voit pas à l'œil : c'est là qu'on fait activer **l'affichage des espaces**, Affichage → Rendu des espaces → Tout, réglage à garder toute l'année. La troisième est d'une autre nature, et c'est le point : le programme est correct, l'éditeur ne souligne rien, et il tourne chez Alice ; il échoue ici parce que le chemin absolu n'existe que sur son poste. Le chemin relatif part du dossier où le terminal se trouve et vaut partout — la diapositive « Le chemin d'un fichier » vérifiée par eux, et l'erreur la plus fréquente des rendus des autres cours. Le C++ fautif (`aire.cpp`, point-virgule manquant, signalé à la ligne suivante) est sorti du TD avec le passage du C++ en facultatif.
 
 La vérification demandée n'est pas que le programme affiche le bon résultat, mais qu'il n'affiche plus de message : c'est la définition de « ça marche » à ce stade. Une fois corrigés, les trois affichent `294.0`, `130.05` et `294`.
 
@@ -610,7 +626,7 @@ Sous Windows sans compilateur, le fichier C++ se lit et se corrige mais ne se co
 
 ### 🎓 — Reprise du cours : Markdown et les autres fichiers texte
 
-La manipulation précédente est au milieu de la partie, pas à sa fin. Une **diapositive de reprise** (`separateur-reprise`, fond bleu, mention « Reprise du cours ») marque le retour à l'exposé : sans elle, rien ne dit où le travail sur machine s'arrête, puisque les diapositives de manipulation ont le même fond blanc que le cours. Le bleu ouvre un bloc de cours, le brun un bloc sur machine.
+Le TD précédent est au milieu de la partie, pas à sa fin. Une **diapositive de reprise** (`separateur-reprise`, fond bleu, mention « Reprise du cours ») marque le retour à l'exposé : sans elle, rien ne dit où le travail sur machine s'arrête, puisque les diapositives de TD ont le même fond blanc que le cours. Le bleu ouvre un bloc de cours, le brun un bloc sur machine.
 
 ### 🎓 10′ — Les fichiers texte d'un projet, et Markdown
 
@@ -655,9 +671,9 @@ Six lignes dans un bloc `mermaid`, et l'aperçu dessine les boîtes et les flèc
 
 > L'intérêt n'est pas de dessiner joli, c'est que le schéma soit du texte : il se compare ligne à ligne, il se versionne, et on le corrige sans rouvrir un logiciel de dessin. Faire remarquer que le dessin n'est pas dans le fichier — les boîtes sont calculées à l'affichage, comme la coloration l'était pour le code. Le cours 2 s'en sert pour représenter l'historique d'un dépôt git.
 
-### ⌨️ 20′ — Formatage HTML et Markdown *(manipulation)*
+### ⌨️ 20′ — TD 3a : formatage HTML et Markdown
 
-Données : `data/cours1/produit/`, produites par `python make_data.py fetch && python make_data.py build`.
+Données : `cours1/1a_formats/`, produites dans le dépôt par `python make_data.py fetch && python make_data.py build`.
 Textes du domaine public : **The Raven** (Poe, 1845) et **Auld Lang Syne** (Burns, 1788).
 
 | Étape | Fichier | Geste | Constat attendu |
@@ -667,11 +683,11 @@ Textes du domaine public : **The Raven** (Poe, 1845) et **Auld Lang Syne** (Burn
 
 C'est l'aspect graphique du fil « texte » : le même contenu, deux présentations, et la seconde se règle dans un fichier texte qu'on édite dans le même éditeur. Faire éditer `style.css` en direct — `background`, `font-family`, `max-width` — et recharger : le retour est immédiat, et c'est ce qui fait comprendre la séparation.
 
-**Second temps — mettre en forme une recette.** Support dans `data/cours1/markdown/` : `recette_a_formater.txt` (le texte de départ, sans aucune structure), `ingredients.csv`, et `recette.md` (le résultat attendu, à n'ouvrir qu'après avoir essayé). L'exercice n'est pas de recopier des marques, c'est de **décider ce qui est un titre, ce qui est une étape et ce qui est une donnée** : la mise en forme est une lecture du contenu.
+**Second temps — mettre en forme une recette.** Support dans `cours1/3a_markdown/` : `recette_a_formater.txt` (le texte de départ, sans aucune structure), `ingredients.csv`, et `recette.md` (le résultat attendu, à n'ouvrir qu'après avoir essayé). L'exercice n'est pas de recopier des marques, c'est de **décider ce qui est un titre, ce qui est une étape et ce qui est une donnée** : la mise en forme est une lecture du contenu.
 
 | | Ce qu'il faut faire |
 |---|---|
-| 1 | ouvrir `data/cours1/markdown/`, puis `recette_a_formater.txt` |
+| 1 | ouvrir `cours1/3a_markdown/`, puis `recette_a_formater.txt` |
 | 2 | l'enregistrer sous `recette.md`, aperçu côte à côte par `Ctrl`+`K` puis `V` |
 | 3 | un titre en `#`, deux sous-titres en `##` |
 | 4 | les étapes de préparation en liste numérotée |
@@ -680,12 +696,12 @@ C'est l'aspect graphique du fil « texte » : le même contenu, deux présentati
 
 > Étape 5 : le tableau se tape à la main la première fois — l'intérêt est de voir qu'un tableau Markdown n'est que des barres verticales, et que leur alignement n'est même pas obligatoire. Une extension du catalogue le fait ensuite en une commande, chercher « CSV to Markdown Table » ; plusieurs existent et se valent, aucune n'est indispensable. Pour ceux qui vont vite : une photo par `![](…)`, ce qui fait retravailler les chemins relatifs, et la remarque finale en citation par `>`.
 
-> **Ce qui est sorti de la séance.** La manipulation comptait cinq étapes : remettre en forme un `.txt` d'une seule ligne, renommer un `.donnees`, ouvrir un `.odt` comme une archive ZIP. Les trois premières travaillaient l'édition d'un poème plus que le format, et n'employaient pas Markdown : elles sont conservées en annexe, avec leurs diapositives, en attendant d'être reprises ou supprimées. Le même sort échoit à « Binaire, hexadécimal et encodage du texte » et au mini-projet « Les premiers octets d'un fichier ».
+> **Ce qui est sorti de la séance.** Le TD comptait cinq étapes : remettre en forme un `.txt` d'une seule ligne, renommer un `.donnees`, ouvrir un `.odt` comme une archive ZIP. Les trois premières travaillaient l'édition d'un poème plus que le format, et n'employaient pas Markdown : elles sont conservées en annexe, avec leurs diapositives, en attendant d'être reprises ou supprimées. Le même sort échoit à « Binaire, hexadécimal et encodage du texte » et au mini-projet « Les premiers octets d'un fichier ».
 ## Annexes et bonus
 
-### ⌨️ 8′ — Les premiers octets d'un fichier *(mini-projet Python)*
+### ⌨️ 8′ — TD 5a, facultatif : les premiers octets d'un fichier *(mini-projet Python)*
 
-La conclusion de la manipulation précédente : après avoir constaté que l'extension ne décrit pas le contenu, on regarde ce qui le décrit. Ouvrir `data/cours1/formats/` dans l'éditeur et lancer `python octets.py` au terminal — exactement le geste de la manipulation « hello world », refait sur un programme qui sert à quelque chose. Le script fait quarante lignes et se lit avant d'être lancé : trois fonctions, dont une qui compare le début du fichier à un dictionnaire de signatures.
+La conclusion du TD 1a : après avoir constaté que l'extension ne décrit pas le contenu, on regarde ce qui le décrit. Ouvrir `cours1/5a_octets/` dans l'éditeur et lancer `python octets.py` au terminal — exactement le geste du TD 2a, « hello world », refait sur un programme qui sert à quelque chose. Le script fait quarante lignes et se lit avant d'être lancé : trois fonctions, dont une qui compare le début du fichier à un dictionnaire de signatures.
 
 | Fichier lu | Premiers octets | Ce qu'ils signent |
 |---|---|---|
@@ -701,20 +717,20 @@ Deux étages de décision, et c'est tout le propos : le **système** choisit le 
 **Deux extensions échangées**, en deux lignes et sans quitter le mini-projet :
 
 ```bash
-cp ../produit/raven.odt ../produit/raven_odt.pdf
-cp ../produit/raven.pdf ../produit/raven_pdf.odt
-python octets.py ../produit/raven_odt.pdf ../produit/raven_pdf.odt
+cp ../1a_formats/depart/raven.odt raven_odt.pdf
+cp ../1a_formats/travail/raven.pdf raven_pdf.odt
+python octets.py raven_odt.pdf raven_pdf.odt
 ```
 
 Le nom a changé, les octets non. Faire essayer le **double-clic** sur `raven_odt.pdf` avant de lancer le script : le lecteur PDF s'ouvre et refuse le fichier, et les deux étages se contredisent devant eux. Sous Windows, `copy` remplace `cp`.
 
-> Ce bloc remplace les anciennes diapositives PowerShell et `head`/`xxd`/`file`, qui dépendaient du système et dont l'une n'avait jamais pu être exécutée. Elles sont conservées en annexe du deck. Détails dans [`data/cours1/formats/README.md`](../../../data/cours1/formats/README.md).
+> Ce bloc remplace les anciennes diapositives PowerShell et `head`/`xxd`/`file`, qui dépendaient du système et dont l'une n'avait jamais pu être exécutée. Elles sont conservées en annexe du deck. Détails dans [`data/cours1/5a_octets/README.md`](../../../data/cours1/5a_octets/README.md).
 
 Ne pas développer le binaire ici : il est ouvert en hexadécimal au cours 3. Annoncer en revanche que le même phénomène est déjà passé en partie 2, où les premiers octets de `python3` se lisent « ELF ».
 
 ---
 
-### ⌨️ 10′ — Une vidéo, deux chemins *(bonus, pour aller plus loin)*
+### ⌨️ 10′ — TD 5b, facultatif : une vidéo, deux chemins
 
 Trois diapositives désormais, au lieu d'une, pour que le bonus explique au lieu d'annoncer :
 
@@ -724,7 +740,7 @@ Trois diapositives désormais, au lieu d'une, pour que le bonus explique au lieu
 
 Le fond de carte est **distribué avec les supports** et n'est pas à retélécharger : le serveur de tuiles d'OpenStreetMap est un service bénévole dont les conditions d'usage interdisent le téléchargement en masse.
 
-Produire la même vidéo — le trajet de la gare à l'école en cinq étapes commentées — en assemblant des applications graphiques, puis en une commande. Scripts, données à préparer et alternatives « clic-bouton » : [`manip_video_trajet.md`](manip_video_trajet.md) et [`data/cours1/trajet/`](../../../data/cours1/trajet/).
+Produire la même vidéo — le trajet de la gare à l'école en cinq étapes commentées — en assemblant des applications graphiques, puis en une commande. Scripts, données à préparer et alternatives « clic-bouton » : [`td_video_trajet.md`](td_video_trajet.md) et [`data/cours1/5b_trajet/`](../../../data/cours1/5b_trajet/).
 
 `ffmpeg` et `imagemagick` sont déjà dans l'environnement `info01` : rien à installer. **Mais cela suppose l'environnement en place**, ce qui n'est pas le cas à ce stade du déroulé — voir la note de minutage ci-dessous.
 
@@ -817,7 +833,7 @@ Le budget visé, celui de la diapositive « Contenu de la séance », est :
 | Notebooks | interface et noyau, trois façons de l'ouvrir, deux formats | 10′ |
 | Markdown et les autres fichiers texte | fichiers texte d'un projet, structure d'une page HTML, contenu et présentation, Markdown, trois façons d'écrire un document, un diagramme en texte, mise en forme d'une recette | 15′ |
 
-La partie 1 perd cinq minutes par rapport au budget précédent, et la partie 2 en gagne dix : le levier employé est celui qui était déjà prévu, l'étape ODT-ZIP de la manipulation d'ouverture passant en exercice complémentaire.
+La partie 1 perd cinq minutes par rapport au budget précédent, et la partie 2 en gagne dix : le levier employé est celui qui était déjà prévu, l'étape ODT-ZIP du TD 1a passant en exercice complémentaire.
 
 > ⚠️ **La partie 4 dépasse son budget, et c'est le point à arbitrer avant de figer la séance.** Elle compte désormais treize diapositives — dix d'exposé et trois d'étapes — pour 25′ : le déroulé détaillé ci-dessus totalise 6 + 4 + 6 + 3 + 3 + 12 = 34′. Les trois candidats à la sortie, par ordre :
 >
@@ -825,40 +841,47 @@ La partie 1 perd cinq minutes par rapport au budget précédent, et la partie 2 
 > 2. **« D'où viennent les paquets »** (−2′) passe en annexe, « Ce qu'une installation exécute » restant en séance : c'est l'avertissement qui compte, pas le décompte des deux dépôts.
 > 3. **La frise des outils** (−2′) passe en annexe, en gardant une phrase à l'oral sur `pip`. Elle répond à une question qui vient, elle ne construit rien de la suite.
 >
-> Les trois ensemble ramènent la partie à 27′, ce qui tient. Ne pas raccourcir la manipulation : ses étapes 4, 5 et 10 sont ce que la partie entière prépare.
+> Les trois ensemble ramènent la partie à 27′, ce qui tient. Ne pas raccourcir le TD : ses étapes 4, 5 et 10 sont ce que la partie entière prépare.
 
 Les autres leviers connus, à activer au moment de figer la séance :
 
-1. « Une vidéo, deux chemins » en **démonstration** (3′) plutôt qu'en manipulation (10′), et rejouée en autonomie après l'installation de l'environnement.
+1. « Une vidéo, deux chemins » en **démonstration** (3′) plutôt qu'en TD (10′), et rejoué en autonomie après l'installation de l'environnement.
 2. Le bloc IDE réduit à ce qui sert au cours 2 : −4′.
 3. Le bloc Markdown réduit à deux diapositives — l'intention et la comparaison des trois formats — en renvoyant l'édition dans l'éditeur au cours 2, où `pandoc` est de toute façon repris : −4′.
-4. Le mini-projet « premiers octets » ramené à une démonstration au tableau : −5′. Il vaut mieux le garder en manipulation, c'est le seul moment où ils lancent un script qu'ils n'ont pas écrit.
+4. Le mini-projet « premiers octets » ramené à une démonstration au tableau : −5′. Il vaut mieux le garder en TD, c'est le seul moment où ils lancent un script qu'ils n'ont pas écrit.
 
-**Contrainte d'ordre** : la manipulation vidéo a besoin de `ffmpeg` et d'`imagemagick`, donc de l'environnement conda. Celui-ci est créé avant la séance, mais la manipulation reste en bonus de fin : elle demande dix minutes que la séance n'a pas. D'où la démonstration au moment des formats, la manipulation complète venant en exercice complémentaire.
+**Contrainte d'ordre** : le TD vidéo a besoin de `ffmpeg` et d'`imagemagick`, donc de l'environnement conda. Celui-ci est créé avant la séance, mais le TD reste facultatif, en fin de séance : elle demande dix minutes que la séance n'a pas. D'où la démonstration au moment des formats, le TD complet venant en exercice complémentaire.
 
-## Manipulations et diapositives de séparation
+## TD et diapositives de séparation
 
-Le deck distingue trois régimes par la couleur de fond de ses diapositives d'ouverture, et par rien d'autre : blanc pour l'exposé, bleu pour les diapositives de section (`separateur`), brun pour les manipulations et les travaux dirigés (`separateur-manip`, `separateur-td`). C'est la distinction 🎓 / ⌨️ de ce document, rendue visible de loin.
+Le deck distingue trois régimes par la couleur de fond de ses diapositives d'ouverture, et par rien d'autre : blanc pour l'exposé, bleu pour les diapositives de section (`separateur`), brun pour les TD (`separateur-td`, et `sommaire-td` quand le support est compilé sans eux). C'est la distinction 🎓 / ⌨️ de ce document, rendue visible de loin.
 
-Sept blocs de manipulation dans la séance, un par ouverture brune, répartis sur les cinq parties :
+Dix TD dans la séance, un par ouverture brune, répartis sur les quatre parties du deck. Le chiffre est le bloc — les TD d'un même bloc se jouent à la suite, au même moment du cours — et la lettre l'ordre dans le bloc. Quatre sont facultatifs : ils ne sont pas faits en séance, mais leurs diapositives et leurs fichiers sont dans le deck et dans l'archive, pour qui va plus vite ou pour après.
 
-| Ouverture | Partie | Contenu |
-|-----------|--------|---------|
-| *Fichiers, formats et extensions* | 1 | exporter, renommer, ouvrir le `.odt` comme une archive et le modifier |
-| *Un hello world en Python et en C++* | 2 | lancer les deux programmes, et voir ce que chacun laisse sur le disque |
-| *Le même programme, trois façons de l'exécuter* | 2 | en entier, ligne à ligne, puis pas à pas au débogueur |
-| *Extensions de langage et programmes fautifs* | 3 | installer l'extension d'un langage, corriger trois fichiers |
-| *Formatage HTML et Markdown* | 3 | la page du poème et sa feuille de style, puis une recette mise en forme |
-| *Installer une bibliothèque et s'en servir* | 4 | `markdown` installé dans `info01`, puis `recette.md` converti en page HTML |
-| *Le notebook du cours, ouvert de trois façons* | 5 | le même `.ipynb` dans le navigateur, dans l'éditeur, dans JupyterLab |
+| TD | Ouverture | Partie | Contenu | |
+|----|-----------|--------|---------|-|
+| 1a | *Fichiers, formats et extensions* | 1 | `depart/` et `travail/`, exporter en PDF et PNG, copier et renommer, ce que le système lance, la page HTML et son adresse, l'espace dans un nom, la table ASCII, le Bloc-notes | |
+| 1b | *Un .odt est une archive ZIP* | 1 | ouvrir le `.odt` comme une archive, modifier `content.xml` et `styles.xml`, recompresser | facultatif |
+| 2a | *Configurer l'éditeur de code, et lancer un programme* | 2 | VS Code depuis Anaconda ou hors Anaconda (le terminal `cmd`), l'extension, la palette et les réglages, l'interpréteur, puis un programme exécuté en entier, ligne à ligne, pas à pas | |
+| 2b | *Trois programmes fautifs* | 2 | afficher les caractères invisibles, corriger trois fichiers Python dont un chemin en dur | |
+| 2c | *Le même programme en C++* | 2 | l'extension, le compilateur, puis compiler et voir ce qui reste sur le disque | facultatif |
+| 3a | *Mettre en forme une recette en Markdown* | 3 | un texte brut repris en Markdown, l'aperçu ouvert à côté | |
+| 3b | *Installer une bibliothèque et s'en servir* | 3 | un environnement neuf, `markdown` installé, `recette.md` converti en page HTML | |
+| 4 | *Le notebook du cours, ouvert de trois façons* | 4 | le même `.ipynb` dans le navigateur, dans l'éditeur, dans JupyterLab | |
+| 5a | *Les premiers octets d'un fichier* | 4 | `octets.py` sur les fichiers du TD 1a, puis deux extensions échangées | facultatif |
+| 5b | *Une vidéo, deux chemins* | 4 | la même vidéo en une commande, et ce qu'il en reste pour la refaire | facultatif |
+
+Chaque TD est un fichier de `src/cours1/diapo/tds/`, nommé comme le dossier de l'archive qu'il fait ouvrir (`2c_hello_cpp.typ` ↔ `cours1/2c_hello_cpp/`), et commence par un dictionnaire `td` — numéro, titre, annonce, dossier, durée, facultatif — qui alimente l'ouverture brune, le sommaire de la version `--sans-tds`, et la feuille de TD déposée dans le dossier. Les diapositives citent les chemins tels que l'archive les montre, sans `data/` ni `produit/`.
+
+Le C++ (2c) et l'archive `.odt` du TD d'ouverture (1b) sont passés facultatifs en septembre 2026 : installer l'extension, puis un compilateur sous Windows, puis compiler, prenait plus que les dix minutes prévues ; et l'archive `.odt` demande un gestionnaire d'archives et une recompression qui piège tout le monde une fois, pour une leçon que la page HTML et sa feuille de style donnent aussi. Le TD des programmes fautifs (2b) est passé avant le C++ et ne contient plus que du Python — deux fautes d'écriture, et un chemin absolu qui n'existe que sur un autre poste. Les octets (5a) ont rejoint la fin de séance : ils demandent d'avoir lancé Python. Les étapes « Python en interactif » et « Exécuter pas à pas » de la fin du TD 2a, et le TD 4, sont les candidats suivants si le temps manque encore : à vérifier en séance avant de trancher.
 
 La création de l'environnement lui-même n'en fait pas partie : elle est faite avant la séance, sur consigne d'installation, et seule sa commande est projetée.
 
-Trois blocs sont **en annexe** en fin de deck, et n'ont pas vocation à être joués en séance 1 : *Comparaison interface graphique et ligne de commande* (convertir un document des deux façons, piloter le navigateur sans fenêtre), *Échanger deux extensions* (qui demande la ligne de commande), et *Une vidéo, deux chemins*, le bonus. Les résultats observés y sont conservés.
+Deux blocs sont **en annexe** en fin de deck, et n'ont pas vocation à être joués en séance 1 : *Comparaison interface graphique et ligne de commande* (convertir un document des deux façons, piloter le navigateur sans fenêtre) et *Échanger deux extensions* (qui demande la ligne de commande). Les résultats observés y sont conservés.
 
 ## Points d'attention
 
 - **Ne pas glisser vers la programmation.** La séance parle de *fichiers et d'outils*. Le seul code montré sert d'illustration (3 lignes) — l'algorithmique est le cours parallèle.
-- **Profils hétérogènes** (prépa littéraire / scientifique) : la manipulation « quatre formes » ne demande aucun prérequis et occupe utilement les plus rapides via les étapes ODT-ZIP et CSS.
+- **Profils hétérogènes** (prépa littéraire / scientifique) : le TD 1a, « quatre formes », ne demande aucun prérequis et occupe utilement les plus rapides via les étapes ODT-ZIP et CSS.
 - **Le binaire n'est plus ici** : si la question vient (« et le `.png` alors ? »), répondre en une phrase (« compressé, on l'ouvrira en hexadécimal au cours 3 ») et ne pas dévier.
 - **Mention utile** : ce qu'on met dans un dépôt public y reste — d'où le choix de textes du domaine public et de données *générées* plutôt que versionnées. Amorce discrète de la leçon secrets (cours 5B).

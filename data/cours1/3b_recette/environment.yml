@@ -1,0 +1,15 @@
+# Environnement du TD 3b, « installer une bibliothèque et s'en servir ».
+#
+#   conda env create -f environment.yml
+#   conda activate recette
+#
+# Volontairement réduit à Python. La bibliothèque `markdown`, dont le programme
+# a besoin, n'y figure pas : l'installer est le geste du TD, et
+# l'ajouter ici en est la dernière étape.
+name: recette
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.12

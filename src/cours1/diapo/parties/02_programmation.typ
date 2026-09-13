@@ -8,7 +8,7 @@
 #separateur("Programmation et éditeur de code")
 #d("D'un programme à une application")[
   #annonce[
-    Programme est souvent un logiciel. Une distinction entre les deux est 
+    Une distinction entre un programme et un logiciel, au sens classique, est
     la façon dont ils sont distribués et ce que doit faire un utilisateur pour
     arriver à s'en servir.
   ]
@@ -99,7 +99,7 @@
     Semer le facteur ×100 à ×1000 du cours 6 et du TD 7 : `numpy` délègue
     à du C compilé. Ne pas développer.
 
-    Les noms de fichiers sont ceux de la manipulation à venir ; le dire
+    Les noms de fichiers sont ceux des TD 2a et 2c à venir ; le dire
     une fois.
 
     Si question « Et Java ? » répondre en une phrase, les deux à la
@@ -229,7 +229,7 @@
 
     Conséquence pratique : lancer un programme Python suppose Python
     installé, alors qu'un exécutable compilé se lance seul. C'est ce que
-    la manipulation fera constater, et pourquoi la partie « Environnement
+    le TD 2c fera constater, et pourquoi la partie « Environnement
     de programmation » existe.
 
     Le navigateur interprète trois langages sans qu'on l'appelle «
@@ -471,7 +471,7 @@
     panneau("Le même fichier, tabulation sur 8")[
       #blancs[#raw("def surface(longueur, largeur):\n····aire = longueur * largeur\n→       return aire", block: true)]
       #v(0.3em)
-      #text(size: 14pt, fill: manip)[le décalage apparaît]
+      #text(size: 14pt, fill: brun)[le décalage apparaît]
     ],
   )
 
@@ -482,9 +482,9 @@
   ]
 
   #notes[
-    Les deux lignes sont celles de `data/cours1/erreurs/python/surface.py` :
+    Les deux lignes sont celles de `cours1/2b_erreurs/surface.py` :
     la cinquième indentée par quatre espaces, la sixième par une tabulation.
-    C'est le fichier que la manipulation fera corriger ; le message d'erreur
+    C'est le fichier que le TD 2b fera corriger ; le message d'erreur
     s'y lit à ce moment, ne pas le projeter ici.
 
     Python refuse ce mélange dans une même indentation, et le dit par
@@ -496,7 +496,7 @@
     Python l'impose à 4, convention du langage ; un fichier venu d'ailleurs
     peut être écrit autrement.
 
-    Ne pas montrer ici comment afficher les blancs : la manipulation s'en
+    Ne pas montrer ici comment afficher les blancs : le TD 2b s'en
     charge, et c'est un geste qui se fait, pas qui se regarde.
 
     Fins de ligne, à dire en passant : Windows en met deux (`CRLF`), Linux et

@@ -45,9 +45,10 @@ RACINE = Path(__file__).resolve().parent.parent
 MANIFESTE = RACINE / "outils" / "ressources.json"
 
 # Les motifs disent où sont les ressources à transporter. Les ajouter ici, et
-# nulle part ailleurs : une séance nouvelle est couverte sans rien écrire.
-MOTIFS_FOURNI = ("data/*/fourni", "data/*/*/fourni", "illustrations/*")
-MOTIFS_PRODUIT = ("data/*/produit", "data/*/*/produit")
+# nulle part ailleurs : une séance nouvelle est couverte sans rien écrire. Les
+# deux dossiers réservés vivent dans le dossier d'un TD, `data/cours<n>/<td>/`.
+MOTIFS_FOURNI = ("data/*/*/fourni", "illustrations/*")
+MOTIFS_PRODUIT = ("data/*/*/produit",)
 
 
 def dossiers(avec_produit: bool) -> list[Path]:

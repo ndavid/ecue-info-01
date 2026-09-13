@@ -4,7 +4,7 @@ title: "Séance 4 — Studio d'automatisation (animation vidéo)"
 
 :::{note} Page à rédiger
 Le plan ci-dessous est repris du syllabus (`syllabus/01_syllabus_v1.md`) ; le
-déroulé détaillé est dans `syllabus/cours/4_td_animation/`.
+déroulé détaillé est dans `syllabus/cours/4_projet_animation/`.
 La séance 1 (`src/cours1/`) sert de modèle de mise en forme.
 :::
 
