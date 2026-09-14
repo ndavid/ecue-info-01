@@ -423,6 +423,84 @@ print("exécuté à la construction")
 Les pages du cours 1 servent de modèle (encadrés `:::{note}` / `:::{important}`,
 tableaux `{list-table}`, schémas SVG).
 
+## 4 bis. Publier une séance
+
+Ce que les étudiants reçoivent n'est pas dans git : les PDF et `livraison/`
+sont ignorés par `.gitignore`, pour ne pas alourdir l'historique à chaque
+recompilation. Une **release** est faite pour ça : c'est une étiquette posée
+sur un commit (un *tag*), à laquelle la forge attache des fichiers à
+télécharger. Le tag dit d'où viennent les fichiers ; les fichiers sont ce
+qu'on distribue.
+
+Deux fichiers par séance :
+
+| Fichier | Ce que c'est |
+|---|---|
+| `src/cours1/diapo/cours1-sans-tds.pdf` | le fil du cours, un sommaire par bloc de TD |
+| `livraison/info01-cours1.zip` | les dossiers des TD, feuille de TD comprise |
+
+### 1. Tout refabriquer, puis vérifier
+
+Dans l'ordre, chaque commande reprenant le résultat de la précédente :
+
+```bash
+conda activate info01
+python outils/compiler_diapos.py --sans-tds        # le PDF à publier
+python outils/verifier_diapos.py src/cours1/diapo/cours1-sans-tds.pdf
+python outils/livrer_tds.py                         # données, feuilles de TD, notebooks, puis le zip
+```
+
+`livrer_tds.py` ne prend que les fichiers connus de git : un fichier nouveau
+doit être ajouté (`git add`) avant.
+
+### 2. Committer, et poser le tag
+
+```bash
+git add -A
+git commit
+git tag -a cours1-2026-09-14 -m "Séance 1 — version projetée le 15 septembre 2026"
+```
+
+Le nom du tag est libre ; ici, la séance et la date. `-a` en fait un tag
+annoté, qui garde qui l'a posé et quand ; `-m` est son message, comme pour un
+commit.
+
+### 3. Pousser, tag compris
+
+```bash
+git push gitlab main
+git push gitlab cours1-2026-09-14      # un tag ne part pas avec la branche : il se pousse à part
+```
+
+Même chose vers GitHub, en remplaçant `gitlab` par `github`. Le remote
+`github` s'ajoute une fois, avec l'adresse du dépôt public :
+
+```bash
+git remote add github https://github.com/<compte>/ecue-info-01.git
+```
+
+### 4. Créer la release et y joindre les deux fichiers
+
+Cette étape se fait dans le navigateur, et c'est la même idée sur les deux
+forges : choisir le tag, écrire un titre, joindre les fichiers.
+
+**GitLab** (gitlab.ign.fr) : dans le dépôt, menu de gauche **Deploy →
+Releases**, bouton **New release**. Choisir le tag dans la liste, donner un
+titre (« Séance 1 »). Les fichiers se joignent depuis le champ **Release
+notes** : le bouton trombone au-dessus du champ, ou glisser le fichier dedans ;
+GitLab le téléverse et écrit le lien dans le texte. Faire de même pour le
+second fichier, puis **Create release**. La zone « Links » plus bas n'est pas
+nécessaire : elle attend des adresses, pas des fichiers.
+
+**GitHub** : dans le dépôt, colonne de droite **Releases**, bouton **Draft a
+new release**. **Choose a tag** et prendre le tag poussé ; titre ; puis glisser
+les deux fichiers dans la zone **Attach binaries** en bas. **Publish release**.
+
+Ce qu'on donne aux étudiants est alors l'adresse de la page de la release,
+où les deux fichiers se téléchargent sans compte.
+
+---
+
 ## 5. Problèmes rencontrés (et leur solution)
 
 **La page est vide, ou le navigateur affiche la liste des fichiers.** Symptôme
@@ -448,6 +526,16 @@ que `magick --version` répond.
 mauvais environnement actif. Contrôler `python -c "import sys; print(sys.executable)"` :
 le chemin doit contenir le nom de l'environnement actif. C'est le message à
 marteler en séance 1.
+
+**`unknown font family: lato` et une diapositive signalée trop pleine, alors
+que `verifier_polices.py` dit Fira Sans installée.** typst ne lit pas le
+dossier où la police est ; vu depuis le terminal intégré de VSCode en snap. Lui
+donner le dossier une fois pour la session, puis recompiler :
+
+```bash
+export TYPST_FONT_PATHS=~/.local/share/fonts
+typst fonts | grep Fira            # doit répondre « Fira Sans »
+```
 
 **`mamba` renvoie une `ImportError`.** Installation `mamba`/`conda` désynchronisée
 sur ce poste. `conda` seul suffit pour tout ce document (le solveur `libmamba`
