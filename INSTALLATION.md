@@ -5,7 +5,7 @@ commandes de ce document ont été exécutées telles quelles.
 
 ---
 
-## 1. Environnement `info01`
+## 1. L'environnement de fabrication
 
 ### Installer conda
 
@@ -24,32 +24,23 @@ conda --version
 
 ### Créer l'environnement
 
-Il y en a deux, et il faut savoir lequel on veut.
-
-`info01` est l'environnement de **travail** : celui des étudiants, celui dans
-lequel se jouent tous les TD. Il contient Python, JupyterLab, numpy,
-pillow, ffmpeg, ImageMagick et pandoc — rien de la chaîne documentaire.
-
-```bash
-conda env create -f environment.yml
-conda activate info01
-```
-
-`info01-supports` est l'environnement de **fabrication** : il n'intéresse que qui
-recompile les diapositives ou le book. Il reprend le contenu du premier — les
-notebooks du book s'exécutent à la construction, donc avec les mêmes
-bibliothèques que les étudiants — et y ajoute typst, Sphinx, myst-nb et jupytext.
+Le dépôt n'en décrit qu'un, `info01`, celui qui **recompile les diapositives et
+le book**. Il porte Python, JupyterLab, numpy, pillow, ffmpeg, ImageMagick et
+pandoc — de quoi exécuter les notebooks du book et fabriquer les données — et y
+ajoute typst, Sphinx, myst-nb et jupytext.
 
 ```bash
 conda env create -f environment-supports.yml
-conda activate info01-supports
+conda activate info01
 ```
 
-Le prompt doit afficher `(info01)` ou `(info01-supports)`. Durée observée pour
-le premier : **~1 min 30** (première fois, téléchargements inclus).
+Le prompt doit afficher `(info01)`. Durée observée : **~1 min 30** (première
+fois, téléchargements inclus).
 
-Les deux coexistent sans se gêner : c'est précisément ce qu'un environnement
-sert à faire, et la partie 4 du cours 1 le fait constater aux étudiants.
+Les étudiants n'ont pas cet environnement et n'en ont pas besoin. Ce qu'on leur
+demande d'installer est **Anaconda**, dont l'environnement `base` suffit aux
+premiers TD ; ceux qui demandent autre chose — `recette` au TD 4a,
+`trajet_ensg` au TD 5a — font créer le leur, et c'est le sujet de la séance.
 
 ### Vérifier
 
@@ -70,10 +61,10 @@ Et le réflexe enseigné en séance 1 — *quel Python tourne réellement ?* :
 python -c "import sys; print(sys.executable)"   # doit contenir « info01 »
 ```
 
-### Mettre à jour après modification de `environment.yml`
+### Mettre à jour après modification de `environment-supports.yml`
 
 ```bash
-conda env update -f environment.yml --prune
+conda env update -f environment-supports.yml --prune
 ```
 
 ### Repartir de zéro
@@ -455,7 +446,8 @@ que `magick --version` répond.
 
 **`ModuleNotFoundError` alors que le paquet est installé.** Presque toujours le
 mauvais environnement actif. Contrôler `python -c "import sys; print(sys.executable)"` :
-le chemin doit contenir `info01`. C'est le message à marteler en séance 1.
+le chemin doit contenir le nom de l'environnement actif. C'est le message à
+marteler en séance 1.
 
 **`mamba` renvoie une `ImportError`.** Installation `mamba`/`conda` désynchronisée
 sur ce poste. `conda` seul suffit pour tout ce document (le solveur `libmamba`

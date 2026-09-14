@@ -38,7 +38,7 @@
 ## Ex. 5 — MyST ↔ `.ipynb`
 
 - **Objectif** : appliquer la leçon « même contenu, deux formats » à son propre travail.
-- **Prérequis** : env `info01` actif.
+- **Prérequis** : env `base` actif.
 - **Énoncé** : convertir une page MyST du cours en `.ipynb` (`jupytext --to ipynb`), l'exécuter, puis reconvertir en MyST. Comparer les **tailles** des fichiers et la lisibilité de chacun dans VSCode. Rédiger 3 lignes : lequel choisir pour écrire un cours ? pour envoyer un résultat par mail ?
 - **Plancher / Plafond** : *plancher* — la conversion aller-retour fonctionne ; *plafond* — regarder ce que devient une **image** produite par une cellule dans le `.ipynb` (base64) et en déduire pourquoi le fichier grossit.
 - **Critères** : les deux formats sont décrits avec un cas d'usage pour chacun.

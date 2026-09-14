@@ -8,7 +8,7 @@ Inversion C1↔C3 : [../../inversion_c1_c3.md](../../inversion_c1_c3.md).
 _(à compléter : reprendre les parties du syllabus — 🎓 exposé / ⌨️ TD + durée indicative — puis détailler chaque point.)_
 
 > ⚠️ **Reçu du cours 1 (v2)** : le bloc *binaire / hexadécimal / ASCII-Unicode* et le focus PGM ci-dessous, qui vivaient en séance 1. Ils précèdent désormais directement `pathlib`, puis `numpy` (c6) et le benchmark image (TD7).
-> L'installation de l'environnement conda est faite en **séance 1** : ici, simple rappel d'activation (`conda activate info01`) et ajout de dépendances.
+> L'installation de l'environnement conda est faite en **séance 1** : ici, simple rappel d'activation (`conda activate base`) et ajout de dépendances.
 
 ### 🎓 15′ — Binaire vs texte
 

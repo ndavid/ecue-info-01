@@ -1,8 +1,8 @@
 # Configurer l'éditeur de code, et lancer un programme — TD 2a, cours 1
 
-Le sujet du TD est l'éditeur : le lancer relié au bon environnement Python,
-l'équiper de l'extension du langage, savoir où sont ses commandes et ses
-réglages, puis exécuter un programme de trois façons. Les deux programmes du
+Le sujet du TD est l'éditeur : le lancer, l'équiper de l'extension du
+langage, lui désigner l'interpréteur Python, savoir où sont ses commandes et
+ses réglages, puis exécuter un programme de trois façons. Les deux programmes du
 dossier sont volontairement minuscules : ce qui compte est ce qu'il faut faire
 pour les lancer.
 
@@ -20,8 +20,8 @@ world en C++ dans [`../2c_hello_cpp/`](../2c_hello_cpp/).
 Les postes sont des machines virtuelles Windows avec Anaconda. VS Code s'y
 lance de deux façons, et ce n'est pas indifférent :
 
-- **Depuis Anaconda Navigator** (tuile VS Code, après avoir choisi `info01`
-  dans la liste des environnements) : VS Code part dans cet environnement et
+- **Depuis Anaconda Navigator** (fiche VS Code, après avoir vérifié
+  l'environnement affiché en haut de la page d'accueil) : VS Code part dans cet environnement et
   le terminal intégré trouve le bon `python`. C'est la voie du TD.
 - **Depuis le bureau** : VS Code ouvre un terminal PowerShell, dont la
   stratégie d'exécution refuse le script d'activation de l'environnement
@@ -52,21 +52,23 @@ lance de deux façons, et ce n'est pas indifférent :
    On ouvre le dossier, pas un fichier : c'est lui qui devient le projet.
 2. **`Ctrl` + `Maj` + `X`**, chercher `ms-python.python`, installer.
 3. **`Ctrl` + `Maj` + `P`**, taper « Python: Select Interpreter », choisir
-   `info01`. Le réglage sert au terminal ouvert à l'étape suivante.
+   l'interpréteur d'Anaconda. Le réglage sert au terminal ouvert à l'étape
+   suivante.
 4. **Terminal → Nouveau terminal.** Il s'ouvre en bas, déjà placé dans
-   `2a_vscode_python/`, et son invite commence par `(info01)`.
-5. Taper `python bonjour.py`, puis Entrée. La phrase s'affiche, et rien
+   `2a_vscode_python/`, et son invite commence par `(base)`.
+5. Taper `python altitudes.py`, puis Entrée. La moyenne s'affiche, et rien
    n'apparaît dans l'arborescence : lancer un programme Python ne laisse rien
-   sur le disque.
+   sur le disque. Le bouton d'exécution et le menu Run → Run Without Debugging
+   font la même chose, en écrivant la commande dans le terminal.
 6. Taper `python`, puis les lignes d'`altitudes.py` une à une : la session
    interactive affiche chaque résultat. `exit()` pour sortir.
 7. Ouvrir `altitudes.py`, cliquer dans la marge de la ligne 4, `F5`, « Python
    Debugger » puis « Python File » : le programme s'arrête ligne 4. `F10`
    trois fois en lisant `total` dans le panneau Variables, puis `F5`.
 
-En option, sans VS Code : Anaconda Prompt, `conda activate info01`, `cd` sur
-le dossier (le glisser dans la fenêtre colle son chemin), puis les mêmes
-commandes — ce que l'éditeur faisait à votre place.
+En option, sans VS Code : Anaconda Prompt, `cd` sur le dossier (le glisser
+dans la fenêtre colle son chemin), puis les mêmes commandes, ce que l'éditeur
+faisait à votre place.
 
 ## Ce que le TD montre
 

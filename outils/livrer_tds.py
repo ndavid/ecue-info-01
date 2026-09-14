@@ -72,14 +72,24 @@ def suivis_par_git(dossier: Path) -> list[Path]:
 
 
 def dossiers_vides(td: Path) -> list[Path]:
-    """Les dossiers de `produit/` sans aucun fichier, à recréer tels quels."""
+    """Les dossiers à recréer vides dans le dossier livré.
+
+    Deux cas, et le même effet attendu, un `travail/` qui attend les copies de
+    l'étudiant : les dossiers que `make_data.py` laisse vides dans `produit/`,
+    et ceux que le dépôt marque d'un `.gitkeep`, git ne sachant pas versionner
+    un dossier vide.
+    """
+    vides = set()
     produit = td / "produit"
-    if not produit.is_dir():
-        return []
-    return sorted(
-        d.relative_to(produit) for d in produit.rglob("*")
-        if d.is_dir() and d.name != "_corrige" and not any(d.iterdir())
-    )
+    if produit.is_dir():
+        for d in produit.rglob("*"):
+            if d.is_dir() and d.name != "_corrige" and not any(d.iterdir()):
+                vides.add(d.relative_to(produit))
+    for marque in td.rglob(".gitkeep"):
+        relatif = marque.parent.relative_to(td)
+        if relatif.parts and relatif.parts[0] not in ("produit", "fourni"):
+            vides.add(relatif)
+    return sorted(vides)
 
 
 def a_livrer(td: Path) -> list[tuple[Path, Path]]:

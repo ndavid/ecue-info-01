@@ -9,8 +9,8 @@
 # ajoute la chaîne documentaire.
 #
 #   conda env create -f environment-supports.yml
-#   conda activate info01-supports
-name: info01-supports
+#   conda activate info01
+name: info01
 
 channels:
   - conda-forge

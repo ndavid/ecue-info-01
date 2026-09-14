@@ -63,16 +63,17 @@
     columns: (auto, 1fr),
     align: left + horizon,
     [], [Ce qu'il faut faire],
-    [1], [ouvrir `cours1/3a_markdown/`, puis `recette_a_formater.txt`],
-    [2], [l'enregistrer sous `recette.md`, et ouvrir l'aperçu par `Ctrl` + `K` puis `V`],
+    [1], [ouvrir `cours1/3a_markdown/`, puis `depart/recette_a_formater.txt`],
+    [2], [l'enregistrer sous `travail/recette.md`, et ouvrir l'aperçu par `Ctrl` + `K` puis `V`],
     [3], [un titre en `#`, deux sous-titres en `##`],
     [4], [les étapes de préparation en liste numérotée],
-    [5], [les ingrédients en tableau, depuis `ingredients.csv`],
-    [6], [l'ordre des opérations en bloc `mermaid`],
+    [5], [les ingrédients en tableau, depuis `depart/ingredients.csv`],
+    [6], [la photo, par `![légende](crepes.jpg)`],
+    [7], [l'ordre des opérations en bloc `mermaid`],
   )
 
   #legende[
-    `recette.md`, dans le même dossier, donne le résultat attendu : ne
+    `depart/recette.md` donne le résultat attendu : ne
     l'ouvrir qu'après avoir essayé.
   ]
 
@@ -90,10 +91,15 @@
     l'extension ensuite — un tableau Markdown n'est que des barres
     verticales, dont l'alignement n'est même pas obligatoire.
 
-    Étape 6 : le diagramme de la diapositive précédente. Rien à installer.
+    Étape 6 : `crepes.jpg` est dans `depart/`, à côté du fichier qu'ils
+    écrivent — le chemin est donc relatif et tient en un nom. Une image ne
+    s'insère pas dans un `.md`, elle s'y désigne : le fichier reste à côté,
+    et c'est la quatrième rencontre des chemins relatifs de la partie 1.
 
-    Pour ceux qui vont vite : une photo par `![](…)`, ce qui rappelle les
-    chemins relatifs, et une citation par `>`.
+    Étape 7 : le diagramme de la diapositive précédente. Rien à installer.
+
+    Pour ceux qui vont vite : une citation par `>`, et une seconde photo
+    prise par eux.
   ]
 ]
 #d("Un diagramme écrit en texte")[
@@ -121,8 +127,9 @@
 
   #legende[
     Rien à installer : depuis la version 1.121, VSCode rend les diagrammes
-    Mermaid dans l'aperçu Markdown d'origine. Vérifié sur le poste de
-    préparation, où `mermaid-markdown-features` est livré avec l'éditeur.
+    Mermaid dans l'aperçu Markdown d'origine. La syntaxe complète est dans la
+    documentation officielle,
+    #link("https://mermaid.js.org/syntax/flowchart.html")[mermaid.js.org/syntax/flowchart].
   ]
 
   #notes[

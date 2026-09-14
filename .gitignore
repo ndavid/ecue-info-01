@@ -24,16 +24,21 @@ data/*/*/fourni/
 # manque de rangement.
 data/*/2c_hello_cpp/bonjour
 data/*/*/*.exe
-data/*/5a_octets/raven_*
-data/*/5b_trajet/etape_*.png
-data/*/5b_trajet/trajet.srt
-data/*/5b_trajet/trajet.mp4
-data/*/5b_trajet/montage.txt
-data/*/3b_recette/*.html
-data/*/3b_recette/*.egg-info/
-data/*/3a_markdown/recette_v*.md
-data/*/3a_markdown/*.diff
-data/*/3a_markdown/*.odt
+data/*/4c_trajet/**/etape_*.png
+data/*/4c_trajet/**/trajet.srt
+data/*/4c_trajet/**/trajet.mp4
+data/*/4c_trajet/**/montage.txt
+data/*/4c_trajet/**/*.egg-info/
+data/*/4a_recette/**/*.html
+data/*/4a_recette/**/*.egg-info/
+data/*/3a_markdown/**/recette_v*.md
+data/*/3a_markdown/**/*.diff
+data/*/3a_markdown/**/*.odt
+
+# Ce que les étudiants déposent dans le `travail/` d'un TD : leurs copies et
+# ce qu'ils en tirent. Le dossier lui-même est suivi, par son `.gitkeep`.
+data/*/*/travail/*
+!data/*/*/travail/.gitkeep
 
 # Environnement & outillage
 __pycache__/

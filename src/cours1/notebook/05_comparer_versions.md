@@ -13,7 +13,7 @@ kernelspec:
 :::{note}
 Cette page n'est pas jouée en séance : elle se fait seule, et prépare le cours 2.
 Elle repart d'un fichier déjà écrit, la recette mise en forme en Markdown en
-séance, dans `cours1/3a_markdown/`.
+séance, dans `cours1/3a_markdown/depart/`.
 :::
 
 Le choix d'un format décide de ce qu'on peut faire du fichier ; comparer deux
@@ -48,7 +48,7 @@ def dossier_seance(depart: Path = Path.cwd()) -> Path:
                 return candidat
     raise FileNotFoundError("dossier de la séance introuvable depuis " + str(depart))
 
-recette = dossier_seance() / "3a_markdown" / "recette.md"
+recette = dossier_seance() / "3a_markdown" / "depart" / "recette.md"
 avant = recette.read_text(encoding="utf-8").splitlines(keepends=True)
 apres = [
     ligne.replace("1 heure de repos", "2 heures de repos")
@@ -88,7 +88,7 @@ par courriel.
 :::{admonition} À faire — modifier, comparer, appliquer
 :class: tip
 
-Le dossier `cours1/3a_markdown/` contient `comparer.py`, un programme d'une
+Le dossier `cours1/3a_markdown/depart/` contient `comparer.py`, un programme d'une
 quarantaine de lignes qui n'emploie que la bibliothèque standard.
 
 1. Ouvrez `recette.md`, puis **Fichier → Enregistrer sous**, sous le nom
@@ -96,7 +96,7 @@ quarantaine de lignes qui n'emploie que la bibliothèque standard.
    lait à 600 ml.
 2. Clic droit sur `recette.md`, **Sélectionner pour comparer** ; puis clic droit
    sur `recette_v2.md`, **Comparer avec l'élément sélectionné**. Deux lignes sont
-   signalées, les trente-trois autres sont identiques.
+   signalées, les trente-huit autres sont identiques.
 3. Faites faire la même comparaison par un programme, et gardez son résultat
    dans un fichier :
 
@@ -124,9 +124,9 @@ vient est refusé, et le programme nomme alors la ligne qui ne correspond pas.
 ## Ce qu'une comparaison peut dire d'un fichier binaire
 
 Converties en `.odt`, les deux mêmes versions ne se comparent plus. `pandoc
-recette.md -o recette.odt` produit un document de 8 195 octets ; la seconde
-version, qui diffère de deux mots, en produit un de 8 195 octets également, dont
-1 690 diffèrent du premier. Un `.odt` est une archive compressée : deux mots
+recette.md -o recette.odt` produit un document de 127 047 octets, la photo
+comprise ; la seconde version, qui diffère de deux mots, en produit un de la
+même taille, dont 965 octets diffèrent du premier. Un `.odt` est une archive compressée : deux mots
 changés y redistribuent un cinquième des octets, et aucune ligne n'y est
 lisible.
 

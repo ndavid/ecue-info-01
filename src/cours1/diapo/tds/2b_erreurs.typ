@@ -89,8 +89,9 @@ d("Les caractères invisibles, affichés")[
 }
 #d("Corriger trois programmes")[
   #annonce[
-    Chacun des trois fichiers porte une faute d'un genre différent. Lancer,
-    lire le message, corriger, relancer.
+    Chacun des trois fichiers de `depart/` porte une faute d'un genre
+    différent. Les copier dans `travail/`, lancer, lire le message, corriger,
+    relancer.
   ]
 
   #tableau(

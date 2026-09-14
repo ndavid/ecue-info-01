@@ -13,10 +13,10 @@ pour `1a_formats/`.
 | [`2b_erreurs/`](2b_erreurs/) | trois programmes Python fautifs, à corriger dans l'éditeur, dont un chemin en dur | |
 | [`2c_hello_cpp/`](2c_hello_cpp/) | le même programme en C++ : extension, compilateur, compilation | facultatif |
 | [`3a_markdown/`](3a_markdown/) | une recette en texte brut, à mettre en forme en Markdown ; en annexe, la comparaison de deux versions | |
-| [`3b_recette/`](3b_recette/) | un petit projet Python : créer un environnement, y installer `markdown`, convertir la recette en page HTML | |
-| [`4_notebooks/`](4_notebooks/) | le notebook du cours, ouvert de trois façons | |
-| [`5a_octets/`](5a_octets/) | `octets.py`, qui lit les premiers octets des fichiers du TD 1a | facultatif |
-| [`5b_trajet/`](5b_trajet/) | une vidéo, deux chemins : la même vidéo en une commande | facultatif |
+| [`4a_recette/`](4a_recette/) | un petit projet Python : créer un environnement, installer le projet, écrire son `environment.yml` et sa documentation d'installation | |
+| [`3b_notebooks/`](3b_notebooks/) | `altitudes.ipynb`, ouvert dans le navigateur, dans l'éditeur et dans JupyterLab | |
+| [`4b_noyaux/`](4b_noyaux/) | séparer le client et le noyau, et le notebook du projet recette | facultatif |
+| [`4c_trajet/`](4c_trajet/) | installer et lancer un projet qu'on n'a pas écrit, en lisant son `README` | facultatif |
 
 Chacun a son README. Les TD facultatifs ne sont pas faits en séance ; leurs
 diapositives et leurs fichiers sont là pour qui va plus vite, ou pour après.
@@ -34,7 +34,7 @@ c'est la seule règle à connaître : elle vaut pour toutes les séances.
 
 Perdre un `produit/` ne coûte qu'un temps de calcul ; perdre un `fourni/` coûte
 un retéléchargement qui n'est pas toujours possible — les tuiles OpenStreetMap
-de [`5b_trajet/`](5b_trajet/) sont dans ce cas, leurs conditions d'usage
+de [`4c_trajet/`](4c_trajet/) sont dans ce cas, leurs conditions d'usage
 interdisant le téléchargement en masse.
 
 Les `fourni/` ne se recopient donc pas à la main d'un poste à l'autre :
@@ -79,7 +79,7 @@ diapositives nomment les chemins tels que l'archive les montre** :
 `livraison/cours1/` qu'on rejoue un TD pour le vérifier, jamais depuis `data/`
 — ce qu'un TD fabrique y resterait, et `make_data.py build` repart de zéro.
 
-Les scripts qui lisent les fichiers d'un autre TD (`5a_octets/octets.py`, les
+Les scripts qui lisent les fichiers d'un autre TD (`2b_erreurs/depart/chemin.py`, les
 notebooks) cherchent d'abord `produit/`, puis le dossier lui-même : ils
 tournent dans les deux arborescences.
 

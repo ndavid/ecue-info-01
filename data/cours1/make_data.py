@@ -4,7 +4,8 @@ Le dépôt ne versionne pas les textes : ce script les récupère (domaine publi
 puis en dérive les variantes utilisées en séance.
 
     python make_data.py fetch    # télécharge les sources dans 1a_formats/fourni/
-    python make_data.py build    # génère les fichiers dans 1a_formats/produit/depart/
+    python make_data.py build    # génère les fichiers dans 1a_formats/produit/depart/,
+                                 # et recopie la photo du TD 3a depuis son fourni/
 
 Hors ligne : déposer un .txt dans 1a_formats/fourni/ (nom = clé, ex. raven.txt)
 et lancer directement `build`.
@@ -28,6 +29,11 @@ TRAVAIL = PRODUIT / "travail"
 CORRIGE = PRODUIT / "_corrige"
 # Le TD 1b, l'archive .odt, repart du même `raven.odt`, dans son propre dossier.
 ARCHIVE = ICI / "1b_archive_odt" / "produit"
+# La photo de la recette du TD 3a : elle vient d'ailleurs, donc de `fourni/`,
+# et ne se refabrique pas — mais elle doit partir dans l'archive, donc elle est
+# recopiée dans `produit/`, seul dossier que `livrer_tds.py` livre.
+PHOTO_SOURCE = ICI / "3a_markdown" / "fourni" / "crepes.jpg"
+PHOTO_SORTIE = ICI / "3a_markdown" / "produit" / "depart" / "crepes.jpg"
 
 # Textes du domaine public. `debut`/`fin` délimitent l'extrait utile dans le
 # fichier brut (Gutenberg entoure le texte d'un long préambule de licence).
@@ -99,7 +105,7 @@ def build() -> None:
     # pour que rien de ce qu'un TD joué depuis le dépôt y a laissé (un
     # `raven.pdf` exporté, une copie renommée) ne parte dans l'archive remise
     # aux étudiants, qui reprend produit/ tel quel.
-    for dossier in (PRODUIT, ARCHIVE):
+    for dossier in (PRODUIT, ARCHIVE, PHOTO_SORTIE.parent.parent):
         if dossier.exists():
             for ancien in dossier.iterdir():
                 if ancien.name == ".gitkeep":
@@ -108,6 +114,13 @@ def build() -> None:
     for dossier in (SORTIE, TRAVAIL, CORRIGE, ARCHIVE / "depart", ARCHIVE / "travail"):
         dossier.mkdir(parents=True, exist_ok=True)
     (SORTIE / "style.css").write_text(CSS, encoding="utf-8")
+
+    if PHOTO_SOURCE.exists():
+        PHOTO_SORTIE.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(PHOTO_SOURCE, PHOTO_SORTIE)
+        print(f"✓ {PHOTO_SORTIE.name} → {PHOTO_SORTIE.parent}/")
+    else:
+        print(f"! {PHOTO_SOURCE.name} absent — `python outils/ressources.py importer <dossier>`")
 
     trouve = False
     for cle, meta in TEXTES.items():

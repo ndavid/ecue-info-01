@@ -60,6 +60,7 @@ exclude_patterns = [
     "_build",
     "**/diapo/**",
     "**/notebook/*.ipynb",
+    "**/notebook/td/**",
     "Thumbs.db",
     ".DS_Store",
 ]

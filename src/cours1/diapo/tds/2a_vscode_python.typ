@@ -10,7 +10,7 @@
 #let td = (
   numero: "2a",
   titre: "Configurer l'éditeur de code, et lancer un programme",
-  annonce: "Lancer VS Code, le relier à l'environnement Python du module, puis exécuter un programme de trois façons : en entier, ligne à ligne, pas à pas",
+  annonce: "Lancer VS Code, installer l'extension Python et configurer l'interpréteur Python.\nExécuter un programme de trois façons : en entier, ligne à ligne, pas à pas",
   dossier: "cours1/2a_vscode_python/",
   duree: "25′",
 )
@@ -46,24 +46,144 @@
   ]
 ]
 
+// Repli dessiné de la page d'accueil de Navigator, employé quand la capture
+// n'est pas là : la liste des environnements en haut, une fiche par
+// application en dessous, chacune avec son bouton de lancement.
+#let _fiche-navigator(nom, retenue: false) = block(
+  width: 100%, height: 84pt, inset: (x: 7pt, y: 8pt),
+  stroke: if retenue { 1.4pt + accent } else { 0.8pt + gris.darken(12%) },
+)[
+  #align(center)[
+    #text(size: 13.5pt, weight: if retenue { demi-gras } else { "regular" })[#nom]
+    #v(14pt)
+    #box(inset: (x: 9pt, y: 3pt), radius: 3pt, stroke: 0.8pt + estompe,
+         text(size: 11.5pt, fill: estompe)[Launch])
+  ]
+]
+
+#let _navigator-dessine = fenetre("Anaconda Navigator — Home", hauteur: 226pt)[
+  #grid(
+    columns: (auto, 1fr), column-gutter: 12pt, align: horizon,
+    box(inset: (x: 10pt, y: 5pt), radius: 3pt, stroke: 0.9pt + estompe,
+        text(size: 14pt, font: police-code)[base (root)]),
+    text(size: 13pt, fill: estompe)[la liste des environnements installés],
+  )
+  #v(16pt)
+  #grid(
+    columns: (1fr, 1fr, 1fr, 1fr), column-gutter: 12pt,
+    _fiche-navigator("JupyterLab"),
+    _fiche-navigator("Spyder"),
+    _fiche-navigator("Qt Console"),
+    _fiche-navigator("VS Code", retenue: true),
+  )
+]
+
+#d("Les deux temps du TD")[
+  #annonce[
+    VS Code ne connaît d'avance ni le langage du fichier ouvert, ni
+    l'interpréteur Python à utiliser. Il faut donc configurer l'IDE avant de
+    pouvoir l'utiliser pleinement.
+  ]
+
+  #v(0.5em)
+  #grid(
+    columns: (1.15fr, 1fr), column-gutter: 28pt,
+    [
+      #text(size: 18pt, fill: accent, weight: demi-gras)[Configurer l'IDE]
+      #v(0.6em)
+      #panneau("Le langage")[
+        #text(size: 17pt)[
+          Installation de l'extension Python dans VS Code.
+        ]
+      ]
+      #v(0.8em)
+      #panneau("L'interpréteur")[
+        #text(size: 17pt)[
+          Configurer l'interpréteur Python pour utiliser celui fourni par
+          Anaconda.
+        ]
+      ]
+    ],
+    [
+      #text(size: 18pt, fill: accent, weight: demi-gras)[Lancer un programme]
+      #v(0.6em)
+      #text(size: 17pt)[
+        Ouvrir le dossier du TD. Trois façons : en entier, ligne à ligne, pas
+        à pas.
+      ]
+    ],
+  )
+
+  #notes[
+    La configuration se fait une fois sur le poste, et elle tient pour
+    l'année ; le lancement est le travail de la séance. Le dire, pour que
+    l'installation ne passe pas pour le contenu du TD.
+
+    Deux réglages parce qu'il y a deux inconnues : quel langage l'éditeur
+    doit reconnaître, et quel interpréteur il doit appeler. Les annoncer
+    ensemble évite la question « pourquoi on installe encore quelque
+    chose ? » deux diapositives plus loin.
+
+    Ce qu'est un environnement Python n'est pas encore expliqué, et n'a pas
+    à l'être ici : la partie 4 s'en charge, et le TD 4a le fabrique. Pour
+    aujourd'hui, un interpréteur, celui qu'Anaconda a posé.
+  ]
+]
+
+#d("La page d'accueil d'Anaconda Navigator")[
+  #annonce[
+    En haut, le Python dans lequel Navigator lancera ce qu'on ouvre ; en
+    dessous, une fiche par application, chacune avec son bouton *Launch*.
+  ]
+
+  #align(center, illustration(
+    "/illustrations/cours1/anaconda_navigator_accueil.png",
+    _navigator-dessine,
+    hauteur: 236pt,
+  ))
+
+  #legende[
+    #if captures-disponibles [
+      Page d'accueil de Navigator, documentation Anaconda.
+    ]
+    Après l'installation, la liste du haut ne contient que `base (root)`.
+  ]
+
+  #notes[
+    La capture sert à ce qu'un schéma ne montre pas : le nombre réel de
+    fiches, et le fait que VS Code est l'une d'elles parmi une vingtaine.
+    Faire retrouver la sienne plutôt que la désigner.
+
+    `base (root)` est l'environnement livré avec Anaconda, et le seul tant
+    qu'aucun autre n'a été créé. La doc Anaconda le donne pour sélectionné
+    au démarrage de Navigator. Ne pas commenter le mot « environnement »
+    aujourd'hui : il est nommé, il sera expliqué à la partie 4.
+
+    Les fiches ne sont pas les mêmes d'un poste à l'autre, et une
+    application non installée porte *Install* à la place de *Launch* : le
+    dire avant qu'on le remarque. Seule celle de VS Code sert aujourd'hui.
+  ]
+]
+
 #d("Lancer VS Code depuis Anaconda")[
   #annonce[
     Sur les postes de la salle, VS Code se lance depuis Anaconda Navigator :
-    il part alors dans l'environnement choisi, sans rien configurer.
+    il est alors configuré pour utiliser l'interpréteur Python affiché en haut
+    de la page d'accueil, sans aucun réglage préalable.
   ]
 
   #tableau(
     columns: (auto, 1fr, 1fr),
     align: left + horizon,
-    [], [Le geste], [Ce que vous observez],
-    [1], [menu Démarrer #sym.arrow.r Anaconda Navigator], [la page d'accueil, une tuile par application],
-    [2], [en haut, la liste déroulante des environnements : choisir `info01`], reponse[les tuiles se rechargent pour cet environnement],
-    [3], [tuile VS Code #sym.arrow.r Launch], reponse[VS Code s'ouvre ; en bas à droite, la barre d'état nomme `info01`],
-    [4], [Terminal #sym.arrow.r Nouveau terminal, taper `python --version`], reponse[le Python de `info01`, sans message d'erreur],
+    [], [Ce qu'il faut faire], [Ce que vous observez],
+    [1], [menu Démarrer #sym.arrow.r Anaconda Navigator], [la page d'accueil, une fiche par application],
+    [2], [en haut, lire la liste déroulante], reponse[une seule entrée, `base (root)`, déjà sélectionnée],
+    [3], [fiche VS Code #sym.arrow.r Launch], reponse[VS Code s'ouvre],
+    [4], [Terminal #sym.arrow.r Nouveau terminal, taper `python --version`], reponse[un numéro de version, sans message d'erreur],
   )
 
   #legende[
-    L'autre chemin, VS Code lancé depuis le bureau, marche aussi — mais son
+    L'autre chemin, VS Code lancé depuis le bureau, marche aussi, mais son
     terminal demande un réglage, plus loin dans ce TD.
   ]
 
@@ -71,15 +191,19 @@
     Doc Anaconda, « Visual Studio Code » : « launch the application from
     Navigator 1.9.12 or later by clicking the VS Code tile on the Home
     page » ; « it will automatically use the Python interpreter in the
-    currently selected environment ». D'où l'étape 2 avant l'étape 3 : lancé
-    depuis `base`, VS Code arrive dans `base`.
+    currently selected environment ». D'où l'étape 2 avant l'étape 3 : ce
+    qui est affiché en haut décide du Python que VS Code recevra.
 
     Ce que la doc ne dit pas, et qui est à vérifier sur un poste de la salle
     avant la séance : l'étape 4. Navigator lance VS Code avec les variables
-    de l'environnement choisi ; le terminal intégré en hérite, et `python`
-    devrait être le bon sans qu'aucun script d'activation ne tourne. Si
-    PowerShell affiche quand même une erreur `activate.ps1`, appliquer le
+    de l'environnement sélectionné ; le terminal intégré en hérite, et
+    `python` devrait répondre sans qu'aucun script d'activation ne tourne.
+    Si PowerShell affiche quand même une erreur `activate.ps1`, appliquer le
     réglage de la diapositive « VS Code hors Anaconda ».
+
+    Étape 4 : le numéro exact dépend de la version d'Anaconda installée sur
+    les postes, d'où la réponse volontairement vague. Le relever avant la
+    séance pour pouvoir dire s'ils lisent la bonne.
 
     L'extension Python n'est pas installée par Navigator : c'est l'objet de
     la diapositive suivante. Sur un poste où elle l'est déjà, la barre
@@ -89,69 +213,16 @@
     application, un TD.
   ]
 ]
-#d("Extension de fichier et extension de VSCode")[
-  #annonce[
-    Le même mot désigne deux choses sans rapport : la fin du nom d'un fichier,
-    et un greffon qu'on installe dans l'éditeur.
-  ]
-
-  #tableau(
-    columns: (auto, 1fr, 1fr),
-    align: left + horizon,
-    [], [L'extension du fichier], [L'extension de l'éditeur],
-    [Ce que c'est],
-      [la fin du nom, après le dernier point : `.py`, `.cpp`, `.md`],
-      [un greffon installé dans VSCode : `ms-python.python`],
-    [Dans le fichier],
-      [rien : les trois sont du texte, sans marque ni en-tête],
-      [rien non plus : elle n'agit que sur l'affichage],
-    [Ce qu'elle apporte],
-      [une indication de langage, à qui lit le nom],
-      [la coloration fine, et la vérification des règles d'écriture],
-  )
-
-  #legende[
-    Les trois du module : `ms-python.python`, `ms-vscode.cpptools`,
-    `ms-toolsai.jupyter`. Panneau Extensions, `Ctrl` + `Maj` + `X`, où l'on
-    cherche l'identifiant et jamais le nom affiché.
-  ]
-
-  #notes[
-    Deux sens pour un mot : « installe l'extension Python » et « le
-    fichier a l'extension `.py` » ne parlent pas de la même chose. Le dire
-    une fois.
-
-    Colonne de gauche, le point neuf : un `.py` et un `.cpp` sont des
-    fichiers texte, et rien dans leurs octets ne les distingue — ni marque
-    binaire, ni en-tête, ni signature. L'extension dit ce qu'on peut
-    espérer trouver, elle ne le garantit pas. `python bonjour.txt` exécute
-    parfaitement un programme Python.
-
-    C'est ce que le TD 5a, « Les premiers octets d'un fichier », fait
-    constater : les formats texte n'ont aucune signature, contrairement au
-    ZIP et au PDF.
-
-    La vérification porte sur les règles d'écriture, pas sur le sens : un
-    programme peut être irréprochable pour l'extension et faire le
-    contraire de ce qu'on voulait.
-
-    Chercher l'identifiant en chasse fixe et non le nom affiché :
-    plusieurs extensions non officielles portent le même titre.
-    L'extension Python installe elle-même Pylance, qui fait la
-    vérification ; ne le dire que si quelqu'un le remarque. Identifiants
-    relevés sur le poste de préparation.
-  ]
-]
 #d("Installer l'extension d'un langage")[
   #annonce[
-    Ouvrir le dossier du TD, puis installer l'extension Python :
-    c'est elle qui fera tout ce qui suit.
+    Une extension s'installe depuis le panneau Extensions, en cherchant son
+    identifiant. Il en faut une par langage.
   ]
 
   #tableau(
     columns: (1.1fr, 1fr),
     align: left + horizon,
-    [Le geste], [Ce que vous observez],
+    [Ce qu'il faut faire], [Ce que vous observez],
     [Fichier #sym.arrow.r Ouvrir le dossier, sur `cours1/2a_vscode_python/`],
       [deux programmes, `bonjour.py` et `altitudes.py`, et un `README.md`],
     [Ouvrir `bonjour.py` avant toute installation],
@@ -162,24 +233,32 @@
   )
 
   #legende[
-    Une extension s'installe une fois pour toutes : elle sera là aux séances
-    suivantes, et pour les autres cours.
+    Chercher l'identifiant, `ms-python.python`, et jamais le nom affiché. Une
+    extension installée le reste, pour les séances suivantes et les autres
+    cours.
   ]
 
   #notes[
-    C'est le premier geste de la séance sur l'éditeur, et il sert partout
-    ensuite : le choix de l'interpréteur, le lancement, le débogueur pas à
-    pas, et le TD des programmes fautifs en fin de partie.
+    Le geste vaut pour tout langage nouveau : ouvrir le panneau, taper
+    l'identifiant, installer. C'est le motif à retenir, et il se refera tel
+    quel à chaque langage ajouté.
+
+    Chercher l'identifiant en chasse fixe et non le nom affiché : plusieurs
+    extensions non officielles portent le même titre. Celle de Microsoft
+    entraîne Pylance, qui vérifie l'écriture, et le débogueur ; il n'y a donc
+    qu'une extension à chercher. Identifiants relevés sur le poste de
+    préparation.
 
     Deuxième ligne, la surprise voulue : la coloration ne vient pas de
     l'extension, elle est fournie d'origine pour les langages courants. Ce
-    que l'extension apporte vient après — l'interpréteur, l'exécution, la
-    vérification des règles d'écriture.
+    que l'extension apporte vient après : l'interpréteur, l'exécution, la
+    vérification des règles d'écriture. Cette vérification porte sur les
+    règles d'écriture et non sur le sens, un programme pouvant être
+    irréprochable pour elle et faire le contraire de ce qu'on voulait.
 
-    Chercher l'identifiant `ms-python.python` et non le nom affiché :
-    plusieurs extensions non officielles portent le même titre. Celle de
-    Microsoft entraîne Pylance, qui vérifie l'écriture, et le débogueur ;
-    il n'y a donc qu'une extension à chercher.
+    Ne pas rouvrir ici le sens de « extension » appliqué au nom d'un
+    fichier : c'est le propos du TD 1a. Si la question vient, une phrase
+    suffit, le même mot pour deux choses sans rapport.
 
     L'éditeur n'a pas pu être piloté sur le poste de préparation : la
     proposition automatique de l'extension C/C++ dépend d'un réglage, à
@@ -191,25 +270,24 @@
 ]
 #d("La palette de commandes et les réglages")[
   #annonce[
-    Tout ce que VS Code sait faire est une commande, qu'on trouve en tapant
-    son nom ; tout ce qui se règle est un réglage, qu'on trouve de même.
+    Les commandes et les réglages se cherchent par leur nom, sans parcourir
+    les menus. Quatre panneaux, et les raccourcis qui les ouvrent.
   ]
 
   #tableau(
-    columns: (auto, auto, 1fr),
+    columns: (auto, 82pt, 1fr),
     align: left + horizon,
-    [], [Raccourci], [Ce qu'on y fait],
-    [La palette de commandes], [`Ctrl` + `Maj` + `P`], [taper le début d'un nom : « Python: Select Interpreter », « Developer: Reload Window »],
-    [Les réglages], [`Ctrl` + `,`], [chercher un mot : « default profile », « render whitespace » ; chaque réglage a un nom `a.b.c`],
+    [], [Raccourci], [Rôle],
+    [La palette de commandes], [`Ctrl` + `Maj` + `P`], [taper le début d'un nom : « Python: Select Interpreter »],
+    [Les réglages], [`Ctrl` + `,`], [chercher un mot : « default profile », « render whitespace »],
     [Les extensions], [`Ctrl` + `Maj` + `X`], [chercher un identifiant : `ms-python.python`],
-    [Le terminal], [`Ctrl` + `ù`, ou menu Terminal], [ouvrir, masquer, rouvrir],
-    [Le fichier `settings.json`], [palette, « Open User Settings (JSON) »], [les mêmes réglages, écrits en texte],
+    [Le terminal], [`Ctrl` + `ù`], [ouvrir, masquer, rouvrir],
+    [Le fichier `settings.json`], [], [les mêmes réglages, écrits en texte],
   )
 
   #legende[
-    Les réglages ont deux niveaux : *User*, pour vous sur ce poste, et
-    *Workspace*, rangé avec le projet dans `.vscode/settings.json`. Les intitulés
-    sont ceux de l'interface en anglais.
+    Intitulés de l'interface en anglais. Les réglages ont deux niveaux :
+    *User*, pour vous sur ce poste, et *Workspace*, rangé avec le projet.
   ]
 
   #notes[
@@ -217,10 +295,17 @@
     savoir où est un menu, on tape ce qu'on veut. Toutes les consignes du
     module passent par elle, à commencer par le choix de l'interpréteur.
 
-    Les réglages sont des fichiers texte, `settings.json` : c'est ce qui
-    permet de donner un réglage par écrit — diapositive « VS Code hors
-    Anaconda » — et de le versionner avec un projet quand il est au niveau
-    Workspace. Ouvrir le JSON une fois devant eux, sans y écrire.
+    Les réglages sont des fichiers texte, `settings.json`, et c'est ce qui
+    permet d'en donner un par écrit (diapositive « VS Code hors Anaconda »)
+    puis de le versionner avec un projet quand il est au niveau Workspace,
+    dans `.vscode/settings.json`. Ouvrir le JSON une fois devant eux, sans y
+    écrire. On l'atteint par la palette, « Open User Settings (JSON) ».
+
+    Chaque réglage porte un nom en trois parties, `a.b.c` : le dire en
+    montrant la barre de recherche, c'est ce qui rend la liste navigable.
+
+    `Ctrl` + `ù` ouvre le terminal, et le menu Terminal fait la même chose
+    pour qui a un clavier différent.
 
     `Ctrl` + `ù` est le raccourci du terminal sur un clavier français
     (#raw("Ctrl+`") sur un clavier américain) : à vérifier sur les postes,
@@ -234,17 +319,17 @@
 ]
 #d("Choisir l'interpréteur Python")[
   #annonce[
-    Plusieurs Python peuvent coexister sur une machine. Dire à l'éditeur lequel
-    employer suffit : il place les terminaux qu'il ouvre dans cet environnement.
+    Plusieurs Python peuvent coexister sur une machine. Désigner celui de
+    l'éditeur suffit : les terminaux qu'il ouvre ensuite emploient le même.
   ]
 
   #tableau(
-    columns: (auto, 1fr, 1fr),
+    columns: (auto, 1.2fr, 1fr),
     align: left + horizon,
-    [Où], [Le geste], [Ce qui le prouve],
+    [Où], [Ce qu'il faut faire], [Ce qui le prouve],
     [Dans l'éditeur],
-      [`Ctrl` + `Maj` + `P`, « Python: Select Interpreter », choisir `info01`],
-      [le terminal ouvert ensuite commence par `(info01)`],
+      [`Ctrl` + `Maj` + `P`, « Python: Select Interpreter », choisir celui d'Anaconda],
+      [le terminal ouvert ensuite commence par `(base)`],
     [Windows, hors éditeur],
       [menu Démarrer, chercher « Anaconda Prompt »],
       [l'invite commence par `(base)`],
@@ -253,29 +338,36 @@
       [l'invite commence par `(base)`],
   )
 
-  #avertissement[
-    Le nom entre parenthèses en tête d'invite est la seule preuve qu'on est dans
-    le bon environnement. Sans lui, la commande installera ailleurs.
+  #legende[
+    Le nom entre parenthèses, en tête d'invite, désigne le Python qui
+    répondra. C'est la seule marque visible, et elle se relit avant chaque
+    installation.
   ]
 
   #notes[
     Première ligne, la seule à retenir aujourd'hui : la documentation de VSCode
     est explicite, « when you open a terminal in VS Code, the extension
     automatically activates your selected Python environment so that `python`,
-    `pip`, and related commands use the correct interpreter ». Plus besoin de
-    `conda activate` — à condition que le terminal s'y prête, c'est la
-    diapositive suivante.
+    `pip`, and related commands use the correct interpreter ». Le terminal
+    s'aligne donc sur l'interpréteur choisi, à condition qu'il s'y prête,
+    c'est la diapositive suivante.
 
-    Elle évite le `ModuleNotFoundError` de fin de séance, le terminal pouvant
-    ouvrir un autre Python que celui du module. Elle ne coûte rien aujourd'hui,
-    aucune bibliothèque n'étant importée.
+    La liste proposée par « Select Interpreter » cite un chemin par Python
+    trouvé. Celui d'Anaconda porte `anaconda3` dans son chemin et `base` pour
+    nom ; sur un poste où un autre Python est installé, c'est là que la
+    confusion se joue. Faire lire le chemin, pas seulement le nom.
+
+    Ce geste évite le `ModuleNotFoundError` de fin de séance, le terminal
+    pouvant ouvrir un autre Python. Il ne coûte rien aujourd'hui, aucune
+    bibliothèque n'étant importée.
 
     Les postes de la salle ont Anaconda, d'où l'« Anaconda Prompt » du menu
     Démarrer. `cmd` et PowerShell ne connaissent pas `conda` tant qu'ils n'ont
     pas été initialisés : première cause de « la commande n'existe pas ».
 
-    Faire lire l'invite à voix haute : `(base)` et `(info01)` ne sont pas la
-    même chose. Ce que fait un environnement est expliqué à la partie 3.
+    `base` est le nom du Python livré avec Anaconda, et le seul aujourd'hui.
+    Pourquoi il porte un nom, et comment on en fabrique un autre, est
+    l'objet de la partie 4 et du TD 4a. Ne pas anticiper.
   ]
 ]
 #d("VS Code hors Anaconda : changer de terminal")[
@@ -301,7 +393,7 @@
   #legende[
     Les chemins d'Anaconda sont ceux du raccourci « Anaconda Prompt » : clic
     droit #sym.arrow.r Propriétés #sym.arrow.r Cible. Puis ouvrir un nouveau
-    terminal : l'invite commence par `(base)`, puis `(info01)`.
+    terminal : l'invite commence par `(base)`.
   ]
 
   #notes[
@@ -337,45 +429,9 @@
     un shell ordinaire, et l'activation ne pose pas de problème.
   ]
 ]
-#d("Lancer le programme")[
-  #annonce[
-    Quatre gestes. Le terminal de l'éditeur s'ouvre déjà dans le dossier du
-    projet : il n'y a aucun chemin à écrire.
-  ]
-
-  #tableau(
-    columns: (auto, 1fr),
-    align: left + horizon,
-    [], [Ce qu'il faut faire],
-    [1], [Fichier #sym.arrow.r Ouvrir le dossier, puis choisir `cours1/2a_vscode_python/`],
-    [2], [`Ctrl` + `Maj` + `P`, « Python: Select Interpreter », choisir `info01`],
-    [3], [Terminal #sym.arrow.r Nouveau terminal : il s'ouvre en bas, dans `2a_vscode_python/`, l'invite commence par `(info01)`],
-    [4], [taper `python bonjour.py`, puis Entrée],
-  )
-
-  #legende[
-    Le bouton d'exécution, en haut à droite, fait la même chose : il écrit sa
-    commande dans le terminal avant de l'exécuter. C'est cette commande qu'il
-    faut savoir écrire, elle est identique sur les trois systèmes.
-  ]
-
-  #notes[
-    Projeter les gestes un par un : une étape sous-entendue est une étape où la
-    moitié de la salle s'arrête sans le dire.
-
-    Rien n'apparaît dans l'arborescence : lancer un programme Python ne laisse
-    rien sur le disque. C'est vérifié pour de bon au TD 2c, facultatif,
-    quand le C++ produira un fichier.
-
-    Le bouton exécute avec l'interpréteur sélectionné, pas forcément celui du
-    module : c'est l'origine du `ModuleNotFoundError` annoncé à la partie 3. Le
-    montrer après le terminal, jamais avant.
-  ]
-]
 #d("Le programme du TD")[
   #annonce[
-    Six lignes qui calculent une moyenne d'altitudes, sans rien emprunter à
-    personne. Il tient à l'écran, et son résultat se vérifie de tête.
+    Six lignes qui calculent une moyenne d'altitudes.
   ]
 
   #face-a-face(
@@ -396,8 +452,8 @@
       ```
       #v(0.4em)
       #text(size: 14pt, fill: estompe)[
-        Une seule ligne de sortie : c'est le `print` de la fin, et rien
-        d'autre. Ce qui s'est passé entre-temps n'est pas visible.
+        Une seule ligne de sortie, celle du `print` final. Ce qui s'est
+        passé entre-temps n'est pas visible.
       ]
     ],
   )
@@ -414,8 +470,41 @@
     Les altitudes sont celles de « Coloration syntaxique », devenues un
     programme qui tourne.
 
-    Ce programme ne montre que sa dernière ligne ; les deux façons
-    suivantes servent à voir ce qu'il fait entre le début et la fin.
+    Ce programme ne montre que sa dernière ligne ; les deux autres façons,
+    la session interactive et le pas à pas, servent à voir ce qu'il fait
+    entre le début et la fin.
+  ]
+]
+#d("Lancer le programme")[
+  #tableau(
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [], [Ce qu'il faut faire],
+    [1], [Fichier #sym.arrow.r Ouvrir le dossier, puis choisir `cours1/2a_vscode_python/`],
+    [2], [`Ctrl` + `Maj` + `P`, « Python: Select Interpreter », choisir celui d'Anaconda],
+    [3], [Terminal #sym.arrow.r Nouveau terminal : il s'ouvre en bas, dans `2a_vscode_python/`, l'invite commence par `(base)`],
+    [4], [taper `python altitudes.py`, puis Entrée],
+  )
+
+  #legende[
+    Deux autres chemins pour le même lancement : le bouton d'exécution en haut
+    à droite, et le menu Run #sym.arrow.r Run Without Debugging (`Ctrl` +
+    `F5`). L'un comme l'autre écrit sa commande dans le terminal avant de
+    l'exécuter, et c'est cette commande qu'il faut savoir écrire : elle est
+    identique sur les trois systèmes.
+  ]
+
+  #notes[
+    Projeter les étapes une par une : une étape sous-entendue est une étape
+    où la moitié de la salle s'arrête sans le dire.
+
+    Rien n'apparaît dans l'arborescence : lancer un programme Python ne laisse
+    rien sur le disque. C'est vérifié pour de bon au TD 2c, facultatif,
+    quand le C++ produira un fichier.
+
+    Le bouton et le menu exécutent avec l'interpréteur sélectionné, pas
+    forcément celui qu'on croit : c'est l'origine du `ModuleNotFoundError`
+    annoncé à la partie 4. Les montrer après le terminal, jamais avant.
   ]
 ]
 #d("Python en interactif")[
@@ -477,15 +566,14 @@
     align: left + horizon,
     [], [Ce qu'il faut taper], [Ce que vous observez],
     [1], [menu Démarrer #sym.arrow.r Anaconda Prompt], [l'invite commence par `(base)`],
-    [2], [`conda activate info01`], reponse[l'invite commence par `(info01)`],
-    [3], [`cd `, puis glisser le dossier `2a_vscode_python` dans la fenêtre, Entrée], reponse[le chemin collé apparaît dans l'invite],
-    [4], [`python bonjour.py`], reponse[la même phrase que dans l'éditeur],
-    [5], [`python`, les lignes de la session interactive, `exit()`], reponse[le même `129.0`],
+    [2], [`cd `, puis glisser le dossier `2a_vscode_python` dans la fenêtre, Entrée], reponse[le chemin collé apparaît dans l'invite],
+    [3], [`python altitudes.py`], reponse[la même sortie que dans l'éditeur],
+    [4], [`python`, les lignes de la session interactive, `exit()`], reponse[le même `129.0`],
   )
 
   #legende[
-    Ce que VS Code faisait à votre place : activer l'environnement (2) et se
-    placer dans le dossier (3).
+    Ce que VS Code faisait à votre place : se placer dans le dossier du projet,
+    à l'étape 2.
   ]
 
   #notes[
@@ -493,14 +581,15 @@
     L'intérêt est de faire voir que l'éditeur n'ajoute rien à l'exécution :
     le terminal intégré et l'Anaconda Prompt lancent le même `python`.
 
-    Étape 3 : glisser un dossier depuis l'explorateur dans la fenêtre du
+    Étape 2 : glisser un dossier depuis l'explorateur dans la fenêtre du
     terminal colle son chemin complet, entre guillemets s'il contient un
     espace. C'est le moyen le plus sûr de ne pas taper un chemin faux ;
     `cd` pour lui-même est au cours 2. Sous Windows, `cd /d` si le dossier
     est sur un autre disque que `C:`.
 
-    Étape 2 : c'est le `conda activate` que l'éditeur tape à leur place, et
-    l'invite `(info01)` est la preuve. Sous macOS et Linux, un terminal
+    L'Anaconda Prompt ouvre déjà `(base)`, donc aucune activation à taper
+    aujourd'hui. C'est au TD 4a, une fois un second Python fabriqué, que
+    `conda activate` prendra un sens. Sous macOS et Linux, un terminal
     ordinaire remplace l'Anaconda Prompt.
   ]
 ]
@@ -514,7 +603,7 @@
   #tableau(
     columns: (auto, 1fr, 1fr),
     align: left + horizon,
-    [], [Le geste], [Ce que vous observez],
+    [], [Ce qu'il faut faire], [Ce que vous observez],
     [1], [ouvrir `altitudes.py`, cliquer dans la marge à gauche du numéro de la ligne 4], [un point rouge : le programme s'y arrêtera],
     [2], [`F5`], [en haut, VS Code demande quoi déboguer],
     [3], [choisir « Python Debugger », puis « Python File »], reponse[le programme démarre et s'arrête ligne 4, surlignée en jaune],
@@ -564,7 +653,7 @@
   #tableau(
     columns: (auto, 1fr, 1fr),
     align: left + horizon,
-    [], [Le geste], [Ce que vous observez],
+    [], [Ce qu'il faut faire], [Ce que vous observez],
     [5], [`F10`, trois fois, en regardant Variables], reponse[`total` : `128.4`, puis `259.4`, puis `387.0`],
     [6], [`F5`], reponse[le programme finit : `moyenne : 129.0 m` dans le terminal],
   )

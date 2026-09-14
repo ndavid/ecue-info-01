@@ -5,6 +5,12 @@ Les sources sont en MyST Markdown : c'est du texte, qui se relit, se compare
 ligne à ligne et se versionne — la démonstration du cours 1 appliquée à ses
 propres supports. Le `.ipynb` en est dérivé, comme un PDF l'est d'un `.typ`.
 
+Ne sont convertis que les notebooks écrits pour un TD,
+`src/cours<n>/notebook/td/<td>/`, où `<td>` nomme le dossier de `data/cours<n>/`
+qui les reçoit. Les autres pages de `notebook/` sont des chapitres du book :
+elles s'exécutent à la construction du book, et n'ont pas à être distribuées en
+`.ipynb`.
+
 Il est déposé dans `produit/` du TD sur les notebooks de la séance, le dossier
 de `data/cours<n>/` dont le nom finit par `_notebooks` : c'est là que le TD
 envoie les étudiants, et `outils/livrer_tds.py` le prend au passage, comme le
@@ -28,21 +34,28 @@ import sys
 from pathlib import Path
 
 RACINE = Path(__file__).resolve().parent.parent
-SOURCES = sorted((RACINE / "src").glob("cours*/notebook/*.md"))
+SOURCES = sorted((RACINE / "src").glob("cours*/notebook/td/*/*.md"))
 
 
 def destination(source: Path) -> Path | None:
-    """`produit/` du TD notebooks de la séance, ou None s'il n'y en a pas."""
-    cours = source.parent.parent.name
-    tds = sorted((RACINE / "data" / cours).glob("*_notebooks"))
-    return tds[0] / "produit" if tds else None
+    """`produit/` du TD que nomme le dossier de la source, ou None.
+
+    Le chemin d'une source est `src/cours<n>/notebook/td/<td>/<nom>.md`, et le
+    dossier `<td>` est celui de `data/cours<n>/` où le `.ipynb` doit aller.
+    Écrire la destination dans l'arborescence plutôt que dans le script évite
+    d'avoir à tenir une table de correspondance.
+    """
+    cours = source.parents[3].name
+    td = RACINE / "data" / cours / source.parent.name
+    return td / "produit" if td.is_dir() else None
 
 
 def convertir(source: Path, executer: bool) -> bool:
     dossier = destination(source)
     if dossier is None:
-        print(f"{source.relative_to(RACINE)} : aucun dossier *_notebooks dans "
-              f"data/{source.parent.parent.name}/, ignoré", file=sys.stderr)
+        print(f"{source.relative_to(RACINE)} : pas de dossier "
+              f"data/{source.parents[3].name}/{source.parent.name}/, ignoré",
+              file=sys.stderr)
         return False
     dossier.mkdir(parents=True, exist_ok=True)
     cible = dossier / source.with_suffix(".ipynb").name

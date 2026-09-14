@@ -53,7 +53,7 @@
   ]
 
   #tableau(
-    columns: (auto, 1fr, 1fr),
+    columns: (auto, 1fr, 1.35fr),
     align: left + horizon,
     [], [Linux, macOS], [Windows],
     [Le compilateur],
@@ -61,7 +61,7 @@
       [aucun d'origine],
     [Comment l'obtenir],
       [rien à faire],
-      [`conda install -c conda-forge gxx`],
+      [`conda install -c conda-forge "gxx=15.3.0"`],
     [Ce qu'on tape ensuite],
       [`g++ …`],
       [`x86_64-w64-mingw32-g++ …`],
@@ -69,8 +69,8 @@
 
   #legende[
     L'environnement conda ne sert pas qu'à Python : il installe aussi des
-    outils. On passe par lui parce qu'il est déjà là, et qu'il évite de
-    toucher aux réglages de la machine.
+    outils. La version est fixée parce que la dernière, 16.2.0, ne termine
+    pas une compilation sous Windows : c'est la diapositive suivante.
   ]
 
   #notes[
@@ -88,12 +88,60 @@
 
     Le nom de l'exécutable est le piège, à projeter : sous Windows,
     conda-forge installe `x86_64-w64-mingw32-g++.exe`, pas `g++`. C'est le nom
-    complet de la cible, et il ne s'invente pas. Relevé dans le contenu du
-    paquet `gxx_win-64` ; non confirmé sur une machine Windows, à vérifier
-    avant la séance.
+    complet de la cible, et il ne s'invente pas. Vérifié sur un poste de
+    l'école en septembre 2026.
+
+    La version fixée est le second piège, et il n'est pas de notre fait :
+    `gxx` 16.2.0, la version que `conda install -c conda-forge gxx` prend par
+    défaut, échoue à l'édition de liens sous Windows. Les versions 13.4.0,
+    14.4.0 et 15.3.0 fonctionnent. Retirer la contrainte de version quand
+    conda-forge aura corrigé le paquet.
 
     Ne pas employer `m2w64-toolchain`, encore présent dans de vieilles réponses
     en ligne : le paquet s'annonce lui-même obsolète.
+  ]
+]
+#d("L'erreur crt2.o sous Windows")[
+  #annonce[
+    Avec la dernière version du paquet, la traduction du fichier réussit et
+    l'assemblage du programme échoue : les fichiers de démarrage sont
+    installés là où le compilateur ne les cherche pas.
+  ]
+
+  #fenetre("Terminal — cours1/2c_hello_cpp", code: true)[
+    (info01) …\\2c_hello_cpp> x86_64-w64-mingw32-g++ bonjour.cpp -o bonjour.exe \
+    ld.exe: cannot find crt2.o: No such file or directory \
+    ld.exe: cannot find default-manifest.o: No such file or directory \
+    collect2.exe: error: ld returned 1 exit status
+  ]
+
+  #legende[
+    Relevé sur un poste de l'école en septembre 2026, avec `gxx` 16.2.0. La
+    version 15.3.0 installée par la commande de la diapositive précédente ne
+    montre pas l'erreur.
+  ]
+
+  #notes[
+    Diapositive de secours : la passer si l'installation s'est faite avant la
+    séance et que la compilation sort. Elle sert le jour où un poste a la
+    version 16.2.0 malgré la contrainte, et elle vaut aussi comme lecture de
+    message d'erreur, ce que la séance fait déjà au TD 2b.
+
+    Ce que le message dit, dans l'ordre : c'est `ld`, l'éditeur de liens, qui
+    parle, donc la compilation proprement dite a réussi ; `crt2.o` est le
+    fichier de démarrage que tout programme Windows reçoit avant `main`. Il
+    est bien installé, dans
+    `%CONDA_PREFIX%\Library\x86_64-w64-mingw32\sysroot\usr\lib`, mais gcc
+    16.2.0 ne regarde plus dans `usr/lib`. Défaut du paquet conda-forge, pas
+    de la machine ni du code : conda-forge/ctng-compilers-feedstock, issue
+    229, ouverte le 4 septembre 2026.
+
+    Deux réparations si la version 16.2.0 est déjà en place et que le réseau
+    ne permet pas de la changer : ajouter à la commande
+    `-B "%CONDA_PREFIX%\Library\x86_64-w64-mingw32\sysroot\usr\lib"`, ou
+    créer une jonction `sysroot\lib` vers `sysroot\usr\lib` par `mklink /J`,
+    qui ne demande pas de droits d'administrateur. Le détail est dans le
+    `README.md` du TD.
   ]
 ]
 #d("Compiler, puis lancer")[

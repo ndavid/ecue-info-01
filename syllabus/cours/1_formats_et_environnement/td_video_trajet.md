@@ -8,7 +8,7 @@ oui pour le chemin en ligne de commande, qui est écrit et testé ; le chemin
 
 Supports : diapositives « Mode graphique et mode texte », « Ce que “facile à
 utiliser” veut dire » et le TD 5, « Une vidéo, deux chemins ».
-Scripts et données : [`data/cours1/5b_trajet/`](../../../data/cours1/5b_trajet/).
+Scripts et données : [`data/cours1/4c_trajet/`](../../../data/cours1/4c_trajet/).
 
 ## Ce que le TD doit montrer
 
@@ -22,7 +22,7 @@ exactement la ligne « Trace laissée » du tableau de la diapositive UX.
 
 ## Chemin en ligne de commande
 
-Vérifié de bout en bout sur un poste Linux avec l'environnement `info01`
+Vérifié de bout en bout sur un poste Linux avec l'environnement `base`
 (ffmpeg 9.0.1, ImageMagick 7.1.2). Quatre étapes, chacune produisant le fichier
 que la suivante consomme :
 
@@ -40,7 +40,7 @@ est en orange.
 ### Rien à installer
 
 `ffmpeg` et `imagemagick` sont déjà dans `environment.yml`, donc dans l'env
-`info01` que les étudiants créent plus tôt dans la même séance. Aucune
+`base` que les étudiants créent plus tôt dans la même séance. Aucune
 installation supplémentaire n'est nécessaire, ce qui est la raison principale
 de retenir ces deux outils plutôt que d'autres.
 
@@ -128,7 +128,7 @@ partagent leurs fichiers.
 ## Recommandation
 
 Faire l'**option A** en séance : elle tient en cinq minutes, et le contraste
-avec `./anime.sh` porte tout de suite. Garder l'**option B** en exercice
+avec `trajet` porte tout de suite. Garder l'**option B** en exercice
 complémentaire pour les étudiants rapides, avec le passage GeoJSON → `etapes.csv`
 comme point d'arrivée.
 

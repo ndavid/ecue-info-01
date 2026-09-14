@@ -32,6 +32,7 @@ prennent la place des images.
 | `page_html_style.png` | `raven_style.html` avec `style.css`, dans le navigateur | « Contenu et présentation » | **reproductible**, voir plus bas |
 | `notebook_jupyterlab.png` | JupyterLab, `trajet.ipynb` ouvert : bloc de texte mis en forme, bloc de code numéroté, sa sortie | « Un notebook dans JupyterLab » | **reproductible**, voir plus bas |
 | `apercu_recette.png` | `recette.md` rendu : titre, tableau, liste numérotée, diagramme Mermaid | « Le résultat attendu » | **reproductible**, voir plus bas |
+| `anaconda_navigator_accueil.png` | la page d'accueil d'Anaconda Navigator : la liste des environnements en haut sur `base (root)`, les fiches d'applications dont celle de VS Code | « La page d'accueil d'Anaconda Navigator » | documentation Anaconda |
 
 Le nom du fichier est celui du tableau ci-dessus, à la lettre : c'est lui qui
 est écrit dans le `.typ`.
@@ -100,10 +101,10 @@ reproduit fidèlement.
 
 ## Images reprises d'une documentation officielle
 
-Deux images ne sont pas produites ici : aucun terminal Windows n'est
-disponible sur le poste de préparation, et il vaut mieux une capture publiée
-par l'éditeur qu'une reconstitution. Elles viennent des documentations
-officielles, et leurs conditions de reprise sont différentes.
+Trois images ne sont pas produites ici : ni terminal Windows ni Anaconda
+Navigator ne sont disponibles sur le poste de préparation, et il vaut mieux une
+capture publiée par l'éditeur qu'une reconstitution. Elles viennent des
+documentations officielles, et leurs conditions de reprise sont différentes.
 
 ### `terminal_windows_powershell.jpg`
 
@@ -134,6 +135,24 @@ officielles, et leurs conditions de reprise sont différentes.
   minimum de citer la source et la licence, ce que fait la légende de la
   diapositive. Si cette contrainte n'est pas souhaitée, la remplacer par une
   capture prise sur un poste de l'école règle la question.
+
+### `anaconda_navigator_accueil.png`
+
+- Source : `images/anaconda-desktop/nav-application-dropdown.png` de la
+  documentation Anaconda,
+  [Getting started with Navigator](https://www.anaconda.com/docs/tools/anaconda-navigator/getting-started),
+  illustrant « Filter the application tiles with the applications dropdown
+  menu ».
+- Recadrée pour retirer le menu déroulant ouvert et la flèche d'annotation de
+  la documentation, puis réduite à 1200 px et ramenée à 128 couleurs, comme les
+  captures produites ici. Ce qu'il en reste est la liste des environnements sur
+  `base (root)` et les fiches d'applications, dont celle de VS Code.
+- **Point à trancher avant diffusion** : la documentation Anaconda ne porte pas
+  de licence de réutilisation explicite, contrairement à celles de Microsoft et
+  de GNOME traitées ci-dessus. L'usage est ici une projection en cours, mais si
+  le PDF est diffusé hors de l'école, demander l'autorisation ou refaire la
+  capture sur un poste de la salle — c'est de toute façon la version que les
+  étudiants ont sous les yeux.
 
 ## Format des captures
 

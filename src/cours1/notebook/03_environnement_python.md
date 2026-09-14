@@ -45,13 +45,12 @@ Installez Miniforge, une distribution conda préconfigurée sur conda-forge :
 <https://conda-forge.org/download/>. Puis, dans un terminal :
 
 ```bash
-conda create -n info01 -c conda-forge python=3.12 \
-    jupyterlab numpy pillow pandoc typst ffmpeg imagemagick
+conda create -n recette -c conda-forge python=3.12 markdown tabulate
 
-conda activate info01
+conda activate recette
 ```
 
-Le prompt affiche alors `(info01)`. Vérifiez ensuite que les outils répondent :
+Le prompt affiche alors `(recette)`. Vérifiez ensuite que les outils répondent :
 
 ```bash
 python --version
@@ -63,7 +62,8 @@ ffmpeg -version
 :class: tip
 
 Exécutez la cellule suivante. Elle affiche le chemin de l'interpréteur qui
-exécute réellement ce notebook. Ce chemin doit contenir `info01`.
+exécute réellement ce notebook. Ce chemin doit contenir le nom de
+l'environnement actif.
 :::
 
 ```{code-cell} python
@@ -163,7 +163,7 @@ liste à la main, et c'est ce qui justifie l'outil.
 Quand une dépendance n'est pas présente dans l'environnement actif, l'exécution
 s'arrête avant la première ligne utile.
 
-Le dossier `cours1/3b_recette/` contient un petit projet Python écrit
+Le dossier `cours1/4a_recette/depart/recette/` contient un petit projet Python écrit
 comme ceux que vous ouvrirez cette année : un `pyproject.toml` qui dit ce qu'est
 le projet et ce dont il dépend, un `environment.yml` qui décrit l'environnement,
 un `README.md`, et le paquet `recette/`. Le programme convertit en page HTML
@@ -224,10 +224,10 @@ est disponible parce que quelqu'un a écrit un fichier de cette forme.
 :::{admonition} À faire 2 — un environnement neuf, et ce qu'il faut y ajouter
 :class: tip
 
-On repart d'un environnement vide plutôt que d'`info01`, pour voir ce qu'un
+On repart d'un environnement vide plutôt que de celui d'Anaconda, pour voir ce qu'un
 environnement contient d'origine.
 
-1. Ouvrez `cours1/3b_recette/` dans l'éditeur, et lisez la ligne
+1. Ouvrez `cours1/4a_recette/depart/recette/` dans l'éditeur, et lisez la ligne
    `dependencies` de `pyproject.toml` : le projet annonce avoir besoin de
    `markdown`.
 2. Créez l'environnement décrit par le fichier voisin, et activez-le :
@@ -260,7 +260,7 @@ environnement contient d'origine.
 :::
 
 L'étape 5 installe **trois** paquets : `markdown`, et deux qu'il réclame,
-`importlib-metadata` et `zipp`. La même commande dans `info01` n'en installe
+`importlib-metadata` et `zipp`. La même commande dans `base` n'en installe
 qu'**un seul**, de 85 ko, parce que les deux autres y avaient déjà été tirés
 par autre chose. Ce qui est déjà là ne se réinstalle pas.
 
@@ -285,7 +285,7 @@ def dossier_seance(depart: Path = Path.cwd()) -> Path:
                 return candidat
     raise FileNotFoundError("dossier de la séance introuvable depuis " + str(depart))
 
-source = dossier_seance() / "3a_markdown" / "recette.md"
+source = dossier_seance() / "3a_markdown" / "depart" / "recette.md"
 
 try:
     import markdown
@@ -424,7 +424,7 @@ début.
 :::{admonition} À faire 3 — provoquer puis réparer l'incohérence
 :class: tip
 
-1. Lancez `jupyter lab` depuis le terminal, avec `info01` activé.
+1. Lancez `jupyter lab` depuis le terminal, avec l'environnement d'Anaconda actif.
 2. Créez un notebook `essai.ipynb`. Première cellule : `x = 10`. Seconde
    cellule : `print(x * 2)`. Exécutez dans l'ordre, vous obtenez `20`.
 3. Remplacez le contenu de la première cellule par `x = 3`, mais n'exécutez que

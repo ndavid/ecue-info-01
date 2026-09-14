@@ -40,10 +40,10 @@
 #import "tds/2b_erreurs.typ": td as td-2b
 #import "tds/2c_hello_cpp.typ": td as td-2c
 #import "tds/3a_markdown.typ": td as td-3a
-#import "tds/3b_recette.typ": td as td-3b
-#import "tds/4_notebooks.typ": td as td-4
-#import "tds/5a_octets.typ": td as td-5a
-#import "tds/5b_trajet.typ": td as td-5b
+#import "tds/3b_notebooks.typ": td as td-3b
+#import "tds/4a_recette.typ": td as td-4a
+#import "tds/4b_noyaux.typ": td as td-4b
+#import "tds/4c_trajet.typ": td as td-4c
 
 #include "parties/00_ouverture.typ"
 
@@ -64,19 +64,21 @@
   sommaire-td(td-2a, td-2b, td-2c)
 }
 
-#include "parties/03_projet_python.typ"
+#include "parties/03_markdown_notebook.typ"
 #if tds {
   include "tds/3a_markdown.typ"
-  include "tds/3b_recette.typ"
+  include "tds/3b_notebooks.typ"
 } else {
   sommaire-td(td-3a, td-3b)
 }
 
-#include "parties/04_notebooks.typ"
+#include "parties/04_projet_python.typ"
 #if tds {
-  include "tds/4_notebooks.typ"
-  include "tds/5a_octets.typ"
-  include "tds/5b_trajet.typ"
+  include "tds/4a_recette.typ"
+  include "tds/4b_noyaux.typ"
+  include "tds/4c_trajet.typ"
 } else {
-  sommaire-td(td-4, td-5a, td-5b)
+  sommaire-td(td-4a, td-4b, td-4c)
 }
+
+#include "parties/99_cloture.typ"

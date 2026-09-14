@@ -40,9 +40,9 @@ feuille du TD en PDF. Les textes sont du domaine public.
 La dernière page de la liste ci-dessous est une annexe : elle n'est pas jouée
 en séance, se fait seule, et prépare le cours 2.
 
-L'environnement `info01` doit être en place, par la consigne d'installation
-envoyée avant la rentrée. La bibliothèque `markdown`, elle, ne l'est pas : elle
-s'installe pendant la séance, et c'est le sujet du TD 3b.
+Anaconda doit être installé, par la consigne envoyée avant la rentrée : c'est
+tout ce que la séance suppose. Chaque TD qui a besoin d'autre chose crée son
+propre environnement, et c'est le sujet du TD 4a.
 
 ```{toctree}
 :maxdepth: 1
@@ -50,6 +50,5 @@ s'installe pendant la séance, et c'est le sujet du TD 3b.
 notebook/01_programmes_et_outils
 notebook/02_formats_de_fichier
 notebook/03_environnement_python
-notebook/04_premiers_octets
 notebook/05_comparer_versions
 ```

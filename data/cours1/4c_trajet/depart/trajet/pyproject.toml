@@ -1,0 +1,26 @@
+# Ce que ce projet est, et ce dont il a besoin pour tourner.
+#
+# `dependencies` est vide, et ce n'est pas un oubli : le code n'importe que la
+# bibliothèque standard. Ce dont il dépend vraiment, `ffmpeg` et `imagemagick`,
+# ne s'installe pas par pip — ce sont des programmes, pas des paquets Python.
+# C'est `environment.yml` qui les porte, et c'est la différence entre les deux
+# fichiers.
+
+[project]
+name = "trajet"
+version = "0.1.0"
+description = "Fabrique une vidéo commentée d'un trajet, à partir d'un fond de carte et d'un fichier d'étapes."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+trajet = "trajet.__main__:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+packages = ["trajet"]

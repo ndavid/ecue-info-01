@@ -306,7 +306,7 @@
 
   group(name: "a", {
     translate((xa, y))
-    _environnement(l, "info01", (
+    _environnement(l, "recette", (
       ("python 3.12", accent),
       ("numpy 1.26", alerte),
       ("pillow 10.4", accent),
@@ -373,7 +373,7 @@
 
   group(name: "env", {
     translate((x-env, y-env))
-    _environnement(l-env, "info01", (
+    _environnement(l-env, "recette", (
       ("python 3.12", accent),
       ("numpy 1.26", accent),
       ("pillow 10.4", alerte),
@@ -535,7 +535,7 @@
   // Chemins d'un poste Windows, celui de la salle ; la légende de la
   // diapositive donne les équivalents macOS et Linux.
   let dossiers-systeme = ("C:\\Windows\\System32", "C:\\Windows")
-  let dossier-env = "…\\envs\\info01"
+  let dossier-env = "…\\envs\\recette"
   let decalage = _largeur-dossier(dossier-env) + 0.78
 
   // Ce que l'on tape, une fois pour les deux lignes.
@@ -553,9 +553,9 @@
                 dossiers-systeme, [introuvable, ou un autre python], -1,
                 decalage: decalage)
 
-  _ligne-chemin(1.8, [après #raw("conda activate info01")],
+  _ligne-chemin(1.8, [après #raw("conda activate recette")],
                 (dossier-env,) + dossiers-systeme,
-                […\\envs\\info01\\python.exe], 0)
+                […\\envs\\recette\\python.exe], 0)
 
   // Le dossier que l'activation ajoute, et rien d'autre.
   content((0.4 + decalage / 2 - 0.39, 1.6), anchor: "north", box(width: 7cm)[

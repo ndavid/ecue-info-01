@@ -1,0 +1,17 @@
+# L'environnement dans lequel ce projet tourne.
+#
+#   conda env create -f environment.yml
+#   conda activate trajet_ensg
+#
+# Les deux dépendances qui comptent ne sont pas des bibliothèques Python : ce
+# sont des programmes, que le code appelle par `subprocess`. C'est la raison
+# d'être de conda ici — `pip` ne saurait pas les installer.
+name: trajet_ensg
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.12
+  - ffmpeg          # le montage de la vidéo
+  - imagemagick     # le dessin des images d'étape

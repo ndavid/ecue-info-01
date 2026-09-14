@@ -1,20 +1,23 @@
 # Formatage en Markdown, et comparaison de versions — TD 3a, cours 1
 
-Le dossier sert à deux TD : la mise en forme d'un texte brut en
-Markdown, à la partie 3, et la comparaison de deux versions d'un même fichier,
-gardée en annexe et jouée si l'horaire le permet.
+Le dossier sert à deux TD : la mise en forme d'un texte brut en Markdown, à la
+partie 3, et la comparaison de deux versions d'un même fichier, gardée en
+annexe et jouée si l'horaire le permet.
 
-| Fichier | Rôle |
+| Dossier | Ce qu'il contient |
+|---|---|
+| `depart/` | les fichiers fournis, à ne pas modifier |
+| `travail/` | vide : ce que vous écrivez |
+
+| Fichier de `depart/` | Rôle |
 |---|---|
 | `recette_a_formater.txt` | le texte de départ, sans aucune structure |
 | `ingredients.csv` | les ingrédients, à transformer en tableau |
-| `recette.md` | le résultat attendu — à n'ouvrir qu'après avoir essayé |
+| `recette.md` | le résultat attendu, à n'ouvrir qu'après avoir essayé |
+| `crepes.jpg` | la photo que `recette.md` affiche (CC0, Wikimedia Commons) |
 | `comparer.py` | compare deux versions d'un fichier texte, et applique le résultat ailleurs |
 
-Les fichiers que les étudiants produisent ici — `recette_v2.md`,
-`recette_v3.md`, `modifs.diff`, les `.odt` de conversion — sont dans
-`.gitignore` : ils naissent à côté de leur source parce que c'est la commande
-que les étudiants tapent, comme l'exécutable du « hello world ».
+Ce que vous produisez va dans `travail/`, qui n'est pas versionné.
 
 ## Ce que le TD fait travailler
 
@@ -23,13 +26,16 @@ C'est voulu. L'exercice n'est pas de recopier des marques, c'est de décider ce
 qui est un titre, ce qui est une étape et ce qui est une donnée — la mise en
 forme est une lecture du contenu.
 
-1. Ouvrir le dossier dans l'éditeur, puis `recette_a_formater.txt`.
-2. L'enregistrer sous `recette.md`, et ouvrir l'aperçu côte à côte :
+1. Ouvrir `cours1/3a_markdown/` dans l'éditeur, puis
+   `depart/recette_a_formater.txt`.
+2. L'enregistrer sous `travail/recette.md`, et ouvrir l'aperçu côte à côte :
    `Ctrl` + `K` puis `V`.
 3. Un titre en `#`, deux sous-titres en `##`.
 4. Les étapes de préparation en liste numérotée.
-5. Les ingrédients en tableau, depuis `ingredients.csv`.
-6. L'ordre des opérations en bloc `mermaid`.
+5. Les ingrédients en tableau, depuis `depart/ingredients.csv`.
+6. La photo, par `![légende](crepes.jpg)` — un chemin relatif, comme ceux de
+   la partie 1, et le fichier est dans `depart/`.
+7. L'ordre des opérations en bloc `mermaid`.
 
 ## Le tableau depuis le CSV
 
@@ -55,37 +61,37 @@ flowchart LR
 ```
 
 Le dessin n'est pas dans le fichier : le `.md` ne contient que ces six lignes,
-et les boîtes sont calculées à l'affichage — comme la coloration l'était pour
-le code.
+et les boîtes sont calculées à l'affichage, comme la coloration l'était pour le
+code. La syntaxe complète des diagrammes est dans la documentation de Mermaid :
+<https://mermaid.js.org/syntax/flowchart.html>.
 
 ## Pour aller plus loin
 
-Ajouter une photo par `![légende](fichier.jpg)`, ce qui fait retravailler les
-chemins relatifs de la partie 1, et la remarque finale en citation par `>`.
+La remarque finale en citation par `>`, et une seconde photo prise par vous, ce
+qui fait retravailler les chemins relatifs de la partie 1.
 
 ## La comparaison de deux versions
 
-TD d'annexe, qui prépare le cours 2. Le point de départ est un geste
-déjà fait à la partie 3 : modifier un fichier sous un autre nom.
+TD d'annexe, qui prépare le cours 2. Le point de départ est un geste déjà fait
+à la partie 3 : modifier un fichier sous un autre nom. Les commandes
+ci-dessous se lancent depuis `cours1/3a_markdown/`.
 
-### Déroulé
-
-1. Ouvrir `recette.md`, puis **Fichier → Enregistrer sous**, sous le nom
-   `recette_v2.md`. Dans cette copie, faire passer le repos à deux heures et le
-   lait à 600 ml. Imposer ces deux corrections à toute la salle : les sorties
-   qui suivent sont chiffrées et ne correspondront pas si chacun modifie ce
-   qu'il veut.
-2. Clic droit sur `recette.md`, **Sélectionner pour comparer** ; puis clic droit
-   sur `recette_v2.md`, **Comparer avec l'élément sélectionné**. Deux lignes
-   sont signalées, les trente-trois autres sont identiques.
+1. Ouvrir `travail/recette.md`, puis **Fichier → Enregistrer sous**, sous le
+   nom `travail/recette_v2.md`. Dans cette copie, faire passer le repos à deux
+   heures et le lait à 600 ml. Imposer ces deux corrections à toute la salle :
+   les sorties qui suivent sont chiffrées et ne correspondront pas si chacun
+   modifie ce qu'il veut.
+2. Clic droit sur `recette.md`, **Sélectionner pour comparer** ; puis clic
+   droit sur `recette_v2.md`, **Comparer avec l'élément sélectionné**. Deux
+   lignes sont signalées, les trente-huit autres sont identiques.
 3. Faire faire la même comparaison par un programme :
 
    ```console
-   $ python comparer.py creer recette.md recette_v2.md modifs.diff
+   $ python depart/comparer.py creer travail/recette.md travail/recette_v2.md travail/modifs.diff
    modifs.diff : 19 lignes, dont 4 de différence
    ```
 
-4. Ouvrir `modifs.diff` dans l'éditeur, et en lire l'en-tête :
+4. Ouvrir `travail/modifs.diff` dans l'éditeur, et en lire l'en-tête :
 
    ```
    --- recette.md
@@ -101,28 +107,28 @@ déjà fait à la partie 3 : modifier un fichier sous un autre nom.
    différences, sous un troisième nom :
 
    ```console
-   $ python comparer.py appliquer recette.md modifs.diff recette_v3.md
-   recette_v3.md : 35 lignes, reconstruites à partir de recette.md
+   $ python depart/comparer.py appliquer travail/recette.md travail/modifs.diff travail/recette_v3.md
+   recette_v3.md : 40 lignes, reconstruites à partir de recette.md
    ```
 
 6. Comparer `recette_v3.md` et `recette_v2.md` dans l'éditeur : aucune
-   différence. 370 octets ont suffi à refaire un fichier de 741.
+   différence. 413 octets ont suffi à refaire un fichier de 953.
 
 ### Le cas du binaire
 
 ```console
-$ pandoc recette.md -o recette.odt
-$ pandoc recette_v2.md -o recette_v2.odt
-$ python comparer.py creer recette.odt recette_v2.odt modifs.diff
+$ pandoc travail/recette.md -o travail/recette.odt
+$ pandoc travail/recette_v2.md -o travail/recette_v2.odt
+$ python depart/comparer.py creer travail/recette.odt travail/recette_v2.odt travail/modifs.diff
 recette.odt n'est pas un fichier texte : ses octets ne se lisent pas comme des
 caractères. D'un fichier binaire, une comparaison ne peut dire que s'il diffère
 d'un autre, pas ce qui y a changé.
 ```
 
-Les deux `.odt` font 8 195 octets chacun, et 1 690 de ces octets diffèrent, pour
-deux mots changés : le contenu y est compressé, donc redistribué en entier. Rien
-n'y est lisible ligne à ligne. C'est la réponse complète à « pourquoi un `.odt`
-se versionne mal », posée en première partie.
+Les deux `.odt` font 127 047 octets chacun, la photo comprise, et 965 de ces
+octets diffèrent pour deux mots changés. Aucun n'est lisible ligne à ligne :
+le contenu est compressé, donc redistribué. C'est la réponse complète à
+« pourquoi un `.odt` se versionne mal », posée en première partie.
 
 ### Ce que le TD prépare
 
@@ -137,10 +143,11 @@ Relevé sur la machine de préparation, avec Python 3.12.14 et pandoc 3.11.
 
 | Mesure | Valeur |
 |---|---|
-| `recette.md` | 741 octets, 35 lignes |
-| `recette_v2.md` | 742 octets |
-| `modifs.diff` | 370 octets, 19 lignes, dont 4 de contenu |
-| `recette.odt` et `recette_v2.odt` | 8 195 octets chacun, 1 690 octets différents |
+| `recette.md` | 953 octets, 40 lignes |
+| `recette_v2.md` | 954 octets |
+| `modifs.diff` | 413 octets, 19 lignes, dont 4 de contenu |
+| `recette.odt` et `recette_v2.odt` | 127 047 octets chacun, 965 octets différents |
+| `crepes.jpg` | 118 472 octets, soit l'essentiel des deux `.odt` |
 
 `comparer.py` n'emploie que `difflib`, de la bibliothèque standard : rien à
 installer, et le TD tourne dans n'importe quel environnement Python.

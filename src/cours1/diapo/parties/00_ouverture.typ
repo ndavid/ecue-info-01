@@ -182,10 +182,10 @@
 ├── 2b_erreurs/
 ├── 2c_hello_cpp/      facultatif
 ├── 3a_markdown/
-├── 3b_recette/
-├── 4_notebooks/
-├── 5a_octets/         facultatif
-└── 5b_trajet/         facultatif")
+├── 3b_notebooks/
+├── 4a_recette/
+├── 4b_noyaux/         facultatif
+└── 4c_trajet/         facultatif")
     ]
   ]
 
@@ -223,9 +223,9 @@
     align: (left + horizon, left + horizon, right + horizon),
     [Partie], [Nature], [Durée],
     [Logiciels et formats de fichier], [cours et TD 1a], [25′],
-    [Programmation et éditeur de code], [cours et TD 2a, 2b], [40′],
-    [Structure d'un projet Python], [cours et TD 3a, 3b], [40′],
-    [Notebooks], [cours et TD 4], [10′],
+    [Programmation et éditeur de code], [cours et TD 2a, 2b], [35′],
+    [Markdown et notebook], [cours et TD 3a, 3b], [30′],
+    [Bibliothèques et environnements Python], [cours et TD 4a], [30′],
   )
 
   #avertissement[
@@ -234,7 +234,7 @@
   ]
 
   #legende[
-    Durées indicatives. Les TD 1b, 2c, 5a et 5b sont facultatifs.
+    Durées indicatives. Les TD 1b, 2c, 4b et 4c sont facultatifs.
   ]
 
   #notes[

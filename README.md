@@ -13,8 +13,7 @@ Module d'**infrastructure de travail** (outils + concepts génériques) complém
 | [`illustrations/`](illustrations/) | **Captures d'écran des supports**, hors dépôt. Elles servent aux diapositives, pas aux travaux dirigés. |
 | [`src/commun/typst-101.md`](src/commun/typst-101.md) | **Lire le typst du dépôt** : les deux premières diapositives commentées ligne à ligne. |
 | [`STYLE.md`](STYLE.md) | **Conventions d'écriture** des supports (diapositives, pages de cours, notes). À lire avant d'en rédiger. |
-| [`environment.yml`](environment.yml) | Environnement de **travail** `info01` : celui des étudiants et des TD. |
-| [`environment-supports.yml`](environment-supports.yml) | Environnement de **fabrication** `info01-supports` : typst et la chaîne du book, pour qui recompile les supports. |
+| [`environment-supports.yml`](environment-supports.yml) | Environnement de **fabrication** `info01` : typst et la chaîne du book, pour qui recompile les supports. |
 
 *(Cours 1 rempli de bout en bout — syllabus, notebook, diapos, données ; cours 2–7 en gabarits.)*
 
@@ -23,10 +22,13 @@ Module d'**infrastructure de travail** (outils + concepts génériques) complém
 Pour **suivre** le cours et jouer les TD :
 
 ```bash
-conda env create -f environment.yml && conda activate info01   # ~1 min 30
+conda env create -f environment-supports.yml && conda activate info01
 cd data/cours1 && python make_data.py fetch && python make_data.py build && cd ../..
 python outils/livrer_tds.py     # l'archive des TD telle que les étudiants la reçoivent
 ```
+
+Les étudiants, eux, n'installent qu'Anaconda : chaque TD qui a besoin d'autre
+chose crée son propre environnement, et c'est ce que le TD 3b fait apprendre.
 
 Les étudiants, eux, ne reçoivent que `livraison/info01-cours<n>.zip` : un
 dossier par TD, la feuille du TD en PDF dans chacun. Les diapositives nomment
@@ -35,7 +37,7 @@ les chemins tels que cette archive les montre.
 Pour **recompiler** les supports, il faut en plus la chaîne documentaire :
 
 ```bash
-conda env create -f environment-supports.yml && conda activate info01-supports
+conda env create -f environment-supports.yml && conda activate info01
 python outils/compiler_diapos.py                               # diapositives → PDF
 sphinx-build -b html src _build/html                           # book → _build/html/index.html
 ```

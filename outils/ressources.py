@@ -3,7 +3,7 @@
 
 Deux sortes de fichiers ne sont pas versionnés, et pour deux raisons opposées :
 
-    produit/   ce qu'une commande refabrique — `make_data.py`, `anime.sh`, une
+    produit/   ce qu'une commande refabrique — `make_data.py`, `carte.py`, une
                compilation. Le perdre ne coûte qu'un temps de calcul.
     fourni/    ce qui vient d'ailleurs et ne se refabrique pas : textes
                téléchargés, tuiles OpenStreetMap dont les conditions d'usage
