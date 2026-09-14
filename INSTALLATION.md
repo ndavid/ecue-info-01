@@ -484,13 +484,39 @@ git remote add github https://github.com/<compte>/ecue-info-01.git
 Cette étape se fait dans le navigateur, et c'est la même idée sur les deux
 forges : choisir le tag, écrire un titre, joindre les fichiers.
 
-**GitLab** (gitlab.ign.fr) : dans le dépôt, menu de gauche **Deploy →
-Releases**, bouton **New release**. Choisir le tag dans la liste, donner un
-titre (« Séance 1 »). Les fichiers se joignent depuis le champ **Release
-notes** : le bouton trombone au-dessus du champ, ou glisser le fichier dedans ;
-GitLab le téléverse et écrit le lien dans le texte. Faire de même pour le
-second fichier, puis **Create release**. La zone « Links » plus bas n'est pas
-nécessaire : elle attend des adresses, pas des fichiers.
+**GitLab** (gitlab.ign.fr) : le formulaire de release, **Deploy → Releases →
+New release**, ne sait pas recevoir un fichier. Sa zone « Links » attend une
+adresse, et le champ de description n'a pas de bouton pour ouvrir un fichier
+local. Deux façons de faire, la première est celle du module.
+
+*Avec `glab`, l'outil en ligne de commande de GitLab.* À installer une fois
+dans l'environnement, puis à connecter une fois au serveur de l'école : la
+commande demande un jeton d'accès personnel, à créer dans **Avatar →
+Preferences → Access tokens** avec la portée `api`.
+
+```bash
+conda install -c conda-forge glab
+glab auth login --hostname gitlab.ign.fr       # une fois ; coller le jeton
+```
+
+Ensuite, une commande par séance, depuis la racine du dépôt. Le tag doit déjà
+être poussé (étape 3) ; `glab` crée la release s'il le faut, téléverse les
+fichiers dans le projet et les inscrit comme pièces jointes de la release :
+
+```bash
+glab release upload cours1-2026-09-14 src/cours1/diapo/cours1-sans-tds.pdf livraison/info01-cours1.zip
+```
+
+*Sans rien installer, dans le navigateur.* Il faut d'abord obtenir une adresse
+pour chaque fichier, et GitLab n'en donne une que là où il accepte un fichier
+glissé : la description d'une issue. Ouvrir **Plan → Issues → New issue**, la
+nommer « Fichiers séance 1 », glisser les deux fichiers dans la description ;
+GitLab écrit pour chacun une ligne `[nom](/uploads/…/nom)`. Créer l'issue, puis
+copier ces deux adresses, en les faisant précéder de
+`https://gitlab.ign.fr/geodata-paris/ecue-info-01`. Enfin **Deploy → Releases
+→ New release**, choisir le tag, et dans la zone **Links** coller chaque
+adresse avec son nom. L'issue peut être fermée, pas supprimée : c'est elle qui
+héberge les fichiers.
 
 **GitHub** : dans le dépôt, colonne de droite **Releases**, bouton **Draft a
 new release**. **Choose a tag** et prendre le tag poussé ; titre ; puis glisser
