@@ -1,5 +1,6 @@
 // Cours 2, partie 2 — ce qu'est git et à quoi il sert (diapositives 8 à 10).
 #import "../../../commun/prelude.typ": *
+#import "../beamer.typ": d-beamer as d
 #import "../../../commun/schemas_git.typ": *
 #import "../schemas.typ": *
 #import "../style.typ": *
@@ -147,7 +148,7 @@
       En projet à plusieurs :
       #list(
         [Mise en commun du travail simplifiée],
-        [Travail sur des états parallèles #sym.arrow.r.double on ne se gêne pas],
+        [Travail sur des états parallèles $=>$ on ne se gêne pas],
         [Application des bonnes pratiques en termes de structure git],
       )
     ],

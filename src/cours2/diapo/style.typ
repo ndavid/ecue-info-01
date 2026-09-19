@@ -12,7 +12,8 @@
 //   code(…)               un listing, au style du paquet LaTeX `listings`
 //   liste-progressive(…)  une liste qui se dévoile d'une diapositive à l'autre
 
-#import "../../commun/theme.typ": accent, estompe, demi-gras, police-code
+#import "../../commun/theme.typ": accent, estompe, demi-gras
+#import "beamer.typ": police-code-beamer as police-code, estompe-beamer
 
 // --------------------------------------------------------------------------
 // Listings
@@ -67,7 +68,14 @@
 
 // Un listing. `centre` reproduit la seule diapositive où le support d'origine
 // centre la commande au lieu de l'aligner à gauche (« git init »).
-#let code(corps, centre: false, taille: 15pt, interligne: 0.62em) = block(
+//
+// Corps et interligne sont ceux de `listings` dans le PDF d'origine : un
+// caractère y mesure 5,3 pt sur une page de 453 pt, soit un corps de 10,1 pt
+// en Latin Modern Mono — 19 pt ici, arrondi à 18 — et une avance de 1,04
+// corps d'une ligne à la suivante. typst mesure ses lignes à la hauteur de
+// capitale, 0,61 em pour cette police : l'interligne qui donne cette avance
+// est donc 0,42 em, et non 0,04.
+#let code(corps, centre: false, taille: 18pt, interligne: 0.42em) = block(
   width: 100%, fill: fond-code, inset: (x: 10pt, y: 8pt), above: 0.7em, below: 0.7em,
 )[
   #set text(font: police-code, size: taille)
@@ -83,7 +91,7 @@
 ]
 
 // Commande isolée dans le fil du texte, sans bloc : même fond, une seule ligne.
-#let code-ligne(corps, taille: 15pt) = box(
+#let code-ligne(corps, taille: 18pt) = box(
   fill: fond-code, inset: (x: 5pt, y: 3pt), outset: (y: 2pt),
 )[
   #set text(font: police-code, size: taille)
@@ -107,7 +115,7 @@
   list(
     ..visibles.enumerate().map(((i, item)) => {
       if estompe-precedents and i < etape - 1 {
-        text(fill: estompe)[#item]
+        text(fill: estompe-beamer)[#item]
       } else {
         item
       }
@@ -116,9 +124,10 @@
 }
 
 // Le surlignage vert des motifs, sur les diapositives d'expressions
-// régulières. C'est un `\colorbox` du support d'origine.
+// régulières. C'est un `\colorbox` du support d'origine, et son contenu y
+// est composé dans la police du texte, pas en chasse fixe.
 #let motif(corps) = box(
   fill: rgb("#8FD35B"), inset: (x: 4pt, y: 2pt), outset: (y: 3pt),
 )[
-  #text(font: police-code, size: 0.92em, fill: accent)[#corps]
+  #text(fill: accent)[#corps]
 ]

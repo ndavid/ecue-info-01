@@ -2,6 +2,7 @@
 // d'origine). Les diapositives qui se dévoilent sont écrites autant de fois
 // qu'elles comptent d'étapes, `etape` faisant le reste.
 #import "../../../commun/prelude.typ": *
+#import "../beamer.typ": d-beamer as d
 #import "../schemas.typ": *
 #import "../style.typ": *
 
@@ -60,7 +61,7 @@ pwd
 #créer un fichier
 touch <nom_fichier>
 #créer un dossier
-mkdir <nom_dossier>", taille: 12.5pt, interligne: 0.5em)
+mkdir <nom_dossier>")
 
   #notes[
     Les faire taper une à une plutôt que les lire. `rm` ne demande pas
@@ -120,7 +121,7 @@ mkdir <nom_dossier>", taille: 12.5pt, interligne: 0.5em)
 
   #v(0.45em)
   Le chemin relatif se note :\
-  #code-ligne("dossier_1/.../dossier_n/destination", taille: 13pt)
+  #code-ligne("dossier_1/.../dossier_n/destination", taille: 14pt)
 ]
 
 #_diapo-arbre(
@@ -130,7 +131,7 @@ mkdir <nom_dossier>", taille: 12.5pt, interligne: 0.5em)
   chemin: (("etc", "ssh"), ("ssh", "config"), ("etc", "cpp")),
   courant: "cpp",
 )[
-  Le dossier parent d'un autre dossier se note `".."`\
+  Le dossier parent d'un autre dossier se note ”..”\
   exemple :\
   #code-ligne("../etc/ssh/ssh_config.json")
 
@@ -146,7 +147,7 @@ mkdir <nom_dossier>", taille: 12.5pt, interligne: 0.5em)
     columns: (0.95fr, 1.7fr), column-gutter: 14pt, align: horizon,
     [
       Certains fichiers/dossiers peuvent être *cachés*. Pour cacher un
-      fichier/dossier, il faut que son nom commence par un `"."`.
+      fichier/dossier, il faut que son nom commence par un ”.”.
 
       #v(0.9em)
       Exemple : `.git`, `.cache`, `.ssh`
@@ -172,7 +173,7 @@ mkdir <nom_dossier>", taille: 12.5pt, interligne: 0.5em)
           text(fill: estompe)[Nouvelle fenêtre #h(1fr) `Ctrl+N`],
           text(fill: estompe)[Nouvel onglet #h(1fr) `Ctrl+T`],
           block(width: 100%, inset: (x: 3pt, y: 2pt), stroke: 1pt + alerte)[
-            #sym.checkmark Afficher les fichiers cachés #h(1fr) `Ctrl+H`
+            $checkmark$ Afficher les fichiers cachés #h(1fr) `Ctrl+H`
           ],
           text(fill: estompe)[Préférences],
           text(fill: estompe)[Raccourcis clavier #h(1fr) `Ctrl+?`],
@@ -193,9 +194,9 @@ mkdir <nom_dossier>", taille: 12.5pt, interligne: 0.5em)
 // Les règles s'accumulent, la précédente passant en gris ; les exemples, eux,
 // sont remplacés à chaque étape, car ils illustrent la règle du moment.
 #let _regles = (
-  [`"*"` : n'importe quelle chaîne de caractères],
-  [`"?"` : n'importe quel caractère (un seul caractère)],
-  [`"[]"` : permet de donner une liste de caractères.],
+  [”\*” : n'importe quelle chaîne de caractères],
+  [”?” : n'importe quel caractère (un seul caractère)],
+  [”[]” : permet de donner une liste de caractères.],
 )
 
 #let _diapo-regex(etape, exemples) = d("Expressions régulières")[
@@ -215,7 +216,7 @@ mkdir <nom_dossier>", taille: 12.5pt, interligne: 0.5em)
 ))
 
 #_diapo-regex(2, (
-  [#motif("*_?.png") : tous les png avec un nom ayant un `"_"` en avant
+  [#motif("*_?.png") : tous les png avec un nom ayant un ”\_” en avant
    dernier caractère],
   [#motif("/users/*/????.*") : tous les fichiers dans les dossiers
    utilisateurs ayant un nom de 4 caractères],

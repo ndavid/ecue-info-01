@@ -1,5 +1,6 @@
 // Cours 2, partie 6 — les règles de tenue d'un dépôt (diapositives 25 et 26).
 #import "../../../commun/prelude.typ": *
+#import "../beamer.typ": d-beamer as d
 #import "../schemas.typ": *
 #import "../style.typ": *
 
@@ -18,8 +19,7 @@
     #liste-progressive(etape, _regles)
 
     #if etape == 1 {
-      code("git commit -m \"ajout de fonctionnalités dans le fichier...\"",
-           taille: 14pt)
+      code("git commit -m \"ajout de fonctionnalités dans le fichier...\"")
     }
 
     #if etape == 3 {

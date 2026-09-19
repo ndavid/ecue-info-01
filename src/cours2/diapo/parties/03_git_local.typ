@@ -1,6 +1,7 @@
 // Cours 2, partie 3 — le dépôt local : créer, enregistrer, annuler, étiqueter
 // (diapositives 11 à 16).
 #import "../../../commun/prelude.typ": *
+#import "../beamer.typ": d-beamer as d
 #import "../../../commun/schemas_git.typ": *
 #import "../schemas.typ": *
 #import "../style.typ": *
@@ -8,6 +9,7 @@
 // Une histoire linéaire, comme celle des diapositives sur le commit : les
 // pastilles se suivent, et des tirets disent que le projet continue.
 #let _chaine(noms, teintes: (:), echelle: 1.0, extra: none) = graphe-git(
+  taille-etiquette: 11pt,
   commits: noms.enumerate().map(((i, nom)) => (
     nom: "k" + str(i), col: i, voie: 0, etiquette: nom,
     teinte: teintes.at(str(i), default: white),
@@ -30,9 +32,9 @@
 
       #v(0.9em)
       On utilise la commande suivante :
-      #code("git init", centre: true, taille: 17pt)
+      #code("git init", centre: true)
     ],
-    align(center, dossier-projet(echelle: 1.0)),
+    align(center, dossier-projet(echelle: 1.3)),
   )
 
   #notes[
@@ -50,7 +52,7 @@
       Une fois le repository créé, il est dans son état initial,
       appelé *Initial commit*
     ],
-    align(center, _chaine(("Initial commit",), echelle: 1.0)),
+    align(center, _chaine(("Initial commit",), echelle: 1.3)),
   )
 ]
 
@@ -61,7 +63,7 @@
     align(center)[
       Chaque nouvel état enregistré du projet s'appelle un *commit*
     ],
-    align(center, _chaine(("Initial commit", "commit 1", "commit 2"), echelle: 0.85)),
+    align(center, _chaine(("Initial commit", "commit 1", "commit 2"), echelle: 1.15)),
   )
 
   #notes[
@@ -87,12 +89,12 @@ git add <nom_de_fichier>
 git add <nom_de_dossier>
 
 #ajouter le dossier courant
-git add .", taille: 13pt, interligne: 0.5em)
+git add .")
   ],
   [
     On peut ensuite créer un *nouvel état* du projet avec les nouveaux
     fichiers.
-    #code("git commit -m <message_de_commit>", taille: 13.5pt)
+    #code("git commit -m <message_de_commit>")
   ],
   [Pour valider un changement, on réutilise la commande *add*.],
   [
@@ -106,7 +108,7 @@ git add .", taille: 13pt, interligne: 0.5em)
     #grid(
       columns: (1fr, 1.25fr), column-gutter: 16pt, align: horizon,
       block(width: 100%)[#_etapes-enregistrer.at(etape - 1)],
-      align(center, cycle-de-vie(etape: etape, echelle: 0.78)),
+      align(center, cycle-de-vie(etape: etape, echelle: 1.0)),
     )
 
     #if etape == 5 {
@@ -131,7 +133,7 @@ git add .", taille: 13pt, interligne: 0.5em)
     align(center, _chaine(
       ("", "", ""),
       teintes: ("1": rgb("#F5C6C6")),
-      echelle: 1.0,
+      echelle: 1.25,
       extra: (pos, d) => {
         pont(d, pos("k0"), pos("k2"), "Même état")
         d.content((pos("k1").at(0) + 0.1, pos("k1").at(1) - 0.42),
@@ -157,12 +159,12 @@ git add .", taille: 13pt, interligne: 0.5em)
     columns: (1.3fr, 1fr), column-gutter: 20pt, align: horizon,
     [
       On peut tagger un commit avec la commande :
-      #code("git tag -a <nom du tag> -m <message de tag>", taille: 13.5pt)
+      #code("git tag -a <nom du tag> -m <message de tag>")
     ],
     align(center, _chaine(
       ("", "", ""),
       teintes: ("1": rgb("#BFE3BF")),
-      echelle: 1.0,
+      echelle: 1.25,
       extra: (pos, d) => {
         d.content((pos("k1").at(0), pos("k1").at(1) - 0.42),
                   text(size: 9pt, fill: accent)[Tag : V1.0], anchor: "north")

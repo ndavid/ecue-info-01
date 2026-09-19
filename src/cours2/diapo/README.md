@@ -23,13 +23,49 @@ découlent, définies dans [`style.typ`](style.typ) :
 
 | Gabarit | Rôle |
 |---|---|
-| `code(…)` | un listing au style du paquet LaTeX `listings` : commentaires en vert, primitives de bash en magenta, sur fond clair |
+| `code(…)` | un listing au style du paquet LaTeX `listings` : commentaires en vert, primitives de bash en magenta, sur fond clair, en Latin Modern Mono |
 | `code-ligne(…)` | la même chose dans le fil du texte |
 | `liste-progressive(etape, items)` | une liste dont les items déjà vus passent en gris |
 | `motif(…)` | le surlignage vert des expressions régulières |
 
 Les trois couleurs ajoutées (`#009900`, `#EC008C`, `#8FD35B`) sont relevées au
 pixel sur le PDF d'origine. Elles ne sortent pas de ce dossier.
+
+## Rendu Beamer
+
+Le thème commun est une transposition de Bruno ; le PDF de Florent est un
+Bruno d'origine. Les deux ont été mesurés — positions et hauteurs des lignes
+par `pdftotext -bbox-layout`, couleurs et aplats au pixel — et
+[`beamer.typ`](beamer.typ) corrige, pour cette séance seulement, ce qui se
+corrige sans toucher au thème. Les valeurs sont en pourcentage de la hauteur
+de page quand c'est ce qui se compare, en points de la page de 297 mm sinon.
+
+| Élément | Beamer (Florent) | Thème commun | Cours 2, `beamer.typ` |
+|---|---|---|---|
+| page de titre | logo git en fond, découpé en trapèze ; filet ; auteur ; institut et date en plus petit | pas de fond, `sous-titre` sous le filet | `page-titre-beamer` : le fond, et les trois emplacements dans l'ordre de Beamer |
+| titre de cadre | Fira Sans **Regular**, 32,1 pt | Medium, 33 pt | `d-beamer` : Regular, 32,1 pt |
+| corps | 20,4 pt, avance 1,23 em | 21 pt, 1,34 em | 20,4 pt, 1,23 em |
+| position du corps | centré, ressorts 0,65 : 1 | 0,85 : 1 | 0,65 : 1 |
+| puces | carré et disque de Computer Modern Symbol | `■` `●`, absents de Fira Sans, pris dans Lato ou DejaVu selon le poste | dessinées (`box`), 0,46 et 0,40 em |
+| espacement des items | 6,1 % de la hauteur | 5,6 % | 6,1 % |
+| retrait des listes | 25,7 pt, texte 16,8 pt plus loin | 11 et 13 pt | 19 et 17 pt |
+| items déjà vus | voile blanc, `#BABFC2` | `estompe`, `#6B7683` | `#BABFC2` |
+| listings | Latin Modern Mono 9, 19 pt, avance 1,04 em | DejaVu Sans Mono 15 pt, avance 1,3 em | LM Mono 18 pt, 1,04 em |
+| motifs surlignés | police du texte | chasse fixe | police du texte |
+| `⇒`, `✓`, `□` | Computer Modern Symbol | police de repli | Latin Modern Math, en mode mathématique |
+| apostrophe | `’` | `'` dans les chaînes passées en paramètre | `’` écrit tel quel |
+
+Ce qui reste, et qui demande le thème :
+
+| Élément | Beamer | Thème commun | Pourquoi ça reste |
+|---|---|---|---|
+| tout ce que `diapos()` et `page-titre()` composent en dur : titre de la page de titre, pied de page, `annonce` | corps × 1,856 | corps × 1,909, soit 2,8 % de trop | le facteur est une constante du thème ; en faire un paramètre ne changerait rien au cours 1 |
+| `′` des durées de TD | — | Lato | glyphe absent de Fira Sans ; convention du dépôt, sans équivalent chez Florent |
+| `commande [- option ]` | espaces insérées par `listings` autour des crochets | non | c'est un artefact de `listings`, pas une intention |
+
+Latin Modern Mono et Latin Modern Math viennent avec TeX Live. Sur un poste
+qui ne l'a pas, la pile retombe sur DejaVu Sans Mono et DejaVu Math TeX Gyre :
+le document compile, avec des listings un peu plus larges.
 
 ## Révélation progressive
 

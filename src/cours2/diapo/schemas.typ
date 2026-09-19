@@ -194,6 +194,7 @@
 )[
   #set text(font: police-code, size: taille, fill: rgb("#EDEDED"))
   #set par(leading: 0.55em, justify: false)
+  #set align(left)
   #for (i, l) in lignes.enumerate() {
     if i > 0 { linebreak() }
     let (texte, couleur) = if type(l) == array { l } else { (l, none) }
@@ -603,7 +604,7 @@
           text(font: police-texte, size: 11pt, fill: white)[#titre-fenetre])
   // Les boutons de la fenêtre, à droite de la barre.
   content((largeur - 0.3, y-invite + 0.34 + haut-barre / 2),
-          text(font: police-texte, size: 11pt, fill: rgb("#BBBBBB"))[#sym.minus #h(6pt) #sym.square #h(6pt) #sym.times],
+          text(font: police-texte, size: 11pt, fill: rgb("#BBBBBB"))[#sym.minus #h(6pt) $square$ #h(6pt) #sym.times],
           anchor: "east")
 
   // L'invite, segment par segment.

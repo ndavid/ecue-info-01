@@ -1,6 +1,7 @@
 // Cours 2, partie 5 — lire ce que git dit, et lui dire quoi ignorer
 // (diapositives 21 à 24).
 #import "../../../commun/prelude.typ": *
+#import "../beamer.typ": d-beamer as d
 #import "../schemas.typ": *
 #import "../style.typ": *
 
@@ -17,8 +18,7 @@
     columns: (1fr, 1.5fr), column-gutter: 18pt, align: horizon,
     [
       Le graphe git peut être affiché avec la commande :
-      #code("git log --graph --pretty=oneline --abbrev-commit",
-            taille: 13pt, interligne: 0.5em)
+      #code("git log --graph --pretty=oneline --abbrev-commit")
     ],
     sortie-terminal((
       ("*   468a7db Merge branch 'main' of https://github.com/…/2D-Viewer", _jaune),

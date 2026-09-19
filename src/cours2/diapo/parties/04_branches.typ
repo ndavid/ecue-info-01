@@ -3,6 +3,7 @@
 // diapositives se repassent : le même dessin sert à montrer le rebase, le
 // merge, HEAD et le conflit.
 #import "../../../commun/prelude.typ": *
+#import "../beamer.typ": d-beamer as d
 #import "../../../commun/schemas_git.typ": *
 #import "../schemas.typ": *
 #import "../style.typ": *
@@ -27,8 +28,9 @@
 
 // Quand les noms de branche sont affichés, le support d'origine remplace la
 // flèche de prolongement par l'étiquette : les deux se superposeraient.
-#let _graphe-reference(echelle: 0.92, branches: (), extra: none) = graphe-git(
+#let _graphe-reference(echelle: 1.15, branches: (), extra: none) = graphe-git(
   commits: _reference,
+  taille-etiquette: 11pt,
   branches: branches,
   fleches: if branches.len() == 0 { ((depuis: "c8"),) } else { () },
   echelle: echelle,
@@ -37,13 +39,14 @@
 
 // --------------------------------------------- 17/26, en deux étapes
 #let _deux-branches(haut, bas, echelle: 1.0) = graphe-git(
+  taille-etiquette: 11pt,
   commits: (
     (nom: "a", col: 0, voie: 0, etiquette: ""),
     (nom: "b", col: 1, voie: 0, etiquette: "", parents: ("a",)),
     (nom: "c", col: 1, voie: 1.6, etiquette: "", parents: ("a",)),
   ),
   branches: (
-    (nom: haut, voie: 1.6, col: 1, ancre: "west"),
+    (nom: haut, voie: 1.6, col: 1, ancre: "west", dy: 0.42),
     (nom: bas, voie: 0, col: 1, ancre: "west", dy: -0.42),
   ),
   fleches: ((depuis: "b", longueur: 0.9), (depuis: "c", longueur: 0.9)),
@@ -67,9 +70,9 @@ git checkout -b <nom_branche>
 git checkout <nom_de_branche>
 
 #voir les différentes branches
-git branch", taille: 13pt, interligne: 0.5em)
+git branch")
     ],
-    align(center, _deux-branches("branche 2", "branche 1", echelle: 0.95)),
+    align(center, _deux-branches("branche 2", "branche 1", echelle: 1.2)),
   )
 ]
 
@@ -77,7 +80,7 @@ git branch", taille: 13pt, interligne: 0.5em)
   #grid(
     columns: (1fr, 1fr), column-gutter: 18pt, align: horizon,
     [La branche initiale s'appelle *master*, ou parfois *main*.],
-    align(center, _deux-branches("branche", "main", echelle: 1.15)),
+    align(center, _deux-branches("branche", "main", echelle: 1.4)),
   )
 
   #notes[
@@ -97,10 +100,10 @@ git branch", taille: 13pt, interligne: 0.5em)
     [
       HEAD : désigne le commit sur lequel on se trouve (commit courant)
       #code("#Changer de commit
-git checkout <nom_de_commit>", taille: 13.5pt)
+git checkout <nom_de_commit>")
     ],
     align(center)[
-      #_graphe-reference(echelle: 0.95, extra: (pos, d) => marque-tete(d, pos("c6")))
+      #_graphe-reference(echelle: 1.0, extra: (pos, d) => marque-tete(d, pos("c6")))
       #v(0.2em)
       #grid(
         columns: (auto, auto), column-gutter: 8pt, align: horizon,
@@ -108,7 +111,7 @@ git checkout <nom_de_commit>", taille: 13.5pt)
         text(size: 14pt, weight: demi-gras, fill: accent)[git checkout commit_7],
       )
       #v(0.2em)
-      #_graphe-reference(echelle: 0.95, extra: (pos, d) => marque-tete(d, pos("c7"), dy: 0.85))
+      #_graphe-reference(echelle: 1.0, extra: (pos, d) => marque-tete(d, pos("c7"), dy: 0.85))
     ],
   )
 ]
@@ -118,10 +121,10 @@ git checkout <nom_de_commit>", taille: 13.5pt)
   #grid(
     columns: (1fr, 1.2fr), column-gutter: 18pt, align: horizon,
     [
-      Deux branches peuvent être fusionnées #sym.arrow.r.double les
+      Deux branches peuvent être fusionnées $=>$ les
       modifications des deux branches sont ajoutées.
     ],
-    align(center, _graphe-reference(echelle: 0.95, extra: (pos, d) => {
+    align(center, _graphe-reference(echelle: 1.2, extra: (pos, d) => {
       arete-epaisse(d, pos("c6"), pos("c8"))
       cerne(d, pos("c6"), pos("c8"))
     })),
@@ -136,9 +139,9 @@ git checkout <nom_de_commit>", taille: 13.5pt)
       Le merge crée un nouveau commit de fusion
       #code("#Merge la branche b_1
 #dans la branche courante
-git merge <b_1>", taille: 13.5pt, interligne: 0.5em)
+git merge <b_1>")
     ],
-    align(center, _graphe-reference(echelle: 0.95, extra: (pos, d) => {
+    align(center, _graphe-reference(echelle: 1.2, extra: (pos, d) => {
       d.line(pos("c6"), pos("c8"),
              stroke: (paint: estompe, thickness: 1pt, dash: "densely-dashed"))
       etiquette-arete(d, pos("c6"), pos("c8"), "merge", decalage: (0.42, 0))
@@ -168,10 +171,10 @@ git merge <b_1>", taille: 13.5pt, interligne: 0.5em)
       branche cible.
       #code("#Rebase la branche b_1
 #dans la branche b_2
-git rebase <b_1> <b_2>", taille: 13.5pt, interligne: 0.5em)
+git rebase <b_1> <b_2>")
     ],
     align(center)[
-      #_graphe-reference(echelle: 0.82, branches: _branches-reference)
+      #_graphe-reference(echelle: 0.95, branches: _branches-reference)
       #v(0.15em)
       #text(size: 24pt, fill: accent)[#sym.arrow.b]
       #v(0.15em)
@@ -181,7 +184,8 @@ git rebase <b_1> <b_2>", taille: 13.5pt, interligne: 0.5em)
           (nom: "branche 1", voie: 0, col: 3, ancre: "west"),
           (nom: "branche 2", voie: 2, col: 3.7, ancre: "east"),
         ),
-        echelle: 0.82,
+        echelle: 0.95,
+        taille-etiquette: 11pt,
       )
     ],
   )
@@ -198,7 +202,8 @@ git rebase <b_1> <b_2>", taille: 13.5pt, interligne: 0.5em)
 //
 // Le graphe se resserre ici sur les quatre commits qui portent le conflit : la
 // diapositive doit loger en plus les trois versions du fichier.
-#let _graphe-conflit(echelle: 0.85, extra: none) = graphe-git(
+#let _graphe-conflit(echelle: 1.0, extra: none) = graphe-git(
+  taille-etiquette: 11pt,
   commits: (
     (nom: "c1", col: 0, voie: 0, etiquette: "commit 1"),
     (nom: "c2", col: 1, voie: 1.5, etiquette: "commit 2", parents: ("c1",)),
@@ -227,7 +232,7 @@ git rebase <b_1> <b_2>", taille: 13.5pt, interligne: 0.5em)
       le développeur doit choisir comment fusionner les deux modifications.
     ],
     align(center)[
-      #_graphe-reference(echelle: 0.88, extra: (pos, d) => {
+      #_graphe-reference(echelle: 1.05, extra: (pos, d) => {
         marque-conflit(d, (pos("c8").at(0) + 0.05, pos("c8").at(1) + 0.75))
       })
       #v(0.6em)
@@ -252,7 +257,7 @@ git rebase <b_1> <b_2>", taille: 13.5pt, interligne: 0.5em)
       grid(
         columns: 1, row-gutter: 8pt,
         _fichier-multiplication,
-        align(center, _graphe-conflit(echelle: 0.72, extra: (pos, d) => {
+        align(center, _graphe-conflit(echelle: 0.85, extra: (pos, d) => {
           marque-conflit(d, pos("m"), texte: "")
         })),
         _fichier-addition,
@@ -278,14 +283,14 @@ git rebase <b_1> <b_2>", taille: 13.5pt, interligne: 0.5em)
       #code("git merge --continue
 
 #Idem pour le rebase
-git rebase --continue", taille: 13.5pt, interligne: 0.5em)
+git rebase --continue")
     ],
     grid(
       columns: (1fr, 1.1fr), column-gutter: 10pt, align: horizon,
       grid(
         columns: 1, row-gutter: 8pt,
         _fichier-multiplication,
-        align(center, _graphe-conflit(echelle: 0.72)),
+        align(center, _graphe-conflit(echelle: 0.85)),
         _fichier-addition,
       ),
       note-fichier("file.py")[

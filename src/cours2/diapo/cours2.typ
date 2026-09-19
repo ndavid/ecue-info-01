@@ -20,11 +20,15 @@
 // `src/cours1/diapo/README.md`.
 
 #import "../../commun/prelude.typ": *
+#import "beamer.typ": reglages-beamer
 
 #show: diapos.with(
-  titre-court: "Introduction à l'informatique",
+  titre-court: "Introduction à l’informatique",
   auteur-court: "1re année géomatique",
 )
+// Corps, interligne, puces et police de code du support d'origine : voir
+// `beamer.typ`, qui ne concerne que cette séance.
+#show: reglages-beamer
 
 // Le TP livré par Florent est un seul exercice filé : ses vingt-sept questions
 // construisent le même projet. Il est découpé en cinq TD, joués chacun après

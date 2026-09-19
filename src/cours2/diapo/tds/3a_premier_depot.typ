@@ -3,7 +3,8 @@
 // Les cinq premières questions du TP de Florent Geniet
 // (`livraison/cours2_florent/TP_session_2.md`). Le TP est un seul exercice
 // filé : les cinq TD de la séance travaillent tous dans le même dossier
-// `cours2/TP_git/`, et chacun reprend là où le précédent s'est arrêté.
+// `cours2/3a_premier_depot/travail/projet_2`, et chacun reprend là où le
+// précédent s'est arrêté.
 #import "../../../commun/prelude.typ": *
 #import "../style.typ": *
 
@@ -27,8 +28,8 @@
 
   #v(0.5em)
   #question(2)[
-    En ligne de commande, placez-vous dans `TP_git/travail/`. Créez un dossier
-    `projet_2`, puis entrez dedans.
+    En ligne de commande, placez-vous dans le dossier `travail/` de ce TD.
+    Créez un dossier `projet_2`, puis entrez dedans.
   ]
 
   #v(0.5em)
