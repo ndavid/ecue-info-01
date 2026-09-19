@@ -1,0 +1,125 @@
+# Diapositives — Cours 2
+
+La séance est le portage en typst du support Beamer de **Florent Geniet**,
+`cours_introduction_informatique_ing1.pdf` (57 pages, 17 septembre 2026), et
+de son TP `TP_session_2.md`.
+
+Le portage suit le support d'origine **page pour page** : les 57 pages du PDF
+sont les 57 pages de l'exposé produit ici, révélation progressive comprise.
+Les 51 titres de diapositive qui ne changent pas sont identiques ; les six
+autres sont listés plus bas.
+
+> Le support d'origine est dans `livraison/cours2_florent/`, que le
+> `.gitignore` exclut du dépôt. Le conserver ailleurs si l'on veut pouvoir
+> comparer plus tard.
+
+## Ce que ce dossier ne fait pas comme le cours 1
+
+Le cours 1 suit la structure *assertion-evidence* de [`STYLE.md`](../../../STYLE.md) :
+pas de liste à puces, une preuve visuelle par diapositive. **Le cours 2 y
+déroge**, volontairement : le support de Florent est construit en listes qui
+se dévoilent, et la reprise est fidèle. Deux formes propres à cette séance en
+découlent, définies dans [`style.typ`](style.typ) :
+
+| Gabarit | Rôle |
+|---|---|
+| `code(…)` | un listing au style du paquet LaTeX `listings` : commentaires en vert, primitives de bash en magenta, sur fond clair |
+| `code-ligne(…)` | la même chose dans le fil du texte |
+| `liste-progressive(etape, items)` | une liste dont les items déjà vus passent en gris |
+| `motif(…)` | le surlignage vert des expressions régulières |
+
+Les trois couleurs ajoutées (`#009900`, `#EC008C`, `#8FD35B`) sont relevées au
+pixel sur le PDF d'origine. Elles ne sortent pas de ce dossier.
+
+## Révélation progressive
+
+Le thème n'a pas de mécanisme d'*overlay* : une diapositive qui se dévoile est
+simplement écrite autant de fois qu'elle compte d'étapes, et un paramètre
+`etape` dit ce qui est visible. Les fichiers de `parties/` emploient pour cela
+une boucle `#for`, ou une fonction locale appelée une fois par étape.
+
+C'est ce qui fait que l'exposé compte 57 pages pour 26 diapositives.
+
+## Schémas
+
+Ils étaient des images matricielles, montées hors LaTeX. Ils sont redessinés
+avec [cetz](https://typst.app/universe/package/cetz/) 0.4.2, le seul paquet du
+dépôt, déjà employé au cours 1.
+
+| Fichier | Contenu |
+|---|---|
+| [`../../commun/schemas_git.typ`](../../commun/schemas_git.typ) | `graphe-git` et ses annotations : le cours 6 les reprendra |
+| [`schemas.typ`](schemas.typ) | arborescence, dossier `.git`, cycle de vie d'un fichier, git-flow, « Git : c'est quoi ? », sorties de terminal |
+
+`graphe-git` prend une liste de commits — un nom, une colonne, une voie, ses
+parents — et un `etape` qui dit lesquels sont déjà là. Les annotations d'une
+seule diapositive (HEAD, l'ellipse rouge, l'étoile de conflit) passent par
+`extra`, une fonction qui reçoit la position d'un commit et le module de
+dessin : sans cela, cette fonction aurait autant d'options que la séance a de
+diapositives.
+
+Aucun paquet spécialisé n'existe pour les graphes git : le registre typst
+(1607 paquets au 19 septembre 2026) n'en contient pas. `fletcher` et
+`diagraph` auraient ajouté une dépendance pour un résultat moins réglable.
+
+Les hauteurs se règlent par `echelle`, qui multiplie l'unité du dessin. Le
+texte des étiquettes, lui, ne suit pas cette échelle : un dessin trop réduit
+fait donc se chevaucher les noms de commit. C'est la seule chose à surveiller
+en déplaçant un schéma.
+
+## Écarts avec le support d'origine
+
+| Diapositive | Ce qui change | Pourquoi |
+|---|---|---|
+| page de titre | « Cours 2 », comme le cours 1 | la page de titre est celle du module, pas celle d'un auteur ; Florent est crédité dessous |
+| 8 (×5) | titre « Git : c'est quoi ? » au lieu de « intro » | « intro » est un reste de découpage : le titre projeté n'annonçait rien |
+| 4 | `mkdir` au lieu de `mkdire` | coquille |
+| 7 | `.txt` au lieu de `.txr` | coquille |
+| 5, 9, 10, 26 | « Les fichiers », « accès », « tous les », « ne comprend pas », « état initial », « en termes de », « qu'on travaille » | fautes d'accord et d'orthographe |
+| 18 | « commit courant » au lieu de « commit currant » | coquille |
+| 8 (×5) | les logos GitHub, GitLab et VS Code sont remplacés par leurs noms | marques déposées : un tracé approché serait moins reconnaissable qu'un nom |
+
+Le reste — texte, ordre, schémas, découpage des étapes — suit l'original.
+
+## TD
+
+Le TP livré est **un seul exercice filé** : ses 27 questions construisent le
+même projet. Il est découpé en cinq TD, joués chacun après la partie qui
+l'outille, et le dépôt qu'ils construisent vit d'un bout à l'autre dans
+`data/cours2/3a_premier_depot/travail/projet_2`.
+
+| TD | Questions | Joué après |
+|---|---|---|
+| `3a_premier_depot` | 1 à 5 | le dépôt local |
+| `4a_branches` | 6 à 17 | les branches |
+| `4b_annuler` | 18 à 20 | les branches |
+| `4c_conflits` | 21 à 25 | les branches |
+| `6a_livrer` | 26 et 27 | les bonnes pratiques |
+
+Trois corrections ont été faites au sujet : `sub()` n'existait pas dans la
+liste des fonctions à écrire et devient `neg()` ; le motif de l'expression
+régulière passe en chaîne brute ; le `README` demandé en markdown prend son
+extension. Le détail est dans les README de `data/cours2/`.
+
+## Compiler
+
+```bash
+conda activate info01
+
+python outils/compiler_diapos.py --cours 2              # à projeter, 74 pages
+python outils/compiler_diapos.py --cours 2 --notes      # version annotée
+python outils/compiler_diapos.py --cours 2 --corrige    # corrigé des TD
+python outils/compiler_diapos.py --cours 2 --sans-tds   # le fil du cours, 60 pages
+python outils/compiler_tds.py --cours 2                 # une feuille par TD
+
+python outils/verifier_diapos.py src/cours2/diapo/cours2.pdf
+```
+
+`cours2.pdf` fait 74 pages : 57 d'exposé et 17 de TD. La version annotée en
+fait autant, page pour page, comme le demande le
+[README du cours 1](../../cours1/diapo/README.md).
+
+`verifier_diapos.py` ne sait pas lire une diapositive à sous-titre : il prend
+le sous-titre, composé à 21 pt, pour la première ligne du corps et annonce un
+écart nul. Aucune diapositive du cours 2 n'emploie `sous-titre`, et le verdict
+vaut donc tel quel.
