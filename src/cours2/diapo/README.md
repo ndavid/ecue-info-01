@@ -51,6 +51,15 @@ dépôt, déjà employé au cours 1.
 | [`../../commun/schemas_git.typ`](../../commun/schemas_git.typ) | `graphe-git` et ses annotations : le cours 6 les reprendra |
 | [`schemas.typ`](schemas.typ) | arborescence, dossier `.git`, cycle de vie d'un fichier, git-flow, « Git : c'est quoi ? », sorties de terminal |
 
+Une exception : les **logos** de la diapositive « Git : c'est quoi ? » sont
+repris tels quels, découpés dans le support d'origine, dans
+[`illustrations/cours2/logos/`](../../../illustrations/cours2/logos/). Ce sont
+des marques, qu'un tracé approché rendrait moins reconnaissables. Ils sont
+affichés par `image(…)` à chaque compilation, et non par `illustration(…)`,
+qui les réserverait à `--input captures=true` : le document ne compile pas
+sans eux. Leurs largeurs sont des multiples de `echelle`, comme le reste du
+dessin.
+
 `graphe-git` prend une liste de commits — un nom, une colonne, une voie, ses
 parents — et un `etape` qui dit lesquels sont déjà là. Les annotations d'une
 seule diapositive (HEAD, l'ellipse rouge, l'étoile de conflit) passent par
@@ -71,13 +80,12 @@ en déplaçant un schéma.
 
 | Diapositive | Ce qui change | Pourquoi |
 |---|---|---|
-| page de titre | « Cours 2 », comme le cours 1 | la page de titre est celle du module, pas celle d'un auteur ; Florent est crédité dessous |
+| page de titre | « Cours 2 », comme le cours 1 | la page de titre est celle du module, pas celle d'un auteur ; Florent est crédité dessous, avec la date de la séance |
 | 8 (×5) | titre « Git : c'est quoi ? » au lieu de « intro » | « intro » est un reste de découpage : le titre projeté n'annonçait rien |
 | 4 | `mkdir` au lieu de `mkdire` | coquille |
 | 7 | `.txt` au lieu de `.txr` | coquille |
 | 5, 9, 10, 26 | « Les fichiers », « accès », « tous les », « ne comprend pas », « état initial », « en termes de », « qu'on travaille » | fautes d'accord et d'orthographe |
 | 18 | « commit courant » au lieu de « commit currant » | coquille |
-| 8 (×5) | les logos GitHub, GitLab et VS Code sont remplacés par leurs noms | marques déposées : un tracé approché serait moins reconnaissable qu'un nom |
 
 Le reste — texte, ordre, schémas, découpage des étapes — suit l'original.
 

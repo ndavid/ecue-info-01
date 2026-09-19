@@ -6,5 +6,5 @@
   titre: "Cours 2",
   sous-titre: "Ligne de commande et git",
   auteur: "Florent Geniet — 1re année géomatique",
-  date: "",
+  date: "22 septembre",
 )

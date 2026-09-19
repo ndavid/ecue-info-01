@@ -14,7 +14,7 @@
 // alors rien. Le sujet remonte donc en titre.
 #for etape in range(0, 5) {
   d("Git : c'est quoi ?")[
-    #align(center, intro-git(etape: etape, echelle: 0.95))
+    #align(center, intro-git(etape: etape, echelle: 1.15))
 
     #if etape == 4 {
       notes[

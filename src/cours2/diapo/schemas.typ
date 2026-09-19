@@ -436,109 +436,85 @@
 // ---------------------------------------------------------------------------
 // « Git : c'est quoi ? »
 //
-// Le support d'origine porte ici une seule image, montage de captures et de
-// logos. Elle est redessinée : quatre cercles autour de la marque git, un par
-// usage, et `etape` les fait apparaître l'un après l'autre.
+// Le support d'origine porte ici une seule image, montage de logos et de
+// pictogrammes. La structure est redessinée — les cercles, les flèches, les
+// personnes, les postes — et les logos sont repris tels quels : ce sont des
+// marques, qu'un tracé approché rendrait moins reconnaissables qu'elles ne le
+// sont. Ils vivent dans `illustrations/cours2/logos/`, et sont affichés à
+// chaque compilation, sans passer par `illustration(…)`.
 //
-// Les logos des forges et des éditeurs ne sont pas redessinés — ce sont des
-// marques déposées, et un tracé approché les rendrait moins reconnaissables
-// qu'un nom écrit. Ils sont donc nommés.
-#let orange-git = rgb("#F05133")
+// Les images sont dimensionnées en multiples de `echelle`, comme le reste du
+// dessin : sans cela, elles garderaient leur taille quand le schéma rétrécit.
 
-// La marque git : un losange, et le glyphe de branchement en réserve.
-#let marque-git(d, p, taille: 1.0) = {
-  let t = taille
-  d.line(
-    (p.at(0), p.at(1) + t), (p.at(0) + t, p.at(1)),
-    (p.at(0), p.at(1) - t), (p.at(0) - t, p.at(1)),
-    close: true, fill: orange-git, stroke: none,
-  )
-  // Le tronc, sa dérivation, et les trois nœuds.
-  let a = (p.at(0) - t * 0.34, p.at(1) - t * 0.34)
-  let b = (p.at(0) + t * 0.30, p.at(1) + t * 0.30)
-  let m = (p.at(0) - t * 0.02, p.at(1) - t * 0.02)
-  let c = (p.at(0) + t * 0.34, p.at(1) - t * 0.26)
-  d.line(a, b, stroke: (paint: white, thickness: t * 7pt, cap: "round"))
-  d.line(m, c, stroke: (paint: white, thickness: t * 5pt, cap: "round"))
-  for q in (a, b, c) { d.circle(q, radius: t * 0.15, fill: white, stroke: none) }
-}
+#let _logos = "/illustrations/cours2/logos/"
 
 #let _usages = (
-  (
-    cle: "versions", centre: (-4.2, 0.5), etape: 1,
-    titre: "Versionnement\ndu code",
-  ),
-  (
-    cle: "equipe", centre: (-1.75, -2.95), etape: 2,
-    titre: "Travail à plusieurs",
-  ),
-  (
-    cle: "forge", centre: (1.75, -2.95), etape: 3,
-    titre: "Hébergement du code\nen ligne",
-  ),
-  (
-    cle: "outils", centre: (4.2, 0.5), etape: 4,
-    titre: "ligne de commande,\nlogiciels dédiés, IDE",
-  ),
+  (cle: "versions", centre: (-6.3, 0.6), etape: 1, titre: "Versionnement\ndu code"),
+  (cle: "equipe", centre: (-2.3, -3.0), etape: 2, titre: "Travail à plusieurs"),
+  (cle: "forge", centre: (2.3, -3.0), etape: 3, titre: "Hébergement du code\nen ligne"),
+  (cle: "outils", centre: (6.3, 0.6), etape: 4, titre: "ligne de commande,\nlogiciels dédiés, IDE"),
 )
 
 #let intro-git(etape: 99, echelle: 1.0) = cetz.canvas(length: echelle * 1cm, {
   import cetz.draw: *
-  let rayon = 1.3
-  let logo = (0, 1.95)
+  let rayon = 1.45
+  let logo = (0, 2.0)
+
+  // Un logo posé à un point, à une largeur donnée en unités du dessin.
+  let marque(fichier, p, largeur) = content(
+    p, image(_logos + fichier, width: largeur * echelle * 1cm),
+  )
 
   for u in _usages {
     if u.etape > etape { continue }
+    let (cx, cy) = u.centre
     // La flèche part du bord du losange et s'arrête au bord du cercle.
-    let dx = u.centre.at(0) - logo.at(0)
-    let dy = u.centre.at(1) - logo.at(1)
+    let dx = cx - logo.at(0)
+    let dy = cy - logo.at(1)
     let n = calc.sqrt(dx * dx + dy * dy)
     line(
-      (logo.at(0) + dx / n * 0.95, logo.at(1) + dy / n * 0.95),
-      (u.centre.at(0) - dx / n * rayon, u.centre.at(1) - dy / n * rayon),
+      (logo.at(0) + dx / n * 1.05, logo.at(1) + dy / n * 1.05),
+      (cx - dx / n * rayon, cy - dy / n * rayon),
       stroke: 1.1pt + accent, mark: (end: ">", fill: accent, scale: 0.5),
     )
     circle(u.centre, radius: rayon, stroke: 0.8pt + accent, fill: white)
 
-    // Le contenu propre à chaque cercle.
     if u.cle == "versions" {
+      // Trois états du même projet, reliés par le fil du temps.
+      line((cx + 0.45, cy + 0.6), (cx + 0.45, cy - 0.72),
+           stroke: (paint: estompe, thickness: 0.7pt, dash: "densely-dashed"),
+           mark: (end: ">", fill: estompe, scale: 0.4))
       for (i, teinte) in (rgb("#A8D8A8"), rgb("#F2B8B8"), rgb("#CBB8E8")).enumerate() {
-        let y = u.centre.at(1) + 0.42 - i * 0.42
-        circle((u.centre.at(0) + 0.45, y), radius: 0.15, fill: teinte, stroke: 0.7pt + accent)
-        content((u.centre.at(0) + 0.68, y), text(size: 7pt, fill: accent)[v#(i + 1)], anchor: "west")
+        let y = cy + 0.48 - i * 0.48
+        circle((cx + 0.45, y), radius: 0.17, fill: teinte, stroke: 0.7pt + accent)
+        content((cx + 0.7, y), text(size: 8pt, fill: accent)[V#(i + 1)], anchor: "west")
       }
-      line((u.centre.at(0) + 0.45, u.centre.at(1) + 0.42),
-           (u.centre.at(0) + 0.45, u.centre.at(1) - 0.62),
-           stroke: 0.7pt + estompe)
     } else if u.cle == "equipe" {
-      marque-git(cetz.draw, (u.centre.at(0), u.centre.at(1) + 0.55), taille: 0.3)
-      for dx in (-0.6, 0.0, 0.6) {
-        personne(cetz.draw, (u.centre.at(0) + dx, u.centre.at(1) - 0.35))
-        line((u.centre.at(0) + dx * 0.55, u.centre.at(1) + 0.2),
-             (u.centre.at(0) + dx, u.centre.at(1) - 0.1),
+      marque("git.png", (cx, cy + 0.72), 0.62)
+      for dx in (-0.68, 0.0, 0.68) {
+        personne(cetz.draw, (cx + dx, cy - 0.48), taille: 0.5)
+        line((cx + dx * 0.5, cy + 0.36), (cx + dx, cy - 0.18),
              stroke: 0.7pt + accent, mark: (end: ">", fill: accent, scale: 0.35))
       }
     } else if u.cle == "forge" {
-      content((u.centre.at(0), u.centre.at(1) + 0.62),
-              text(size: 8pt, weight: demi-gras, fill: accent)[GitHub · GitLab])
-      for dx in (-0.6, 0.0, 0.6) {
-        ecran(cetz.draw, (u.centre.at(0) + dx, u.centre.at(1) - 0.35))
-        line((u.centre.at(0) + dx * 0.5, u.centre.at(1) + 0.38),
-             (u.centre.at(0) + dx, u.centre.at(1) - 0.1),
+      marque("github.png", (cx, cy + 0.92), 1.15)
+      marque("gitlab.png", (cx, cy + 0.6), 1.0)
+      marque("serveur.png", (cx, cy + 0.18), 0.5)
+      for dx in (-0.62, 0.0, 0.62) {
+        ecran(cetz.draw, (cx + dx, cy - 0.62), taille: 0.46)
+        line((cx + dx * 0.45, cy - 0.06), (cx + dx, cy - 0.38),
              stroke: 0.7pt + accent, mark: (end: ">", fill: accent, scale: 0.35))
       }
     } else {
-      content((u.centre.at(0), u.centre.at(1) + 0.15), block(width: 1.9cm)[
-        #set par(leading: 0.45em)
-        #align(center, text(size: 7.5pt, fill: accent)[
-          terminal\ VS Code\ GitKraken
-        ])
-      ])
+      marque("gitkraken.png", (cx, cy + 0.7), 0.6)
+      marque("terminal.png", (cx - 0.56, cy - 0.02), 0.62)
+      marque("vscode.png", (cx + 0.56, cy - 0.02), 0.62)
+      marque("tortoisegit.png", (cx, cy - 0.72), 0.85)
     }
 
     content(
-      (u.centre.at(0), u.centre.at(1) - rayon - 0.12),
-      block(width: 2.9cm)[
+      (cx, cy - rayon - 0.12),
+      block(width: 3.1cm)[
         #set par(leading: 0.45em)
         #align(center, text(size: 8.5pt, fill: accent)[#u.titre])
       ],
@@ -546,5 +522,5 @@
     )
   }
 
-  marque-git(cetz.draw, logo, taille: 0.95)
+  marque("git.png", logo, 2.0)
 })
