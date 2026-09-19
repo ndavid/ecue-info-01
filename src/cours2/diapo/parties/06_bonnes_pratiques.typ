@@ -34,8 +34,7 @@
 
 // --------------------------------------------- 26/26, en quatre étapes
 //
-// Le schéma se construit branche par branche, et la phrase sous lui nomme
-// celle qui vient d'apparaître.
+// Une branche de plus par étape, et la phrase qui la concerne.
 #let _commentaires = (
   [
     Le *main* ne reçoit que les versions complètes du projet, qui peuvent être

@@ -1,15 +1,13 @@
-// Cours 2, partie 4 — branches, HEAD, fusion et conflits (diapositives 17 à
-// 20). C'est ici qu'apparaît le graphe à huit commits, que les quatre
-// diapositives se repassent : le même dessin sert à montrer le rebase, le
-// merge, HEAD et le conflit.
+// Cours 2, partie 4 — branches, HEAD, fusion et conflits (diapositives 17
+// à 20). Le graphe à huit commits sert aux quatre.
 #import "../../../commun/prelude.typ": *
 #import "../beamer.typ": d-beamer as d
 #import "../../../commun/schemas_git.typ": *
 #import "../schemas.typ": *
 #import "../style.typ": *
 
-// Le graphe de référence : deux branches ouvertes sur commit 1, et un commit
-// resté seul sur une voie intermédiaire.
+// Le graphe de référence : deux branches depuis commit 1, et commit 5 seul
+// sur une voie intermédiaire.
 #let _reference = (
   (nom: "c1", col: 0, voie: 0, etiquette: "commit 1"),
   (nom: "c4", col: 1, voie: 0, etiquette: "commit 4", parents: ("c1",)),
@@ -26,8 +24,8 @@
   (nom: "branche 2", voie: 2, col: 0, ancre: "east"),
 )
 
-// Quand les noms de branche sont affichés, le support d'origine remplace la
-// flèche de prolongement par l'étiquette : les deux se superposeraient.
+// Avec des noms de branche, pas de flèche de prolongement : ils se
+// superposeraient.
 #let _graphe-reference(echelle: 1.15, branches: (), extra: none) = graphe-git(
   commits: _reference,
   taille-etiquette: 11pt,
@@ -92,8 +90,7 @@ git branch")
 
 // --------------------------------------------- 18/26
 //
-// Deux états du même graphe, séparés par la commande qui fait passer de l'un
-// à l'autre : c'est la flèche verticale qui porte le propos.
+// Deux états du graphe, et entre eux la commande.
 #d("Head")[
   #grid(
     columns: (0.85fr, 1.45fr), column-gutter: 16pt, align: horizon,
@@ -149,8 +146,8 @@ git merge <b_1>")
   )
 ]
 
-// Le rebase montre deux états : avant, et après que les commits de la branche
-// source ont été replacés au sommet de la branche cible.
+// Après le rebase, les commits de la branche 2 sont refaits au bout de la
+// branche 1.
 #let _rebase-apres = (
   (nom: "c1", col: 0, voie: 0, etiquette: "commit 1"),
   (nom: "c4", col: 1, voie: 0, etiquette: "commit 4", parents: ("c1",)),
@@ -200,8 +197,8 @@ git rebase <b_1> <b_2>")
 
 // --------------------------------------------- 20/26, en trois étapes
 //
-// Le graphe se resserre ici sur les quatre commits qui portent le conflit : la
-// diapositive doit loger en plus les trois versions du fichier.
+// Graphe réduit à quatre commits, pour laisser place aux trois versions du
+// fichier.
 #let _graphe-conflit(echelle: 1.0, extra: none) = graphe-git(
   taille-etiquette: 11pt,
   commits: (

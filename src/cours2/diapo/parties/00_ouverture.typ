@@ -3,9 +3,7 @@
 #import "../../../commun/prelude.typ": *
 #import "../beamer.typ": page-titre-beamer
 
-// La page de titre du support d'origine : titre sur deux lignes, filet brun,
-// auteur, puis institut et date en plus petit, et le logo git en fond de
-// page, découpé en trapèze.
+// La page de titre du support d'origine, logo git en fond.
 #page-titre-beamer(
   titre: "Introduction à l’informatique : lignes de commandes et git",
   auteur: "Florent GENIET",

@@ -6,8 +6,7 @@
 #import "../schemas.typ": *
 #import "../style.typ": *
 
-// Une histoire linéaire, comme celle des diapositives sur le commit : les
-// pastilles se suivent, et des tirets disent que le projet continue.
+// Une suite de commits sur une voie, prolongée de tirets.
 #let _chaine(noms, teintes: (:), echelle: 1.0, extra: none) = graphe-git(
   taille-etiquette: 11pt,
   commits: noms.enumerate().map(((i, nom)) => (
@@ -75,8 +74,7 @@
 
 // --------------------------------------------- 14/26, en cinq étapes
 //
-// Le texte de gauche et le schéma de droite avancent du même pas : à chaque
-// étape, une commande et la transition qu'elle provoque.
+// À chaque étape, un texte et une transition de plus.
 #let _etapes-enregistrer = (
   [Chaque fichier créé est *non suivi*.],
   [
@@ -138,7 +136,7 @@ git add .")
         pont(d, pos("k0"), pos("k2"), "Même état")
         d.content((pos("k1").at(0) + 0.1, pos("k1").at(1) - 0.42),
                   text(size: 9pt, fill: accent)[git revert], anchor: "north-west")
-        // Les tirets d'entrée : l'histoire ne commence pas à cette pastille.
+        // Tirets d'entrée.
         d.line((pos("k0").at(0) - 0.95, pos("k0").at(1)),
                (pos("k0").at(0) - 0.3, pos("k0").at(1)),
                stroke: (paint: accent, thickness: 0.9pt, dash: "densely-dashed"))

@@ -1,10 +1,6 @@
-// TD 3a — créer un dépôt et y enregistrer un premier état.
-//
-// Les cinq premières questions du TP de Florent Geniet
-// (`livraison/cours2_florent/TP_session_2.md`). Le TP est un seul exercice
-// filé : les cinq TD de la séance travaillent tous dans le même dossier
-// `cours2/3a_premier_depot/travail/projet_2`, et chacun reprend là où le
-// précédent s'est arrêté.
+// TD 3a — créer un dépôt et y enregistrer un premier état (questions 1 à 5
+// du TP). Les cinq TD de la séance continuent le même projet, créé ici dans
+// `travail/projet_2`.
 #import "../../../commun/prelude.typ": *
 #import "../style.typ": *
 

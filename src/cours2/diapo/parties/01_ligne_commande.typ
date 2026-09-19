@@ -1,6 +1,5 @@
-// Cours 2, partie 1 — la ligne de commande (diapositives 2 à 7 du support
-// d'origine). Les diapositives qui se dévoilent sont écrites autant de fois
-// qu'elles comptent d'étapes, `etape` faisant le reste.
+// Cours 2, partie 1 — la ligne de commande (diapositives 2 à 7).
+// Une diapositive qui se dévoile est écrite une fois par étape.
 #import "../../../commun/prelude.typ": *
 #import "../beamer.typ": d-beamer as d
 #import "../schemas.typ": *
@@ -74,8 +73,7 @@ mkdir <nom_dossier>")
 
 // --------------------------------------------- 5/26, en cinq étapes
 //
-// Même diapositive, même arbre : seuls le texte de gauche et le chemin coloré
-// changent. Le gabarit est écrit une fois, les cinq étapes l'appellent.
+// Même arbre à chaque étape ; le texte et le chemin coloré changent.
 #let _diapo-arbre(texte, ..options) = d("Arborescence de fichiers")[
   #grid(
     columns: (0.95fr, 1.7fr), column-gutter: 14pt, align: horizon,
@@ -191,8 +189,7 @@ mkdir <nom_dossier>")
 
 // --------------------------------------------- 7/26, en trois étapes
 //
-// Les règles s'accumulent, la précédente passant en gris ; les exemples, eux,
-// sont remplacés à chaque étape, car ils illustrent la règle du moment.
+// Les règles s'accumulent ; les exemples sont ceux de la règle du moment.
 #let _regles = (
   [”\*” : n'importe quelle chaîne de caractères],
   [”?” : n'importe quel caractère (un seul caractère)],

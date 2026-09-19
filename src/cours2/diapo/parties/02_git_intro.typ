@@ -7,12 +7,9 @@
 
 // --------------------------------------------- 8/26, en cinq étapes
 //
-// Le support d'origine pose d'abord la seule marque git, puis un cercle par
-// usage. La première étape ne montre donc aucun cercle.
-//
-// Le support d'origine titre cette diapositive « intro » et relègue le sujet
-// en sous-titre : c'est un reste de découpage, et le titre projeté n'annonce
-// alors rien. Le sujet remonte donc en titre.
+// Étape 0 : la marque seule ; puis un cercle par usage.
+// Le support d'origine titre « intro » et met le sujet en sous-titre ; le
+// sujet est ici le titre.
 #for etape in range(0, 5) {
   d("Git : c'est quoi ?")[
     #align(center, intro-git(etape: etape, echelle: 1.15))
@@ -30,8 +27,7 @@
 
 // --------------------------------------------- 9/26, en six étapes
 //
-// La liste et le graphe avancent ensemble : chaque item ajoute au dessin ce
-// dont il parle. Le graphe est celui qui servira à toute la séance.
+// La liste et le graphe avancent ensemble, un élément par étape.
 #let _fonctions = (
   [Stockage des états du projet à chaque changement *enregistré*],
   [Modifications en *parallèle*],
@@ -41,9 +37,8 @@
   [Les utilisateurs ont accès aux différentes versions],
 )
 
-// Les quatre commits du tronc reçoivent leur pastille de version à l'étape 5 :
-// la teinte étant portée par le commit, la liste est reconstruite à chaque
-// étape plutôt que corrigée après coup.
+// La teinte est un champ du commit : la liste est construite pour chaque
+// étape, les commits du tronc prenant leur couleur de version à l'étape 5.
 #let _commits-fonctions(etape) = {
   let versions = (
     rgb("#C3D9F2"), rgb("#BFE3BF"), rgb("#F5C6C6"), rgb("#D8C9EC"),
@@ -69,9 +64,7 @@
   etape: etape,
   echelle: 0.95,
   extra: (pos, d) => {
-    // Les développeurs produisent les commits ; leurs flèches se croisent,
-    // comme dans le support d'origine : deux personnes travaillent en même
-    // temps sur des états différents.
+    // Les développeurs, au-dessus, avec une flèche vers un commit.
     if etape >= 3 {
       let haut = 4.6
       let cibles = ("c5", "c8", "c6")
@@ -86,12 +79,12 @@
       }
       d.content((-0.5, haut), text(size: 9pt, fill: accent)[Développeurs], anchor: "east")
     }
-    // La fusion, puis ce qu'elle produit.
+    // La fusion.
     if etape >= 4 {
       arete-epaisse(d, pos("c6"), pos("c8"))
       cerne(d, pos("c6"), pos("c8"))
     }
-    // Les utilisateurs consomment les versions publiées.
+    // Les utilisateurs, au-dessous, avec une flèche vers une version.
     if etape >= 6 {
       let bas = -2.2
       for (i, x) in (0.0, 1.75, 3.5, 5.25).enumerate() {
