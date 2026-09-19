@@ -9,33 +9,18 @@
 #d("Terminal")[
   Terminal : *interface* homme-machine *textuelle*
 
-  #v(0.7em)
-  #sortie-terminal((
-    ("(base) FGeniet@LNV2410P066:~/SIMV/itowns-2.46.0$", none),
-    ("", none),
-    ("", none),
-  ), taille: 14pt)
-
-  #v(0.3em)
-  #grid(
-    columns: (1.45fr, 1.5fr, 1.5fr, 3fr), column-gutter: 0pt,
-    align: center + top,
-    ..("Utilisateur", "Dossier courant", "Zone d'écriture\npour l'utilisateur").map(l => [
-      #line(length: 80%, stroke: 0.8pt + estompe)
-      #v(0.15em)
-      #block(width: 100%)[
-        #set par(leading: 0.45em)
-        #text(size: 13pt, fill: estompe)[#l]
-      ]
-    ]),
-    [],
-  )
+  #v(0.9em)
+  #align(center, invite-commentee())
 
   #notes[
     Montrer le terminal réellement ouvert plutôt que la diapositive : chacun
     doit repérer sur son propre écran l'utilisateur, le dossier courant et
     l'invite. Le préfixe `(base)` est celui de conda, et il reviendra au
     moment des environnements.
+
+    Les couleurs ne sont pas décoratives : c'est bash qui les met, et elles
+    aident à retrouver d'un coup d'œil où finit le chemin et où commence ce
+    qu'on tape.
   ]
 ]
 
@@ -92,9 +77,9 @@ mkdir <nom_dossier>", taille: 12.5pt, interligne: 0.5em)
 // changent. Le gabarit est écrit une fois, les cinq étapes l'appellent.
 #let _diapo-arbre(texte, ..options) = d("Arborescence de fichiers")[
   #grid(
-    columns: (1fr, 1.55fr), column-gutter: 16pt, align: horizon,
+    columns: (0.95fr, 1.7fr), column-gutter: 14pt, align: horizon,
     block(width: 100%)[#texte],
-    align(center, arborescence(echelle: 1.15, ..options)),
+    align(center, arborescence(echelle: 1.48, ..options)),
   )
 ]
 
@@ -130,12 +115,12 @@ mkdir <nom_dossier>", taille: 12.5pt, interligne: 0.5em)
   Chemin d'un dossier quelconque à un autre dossier ou fichier =
   *chemin relatif*
 
-  #v(0.7em)
+  #v(0.45em)
   *Le dossier de départ est le dossier courant du terminal !*
 
-  #v(0.7em)
+  #v(0.45em)
   Le chemin relatif se note :\
-  #code-ligne("dossier_1/.../dossier_n/destination")
+  #code-ligne("dossier_1/.../dossier_n/destination", taille: 13pt)
 ]
 
 #_diapo-arbre(
@@ -158,7 +143,7 @@ mkdir <nom_dossier>", taille: 12.5pt, interligne: 0.5em)
 // --------------------------------------------- 6/26, en deux étapes
 #d("fichiers cachés")[
   #grid(
-    columns: (1fr, 1.55fr), column-gutter: 16pt, align: horizon,
+    columns: (0.95fr, 1.7fr), column-gutter: 14pt, align: horizon,
     [
       Certains fichiers/dossiers peuvent être *cachés*. Pour cacher un
       fichier/dossier, il faut que son nom commence par un `"."`.
@@ -166,7 +151,7 @@ mkdir <nom_dossier>", taille: 12.5pt, interligne: 0.5em)
       #v(0.9em)
       Exemple : `.git`, `.cache`, `.ssh`
     ],
-    align(center, arborescence(echelle: 1.15, caches: true)),
+    align(center, arborescence(echelle: 1.48, caches: true)),
   )
 ]
 

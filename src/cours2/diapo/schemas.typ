@@ -12,7 +12,7 @@
 // qui importerait ce fichier avec `: *`.
 
 #import "@preview/cetz:0.4.2"
-#import "../../commun/theme.typ": accent, estompe, brun, gris, attention, alerte, demi-gras, police-code
+#import "../../commun/theme.typ": accent, estompe, brun, gris, attention, alerte, demi-gras, police-code, police-texte
 
 #let vert-chemin = rgb("#00A651")     // chemin relatif, relevé sur le support
 #let rouge-chemin = rgb("#E8112D")    // chemin absolu
@@ -24,7 +24,7 @@
 // fichier à installer.
 
 // Un dossier : la patte, puis le corps.
-#let _dossier(d, p, taille: 0.46, couleur: accent) = {
+#let _dossier(d, p, taille: 0.68, couleur: accent) = {
   let l = taille
   let h = taille * 0.76
   d.line(
@@ -41,7 +41,7 @@
 }
 
 // Un fichier : la feuille, le coin corné, et trois lignes de texte.
-#let _fichier(d, p, taille: 0.42, couleur: accent) = {
+#let _fichier(d, p, taille: 0.64, couleur: accent) = {
   let l = taille * 0.78
   let h = taille
   let coin = l * 0.34
@@ -76,17 +76,17 @@
 // pose le terminal à côté du dossier où il est ouvert. `caches` ajoute le
 // fichier `.config`, en gris, pour la diapositive des fichiers cachés.
 #let _noeuds = (
-  racine:   (x: 0.0,   y: 3.1,  nom: "/",                type: "dossier"),
-  users:    (x: -3.1,  y: 1.6,  nom: "users",            type: "dossier"),
-  libs:     (x: 0.0,   y: 1.6,  nom: "libs",             type: "dossier"),
-  etc:      (x: 3.1,   y: 1.6,  nom: "etc",              type: "dossier"),
-  liste:    (x: -4.4,  y: 0.1,  nom: "users_list.txt",   type: "fichier"),
-  fgeniet:  (x: -2.2,  y: 0.1,  nom: "FGeniet",          type: "dossier"),
-  numpy:    (x: 0.0,   y: 0.1,  nom: "numpy.py",         type: "fichier"),
-  ssh:      (x: 2.2,   y: 0.1,  nom: "ssh",              type: "dossier"),
-  cpp:      (x: 4.4,   y: 0.1,  nom: "c++",              type: "dossier"),
-  config:   (x: 2.2,   y: -1.5, nom: "ssh_config.json",  type: "fichier"),
-  cache:    (x: -2.2,  y: -1.5, nom: ".config",          type: "fichier"),
+  racine:   (x: 0.0,   y: 3.1,  nom: "/",               type: "dossier", place: "dessus"),
+  users:    (x: -3.1,  y: 1.6,  nom: "users",           type: "dossier", place: "gauche"),
+  libs:     (x: 0.0,   y: 1.6,  nom: "libs",            type: "dossier", place: "gauche"),
+  etc:      (x: 3.1,   y: 1.6,  nom: "etc",             type: "dossier", place: "droite"),
+  liste:    (x: -4.4,  y: 0.1,  nom: "users_list.txt",  type: "fichier", place: "dessous"),
+  fgeniet:  (x: -2.2,  y: 0.1,  nom: "FGeniet",         type: "dossier", place: "droite"),
+  numpy:    (x: 0.0,   y: 0.1,  nom: "numpy.py",        type: "fichier", place: "dessous"),
+  ssh:      (x: 2.2,   y: 0.1,  nom: "ssh",             type: "dossier", place: "gauche"),
+  cpp:      (x: 4.4,   y: 0.1,  nom: "c++",             type: "dossier", place: "droite"),
+  config:   (x: 2.2,   y: -1.5, nom: "ssh_config.json", type: "fichier", place: "dessous"),
+  cache:    (x: -2.2,  y: -1.5, nom: ".config",         type: "fichier", place: "dessous"),
 )
 
 #let _aretes = (
@@ -132,10 +132,17 @@
     let teinte = if cle == "cache" { estompe } else { accent }
     if n.type == "dossier" { _dossier(cetz.draw, p, couleur: teinte) }
     else { _fichier(cetz.draw, p, couleur: teinte) }
+
+    let place = n.at("place", default: "dessus")
+    let ecart = 0.46
+    let (dx, dy, ancre) = if place == "dessus" { (0, ecart, "south") }
+      else if place == "dessous" { (0, -ecart, "north") }
+      else if place == "gauche" { (-ecart, 0, "east") }
+      else { (ecart, 0, "west") }
     content(
-      (p.at(0), p.at(1) + 0.4),
-      text(size: 8pt, fill: teinte)[#n.nom],
-      anchor: "south",
+      (p.at(0) + dx, p.at(1) + dy),
+      text(size: 10.5pt, fill: teinte)[#n.nom],
+      anchor: ancre,
     )
   }
 
@@ -145,14 +152,14 @@
       (p.at(0) + 0.32, p.at(1)), (p.at(0) + 1.9, p.at(1)),
       stroke: (paint: accent, thickness: 0.6pt, dash: "dotted"),
     )
-    content((p.at(0) + 2.0, p.at(1)), text(size: 8pt, fill: accent)[racine (root)], anchor: "west")
+    content((p.at(0) + 2.0, p.at(1)), text(size: 10pt, fill: accent)[racine (root)], anchor: "west")
   }
 
   if legende != none {
     let (texte, couleur) = legende
     let y = 2.4
     line((3.6, y), (4.4, y), stroke: 1.4pt + couleur)
-    content((4.55, y), text(size: 8pt, fill: accent)[#texte], anchor: "west")
+    content((4.55, y), text(size: 10pt, fill: accent)[#texte], anchor: "west")
   }
 
   // Le terminal, posé sous le dossier où il est ouvert, et la flèche épaisse
@@ -180,7 +187,7 @@
 //     ("Sur la branche master", none),
 //     ("        modifié :   file.py", rouge-chemin),
 //   ))
-#let fond-terminal = rgb("#2B0A28")
+#let fond-terminal = rgb("#300A24")   // le violet du terminal GNOME d'Ubuntu
 
 #let sortie-terminal(lignes, taille: 12pt, largeur: 100%) = block(
   width: largeur, fill: fond-terminal, inset: (x: 10pt, y: 8pt),
@@ -523,4 +530,110 @@
   }
 
   marque("git.png", logo, 2.0)
+})
+
+// ---------------------------------------------------------------------------
+// L'invite du terminal, commentée
+//
+// La diapositive d'ouverture montre une invite et nomme ses trois parties.
+// Le support d'origine y met une capture ; le texte est ici composé, avec les
+// couleurs que bash donne réellement — l'utilisateur en vert, le dossier
+// courant en bleu — et les accolades tombent sous les segments qu'elles
+// désignent.
+//
+// Les positions sont calculées au caractère près : DejaVu Sans Mono a une
+// chasse de 0,602 em, donc la largeur d'un caractère ne dépend que du corps.
+// C'est ce qui permet de placer une accolade sous le septième caractère sans
+// rien mesurer.
+
+#let vert-invite = rgb("#26A269")
+#let bleu-invite = rgb("#5674BA")
+#let gris-barre = rgb("#222222")
+
+// Une accolade horizontale, ouverte vers le bas : deux quarts de cercle aux
+// extrémités, deux au milieu pour la pointe. Les arcs sont échantillonnés
+// plutôt que tracés, ce qui évite d'avoir à composer des courbes de Bézier
+// pour une forme dont seule la silhouette compte.
+#let _arc-points(cx, cy, r, a0, a1, n: 7) = range(n + 1).map(i => {
+  let a = a0 + (a1 - a0) * i / n
+  (cx + r * calc.cos(a), cy + r * calc.sin(a))
+})
+
+#let _accolade(d, x0, x1, y, profondeur: 0.22, couleur: white, epaisseur: 1.1pt) = {
+  let r = calc.min(profondeur / 2, (x1 - x0) / 4)
+  let xm = (x0 + x1) / 2
+  let points = (
+    .._arc-points(x0 + r, y, r, 180deg, 270deg),
+    (xm - r, y - r),
+    .._arc-points(xm - r, y - 2 * r, r, 90deg, 0deg),
+    .._arc-points(xm + r, y - 2 * r, r, 180deg, 90deg),
+    (x1 - r, y - r),
+    .._arc-points(x1 - r, y, r, 270deg, 360deg),
+  )
+  d.line(..points, stroke: epaisseur + couleur)
+}
+
+// Les segments de l'invite, avec l'indice du premier caractère de chacun.
+#let _invite = (
+  (texte: "(base) ", debut: 0, couleur: white, gras: false),
+  (texte: "FGeniet@LNV2410P066", debut: 7, couleur: vert-invite, gras: true),
+  (texte: ":", debut: 26, couleur: white, gras: false),
+  (texte: "~/SIMV/itowns-2.46.0", debut: 27, couleur: bleu-invite, gras: true),
+  (texte: "$", debut: 47, couleur: white, gras: false),
+)
+
+#let invite-commentee(taille: 17pt, echelle: 1.0) = cetz.canvas(length: echelle * 1cm, {
+  import cetz.draw: *
+
+  // Chasse de DejaVu Sans Mono : 0,602 em. En unités du dessin, elle dépend
+  // donc du corps et de l'échelle, et de rien d'autre.
+  let cw = 0.602 * taille / (echelle * 1cm)
+  let marge = 0.7 * cw
+  let x-de(i) = marge + i * cw
+  let largeur = x-de(69)
+  let y-invite = 0.0
+
+  // La fenêtre : barre de titre grise, corps violet.
+  let haut-barre = 0.62
+  rect((0, y-invite + 0.34), (largeur, y-invite + 0.34 + haut-barre),
+       fill: gris-barre, stroke: none)
+  rect((0, y-invite - 2.5), (largeur, y-invite + 0.34), fill: fond-terminal, stroke: none)
+  let titre-fenetre = "FGeniet@LNV2410P066: ~/SIMV/itowns-2.46.0"
+  content((largeur / 2, y-invite + 0.34 + haut-barre / 2),
+          text(font: police-texte, size: 11pt, fill: white)[#titre-fenetre])
+  // Les boutons de la fenêtre, à droite de la barre.
+  content((largeur - 0.3, y-invite + 0.34 + haut-barre / 2),
+          text(font: police-texte, size: 11pt, fill: rgb("#BBBBBB"))[#sym.minus #h(6pt) #sym.square #h(6pt) #sym.times],
+          anchor: "east")
+
+  // L'invite, segment par segment.
+  for s in _invite {
+    content(
+      (x-de(s.debut), y-invite),
+      text(font: police-code, size: taille, fill: s.couleur,
+           weight: if s.gras { "bold" } else { "regular" })[#s.texte],
+      anchor: "west",
+    )
+  }
+  // Le curseur : un pavé plein, comme celui d'un terminal au repos.
+  rect((x-de(48.15), y-invite - 0.22), (x-de(48.95), y-invite + 0.28),
+       fill: white, stroke: none)
+
+  // Les trois parties nommées. L'accolade tient sous les caractères qu'elle
+  // désigne, et l'étiquette juste sous elle.
+  let y-accolade = y-invite - 0.34
+  let nommer(i0, i1, etiquette, profondeur: 0.24) = {
+    _accolade(cetz.draw, x-de(i0), x-de(i1), y-accolade, profondeur: profondeur)
+    content(
+      ((x-de(i0) + x-de(i1)) / 2, y-accolade - profondeur - 0.14),
+      block(width: 3.4cm)[
+        #set par(leading: 0.45em)
+        #align(center, text(font: police-texte, size: 12pt, fill: white)[#etiquette])
+      ],
+      anchor: "north",
+    )
+  }
+  nommer(7, 26, "Utilisateur")
+  nommer(27, 47, "Dossier courant")
+  nommer(48.05, 49.05, "Zone d'écriture\npour l'utilisateur", profondeur: 0.2)
 })

@@ -49,7 +49,7 @@ dépôt, déjà employé au cours 1.
 | Fichier | Contenu |
 |---|---|
 | [`../../commun/schemas_git.typ`](../../commun/schemas_git.typ) | `graphe-git` et ses annotations : le cours 6 les reprendra |
-| [`schemas.typ`](schemas.typ) | arborescence, dossier `.git`, cycle de vie d'un fichier, git-flow, « Git : c'est quoi ? », sorties de terminal |
+| [`schemas.typ`](schemas.typ) | arborescence, invite commentée, dossier `.git`, cycle de vie d'un fichier, git-flow, « Git : c'est quoi ? », sorties de terminal |
 
 Une exception : les **logos** de la diapositive « Git : c'est quoi ? » sont
 repris tels quels, découpés dans le support d'origine, dans
@@ -75,6 +75,23 @@ Les hauteurs se règlent par `echelle`, qui multiplie l'unité du dessin. Le
 texte des étiquettes, lui, ne suit pas cette échelle : un dessin trop réduit
 fait donc se chevaucher les noms de commit. C'est la seule chose à surveiller
 en déplaçant un schéma.
+
+### L'invite commentée
+
+`invite-commentee` compose l'invite du terminal avec les couleurs que bash lui
+donne — l'utilisateur en vert, le dossier courant en bleu — et pose une
+accolade sous chacune des trois parties nommées. Les positions sont calculées
+au caractère près : DejaVu Sans Mono a une chasse de 0,602 em, donc la largeur
+d'un caractère ne dépend que du corps, et une accolade se place sous le
+septième caractère sans rien mesurer.
+
+### L'arborescence
+
+Chaque nœud dit de quel côté son nom se pose — `dessus`, `dessous`, `gauche`
+ou `droite`. Un nom placé au-dessus tombe sur l'arête qui arrive du parent ;
+placé au-dessous, sur celle qui descend vers les enfants. Le côté est donc
+choisi nœud par nœud, celui qu'aucun trait n'occupe. En déplaçant un nœud, il
+faut revoir ce champ.
 
 ## Écarts avec le support d'origine
 
