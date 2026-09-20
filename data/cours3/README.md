@@ -1,21 +1,29 @@
-# Données — Cours 3 : Binaire, données & construction d'une CLI (CM)
+# Données — Cours 3 : chemins, images et ligne de commande
 
-_(vide pour l'instant)_
+Trois TD, et deux dossiers de la séance qui ne sont pas livrés :
 
-Modèle : [`data/cours1/`](../cours1/) — le dépôt versionne un `make_data.py`
-qui **génère** les fichiers de l'exercice, pas les fichiers eux-mêmes
-(cf. `.gitignore` à la racine).
+| Dossier | Ce que c'est |
+|---|---|
+| `recettes/` | les quatre recettes (`recette.md`, `ingredients.csv`, pour une personne en SI) et `style.css` : la source, versionnée, que `make_data.py` recopie dans les TD qui s'en servent |
+| `corriges/` | le TD 3a étape par étape (`3a_cli/etape<n>/`), versionné ici pour ne pas partir dans l'archive |
+| `1a_recette/` | notebook `recette.ipynb` : chemins, `pathlib`, pandoc par `subprocess` |
+| `2a_images/` | notebook `images.ipynb` : texte et binaire sur des images PGM, compression, ASCII et UTF-8 |
+| `3a_cli/` | `recette.py` construit depuis le notebook et transformé en ligne de commande, un commit par étape ; modèles de README et de `pyproject.toml` |
 
-Besoins pressentis, d'après le [syllabus](../../syllabus/01_syllabus_v1.md) :
+Les données sont dupliquées d'un TD à l'autre plutôt que citées par un chemin
+relatif : chaque dossier se suffit.
 
-Objectif : voir ce qu'il y a *vraiment* dans un fichier binaire, puis écrire un petit outil Python qui **orchestre des commandes**.
+```bash
+conda activate info01
+python make_data.py fetch    # La Grande Vague (The Met), photos (Commons), ImageMagick portable → fourni/
+python make_data.py build    # recopie et dérive tout dans produit/ des trois TD
+python ../../outils/construire_notebooks.py   # les .ipynb, version à trous et corrigé
+```
 
-> **Changement v2** : reçoit le bloc **binaire / hexadécimal / PGM** venu du cours 1 (il prépare directement `numpy` et le projet image) ; l'installation de l'environnement conda est désormais faite en séance 1 — ici, simple **rappel d'activation** et ajout de dépendances.
+`build` extrait `magick.exe` de l'archive 7z avec `7z` s'il est installé, ou
+`py7zr` s'il est importable ; sinon il dit quoi extraire à la main.
 
-- **🎓 15′ · Binaire vs texte** : encodage, bit et puissances de 2, hexadécimal (code couleur), ASCII/Unicode ; nom des symboles de programmation (`| { [ #` …).
-- **⌨️ 20′ · Voir un fichier binaire** : ouvrir une petite image **PGM/PPM** (Netpbm) en **hexadécimal** — en-tête lisible + octets de pixels ; ASCII (`P2`/`P3`) vs binaire (`P5`/`P6`), *même image, deux encodages*. Rappel du cours 1 (« l'extension ne dit pas le contenu ») et préparation du TD7 (une image = un tableau de pixels).
-- **🎓 12′ · Fichiers en Python avec `pathlib`** : chemins portables (Windows inclus), lecture / écriture — c'est *ici* qu'on manipule les fichiers, pas au shell.
-- **🎓 13′ · Appel de commandes externes** : `subprocess.run([...], check=True)` (forme liste, codes de retour) ; enchaîner des étapes = automatisation. *(`data/cours1/make_data.py`, déjà utilisé en séance 1, en est un exemple à relire.)*
-- **🎓 15′ · Construire une CLI** : `argparse`, sous-commandes, options `--verbose`/`--help` ; point sur `args`/`kwargs` (relation list/dict).
-- **⌨️ 40′ · TD guidé — mini-pipeline** : construire ensemble un script qui (1) génère quelques frames (ex. 5 images d'un disque qui se déplace) en appelant ImageMagick via `subprocess` (Python calcule les coordonnées, `magick -draw` dessine), (2) les assemble en un court clip avec ffmpeg, (3) expose 1–2 options `argparse` (`--frames N`, `--out`).
-- **But** : *voir* concrètement l'automatisation d'un enchaînement d'outils. Sème le **projet de la séance 4**, qui en fait la version créative complète.
+Sources et licences : *Under the Wave off Kanagawa*
+(The Met, CC0), photos Wikimedia Commons (CC0, CC BY 2.0, domaine public ;
+crédits écrits dans `depart/recettes/CREDITS.md`), ImageMagick (licence
+Apache 2.0 modifiée).

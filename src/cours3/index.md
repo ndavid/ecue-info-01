@@ -1,21 +1,69 @@
 ---
-title: "Séance 3 — Binaire, données et construction d'une CLI"
+title: "Séance 3 — Chemins, fichiers, images et ligne de commande"
 ---
 
-:::{note} Page à rédiger
-Le plan ci-dessous est repris du syllabus (`syllabus/01_syllabus_v1.md`) ; le
-déroulé détaillé est dans `syllabus/cours/3_python_env_cli/`.
-La séance 1 (`src/cours1/`) sert de modèle de mise en forme.
+:::{note} Premier jet
+Diapositives et notebooks rédigés le 20 septembre 2026 ; les pages de cours
+de cette séance restent à écrire sur le modèle de `src/cours1/notebook/`.
 :::
 
-Objectif : voir ce qu'il y a *vraiment* dans un fichier binaire, puis écrire un petit outil Python qui **orchestre des commandes**.
+## Objectifs
 
-> **Changement v2** : reçoit le bloc **binaire / hexadécimal / PGM** venu du cours 1 (il prépare directement `numpy` et le projet image) ; l'installation de l'environnement conda est désormais faite en séance 1 — ici, simple **rappel d'activation** et ajout de dépendances.
+Manipuler des chemins et lire des fichiers en Python, puis construire un
+programme en ligne de commande en Python. Les notions des cours 1 et 2
+(chemin relatif, encodage, texte et binaire, lancer un programme, les options
+d'une commande, un commit par étape) reviennent, vues cette fois depuis le
+code.
 
-- **🎓 15′ · Binaire vs texte** : encodage, bit et puissances de 2, hexadécimal (code couleur), ASCII/Unicode ; nom des symboles de programmation (`| { [ #` …).
-- **⌨️ 20′ · Voir un fichier binaire** : ouvrir une petite image **PGM/PPM** (Netpbm) en **hexadécimal** — en-tête lisible + octets de pixels ; ASCII (`P2`/`P3`) vs binaire (`P5`/`P6`), *même image, deux encodages*. Rappel du cours 1 (« l'extension ne dit pas le contenu ») et préparation du TD7 (une image = un tableau de pixels).
-- **🎓 12′ · Fichiers en Python avec `pathlib`** : chemins portables (Windows inclus), lecture / écriture — c'est *ici* qu'on manipule les fichiers, pas au shell.
-- **🎓 13′ · Appel de commandes externes** : `subprocess.run([...], check=True)` (forme liste, codes de retour) ; enchaîner des étapes = automatisation. *(`data/cours1/make_data.py`, déjà utilisé en séance 1, en est un exemple à relire.)*
-- **🎓 15′ · Construire une CLI** : `argparse`, sous-commandes, options `--verbose`/`--help` ; point sur `args`/`kwargs` (relation list/dict).
-- **⌨️ 40′ · TD guidé — mini-pipeline** : construire ensemble un script qui (1) génère quelques frames (ex. 5 images d'un disque qui se déplace) en appelant ImageMagick via `subprocess` (Python calcule les coordonnées, `magick -draw` dessine), (2) les assemble en un court clip avec ffmpeg, (3) expose 1–2 options `argparse` (`--frames N`, `--out`).
-- **But** : *voir* concrètement l'automatisation d'un enchaînement d'outils. Sème le **projet de la séance 4**, qui en fait la version créative complète.
+## Contenu de la séance
+
+Trois notebooks exécutés pendant l'exposé, puis un programme écrit dans
+l'éditeur et lancé au terminal. Les diapositives qui accompagnent un notebook
+portent le numéro de la section à exécuter à ce moment.
+
+```{list-table}
+:header-rows: 1
+
+* - Partie
+  - Ce qu'on y fait
+  - Durée
+* - Fichiers et outils
+  - récupérer l'archive du dossier partagé sur le Bureau ; vérifier que JupyterLab et l'éditeur se lancent
+  - 10 min
+* - Chemins
+  - améliorer le code de génération de recette : chemins en dur, `pathlib`, pandoc
+  - 20 min
+* - Texte et binaire
+  - `open`, `with`, les modes d'ouverture ; puis une image PGM en chiffres et en octets, les signatures de format, le poids et le temps de lecture, ce qu'un caractère pèse
+  - 45 min
+* - Ligne de commande
+  - le notebook devient un programme : un fichier, `main`, `argparse`, un README, un commit par étape
+  - 45 min
+```
+
+## Avant la séance
+
+Les fichiers des TD sont dans l'archive `cours3/` : un dossier par TD, avec
+ses propres données et la feuille du TD en PDF. Rien à installer : Python,
+JupyterLab, Pillow et pandoc sont dans l'environnement `base` d'Anaconda, et
+ImageMagick est livré dans `3a_cli/depart/outils/` sous la forme d'un seul
+exécutable.
+
+L'archive vient du dossier partagé `formationTemp` ; elle se copie et se
+décompresse dans le dossier `info01` du Bureau ([Récupérer les fichiers
+d'une séance](../avant/donnees.md)), et rien ne se fait dans le dossier
+partagé ni depuis l'archive. Les notebooks, livrés dans `depart/notebook/`, se copient
+dans `travail/` avant d'être ouverts dans JupyterLab, depuis Anaconda
+Navigator ou par `jupyter lab` dans Anaconda Prompt. Les cellules qui ne contiennent qu'un
+commentaire sont à compléter en séance ; la version complète est distribuée
+après.
+
+| TD | Fichier | Ce qu'on y fait |
+|---|---|---|
+| 1a | `recette.ipynb` | le code de génération de recette, ses chemins refaits avec `pathlib`, converti par pandoc |
+| 2a | `fichiers.ipynb` (dans `1a_recette/`), `images.ipynb` | comment le code ouvre ses fichiers ; un motif PGM de seize pixels en texte et en binaire, *La Grande Vague* en cinq formats, la compression, ASCII et UTF-8 |
+| 3a | `recette.py` | le code du notebook dans un fichier, puis `main`, `argparse`, un README ; un commit par étape |
+
+Les images sont libres : *Under the Wave off Kanagawa*
+(The Met, CC0), photos de Wikimedia Commons créditées dans
+`recettes/CREDITS.md`.
