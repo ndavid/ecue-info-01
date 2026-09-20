@@ -35,7 +35,9 @@ TD fait sur votre machine.
 
 Les fichiers des TD sont dans l'archive `cours1/` remise avec la séance : un
 dossier par TD, numéroté dans l'ordre où ils viennent, et dans chacun la
-feuille du TD en PDF. Les textes sont du domaine public.
+feuille du TD en PDF. Les textes sont du domaine public. L'archive se
+récupère depuis le dossier partagé, comme décrit dans [Récupérer les
+fichiers d'une séance](../avant/donnees.md).
 
 La dernière page de la liste ci-dessous est une annexe : elle n'est pas jouée
 en séance, se fait seule, et prépare le cours 2.
