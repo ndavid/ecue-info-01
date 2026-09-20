@@ -135,11 +135,12 @@ n'arrondit jamais.
 |---------|------|
 | `separateur-module(titre, annonce:, auteur:, date:)` | couverture du module, fond bleu |
 | `page-titre(titre:, sous-titre:, auteur:, date:, fond:)` | page de titre d'une séance, posée où on la veut |
-| `d(titre, sous-titre: none)` | une diapositive ordinaire |
+| `d(titre, sous-titre: none, cellule: none, fichier: none)` | une diapositive ordinaire ; avec `cellule`, la ligne de titre porte le cartouche « § n » du notebook à exécuter |
 | `separateur(titre, annonce:)` | diapositive de section, fond bleu |
 | `separateur-td(..td)` | ouverture d'un TD, fond brun : mention « TD 2b », « facultatif » s'il l'est, titre, annonce, dossier et durée |
 | `sommaire-td(td-1, td-2, …)` | la liste des TD d'un bloc, fond brun, à la place des TD dans la version `--sans-tds` |
 | `separateur-reprise(titre, annonce:)` | retour à l'exposé après un TD en milieu de partie |
+| `separateur-cours-td(titre-partie, annonce-partie:, notebook:, ..td)` | ouverture commune d'une partie et du TD joué en même temps : page partagée par une oblique, la partie en bleu à gauche, à droite en brun le TD et le notebook à suivre pendant l'exposé (cours 3) ; la feuille de TD, compilée avec `--input feuille=true`, garde `separateur-td` |
 
 Les trois derniers marquent le passage de l'exposé au travail sur machine, et
 son retour, la distinction 🎓 / ⌨️ du syllabus. C'est la seule information que
@@ -171,7 +172,9 @@ n'est pas projeté), `legende`, `tableau`, `face-a-face`, `panneau`, `question`
 (posée à la salle), `etiquette` (une extension dans une grille de
 reconnaissance), `bloc-titre` (le bloc Beamer, bandeau bleu sur corps gris),
 `fenetre` (une fenêtre d'application dessinée), `illustration` (une capture d'écran quand elle est
-disponible, un dessin sinon), et trois pictogrammes vectoriels
+disponible, un dessin sinon), et, en argument de `d`, `cellule:` (le renvoi « § 7 » à la section d'un
+notebook exécuté pendant l'exposé : cartouche brun sur la ligne de titre,
+introduit au cours 3), et trois pictogrammes vectoriels
 `icone-fenetre`, `icone-engrenage`, `icone-puce`.
 
 `tableau` porte tout le style des tableaux, et les diapositives ne passent que

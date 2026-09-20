@@ -260,9 +260,24 @@
 // Une diapositive : un titre descriptif, un sous-titre facultatif en petites
 // capitales, puis le corps. Décalage du titre et rapport de centrage du corps
 // relevés sur le PDF Beamer (26 pt sur 255, et 0,85 contre 1).
-#let d(titre-diapo, sous-titre: none, corps) = {
+//
+// `cellule` renvoie à la section d'un notebook que les étudiants exécutent
+// pendant que la diapositive est projetée : la ligne de titre reçoit alors
+// un cartouche « § n » à droite. Son brun est celui des TD : la diapositive
+// dit qu'à ce moment on est sur machine. Le
+// numéro est celui du titre de section du notebook, pas le rang d'exécution
+// que JupyterLab affiche entre crochets.
+#let cartouche-cellule(numero, fichier) = box(
+  inset: (x: 8pt, y: 4pt), fill: brun.lighten(88%), stroke: 0.8pt + brun.lighten(45%),
+)[
+  #text(font: police-code, size: 12pt, fill: brun, weight: demi-gras)[
+    #if fichier != none [#fichier #sym.dot.c ]§ #numero
+  ]
+]
+
+#let d(titre-diapo, sous-titre: none, cellule: none, fichier: none, corps) = {
   v(52.5pt)
-  block(below: 0em)[
+  let titre = [
     #set text(size: pt-LARGE, fill: accent, weight: demi-gras)
     #set par(leading: 0.4em)
     #titre-diapo
@@ -273,6 +288,13 @@
       ]
     ]
   ]
+  block(below: 0em, width: 100%, if cellule == none { titre } else {
+    grid(
+      columns: (1fr, auto), column-gutter: 12pt,
+      align: (left + horizon, right + horizon),
+      titre, cartouche-cellule(cellule, fichier),
+    )
+  })
   // Un écart garanti, puis le ressort. Sans le premier, une diapositive un peu
   // pleine referme le ressort et vient coller l'annonce sous le titre — ce qui
   // arrive vite dans la version annotée, dont le bas de page est réservé aux
@@ -371,6 +393,81 @@
 // facultatif. Les dictionnaires sont ceux des fichiers de TD, importés par
 // l'assemblage : ce que le sommaire liste et ce que le TD projette ne peuvent
 // pas diverger.
+// Vrai quand un fichier de TD est compilé seul, en feuille de TD, par
+// `outils/compiler_tds.py` (`--input feuille=true`). Un TD qui s'ouvre dans le
+// cours par `separateur-cours-td` garde ainsi son ouverture brune sur la
+// feuille.
+#let feuille-seule = sys.inputs.at("feuille", default: "") == "true"
+
+// Ouverture commune d'une partie de l'exposé et du TD qui se joue en même
+// temps : la page est partagée par une oblique, comme la page de titre du
+// cours, le bleu de l'exposé à gauche, le brun du TD à droite. À droite, pas
+// de texte : la mention du TD, le notebook à suivre pendant l'exposé, le
+// dossier et la durée. Les arguments du TD sont ceux de `separateur-td`,
+// passés par `..td` ; `notebook` est le fichier à ouvrir, en chaîne ou en
+// contenu (deux noms séparés par `\`).
+//
+//   #separateur-cours-td("Chemins et fichiers", annonce-partie: "…",
+//                        notebook: "recette.ipynb", ..td)
+#let separateur-cours-td(
+  titre-partie, annonce-partie: none, notebook: none,
+  numero: none, titre: "", annonce: none, dossier: none,
+  duree: none, facultatif: false,
+) = {
+  let l = largeur-diapo
+  let haut = hauteur-diapo
+  set page(
+    foreground: none,
+    fill: if notes-visibles { white } else { accent },
+    // En double largeur, seule la moitié projetée reçoit les fonds.
+    background: {
+      if notes-visibles {
+        place(top + left, rect(width: l, height: 100%, fill: accent))
+      }
+      place(top + left, polygon(
+        fill: brun, (0.57 * l, 0pt), (l, 0pt), (l, haut), (0.49 * l, haut),
+      ))
+    },
+  )
+  // L'exposé, à gauche de l'oblique.
+  place(horizon + left, block(width: 0.43 * l)[
+    #line(length: 40%, stroke: 1.5pt + brun.lighten(25%))
+    #v(0.7em)
+    #text(size: pt-LARGE, fill: white, weight: demi-gras)[#titre-partie]
+    #if annonce-partie != none [
+      #v(0.45em)
+      #text(size: pt-normalsize, fill: white.darken(12%))[#annonce-partie]
+    ]
+  ])
+  // Le TD, à droite. Le décalage part du bord gauche de la zone de texte,
+  // ce qui vaut aussi en double largeur.
+  place(horizon + left, dx: 0.62 * l - 2 * marge-x, block(width: 0.38 * l)[
+    #text(size: pt-footnotesize, fill: gris, weight: demi-gras)[
+      #mention-td(numero, facultatif)
+    ]
+    #v(0.5em)
+    #line(length: 40%, stroke: 1.5pt + gris)
+    #v(0.7em)
+    #if notebook != none [
+      #text(size: pt-normalsize, fill: white.darken(12%))[Notebook à suivre pendant l'exposé]
+      #v(0.4em)
+      #text(size: pt-normalsize * 1.15, font: police-code, fill: white, weight: demi-gras)[#notebook]
+    ] else [
+      #text(size: pt-LARGE, fill: white, weight: demi-gras)[#titre]
+    ]
+    #if dossier != none [
+      #v(0.9em)
+      #text(size: pt-footnotesize, font: police-code, fill: white.darken(8%))[
+        #dossier
+        #if duree != none [
+          #h(1.5em) #text(font: police-texte, fill: white.darken(30%))[#sym.approx #duree]
+        ]
+      ]
+    ]
+  ])
+  pagebreak(weak: true)
+}
+
 #let sommaire-td(..tds) = {
   set page(
     foreground: none,
@@ -455,6 +552,7 @@
   #set text(size: 13pt, fill: estompe)
   #corps
 ]
+
 
 // Tableau.
 //

@@ -77,7 +77,9 @@ def compiler(td: Path, assemblage: Path, corrige: bool, captures: bool) -> int:
         f'#include "tds/{td.name}"\n',
         encoding="utf-8",
     )
-    commande = ["typst", "compile", "--root", str(RACINE)]
+    # `feuille=true` dit au TD qu'il est compilé seul : un TD ouvert dans le
+    # cours par `separateur-cours-td` remet alors son ouverture brune.
+    commande = ["typst", "compile", "--root", str(RACINE), "--input", "feuille=true"]
     if captures:
         commande += ["--input", "captures=true"]
     if corrige:
