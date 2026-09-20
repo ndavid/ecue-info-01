@@ -24,9 +24,8 @@
 
     #if etape == 3 {
       notes[
-        Un message utile dit ce que le commit change, pas qu'il change quelque
-        chose : « corrections » n'apprend rien à qui relit l'historique six
-        mois plus tard.
+        Le message décrit la modification : « ajout de la fonction inv dans
+        operations.py ». « corrections » ne décrit rien.
       ]
     }
   ]
@@ -64,9 +63,8 @@
 
     #if etape == 4 {
       notes[
-        C'est le modèle que les deux projets du module suivront. Le nommer :
-        git flow. Il est plus lourd que nécessaire pour un projet solo, et
-        c'est pourquoi on ne l'impose qu'à partir du travail en équipe.
+        Ce modèle s'appelle git flow. Le TD 6a en joue la première règle :
+        master ne reçoit que la version terminée, taguée.
       ]
     }
   ]

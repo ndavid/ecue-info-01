@@ -16,10 +16,10 @@
 
     #if etape == 4 {
       notes[
-        Les quatre usages répondent aux quatre questions qui reviennent :
-        comment revenir en arrière, comment travailler à plusieurs, où mettre
-        le code, avec quoi le manipuler. La séance traite les deux premiers ;
-        la forge attend le cours 6.
+        Quatre usages : le versionnement du code, le travail à plusieurs,
+        l'hébergement en ligne (GitHub, GitLab), les outils (ligne de
+        commande, logiciels dédiés, IDE). La séance traite les deux premiers,
+        en ligne de commande ; l'hébergement est au cours 6.
       ]
     }
   ]
@@ -112,9 +112,8 @@
 
     #if etape == 6 {
       notes[
-        Le même graphe servira jusqu'à la fin de la séance : commits, branches,
-        fusion, étiquettes. Y revenir à chaque nouvelle notion plutôt que d'en
-        dessiner un autre.
+        Le même graphe sert jusqu'à la fin de la séance : commits, branches,
+        fusion, étiquettes.
       ]
     }
   ]
@@ -148,8 +147,7 @@
   )
 
   #notes[
-    En solo, git sert d'abord de filet : revenir à l'état qui marchait. À
-    plusieurs, il devient le moyen de mettre le travail en commun sans
-    s'écraser mutuellement. Les deux projets du module font l'un puis l'autre.
+    Le projet de la séance 4 emploie git seul ; le cours 6 et le projet de la
+    séance 7 l'emploient à plusieurs.
   ]
 ]

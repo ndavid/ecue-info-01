@@ -5,7 +5,7 @@
 #let td = (
   numero: "4a",
   titre: "Branches et fusions",
-  annonce: "Ouvrir develop et documentation, écrire le code à deux endroits, tout fusionner dans develop.",
+  annonce: "Créer les branches develop, documentation, main_code et operations, puis les fusionner dans develop.",
   dossier: "cours2/4a_branches/",
   duree: "30′",
 )
@@ -41,7 +41,7 @@
   ]
 ]
 
-#d("TD 4a — écrire le code à deux endroits")[
+#d("TD 4a — la branche main_code")[
   #question(9)[
     On fait comme si deux personnes travaillaient en parallèle. Créez une
     branche *main_code*.
@@ -55,7 +55,7 @@
 
   #v(0.3em)
   #question(11)[
-    Copiez-y le code suivant :
+    Copiez-y le contenu de `depart/main_base.py` :
     #code("if __name__==\"__main__\":
     print(\"Geo Calculatrice\")
     print(\"*\"*10)", taille: 12pt, interligne: 0.5em)
@@ -67,7 +67,7 @@
   ]
 ]
 
-#d("TD 4a — la seconde branche")[
+#d("TD 4a — la branche operations")[
   #question(13)[
     Créez une branche *operations* et placez-vous dedans.
   ]
@@ -92,7 +92,7 @@
   ]
 ]
 
-#d("TD 4a — tout ramener dans develop")[
+#d("TD 4a — fusionner dans develop")[
   #question(16)[
     Faites un commit, puis retournez dans *develop*.
   ]
@@ -100,20 +100,20 @@
   #v(0.6em)
   #question(17)[
     Fusionnez *main_code* dans *develop* avec un `merge`, puis *operations*
-    dans *develop*. Au second merge, un éditeur s'ouvre dans le terminal pour
-    le message de fusion : écrivez une ligne, puis fermez l'éditeur — pas le
-    terminal.
+    dans *develop*. Au second merge, git ouvre un éditeur dans le terminal,
+    avec un message de fusion déjà écrit.
   ]
 
   #v(0.8em)
-  #avertissement[
-    L'éditeur qui s'ouvre est souvent `vim` : on en sort par `:wq`. Le dire
-    avant, sinon la moitié de la salle ferme le terminal.
+  #legende[
+    Si l'éditeur est `vim` : tapez `:wq` puis `Entrée` pour accepter le
+    message et quitter. Ne fermez pas le terminal.
   ]
 
   #notes[
-    Le premier merge est un avance-rapide, le second crée un commit de
-    fusion : c'est exactement la distinction de la diapositive « Fusionner
-    deux branches ». Faire afficher `git llog` après chacun.
+    Le premier merge est en avance rapide (_fast-forward_) : develop avance
+    jusqu'au commit de main_code, sans nouveau commit. Le second crée un
+    commit de fusion, celui de la diapositive « Fusionner deux branches ».
+    Faire afficher `git llog` après chacun.
   ]
 ]

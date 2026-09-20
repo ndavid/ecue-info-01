@@ -5,7 +5,7 @@
 #let td = (
   numero: "6a",
   titre: "Publier une version",
-  annonce: "Ramener develop dans master, et étiqueter le commit obtenu.",
+  annonce: "Fusionner develop dans master, puis taguer le commit obtenu.",
   dossier: "cours2/6a_livrer/",
   duree: "10′",
 )
@@ -33,12 +33,11 @@
     columns: (1fr, 1.3fr),
     align: left + horizon,
     [Commande], [Résultat observé],
-    [`git llog`], [reponse[master rejoint develop, et l'étiquette s'affiche à côté du commit]],
+    [`git llog`], reponse[master et develop sur le même commit ; le tag affiché à côté],
   )
 
   #notes[
-    C'est le schéma des bonnes pratiques, joué en vrai : master ne reçoit que
-    des versions complètes, et le tag les nomme. Faire remarquer que c'est
-    exactement ce que ce dépôt-ci fait pour livrer chaque séance.
+    Règle de la diapositive « Bonnes pratiques » : master ne reçoit que des
+    versions complètes, et chacune porte un tag.
   ]
 ]

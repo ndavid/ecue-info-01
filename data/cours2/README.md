@@ -1,17 +1,16 @@
 # Données — Cours 2 : ligne de commande et git local
 
 Un dossier par TD, dans l'ordre de la séance. Les cinq TD construisent le
-**même dépôt d'essai** : chacun reprend le projet là où le précédent l'a
-laissé, et ce projet vit dans `3a_premier_depot/travail/projet_2`, où le TD 3a
-le crée.
+même dépôt : chacun reprend le projet là où le précédent l'a laissé. Le TD 3a
+le crée dans `3a_premier_depot/travail/projet_2`, et il y reste.
 
 | Dossier | Questions | Ce qu'on y fait |
 |---|---|---|
 | [`3a_premier_depot/`](3a_premier_depot/) | 1 à 5 | l'alias `git llog`, `git init`, un `README.md`, un premier commit |
 | [`4a_branches/`](4a_branches/) | 6 à 17 | `develop`, `documentation`, `main_code`, `operations`, et leurs fusions |
-| [`4b_annuler/`](4b_annuler/) | 18 à 20 | annuler avec `revert`, rattraper une branche avec `rebase` |
+| [`4b_annuler/`](4b_annuler/) | 18 à 20 | annuler avec `revert`, mettre une branche à jour avec `rebase` |
 | [`4c_conflits/`](4c_conflits/) | 21 à 25 | fabriquer un conflit, puis le résoudre |
-| [`6a_livrer/`](6a_livrer/) | 26 et 27 | ramener `develop` dans `master`, étiqueter la version |
+| [`6a_livrer/`](6a_livrer/) | 26 et 27 | fusionner `develop` dans `master`, taguer la version |
 
 Le projet est une petite calculatrice : `src/operations.py` porte quatre
 fonctions (`add`, `mult`, `neg`, `inv`), `src/main.py` lit une opération tapée
@@ -24,5 +23,5 @@ Le sujet d'origine est celui de Florent Geniet,
 [`livraison/cours2_florent/TP_session_2.md`](../../livraison/cours2_florent/TP_session_2.md).
 Les écarts avec lui sont signalés dans les README des dossiers concernés.
 
-Contrairement au cours 1, il n'y a pas de `make_data.py` : rien n'est à
-engendrer, les trois fichiers de départ sont écrits à la main et versionnés.
+Il n'y a pas de `make_data.py` : les trois fichiers de départ sont écrits à
+la main et versionnés.

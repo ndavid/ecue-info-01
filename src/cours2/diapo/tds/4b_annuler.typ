@@ -6,7 +6,7 @@
 #let td = (
   numero: "4b",
   titre: "Annuler et remettre à jour",
-  annonce: "Défaire une suppression avec revert, puis rattraper develop avec un rebase.",
+  annonce: "Annuler un commit avec revert, puis mettre main_code à jour sur develop avec rebase.",
   dossier: "cours2/4b_annuler/",
   duree: "15′",
 )
@@ -46,8 +46,8 @@
     [Question], [Réponse],
     [Le commit créé par `git revert` porte-t-il le même identifiant que celui
      que vous aviez repéré ?],
-    [reponse[non : c'est un nouveau commit, qui porte le même contenu mais
-     une autre empreinte]],
+    reponse[non : `revert` a créé un nouveau commit, avec son propre
+     identifiant ; le projet est revenu au contenu d'avant la suppression],
   )
 
   #v(0.7em)
@@ -57,15 +57,14 @@
   ]
 
   #v(0.6em)
-  #avertissement[
+  #legende[
     Le rebase réécrit l'historique de la branche : ses commits changent
-    d'identifiant. C'est sans danger ici, parce que personne d'autre n'a
-    récupéré cette branche.
+    d'identifiant. Une branche que quelqu'un d'autre a déjà récupérée ne se
+    rebase pas ; ici, personne ne l'a récupérée.
   ]
 
   #notes[
-    Faire afficher `git llog` avant et après : c'est le seul moyen de voir
-    que les commits ont changé d'identifiant, et c'est ce que la diapositive
-    sur le rebase annonçait avec les « bis ».
+    Faire afficher `git llog` avant et après le rebase : les commits de
+    main_code ont changé d'identifiant, comme les « bis » de la diapositive.
   ]
 ]

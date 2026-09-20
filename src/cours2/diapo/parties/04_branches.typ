@@ -82,9 +82,10 @@ git branch")
   )
 
   #notes[
-    `master` est le nom historique ; `main` est celui que créent aujourd'hui
-    GitHub et GitLab. Les deux se croisent encore, et `git init` en choisit un
-    selon la version de git installée. Le dire évite la surprise au TD.
+    `git init` nomme la première branche `master`, sauf si le réglage
+    `init.defaultBranch` dit autre chose. GitHub et GitLab nomment la leur
+    `main`. Les TD écrivent *master* : sur un poste réglé autrement, lire
+    *main*.
   ]
 ]
 
@@ -189,9 +190,9 @@ git rebase <b_1> <b_2>")
 
   #notes[
     Le rebase réécrit l'historique : les commits replacés sont de nouveaux
-    commits, d'où les « bis ». C'est pourquoi on ne rebase pas une branche que
-    quelqu'un d'autre a déjà récupérée. Le TD le fait constater sur la branche
-    `main_code`.
+    commits, avec un autre identifiant, d'où les « bis ». Une branche que
+    quelqu'un d'autre a déjà récupérée ne se rebase pas. Le TD 4b le fait
+    constater sur la branche `main_code`.
   ]
 ]
 
@@ -298,9 +299,8 @@ git rebase --continue")
   )
 
   #notes[
-    Le conflit n'est pas une panne : git s'arrête parce qu'il ne peut pas
-    choisir à notre place. Les marqueurs `<<<<<<<`, `=======` et `>>>>>>>`
-    sont du texte ordinaire, à supprimer une fois le choix fait — c'est ce
-    qu'oublient la moitié des étudiants au TD.
+    Git s'arrête quand les deux branches modifient les mêmes lignes. Les
+    marqueurs `<<<<<<<`, `=======` et `>>>>>>>` sont du texte ordinaire : les
+    supprimer après avoir choisi. Oubli fréquent au TD 4c.
   ]
 ]

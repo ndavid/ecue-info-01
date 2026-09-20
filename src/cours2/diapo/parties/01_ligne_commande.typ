@@ -13,14 +13,12 @@
   #align(center, invite-commentee())
 
   #notes[
-    Montrer le terminal réellement ouvert plutôt que la diapositive : chacun
-    doit repérer sur son propre écran l'utilisateur, le dossier courant et
-    l'invite. Le préfixe `(base)` est celui de conda, et il reviendra au
-    moment des environnements.
+    Ouvrir un terminal et le montrer à la place de la diapositive. Chacun
+    repère sur son écran l'utilisateur, le dossier courant et l'invite. Le
+    préfixe `(base)` est l'environnement conda actif, vu au TD 2a du cours 1.
 
-    Les couleurs ne sont pas décoratives : c'est bash qui les met, et elles
-    aident à retrouver d'un coup d'œil où finit le chemin et où commence ce
-    qu'on tape.
+    Les couleurs sont mises par bash : l'utilisateur en vert, le dossier
+    courant en bleu.
   ]
 ]
 
@@ -37,9 +35,8 @@
 
   #notes[
     Sous Windows, le terminal par défaut est PowerShell, dont la syntaxe
-    diffère ; Git Bash, installé avec git, donne le même bash qu'ici. Le
-    préciser tout de suite évite que la moitié de la salle bute sur la
-    première commande.
+    diffère. Git Bash, installé avec git, donne le même bash qu'ici. Le
+    préciser avant la première commande.
   ]
 ]
 
@@ -63,9 +60,8 @@ touch <nom_fichier>
 mkdir <nom_dossier>")
 
   #notes[
-    Les faire taper une à une plutôt que les lire. `rm` ne demande pas
-    confirmation et il n'y a pas de corbeille : le dire avant qu'ils
-    l'essaient.
+    Faire taper chaque commande. `rm` ne demande pas de confirmation et ne
+    passe pas par la corbeille : le dire avant.
 
     Le support d'origine écrivait `mkdire` ; la coquille est corrigée ici.
   ]
@@ -134,8 +130,7 @@ mkdir <nom_dossier>")
   #code-ligne("../etc/ssh/ssh_config.json")
 
   #notes[
-    Le `..` est le point qui bloque le plus au TD suivant. Le faire manipuler
-    tout de suite : `cd ..`, puis `pwd` pour vérifier où l'on est arrivé.
+    Faire taper `cd ..`, puis `pwd` pour afficher le dossier courant.
   ]
 ]
 
@@ -181,9 +176,10 @@ mkdir <nom_dossier>")
   )
 
   #notes[
-    Le raccourci `Ctrl+H` marche dans la plupart des explorateurs, y compris
-    celui de Windows. À faire activer maintenant : sans lui, le dossier `.git`
-    reste invisible tout le reste de la séance.
+    `Ctrl+H` est le raccourci de l'explorateur de fichiers de GNOME (Ubuntu).
+    Dans l'explorateur de Windows : menu Affichage › Afficher › Éléments
+    masqués. Le faire activer maintenant : le dossier `.git` de la partie
+    suivante est caché.
   ]
 ]
 
@@ -196,12 +192,14 @@ mkdir <nom_dossier>")
   [”[]” : permet de donner une liste de caractères.],
 )
 
-#let _diapo-regex(etape, exemples) = d("Expressions régulières")[
+#let _diapo-regex(etape, exemples, notes: none) = d("Expressions régulières")[
   On peut désigner des groupes de fichiers/dossiers en utilisant des
   *expressions régulières (ou regex)*.
 
   #liste-progressive(etape, _regles)
   #list([exemples : #list(..exemples)])
+
+  #notes
 ]
 
 #_diapo-regex(1, (
@@ -223,10 +221,9 @@ mkdir <nom_dossier>")
   [#motif("mo[tn]o.jpg") : désigne `moto.jpg` et `mono.jpg`],
   [#motif("reunion_[0-9][0-9].txt") : les fichiers texte dont le nom est de la
    forme `reunion_` suivi d'un nombre à 2 chiffres],
-))
-
-#notes[
-  Ces motifs sont ceux du shell (*globbing*), pas les expressions régulières
-  de `grep` ou de Python : `*` n'y a pas le même sens. Le dire, sinon la
-  confusion resurgit au cours 3.
-]
+), notes: notes[
+  Ces motifs sont ceux du shell (*globbing*). Les expressions régulières de
+  `grep` et du module `re` de Python ont une autre syntaxe : `*` y signifie
+  « zéro ou plusieurs fois le caractère précédent ». Le TD 4c emploie
+  `re.search`.
+])

@@ -5,7 +5,7 @@
 #let td = (
   numero: "4c",
   titre: "Créer et résoudre un conflit",
-  annonce: "Deux versions du même fichier, deux branches, un merge qui s'arrête.",
+  annonce: "Modifier main.py de deux façons sur deux branches, fusionner les deux dans develop, résoudre le conflit.",
   dossier: "cours2/4c_conflits/",
   duree: "25′",
 )
@@ -21,7 +21,7 @@
   #question(21)[
     Sur *main_code*, ajoutez le code de `depart/main_regex.py` à la suite de
     celui de la question 11, puis faites un commit.
-    *Cette fois on ne fusionne pas le changement dans develop.*
+    Ne fusionnez pas ce commit dans develop.
   ]
 
   #v(0.6em)
@@ -47,7 +47,7 @@ import re
 
   #v(0.5em)
   #question(23)[
-    Ajoutez dans `main.py` le code de `depart/main_operations.py` de ce dossier, puis
+    Ajoutez dans `main.py` le code de `depart/main_operations.py`, puis
     faites un commit.
   ]
 
@@ -66,7 +66,7 @@ import operations as op
 #d("TD 4c — le conflit")[
   #question(24)[
     Retournez sur *develop*. Fusionnez *main_code_bis* dans *develop*, puis
-    *main_code* dans *develop*. Le second merge ne peut pas aller au bout.
+    *main_code* dans *develop*. Le second merge s'arrête sur un conflit.
   ]
 
   #v(0.6em)
@@ -80,14 +80,13 @@ import operations as op
     columns: (1fr, 1.2fr),
     align: left + horizon,
     [Étape], [Ce que git affiche],
-    [le merge s'arrête], [reponse[`CONFLIT (contenu) : Conflit de fusion dans src/main.py`]],
-    [dans le fichier], [reponse[les marqueurs `<<<<<<<`, `=======` et `>>>>>>>`]],
-    [une fois résolu], [reponse[`git add` puis `git merge --continue`]],
+    [le merge s'arrête], reponse[`CONFLIT (contenu) : Conflit de fusion dans src/main.py`],
+    [dans le fichier], reponse[les marqueurs `<<<<<<<`, `=======` et `>>>>>>>`],
+    [une fois résolu], reponse[`git add` puis `git merge --continue`],
   )
 
   #notes[
-    Les marqueurs sont du texte ordinaire : ils doivent disparaître du
-    fichier. Vérifier que le fichier est encore du Python exécutable avant de
-    poursuivre le merge.
+    Les marqueurs sont du texte ordinaire : les supprimer du fichier. Faire
+    lancer `python src/main.py` avant de poursuivre le merge.
   ]
 ]

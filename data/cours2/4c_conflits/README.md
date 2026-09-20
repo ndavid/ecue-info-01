@@ -1,7 +1,8 @@
 # Créer et résoudre un conflit — TD 4c, cours 2
 
 Questions 21 à 25 du TP. Deux branches modifient la même partie de
-`src/main.py`, de deux façons. Le second merge s'arrête : c'est voulu.
+`src/main.py`, de deux façons. Le second merge s'arrête sur un conflit, que
+l'on résout.
 
 | Dossier | Ce qu'il contient |
 |---|---|
@@ -15,13 +16,13 @@ On travaille dans le projet créé au TD 3a,
 | `main_regex.py` | 21 | `main_code` | une expression régulière trouve le motif dans la ligne tapée |
 | `main_operations.py` | 23 | `main_code_bis` | la chaîne est découpée, et les deux morceaux vérifiés avec `isnumeric()` |
 
-Les deux écrivent le même endroit du fichier : c'est de là que vient le
+Les deux versions modifient les mêmes lignes du fichier : c'est la cause du
 conflit de la question 24.
 
 ## Déroulé
 
 ```bash
-# 21. la première version, sur main_code — on ne la fusionne pas
+# 21. la première version, sur main_code ; on ne la fusionne pas
 git checkout main_code
 #    copier main_regex.py dans src/main.py
 git commit -am "lecture de l'opération avec une regex"
@@ -55,11 +56,11 @@ git écrit dans le fichier les deux versions, séparées par trois marqueurs :
 >>>>>>> main_code
 ```
 
-Ce sont des lignes de texte ordinaires, pas une syntaxe que Python
-comprendrait : **les trois doivent disparaître**. Vérifier que le fichier se
-lance encore avant de poursuivre le merge.
+Ce sont des lignes de texte ordinaires ; laissées dans le fichier, elles
+provoquent une `SyntaxError`. Supprimer les trois, puis lancer
+`python src/main.py` avant de poursuivre le merge.
 
-## Une correction par rapport au sujet d'origine
+## Corrections par rapport au sujet d'origine
 
 Le sujet livré appelle une fonction `sub()` qui ne figure pas dans la liste
 des fonctions à écrire (question 15) : `add(x, sub(y))` devient ici

@@ -10,6 +10,9 @@ La séance 1 (`src/cours1/`) sert de modèle de mise en forme.
 
 Objectif : lancer des outils au terminal (sans dépendre de l'OS) et versionner son travail en local.
 
+Le terminal de la séance est bash, avec git : comment l'ouvrir sur les
+postes est dans [Git et Git Bash](../annexes/configuration/git.md).
+
 - **🎓 12′ · Modèle mental CLI** : une commande = un programme + des arguments + des options ; GUI vs CLI ; bonnes pratiques (`--help`, `--verbose`).
 - **🎓 5′ · Intérêt** : la CLI permet d'**enchaîner et d'automatiser** des étapes (motive le cours 3).
 - **⌨️ 13′ · Un outil utile tout de suite** : `pandoc fiche.md -o fiche.pdf --pdf-engine=typst` (conversion de document, sans LaTeX) ; éventuellement une conversion ImageMagick.

@@ -1,10 +1,10 @@
 # Diapositives — Cours 2
 
-La séance est le portage en typst du support Beamer de **Florent Geniet**,
+La séance est le portage en typst du support Beamer de Florent Geniet,
 `cours_introduction_informatique_ing1.pdf` (57 pages, 17 septembre 2026), et
 de son TP `TP_session_2.md`.
 
-Le portage suit le support d'origine **page pour page** : les 57 pages du PDF
+Le portage suit le support d'origine page pour page : les 57 pages du PDF
 sont les 57 pages de l'exposé produit ici, révélation progressive comprise.
 Les 51 titres de diapositive qui ne changent pas sont identiques ; les six
 autres sont listés plus bas.
@@ -16,10 +16,10 @@ autres sont listés plus bas.
 ## Ce que ce dossier ne fait pas comme le cours 1
 
 Le cours 1 suit la structure *assertion-evidence* de [`STYLE.md`](../../../STYLE.md) :
-pas de liste à puces, une preuve visuelle par diapositive. **Le cours 2 y
-déroge**, volontairement : le support de Florent est construit en listes qui
-se dévoilent, et la reprise est fidèle. Deux formes propres à cette séance en
-découlent, définies dans [`style.typ`](style.typ) :
+pas de liste à puces, une preuve visuelle par diapositive. Le cours 2 y
+déroge : le support de Florent est construit en listes qui se dévoilent, et
+la reprise est fidèle. Les formes propres à cette séance sont définies dans
+[`style.typ`](style.typ) :
 
 | Gabarit | Rôle |
 |---|---|
@@ -34,9 +34,10 @@ pixel sur le PDF d'origine. Elles ne sortent pas de ce dossier.
 ## Rendu Beamer
 
 Le thème commun est une transposition de Bruno ; le PDF de Florent est un
-Bruno d'origine. Les deux ont été mesurés — positions et hauteurs des lignes
-par `pdftotext -bbox-layout`, couleurs et aplats au pixel — et
+Bruno d'origine. Les deux ont été mesurés (positions et hauteurs des lignes
+par `pdftotext -bbox-layout`, couleurs et aplats au pixel) et
 [`beamer.typ`](beamer.typ) corrige, pour cette séance seulement, ce qui se
+corrige sans toucher au thème.
 corrige sans toucher au thème. Les valeurs sont en pourcentage de la hauteur
 de page quand c'est ce qui se compare, en points de la page de 297 mm sinon.
 
@@ -87,7 +88,7 @@ dépôt, déjà employé au cours 1.
 | [`../../commun/schemas_git.typ`](../../commun/schemas_git.typ) | `graphe-git` et ses annotations : le cours 6 les reprendra |
 | [`schemas.typ`](schemas.typ) | arborescence, invite commentée, dossier `.git`, cycle de vie d'un fichier, git-flow, « Git : c'est quoi ? », sorties de terminal |
 
-Une exception : les **logos** de la diapositive « Git : c'est quoi ? » sont
+Une exception : les logos de la diapositive « Git : c'est quoi ? » sont
 repris tels quels, découpés dans le support d'origine, dans
 [`illustrations/cours2/logos/`](../../../illustrations/cours2/logos/). Ce sont
 des marques, qu'un tracé approché rendrait moins reconnaissables. Ils sont
@@ -96,12 +97,11 @@ qui les réserverait à `--input captures=true` : le document ne compile pas
 sans eux. Leurs largeurs sont des multiples de `echelle`, comme le reste du
 dessin.
 
-`graphe-git` prend une liste de commits — un nom, une colonne, une voie, ses
-parents — et un `etape` qui dit lesquels sont déjà là. Les annotations d'une
+`graphe-git` prend une liste de commits (un nom, une colonne, une voie, ses
+parents) et un `etape` qui dit lesquels sont déjà là. Les annotations d'une
 seule diapositive (HEAD, l'ellipse rouge, l'étoile de conflit) passent par
 `extra`, une fonction qui reçoit la position d'un commit et le module de
-dessin : sans cela, cette fonction aurait autant d'options que la séance a de
-diapositives.
+dessin : sans cela, il faudrait une option par annotation.
 
 Aucun paquet spécialisé n'existe pour les graphes git : le registre typst
 (1607 paquets au 19 septembre 2026) n'en contient pas. `fletcher` et
@@ -109,13 +109,13 @@ Aucun paquet spécialisé n'existe pour les graphes git : le registre typst
 
 Les hauteurs se règlent par `echelle`, qui multiplie l'unité du dessin. Le
 texte des étiquettes, lui, ne suit pas cette échelle : un dessin trop réduit
-fait donc se chevaucher les noms de commit. C'est la seule chose à surveiller
-en déplaçant un schéma.
+fait donc se chevaucher les noms de commit. À surveiller en déplaçant un
+schéma.
 
 ### L'invite commentée
 
 `invite-commentee` compose l'invite du terminal avec les couleurs que bash lui
-donne — l'utilisateur en vert, le dossier courant en bleu — et pose une
+donne (l'utilisateur en vert, le dossier courant en bleu) et pose une
 accolade sous chacune des trois parties nommées. Les positions sont calculées
 au caractère près : DejaVu Sans Mono a une chasse de 0,602 em, donc la largeur
 d'un caractère ne dépend que du corps, et une accolade se place sous le
@@ -123,11 +123,11 @@ septième caractère sans rien mesurer.
 
 ### L'arborescence
 
-Chaque nœud dit de quel côté son nom se pose — `dessus`, `dessous`, `gauche`
-ou `droite`. Un nom placé au-dessus tombe sur l'arête qui arrive du parent ;
-placé au-dessous, sur celle qui descend vers les enfants. Le côté est donc
-choisi nœud par nœud, celui qu'aucun trait n'occupe. En déplaçant un nœud, il
-faut revoir ce champ.
+Chaque nœud porte le côté où son nom se pose : `dessus`, `dessous`, `gauche`
+ou `droite`. Un nom placé au-dessus chevauche l'arête qui arrive du parent ;
+placé au-dessous, celle qui descend vers les enfants. Le côté est donc choisi
+nœud par nœud, celui qu'aucun trait n'occupe. En déplaçant un nœud, il faut
+revoir ce champ.
 
 ## Écarts avec le support d'origine
 
@@ -144,10 +144,10 @@ Le reste — texte, ordre, schémas, découpage des étapes — suit l'original.
 
 ## TD
 
-Le TP livré est **un seul exercice filé** : ses 27 questions construisent le
+Le TP d'origine est un exercice unique : ses 27 questions construisent le
 même projet. Il est découpé en cinq TD, joués chacun après la partie qui
-l'outille, et le dépôt qu'ils construisent vit d'un bout à l'autre dans
-`data/cours2/3a_premier_depot/travail/projet_2`.
+l'outille. Le dépôt qu'ils construisent reste dans
+`data/cours2/3a_premier_depot/travail/projet_2` d'un TD à l'autre.
 
 | TD | Questions | Joué après |
 |---|---|---|
@@ -180,7 +180,6 @@ python outils/verifier_diapos.py src/cours2/diapo/cours2.pdf
 fait autant, page pour page, comme le demande le
 [README du cours 1](../../cours1/diapo/README.md).
 
-`verifier_diapos.py` ne sait pas lire une diapositive à sous-titre : il prend
-le sous-titre, composé à 21 pt, pour la première ligne du corps et annonce un
-écart nul. Aucune diapositive du cours 2 n'emploie `sous-titre`, et le verdict
-vaut donc tel quel.
+`verifier_diapos.py` traite un sous-titre, composé à 21 pt, comme la première
+ligne du corps, et mesure alors un écart nul. Aucune diapositive du cours 2
+n'emploie `sous-titre`, et le verdict vaut donc tel quel.

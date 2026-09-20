@@ -41,9 +41,8 @@
   )
 
   #notes[
-    C'est la commande qu'on installe en alias au début du TD : `git llog`.
-    Sans le `--graph`, l'historique s'affiche à plat et les branches
-    disparaissent.
+    Le TD 3a en fait l'alias `git llog`. Sans `--graph`, l'historique
+    s'affiche en une seule colonne, sans les branches.
   ]
 ]
 
@@ -83,9 +82,9 @@
   ), taille: 11.5pt)
 
   #notes[
-    `git status` est la commande à taper en cas de doute : elle dit où l'on
-    en est et propose la commande suivante. Leur faire prendre le réflexe
-    avant qu'ils demandent.
+    `git status` affiche la branche courante, l'état de chaque fichier et,
+    entre parenthèses, les commandes possibles. À taper avant de demander de
+    l'aide.
   ]
 ]
 
@@ -100,8 +99,8 @@ build
 img/*.png")
 
   #notes[
-    Ce qui s'ignore : ce qui se régénère (`build`, `__pycache__`), ce qui est
-    propre au poste (`.vscode`), et ce qui ne doit pas sortir (mots de passe,
-    clés). Les deux derniers reviennent au cours 5.
+    Trois sortes de fichiers à ignorer : les fichiers produits par une
+    commande (`build`, `__pycache__`), les réglages du poste (`.vscode`), les
+    secrets (mots de passe, clés). Les secrets reviennent au cours 5.
   ]
 ]

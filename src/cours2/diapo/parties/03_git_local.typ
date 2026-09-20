@@ -37,9 +37,8 @@
   )
 
   #notes[
-    Insister : le dépôt, c'est le dossier `.git`. Le supprimer efface
-    l'historique et ne touche pas aux fichiers de travail. C'est aussi
-    pourquoi un dépôt ne se crée pas dans un dossier qui en contient déjà un.
+    Le dépôt est le dossier `.git`. Le supprimer efface l'historique ; les
+    fichiers de travail restent.
   ]
 ]
 
@@ -66,9 +65,8 @@
   )
 
   #notes[
-    Un commit n'est pas une sauvegarde de plus : c'est un état du projet
-    entier, nommé, auquel on peut revenir. Le mot reviendra à chaque
-    diapositive, autant le fixer ici.
+    Un commit est un état enregistré du projet entier, avec un identifiant,
+    auquel on peut revenir.
   ]
 ]
 
@@ -111,9 +109,10 @@ git add .")
 
     #if etape == 5 {
       notes[
-        Les quatre états sont ceux que `git status` nomme. Faire le lien
-        explicitement : « non suivi » = _untracked_, « nouvel état » = ce qui
-        est déjà validé, « modifié » = _modified_.
+        Correspondance avec `git status` : « non suivi » = « Fichiers non
+        suivis » ; « suivi & non modifié » = « Modifications qui seront
+        validées » ; « modifié » = « Modifications qui ne seront pas
+        validées » ; « nouvel état » = « rien à valider ».
       ]
     }
   ]
@@ -145,9 +144,9 @@ git add .")
   )
 
   #notes[
-    `revert` n'efface rien : il ajoute un commit qui défait le précédent.
-    C'est pour cela qu'il est sans danger sur un historique déjà partagé,
-    contrairement à `reset`, qu'on ne voit pas aujourd'hui.
+    `revert` ajoute un commit qui défait le commit visé ; les commits
+    existants restent. `reset`, qui retire des commits de la branche, n'est
+    pas vu aujourd'hui.
   ]
 ]
 
@@ -174,8 +173,7 @@ git add .")
   )
 
   #notes[
-    Le tag nomme une version pour les humains, là où le commit porte une
-    empreinte illisible. C'est ce qui est publié au moment d'une livraison —
-    on s'en sert dans ce dépôt pour marquer chaque séance.
+    Un tag donne un nom choisi (`v1.0`) à un commit, dont l'identifiant est
+    une empreinte SHA-1 de 40 caractères. Le TD 6a en pose un.
   ]
 ]

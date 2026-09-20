@@ -7,14 +7,14 @@ et on y enregistre un premier état.
 |---|---|
 | `travail/` | vide : c'est là que vous créez `projet_2` |
 
-**Le projet créé ici sert à toute la séance.** Les TD 4a, 4b, 4c et 6a le
+Le projet créé ici sert à toute la séance. Les TD 4a, 4b, 4c et 6a le
 reprennent, chacun là où le précédent s'est arrêté : ne le supprimez pas entre
 deux TD.
 
 ## Déroulé
 
 ```bash
-# 1. l'alias qui affiche le graphe, une fois pour toutes
+# 1. l'alias qui affiche le graphe, enregistré dans la configuration globale
 git config --global alias.llog 'log --graph --pretty=oneline --abbrev-commit --decorate'
 
 # 2 et 3. le dossier du projet, et le dépôt
@@ -39,8 +39,8 @@ git llog       # un commit, et la branche courante à côté
 Le fichier est demandé en markdown : il prend donc l'extension `.md`. Le sujet
 d'origine écrit `README` sans extension.
 
-## Là où ça coince
+## Erreur fréquente
 
-L'erreur la plus fréquente est de lancer `git init` un cran trop haut, dans
-`travail/` au lieu de `projet_2`. `git status` le dit — encore faut-il le
-lire. Pour défaire : supprimer le dossier `.git` créé au mauvais endroit.
+`git init` lancé dans `travail/` au lieu de `projet_2`. Vérifier le dossier
+courant avec `pwd` avant `git init`. Pour défaire : supprimer le dossier
+`.git` créé au mauvais endroit.

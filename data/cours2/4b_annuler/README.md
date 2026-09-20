@@ -24,12 +24,11 @@ git rebase develop
 
 ## Ce qu'il faut avoir constaté
 
-Le commit créé par `git revert` **n'a pas** le même identifiant que celui
-qu'il annule : il rend le même contenu, mais c'est un commit de plus, ajouté
-au bout de l'historique. Rien n'est effacé — c'est ce qui rend `revert` sans
-danger sur un historique déjà partagé.
+Le commit créé par `git revert` a son propre identifiant. Il est ajouté au
+bout de l'historique, et le contenu du projet redevient celui d'avant la
+suppression. Aucun commit n'est effacé.
 
-Le `rebase`, lui, réécrit : les commits de la branche changent d'identifiant.
-Afficher `git llog` avant et après, c'est le seul moyen de le voir. C'est sans
-conséquence ici parce que personne d'autre n'a récupéré cette branche ; en
-équipe, ce serait à éviter, et le cours 6 y revient.
+Le `rebase` réécrit l'historique de la branche : ses commits changent
+d'identifiant. Afficher `git llog` avant et après pour le constater. Une
+branche que quelqu'un d'autre a déjà récupérée ne se rebase pas ; le cours 6
+y revient.
