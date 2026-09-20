@@ -1,0 +1,27 @@
+// Cours 5 — clôture. Incluse par `cours5.typ`.
+#import "../../../commun/prelude.typ": *
+
+#d("Vers le cours 6")[
+  #annonce[
+    Ce qui est en place aujourd'hui, et ce que la séance suivante en fait.
+  ]
+
+  #tableau(
+    columns: (1fr, 1fr),
+    align: (left + horizon, left + horizon),
+    [Fait aujourd'hui], [Au cours 6],
+    [un compte sur la forge], [un dépôt distant pour chaque projet],
+    [une clé SSH sur ce compte], [`git clone`, `git push`, `git pull` sans mot de passe],
+    [le secret dans un fichier ignoré], [le `.gitignore` du dépôt de chacun],
+    [commit local, push réseau], [travailler à plusieurs sur le même dépôt : branches, fusion],
+  )
+
+  #legende[
+    Le cours 6 commence par `git clone` : la clé doit marcher avant.
+  ]
+
+  #notes[
+    Quiconque n'a pas fini le TD 2a le finit avant le cours 6, seul, avec la
+    feuille du TD : elle est dans `cours5/2a_cle_ssh/`.
+  ]
+]

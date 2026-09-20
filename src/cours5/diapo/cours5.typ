@@ -1,20 +1,53 @@
-#import "../../commun/prelude.typ": *
+// Cours 5 — fichier d'assemblage.
+//
+// Le contenu est dans `parties/` et `tds/`, un fichier par partie de l'exposé
+// et par TD. Ce fichier ne porte que les réglages globaux et l'ordre des
+// parties. Les schémas dessinés sont dans `schemas.typ`.
+//
+//   python outils/compiler_diapos.py --cours 5              # à projeter
+//   python outils/compiler_diapos.py --cours 5 --notes      # notes de conduite
+//   python outils/compiler_diapos.py --cours 5 --corrige    # corrigé des TD
+//   python outils/compiler_diapos.py --cours 5 --sans-tds   # le fil du cours
+//
+// Conventions d'écriture : STYLE.md à la racine. Gabarits : voir
+// `src/cours1/diapo/README.md`. Déroulé : `syllabus/cours/5_materiel_reseau_ssh/`.
 
-// Gabarit — contenu à rédiger. Plan recopié du syllabus.
-// Modèle : src/cours1/diapo/cours1.typ
+#import "../../commun/prelude.typ": *
 
 #show: diapos.with(
   titre-court: "Introduction à l'informatique",
   auteur-court: "1re année géomatique",
 )
 
-#page-titre(
-  titre: "Cours 5",
-  sous-titre: "Matériel, réseau, SSH et secrets",
-  auteur: "1re année géomatique",
-  date: "",
-)
+#let tds = sys.inputs.at("tds", default: "") != "false"
 
-#d("Plan de la séance")[
-  À rédiger — voir `syllabus/cours/5_materiel_reseau_ssh/contenu_detaille.md`.
-]
+#import "tds/1a_mesures.typ": td as td-1a
+#import "tds/2a_cle_ssh.typ": td as td-2a
+#import "tds/3a_secret_historique.typ": td as td-3a
+
+#include "parties/00_ouverture.typ"
+
+#include "parties/01_materiel.typ"
+
+#include "parties/02_reseau.typ"
+#if tds {
+  include "tds/1a_mesures.typ"
+} else {
+  sommaire-td(td-1a)
+}
+
+#include "parties/03_cles_ssh.typ"
+#if tds {
+  include "tds/2a_cle_ssh.typ"
+} else {
+  sommaire-td(td-2a)
+}
+
+#include "parties/04_secrets_securite.typ"
+#if tds {
+  include "tds/3a_secret_historique.typ"
+} else {
+  sommaire-td(td-3a)
+}
+
+#include "parties/99_cloture.typ"

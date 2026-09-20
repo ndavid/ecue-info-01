@@ -1,25 +1,18 @@
-# Données — Cours 5 : Matériel & réseau ; SSH, clés, secrets (CM)
+# Données — Cours 5
 
-_(vide pour l'instant)_
+Un dossier par TD, nommé comme le TD l'est dans les diapositives : le chiffre
+est le bloc, joué au même moment du cours, la lettre l'ordre dans le bloc.
+Le fichier typst du TD porte le même nom, `src/cours5/diapo/tds/1a_mesures.typ`
+pour `1a_mesures/`.
 
-Modèle : [`data/cours1/`](../cours1/) — le dépôt versionne un `make_data.py`
-qui **génère** les fichiers de l'exercice, pas les fichiers eux-mêmes
-(cf. `.gitignore` à la racine).
+| Dossier | TD | |
+|---------|----|-|
+| [`1a_mesures/`](1a_mesures/) | relever les caractéristiques du poste, puis mesurer quatre temps avec `mesures.py` : processeur, mémoire, disque, réseau | |
+| [`2a_cle_ssh/`](2a_cle_ssh/) | fabriquer une paire de clés SSH, coller la clé publique sur GitHub, vérifier la connexion ; `config` de secours si le port 22 est fermé | |
+| [`3a_secret_historique/`](3a_secret_historique/) | committer une fausse clé, la supprimer, constater qu'elle reste dans l'historique, puis l'en tenir à l'écart | facultatif |
 
-Besoins pressentis, d'après le [syllabus](../../syllabus/01_syllabus_v1.md) :
+Aucun `make_data.py` : les trois TD n'ont besoin d'aucune donnée fabriquée.
+Le fichier de 100 Mo du TD 1a est écrit par le script lui-même, puis supprimé.
 
-Deux moitiés indépendantes ; la 2ᵉ prépare directement la forge (cours 6).
-
-**A. Matériel, réseau & ordres de grandeur (~1 h) — culture, très haut niveau.**
-
-- **🎓 12′ · Composants d'un PC** : CPU, RAM, disque (SSD/HDD), GPU — rôle de chacun en une phrase.
-- **🎓 13′ · Réseau, le minimum** : local vs distant, client ↔ serveur, débit vs latence (motive « pourquoi un `push` est plus lent qu'un `commit` »).
-- **🎓 20′ · Ordres de grandeur** (fil rouge de la séance) : temps d'accès (RAM ≪ SSD ≪ réseau), tailles (Ko/Mo/Go/To), coûts ; rendus incarnés par une échelle relative mémorable (« si la RAM = 1 s, le disque = …, le réseau = … »).
-- **⌨️ 15′ · TD léger** : comparer la taille d'une même image en png vs jpg (compression → cours 1) ; chronométrer la lecture d'un petit vs gros fichier (→ cours 2).
-- **Cohérence** : se raccroche à trois fils déjà vus/à venir — tailles & compression (c.1), timing fichier (c.2), local vs distant (forge, c.6). *(Si un point ne se raccroche pas, tant pis : toutes les notions de base ne sont pas interdépendantes.)*
-
-**B. SSH, clés & secrets (~1 h) — pratique, juste avant la forge.**
-
-- **🎓 20′ · Crypto clé publique/privée**, niveau concept : une paire, publique partagée / privée secrète (analogie cadenas) ; hachage ≠ chiffrement (rappel du SHA de commit, cours 2).
-- **⌨️ 25′ · `ssh-keygen`** + ajout de la clé **publique** au compte de la forge (préparation du cours 6).
-- **🎓 15′ · Secrets & `.gitignore`** : ne jamais committer clé privée, mot de passe, token ; l'historique public est **permanent**. *(La leçon « secrets » atterrit ici.)*
+Chaque dossier a son README. Le TD facultatif n'est pas fait en séance ; ses
+diapositives et ses fichiers sont là pour qui va plus vite, ou pour après.
