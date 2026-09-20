@@ -128,17 +128,13 @@ git add .")
       Cette commande crée un nouveau commit !
     ],
     align(center, _chaine(
-      ("", "", ""),
+      ("commit 1", "commit 2", "commit 3"),
       teintes: ("1": rgb("#F5C6C6")),
       echelle: 1.25,
       extra: (pos, d) => {
         pont(d, pos("k0"), pos("k2"), "Même état")
-        d.content((pos("k1").at(0) + 0.1, pos("k1").at(1) - 0.42),
-                  text(size: 9pt, fill: accent)[git revert], anchor: "north-west")
-        // Tirets d'entrée.
-        d.line((pos("k0").at(0) - 0.95, pos("k0").at(1)),
-               (pos("k0").at(0) - 0.3, pos("k0").at(1)),
-               stroke: (paint: accent, thickness: 0.9pt, dash: "densely-dashed"))
+        d.content((pos("k2").at(0), pos("k2").at(1) - 0.55),
+                  text(size: 9pt, fill: accent)[git revert c2], anchor: "north")
       },
     )),
   )
@@ -159,15 +155,12 @@ git add .")
       #code("git tag -a <nom du tag> -m <message de tag>")
     ],
     align(center, _chaine(
-      ("", "", ""),
+      ("commit 1", "commit 2", "commit 3"),
       teintes: ("1": rgb("#BFE3BF")),
       echelle: 1.25,
       extra: (pos, d) => {
-        d.content((pos("k1").at(0), pos("k1").at(1) - 0.42),
+        d.content((pos("k1").at(0), pos("k1").at(1) - 0.55),
                   text(size: 9pt, fill: accent)[Tag : V1.0], anchor: "north")
-        d.line((pos("k0").at(0) - 0.95, pos("k0").at(1)),
-               (pos("k0").at(0) - 0.3, pos("k0").at(1)),
-               stroke: (paint: accent, thickness: 0.9pt, dash: "densely-dashed"))
       },
     )),
   )

@@ -24,6 +24,11 @@
   (nom: "branche 2", voie: 2, col: 0, ancre: "east"),
 )
 
+// Après `git merge` : un commit de fusion, à deux parents.
+#let _reference-fusion = _reference + (
+  (nom: "c9", col: 4, voie: 0, etiquette: "merge", parents: ("c8", "c6")),
+)
+
 // Avec des noms de branche, pas de flèche de prolongement : ils se
 // superposeraient.
 #let _graphe-reference(echelle: 1.15, branches: (), extra: none) = graphe-git(
@@ -39,9 +44,9 @@
 #let _deux-branches(haut, bas, echelle: 1.0) = graphe-git(
   taille-etiquette: 11pt,
   commits: (
-    (nom: "a", col: 0, voie: 0, etiquette: ""),
-    (nom: "b", col: 1, voie: 0, etiquette: "", parents: ("a",)),
-    (nom: "c", col: 1, voie: 1.6, etiquette: "", parents: ("a",)),
+    (nom: "a", col: 0, voie: 0, id: "c1"),
+    (nom: "b", col: 1, voie: 0, id: "c2", parents: ("a",)),
+    (nom: "c", col: 1, voie: 1.6, id: "c3", parents: ("a",)),
   ),
   branches: (
     (nom: haut, voie: 1.6, col: 1, ancre: "west", dy: 0.42),
@@ -70,7 +75,7 @@ git checkout <nom_de_branche>
 #voir les différentes branches
 git branch")
     ],
-    align(center, _deux-branches("branche 2", "branche 1", echelle: 1.2)),
+    align(center, _deux-branches("branche 2", "branche 1", echelle: 1.5)),
   )
 ]
 
@@ -78,7 +83,7 @@ git branch")
   #grid(
     columns: (1fr, 1fr), column-gutter: 18pt, align: horizon,
     [La branche initiale s'appelle *master*, ou parfois *main*.],
-    align(center, _deux-branches("branche", "main", echelle: 1.4)),
+    align(center, _deux-branches("branche", "main", echelle: 1.7)),
   )
 
   #notes[
@@ -139,11 +144,15 @@ git checkout <nom_de_commit>")
 #dans la branche courante
 git merge <b_1>")
     ],
-    align(center, _graphe-reference(echelle: 1.2, extra: (pos, d) => {
-      d.line(pos("c6"), pos("c8"),
-             stroke: (paint: estompe, thickness: 1pt, dash: "densely-dashed"))
-      etiquette-arete(d, pos("c6"), pos("c8"), "merge", decalage: (0.42, 0))
-    })),
+    align(center, graphe-git(
+      commits: _reference-fusion,
+      branches: _branches-reference,
+      taille-etiquette: 11pt,
+      echelle: 1.1,
+      extra: (pos, d) => {
+        etiquette-arete(d, pos("c6"), pos("c9"), "merge", decalage: (0.55, 0.1))
+      },
+    )),
   )
 ]
 
@@ -172,17 +181,17 @@ git merge <b_1>")
 git rebase <b_1> <b_2>")
     ],
     align(center)[
-      #_graphe-reference(echelle: 0.95, branches: _branches-reference)
-      #v(0.15em)
-      #text(size: 24pt, fill: accent)[#sym.arrow.b]
-      #v(0.15em)
+      #_graphe-reference(echelle: 0.78, branches: _branches-reference)
+      #v(-0.2em)
+      #text(size: 22pt, fill: accent)[#sym.arrow.b]
+      #v(-0.2em)
       #graphe-git(
         commits: _rebase-apres,
         branches: (
           (nom: "branche 1", voie: 0, col: 3, ancre: "west"),
           (nom: "branche 2", voie: 2, col: 3.7, ancre: "east"),
         ),
-        echelle: 0.95,
+        echelle: 0.78,
         taille-etiquette: 11pt,
       )
     ],

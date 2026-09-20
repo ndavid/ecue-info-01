@@ -103,14 +103,25 @@ seule diapositive (HEAD, l'ellipse rouge, l'étoile de conflit) passent par
 `extra`, une fonction qui reçoit la position d'un commit et le module de
 dessin : sans cela, il faudrait une option par annotation.
 
+Le dessin suit les conventions de Pro Git et du paquet LaTeX gitdags, que
+reprennent Learn Git Branching et git-sim : l'identifiant du commit est
+dans la pastille (`c7` ; déduit du nom ou de l'étiquette, ou donné par
+`id`), l'arête pleine va de l'enfant vers le parent, sens du pointeur dans
+git, une branche est un cartouche accroché au dernier commit de sa voie (ou
+au commit nommé par `commit`), HEAD un cartouche relié par une flèche, et un
+commit à deux parents, une fusion, porte un double trait. Chaque voie a sa
+couleur : le tronc en `accent`, puis `brun` et `attention`. Le support
+d'origine dessinait des pastilles vides reliées en tirets, avec « commit n »
+en dessous ; les mêmes appels donnent le nouveau dessin.
+
 Aucun paquet spécialisé n'existe pour les graphes git : le registre typst
 (1607 paquets au 19 septembre 2026) n'en contient pas. `fletcher` et
 `diagraph` auraient ajouté une dépendance pour un résultat moins réglable.
 
-Les hauteurs se règlent par `echelle`, qui multiplie l'unité du dessin. Le
-texte des étiquettes, lui, ne suit pas cette échelle : un dessin trop réduit
-fait donc se chevaucher les noms de commit. À surveiller en déplaçant un
-schéma.
+Les hauteurs se règlent par `echelle`, qui multiplie l'unité du dessin.
+L'identifiant dans la pastille suit cette échelle, pour y tenir ; les autres
+textes (étiquettes, cartouches), non. Un dessin trop réduit fait donc se
+chevaucher les étiquettes. À surveiller en déplaçant un schéma.
 
 ### L'invite commentée
 

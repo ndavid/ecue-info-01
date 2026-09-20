@@ -73,7 +73,7 @@
         ecran(d, (x + 0.6, haut + 0.25), taille: 0.6)
         let c = pos(cibles.at(i))
         d.line(
-          (x, haut - 0.35), (c.at(0) - 0.05, c.at(1) + 0.34),
+          (x, haut - 0.35), (c.at(0) - 0.05, c.at(1) + 0.46),
           stroke: 0.9pt + accent, mark: (end: ">", fill: accent, scale: 0.45),
         )
       }
@@ -93,7 +93,7 @@
         }
         let c = pos(("c1", "c4", "c7", "c8").at(i))
         d.line(
-          (x, bas + 0.4), (c.at(0), c.at(1) - 0.34),
+          (x, bas + 0.4), (c.at(0), c.at(1) - 0.46),
           stroke: 0.9pt + accent, mark: (end: ">", fill: accent, scale: 0.45),
         )
       }

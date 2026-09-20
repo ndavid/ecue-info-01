@@ -3,19 +3,53 @@
 // Sert au cours 2 ; le cours 6 (forge et git en équipe) le reprendra. Les
 // dessins sont en unités de `cetz.canvas`, mis à l'échelle par `echelle`.
 //
+// Le dessin suit les conventions de Pro Git et de gitdags : chaque commit
+// porte son identifiant, l'arête va de l'enfant vers le parent (c'est le sens
+// du pointeur dans git), une branche est un cartouche accroché au commit
+// qu'elle désigne, et un commit de fusion, qui a deux parents, se distingue
+// par un double trait. Chaque voie a sa couleur.
+//
 // `cetz.draw` n'est ouvert que dans les `canvas` : ses noms (`grid`, `line`,
 // `content`, `rect`) masqueraient ceux de typst chez qui importerait ce
 // fichier avec `: *`.
 
 #import "@preview/cetz:0.4.2"
-#import "theme.typ": accent, estompe, demi-gras
+#import "theme.typ": accent, estompe, brun, attention, demi-gras, police-code
 
 // Le rouge du support d'origine : l'arête de fusion, le conflit.
 #let rouge-attention = rgb("#E8112D")
 
-#let _pastille = 0.3          // rayon d'un commit
+#let _pastille = 0.44         // rayon d'un commit
 #let _ecart-x = 1.75          // d'un commit au suivant
 #let _ecart-y = 1.3           // d'une voie à la suivante
+#let _arete = 1.3pt           // épaisseur d'une arête
+
+// Une couleur par voie : le tronc, puis les branches.
+#let _couleurs-voies = (accent, brun, attention)
+#let _teinte-voie(voie) = _couleurs-voies.at(calc.rem(int(voie), _couleurs-voies.len()))
+
+// L'identifiant écrit dans la pastille. Explicite (`id`), sinon déduit du
+// nom (`c7`), sinon de l'étiquette (« commit 7 » → `c7`, « Initial commit »
+// → `c0`, « commit 2 bis » → `c2′`, « merge » → `m`), sinon vide.
+#let _identifiant(c) = {
+  if "id" in c { return c.id }
+  if c.nom.match(regex("^c\d+$")) != none { return c.nom }
+  let e = c.at("etiquette", default: "")
+  if e == "Initial commit" { return "c0" }
+  if e == "merge" { return "m" }
+  let m = e.match(regex("^commit (\d+)( bis)?$"))
+  if m != none { return "c" + m.captures.at(0) + if m.captures.at(1) != none { "′" } else { "" } }
+  ""
+}
+
+// L'étiquette affichée sous la pastille : celle qui n'est pas déjà dans
+// l'identifiant (« Initial commit », « v1 »).
+#let _legende(c) = {
+  let e = c.at("etiquette", default: "")
+  if e == "" or e == "merge" { return "" }
+  if e.match(regex("^commit \d+( bis)?$")) != none { return "" }
+  e
+}
 
 // ---------------------------------------------------------------------------
 // Le graphe de commits
@@ -26,11 +60,14 @@
 //
 // `col` est l'abscisse, `voie` la ligne de développement. Facultatifs :
 // `etape` (le commit apparaît à partir de cette étape), `teinte` (fond de la
-// pastille), `place` (« dessus » ou « dessous » pour l'étiquette ; par défaut
-// dessous sur la voie 0, dessus ailleurs).
+// pastille, à la place du fond de la voie), `id` (le texte dans la pastille),
+// `place` (« dessus » ou « dessous » pour l'étiquette et le cartouche de
+// branche ; par défaut dessous sur la voie 0, dessus ailleurs).
 //
-// `branches` : (nom, voie, col, ancre: "west" | "east", dy).
-// `fleches` : (depuis, longueur) — un prolongement en tirets vers la droite.
+// `branches` : (nom, voie, col, commit, etape). Le cartouche s'accroche au
+// commit nommé, sinon au dernier commit visible de la voie.
+// `fleches` : (depuis, longueur) — un prolongement en pointillé vers la
+// droite, pour dire que l'historique continue.
 // `extra` : fonction `(pos, d)` appelée en dernier, avec `pos(nom)` qui donne
 // les coordonnées d'un commit et `d` le module `cetz.draw`. Sert aux
 // annotations propres à une diapositive.
@@ -54,49 +91,86 @@
     (c.col * ecart-x, c.voie * ecart-y)
   }
   let visible(c) = c.at("etape", default: 0) <= etape
-  let tirets = (paint: accent, thickness: 0.9pt, dash: "densely-dashed")
+  let dessous(c) = c.at("place", default: if c.voie == 0 { "dessous" } else { "dessus" }) == "dessous"
+  let r = _pastille
 
   // Prolongements, arêtes, puis pastilles : ce qui passe dessous d'abord.
   for f in fleches {
     if f.at("etape", default: 0) > etape { continue }
     let depart = pos(f.depuis)
     line(
-      depart, (depart.at(0) + f.at("longueur", default: 1.4) * ecart-x, depart.at(1)),
-      stroke: tirets, mark: (end: ">", fill: accent, scale: 0.55),
+      (depart.at(0) + r + 0.12, depart.at(1)),
+      (depart.at(0) + f.at("longueur", default: 0.9) * ecart-x, depart.at(1)),
+      stroke: (paint: estompe, thickness: _arete, dash: "dotted"),
     )
   }
 
+  // Une arête par parent, de l'enfant vers le parent, raccourcie au bord des
+  // pastilles.
   for c in commits {
     if not visible(c) { continue }
     for p in c.at("parents", default: ()) {
-      if visible(par-nom.at(p)) { line(pos(p), pos(c.nom), stroke: tirets) }
+      if not visible(par-nom.at(p)) { continue }
+      let (a, b) = (pos(c.nom), pos(p))
+      let (dx, dy) = (b.at(0) - a.at(0), b.at(1) - a.at(1))
+      let n = calc.sqrt(dx * dx + dy * dy)
+      let (ux, uy) = (dx / n, dy / n)
+      line(
+        (a.at(0) + ux * r, a.at(1) + uy * r),
+        (b.at(0) - ux * (r + 0.08), b.at(1) - uy * (r + 0.08)),
+        stroke: _arete + estompe, mark: (end: "straight", fill: estompe, scale: 0.85),
+      )
     }
   }
 
   for c in commits {
     if not visible(c) { continue }
     let p = pos(c.nom)
-    circle(p, radius: _pastille, fill: c.at("teinte", default: white), stroke: 1.1pt + accent)
-    let etiquette = c.at("etiquette", default: "")
-    if etiquette != "" {
-      let dessous = c.at("place", default: if c.voie == 0 { "dessous" } else { "dessus" }) == "dessous"
+    let couleur = _teinte-voie(c.voie)
+    let fond = c.at("teinte", default: couleur.lighten(88%))
+    if fond == white { fond = couleur.lighten(88%) }
+    circle(p, radius: r, fill: fond, stroke: _arete + couleur)
+    // Deux parents : un commit de fusion, en double trait.
+    if c.at("parents", default: ()).len() >= 2 {
+      circle(p, radius: r - 0.09, stroke: 1pt + couleur)
+    }
+    // L'identifiant suit l'échelle, pour tenir dans la pastille ; les autres
+    // textes, non.
+    let id = _identifiant(c)
+    if id != "" {
+      content(p, text(size: calc.max(8pt, (taille-etiquette + 1pt) * echelle), weight: demi-gras, fill: couleur, font: police-code)[#id])
+    }
+    let legende = _legende(c)
+    if legende != "" {
+      let s = if dessous(c) { -1 } else { 1 }
       content(
-        (p.at(0), p.at(1) + if dessous { -0.52 } else { 0.52 }),
-        text(size: taille-etiquette, fill: accent)[#etiquette],
-        anchor: if dessous { "north" } else { "south" },
+        (p.at(0), p.at(1) + s * (r + 0.14)),
+        text(size: taille-etiquette, fill: accent)[#legende],
+        anchor: if s < 0 { "north" } else { "south" },
       )
     }
   }
 
+  // Le cartouche de branche, relié en pointillé au commit qu'il désigne.
   for b in branches {
     if b.at("etape", default: 0) > etape { continue }
-    let ancre = b.at("ancre", default: "west")
-    let dx = if ancre == "west" { 0.55 } else { -0.55 }
-    content(
-      ((b.col + dx) * ecart-x, b.voie * ecart-y + b.at("dy", default: 0)),
-      text(size: taille-etiquette + 1pt, weight: demi-gras, fill: accent)[#b.nom],
-      anchor: ancre,
+    let nom-commit = b.at("commit", default: none)
+    if nom-commit == none {
+      let candidats = commits.filter(c => visible(c) and c.voie == b.voie)
+      if candidats.len() == 0 { continue }
+      nom-commit = candidats.sorted(key: c => c.col).last().nom
+    }
+    let c = par-nom.at(nom-commit)
+    let p = pos(nom-commit)
+    let couleur = _teinte-voie(c.voie)
+    let s = if dessous(c) { -1 } else { 1 }
+    let q = (p.at(0), p.at(1) + s * (r + 0.62))
+    line(
+      (p.at(0), p.at(1) + s * (r + 0.04)), (q.at(0), q.at(1) - s * 0.3),
+      stroke: (paint: couleur, thickness: 1pt, dash: "dotted"),
     )
+    content(q, box(fill: couleur, inset: (x: 6pt, y: 3.5pt), radius: 4pt,
+      text(size: taille-etiquette + 1pt, weight: demi-gras, fill: white)[#b.nom]))
   }
 
   if extra != none { extra(pos, cetz.draw) }
@@ -106,26 +180,30 @@
 // Annotations, à appeler depuis `extra`. `d` est le module `cetz.draw`, `p`,
 // `a` et `b` des positions de commit.
 
-// La flèche HEAD. `dy` négatif : la flèche vient d'en bas ; positif : d'en
-// haut. Choisir le côté que l'étiquette du commit n'occupe pas.
+// Le cartouche HEAD, relié au commit par une flèche. `dy` négatif : le
+// cartouche est sous le commit ; positif : au-dessus. Choisir le côté que
+// l'étiquette du commit n'occupe pas.
 #let marque-tete(d, p, dx: 0.95, dy: -0.8, texte: "HEAD") = {
   let sens = if dy < 0 { -1 } else { 1 }
+  let coin = (p.at(0) + dx, p.at(1) + dy)
+  let (ux, uy) = (p.at(0) - coin.at(0), p.at(1) - coin.at(1))
+  let n = calc.sqrt(ux * ux + uy * uy)
   d.line(
-    (p.at(0) + dx, p.at(1) + dy),
-    (p.at(0) + _pastille * 0.75, p.at(1) + sens * _pastille * 0.75),
-    stroke: 1.6pt + accent, mark: (end: ">", fill: accent, scale: 0.7),
+    coin, (p.at(0) - ux / n * (_pastille + 0.06), p.at(1) - uy / n * (_pastille + 0.06)),
+    stroke: 1.2pt + accent, mark: (end: "straight", fill: accent, scale: 0.8),
   )
   d.content(
-    (p.at(0) + dx, p.at(1) + dy),
-    text(size: 10pt, weight: demi-gras, fill: accent)[#texte],
+    coin,
+    box(stroke: 1pt + accent, fill: white, inset: (x: 5pt, y: 3pt), radius: 4pt,
+      text(size: 10pt, weight: demi-gras, fill: accent)[#texte]),
     anchor: if sens < 0 { "north-west" } else { "south-west" },
   )
 }
 
 // L'ellipse rouge autour d'une arête.
-#let cerne(d, a, b, largeur: 0.42) = {
+#let cerne(d, a, b, largeur: 0.55) = {
   let centre = ((a.at(0) + b.at(0)) / 2, (a.at(1) + b.at(1)) / 2)
-  let h = calc.abs(b.at(1) - a.at(1)) / 2 + 0.3
+  let h = calc.abs(b.at(1) - a.at(1)) / 2 + 0.35
   d.circle(centre, radius: (largeur, h), stroke: 1.1pt + rouge-attention)
 }
 
@@ -147,24 +225,24 @@
 
 // Deux traits qui joignent deux commits à un sommet portant un texte
 // (« Même état »).
-#let pont(d, a, b, texte, hauteur: 1.15) = {
+#let pont(d, a, b, texte, hauteur: 1.25) = {
   let sommet = ((a.at(0) + b.at(0)) / 2, a.at(1) + hauteur)
   d.line((a.at(0), a.at(1) + _pastille), sommet, stroke: 0.9pt + estompe)
   d.line((b.at(0), b.at(1) + _pastille), sommet, stroke: 0.9pt + estompe)
   d.content(sommet, text(size: 9pt, fill: accent)[#texte], anchor: "south")
 }
 
-// Une arête épaisse, d'un bord de pastille à l'autre.
-#let arete-epaisse(d, a, b, epaisseur: 2pt) = {
+// Une arête épaisse, d'un bord de pastille à l'autre, dans le sens de la
+// fusion (de la branche fusionnée vers la branche qui reçoit).
+#let arete-epaisse(d, a, b, epaisseur: 2.2pt) = {
   let dx = b.at(0) - a.at(0)
   let dy = b.at(1) - a.at(1)
   let norme = calc.sqrt(dx * dx + dy * dy)
   let (ux, uy) = (dx / norme, dy / norme)
   d.line(
     (a.at(0) + ux * _pastille, a.at(1) + uy * _pastille),
-    (b.at(0) - ux * _pastille * 1.25, b.at(1) - uy * _pastille * 1.25),
-    stroke: (paint: accent, thickness: epaisseur, dash: "dashed"),
-    mark: (end: ">", fill: accent, scale: 0.5),
+    (b.at(0) - ux * (_pastille + 0.1), b.at(1) - uy * (_pastille + 0.1)),
+    stroke: epaisseur + accent, mark: (end: "straight", fill: accent, scale: 0.9),
   )
 }
 
