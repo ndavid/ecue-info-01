@@ -10,7 +10,7 @@
   titre: "Une clé SSH sur votre compte",
   annonce: "Fabriquer une paire de clés, coller la clé publique sur GitHub, vérifier la connexion",
   dossier: "cours5/2a_cle_ssh/",
-  duree: "25′",
+  duree: "20′",
 )
 #separateur-td(..td)
 

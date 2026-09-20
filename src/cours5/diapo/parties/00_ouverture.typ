@@ -20,15 +20,15 @@
     columns: (1fr, auto, auto),
     align: (left + horizon, left + horizon, right + horizon),
     [Partie], [Nature], [Durée],
-    [Le matériel], [cours], [20′],
+    [Le matériel], [cours], [30′],
     [Le réseau], [cours et TD 1a], [30′],
-    [S'identifier auprès d'une machine distante], [cours et TD 2a], [40′],
+    [S'identifier auprès d'une machine distante], [cours et TD 2a], [35′],
     [Secrets et sécurité], [cours ; TD 3a facultatif], [20′],
   )
 
   #legende[
     Durées indicatives. Aujourd'hui, tout est dans `cours5/` ; les deux TD en
-    séance durent 40′ en tout.
+    séance durent 35′ en tout.
   ]
 
   #notes[

@@ -30,6 +30,14 @@
     Les forges acceptent les deux ; les serveurs de calcul de l'école
     demandent en général la clé. Le module choisit la clé parce qu'elle sert
     partout, et parce que git la demande à chaque `push`.
+
+    Où la même paire sert, à dire : la forge (`git clone
+    git@github.com:alice/projet.git`), un serveur de calcul (`ssh
+    alice@calcul.ecole.fr`), la copie de fichiers (`scp`), l'éditeur à
+    distance (VS Code, extension Remote – SSH). Une seule clé publique,
+    copiée partout où il faut ; une seule clé privée, sur le poste. Un
+    second poste veut sa propre paire. Les forges acceptent aussi HTTPS avec
+    un jeton : un autre secret à garder.
   ]
 ]
 
@@ -109,32 +117,6 @@ SHA256:UdftFYrZHMVT1F9jJrEyd+9auv49Mi15wkj7o+uNUm4 alice.martin@etu.ecole.fr", t
 
     `-C` ajoute un commentaire, qui n'est qu'une étiquette ; `ed25519` est
     le type de clé courant, court et rapide.
-  ]
-]
-
-// --------------------------------------------
-#d("Où une clé SSH sert")[
-  #annonce[
-    La même paire sert à tout ce qui se fait sur une machine distante.
-  ]
-
-  #tableau(
-    columns: (auto, 1fr, 1fr),
-    align: (left + horizon, left + horizon, left + horizon),
-    [Usage], [Commande], [Ce qu'il faut avoir fait],
-    [la forge], [`git clone git@github.com:alice/projet.git`], [collé la clé publique sur son compte],
-    [un serveur de calcul], [`ssh alice@calcul.ecole.fr`], [donné la clé publique à l'administrateur],
-    [copier des fichiers], [`scp resultats.csv alice@calcul.ecole.fr:`], [la même chose],
-    [l'éditeur à distance], [VS Code, extension Remote – SSH], [la même chose],
-  )
-
-  #notes[
-    Une seule clé publique, copiée à autant d'endroits que nécessaire ; une
-    seule clé privée, sur le poste. Un second poste veut sa propre paire :
-    on ajoute une clé publique de plus au compte, on ne copie pas la privée.
-
-    Les forges acceptent aussi HTTPS avec un jeton à la place du mot de
-    passe. Cela marche, et c'est un autre secret à garder.
   ]
 ]
 

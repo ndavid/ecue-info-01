@@ -607,3 +607,85 @@
   ])
   content((16.9, 0.4), anchor: "north", text(size: 13pt, fill: attention)[#petites-capitales("réseau")])
 })
+
+// ---------------------------------------------------------------------------
+// Une photo avec des repères numérotés
+//
+// Les repères sont posés en fractions de la largeur et de la hauteur de
+// l'image : ils la suivent quelle que soit la taille à laquelle elle est
+// projetée. La légende, numéro par numéro, va dans un tableau à côté de la
+// photo, et non sur elle : du texte posé sur une photo sombre ne se lit pas.
+//
+//   #photo-reperee("/illustrations/cours5/carte_mere.jpg", 1400 / 933,
+//                  ((0.66, 0.52), (0.66, 0.80)), hauteur: 300pt)
+
+#let repere(n, taille: 21pt) = box(
+  width: taille, height: taille,
+  fill: white, stroke: 1.6pt + accent, radius: taille / 2,
+  std.align(center + horizon, text(size: 12.5pt, weight: demi-gras, fill: accent)[#n]),
+)
+
+// La légende des repères : un numéro, un libellé, en corps réduit pour
+// tenir à côté de la photo sans repli.
+#let legende-reperes(..libelles) = std.grid(
+  columns: (auto, 1fr), column-gutter: 10pt, row-gutter: 9pt, align: (center + horizon, left + horizon),
+  ..libelles.pos().enumerate().map(((i, l)) => (repere(i + 1), text(size: 15pt)[#l])).flatten(),
+)
+
+#let photo-reperee(chemin, rapport, reperes, hauteur: 300pt) = {
+  let largeur = hauteur * rapport
+  let taille = 21pt
+  box(width: largeur, height: hauteur, stroke: 1pt + accent.lighten(55%))[
+    #image(chemin, width: 100%, height: 100%)
+    #for (i, (fx, fy)) in reperes.enumerate() {
+      place(top + left, dx: fx * largeur - taille / 2, dy: fy * hauteur - taille / 2,
+            repere(i + 1, taille: taille))
+    }
+  ]
+}
+
+// ---------------------------------------------------------------------------
+// Trente ans de processeurs
+//
+// Quatre séries de Karl Rupp (microprocessor-trend-data, CC BY 4.0), un point
+// par processeur, sur une échelle verticale logarithmique : transistors,
+// fréquence, puissance, cœurs. Le nom de chaque série est écrit au bout de
+// ses points, pas dans une légende à part.
+
+#import "donnees/tendances.typ": transistors, frequence, puissance, coeurs
+
+#let graphe-tendances(largeur: 21.5, hauteur: 8.6) = cetz.canvas(length: 1cm, {
+  let (a0, a1) = (1990, 2024)
+  let (l0, l1) = (-0.3, 8.3)
+  let x(a) = largeur * (a - a0) / (a1 - a0)
+  let y(v) = hauteur * (calc.log(v, base: 10) - l0) / (l1 - l0)
+
+  // grille et axes
+  for k in range(0, 9) {
+    let yy = y(calc.pow(10, k))
+    line((0, yy), (largeur, yy), stroke: 0.4pt + gris.darken(12%))
+    content((-0.25, yy), anchor: "east", text(size: 12pt, fill: estompe)[
+      #if k == 0 [1] else if k < 4 [#calc.pow(10, k)] else [10#super[#k]]
+    ])
+  }
+  line((0, 0), (largeur, 0), stroke: 0.8pt + accent)
+  line((0, 0), (0, hauteur), stroke: 0.8pt + accent)
+  for a in range(1990, 2025, step: 5) {
+    line((x(a), 0), (x(a), -0.15), stroke: 0.8pt + accent)
+    content((x(a), -0.25), anchor: "north", text(size: 12pt, fill: accent)[#a])
+  }
+
+  let serie(points, couleur, nom, y-nom) = {
+    for (a, v) in points {
+      if v > 0 {
+        circle((x(a), y(v)), radius: 0.075, fill: couleur, stroke: none)
+      }
+    }
+    content((largeur + 0.25, y(y-nom)), anchor: "west",
+            text(size: 13.5pt, fill: couleur, weight: demi-gras)[#nom])
+  }
+  serie(transistors, estompe, "transistors (milliers)", 3e7)
+  serie(frequence, attention, "fréquence (MHz)", 3000)
+  serie(puissance, brun, "puissance (W)", 90)
+  serie(coeurs, accent, "cœurs", 12)
+})

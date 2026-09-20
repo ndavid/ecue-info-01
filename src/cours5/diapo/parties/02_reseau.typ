@@ -193,6 +193,48 @@
 ]
 
 // --------------------------------------------
+#d("Le sans-fil")[
+  #annonce[
+    Chaque technologie échange de la portée contre du débit ou de l'énergie.
+  ]
+
+  #tableau(
+    columns: (0.65fr, 0.95fr, 1.35fr, 0.7fr, 1.35fr),
+    align: (left + horizon, left + horizon, left + horizon, left + horizon, left + horizon),
+    [Lien], [Portée], [Débit], [Latence], [Sert à],
+    [Bluetooth], [10 m], [1 à 2 Mbit/s], [10 ms], [écouteurs, capteurs],
+    [Wi-Fi], [10 à 50 m], [100 à 1 000 Mbit/s, partagés], [2 à 10 ms], [la salle, la maison],
+    [4G ; 5G], [1 à 10 km], [10 à 100 ; 100 à 1 000 Mbit/s], [40 ms ; 15 ms], [le terrain : RTK, cartes],
+    [LoRa], [2 à 15 km], [0,3 à 50 kbit/s], [secondes], [un capteur, des années de pile],
+    [GNSS], [satellites, 20 000 km], [50 bit/s, réception seule], [], [se positionner],
+  )
+
+  #legende[
+    Une onde est partagée : le débit du Wi-Fi se divise entre les postes de
+    la salle. Une onde s'écoute : sans chiffrement (WPA, puis HTTPS et SSH),
+    quiconque est à portée lit ce qui passe.
+  ]
+
+  #notes[
+    Débits et latences observés, pas ceux des publicités. Le Wi-Fi de la
+    salle donne moins que le câble, et d'autant moins qu'il y a de postes
+    connectés : c'est pourquoi les postes de la salle sont câblés.
+
+    Le GNSS reçoit seulement : le récepteur écoute les satellites et calcule
+    sa position ; il n'envoie rien. Les 50 bit/s sont le message de
+    navigation, d'où les 30 secondes de la première position à froid. Les
+    corrections RTK, elles, arrivent par la 4G.
+
+    LoRa est le lien des capteurs : un relevé par heure, une pile qui dure
+    cinq ans.
+
+    Le chiffrement du Wi-Fi protège de qui est à portée ; celui de HTTPS et
+    de SSH protège sur tout le trajet, y compris chez l'opérateur. La partie
+    3 emploie le second.
+  ]
+]
+
+// --------------------------------------------
 #d("Un commit et un push")[
   #annonce[
     Le commit écrit sur le disque du poste, le push traverse le réseau. Git

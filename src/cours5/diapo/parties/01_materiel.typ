@@ -1,6 +1,6 @@
 // Cours 5, partie 1 — le matériel. Incluse par `cours5.typ`.
 #import "../../../commun/prelude.typ": *
-#import "../schemas.typ": schema-composants, schema-coeurs, pyramide-memoire, barres-temps
+#import "../schemas.typ": schema-composants, schema-coeurs, pyramide-memoire, barres-temps, photo-reperee, legende-reperes, graphe-tendances
 
 #separateur(
   "Le matériel",
@@ -22,6 +22,80 @@
     Un téléphone aussi.
   ]
 ]
+
+// Les deux photos ne sont produites qu'avec les images en place : sans
+// elles, le schéma dessiné qui précède porte seul les composants.
+#if captures-disponibles {
+d("Un boîtier ouvert")[
+  #grid(
+    columns: (auto, 1fr), column-gutter: 22pt, align: top,
+    photo-reperee("/illustrations/cours5/boitier_ouvert.jpg", 1400 / 1275, (
+      (0.23, 0.21), (0.20, 0.77), (0.34, 0.50), (0.47, 0.42),
+      (0.62, 0.53), (0.30, 0.66), (0.185, 0.58),
+    ), hauteur: 290pt),
+    legende-reperes(
+      [l'alimentation : du 230 V aux tensions des composants],
+      [la carte mère : tout s'y branche],
+      [le processeur, sous son ventilateur],
+      [la mémoire vive, deux barrettes],
+      [le disque, dans son berceau],
+      [des emplacements pour cartes, vides : pas de carte graphique séparée],
+      [les connecteurs arrière : écran, réseau, USB],
+    ),
+  )
+
+  #legende[
+    Un PC de bureau des années 2010, panneau retiré. Photo PantheraLeo1359531,
+    Wikimedia Commons, CC BY 4.0.
+  ]
+
+  #notes[
+    Faire retrouver les cinq composants du schéma précédent avant de lire la
+    légende. Le processeur ne se voit pas : il est sous le ventilateur, qui
+    évacue sa chaleur.
+
+    Ce poste n'a pas de carte graphique : l'affichage est fait par le
+    processeur, ce qui suffit à un poste de bureau. Les emplacements vides
+    sont là pour en ajouter une.
+
+    Un portable contient les mêmes éléments, soudés sur une seule carte, sans
+    emplacement libre.
+  ]
+]
+
+d("La carte mère")[
+  #grid(
+    columns: (auto, 1fr), column-gutter: 22pt, align: top,
+    photo-reperee("/illustrations/cours5/carte_mere.jpg", 1400 / 933, (
+      (0.66, 0.52), (0.66, 0.80), (0.43, 0.42), (0.47, 0.60),
+      (0.32, 0.72), (0.72, 0.08), (0.64, 0.93),
+    ), hauteur: 290pt),
+    legende-reperes(
+      [le processeur, sous son ventilateur],
+      [la mémoire vive : quatre emplacements, deux occupés],
+      [les emplacements pour cartes ; le long reçoit la carte graphique],
+      [un emplacement pour un SSD, de la taille d'une barrette de chewing-gum],
+      [le jeu de puces, qui relie le reste au processeur],
+      [les connecteurs arrière : USB, réseau, écran, son],
+      [l'arrivée de l'alimentation, et les prises des disques],
+    ),
+  )
+
+  #legende[
+    Carte Gigabyte B550 de 2020, couchée, connecteurs arrière en haut. Photo
+    Nicolasfoster, Wikimedia Commons, CC0.
+  ]
+
+  #notes[
+    La carte mère ne calcule pas : elle relie. Chaque piste de cuivre est un
+    fil, et un ensemble de fils entre deux composants s'appelle un bus.
+
+    Ce qui se remplace sans changer de carte : la mémoire, les cartes, les
+    disques. Ce qui impose la carte : le processeur, dont l'emplacement change
+    avec la génération.
+  ]
+]
+}
 
 // --------------------------------------------
 #d("Le processeur")[
@@ -193,6 +267,13 @@
     Même construction chez Brendan Gregg, *Systems Performance*, avec le
     cycle du processeur pour unité : la mémoire vive y vaut 6 minutes, le
     disque dur des mois, un aller-retour intercontinental des années.
+
+    Conséquences pour un programme, à dire : lire un fichier une fois et
+    garder son contenu en mémoire plutôt que le rouvrir à chaque tour de
+    boucle (cours 3) ; du binaire plutôt que du texte pour des nombres
+    (cours 3) ; numpy plutôt qu'une boucle Python (cours 6) ; `commit` en
+    local et `push` quand on veut (partie 2). On mesure avant de changer :
+    le projet 7 mesure.
   ]
 ]
 
@@ -244,24 +325,140 @@
 ]
 
 // --------------------------------------------
-#d("Ce que cela change pour un programme")[
+#d("Trente ans de processeurs")[
   #annonce[
-    Un programme passe le plus souvent son temps à attendre le disque ou le
-    réseau.
+    La fréquence a cessé de monter vers 2005 ; les transistors et les cœurs
+    continuent.
+  ]
+
+  #align(center, graphe-tendances(hauteur: 7.9))
+
+  #legende[
+    Un point par processeur, échelle verticale logarithmique. Karl Rupp,
+    *microprocessor-trend-data*, CC BY 4.0.
+  ]
+
+  #notes[
+    Trois lectures. Les transistors doublent tous les deux ans environ
+    depuis 1970 : c'est la loi de Moore, encore à peu près vraie. La
+    fréquence a plafonné vers 3 GHz, parce que la puissance, et donc la
+    chaleur, plafonne à 100 W. Depuis, le gain vient du nombre de cœurs :
+    un programme qui n'en occupe qu'un ne va plus beaucoup plus vite d'une
+    génération à l'autre.
+
+    Le reste de la machine sur la même période, en ordre de grandeur :
+    mémoire vive 8 Mo en 1995, 16 Go en 2025 ; disque 1 Go, 1 To ; prix du
+    Go de disque 1 000 \$, 2 centimes ; modem 28,8 kbit/s, fibre 1 Gbit/s.
+  ]
+]
+
+// --------------------------------------------
+#d("Puissance de calcul et consommation")[
+  #annonce[
+    Un smartphone calcule autant que le premier superordinateur à dépasser
+    mille milliards d'opérations par seconde, en 1997, pour cent mille fois
+    moins d'électricité.
   ]
 
   #tableau(
-    columns: (1fr, 1fr, auto),
-    align: (left + horizon, left + horizon, left + horizon),
-    [Lent], [Plus rapide], [Vu],
-    [rouvrir le fichier à chaque tour de boucle], [le lire une fois, garder son contenu en mémoire], [cours 3],
-    [un fichier texte de nombres], [le même en binaire : pas de conversion à la lecture], [cours 3],
-    [une boucle Python sur un tableau], [numpy : la boucle est compilée], [cours 6],
-    [attendre le réseau à chaque enregistrement], [`commit` en local, `push` quand on veut], [partie 2],
+    columns: (1.4fr, auto, auto, auto),
+    align: (left + horizon, right + horizon, right + horizon, right + horizon),
+    [Appareil], [Opérations par seconde], [Puissance], [Électricité par an],
+    [téléphone à touches], [10#super[7]], [0,01 à 0,5 W], [0,1 kWh],
+    [smartphone], [10#super[12]], [1 à 5 W], [5 à 7 kWh],
+    [ordinateur portable], [10#super[12]], [15 à 45 W], [30 à 60 kWh],
+    [PC de bureau et carte graphique], [10#super[13] à 10#super[14]], [100 à 400 W], [200 à 400 kWh],
+    [serveur, en continu], [10#super[13]], [300 à 800 W], [3 000 à 7 000 kWh],
+    [ASCI Red, superordinateur, 1997], [1,3 · 10#super[12]], [850 000 W], [7 500 000 kWh],
   )
 
+  #legende[
+    Ordres de grandeur ; opérations en virgule flottante, processeur graphique
+    compris. ASCI Red : 1,3 TFLOPS mesurés, 850 kW hors refroidissement.
+  ]
+
   #notes[
-    Aucune de ces règles n'est à appliquer d'avance : on mesure d'abord, on
-    change ensuite. Le projet 7 mesure.
+    L'électricité par an suppose l'usage courant : le téléphone à touches se
+    recharge une fois par semaine (batterie de 3 Wh), le smartphone tous les
+    jours (15 Wh), le portable sert huit heures par jour, le serveur ne
+    s'arrête jamais.
+
+    Le téléphone à touches est vingt fois moins puissant qu'un smartphone en
+    calcul brut, et cent mille fois moins ; il tient dix jours parce qu'il
+    ne fait presque rien.
+
+    Le smartphone est un ordinateur complet : les mêmes composants que le
+    boîtier, sur une puce de deux centimètres. Ce qui le distingue est la
+    contrainte de puissance, 5 W, imposée par la batterie et l'absence de
+    ventilateur.
+  ]
+]
+
+// --------------------------------------------
+#d("L'électricité des services en ligne")[
+  #annonce[
+    Un fichier gardé en ligne consomme même quand personne ne le lit.
+  ]
+
+  #tableau(
+    columns: (1fr, auto, 1fr),
+    align: (left + horizon, right + horizon, left + horizon),
+    [Quoi], [Électricité], [Équivalent],
+    [une question à un assistant d'IA], [0,24 Wh], [neuf secondes de télévision],
+    [une heure de vidéo en streaming], [80 Wh], [une ampoule LED de 10 W, huit heures],
+    [garder 1 To en ligne pendant un an], [40 à 150 kWh], [un disque qui tourne sans arrêt, fois les copies],
+    [le même To sur un disque dans un tiroir], [0], [],
+    [les centres de données du monde, 2024], [415 TWh], [1,5 % de l'électricité mondiale, celle de la France],
+  )
+
+  #legende[
+    Google, requêtes Gemini, 2025 ; IEA, streaming 2020, *Energy and AI* 2025 ;
+    disque : 5 W × 8 760 h × 1 à 3 copies ; France : 450 TWh (RTE, 2024).
+  ]
+
+  #notes[
+    La ligne du disque est un calcul, pas une mesure : un disque dur qui
+    tourne consomme 5 W, soit 44 kWh par an, et un centre de données garde
+    deux ou trois copies de chaque fichier, plus le refroidissement.
+
+    L'IEA prévoit le doublement des centres de données d'ici 2030, tiré par
+    l'IA. Pour un étudiant, le levier est le stockage : ne pas garder en
+    ligne ce qui ne sert plus, et les données lourdes d'un projet vont sur un
+    disque, pas sur la forge.
+  ]
+]
+
+// --------------------------------------------
+#d("Ce que coûte un service en ligne")[
+  #annonce[
+    Le coût suit le nombre de machines qui tournent, et de personnes qui les
+    font tourner.
+  ]
+
+  #tableau(
+    columns: (1fr, 1.3fr, auto),
+    align: (left + horizon, left + horizon, right + horizon),
+    [Service], [Ce qui tourne], [Par an],
+    [un site personnel, pages statiques], [une part d'un serveur partagé, ou GitHub Pages], [0 à 60 €],
+    [OpenStreetMap, la carte du monde], [deux salles de serveurs, Amsterdam et Dublin], [100 000 à 170 000 €],
+    [Wikipédia], [plusieurs centres de données], [3,4 M\$ d'hébergement],
+    [Meta : Facebook, Instagram, WhatsApp], [des dizaines de centres de données], [72 milliards de \$ d'investissement],
+  )
+
+  #legende[
+    Nom de domaine 10 € par an, hébergement partagé 3 à 5 € par mois ; OSMF,
+    plan 2023, diffusion des tuiles offerte ; Wikimedia, exercice 2024-2025 ;
+    Meta, résultats 2025.
+  ]
+
+  #notes[
+    Trois ordres de grandeur entre un site personnel et OpenStreetMap, et
+    cinq entre OpenStreetMap et Meta. OpenStreetMap tient avec deux salles
+    parce que le calcul lourd, le rendu des tuiles, est réparti et que la
+    diffusion est offerte ; Wikipédia paie surtout ses salariés, pas ses
+    machines.
+
+    Un site personnel sur GitHub Pages ne coûte que le nom de domaine, et
+    encore, s'il en veut un. C'est ce que la forge du cours 6 permet.
   ]
 ]

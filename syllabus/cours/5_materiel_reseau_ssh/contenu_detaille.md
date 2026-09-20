@@ -2,7 +2,7 @@
 
 Vue d'ensemble : [../../01_syllabus_v1.md](../../01_syllabus_v1.md) (section « Cours 5 »).
 
-**Supports** : [`src/cours5/diapo/`](../../../src/cours5/diapo/) (typst, 37 diapositives d'exposé hors TD ; `--input notes=true` pour la version annotée, `--input corrige=true` pour le corrigé, `--input tds=false` pour le fil du cours).
+**Supports** : [`src/cours5/diapo/`](../../../src/cours5/diapo/) (typst, 42 pages d'exposé hors TD, dont la page de titre et cinq séparateurs ; deux photos annotées dans [`illustrations/cours5/`](../../../illustrations/cours5/) ; `--input notes=true` pour la version annotée, `--input corrige=true` pour le corrigé, `--input tds=false` pour le fil du cours).
 **TD** : trois, `1a` (mesures), `2a` (clé SSH), `3a` (secret dans l'historique, facultatif). Un fichier par TD dans [`src/cours5/diapo/tds/`](../../../src/cours5/diapo/tds/), un dossier de même nom dans [`data/cours5/`](../../../data/cours5/).
 Conventions d'écriture : [`STYLE.md`](../../../STYLE.md).
 
@@ -12,7 +12,30 @@ Objectif : donner les ordres de grandeur du matériel et du réseau qui explique
 
 ## Parti pris
 
-La séance 1 a été trop longue pour la salle. Celle-ci est écrite plus courte : 37 diapositives d'exposé, deux TD en séance (40′ en tout) et un TD facultatif. Le contenu est surtout de la culture générale ; les schémas portent l'essentiel, les tableaux le reste, et les notes de conduite sont brèves.
+La séance 1 a été trop longue pour la salle. Celle-ci est écrite avec moins de TD : deux en séance (35′ en tout) et un facultatif. Le contenu est surtout de la culture générale ; les schémas et deux photos portent l'essentiel, les tableaux le reste, et les notes de conduite sont brèves.
+
+Deuxième jet (20 septembre 2026) : ajout de deux photos annotées (boîtier ouvert, carte mère), de trente ans d'évolution des processeurs, de la puissance et de la consommation des appareils (du téléphone à touches au superordinateur), de l'électricité et du coût des services en ligne, et du sans-fil. Deux diapositives sont passées en notes pour tenir : « Ce que cela change pour un programme » (dans les notes de « Si la mémoire vive valait une seconde ») et « Où une clé SSH sert » (dans les notes de « Prouver qui l'on est », et dans le README du TD 2a). Le compte est de 36 diapositives de contenu, plus la page de titre et cinq séparateurs.
+
+## Ce que les étudiants ont déjà vu
+
+Ce qui suit vient des programmes officiels ; le niveau réel de la salle est à sonder en séance, à l'oral, sur la première diapositive de chaque partie.
+
+| Public | Enseignement | Ce qui recouvre la séance |
+|--------|--------------|---------------------------|
+| tous ceux qui ont fait un lycée général ou technologique depuis 2019 | SNT en seconde, 1 h 30 par semaine, sept thèmes | thème *Internet* : paquets, routage, adresses IP, DNS ; thème *localisation, cartographie et mobilité* : principe du GPS ; thème *informatique embarquée et objets connectés* |
+| ceux qui ont pris la spécialité NSI (une minorité) | NSI en première | architecture de von Neumann : processeur, mémoire, bus, entrées-sorties ; système d'exploitation ; réseaux TCP/IP |
+| | NSI en terminale | routage ; sécurité : chiffrement symétrique et asymétrique, HTTPS |
+| prépa scientifique | informatique commune (programme 2021) | programmation Python, algorithmique, bases de données ; peu ou pas d'architecture matérielle |
+| prépa littéraire | | rien de tout cela |
+
+Conséquences pour la séance :
+
+- **Partie 1 (matériel)** : nouvelle pour presque tous, sauf les anciens NSI, qui ont vu le vocabulaire (processeur, mémoire, bus) sans les ordres de grandeur ni la consommation. Aucune diapositive n'est une redite pour la majorité.
+- **Partie 2 (réseau)** : adresse IP et DNS ont été vus en seconde par tous, quatre ans plus tôt, en 1 h 30 par semaine. La diapositive « Adresse, nom et port » se joue comme un rappel, en demandant à la salle ce qu'est le DNS avant de le dire. Débit et latence, la distance, le sans-fil : nouveaux.
+- **Partie 3 (clés)** : la cryptographie asymétrique n'a été vue qu'en terminale NSI. Nouvelle pour presque tous.
+- **Partie 4 (sécurité)** : les gestes (mots de passe, hameçonnage) sont connus de tous par la vie courante ; ce qui est nouveau est le secret dans un dépôt et le lien avec le hachage.
+
+Sources : programme de SNT, arrêté du 17 janvier 2019 (BO spécial n° 1 du 22 janvier 2019) ; programmes de NSI de première et de terminale, mêmes arrêtés ; programme d'informatique commune des CPGE scientifiques, 2021.
 
 Deux fils relient la séance au reste du module :
 
@@ -23,14 +46,14 @@ Deux fils relient la séance au reste du module :
 
 | Partie | Nature | Durée |
 |--------|--------|-------|
-| Ouverture | cours | 5′ |
-| 1. Le matériel | cours | 20′ |
+| Ouverture | cours | 3′ |
+| 1. Le matériel | cours | 30′ |
 | 2. Le réseau | cours, puis TD 1a | 15′ + 15′ |
-| 3. S'identifier auprès d'une machine distante | cours, puis TD 2a | 15′ + 25′ |
+| 3. S'identifier auprès d'une machine distante | cours, puis TD 2a | 15′ + 20′ |
 | 4. Secrets et sécurité | cours ; TD 3a facultatif | 20′ |
-| Clôture | cours | 5′ |
+| Clôture | cours | 2′ |
 
-Total : 120′, dont 40′ de TD.
+Total : 120′, dont 35′ de TD.
 
 ---
 
@@ -39,10 +62,12 @@ Total : 120′, dont 40′ de TD.
 1. Page de titre.
 2. **Contenu de la séance** : le tableau ci-dessus.
 
-## Partie 1 — Le matériel (🎓 20′, 9 diapositives)
+## Partie 1 — Le matériel (🎓 30′, 15 pages)
 
 3. Séparateur.
 4. **Les composants d'un ordinateur.** Schéma dessiné : le boîtier avec processeur, mémoire vive, disque, carte graphique et carte réseau ; l'écran et le clavier à l'extérieur. Un rôle en quelques mots sous chaque composant.
+4b. **Un boîtier ouvert.** Photo d'un PC de bureau des années 2010 (Wikimedia Commons, CC BY 4.0), sept repères numérotés : alimentation, carte mère, processeur sous son ventilateur, mémoire vive, disque, emplacements vides, connecteurs arrière. Notes : pas de carte graphique séparée sur un poste de bureau.
+4c. **La carte mère.** Photo d'une carte ATX de 2020 (CC0), sept repères : processeur, emplacements mémoire, emplacements pour cartes, emplacement SSD M.2, jeu de puces, connecteurs arrière, alimentation et prises des disques. Ces deux diapositives ne sont produites que si les photos sont en place (`illustrations/cours5/telecharger.py`).
 5. **Le processeur.** Quatre cœurs, chacun avec sa file d'instructions ; cadence 3 GHz = 3 milliards de cycles par seconde. Notes : un programme Python ordinaire n'occupe qu'un cœur.
 6. **Mémoire vive et disque.** Tableau : taille, temps d'accès, à l'extinction, ce qu'on y trouve. Le lien avec le cours 1 : les variables d'un programme sont en mémoire vive, un fichier est sur le disque, et c'est pour cela qu'il reste.
 7. **Le chemin d'une donnée.** Pyramide cache / mémoire vive / disque / réseau, avec taille et temps d'accès à chaque étage. Une donnée traitée par le processeur passe par tous les étages.
@@ -50,11 +75,16 @@ Total : 120′, dont 40′ de TD.
 9. **Ordres de grandeur : temps d'accès.** Barres sur échelle logarithmique, de la nanoseconde à la seconde : cache, mémoire vive, SSD, disque dur, réseau local, Paris–Marseille, Paris–New York, Paris–Sydney.
 10. **Si la mémoire vive valait une seconde.** La même échelle, tableau : mémoire vive 1 s, SSD un quart d'heure, disque dur une journée, Paris–New York une semaine, Paris–Sydney un mois. C'est la diapositive à retenir de la partie.
 11. **Processeur et carte graphique.** Huit cœurs rapides contre des milliers de cœurs simples : le GPU sert quand la même opération s'applique à des millions de valeurs (image, tableau, réseau de neurones).
-12. **Ce que cela change pour un programme.** Tableau : lire un fichier une fois plutôt que mille, garder en mémoire ce qu'on réutilise, numpy plutôt qu'une boucle (cours 6), binaire plutôt que texte (cours 3), commit local et push réseau (partie 2).
+12. **Trente ans de processeurs.** Nuage de points 1990-2022, échelle log : transistors, fréquence, puissance, cœurs (données de Karl Rupp, CC BY 4.0, générées dans `donnees/tendances.typ`). La fréquence plafonne vers 2005 à 3 GHz, la puissance à 100 W ; les cœurs prennent le relais. Notes : mémoire, disque, prix du Go et modem sur la même période.
+13. **Puissance de calcul et consommation.** Tableau du téléphone à touches au superordinateur ASCI Red (1997, 1,3 TFLOPS, 850 kW) : opérations par seconde, puissance, électricité par an. Un smartphone égale ASCI Red pour cent mille fois moins d'électricité.
+14. **L'électricité des services en ligne.** Tableau : une requête à un assistant d'IA (0,24 Wh, Google 2025), une heure de streaming (80 Wh, IEA), 1 To gardé en ligne un an (40 à 150 kWh, calcul), le même To dans un tiroir (0), les centres de données du monde (415 TWh en 2024, 1,5 % de l'électricité mondiale, l'ordre de grandeur de la France).
+15. **Ce que coûte un service en ligne.** Tableau : site personnel (0 à 60 €/an), OpenStreetMap (100 000 à 170 000 €, plan 2023 de l'OSMF), Wikipédia (3,4 M$ d'hébergement, exercice 2024-2025), Meta (72 milliards de $ d'investissement en 2025).
 
-Sources : Brendan Gregg, *Systems Performance* (2020), table 2.2 des latences ; Peter Norvig et Jeff Dean, « Latency numbers every programmer should know ».
+Passé en notes de la diapositive 10 : ce que cela change pour un programme (lire un fichier une fois, binaire plutôt que texte, numpy, commit local et push réseau).
 
-## Partie 2 — Le réseau (🎓 15′, 8 diapositives)
+Sources : Brendan Gregg, *Systems Performance* (2020), table 2.2 des latences ; Peter Norvig et Jeff Dean, « Latency numbers every programmer should know » ; Karl Rupp, *microprocessor-trend-data* ; IEA, *Energy and AI* (avril 2025) et *The carbon footprint of streaming video* (2020) ; Google, *Measuring the environmental impact of delivering AI at Google scale* (août 2025) ; OSMF, *Spending plan for 2023* ; Wikimedia Foundation, rapport d'audit 2024-2025 ; Meta, résultats du quatrième trimestre 2025 ; ASCI Red, Sandia National Laboratories.
+
+## Partie 2 — Le réseau (🎓 15′, 9 pages)
 
 13. Séparateur.
 14. **Local et distant.** Schéma dessiné : le poste, le réseau de la salle, celui de l'école, Internet, le serveur ; les distances et les temps d'un aller-retour.
@@ -63,6 +93,7 @@ Sources : Brendan Gregg, *Systems Performance* (2020), table 2.2 des latences ; 
 17. **Débit et latence.** Schéma du tuyau : la latence est le temps du premier octet, le débit le nombre d'octets par seconde. Temps = latence + taille ÷ débit, calculé pour 1 Ko et 1 Go.
 18. **La latence dépend de la distance.** Tableau Paris → Marseille, Londres, New York, Tokyo, Sydney : distance, aller-retour mesuré, part de la vitesse de la lumière dans la fibre (200 000 km/s). Source : wondernetwork.com, septembre 2026.
 19. **Le débit dépend du lien.** Tableau : Ethernet de la salle, Wi-Fi, 4G, ADSL, et le temps de transfert de 1 Go. Avertissement : les débits sont en bits par seconde, les fichiers en octets, facteur 8.
+19b. **Le sans-fil.** Tableau : Bluetooth, Wi-Fi, 4G et 5G, LoRa, GNSS ; portée, débit, latence, usage (dont les corrections RTK par la 4G, et le GNSS qui ne fait que recevoir, à 50 bit/s). Deux règles en légende : une onde est partagée, une onde s'écoute.
 20. **Un commit et un push.** Schéma : le commit écrit sur le disque local (millisecondes), le push traverse le réseau (latence, puis débit). Conséquence : on peut travailler sans réseau et pousser quand on veut.
 
 ### ⌨️ TD 1a — Les ordres de grandeur de votre poste (15′)
@@ -76,17 +107,17 @@ Ce que le TD fait constater (dans `reponse[…]`) : l'addition prend quelques di
 
 À vérifier en salle avant la séance : que `github.com:443` et `speed.cloudflare.com` répondent depuis les VM, une fois la session réseau ouverte. Le script affiche un message et continue si l'un des deux ne répond pas.
 
-## Partie 3 — S'identifier auprès d'une machine distante (🎓 15′, 7 diapositives)
+## Partie 3 — S'identifier auprès d'une machine distante (🎓 15′, 6 pages)
 
 21. Séparateur.
 22. **Prouver qui l'on est.** Tableau mot de passe / clé : où est le secret, ce qui traverse le réseau, ce qui se passe si le serveur est compromis.
 23. **Une paire de clés.** Schéma cadenas et clé : la clé publique ferme, on la distribue ; la clé privée ouvre, elle ne quitte pas le poste.
 24. **La connexion SSH.** Diagramme de séquence en quatre flèches : le client se présente, le serveur envoie un défi chiffré avec la clé publique, le client le résout avec la clé privée, le serveur ouvre l'accès. Le secret n'a pas traversé le réseau.
 25. **Les deux fichiers de la paire.** Sortie réelle de `ssh-keygen` ; `id_ed25519` (419 octets, droits restreints) et `id_ed25519.pub` (107 octets, une ligne, à coller sur la forge).
-26. **Où une clé SSH sert.** Tableau : forge (`git clone git@github.com:…`), serveur de calcul (`ssh alice@calcul.ecole.fr`), copie de fichiers (`scp`), VS Code à distance. Notes : l'accès HTTPS par jeton existe aussi ; la clé est le choix du module parce qu'elle sert aussi aux serveurs.
+26. Passé en notes de la diapositive 22 : où la même clé sert (forge, serveur de calcul, `scp`, VS Code à distance), et l'accès HTTPS par jeton.
 27. **Empreinte et chiffrement.** Tableau : le hachage est à sens unique et sert à identifier ou vérifier (identifiant de commit, empreinte de clé, mot de passe stocké) ; le chiffrement est réversible avec la clé et sert à cacher. Exemple réel : SHA-256 de « bonjour » et de « Bonjour ».
 
-### ⌨️ TD 2a — Une clé SSH sur votre compte (25′)
+### ⌨️ TD 2a — Une clé SSH sur votre compte (20′)
 
 Dossier `cours5/2a_cle_ssh/`. Prérequis : un compte GitHub créé avant la séance (page « Avant les séances »).
 
@@ -99,7 +130,7 @@ Ce que le TD fait constater : le fichier `.pub` est une seule ligne ; le fichier
 
 À vérifier en salle avant la séance : que le port 22 sortant est ouvert. Sinon, GitHub accepte SSH sur le port 443 (`ssh.github.com`), avec un fichier `.ssh/config` à fournir dans le dossier du TD. `ssh-keygen` et `ssh` sont installés d'origine sous Windows 10 et 11 (`C:\Windows\System32\OpenSSH`).
 
-## Partie 4 — Secrets et sécurité (🎓 20′, 8 diapositives)
+## Partie 4 — Secrets et sécurité (🎓 20′, 9 pages)
 
 Ce qui est retenu, et pourquoi. Les dix mesures de cybermalveillance.gouv.fr et le guide d'hygiène de l'ANSSI listent plus que ce qu'une séance peut porter. Sont gardées les cinq qui concernent directement des étudiants qui vont écrire du code et le publier : les secrets hors du dépôt (propre au module), les mots de passe, le deuxième facteur, l'hameçonnage, les mises à jour et sauvegardes. Antivirus, achats en ligne, réseaux sociaux et Wi-Fi public sont laissés aux notes.
 
@@ -117,7 +148,7 @@ Ce qui est retenu, et pourquoi. Les dix mesures de cybermalveillance.gouv.fr et 
 
 Dossier `cours5/3a_secret_historique/`. Rejouer la diapositive 30 : `git init`, un `config.py` avec une fausse clé, commit ; supprimer, commit ; `git log -p` montre les deux. Puis `.gitignore` et `config.example.py`, et `git status` ne voit plus `config.py`.
 
-## Clôture (1 diapositive)
+## Clôture (1 page)
 
 37. **Vers le cours 6.** Tableau : prêt aujourd'hui (compte sur la forge, clé enregistrée, règle du `.gitignore`) ; au cours 6 (`clone`, `push`, `pull`, branches en équipe).
 
@@ -125,6 +156,11 @@ Dossier `cours5/3a_secret_historique/`. Rejouer la diapositive 30 : `git init`, 
 
 ## Sources
 
+- Programmes du lycée : SNT et NSI, BO spécial n° 1 du 22 janvier 2019, <https://eduscol.education.fr/>.
+- Processeurs : Karl Rupp, *microprocessor-trend-data*, CC BY 4.0, <https://github.com/karlrupp/microprocessor-trend-data>.
+- Électricité : IEA, *Energy and AI*, avril 2025, <https://www.iea.org/reports/energy-and-ai> ; IEA, *The carbon footprint of streaming video*, 2020 ; Google, *Measuring the environmental impact of delivering AI at Google Scale*, août 2025, <https://arxiv.org/abs/2508.15734> ; ASCI Red, <https://en.wikipedia.org/wiki/ASCI_Red>.
+- Coûts : OSMF, *Spending plan for 2023*, <https://operations.osmfoundation.org/2022/12/31/plan.html> ; Wikimedia Foundation, audit 2024-2025 ; Meta, résultats 2025.
+- Photos : Wikimedia Commons, voir `illustrations/cours5/README.md`.
 - Latences : Brendan Gregg, *Systems Performance*, 2e éd., 2020, table 2.2 ; Jonas Bonér d'après Peter Norvig, « Latency numbers every programmer should know », <https://gist.github.com/hellerbarde/2843375>.
 - Aller-retour Paris → villes : <https://wondernetwork.com/pings/Paris> (moyennes relevées le 20 septembre 2026).
 - Clés SSH : GitHub Docs, « Generating a new SSH key and adding it to the ssh-agent » ; Microsoft Learn, « Key-based authentication in OpenSSH for Windows ».
