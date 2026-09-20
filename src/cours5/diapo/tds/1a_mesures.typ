@@ -34,8 +34,8 @@
   ]
 
   #notes[
-    Deux minutes. Les valeurs sont celles des VM de la salle, à vérifier
-    avant la séance et à corriger dans le corrigé.
+    Deux minutes. Les valeurs du corrigé sont supposées ; les relever sur
+    une VM de la salle avant la séance.
 
     Comparer avec la diapositive « Mémoire vive et disque » : les postes sont
     dans les fourchettes données.

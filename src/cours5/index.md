@@ -1,13 +1,13 @@
 ---
-title: "Séance 5 — Matériel, réseau, clés SSH et secrets"
+title: "Séance 5 — Matériel, réseau, mots de passe, clés SSH et secrets"
 ---
 
 ## Contenu de la séance
 
 Quatre parties. Les deux premières donnent les ordres de grandeur du matériel
-et du réseau ; les deux suivantes mettent en place ce qu'il faut avant de
-travailler sur une forge : une clé SSH sur le compte, et la règle qui tient
-les secrets hors du dépôt.
+et du réseau. Les deux suivantes partent du mot de passe, des façons de le
+perdre et des parades, jusqu'à la clé SSH et aux secrets d'un programme, ce
+qu'il faut avoir en place avant la forge du cours 6.
 
 ```{list-table}
 :header-rows: 1
@@ -16,17 +16,17 @@ les secrets hors du dépôt.
   - Ce qu'on y voit
   - Durée
 * - Le matériel
-  - processeur, mémoire vive, disque ; tailles et temps d'accès
-  - 20 min
-* - Le réseau
-  - local et distant, client et serveur, débit et latence ; TD 1a
+  - composants, tailles et temps d'accès, trente ans d'évolution, puissance et consommation, coût des services en ligne
   - 30 min
-* - S'identifier auprès d'une machine distante
-  - une paire de clés à la place d'un mot de passe ; TD 2a
+* - Le réseau
+  - local et distant, client et serveur, débit et latence, le sans-fil ; TD 1a
+  - 30 min
+* - Prouver qui l'on est
+  - le mot de passe, les quatre façons de le perdre, les parades, le deuxième facteur, la clé SSH ; TD 2a
   - 40 min
-* - Secrets et sécurité
-  - ce qui ne va pas dans un dépôt, mots de passe, deuxième facteur, hameçonnage
-  - 20 min
+* - Les secrets de vos programmes
+  - ce qui ne va pas dans un dépôt, et quoi faire si c'est arrivé
+  - 15 min
 ```
 
 Le TD 3a, facultatif, rejoue sur un dépôt neuf ce que la partie 4 montre : un

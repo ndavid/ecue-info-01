@@ -62,7 +62,7 @@
     columns: (auto, 1fr),
     align: (left + horizon, left + horizon),
     [Question], [Ce que vous constatez],
-    [Que liste `git status` après `git add .` ?], reponse[`config.example.py` et `.gitignore`, pas `config.py`],
+    [Que liste `git status` après `git add .` ?], reponse[`config.example.py` et `.gitignore` ; `config.py` n'y est pas],
     [Que dit `git check-ignore -v config.py` ?], reponse[`.gitignore:1:config.py  config.py` : la règle qui l'exclut, et sa ligne],
   )
 

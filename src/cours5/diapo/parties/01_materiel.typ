@@ -12,7 +12,7 @@
   #align(center, schema-composants())
 
   #notes[
-    Cinq composants, un rôle chacun. Le reste de la partie ne parle que des
+    Cinq composants, un rôle chacun. La suite de la partie détaille les
     trois premiers : processeur, mémoire vive, disque.
 
     La carte graphique revient en fin de partie. La carte réseau ouvre la
@@ -201,8 +201,8 @@ d("La carte mère")[
     vendu 1 To y apparaît à 931 « Go ». Ne pas s'y attarder.
 
     La dalle d'orthophoto : 25 millions de pixels, trois octets par pixel
-    (rouge, vert, bleu), sans compression. Le cours 3 a vu que le PNG et le
-    JPEG compressent.
+    (rouge, vert, bleu), sans compression. Le cours 3 compare la taille
+    d'une même image dans plusieurs formats.
   ]
 ]
 
@@ -259,21 +259,20 @@ d("La carte mère")[
   )
 
   #notes[
-    C'est la diapositive à retenir de la partie. Pendant qu'un programme
-    attend un fichier sur le disque, le processeur aurait pu faire une
-    journée de travail en mémoire ; pendant qu'il attend un serveur à
-    New York, une semaine.
+    Diapositive à retenir. Pendant qu'un programme attend une lecture sur
+    le disque dur, le processeur aurait pu faire une journée d'accès à la
+    mémoire ; pendant qu'il attend un serveur à New York, une semaine.
 
     Même construction chez Brendan Gregg, *Systems Performance*, avec le
     cycle du processeur pour unité : la mémoire vive y vaut 6 minutes, le
     disque dur des mois, un aller-retour intercontinental des années.
 
     Conséquences pour un programme, à dire : lire un fichier une fois et
-    garder son contenu en mémoire plutôt que le rouvrir à chaque tour de
-    boucle (cours 3) ; du binaire plutôt que du texte pour des nombres
-    (cours 3) ; numpy plutôt qu'une boucle Python (cours 6) ; `commit` en
-    local et `push` quand on veut (partie 2). On mesure avant de changer :
-    le projet 7 mesure.
+    garder son contenu en mémoire, au lieu de le rouvrir à chaque tour de
+    boucle ; du binaire pour des nombres, comme les images P5 du cours 3 ;
+    numpy à la place d'une boucle Python (cours 6) ; `commit` en local et
+    `push` quand on veut (partie 2). On mesure avant de changer ; le
+    projet 7 mesure.
   ]
 ]
 
@@ -339,12 +338,11 @@ d("La carte mère")[
   ]
 
   #notes[
-    Trois lectures. Les transistors doublent tous les deux ans environ
-    depuis 1970 : c'est la loi de Moore, encore à peu près vraie. La
-    fréquence a plafonné vers 3 GHz, parce que la puissance, et donc la
-    chaleur, plafonne à 100 W. Depuis, le gain vient du nombre de cœurs :
-    un programme qui n'en occupe qu'un ne va plus beaucoup plus vite d'une
-    génération à l'autre.
+    Le nombre de transistors double tous les deux ans environ depuis 1970 :
+    c'est la loi de Moore, encore à peu près vérifiée. La fréquence plafonne
+    vers 3 GHz depuis 2005, parce que la puissance, donc la chaleur à
+    évacuer, plafonne à 100 W. Depuis, le gain vient du nombre de cœurs : un
+    programme qui n'en occupe qu'un gagne peu d'une génération à l'autre.
 
     Le reste de la machine sur la même période, en ordre de grandeur :
     mémoire vive 8 Mo en 1995, 16 Go en 2025 ; disque 1 Go, 1 To ; prix du
@@ -383,14 +381,13 @@ d("La carte mère")[
     jours (15 Wh), le portable sert huit heures par jour, le serveur ne
     s'arrête jamais.
 
-    Le téléphone à touches est vingt fois moins puissant qu'un smartphone en
-    calcul brut, et cent mille fois moins ; il tient dix jours parce qu'il
-    ne fait presque rien.
+    Le téléphone à touches calcule cent mille fois moins qu'un smartphone ;
+    sa batterie tient dix jours parce que sa puissance est de quelques
+    dizaines de milliwatts.
 
     Le smartphone est un ordinateur complet : les mêmes composants que le
-    boîtier, sur une puce de deux centimètres. Ce qui le distingue est la
-    contrainte de puissance, 5 W, imposée par la batterie et l'absence de
-    ventilateur.
+    boîtier, sur une puce de deux centimètres, avec une puissance limitée à
+    5 W par la batterie et l'absence de ventilateur.
   ]
 ]
 
@@ -417,14 +414,14 @@ d("La carte mère")[
   ]
 
   #notes[
-    La ligne du disque est un calcul, pas une mesure : un disque dur qui
+    La ligne du disque est un calcul : un disque dur qui
     tourne consomme 5 W, soit 44 kWh par an, et un centre de données garde
     deux ou trois copies de chaque fichier, plus le refroidissement.
 
-    L'IEA prévoit le doublement des centres de données d'ici 2030, tiré par
-    l'IA. Pour un étudiant, le levier est le stockage : ne pas garder en
-    ligne ce qui ne sert plus, et les données lourdes d'un projet vont sur un
-    disque, pas sur la forge.
+    L'IEA prévoit le doublement de la consommation des centres de données
+    d'ici 2030, surtout par l'IA. Ce qu'un étudiant peut faire : ne pas
+    garder en ligne ce qui ne sert plus ; les données lourdes d'un projet
+    restent sur un disque local.
   ]
 ]
 
@@ -452,13 +449,13 @@ d("La carte mère")[
   ]
 
   #notes[
-    Trois ordres de grandeur entre un site personnel et OpenStreetMap, et
-    cinq entre OpenStreetMap et Meta. OpenStreetMap tient avec deux salles
-    parce que le calcul lourd, le rendu des tuiles, est réparti et que la
-    diffusion est offerte ; Wikipédia paie surtout ses salariés, pas ses
-    machines.
+    Trois ordres de grandeur entre un site personnel et OpenStreetMap, cinq
+    entre OpenStreetMap et Meta. OpenStreetMap fonctionne avec deux salles
+    parce que le rendu des tuiles est réparti entre plusieurs
+    organisations et que la diffusion est offerte. La plus grande part des
+    dépenses de Wikimedia est le personnel.
 
-    Un site personnel sur GitHub Pages ne coûte que le nom de domaine, et
-    encore, s'il en veut un. C'est ce que la forge du cours 6 permet.
+    Un site personnel sur GitHub Pages coûte le nom de domaine, s'il en a
+    un. La forge du cours 6 le permet.
   ]
 ]

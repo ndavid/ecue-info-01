@@ -12,6 +12,7 @@
     [Fait aujourd'hui], [Au cours 6],
     [un compte sur la forge], [un dépôt distant pour chaque projet],
     [une clé SSH sur ce compte], [`git clone`, `git push`, `git pull` sans mot de passe],
+    [un deuxième facteur sur le compte], [demandé par GitHub à la première connexion],
     [le secret dans un fichier ignoré], [le `.gitignore` du dépôt de chacun],
     [commit local, push réseau], [travailler à plusieurs sur le même dépôt : branches, fusion],
   )

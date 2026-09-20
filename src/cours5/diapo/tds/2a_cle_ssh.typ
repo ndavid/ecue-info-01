@@ -68,10 +68,10 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFKIay24YXuydFOmWVIyBfd3aAkOOtGncHYAqvz+ZW75
 
 
   #notes[
-    Le geste qui se rate : coller le contenu de `id_ed25519` (sans
-    extension), la clé privée. GitHub le refuse, mais la clé a été copiée
-    dans le presse-papier et peut finir dans un message. Vérifier que la
-    ligne commence par `ssh-ed25519`.
+    Erreur fréquente : coller le contenu de `id_ed25519` (sans extension),
+    la clé privée. GitHub le refuse, mais la clé a été copiée dans le
+    presse-papier et peut finir dans un message. Vérifier que la ligne
+    commence par `ssh-ed25519`.
 
     GitHub peut demander le mot de passe du compte ou le second facteur à
     l'ajout de la clé.
@@ -98,9 +98,9 @@ Hi alice-martin! You've successfully authenticated, but GitHub does not provide 
 
   #notes[
     L'empreinte affichée est celle de la clé ED25519 de GitHub, publiée sur
-    docs.github.com (« GitHub's SSH key fingerprints ») : la comparer est le
-    geste correct, rarement fait. Le dire, et dire que l'empreinte est
-    ensuite gardée dans `.ssh/known_hosts`.
+    docs.github.com (« GitHub's SSH key fingerprints »). La comparer à la
+    page est la vérification prévue. L'empreinte est ensuite gardée dans
+    `.ssh/known_hosts` et n'est plus demandée.
 
     Si le port 22 est fermé par le pare-feu de l'école, GitHub écoute aussi
     en SSH sur le port 443 : le fichier `config` fourni dans le dossier du TD

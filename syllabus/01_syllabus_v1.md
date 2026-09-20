@@ -11,7 +11,7 @@
 | 2 | 22/09 8h30-10h30 | CM | Ligne de commande & git local | `init/add/commit/log/diff`, `.gitignore`, `restore` ; **dépôt de notes** (commits guidés en séance) |
 | 3 | 29/09 8h30-10h30 | CM | Binaire, données & construction d'une CLI | **texte vs binaire, hexadécimal (PGM), ASCII/Unicode** ; `pathlib`, `subprocess`, `argparse` |
 | 4 | 6/10 8h30-10h30 | projet | Studio d'automatisation (animation vidéo) | CLI Python (ImageMagick + ffmpeg) ; git local appliqué (commits par étape, `.gitignore` du généré) |
-| 5 | 13/10 8h30-10h30 | CM | Matériel & réseau (ordres de grandeur) ; SSH, clés, secrets | ~1h culture hard/réseau + ~1h `ssh-keygen`/crypto/secrets |
+| 5 | 13/10 8h30-10h30 | CM | Matériel, réseau ; mots de passe, clés, secrets | ~1h matériel et réseau (ordres de grandeur, énergie, coûts) + ~1h mots de passe, deuxième facteur, `ssh-keygen`, secrets hors du dépôt |
 | 6 | 20/10 8h30-10h30 | CM | Forge & git en équipe ; outil « trajectoire » | remote/push/pull, branch/merge ; distance & vitesse (boucle vs numpy, texte vs binaire) ; intro numpy |
 | 7 | 03/11 8h30-10h30 | projet | Capstone : benchmark image + rapport (PR) | gris boucle vs numpy ; PR + conflit (branche pré-amorcée) + revue ; `RAPPORT.md` |
 
@@ -88,23 +88,22 @@ Objectif : appliquer `subprocess`/`argparse` (cours 3) et git local en produisan
 - **Livrable** : un court `.mp4` + le dépôt (CLI, config, README du pipeline) à l'historique propre.
 - **Pré-requis pratique** : env conda prêt + dépôt-squelette fourni (sinon l'installation mange la séance).
 
-## Cours 5 — Matériel & réseau ; SSH, clés, secrets (CM)
+## Cours 5 — Matériel, réseau ; mots de passe, clés, secrets (CM)
 
-Deux moitiés indépendantes ; la 2ᵉ prépare directement la forge (cours 6).
+Deux moitiés ; la seconde prépare directement la forge (cours 6). Déroulé diapositive par diapositive : [`cours/5_materiel_reseau_ssh/contenu_detaille.md`](cours/5_materiel_reseau_ssh/contenu_detaille.md).
 
-**A. Matériel, réseau & ordres de grandeur (~1 h) — culture, très haut niveau.**
+**A. Matériel et réseau, ordres de grandeur (~1 h) — culture générale.**
 
-- **🎓 12′ · Composants d'un PC** : CPU, RAM, disque (SSD/HDD), GPU — rôle de chacun en une phrase.
-- **🎓 13′ · Réseau, le minimum** : local vs distant, client ↔ serveur, débit vs latence (motive « pourquoi un `push` est plus lent qu'un `commit` »).
-- **🎓 20′ · Ordres de grandeur** (fil rouge de la séance) : temps d'accès (RAM ≪ SSD ≪ réseau), tailles (Ko/Mo/Go/To), coûts ; rendus incarnés par une échelle relative mémorable (« si la RAM = 1 s, le disque = …, le réseau = … »).
-- **⌨️ 15′ · TD léger** : comparer la taille d'une même image en png vs jpg (compression → cours 1) ; chronométrer la lecture d'un petit vs gros fichier (→ cours 2).
-- **Cohérence** : se raccroche à trois fils déjà vus/à venir — tailles & compression (c.1), timing fichier (c.2), local vs distant (forge, c.6). *(Si un point ne se raccroche pas, tant pis : toutes les notions de base ne sont pas interdépendantes.)*
+- **🎓 30′ · Le matériel** : composants (schéma, photo d'un boîtier ouvert, photo d'une carte mère), processeur, mémoire vive et disque, pyramide des mémoires, tailles, temps d'accès sur échelle log et « si la mémoire vive valait une seconde », processeur et carte graphique, trente ans de processeurs, puissance et consommation du téléphone à touches au superordinateur, électricité et coût des services en ligne.
+- **🎓 15′ · Le réseau** : local et distant, client et serveur, adresse, nom et port (rappel de SNT), débit et latence, la distance, les liens, le sans-fil, commit et push.
+- **⌨️ 15′ · TD 1a** : les caractéristiques du poste dans le gestionnaire des tâches, puis `mesures.py` : additions, copie en mémoire, écriture et relecture sur le disque, aller-retour et téléchargement.
 
-**B. SSH, clés & secrets (~1 h) — pratique, juste avant la forge.**
+**B. Prouver qui l'on est, et les secrets des programmes (~1 h).**
 
-- **🎓 20′ · Crypto clé publique/privée**, niveau concept : une paire, publique partagée / privée secrète (analogie cadenas) ; hachage ≠ chiffrement (rappel du SHA de commit, cours 2).
-- **⌨️ 25′ · `ssh-keygen`** + ajout de la clé **publique** au compte de la forge (préparation du cours 6).
-- **🎓 15′ · Secrets & `.gitignore`** : ne jamais committer clé privée, mot de passe, token ; l'historique public est **permanent**. *(La leçon « secrets » atterrit ici.)*
+- **🎓 20′ · Prouver qui l'on est** : identifiant et mot de passe (le serveur garde une empreinte) ; les quatre façons de perdre un mot de passe, chiffrées (deviné, volé sur le serveur, volé chez vous, intercepté) ; combien de temps pour le deviner ; hameçonnage ; une parade par menace (longueur et hasard, un mot de passe par service, deuxième facteur, chiffrement) ; le deuxième facteur et ses formes ; la clé à la place du mot de passe, la connexion SSH, les deux fichiers.
+- **⌨️ 20′ · TD 2a** : `ssh-keygen`, la clé publique sur le compte GitHub, `ssh -T git@github.com`.
+- **🎓 15′ · Les secrets de vos programmes** : ce qui est un secret, un secret dans un dépôt y reste (`git log -p`), séparer le code et les secrets (`.gitignore`, fichier modèle), si un secret a fui, mises à jour et sauvegardes.
+- **⌨️ TD 3a, facultatif** : un secret dans l'historique, rejoué sur un dépôt neuf.
 
 ## Cours 6 — Forge & git en équipe ; outil « trajectoire » (CM)
 

@@ -36,14 +36,14 @@
   sommaire-td(td-1a)
 }
 
-#include "parties/03_cles_ssh.typ"
+#include "parties/03_prouver_qui_lon_est.typ"
 #if tds {
   include "tds/2a_cle_ssh.typ"
 } else {
   sommaire-td(td-2a)
 }
 
-#include "parties/04_secrets_securite.typ"
+#include "parties/04_secrets.typ"
 #if tds {
   include "tds/3a_secret_historique.typ"
 } else {

@@ -47,9 +47,9 @@
   )
 
   #notes[
-    Le vocabulaire est celui du cours 1 sur les applications web : ce qui
-    s'affiche chez vous est le client, ce qui calcule ou stocke à distance est
-    le serveur. Le cours 6 ajoute `git pull`, la requête dans l'autre sens.
+    Client et serveur ont été vus au cours 1 avec le notebook : le client
+    affiche, le serveur exécute. Le cours 6 ajoute `git pull`, la requête
+    dans l'autre sens.
   ]
 ]
 
@@ -184,8 +184,8 @@
   ]
 
   #notes[
-    Le facteur 8 est la source d'erreur la plus fréquente sur ces calculs.
-    Les opérateurs annoncent des bits parce que le chiffre est plus grand.
+    Le facteur 8 est l'erreur la plus fréquente sur ces calculs. Les débits
+    des opérateurs sont toujours donnés en bits par seconde.
 
     Les débits du tableau sont ceux qu'on observe en pratique. Le TD 1a en
     mesure un depuis la salle.
@@ -195,7 +195,8 @@
 // --------------------------------------------
 #d("Le sans-fil")[
   #annonce[
-    Chaque technologie échange de la portée contre du débit ou de l'énergie.
+    Portée, débit, latence et consommation changent d'une technologie à
+    l'autre.
   ]
 
   #tableau(
@@ -216,7 +217,7 @@
   ]
 
   #notes[
-    Débits et latences observés, pas ceux des publicités. Le Wi-Fi de la
+    Débits et latences observés en pratique. Le Wi-Fi de la
     salle donne moins que le câble, et d'autant moins qu'il y a de postes
     connectés : c'est pourquoi les postes de la salle sont câblés.
 
@@ -230,7 +231,7 @@
 
     Le chiffrement du Wi-Fi protège de qui est à portée ; celui de HTTPS et
     de SSH protège sur tout le trajet, y compris chez l'opérateur. La partie
-    3 emploie le second.
+    3 y revient, parmi les quatre façons de perdre un mot de passe.
   ]
 ]
 
@@ -244,9 +245,8 @@
   #align(center, schema-commit-push())
 
   #notes[
-    C'est la raison d'être des deux commandes. Un outil qui enregistrerait
-    directement sur le serveur attendrait le réseau à chaque enregistrement,
-    et ne marcherait pas dans un train.
+    Un outil qui enregistrerait directement sur le serveur attendrait le
+    réseau à chaque enregistrement, et ne fonctionnerait pas sans réseau.
 
     Le cours 6 fait le geste : `push`, puis `pull` pour recevoir ce que
     d'autres ont poussé.

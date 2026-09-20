@@ -2,7 +2,7 @@
 
 Vue d'ensemble : [../../01_syllabus_v1.md](../../01_syllabus_v1.md) (section « Cours 5 »).
 
-**Supports** : [`src/cours5/diapo/`](../../../src/cours5/diapo/) (typst, 42 pages d'exposé hors TD, dont la page de titre et cinq séparateurs ; deux photos annotées dans [`illustrations/cours5/`](../../../illustrations/cours5/) ; `--input notes=true` pour la version annotée, `--input corrige=true` pour le corrigé, `--input tds=false` pour le fil du cours).
+**Supports** : [`src/cours5/diapo/`](../../../src/cours5/diapo/) (typst, 43 pages d'exposé hors TD, dont la page de titre et cinq séparateurs ; deux photos annotées dans [`illustrations/cours5/`](../../../illustrations/cours5/) ; `--input notes=true` pour la version annotée, `--input corrige=true` pour le corrigé, `--input tds=false` pour le fil du cours).
 **TD** : trois, `1a` (mesures), `2a` (clé SSH), `3a` (secret dans l'historique, facultatif). Un fichier par TD dans [`src/cours5/diapo/tds/`](../../../src/cours5/diapo/tds/), un dossier de même nom dans [`data/cours5/`](../../../data/cours5/).
 Conventions d'écriture : [`STYLE.md`](../../../STYLE.md).
 
@@ -14,7 +14,7 @@ Objectif : donner les ordres de grandeur du matériel et du réseau qui explique
 
 La séance 1 a été trop longue pour la salle. Celle-ci est écrite avec moins de TD : deux en séance (35′ en tout) et un facultatif. Le contenu est surtout de la culture générale ; les schémas et deux photos portent l'essentiel, les tableaux le reste, et les notes de conduite sont brèves.
 
-Deuxième jet (20 septembre 2026) : ajout de deux photos annotées (boîtier ouvert, carte mère), de trente ans d'évolution des processeurs, de la puissance et de la consommation des appareils (du téléphone à touches au superordinateur), de l'électricité et du coût des services en ligne, et du sans-fil. Deux diapositives sont passées en notes pour tenir : « Ce que cela change pour un programme » (dans les notes de « Si la mémoire vive valait une seconde ») et « Où une clé SSH sert » (dans les notes de « Prouver qui l'on est », et dans le README du TD 2a). Le compte est de 36 diapositives de contenu, plus la page de titre et cinq séparateurs.
+Deuxième jet (20 septembre 2026) : ajout de deux photos annotées (boîtier ouvert, carte mère), de trente ans d'évolution des processeurs, de la puissance et de la consommation des appareils (du téléphone à touches au superordinateur), de l'électricité et du coût des services en ligne, et du sans-fil. Deux diapositives sont passées en notes pour tenir : « Ce que cela change pour un programme » (dans les notes de « Si la mémoire vive valait une seconde ») et « Où une clé SSH sert » (dans les notes de « Prouver qui l'on est », et dans le README du TD 2a). Le compte, après le troisième jet, est de 37 diapositives de contenu, plus la page de titre et cinq séparateurs.
 
 ## Ce que les étudiants ont déjà vu
 
@@ -32,15 +32,15 @@ Conséquences pour la séance :
 
 - **Partie 1 (matériel)** : nouvelle pour presque tous, sauf les anciens NSI, qui ont vu le vocabulaire (processeur, mémoire, bus) sans les ordres de grandeur ni la consommation. Aucune diapositive n'est une redite pour la majorité.
 - **Partie 2 (réseau)** : adresse IP et DNS ont été vus en seconde par tous, quatre ans plus tôt, en 1 h 30 par semaine. La diapositive « Adresse, nom et port » se joue comme un rappel, en demandant à la salle ce qu'est le DNS avant de le dire. Débit et latence, la distance, le sans-fil : nouveaux.
-- **Partie 3 (clés)** : la cryptographie asymétrique n'a été vue qu'en terminale NSI. Nouvelle pour presque tous.
-- **Partie 4 (sécurité)** : les gestes (mots de passe, hameçonnage) sont connus de tous par la vie courante ; ce qui est nouveau est le secret dans un dépôt et le lien avec le hachage.
+- **Partie 3 (prouver qui l'on est)** : les gestes (identifiant, mot de passe, hameçonnage) sont connus de tous par la vie courante ; ce qui est nouveau est le chiffrage des menaces, le hachage, et la cryptographie asymétrique, vue seulement en terminale NSI.
+- **Partie 4 (secrets)** : nouvelle pour tous.
 
 Sources : programme de SNT, arrêté du 17 janvier 2019 (BO spécial n° 1 du 22 janvier 2019) ; programmes de NSI de première et de terminale, mêmes arrêtés ; programme d'informatique commune des CPGE scientifiques, 2021.
 
 Deux fils relient la séance au reste du module :
 
 - les ordres de grandeur reviennent au cours 6 (boucle Python contre numpy, texte contre binaire) et au projet 7 (benchmark) ;
-- la clé SSH et le compte sur la forge sont les prérequis du cours 6, et la règle « aucun secret dans un dépôt » vaut pour les deux projets.
+- la clé SSH, le deuxième facteur et le compte sur la forge sont les prérequis du cours 6, et la règle « aucun secret dans un dépôt » vaut pour les deux projets.
 
 ## Déroulé
 
@@ -49,8 +49,8 @@ Deux fils relient la séance au reste du module :
 | Ouverture | cours | 3′ |
 | 1. Le matériel | cours | 30′ |
 | 2. Le réseau | cours, puis TD 1a | 15′ + 15′ |
-| 3. S'identifier auprès d'une machine distante | cours, puis TD 2a | 15′ + 20′ |
-| 4. Secrets et sécurité | cours ; TD 3a facultatif | 20′ |
+| 3. Prouver qui l'on est | cours, puis TD 2a | 20′ + 20′ |
+| 4. Les secrets de vos programmes | cours ; TD 3a facultatif | 15′ |
 | Clôture | cours | 2′ |
 
 Total : 120′, dont 35′ de TD.
@@ -107,15 +107,22 @@ Ce que le TD fait constater (dans `reponse[…]`) : l'addition prend quelques di
 
 À vérifier en salle avant la séance : que `github.com:443` et `speed.cloudflare.com` répondent depuis les VM, une fois la session réseau ouverte. Le script affiche un message et continue si l'un des deux ne répond pas.
 
-## Partie 3 — S'identifier auprès d'une machine distante (🎓 15′, 6 pages)
+## Partie 3 — Prouver qui l'on est (🎓 20′, 10 pages)
+
+Troisième jet (20 septembre 2026). Le syllabus partait de la cryptographie et arrivait aux secrets sans dire contre quoi on se protège. La partie part maintenant de ce que tout le monde fait, l'identifiant et le mot de passe, donne les quatre façons de perdre un mot de passe avec un chiffre pour chacune, puis une parade par façon. Le deuxième facteur et la clé SSH arrivent comme parades, avec leur raison ; l'empreinte (hachage) arrive en première diapositive, parce que c'est ce que le serveur garde.
 
 21. Séparateur.
-22. **Prouver qui l'on est.** Tableau mot de passe / clé : où est le secret, ce qui traverse le réseau, ce qui se passe si le serveur est compromis.
-23. **Une paire de clés.** Schéma cadenas et clé : la clé publique ferme, on la distribue ; la clé privée ouvre, elle ne quitte pas le poste.
-24. **La connexion SSH.** Diagramme de séquence en quatre flèches : le client se présente, le serveur envoie un défi chiffré avec la clé publique, le client le résout avec la clé privée, le serveur ouvre l'accès. Le secret n'a pas traversé le réseau.
-25. **Les deux fichiers de la paire.** Sortie réelle de `ssh-keygen` ; `id_ed25519` (419 octets, droits restreints) et `id_ed25519.pub` (107 octets, une ligne, à coller sur la forge).
-26. Passé en notes de la diapositive 22 : où la même clé sert (forge, serveur de calcul, `scp`, VS Code à distance), et l'accès HTTPS par jeton.
-27. **Empreinte et chiffrement.** Tableau : le hachage est à sens unique et sert à identifier ou vérifier (identifiant de commit, empreinte de clé, mot de passe stocké) ; le chiffrement est réversible avec la clé et sert à cacher. Exemple réel : SHA-256 de « bonjour » et de « Bonjour ».
+22. **Identifiant et mot de passe.** Chaîne : ce qu'on tape, l'empreinte (SHA-256, bcrypt), la comparaison avec l'empreinte gardée à l'inscription. Exemple réel : SHA-256 de « bonjour » et de « Bonjour ». Notes : même calcul que l'identifiant d'un commit ; un site qui renvoie le mot de passe en clair ne le stocke pas en empreinte.
+23. **Quatre façons de perdre un mot de passe.** Quatre blocs : deviné (essais en masse, hors ligne sur une fuite d'empreintes), volé sur le serveur (22 % des intrusions commencent par un identifiant volé, Verizon DBIR 2025), volé chez vous (hameçonnage, logiciel espion), intercepté (réseau non chiffré). Annonce : une seule dépend de la longueur. Notes : réutilisation par 60 à 84 % des personnes interrogées ; haveibeenpwned.com.
+24. **Combien de temps pour le deviner.** Tableau de quatre mots de passe et du temps hors ligne (Hive Systems 2026, bcrypt, seize RTX 5090) : `123456` instantané (listes de fuites), `Marseille2024!` secondes à heures (dictionnaire, année, signe), 8 caractères aléatoires 130 ans, 7 mots aléatoires hors de portée. Notes : la longueur et le hasard comptent, les classes imposées peu ; les trois équivalents de la CNIL ; pas de changement périodique (CNIL 2022, NIST).
+25. **Hameçonnage.** La troisième façon. Courriel dessiné, annoté : domaine de l'expéditeur, urgence, domaine réel du lien, pièce jointe exécutable.
+26. **Une parade par menace.** Tableau : deviné → long et aléatoire (gestionnaire) ; volé sur le serveur → un mot de passe par service (gestionnaire) ; volé chez vous → deuxième facteur ; intercepté → chiffrement (HTTPS, SSH, WPA). Annonce : le mot de passe de la messagerie d'abord, il réinitialise les autres.
+27. **Le deuxième facteur.** Trois blocs (ce que je sais, ce que j'ai, ce que je suis) et un tableau des formes, de la plus faible à la plus forte : SMS, application à codes, clé physique ou passkey (résiste à l'hameçonnage). Légende : moins 99,2 % de comptes compromis, moins 98,6 % si le mot de passe a fui (Microsoft, 2023). Notes : GitHub l'impose depuis 2023 ; codes de secours.
+28. **Une clé à la place du mot de passe.** Schéma cadenas et clé. Annonce : pour une machine ou un programme, rien à taper, rien de secret chez le serveur, rien d'utile sur le réseau. Notes : les quatre menaces reprises ; où la même paire sert (forge, serveur de calcul, `scp`, VS Code à distance).
+29. **La connexion SSH.** Diagramme de séquence en quatre flèches : le client se présente, le serveur envoie un défi fermé avec la clé publique, le client le renvoie ouvert, le serveur ouvre l'accès.
+30. **Les deux fichiers de la paire.** Sortie réelle de `ssh-keygen` ; `id_ed25519` (419 octets, privée) et `id_ed25519.pub` (107 octets, une ligne, à coller sur la forge).
+
+Disparues par rapport au deuxième jet : « Prouver qui l'on est » (tableau mot de passe / clé, absorbé par 26 et 28), « Empreinte et chiffrement » (absorbé par 22 et 26), « Mots de passe » (remplacé par 24).
 
 ### ⌨️ TD 2a — Une clé SSH sur votre compte (20′)
 
@@ -130,27 +137,24 @@ Ce que le TD fait constater : le fichier `.pub` est une seule ligne ; le fichier
 
 À vérifier en salle avant la séance : que le port 22 sortant est ouvert. Sinon, GitHub accepte SSH sur le port 443 (`ssh.github.com`), avec un fichier `.ssh/config` à fournir dans le dossier du TD. `ssh-keygen` et `ssh` sont installés d'origine sous Windows 10 et 11 (`C:\Windows\System32\OpenSSH`).
 
-## Partie 4 — Secrets et sécurité (🎓 20′, 9 pages)
+## Partie 4 — Les secrets de vos programmes (🎓 15′, 6 pages)
 
-Ce qui est retenu, et pourquoi. Les dix mesures de cybermalveillance.gouv.fr et le guide d'hygiène de l'ANSSI listent plus que ce qu'une séance peut porter. Sont gardées les cinq qui concernent directement des étudiants qui vont écrire du code et le publier : les secrets hors du dépôt (propre au module), les mots de passe, le deuxième facteur, l'hameçonnage, les mises à jour et sauvegardes. Antivirus, achats en ligne, réseaux sociaux et Wi-Fi public sont laissés aux notes.
+Ce qui est retenu, et pourquoi. Les dix mesures de cybermalveillance.gouv.fr et le guide d'hygiène de l'ANSSI listent plus que ce qu'une séance peut porter. La partie 3 a pris les mots de passe, le deuxième facteur et l'hameçonnage. Celle-ci prend ce qui est propre à des étudiants qui écrivent du code et le publient, les secrets hors du dépôt, et ferme sur les mises à jour et les sauvegardes. Antivirus, achats en ligne, réseaux sociaux et Wi-Fi public sont laissés aux notes.
 
-28. Séparateur.
-29. **Ce qui est un secret.** Tableau à garder / à partager : clé privée, mot de passe, jeton d'API (clé IGN, clé d'un service d'IA), fichier `.env` ; contre clé publique, code, README, données publiques.
-30. **Un secret dans un dépôt y reste.** Sortie réelle de `git log -p` : le commit qui supprime `config.py` n'efface pas celui qui l'a ajouté. Légende : 28,65 millions de secrets ajoutés sur GitHub public en 2025, 64 % de ceux de 2022 encore valides en 2026 (GitGuardian, *State of Secrets Sprawl 2026*).
-31. **Séparer le code et les secrets.** Schéma : dans le dépôt `carte.py`, `config.example.py`, `.gitignore` ; hors dépôt `config.py`. Le code lit une variable d'environnement ou un fichier ignoré.
-32. **Si un secret a fui.** Chaîne : révoquer (régénérer la clé sur le service), remplacer (dans la configuration), nettoyer (réécrire l'historique ou recréer le dépôt), prévenir. La première étape passe avant tout, parce que l'historique a déjà été copié.
-33. **Mots de passe.** Tableau des trois équivalents de la CNIL (2022) : 12 caractères de quatre classes, 14 de trois classes, une phrase de 7 mots ; un mot de passe par service ; un gestionnaire ; pas de renouvellement forcé.
-34. **Deuxième facteur.** Schéma : ce que je sais, ce que j'ai, ce que je suis. GitHub l'impose depuis 2023 ; l'application d'authentification est le choix courant.
-35. **Hameçonnage.** Un courriel dessiné, annoté : domaine de l'expéditeur, urgence, lien dont le domaine n'est pas celui affiché, pièce jointe. Le domaine d'une URL se lit comme au cours 1.
+31. Séparateur. Annonce : un jeton d'API est un mot de passe pour programme, mêmes menaces, une parade de plus.
+32. **Ce qui est un secret.** Tableau à garder / à partager : clé privée, mot de passe, jeton d'API (clé IGN, clé d'un service d'IA), fichier `.env` ; contre clé publique, code, README, données publiques.
+33. **Un secret dans un dépôt y reste.** Sortie réelle de `git log -p` : le commit qui supprime `config.py` n'efface pas celui qui l'a ajouté. Légende : 28,65 millions de secrets ajoutés sur GitHub public en 2025, 64 % de ceux de 2022 encore valides en 2026 (GitGuardian, *State of Secrets Sprawl 2026*).
+34. **Séparer le code et les secrets.** Dans le dépôt `carte.py`, `config.example.py`, `.gitignore` ; hors dépôt `config.py`.
+35. **Si un secret a fui.** Chaîne : révoquer, remplacer, nettoyer, prévenir. La première étape passe avant tout, parce que l'historique a déjà été copié.
 36. **Mises à jour et sauvegardes.** Tableau : une mise à jour ferme une faille connue et publiée ; une sauvegarde suit la règle 3-2-1 ; un dépôt poussé sur la forge est une copie du code ; les données ignorées par git sont à sauvegarder à part.
 
 ### ⌨️ TD 3a — Un secret dans l'historique (10′, facultatif)
 
-Dossier `cours5/3a_secret_historique/`. Rejouer la diapositive 30 : `git init`, un `config.py` avec une fausse clé, commit ; supprimer, commit ; `git log -p` montre les deux. Puis `.gitignore` et `config.example.py`, et `git status` ne voit plus `config.py`.
+Dossier `cours5/3a_secret_historique/`. Rejouer la diapositive 33 : `git init`, un `config.py` avec une fausse clé, commit ; supprimer, commit ; `git log -p` montre les deux. Puis `.gitignore` et `config.example.py`, et `git status` ne voit plus `config.py`.
 
 ## Clôture (1 page)
 
-37. **Vers le cours 6.** Tableau : prêt aujourd'hui (compte sur la forge, clé enregistrée, règle du `.gitignore`) ; au cours 6 (`clone`, `push`, `pull`, branches en équipe).
+37. **Vers le cours 6.** Tableau : fait aujourd'hui (compte sur la forge, clé enregistrée, deuxième facteur, règle du `.gitignore`, commit local et push réseau) ; au cours 6 (`clone`, `push`, `pull`, branches en équipe).
 
 ---
 
@@ -165,5 +169,5 @@ Dossier `cours5/3a_secret_historique/`. Rejouer la diapositive 30 : `git init`, 
 - Aller-retour Paris → villes : <https://wondernetwork.com/pings/Paris> (moyennes relevées le 20 septembre 2026).
 - Clés SSH : GitHub Docs, « Generating a new SSH key and adding it to the ssh-agent » ; Microsoft Learn, « Key-based authentication in OpenSSH for Windows ».
 - Secrets : GitGuardian, *The State of Secrets Sprawl 2026*, mars 2026, <https://blog.gitguardian.com/the-state-of-secrets-sprawl-2026/>.
-- Mots de passe : CNIL, délibération n° 2022-100 du 21 juillet 2022, et <https://www.cnil.fr/fr/mots-de-passe-recommandations-pour-maitriser-sa-securite>.
+- Mots de passe : CNIL, délibération n° 2022-100 du 21 juillet 2022, et <https://www.cnil.fr/fr/mots-de-passe-recommandations-pour-maitriser-sa-securite> ; Hive Systems, *Password Table 2026*, <https://www.hivesystems.com/password-table> ; Verizon, *2025 Data Breach Investigations Report* ; Microsoft, *How effective is multifactor authentication at deterring cyberattacks?*, 2023 ; Bitwarden, *World Password Day Survey 2025*.
 - Mesures générales : cybermalveillance.gouv.fr, « Les 10 mesures essentielles pour assurer votre sécurité numérique » ; ANSSI, *Guide d'hygiène informatique*.
