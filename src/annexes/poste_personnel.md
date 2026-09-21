@@ -51,9 +51,10 @@ Le réglage du terminal change :
   ```
 
   puis rouvrir le terminal de VS Code. Cette commande ne demande pas de
-  droits d'administrateur. Le réglage de terminal « Anaconda Prompt » de
-  la salle fonctionne aussi, en remplaçant `C:\ProgramData\anaconda3` par
-  `C:\Users\<nom>\anaconda3`.
+  droits d'administrateur. Les réglages de terminal de la salle
+  ([Fichiers de réglages](configuration/vscode_reglages.md)) fonctionnent
+  aussi : `Command Prompt` tel quel, la variante « Anaconda Prompt » en
+  remplaçant `C:\ProgramData\anaconda3` par `C:\Users\<nom>\anaconda3`.
 
 Pour que `conda` réponde dans tous les terminaux de Windows, et pas
 seulement dans l'Anaconda Prompt, taper une fois dans l'Anaconda Prompt

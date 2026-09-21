@@ -24,6 +24,13 @@ employés ; les environnements sont sous « Select Another Kernel… », puis
 choisi s'affiche à la place du bouton. Si l'environnement n'est pas dans la
 liste : {ref}`J1 <dep-j1>`.
 
+La liste est celle de l'extension Python, et l'interpréteur choisi pour
+le dossier y est en tête : avec `python.defaultInterpreterPath` sur `base`
+([Fichiers de réglages](vscode_reglages.md)), c'est `base` qui est
+proposé. Sur les postes de la salle, `base` contient déjà `ipykernel`, le
+paquet qui fait d'un environnement un noyau ; la première cellule
+s'exécute sans installation.
+
 Le noyau se choisit à part de l'interpréteur des fichiers `.py` et du
 terminal. Les trois peuvent différer, et c'est la cause la plus fréquente
 d'un `import` qui marche dans l'un et pas dans l'autre ({ref}`J4 <dep-j4>`).

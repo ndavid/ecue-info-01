@@ -9,9 +9,10 @@ les suivantes décrivent chaque logiciel, dans l'ordre où on s'en sert :
 - [Choisir entre JupyterLab, Spyder et VS Code](outils.md)
 - [Anaconda](anaconda.md)
 - [JupyterLab](jupyterlab.md)
-- [VS Code](vscode.md), en trois pages : [généralités](vscode.md),
+- [VS Code](vscode.md), en quatre pages : [généralités](vscode.md),
   [Python et environnement conda](vscode_python.md),
-  [notebooks](vscode_notebooks.md)
+  [notebooks](vscode_notebooks.md), et les [fichiers de
+  réglages](vscode_reglages.md) prêts à recopier
 - [Git et Git Bash](git.md), pour le cours 2
 - [Spyder](spyder.md), employé dans d'autres cours
 

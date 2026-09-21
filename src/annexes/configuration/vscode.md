@@ -115,7 +115,8 @@ Dans le fichier, chaque réglage s'écrit `"nom": valeur`, les réglages sont
 séparés par des virgules, et l'ensemble est entre accolades. Les chemins
 Windows s'y écrivent avec des barres obliques inverses doublées. Les deux
 réglages de l'exemple sont ceux de [Python et environnement
-conda](vscode_python.md) :
+conda](vscode_python.md) ; les fichiers complets des postes de la salle
+sont dans [Fichiers de réglages](vscode_reglages.md) :
 
 ```json
 {
@@ -133,9 +134,9 @@ Le terminal est une fenêtre de commandes à l'intérieur de VS Code
 ([Les terminaux](../notions/terminaux.md)). Menu
 Terminal, New Terminal l'ouvre en bas de la fenêtre (le raccourci clavier
 dépend du clavier, {ref}`V9 <dep-v9>`). Par défaut, c'est un PowerShell.
-Sur les postes de la salle, il faut lui substituer un `cmd` qui active
-Anaconda : c'est le réglage décrit dans [Python et environnement
-conda](vscode_python.md).
+Sur les postes de la salle, il faut lui substituer un `cmd`, que
+l'extension Python sait activer : c'est le réglage décrit dans [Python et
+environnement conda](vscode_python.md).
 
 ## Fichiers utiles
 
@@ -165,4 +166,5 @@ Les captures de cette page viennent de la
 
 vscode_python
 vscode_notebooks
+vscode_reglages
 ```

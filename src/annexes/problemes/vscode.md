@@ -100,11 +100,11 @@ Cause
 Remède
 : Faire le réglage du terminal ([Python et environnement
   conda](../configuration/vscode_python.md)). S'il est fait et que l'erreur
-  reste :
-  vérifier que les chemins du réglage sont ceux du raccourci Anaconda
-  Prompt, que le fichier a été enregistré, et faire palette, « Developer:
-  Reload Window ». Si le fichier de réglages est souligné en rouge :
-  {ref}`V10 <dep-v10>`.
+  reste : vérifier que le fichier a été enregistré, que la valeur est bien
+  `Command Prompt` (ou, pour la variante « Anaconda Prompt », que les
+  chemins sont ceux du raccourci Anaconda Prompt), et faire palette,
+  « Developer: Reload Window ». Si le fichier de réglages est souligné en
+  rouge : {ref}`V10 <dep-v10>`.
 
 (dep-v6)=
 ### V6. « Python: Select Interpreter » ne propose pas Anaconda
@@ -115,8 +115,10 @@ Ce qu'on voit
   Store).
 
 Cause
-: L'extension cherche Anaconda à plusieurs endroits du poste, et sur les
-  postes de la salle aucun ne le lui indique.
+: L'extension cherche Anaconda à plusieurs endroits du poste, dont
+  `C:\ProgramData\anaconda3`. Elle ne le trouve pas quand il est installé
+  ailleurs, ou quand la recherche a échoué une fois et que son résultat
+  est resté en cache.
 
 Remède
 : Cliquer « Enter interpreter path… », puis « Find… », et choisir le fichier
@@ -147,9 +149,10 @@ Vérifier
   répond.
 
 Remède
-: Employer le terminal « Anaconda Prompt » ([Python et environnement
-  conda](../configuration/vscode_python.md)). Le bouton Run n'est pas
-  concerné : il lance l'interpréteur choisi, par son chemin complet.
+: Employer un terminal `cmd` activé, par le réglage du terminal ([Python et
+  environnement conda](../configuration/vscode_python.md)). Le bouton Run
+  n'est pas concerné : il lance l'interpréteur choisi, par son chemin
+  complet.
 
 (dep-v8)=
 ### V8. `ModuleNotFoundError` alors que le paquet est installé

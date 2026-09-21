@@ -19,11 +19,18 @@ propos) pour VS Code ; pour l'extension, panneau Extensions, cliquer sur
 Python, le numéro est écrit à côté du nom. Dans un `cmd`, `code --version`
 affiche aussi celle de VS Code.
 
-Depuis 2025, l'extension Python peut déléguer la gestion des environnements
-à une extension à part, Python Environments. Elle est désactivée par
-défaut (réglage `python.useEnvironmentsExtension`, à `false`) ; quand elle
-est active, une icône Python apparaît dans la barre de gauche, et
-quelques réglages changent de nom (ils sont signalés plus bas).
+Depuis 2025, l'extension Python délègue la gestion des environnements à
+une extension à part, Python Environments. Avec l'extension Python 2026.4,
+elle est installée d'office (c'est une dépendance) et prend la main sans
+réglage : le journal « Python » le dit dès l'ouverture, « Environment
+discovery is managed by the Python Environments extension ». Une icône
+Python apparaît alors dans la barre de gauche, et quelques réglages
+changent de nom (ils sont signalés plus bas). Le réglage
+`python.useEnvironmentsExtension`, à `false`, la remet de côté ; il n'y a
+pas de raison de le faire.
+
+Les réglages de cette page, réunis en deux fichiers prêts à recopier, sont
+dans [Fichiers de réglages](vscode_reglages.md).
 
 ## Installer l'extension Python
 
@@ -105,21 +112,25 @@ lance alors, et pourquoi le module passe par l'Anaconda Prompt, est dans
 ## Quand la liste ne montre ni `base` ni les environnements
 
 Lancé depuis le menu Démarrer, VS Code ne reçoit pas les variables de
-l'Anaconda Prompt ([Variables d'environnement](../notions/variables_environnement.md)),
-et il ne trouve pas toujours `conda` seul. La liste ne contient alors que
-« Enter interpreter path… » et des Python qui ne sont pas ceux d'Anaconda
-({ref}`V6 <dep-v6>`). Deux réglages y remédient ; les valeurs sont celles
-des postes de la salle, à lire dans la cible du raccourci Anaconda Prompt
-si elles diffèrent.
+l'Anaconda Prompt ([Variables d'environnement](../notions/variables_environnement.md)).
+Il cherche alors `conda` dans une liste de dossiers d'installation
+habituels, dont `C:\ProgramData\anaconda3` : sur les postes de la salle,
+cette recherche aboutit. Quand Anaconda est installé ailleurs, la liste ne
+contient que « Enter interpreter path… » et des Python qui ne sont pas
+ceux d'Anaconda ({ref}`V6 <dep-v6>`). Deux réglages y remédient ; les
+valeurs sont celles des postes de la salle, à lire dans la cible du
+raccourci Anaconda Prompt si elles diffèrent.
 
 `python.condaPath`
 : Le chemin du programme `conda`. Avec ce réglage, VS Code interroge
   conda et obtient la liste complète des environnements, `base` et ceux
   du compte ; il s'en sert aussi pour activer l'environnement dans le
   terminal. Valeur : `C:\\ProgramData\\anaconda3\\Scripts\\conda.exe`.
-  Niveau User seulement. VS Code ne relance pas toujours la recherche
-  après ce changement : faire palette, « Python: Clear Cache and Reload
-  Window » (ou « Developer: Reload Window »).
+  Niveau User seulement : au niveau Workspace, il est ignoré sans message.
+  Il vaut pour les deux extensions, Python et Python Environments. VS Code
+  ne relance pas toujours la recherche après ce changement : faire
+  palette, « Python: Clear Cache and Reload Window » (ou « Developer:
+  Reload Window »).
 
 `python.defaultInterpreterPath`
 : Le chemin du Python à employer pour un dossier tant qu'aucun
@@ -130,7 +141,9 @@ si elles diffèrent.
   le `.vscode\settings.json` d'un TD. Un choix fait ensuite par « Python:
   Select Interpreter » l'emporte sur ce réglage pour ce dossier, et la
   liste propose alors une entrée « Use Python from
-  `python.defaultInterpreterPath` setting » pour y revenir.
+  `python.defaultInterpreterPath` setting » pour y revenir. L'extension
+  Jupyter propose ce même interpréteur en tête de sa liste de noyaux
+  ([Notebooks](vscode_notebooks.md)).
 
 Le plus direct, sans réglage : « Enter interpreter path… », puis
 « Find… », et choisir le fichier `python.exe` de l'environnement voulu
@@ -149,47 +162,73 @@ compte.
 
 ## Les autres réglages qui concernent conda
 
-`python.terminal.activateEnvironment`
-: Vrai par défaut. Quand VS Code ouvre un nouveau terminal, l'extension y
-  tape la commande d'activation de l'environnement choisi comme
-  interpréteur (pour conda, `conda activate <nom>`, en passant par le
-  `conda` de `python.condaPath` ou du `PATH`). C'est ce qui fait apparaître
-  `(base)` dans l'invite. Sur les postes de la salle, c'est cette
-  commande qui échoue dans PowerShell ({ref}`A7 <dep-a7>`) ; le remède
-  est de changer de terminal (section suivante), pas de mettre ce
-  réglage à `false` : sans lui, le terminal s'ouvre sans environnement, et
-  `python` y désigne un autre Python que celui d'Anaconda.
+`python-envs.terminal.autoActivationType`
+: `command` par défaut. Quand VS Code ouvre un nouveau terminal,
+  l'extension y tape la commande d'activation de l'environnement choisi
+  comme interpréteur. Dans un `cmd`, c'est
+  `C:\ProgramData\anaconda3\Scripts\activate && conda activate base`, avec
+  le chemin complet : elle fonctionne sans que `conda` soit dans le `PATH`.
+  C'est ce qui fait apparaître `(base)` dans l'invite. Dans PowerShell, la
+  commande passe par un script, `conda-hook.ps1`, que les postes de la
+  salle refusent ({ref}`A7 <dep-a7>`) ; le remède est de changer de
+  terminal (section suivante), pas de mettre ce réglage à `off` : sans
+  activation, `python` désigne dans le terminal un autre Python que celui
+  d'Anaconda. La troisième valeur, `shellStartup`, modifie les fichiers
+  de démarrage du terminal pour qu'il s'active seul ; elle n'est pas
+  utile ici.
 
-`python.useEnvironmentsExtension`
-: Faux par défaut. À `true` (puis « Developer: Reload Window »), la
-  gestion des environnements passe à l'extension Python Environments, dont
-  les réglages commencent par `python-envs.`. Le module n'en a pas besoin.
+`python.terminal.activateEnvironment`
+: L'ancien nom du réglage précédent, lu par l'extension Python quand
+  Python Environments est mise de côté. Vrai par défaut ; le laisser.
 
 `python-envs.defaultEnvManager`
-: Avec l'extension Python Environments seulement. L'outil que VS Code
-  emploie quand on lui demande de créer un environnement (bouton « Create
-  Environment »), et celui dont la liste s'affiche en premier :
-  `ms-python.python:venv` par défaut (des environnements `venv`, sans
-  conda), `ms-python.python:conda` pour que ce soit conda. Le module crée
-  ses environnements dans l'Anaconda Prompt, donc ce réglage ne change
-  rien pour lui.
+: L'outil que VS Code emploie quand on lui demande de créer un
+  environnement (bouton « Create Environment »), et celui dont la liste
+  s'affiche en premier dans la vue Python : `ms-python.python:venv` par
+  défaut (des environnements `venv`, sans conda), `ms-python.python:conda`
+  pour que ce soit conda. Sans ce réglage, un « Create Environment » lancé
+  par mégarde produit un `venv` dans le dossier du TD, et la vue Python
+  place venv avant conda. Le module crée ses environnements dans l'Anaconda
+  Prompt, mais ce réglage évite cette confusion : le poser.
 
-`python-envs.terminal.autoActivationType`
-: Avec l'extension Python Environments seulement ; remplace
-  `python.terminal.activateEnvironment`. `command` (par défaut) tape la
-  commande d'activation dans chaque nouveau terminal ; `shellStartup`
-  modifie les fichiers de démarrage du terminal pour qu'il s'active seul ;
-  `off` n'active rien.
+`python-envs.defaultPackageManager`
+: L'outil employé par « Install Package » dans la vue Python :
+  `ms-python.python:pip` par défaut, `ms-python.python:conda` pour que ce
+  soit conda. Même raison que le précédent.
+
+`python.useEnvironmentsExtension`
+: Ne pas le poser. À `false`, la gestion des environnements revient à
+  l'extension Python seule, et les réglages `python-envs.` sont ignorés.
 
 ## Régler le terminal
 
 Par défaut, le terminal de VS Code est un PowerShell, et sur les postes de
 la salle PowerShell ne peut pas activer l'environnement d'Anaconda
-({ref}`A7 <dep-a7>`). On lui donne à la place le terminal de l'Anaconda
-Prompt ([Les terminaux](../notions/terminaux.md)).
+({ref}`A7 <dep-a7>`). On lui substitue un `cmd`
+([Les terminaux](../notions/terminaux.md)) : VS Code en a un parmi ses
+profils, « Command Prompt », et l'extension Python y tape la commande
+d'activation à l'ouverture.
 
 Palette, « Preferences: Open User Settings (JSON) ». Ajouter entre les deux
 accolades du fichier (après une virgule, s'il y a déjà quelque chose) :
+
+```json
+"terminal.integrated.defaultProfile.windows": "Command Prompt"
+```
+
+Enregistrer (`Ctrl` + `S`). Puis menu Terminal, New Terminal. L'onglet
+s'appelle « Command Prompt », une ligne `activate && conda activate base`
+s'écrit seule, et l'invite commence par `(base)`, ou par le nom de
+l'environnement choisi comme interpréteur. Si rien ne change : palette,
+« Developer: Reload Window ». Si le terminal affiche une erreur :
+{ref}`V5 <dep-v5>`.
+
+### Variante : le terminal de l'Anaconda Prompt
+
+L'activation ci-dessus dépend de l'extension Python. Pour un terminal qui
+s'ouvre activé quoi qu'il arrive, y compris sans interpréteur choisi ou
+avec l'activation automatique coupée, on décrit à VS Code le terminal de
+l'Anaconda Prompt lui-même, à la place du réglage précédent :
 
 ```json
 "terminal.integrated.profiles.windows": {
@@ -201,7 +240,9 @@ accolades du fichier (après une virgule, s'il y a déjà quelque chose) :
 "terminal.integrated.defaultProfile.windows": "Anaconda Prompt"
 ```
 
-Enregistrer (`Ctrl` + `S`).
+L'onglet s'appelle alors « Anaconda Prompt ». L'extension y tape tout de
+même sa commande d'activation, dans un terminal déjà activé ; c'est sans
+effet.
 
 :::{note}
 Les deux chemins `C:\ProgramData\anaconda3` sont ceux de l'installation
@@ -211,11 +252,6 @@ le raccourci, Propriétés, champ Cible. Il contient
 `%windir%\System32\cmd.exe "/K" C:\ProgramData\anaconda3\Scripts\activate.bat C:\ProgramData\anaconda3` :
 les deux chemins du réglage sont les deux derniers, dans le même ordre.
 :::
-
-Puis menu Terminal, New Terminal. L'onglet s'appelle « Anaconda Prompt » et
-l'invite commence par `(base)`, ou par le nom de l'environnement choisi
-comme interpréteur. Si rien ne change : palette, « Developer: Reload
-Window ». Si le terminal affiche une erreur : {ref}`V5 <dep-v5>`.
 
 ## Vérifier
 

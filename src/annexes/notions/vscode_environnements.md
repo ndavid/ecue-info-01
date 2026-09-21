@@ -23,9 +23,11 @@ et l'extension Python Environments 1.36 (septembre 2026).
 - En 2024, la découverte est confiée à un programme séparé, Python
   Environment Tools (PET), livré avec l'extension.
 - Depuis 2025, une extension à part, Python Environments, reprend la
-  gestion des environnements. Elle est encore optionnelle : le réglage
-  `python.useEnvironmentsExtension` l'active, et il est à `false` par
-  défaut.
+  gestion des environnements. D'abord optionnelle, activée par le réglage
+  `python.useEnvironmentsExtension`, elle est devenue une dépendance de
+  l'extension Python : avec la version 2026.4, elle est installée avec
+  elle et prend la main sans réglage. Le même réglage, à `false`, la
+  remet de côté.
 
 ## La découverte : PET et ses familles
 
@@ -68,10 +70,15 @@ et VS Code s'en souvient pour ce dossier.
 PET cherche `conda` dans les dossiers du `PATH`, dans les variables
 laissées par une activation (`CONDA_PREFIX`, `CONDA_EXE`), dans le
 registre Windows, et aux emplacements habituels d'installation. Sur les
-postes de la salle, aucun de ces indices n'est présent quand VS Code est
-lancé depuis le menu Démarrer ([Variables d'environnement](variables_environnement.md)) ;
-le réglage `python.condaPath` donne alors le chemin, et VS Code lance
-`conda info --envs` pour obtenir la liste des environnements
+postes de la salle, lancé depuis le menu Démarrer, VS Code n'a ni le
+`PATH` ni les variables de l'Anaconda Prompt
+([Variables d'environnement](variables_environnement.md)) ; c'est le
+dernier indice qui répond, `C:\ProgramData\anaconda3` étant un des
+emplacements habituels. Le journal « Python Environments » le montre :
+`Discovered manager: (Conda) C:\ProgramData\anaconda3\Scripts\conda.exe`.
+Le réglage `python.condaPath` donne le chemin quand cette recherche
+échoue, sur un poste où Anaconda est ailleurs ; VS Code lance ensuite
+`conda info --json` pour obtenir la liste des environnements
 ([Python et environnement conda](../configuration/vscode_python.md)).
 
 ## Le choix de l'interpréteur à l'ouverture d'un dossier
@@ -99,15 +106,18 @@ dans la liste.
 
 ## Les deux extensions
 
-Avec `python.useEnvironmentsExtension` à `false` (défaut), l'extension
-Python fait tout : liste « Select Interpreter », activation dans le
-terminal (`python.terminal.activateEnvironment`), création
-d'environnement, proposition d'installer un paquet manquant.
+Sur les postes de la salle, Python Environments est installée avec
+l'extension Python et prend la main : une vue « Python » dans la barre de
+gauche, avec les projets et les gestionnaires trouvés ; la liste « Select
+Interpreter », l'activation dans le terminal
+(`python-envs.terminal.autoActivationType`), la création d'environnement
+et la proposition d'installer un paquet manquant passent par elle, et les
+réglages `python-envs.*` prennent le pas sur les anciens.
 
-À `true`, puis « Developer: Reload Window », ces fonctions passent à
-Python Environments : une vue « Python » dans la barre de gauche, avec les
-projets et les gestionnaires trouvés ; les réglages `python-envs.*`
-prennent le pas sur les anciens. Les gestionnaires intégrés :
+Avec `python.useEnvironmentsExtension` à `false`, puis « Developer: Reload
+Window », l'extension Python fait tout elle-même, avec ses anciens
+réglages (`python.terminal.activateEnvironment`). Les gestionnaires
+intégrés de Python Environments :
 
 | Gestionnaire | Trouve l'existant | Crée | Gestionnaire de paquets associé |
 |---|---|---|---|

@@ -51,7 +51,8 @@ Cause
 
 Remède
 : Taper la commande dans l'Anaconda Prompt ({ref}`A1 <dep-a1>`). Dans VS
-  Code, employer le terminal « Anaconda Prompt » ({ref}`V5 <dep-v5>`).
+  Code, faire le réglage du terminal, qui ouvre un `cmd` activé
+  ({ref}`V5 <dep-v5>`).
 
 (dep-a3)=
 ### A3. L'invite ne commence pas par `(base)`
@@ -155,15 +156,29 @@ Ce qu'on voit
 
 Cause
 : PowerShell est réglé pour exécuter les commandes tapées, mais aucun
-  fichier de script. L'activation d'un environnement dans PowerShell passe
-  par un script. Ce réglage est imposé par l'école ; un compte élève ne
-  peut pas le changer.
+  fichier de script : sa stratégie d'exécution est `Restricted`, la
+  valeur par défaut de Windows. L'activation d'un environnement dans
+  PowerShell passe par un script.
 
 Remède
 : Employer un `cmd` à la place de PowerShell : `activate.bat` n'est pas un
   script PowerShell et n'est pas concerné. C'est ce que fait l'Anaconda
-  Prompt ([Les terminaux](../notions/terminaux.md)), et ce que le terminal
-  « Anaconda Prompt » donne à VS Code ({ref}`V5 <dep-v5>`).
+  Prompt ([Les terminaux](../notions/terminaux.md)), et ce que le réglage
+  du terminal donne à VS Code ({ref}`V5 <dep-v5>`).
+
+  Le compte peut aussi changer la stratégie pour lui-même, sans droits
+  d'administration, si aucune stratégie de groupe ne l'impose. Dans un
+  terminal PowerShell, `Get-ExecutionPolicy -List` le dit : les lignes
+  `MachinePolicy` et `UserPolicy` doivent être à `Undefined`. Alors :
+
+  ```
+  Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+  ```
+
+  Répondre `O`, fermer et rouvrir le terminal. `RemoteSigned` autorise les
+  scripts du poste et exige une signature pour ceux téléchargés. Le
+  réglage suit le compte, pas le poste ; sur une machine virtuelle remise
+  à zéro, il est à refaire.
 
 (dep-a8)=
 ### A8. « EnvironmentNotWritableError » à `conda install`
