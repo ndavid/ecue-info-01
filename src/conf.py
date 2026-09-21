@@ -56,11 +56,16 @@ html_theme_options = {
 # Sphinx trouverait alors deux fichiers pour le même document et choisirait
 # lui-même lequel construire, et le book pourrait afficher les résultats figés
 # du `.ipynb` plutôt que ceux que la construction recalcule.
+# `**/propositions/**` : notebooks d'essai (cours 4), à exécuter depuis
+# `data/cours<n>/propositions/` d'après leur README — leurs chemins relatifs
+# vers `data/` ne tiennent pas depuis `src/`, et ils ne sont dans aucun
+# sommaire.
 exclude_patterns = [
     "_build",
     "**/diapo/**",
     "**/notebook/*.ipynb",
     "**/notebook/td/**",
+    "**/propositions/**",
     "Thumbs.db",
     ".DS_Store",
 ]
