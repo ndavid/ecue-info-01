@@ -11,31 +11,31 @@
 // `separateur-cours-td` dans `cours3.typ`.
 
 // --------------------------------------------
-#d("Les fonctions utiles", cellule: 1, fichier: "recette.ipynb")[
-  #annonce[
-    Quatre fonctions du cours 1, à exécuter telles quelles. Ce qu'elles font
-    avec les fichiers est expliqué dans la partie suivante.
-  ]
+// #d("Les fonctions utiles", cellule: 1, fichier: "recette.ipynb")[
+//   #annonce[
+//     Quatre fonctions du cours 1, à exécuter telles quelles. Ce qu'elles font
+//     avec les fichiers est expliqué dans la partie suivante.
+//   ]
 
-  #code-commente(
-    ("def lire_ingredients(chemin):", "lit le CSV : une liste de (nom, quantité, unité)"),
-    ("def convertir(quantite, unite):", "grammes en onces, millilitres en cups"),
-    ("def adapter(ingredients, personnes, unites):", "multiplie par le nombre de convives, convertit si « US »"),
-    ("def tableau(ingredients):", "le tableau Markdown, une ligne par ingrédient"),
-  )
+//   #code-commente(
+//     ("def lire_ingredients(chemin):", "lit le CSV : une liste de (nom, quantité, unité)"),
+//     ("def convertir(quantite, unite):", "grammes en onces, millilitres en cups"),
+//     ("def adapter(ingredients, personnes, unites):", "multiplie par le nombre de convives, convertit si « US »"),
+//     ("def tableau(ingredients):", "le tableau Markdown, une ligne par ingrédient"),
+//   )
 
-  #notes[
-    Ne pas relire les fonctions : elles ont été vues au cours 1, et pour ceux
-    qui ne les ont pas vues, le notebook les contient en entier. Une seule
-    chose à dire : `next(lecteur)` saute la ligne d'en-tête du CSV, le
-    commentaire le dit.
-  ]
-]
+//   #notes[
+//     Ne pas relire les fonctions. 
+//     Une seule chose à expliquer eventuellement : `next(lecteur)` saute la ligne d'en-tête du CSV.
+//   ]
+// ]
 
 // --------------------------------------------
-#d("Le code brut, chemins en dur", cellule: 2)[
+#d("Le code brut, chemins en dur", cellule: "1 et 2")[
   #annonce[
-    Le programme sans variable, tel que son auteur l'a écrit sur son poste.
+    Le programme de création de recette "chemin en dur". (contre) exemple de code non portable
+    et difficile à adapter. Les fonctions utiles du bloc 1 seront vu plus tard en détail.
+    Pour l'instant on va se concentrer sur comment améliorer la gestion de chemins de fichier.
   ]
 
   #code-commente(
@@ -51,7 +51,7 @@
 
   #avertissement[
     Ces chemins sont ceux d'un poste. Sur un autre, ou après un déplacement
-    du dossier, les trois lignes sont à réécrire.
+    du dossier, les trois lignes sont a adapter.
   ]
 
   #notes[
@@ -59,18 +59,15 @@
     copie du bloc, où chacun met les chemins de son poste, lus dans la barre
     d'adresse de l'explorateur, avec des `/` à la place des `\`. Le code
     tourne alors, et n'a de valeur que sur ce poste.
-
-    Les `with open` sont laissés tels quels ici : la partie suivante les
-    explique, dans `fichiers.ipynb`.
   ]
 ]
 
 // --------------------------------------------
 #d("pathlib pour déclarer des chemins", cellule: "3.1 et 3.2")[
   #annonce[
-    Le code est amélioré en deux étapes : sans `pathlib`, les chemins passent
-    dans des variables déclarées avant le code ; avec `pathlib`, une seule
-    variable est déclarée, la racine, et les autres s'en déduisent en relatif.
+    Le code s'améliore en deux étapes : 
+      + utiliser des variable pour les chemins de fichier. (python pur). 
+      + déduire l'ensemble des chemins à partir d'une seul variable : dossier racine avec `pathlib`.
   ]
 
   #code-commente(
@@ -90,8 +87,7 @@
   ]
 
   #notes[
-    Un chemin déclaré n'est pas vérifié : la cellule passe même si le
-    dossier n'existe pas.
+    Un chemin déclaré n'est pas vérifié.
 
     `pathlib` fait partie de la bibliothèque standard, livrée avec Python,
     comme `csv` : l'import est la seule chose à écrire pour disposer de

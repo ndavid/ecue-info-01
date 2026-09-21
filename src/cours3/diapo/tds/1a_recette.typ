@@ -26,15 +26,12 @@
   ]
 
   #tableau(
-    columns: (auto, 1.4fr, 1fr),
+    columns: (auto, 1fr),
     align: left + horizon,
-    [], [Ce qu'il faut faire], [Ce que vous constatez],
+    [], [Ce qu'il faut faire],
     [1], [dans l'explorateur, copier `depart/notebook/recette.ipynb` dans `travail/`],
-      reponse[`travail/recette.ipynb`, à côté de `depart/`],
     [2], [dans le panneau de gauche de JupyterLab, descendre jusqu'à `cours3/1a_recette/travail/`, double-cliquer sur `recette.ipynb`],
-      reponse[le notebook s'ouvre ; en haut à droite, `Python 3 (ipykernel)`],
     [3], [ouvrir aussi `depart/recettes/crepes/recette.md` par un double-clic],
-      reponse[la recette, sans tableau sous « Ingrédients »],
   )
 
   #legende[
@@ -50,5 +47,9 @@
 
     Le nom du noyau en haut à droite est celui du TD 3b du cours 1. S'il
     manque, cliquer dessus et choisir `Python 3`.
+
+    À constater : `travail/recette.ipynb` à côté de `depart/` ; le notebook
+    ouvert avec `Python 3 (ipykernel)` en haut à droite ; la recette sans
+    tableau sous « Ingrédients ».
   ]
 ]

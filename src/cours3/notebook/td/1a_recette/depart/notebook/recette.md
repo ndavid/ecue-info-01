@@ -13,13 +13,15 @@ kernelspec:
 # Amélioration d'un code de génération de recette
 
 Ce notebook a pour objectif d'améliorer un code de génération de recette en
-utilisant des fonctions des bibliothèques standard de Python.
+utilisant des fonctions des bibliothèques standards de Python.
+
+Le notebook est structuré en trois parties :
 
 1. Le code brut, avec ses chemins écrits en dur.
-2. Amélioration avec la bibliothèque `pathlib` pour la manipulation de
+2. Amélioration du code avec la bibliothèque `pathlib` pour la manipulation de
    chemins en Python.
-3. Conversion du résultat en page HTML avec pandoc : dans le terminal, puis
-   depuis Python.
+3. Conversion du résultat en page HTML avec pandoc, d'abord en appelant l'outil 
+   manuellement dans le terminal, puis en l'appelant directement depuis le code Python.
 
 Ce notebook est livré dans `depart/notebook/`. Avant de commencer, le copier
 dans `travail/` et ouvrir la copie : `depart/` ne se modifie pas, `travail/`
@@ -27,9 +29,14 @@ reçoit tout ce qu'on fabrique.
 
 ## 1 · Les fonctions utiles
 
-Les fonctions du cours 1 : lire les ingrédients, les mettre à l'échelle,
-convertir les unités, écrire le tableau. À exécuter telles quelles ; elles ne
-changent pas dans la suite.
+Les fonctions reprises du cours 1 utiles pour le programme: 
+ * lire les ingrédients
+ * les mettre à l'échelle en fonction du nombre de personnes
+ * convertir les unités
+ * écrire le tableau contenant les ingrédients et leur quantité en format texte markdown. 
+ 
+Ces fonctions sont à exécuter telles quelles; elles ne changent pas dans la suite de ce notebook
+mais seront vues plus en détails dans le notebook suivant.
 
 ```{code-cell} ipython3
 import csv
@@ -38,7 +45,16 @@ FACTEURS = {"g": (28.3495, "oz"), "ml": (236.588, "cup")}
 
 
 def lire_ingredients(chemin):
-    """Les ingrédients du fichier CSV, quantités converties en nombres."""
+    """Les ingrédients du fichier CSV, quantités converties en nombres.
+    
+    la fonction renvoit les ingrédients sur la forme d'une liste de tuple.
+    Chaque correspond à une "ligne" pour un ingrédient et contient 
+
+    * nom de l'ingrédiant (pos 0) 
+    * quantité de l'ingrédient (pos 1) en float
+    * unité associée à la quantité.
+
+    """
     ingredients = []
     with open(chemin, encoding="utf-8", newline="") as fichier:
         lecteur = csv.reader(fichier)
@@ -59,7 +75,7 @@ def convertir(quantite, unite):
 
 
 def adapter(ingredients, personnes, unites):
-    """La recette pour ce nombre de convives, dans ce système d'unités."""
+    """La recette pour ce nombre de personnes, dans ce système d'unités."""
     resultat = []
     for nom, quantite, unite in ingredients:
         quantite = quantite * personnes
@@ -79,8 +95,12 @@ def tableau(ingredients):
 
 ## 2 · Le code brut, chemins en dur
 
-Le programme, sans variable : chaque chemin est écrit en entier, là où il
-sert. Ces chemins sont ceux du poste de l'auteur.
+Une version du programme, sans variable et utilisant des chemins "codés en dur". 
+Par chemin en dur on entend que chaque chemin est écrit en entier, à partir de la racine et est spécifique
+à un ordinateur / poste.
+
+Ce type de code n'est **PAS** un exemple de bonne pratique, mais on en croise des variantes assez souvent 
+dans les rendus d'élèves, on va étudier comment l'améliorer.
 
 ```{code-cell} ipython3
 :tags: [raises-exception]
@@ -125,35 +145,18 @@ print(complete)
 :::{warning}
 Ce code n'est pas portable : il ne fonctionne que sur le poste où les
 chemins ont été écrits. Le donner à quelqu'un d'autre, ou déplacer le
-dossier, oblige à réécrire trois lignes. Un chemin absolu recopié dans un
-code est l'erreur de `chemin.py` au TD 2b du cours 1.
+dossier, oblige à réécrire trois lignes pour faire fonctionner le code.
 :::
 
-## 3 · Amélioration avec `pathlib`
+## 3 · Amélioration du code avec variable et utilisation de `pathlib`
 
-### 3.1 · Importer `pathlib`, déclarer un chemin
 
-`pathlib` est une bibliothèque livrée avec Python : rien à installer, une
-ligne à importer. `Path("…")` déclare un chemin ; `/` lui ajoute un dossier
-ou un fichier. Documentation :
-[docs.python.org/fr/3/library/pathlib.html](https://docs.python.org/fr/3/library/pathlib.html).
+### 3.1 · Le même code, avec des variables
 
-```{code-cell} ipython3
-from pathlib import Path
+La première amélioration est de déclarer les chemins utilisés comme des variables dans un
+bloc à part. Le code, lui, ne contient alors plus que les noms des variables.
 
-dossier = Path("C:/Users/alice/Desktop/cours3/1a_recette")
-print(dossier)
-print(dossier / "depart" / "recettes")
-```
-
-Un `Path` s'écrit avec des `/`, quel que soit le système ; sous Windows, il
-s'affiche avec des `\`. Rien n'est vérifié à la déclaration : le dossier
-d'Alice n'existe pas ici, et la cellule passe.
-
-### 3.2 · Le même code, avec des variables
-
-Les chemins sortent du code et deviennent des variables, déclarées dans un
-bloc à part. Le code, lui, ne contient plus que les noms des variables.
+**déclaration des variables chemins**
 
 ```{code-cell} ipython3
 # Déclaration brute : trois chaînes, à modifier toutes les trois pour changer de poste
@@ -162,26 +165,89 @@ FICHIER_RECETTE = "C:/Users/alice/Desktop/cours3/1a_recette/depart/recettes/crep
 FICHIER_SORTIE = "C:/Users/alice/Desktop/cours3/1a_recette/travail/crepes.md"
 ```
 
-Avec `pathlib`, une seule valeur est écrite en dur, la racine du TD ; les
-autres chemins s'en déduisent, en relatif.
+**version du code utilisant les variables**
+
+```{code-cell} ipython3
+:tags: [raises-exception]
+
+ingredients = lire_ingredients(FICHIER_INGREDIENTS)
+ingredients = adapter(ingredients, 4, "SI")
+
+with open(FICHIER_RECETTE, encoding="utf-8") as fichier:
+    source = fichier.read()
+complete = source.replace("## Ingrédients", "## Ingrédients\n\n" + tableau(ingredients))
+
+with open(FICHIER_SORTIE, "w", encoding="utf-8") as fichier:
+    fichier.write(complete)
+print(complete)
+```
+
+### 3.2 · Importer `pathlib`, déclarer un chemin
+
+`pathlib` est une bibliothèque livrée avec Python, il n'est pas nécessaire de la préciser en dépendance par
+contre il et nécessaire de déclarer son import / utilisation. 
+
+```{code-cell} ipython3
+from pathlib import Path
+```
+
+`Path("…")` déclare un chemin ; 
+
+```{code-cell} ipython3
+dossier = Path("C:/Users/alice/Desktop/cours3/1a_recette")
+print(dossier)
+
+`/` ajoute un dossier ou un fichier au chemin. Il s'agit d'un opérateur comme `+` pour l'addition.
+
+```{code-cell} ipython3
+dossier_recette =  dossier / "depart" / "recettes"
+print(dossier_recette)
+```
+
+En python un `Path` s'écrit avec des `/`, quel que soit le système ; sous Windows, il
+s'affiche avec des `\`. 
+
+REM: construire un `Path` n'est pas équivalent à créer un fichier/dossier. Ici on construit
+juste un chemin et il n'y a aucune garantie que le dossier ou fichier correspondant existe. 
+
+Documentation :
+[docs.python.org/fr/3/library/pathlib.html](https://docs.python.org/fr/3/library/pathlib.html).
+
+
+Avec `pathlib`, on ne déclare plus en dure qu'un seul chemin : la racine du TD. 
+Les autres chemins s'en déduisent, en relatif. 
+
+Cela est plus portable sur un autre ordi dans l'on copie le dossier des données sans en changer l'aborescence.
+
+**déclaration de la racine**
+
+:::{admonition} À faire
+Remplacez la valeur de `RACINE` par le chemin de votre dossier `1a_recette/`,
+:::
 
 ```{code-cell} ipython3
 :tags: [corrige]
-
-# Déclaration avec pathlib : RACINE en dur, les trois chemins déduits avec /
+# Déclaration avec pathlib : RACINE en dur
 RACINE = Path("C:/Users/alice/Desktop/cours3/1a_recette")
 
+les autres chemins sont contruits à partir de la racin en utilisant l'opérateur  '/'
+ci -dessous exemple pour RECETTE
+
+```{code-cell} ipython3
 RECETTE = RACINE / "depart" / "recettes" / "crepes"
+```
+
+:::{admonition} À faire
+Completer les autres chemins de la même façon,
+:::
+
+```{code-cell} ipython3
 FICHIER_INGREDIENTS = RECETTE / "ingredients.csv"
 FICHIER_RECETTE = RECETTE / "recette.md"
 FICHIER_SORTIE = RACINE / "travail" / "crepes.md"
 ```
 
-:::{admonition} À faire
-Remplacez la valeur de `RACINE` par le chemin de votre dossier `1a_recette/`,
-exécutez la cellule, puis le code ci-dessous : une seule ligne a changé par
-rapport au code brut.
-:::
+Tester le code :
 
 ```{code-cell} ipython3
 :tags: [raises-exception]
@@ -200,11 +266,14 @@ print(complete)
 
 ### 3.3 · Obtenir la racine automatiquement
 
-Il reste une valeur écrite en dur, `RACINE`. Python connaît le dossier
-courant, celui d'où partent les chemins relatifs : `Path.cwd()`. Dans un
-notebook, c'est le dossier du fichier `.ipynb`, ici `travail/` : le serveur
-Jupyter y place le noyau au démarrage. Ce n'est pas le dossier de
-l'interpréteur Python, `sys.executable`, qui est ailleurs.
+Il reste une valeur écrite en dur, `RACINE`. Pathlib fournis des fonctions
+pour définir des chemins correspondants à des emplacements spécifique. PAr 
+exemple le chemin courant est définie par `Path.cwd()`. 
+
+Dans un notebook, c'est le dossier du fichier `.ipynb`, ici `travail/` : le serveur
+Jupyter y place le noyau au démarrage. 
+
+Un autre chemin que l'on peut obtenir en python est celui de l'interpréteur Python, `sys.executable`.
 
 ```{code-cell} ipython3
 import sys
@@ -224,9 +293,11 @@ print(Path("..") / "depart" / "recettes")   # le même dossier, en relatif : tel
 print((Path("..") / "depart" / "recettes").resolve())   # resolve() le rend absolu
 ```
 
-Un chemin relatif s'affiche tel qu'il a été écrit, `..` compris ; `resolve()`
-le colle au dossier courant et rend le chemin absolu. Les deux désignent le
-même dossier. `RACINE` n'a donc plus à être écrite.
+Un chemin relatif s'affiche tel qu'il a été écrit, avec les `..` dans le chemin inclus; 
+`resolve()` transforme le chemin en un chemin absolu. i.e supprime les `..`. Les deux désignent le
+même dossier. 
+
+On calcul alors RACINE par rapport au chemin du notebook:
 
 ```{code-cell} ipython3
 :tags: [corrige]
@@ -256,15 +327,20 @@ print(complete)
 ```
 
 Le même code tourne maintenant sur n'importe quel poste, à condition que
-`depart/` et `travail/` soient côte à côte : c'est ce que l'archive garantit.
+`depart/` et `travail/` soient côte à côte.
+
 
 ### 3.4 · Généraliser à plusieurs recettes
 
 Le code traite une seule recette, `crepes`, et le fichier produit porte un
 nom générique. `depart/recettes/` contient quatre dossiers, un par recette,
-tous construits de la même façon. Pour produire une page par recette, il
-faut lister ces dossiers, et déduire le nom du fichier de sortie du nom du
-dossier. `pathlib` sait faire les deux.
+tous construits de la même façon. 
+
+Pour produire une page par recette, il faut lister ces dossiers, et déduire
+le nom du fichier de sortie du nom du dossier. Cela fait aussi partie des fonctions
+de `pathlib`.
+
+On commence par lister le contenu d'un dossier avec la fonction `iterdir()`
 
 ```{code-cell} ipython3
 RECETTES = RACINE / "depart" / "recettes"
@@ -273,6 +349,9 @@ RECETTES = RACINE / "depart" / "recettes"
 for dossier in RECETTES.iterdir():
     print(dossier)
 ```
+
+Ensuite on test si l'élement du dossier est un sous-dosssier (est lui même un dossier)
+avec la fonction `is_dir()` et on extrait son nom avec `name`
 
 ```{code-cell} ipython3
 # sorted() les trie ; is_dir() garde les dossiers ; name est le dernier morceau du chemin
@@ -291,7 +370,7 @@ for dossier in sorted(RECETTES.iterdir()):
         print(dossier.name, "->", fichier_sortie.name, (dossier / "ingredients.csv").exists())
 ```
 
-Le programme de la section 3.3, dans la boucle : les chemins de la recette
+On adapte le programme initial pour fonctionner avec plusieurs recettes : les chemins de la recette
 partent de `dossier`, le fichier de sortie de `dossier.name`.
 
 ```{code-cell} ipython3
