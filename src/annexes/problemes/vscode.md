@@ -213,3 +213,45 @@ Remède
   virgule ; le dernier n'en a pas ; les chemins s'écrivent avec `\\`. En
   cas de doute, passer par l'interface : palette, « Preferences: Open
   Settings (UI) », qui écrit le fichier elle-même.
+
+(dep-v11)=
+### V11. « Error loading webview: Could not register service worker »
+
+Ce qu'on voit
+: À l'ouverture de l'aperçu Markdown (`Ctrl` + `Maj` + `V`), d'un
+  notebook ou de la page des réglages, un cadre vide avec `Error loading
+  webview: Error: Could not register service worker: InvalidStateError:
+  Failed to register a ServiceWorker: The document is in an invalid
+  state`.
+
+Cause
+: Ces vues sont des pages web internes, servies par un programme de cache
+  du navigateur intégré, le *service worker*. Son cache est dans le profil
+  du compte, `C:\Users\<nom>\AppData\Roaming\Code\Service Worker`. Quand
+  il a été écrit par une version antérieure de VS Code, la version en
+  place ne parvient plus à l'enregistrer. Sur les postes de la salle, le
+  profil date de la création de l'image et a traversé plusieurs mises à
+  jour de VS Code.
+
+Vérifier
+: Dans l'explorateur de fichiers, la date de modification du dossier
+  `Service Worker` est antérieure au dernier démarrage de VS Code.
+
+Remède
+: D'abord palette, « Developer: Reload Webviews », qui suffit parfois pour
+  la session. Sinon, fermer VS Code entièrement, puis dans un `cmd`
+  supprimer les caches, que VS Code recrée au démarrage suivant :
+
+  ```
+  rmdir /s /q "%APPDATA%\Code\Service Worker"
+  rmdir /s /q "%APPDATA%\Code\Cache"
+  rmdir /s /q "%APPDATA%\Code\Code Cache"
+  rmdir /s /q "%APPDATA%\Code\CachedData"
+  rmdir /s /q "%APPDATA%\Code\GPUCache"
+  ```
+
+  Les réglages (`User\`), les extensions et l'historique des fichiers
+  ouverts ne sont pas dans ces dossiers. Relancer VS Code et rouvrir
+  l'aperçu. Si l'erreur reste, un antivirus ou une stratégie empêche
+  l'écriture dans `Service Worker` : lancer `code --verbose` depuis un
+  `cmd` affiche le refus dans la console.

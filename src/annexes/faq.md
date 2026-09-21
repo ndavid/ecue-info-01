@@ -80,6 +80,7 @@ même message a parfois deux causes selon la fenêtre.
 | `ModuleNotFoundError` alors que le paquet est installé | {ref}`V8 <dep-v8>` |
 | `Ctrl` + `ù` n'ouvre pas le terminal | {ref}`V9 <dep-v9>` |
 | « Unable to write into user settings » ; une ligne rouge dans `settings.json` | {ref}`V10 <dep-v10>` |
+| « Error loading webview: Could not register service worker » à l'aperçu Markdown ou dans un notebook | {ref}`V11 <dep-v11>` |
 
 ## git (séance 2)
 
