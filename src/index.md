@@ -11,6 +11,9 @@ et son articulation avec les autres cours, puis par les vérifications à faire
 [avant les séances](avant/verifications.md). Les annexes détaillent la configuration
 de JupyterLab et de VS Code, et les problèmes rencontrés en séance.
 
+Les fichiers des TD, une archive par séance, sont dans
+<a href="telechargements/index.html">telechargements/</a>.
+
 ```{toctree}
 :maxdepth: 1
 

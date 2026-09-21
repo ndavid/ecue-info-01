@@ -42,12 +42,14 @@ Pour **recompiler** les supports, il faut en plus la chaîne documentaire :
 conda env create -f environment-supports.yml && conda activate info01
 python outils/compiler_diapos.py                               # diapositives → PDF
 sphinx-build -b html src _build/html                           # book → _build/html/index.html
-ghp-import -n -p -f _build/html                                # book → https://ndavid.github.io/ecue-info-01/
+python outils/publier_book.py livraison/*.zip                  # book + archives → https://ndavid.github.io/ecue-info-01/
 ```
 
-La dernière ligne publie `_build/html/` sur la branche `gh-pages`, que GitHub
-Pages sert ; la branche est régénérée à chaque publication et n'a pas de lien
-avec `main`. `ghp-import` s'installe par `pip install ghp-import`.
+La dernière ligne reconstruit le book, dépose les fichiers donnés dans
+`telechargements/` (avec une page qui les liste, liée depuis l'accueil du book)
+et publie `_build/html/` sur la branche `gh-pages`, que GitHub Pages sert ; la
+branche est refaite à chaque publication et n'a pas de lien avec `main`.
+`ghp-import` s'installe par `pip install ghp-import`.
 
 Détail, vérifications et pannes connues : **[`INSTALLATION.md`](INSTALLATION.md)**.
 
