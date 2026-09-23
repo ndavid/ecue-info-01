@@ -29,17 +29,16 @@
   )
 
   #notes[
-    Les notions sont connues des cours précédent. Ici on les revoit et on étudie comment
-    les manipuler avec les fonctionnalités de la librairie standard Python.
+    Les notions sont connues des cours précédent. 
+    Ici on les revoit et on étudie comment les manipuler avec les fonctionnalités de la librairie standard Python.
   ]
 ]
 
 // --------------------------------------------
 #d("Contenu de la séance")[
   #annonce[
-    La séance contient trois notebooks ; les deux premiers s'exécutent pendant
-    la présentation du cours. Chaque TD a son dossier dans l'archive
-    `cours3/`, avec ses propres données.
+    La séance contient trois notebooks ; les deux premiers s'exécutent pendant la présentation du cours. 
+    Chaque TD a son dossier dans l'archive `cours3/`, avec ses propres données.
   ]
 
   #tableau(
@@ -53,12 +52,8 @@
   )
 
   #notes[
-    Les trois notebooks se font pendant l'exposé : chaque diapositive qui
-    porte un cartouche « § n » correspond à une section du notebook, à
-    exécuter à ce moment. Le rythme est celui de la salle.
-
-    La dernière partie est un TD classique : cinq diapositives d'exposé,
-    puis le travail dans l'éditeur, pas à pas.
+    Les trois notebooks sont a faire en même temps que l'exposé : chaque diapositive qui porte un cartouche « § n » correspond à une section du notebook, à exécuter à ce moment. 
+    La dernière partie est un TD classique : cinq diapositives d'exposé, puis le déroulé du TD détaillé.
   ]
 ]
 
@@ -66,31 +61,31 @@
 #d("Lancement de la séance : récupération données")[
   #annonce[
     L'archive `info01-cours3.zip` est dans le dossier partagé `formationTemp`.
-    Il faut la copier sur le Bureau (ou autre dossier de votre préférence) puis la décompresser; 
+    Il faut la copier sur le Bureau (ou autre dossier de votre préférence) puis la décompresser. 
   ]
 
   #tableau(
     columns: (auto, 1.4fr, 1fr),
     align: left + horizon,
-    [], [Ce qu'il faut faire], [Ce que vous constatez],
+    [], [Ce qu'il faut faire], [Ce que vous devez obtenir],
     [1], [ouvrir le dossier partagé `formationTemp`, copier `info01-cours3.zip` sur le Bureau],
       [l'archive sur le Bureau, 14 Mo],
     [2], [clic droit sur l'archive #sym.arrow.r Extraire tout],
-      [un dossier `cours3/`, trois sous-dossiers `1a_recette/`, `2a_images/`, `3a_cli/`],
+      [un dossier `cours3/`, quatre sous-dossiers `1a_recette/`, `2a_fichiers/`, `2b_images/`, `3a_cli/`],
     [3], [ouvrir `cours3/1a_recette/` : `depart/`, `travail/` vide, la feuille du TD],
-      [`depart/notebook/` contient les deux notebooks],
+      [`depart/notebook/` contient `recette.ipynb`],
   )
 
   #avertissement[
     Ne pas travailler dans le dossier partagé, ne pas chercher à ouvrir un fichier
-    de l'archive avec vscode ou aute.
+    de l'archive avec vscode ou autre.
   ]
 
   #notes[
     Vécu à la séance 1 : des fichiers ouverts depuis l'archive sans
     extraction, et du travail fait dans le dossier partagé, perdu ou écrasé
-    par le voisin. Faire les trois étapes ensemble, avant de lancer quoi que
-    ce soit.
+    par le voisin. 
+    Faire les trois étapes avec les étudiants, avant de lancer quoi que ce soit.
   ]
 ]
 
@@ -121,14 +116,11 @@
   ]
 
   #notes[
-    Dix minutes, pas plus. Navigator a été lent ou muet sur les VM à la
-    séance 1 : donner la commande `jupyter lab` tout de suite à ceux qui
-    n'ont rien au bout de trente secondes ; les deux ouvrent le même
-    serveur.
+    Dix minutes, pas plus. 
+    Navigator a été lent ou muet sur les VM à la séance 1 : donner la commande `jupyter lab` tout de suite à ceux qui n'ont rien au bout de trente secondes.
 
-    VS Code sert pour le TD 3a, pas pour les notebooks : s'il ne trouve pas
-    l'environnement d'Anaconda sur ces postes, et pas le temps de configurer
-    tenter spyder.
+    VS Code sert pour le TD 3a, pas pour les notebooks. 
+    Si pb d'environnement d'Anaconda sur ces postes avec vscode, et pas le temps de configurer tenter spyder.
 
     Un poste qui ne lance ni JupyterLab ni un éditeur en dix minutes : en
     changer ou suivre avec un collègue, la séance ne peut pas attendre.

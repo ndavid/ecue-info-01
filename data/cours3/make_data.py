@@ -4,8 +4,8 @@ Le dépôt versionne les recettes (`recettes/`), les modèles et le programme de
 secours du TD 3a ; tout ce qui vient d'ailleurs est téléchargé une fois dans `fourni/`,
 et `build` recopie ou dérive ce que chaque TD reçoit dans son `produit/`.
 
-    python make_data.py fetch    # télécharge dans 2a_images/fourni/ et 3a_cli/fourni/
-    python make_data.py build    # remplit produit/ des trois TD, depuis recettes/ et fourni/
+    python make_data.py fetch    # télécharge dans 2b_images/fourni/ et 3a_cli/fourni/
+    python make_data.py build    # remplit produit/ des quatre TD, depuis recettes/ et fourni/
 
 Chaque TD reçoit sa propre copie des données : un dossier livré se suffit,
 aucun TD ne renvoie à un chemin d'un TD précédent.
@@ -31,13 +31,14 @@ RECETTES = ICI / "recettes"
 CORRIGES = ICI / "corriges"
 
 TD_RECETTE = ICI / "1a_recette"
-TD_IMAGES = ICI / "2a_images"
+TD_FICHIERS = ICI / "2a_fichiers"
+TD_IMAGES = ICI / "2b_images"
 TD_CLI = ICI / "3a_cli"
 
 # Commons et le Met demandent un User-Agent identifiable.
 ENTETES = {"User-Agent": "info01-cours (https://github.com/ ; cours d'introduction à l'informatique)"}
 
-# --- Images du TD 2a --------------------------------------------------------
+# --- Images du TD 2b --------------------------------------------------------
 
 # L'objet 45434 du Met est *Under the Wave off Kanagawa* ; l'API renvoie
 # l'URL de l'image originale, CC0, 3 859 × 2 594 pixels. `build` la réduit à
@@ -82,7 +83,7 @@ MAGICK_VERSION = "7.1.2-31"
 MAGICK_ARCHIVE = f"ImageMagick-{MAGICK_VERSION}-portable-Q16-x64.7z"
 MAGICK_URL = f"https://github.com/ImageMagick/ImageMagick/releases/download/{MAGICK_VERSION}/{MAGICK_ARCHIVE}"
 
-# Le motif 4 × 4 du TD 2a, écrit en clair : c'est un fichier texte, et c'est
+# Le motif 4 × 4 du TD 2b, écrit en clair : c'est un fichier texte, et c'est
 # le point.
 MOTIF = "P2\n4 4\n255\n0 255 0 255\n255 0 255 0\n0 255 0 255\n255 0 255 0\n"
 
@@ -191,7 +192,15 @@ def build() -> None:
     copier_recettes(produit / "depart", avec_photos=False)
     print(f"✓ {TD_RECETTE.name}/produit/depart/")
 
-    # TD 2a : les images de départ.
+    # TD 2a : les recettes, que relit le notebook des fichiers (posé là par
+    # construire_notebooks.py).
+    produit = TD_FICHIERS / "produit"
+    vider(produit)
+    (produit / "travail").mkdir()
+    copier_recettes(produit / "depart", avec_photos=False)
+    print(f"✓ {TD_FICHIERS.name}/produit/depart/")
+
+    # TD 2b : les images de départ.
     produit = TD_IMAGES / "produit"
     vider(produit)
     (produit / "travail").mkdir()

@@ -1,223 +1,13 @@
-// Partie 2 du cours 3 — texte et binaire, en Python.
+// Partie 2 du cours 3, seconde moitié — texte et binaire sur des images.
 //
-// Incluse par `cours3.typ`. Se joue notebook ouvert et suit l'ordre de deux
-// notebooks : `fichiers.ipynb` (TD 1a, ouvert par le TD 2a), qui explique
-// comment le code de la recette ouvre, lit et écrit ses fichiers texte, puis
-// `images.ipynb` (TD 2a), qui compare texte et binaire sur des images PGM.
-// Chaque diapositive porte, par `cellule:`, la section à exécuter à ce
-// moment. Les nombres cités (tailles, temps) sont ceux d'une exécution
-// réelle du notebook ; ils varient d'un poste à l'autre, pas leurs rapports.
+// Incluse par `cours3.typ`, après le TD 2b qui fait ouvrir `images.ipynb`.
+// Se joue notebook ouvert et suit l'ordre de ce notebook : chaque
+// diapositive porte, par `cellule:`, la section à exécuter à ce moment. Les
+// nombres cités (tailles, temps) sont ceux d'une exécution réelle du
+// notebook ; ils varient d'un poste à l'autre, pas leurs rapports.
 // Un fichier inclus n'hérite pas des imports de son appelant.
 #import "../../../commun/prelude.typ": *
 #import "../schemas.typ": *
-
-// L'ouverture de la partie est commune au TD qui l'accompagne : voir
-// `separateur-cours-td` dans `cours3.typ`.
-
-// --------------------------------------------
-#d("Ouvrir, lire, fermer", cellule: 1, fichier: "fichiers.ipynb")[
-  #annonce[
-    `open` rend un objet fichier, avec une position de lecture ; le texte
-    s'obtient en le lisant. L'objet s'appelle ici `fichier_ouvert`, le texte
-    `texte`.
-  ]
-
-  #code-commente(
-    taille-code: 13pt, taille-texte: 12.5pt,
-    ("fichier_ouvert = open(FICHIER_RECETTE, encoding=\"utf-8\")", "ouvre : un objet fichier, position au début"),
-    ("texte = fichier_ouvert.read()", "lit tout, jusqu'à la fin : une seule chaîne"),
-    ("fichier_ouvert.read()", "`''` : la position est à la fin"),
-    ("fichier_ouvert.close()", "ferme : le fichier est rendu au système"),
-    ("fichier_ouvert.read()", "`ValueError` : fichier fermé"),
-    ("", ""),
-    ("repr(texte[:60])", "les caractères tels qu'ils sont : `\\n` entre les lignes"),
-    ("lignes = fichier_ouvert.readlines()", "une liste : une chaîne par ligne, avec son `\\n`"),
-  )
-
-  #notes[
-    Dans les fonctions utiles du cours 1, l'objet s'appelle `fichier` ; le
-    nom `fichier_ouvert` est choisi ici pour ne pas le confondre avec le
-    texte lu. Tant que le fichier est ouvert, il est réservé par le
-    programme : sous Windows, un autre programme ne peut pas l'effacer ni le
-    remplacer.
-
-    `\n` est un caractère comme les autres ; `print` le rend par un saut de
-    ligne, `repr` l'écrit. Sous Windows, les fichiers ont souvent `\r\n` ;
-    `open` le traduit à la lecture (argument `newline`).
-  ]
-]
-
-// --------------------------------------------
-#d("with : ouvrir et fermer", cellule: 2, fichier: "fichiers.ipynb")[
-  #annonce[
-    Le bloc `with` ouvre le fichier à l'entrée et le ferme à la sortie, y
-    compris si une erreur survient dans le bloc. C'est la forme à employer.
-  ]
-
-  #code-commente(
-    ("with open(FICHIER_RECETTE, encoding=\"utf-8\") as fichier_ouvert:", "ouvert, disponible sous le nom `fichier_ouvert`"),
-    ("    texte = fichier_ouvert.read()", "tout ce qui se fait fichier ouvert est indenté"),
-    ("", ""),
-    ("print(fichier_ouvert.closed)", "`True` : à la sortie du bloc, déjà fermé"),
-  )
-
-  #notes[
-    Le `as fichier_ouvert` donne le nom ; le bloc indenté est la durée
-    d'ouverture. Pas de `close()` à écrire.
-
-    C'est la forme des fonctions utiles, `with open(chemin, …) as
-    fichier:`, qu'on peut maintenant relire.
-  ]
-]
-
-// --------------------------------------------
-#d("Les modes d'ouverture", cellule: 3, fichier: "fichiers.ipynb")[
-  #annonce[
-    Le deuxième argument d'`open` dit ce qu'on va faire du fichier. Sans
-    lui, c'est la lecture.
-  ]
-
-  #tableau(
-    columns: (auto, 1fr, 1fr, 1fr),
-    align: left + horizon,
-    [Mode], [Ce qu'il fait], [Fichier absent], [Fichier présent],
-    [`"r"`], [lire (défaut)], [erreur], [lu],
-    [`"w"`], [écrire], [créé], [vidé, puis réécrit],
-    [`"a"`], [ajouter à la fin], [créé], [conservé, complété],
-    [`"x"`], [créer et écrire], [créé], [erreur],
-    [`"rb"`, `"wb"`], [octets, sans `encoding`], [], [notebook des images],
-  )
-
-  #avertissement[
-    Sans `encoding="utf-8"`, Python prend l'encodage du système, `cp1252`
-    sous Windows : « é » écrit en UTF-8 se lit « Ã© ».
-  ]
-
-  #notes[
-    Les cellules écrivent `essai.txt` en `"w"`, le complètent en `"a"`, le
-    remplacent en `"w"`, puis deux erreurs : `"r"` sur un fichier absent,
-    `"x"` sur un fichier présent. La dernière force `encoding="cp1252"`
-    pour montrer ce qui arrive quand on oublie l'argument.
-  ]
-]
-
-// --------------------------------------------
-#d("Lire ligne par ligne", cellule: 4, fichier: "fichiers.ipynb")[
-  #annonce[
-    `read()` et `readlines()` lisent tout le fichier d'un coup. Avec `for`,
-    une ligne est lue à chaque tour de boucle ; la suivante n'est pas encore
-    en mémoire.
-  ]
-
-  #code-commente(
-    taille-code: 13pt, taille-texte: 12.5pt,
-    ("with open(FICHIER_INGREDIENTS, encoding=\"utf-8\") as fichier_ouvert:", ""),
-    ("    for ligne in fichier_ouvert:", "une ligne à la fois, avec son `\\n`"),
-    ("        print(repr(ligne))", "`'nom,quantite,unite\\n'`, puis chaque ingrédient"),
-    ("", ""),
-    ("with open(FICHIER_RECETTE, encoding=\"utf-8\") as fichier_ouvert:", ""),
-    ("    numero = 0", ""),
-    ("    for ligne in fichier_ouvert:", ""),
-    ("        numero = numero + 1", "compte les lignes lues"),
-    ("        print(numero, ligne.strip())", "`strip()` enlève le `\\n`"),
-    ("        if numero == 3:", ""),
-    ("            break", "sort de la boucle : la suite n'est pas lue"),
-  )
-
-  #notes[
-    La lecture ligne par ligne sert pour un fichier plus gros que la
-    mémoire, ou dont on ne veut que le début. Pour un fichier de quelques
-    lignes, `read()` suffit.
-  ]
-]
-
-// --------------------------------------------
-#d("Le CSV", cellule: 5, fichier: "fichiers.ipynb")[
-  #annonce[
-    Une ligne du CSV est une chaîne : elle se découpe aux virgules, à la
-    main ou avec la bibliothèque `csv`.
-  ]
-
-  #code-commente(
-    ("ligne.strip().split(\",\")", "sans le `\\n`, coupée aux virgules : une liste de trois chaînes"),
-    ("", ""),
-    ("lecteur = csv.reader(fichier_ouvert)", "le découpage fait par la bibliothèque, guillemets compris"),
-    ("next(lecteur)", "la ligne d'en-tête, laissée de côté"),
-    ("for nom, quantite, unite in lecteur:", "chaque ligne, déjà découpée en trois variables"),
-  )
-
-  #legende[
-    C'est `lire_ingredients`, ligne à ligne. Documentation :
-    docs.python.org/fr/3/library/csv.html.
-  ]
-
-  #notes[
-    `split` suffit ici ; `csv` traite en plus une virgule entre guillemets,
-    ce qui arrive dès qu'un champ est du texte libre.
-  ]
-]
-
-// --------------------------------------------
-#d("Les raccourcis de pathlib", cellule: 6, fichier: "fichiers.ipynb")[
-  #annonce[
-    Ouvrir, lire tout, fermer : un `Path` le fait en une ligne.
-  ]
-
-  #tableau(
-    columns: (1fr, 1fr),
-    align: left + horizon,
-    [Avec `open`], [Avec `pathlib`],
-    [`with open(chemin, encoding="utf-8") as fichier_ouvert:` #linebreak() `texte = fichier_ouvert.read()`], [`texte = chemin.read_text(encoding="utf-8")`],
-    [`with open(chemin, "w", encoding="utf-8") as fichier_ouvert:` #linebreak() `fichier_ouvert.write(texte)`], [`chemin.write_text(texte, encoding="utf-8")`],
-    [`with open(chemin, "rb") as fichier_ouvert:` #linebreak() `octets = fichier_ouvert.read()`], [`octets = chemin.read_bytes()`],
-  )
-
-  #legende[
-    `for ligne in fichier_ouvert` garde son intérêt pour un fichier trop gros
-    pour la mémoire, ou qu'on arrête de lire en route.
-  ]
-
-  #notes[
-    La dernière cellule réécrit le programme de la recette avec `read_text`
-    et `write_text` : deux lignes à la place de deux blocs `with`. C'est la
-    forme du TD 3a.
-  ]
-]
-
-// --------------------------------------------
-#d("Le second notebook : images.ipynb")[
-  #annonce[
-    Le fichier texte est vu. Pour le comparer à un fichier binaire sur des
-    données qui ne sont pas du texte (des nombres, pas des phrases), la
-    suite prend des images au format PGM, qui existe dans les deux variantes.
-  ]
-
-  #tableau(
-    columns: (auto, 1.4fr, 1fr),
-    align: left + horizon,
-    [], [Ce qu'il faut faire], [Ce que vous constatez],
-    [1], [panneau de gauche de JupyterLab : remonter jusqu'à `cours3/`, entrer dans `2a_images/`],
-      reponse[`images.ipynb`, `depart/`, `travail/` vide],
-    [2], [double-cliquer sur `images.ipynb`],
-      reponse[un troisième onglet ; les deux premiers restent ouverts],
-    [3], [ouvrir aussi `depart/motif.pgm` par un double-clic dans le panneau],
-      reponse[JupyterLab l'ouvre comme un fichier texte : c'en est un],
-  )
-
-  #legende[
-    `depart/` contient trois images : le motif de seize pixels, *La Grande
-    Vague* de Hokusai, et un émoji. Tout ce que le notebook fabrique va dans
-    `travail/`.
-  ]
-
-  #notes[
-    L'étape 3 montre un fichier d'image qui s'ouvre comme du texte. La
-    diapositive suivante dit ce qu'il contient.
-
-    Les images sont libres : Twemoji est en CC BY, la Vague vient du
-    Metropolitan Museum en CC0. `depart/CREDITS.md` le dit.
-  ]
-]
 
 // --------------------------------------------
 #d("Le format PGM")[
@@ -246,26 +36,25 @@
   ]
 
   #notes[
-    Ne pas ouvrir le notebook pour cette diapositive : elle dit ce que les
-    deux sections suivantes font constater. Le choix du format : rien à
-    décompresser, l'en-tête se lit, et Pillow lit et écrit les deux
-    variantes.
+    Ne pas ouvrir le notebook pour cette diapositive : elle annonce ce que les
+    deux sections suivantes montrent. 
   ]
 ]
 
 // --------------------------------------------
-#d("Un fichier texte qui est une image", cellule: 1, fichier: "images.ipynb")[
+#d("Image au format texte : PGM P2", cellule: 1, fichier: "images.ipynb")[
   #annonce[
-    `depart/motif.pgm` est en `P2`. Lu par `read_text`, c'est du texte ;
-    ouvert par Pillow, c'est une image de 4 × 4 pixels.
+    Le fichier `depart/motif.pgm` est au format `P2`. `read_text()` renvoie
+    son contenu sous forme de texte. La bibliothèque Pillow ouvre le même
+    fichier comme une image de 4 × 4 pixels.
   ]
 
   #code-commente(
     taille-code: 13pt, taille-texte: 12.5pt,
     ("motif = Path(\"depart/motif.pgm\")", "le chemin du fichier"),
-    ("print(motif.read_text())", "lu comme du texte : l'en-tête et seize nombres"),
-    ("image = Image.open(motif)", "lu par Pillow : une image ; `size` `(4, 4)`, `mode` `'L'`, gris"),
-    ("image.resize((160, 160), Image.NEAREST)", "agrandie 40 fois, sans lissage"),
+    ("print(motif.read_text())", "affiche le texte : l'en-tête, puis les seize valeurs des pixels"),
+    ("image = Image.open(motif)", "ouvre l'image : `size` vaut `(4, 4)`, `mode` vaut `'L'` (niveaux de gris)"),
+    ("image.resize((160, 160), Image.NEAREST)", "agrandit l'image 40 fois, sans lissage"),
   )
 
   #v(0.3em)
@@ -273,7 +62,7 @@
     panneau("depart/motif.pgm, 59 octets")[
       #sortie("P2\n4 4\n255\n0 255 0 255\n255 0 255 0\n0 255 0 255\n255 0 255 0", taille: 10.5pt)
     ],
-    panneau("Ce que Pillow en affiche, agrandi")[
+    panneau("L'image affichée par Pillow, agrandie")[
       #align(center, pixels-gris((
         (0, 255, 0, 255),
         (255, 0, 255, 0),
@@ -284,11 +73,12 @@
   )
 
   #notes[
-    Section 1 : `read_text()` d'abord, `Image.open` ensuite. Le même fichier
-    lu par deux programmes : l'un y voit des caractères, l'autre une image.
+    Dans la section 1, exécuter `read_text()`, puis `Image.open`. Le même
+    fichier est lu comme du texte par Python et comme une image par Pillow.
 
-    La cellule à compléter : `resize((160, 160), Image.NEAREST)`. Sans
-    `NEAREST`, Pillow lisse et les seize pixels deviennent un dégradé.
+    La cellule `resize` est donnée : elle agrandit l'image pour l'afficher.
+    Sans `NEAREST`, Pillow lisse l'image agrandie et les seize pixels
+    deviennent un dégradé.
   ]
 ]
 
@@ -364,12 +154,9 @@
   ]
 
   #notes[
-    La fonction est à écrire, ligne à ligne, depuis la diapositive. Ce
-    qu'elle apprend : un fichier est une suite d'octets, et n'importe lequel
-    se lit ainsi, image, PDF, exécutable.
+    La fonction est à écrire, ligne à ligne, depuis la diapositive. 
 
-    `32 <= o < 127` : les codes ASCII affichables. Le point remplace le
-    reste, comme dans tout éditeur hexadécimal.
+    `32 <= o < 127` : les codes ASCII affichables. 
 
     Section 3, seconde cellule : `hexdump(motif)` sur la version texte. Tout
     est affichable, à droite on relit le fichier.
@@ -397,8 +184,10 @@
   )
 
   #notes[
-    Section 4 : le motif enregistré en BMP et en PNG, puis `hexdump` sur
-    chacun. Les deux signatures sont sur la première ligne.
+    Section 4 : les élèves écrivent les deux `save` (BMP, PNG) sur le
+    modèle de la section 2. La boucle `glob` qui affiche les tailles est
+    donnée, puis `hexdump` sur chaque fichier. Les deux signatures sont sur
+    la première ligne.
 
     La ligne ZIP : `.odt` était l'archive du TD 1b, `.docx` en est une
     aussi. Le `.ipynb` n'en est pas une, c'est du JSON, du texte ; le dire si
@@ -433,13 +222,15 @@
   ]
 
   #notes[
-    Section 5 : la conversion en gris et les quatre `save` sont une cellule à
-    compléter ; la version texte est une boucle à écrire, l'en-tête puis une
-    ligne de nombres par ligne de pixels. C'est la plus longue cellule du
-    notebook, et la seule qui écrive un fichier d'image sans Pillow.
+    Section 5 : `convert("L")` et le premier `save` sont donnés ; les
+    élèves écrivent les `save` en PNG et en BMP sur ce modèle. Le JPEG
+    (`quality=85`) est donné. La cellule qui écrit la version texte est
+    donnée, à exécuter et à lire : c'est la seule qui écrive un fichier
+    d'image sans Pillow.
 
-    La cellule suivante fait le calcul : `largeur * hauteur * 1 +
-    len(entete)`, et compare à `stat().st_size`.
+    La ligne `entete = …` est donnée. Les élèves écrivent le calcul
+    `largeur * hauteur * 1 + len(entete)` et le comparent à
+    `stat().st_size`.
 
     3,81 octets par pixel en texte : la moyenne des valeurs a trois chiffres,
     plus l'espace. Un pixel à 7 en prendrait deux.

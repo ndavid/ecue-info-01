@@ -35,9 +35,8 @@
   )
 
   #legende[
-    Tout ce que le notebook fabrique va dans `travail/`, à côté de lui. Le
-    second notebook du dossier, `fichiers.ipynb`, se copie de la même façon
-    au TD 2a.
+    Les fichiers créés par le notebook sont écrits dans `travail/`, à côté
+    de lui.
   ]
 
   #notes[

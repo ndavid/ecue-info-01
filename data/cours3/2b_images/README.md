@@ -1,4 +1,4 @@
-# Images : texte et binaire — TD 2a, cours 3
+# Images : texte et binaire — TD 2b, cours 3
 
 `images.ipynb` s'exécute pendant l'exposé. Les cellules qui ne contiennent
 qu'un commentaire sont à compléter avec ce que la diapositive montre.

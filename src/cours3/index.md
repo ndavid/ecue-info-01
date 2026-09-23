@@ -61,7 +61,8 @@ après.
 | TD | Fichier | Ce qu'on y fait |
 |---|---|---|
 | 1a | `recette.ipynb` | le code de génération de recette, ses chemins refaits avec `pathlib`, converti par pandoc |
-| 2a | `fichiers.ipynb` (dans `1a_recette/`), `images.ipynb` | comment le code ouvre ses fichiers ; un motif PGM de seize pixels en texte et en binaire, *La Grande Vague* en cinq formats, la compression, ASCII et UTF-8 |
+| 2a | `fichiers.ipynb` | comment le code de la recette ouvre, lit et écrit ses fichiers texte |
+| 2b | `images.ipynb` | un motif PGM de seize pixels en texte et en binaire, *La Grande Vague* en cinq formats, la compression, ASCII et UTF-8 |
 | 3a | `recette.py` | le code du notebook dans un fichier, puis `main`, `argparse`, un README ; un commit par étape |
 
 Les images sont libres : *Under the Wave off Kanagawa*

@@ -2,8 +2,9 @@
 //
 // Incluse par `cours3.typ`. Se joue notebook ouvert et suit l'ordre du
 // notebook `recette.ipynb` du TD 1a : chaque diapositive porte, par
-// `cellule:`, la section à exécuter à ce moment. Un fichier inclus n'hérite
-// pas des imports de son appelant.
+// `cellule:`, la section à exécuter à ce moment. 
+// 
+// Un fichier inclus n'hérite pas des imports de son appelant.
 #import "../../../commun/prelude.typ": *
 #import "../schemas.typ": *
 
@@ -11,30 +12,10 @@
 // `separateur-cours-td` dans `cours3.typ`.
 
 // --------------------------------------------
-// #d("Les fonctions utiles", cellule: 1, fichier: "recette.ipynb")[
-//   #annonce[
-//     Quatre fonctions du cours 1, à exécuter telles quelles. Ce qu'elles font
-//     avec les fichiers est expliqué dans la partie suivante.
-//   ]
-
-//   #code-commente(
-//     ("def lire_ingredients(chemin):", "lit le CSV : une liste de (nom, quantité, unité)"),
-//     ("def convertir(quantite, unite):", "grammes en onces, millilitres en cups"),
-//     ("def adapter(ingredients, personnes, unites):", "multiplie par le nombre de convives, convertit si « US »"),
-//     ("def tableau(ingredients):", "le tableau Markdown, une ligne par ingrédient"),
-//   )
-
-//   #notes[
-//     Ne pas relire les fonctions. 
-//     Une seule chose à expliquer eventuellement : `next(lecteur)` saute la ligne d'en-tête du CSV.
-//   ]
-// ]
-
-// --------------------------------------------
 #d("Le code brut, chemins en dur", cellule: "1 et 2")[
   #annonce[
-    Le programme de création de recette "chemin en dur". (contre) exemple de code non portable
-    et difficile à adapter. Les fonctions utiles du bloc 1 seront vu plus tard en détail.
+    Le programme de création de recette "chemin en dur". (contre) exemple de code : non portable et difficile à adapter. 
+    Les fonctions utiles du bloc 1 seront vu plus tard en détail.
     Pour l'instant on va se concentrer sur comment améliorer la gestion de chemins de fichier.
   ]
 
@@ -50,15 +31,15 @@
   )
 
   #avertissement[
-    Ces chemins sont ceux d'un poste. Sur un autre, ou après un déplacement
-    du dossier, les trois lignes sont a adapter.
+    Ces chemins correspondent à ceux d'un poste spécifique. 
+    Sur un autre, ou après un déplacement du dossier, les trois lignes sont donc à adapter.
   ]
 
   #notes[
-    Faire exécuter : `FileNotFoundError` sur le premier chemin. Puis la
-    copie du bloc, où chacun met les chemins de son poste, lus dans la barre
-    d'adresse de l'explorateur, avec des `/` à la place des `\`. Le code
-    tourne alors, et n'a de valeur que sur ce poste.
+    Faire exécuter le prmeier bloc du notebook : on doit obtenir une erreur `FileNotFoundError` sur le premier chemin. 
+    Puis faire modifier le deuxième bloc (identique au premier), où chacun adapte avec les chemins de son poste. 
+    Ceux-ci sont lus dans la barre d'adresse de l'explorateur, mais il faut remplacer les `\` des chemins windows avec des `/` pour respecter les conventions de python. 
+    Le code doit fonctionner (ne pas envoyer d'erreur), mais ne fonctionne toujours que sur un poste.
   ]
 ]
 
@@ -66,14 +47,14 @@
 #d("pathlib pour déclarer des chemins", cellule: "3.1 et 3.2")[
   #annonce[
     Le code s'améliore en deux étapes : 
-      + utiliser des variable pour les chemins de fichier. (python pur). 
-      + déduire l'ensemble des chemins à partir d'une seul variable : dossier racine avec `pathlib`.
+      + utiliser des variables pour les chemins de fichier (python pur). 
+      + déduire l'ensemble des chemins à partir d'une seule variable : dossier racine avec `pathlib`.
   ]
 
   #code-commente(
     ("from pathlib import Path", "importe `Path`, la classe qui représente un chemin"),
     ("", ""),
-    ("RACINE = Path(\"C:/Users/alice/…/1a_recette\")", "déclare la racine : la seule valeur écrite en dur"),
+    ("RACINE = Path(\"C:/Users/alice/…/1a_recette\")", "déclare la racine : la seule valeur restante écrite en dur"),
     ("RECETTE = RACINE / \"depart\" / \"recettes\" / \"crepes\"", "`/` ajoute un dossier ou un fichier au chemin"),
     ("FICHIER_INGREDIENTS = RECETTE / \"ingredients.csv\"", "le CSV"),
     ("FICHIER_RECETTE = RECETTE / \"recette.md\"", "la recette"),
@@ -91,15 +72,9 @@
 
     `pathlib` fait partie de la bibliothèque standard, livrée avec Python,
     comme `csv` : l'import est la seule chose à écrire pour disposer de
-    `Path`. `/` entre un `Path` et une chaîne, c'est `pathlib` qui donne ce
-    sens à l'opérateur ; le chemin s'écrit avec des `/` quel que soit le
-    système, et s'affiche avec des `\` sous Windows.
-
-    Section 3.1 : l'import et un premier `Path`. Section 3.2 : le bloc de
-    déclaration brute, trois chaînes, est dans le notebook ; le bloc
-    `pathlib` est à compléter depuis la diapositive. Faire remplacer
-    `RACINE` par le chemin de son poste, puis exécuter le code : il tourne,
-    et une seule ligne a changé par rapport au code brut.
+    `Path`. 
+    `/` entre un `Path` et une chaîne, c'est un opérateur python fourni pas `Pathlib` comme `+` ou `*` pour opérations de math. 
+    le chemin s'écrit avec des `/` quel que soit le système, et s'affiche avec des `\` sous Windows.
   ]
 ]
 
@@ -140,7 +115,7 @@
 #d("Plusieurs recettes : lister un dossier", cellule: "3.4")[
   #annonce[
     Le code traite `crepes`. `depart/recettes/` contient quatre dossiers
-    construits pareil : le programme les parcourt, et nomme chaque sortie
+    construits de façon identique : le programme les parcourt, et nomme chaque sortie
     d'après le dossier.
   ]
 
@@ -150,17 +125,46 @@
     ("    if dossier.is_dir():", "seulement les dossiers"),
     ("        dossier.name", "le nom seul : `crepes`"),
     ("        dossier / \"ingredients.csv\"", "le CSV de cette recette"),
-    ("        RACINE / \"travail\" / (dossier.name + \".md\")", "le fichier produit, nommé d'après le dossier"),
+    ("        (RACINE / \"travail\" / dossier.name).with_suffix(\".md\")", "le fichier produit, nommé d'après le dossier"),
     ("        (dossier / \"ingredients.csv\").exists()", "`True` si le fichier est là"),
   )
 
   #notes[
-    `iterdir()` rend les entrées sans ordre garanti, d'où `sorted`.
+    `iterdir()` renvoie les entrées sans ordre garanti, d'où `sorted`.
     `is_dir()` écarte un fichier qui traînerait dans `recettes/`, comme
     `CREDITS.md` au TD 3a.
 
     La dernière cellule est le programme dans la boucle : quatre fichiers
     écrits dans `travail/`. C'est l'argument `nom` du TD 3a qui arrive.
+  ]
+]
+
+// --------------------------------------------
+#d("Les parties d'un chemin", cellule: "3.4")[
+  #annonce[
+    Un `Path` donne ses morceaux sans découper de chaîne. Exemple sur
+    `chemin = RECETTES / "crepes" / "recette.md"`.
+  ]
+
+  #code-commente(
+    ("chemin.name", "le dernier morceau : `recette.md`"),
+    ("chemin.stem", "le nom sans l'extension : `recette`"),
+    ("chemin.suffix", "l'extension, point compris : `.md`"),
+    ("chemin.parent", "le dossier qui le contient : `…/recettes/crepes`"),
+    ("chemin.parent.name", "le nom de ce dossier : `crepes`"),
+    ("chemin.parts", "tous les morceaux, dans un tuple"),
+    ("chemin.relative_to(RACINE)", "le chemin à partir de la racine : `depart/recettes/crepes/recette.md`"),
+    ("", ""),
+    ("chemin.with_suffix(\".html\")", "même chemin, autre extension : `…/crepes/recette.html`"),
+    ("chemin.with_name(\"ingredients.csv\")", "même dossier, autre nom : `…/crepes/ingredients.csv`"),
+  )
+
+  #notes[
+    Les deux dernières lignes renvoient un nouveau `Path`.
+
+    `with_suffix` remplace l'extension si le nom en a une, l'ajoute sinon :
+    `travail/crepes` devient `travail/crepes.md`. Un nom de dossier qui
+    contiendrait un point, `pate.pizza`, perdrait `.pizza`
   ]
 ]
 
@@ -180,6 +184,10 @@
     ("-o crepes.html", "`--output`, la sortie ; le format suit l'extension"),
   )
 
+  Depuis `cours3/`, entrée et sortie partent de ce dossier :
+
+  #sortie("(base) C:\\Users\\moi\\Desktop\\cours3> pandoc 1a_recette\\travail\\crepes.md -o 1a_recette\\travail\\crepes.html", taille: 12pt)
+
   #legende[
     Documentation : pandoc.org/MANUAL.html ; exemples : pandoc.org/demos.html.
   ]
@@ -187,6 +195,9 @@
   #notes[
     `-o` est le raccourci d'`--output` ; beaucoup de programmes ont `-i`
     pour `--input`, pandoc prend l'entrée sans option.
+
+    Depuis `cours3/`, `-o crepes.html` écrirait la page dans `cours3/`,
+    pas à côté de `crepes.md` : chaque chemin part du dossier du terminal.
 
     Ouvrir `travail/crepes.html` par double-clic : la page, sans style.
   ]
@@ -247,9 +258,8 @@
   #notes[
     Sous Windows, conda range les programmes qui ne sont pas du Python,
     pandoc compris, dans `Library\bin` de l'environnement ; sous Linux et
-    macOS dans `bin`. Activer un environnement met ces dossiers en tête de
-    `PATH` : c'est ce qui fait qu'une commande existe dans un environnement
-    et pas dans un autre.
+    macOS dans `bin`. 
+    Activer un environnement met ces dossiers en tête de `PATH` : c'est ce qui fait qu'une commande existe dans un environnement et pas dans un autre.
 
     `{chemin}` dans une ligne `!` : IPython y insère la variable Python.
   ]
@@ -264,7 +274,7 @@
   ]
 
   #code-commente(
-    ("os.system(\"pandoc crepes.md -o crepes.html\")", "la ligne telle qu'on l'aurait tapée ; rend le code de retour, 0 si tout va bien"),
+    ("os.system(\"pandoc crepes.md -o crepes.html\")", "la ligne telle qu'on l'aurait tapée ; renvoie le code de retour, 0 si tout va bien"),
     ("", ""),
     ("subprocess.run([\"pandoc\", \"crepes.md\", \"-o\", \"crepes.html\"],", "le programme, puis chaque argument, en liste"),
     ("               check=True)", "lève une erreur Python si pandoc échoue"),
@@ -283,7 +293,7 @@
   #notes[
     La liste plutôt qu'une chaîne : chaque élément arrive au programme tel
     quel, espaces et accents compris, sans qu'un interpréteur de commandes
-    ne le découpe. `os.system` passe par cet interpréteur, et ne rend que le
+    ne le découpe. `os.system` passe par cet interpréteur, et ne renvoie que le
     code de retour ; il sert à montrer que la ligne du terminal et l'appel
     depuis Python sont la même chose.
   ]

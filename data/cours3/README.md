@@ -1,13 +1,14 @@
 # Données — Cours 3 : chemins, images et ligne de commande
 
-Trois TD, et deux dossiers de la séance qui ne sont pas livrés :
+Quatre TD, et deux dossiers de la séance qui ne sont pas livrés :
 
 | Dossier | Ce que c'est |
 |---|---|
 | `recettes/` | les quatre recettes (`recette.md`, `ingredients.csv`, pour une personne en SI) et `style.css` : la source, versionnée, que `make_data.py` recopie dans les TD qui s'en servent |
 | `corriges/` | le TD 3a étape par étape (`3a_cli/etape<n>/`), versionné ici pour ne pas partir dans l'archive |
 | `1a_recette/` | notebook `recette.ipynb` : chemins, `pathlib`, pandoc par `subprocess` |
-| `2a_images/` | notebook `images.ipynb` : texte et binaire sur des images PGM, compression, ASCII et UTF-8 |
+| `2a_fichiers/` | notebook `fichiers.ipynb` : comment le code de la recette ouvre, lit et écrit ses fichiers (`open`, `with`, les modes, `csv`) |
+| `2b_images/` | notebook `images.ipynb` : texte et binaire sur des images PGM, compression, ASCII et UTF-8 |
 | `3a_cli/` | `recette.py` construit depuis le notebook et transformé en ligne de commande, un commit par étape ; modèles de README et de `pyproject.toml` |
 
 Les données sont dupliquées d'un TD à l'autre plutôt que citées par un chemin
@@ -16,7 +17,7 @@ relatif : chaque dossier se suffit.
 ```bash
 conda activate info01
 python make_data.py fetch    # La Grande Vague (The Met), photos (Commons), ImageMagick portable → fourni/
-python make_data.py build    # recopie et dérive tout dans produit/ des trois TD
+python make_data.py build    # recopie et dérive tout dans produit/ des quatre TD
 python ../../outils/construire_notebooks.py   # les .ipynb, version à trous et corrigé
 ```
 

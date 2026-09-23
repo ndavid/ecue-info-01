@@ -1,6 +1,6 @@
 ---
 title: Images
-subtitle: Un fichier texte, un fichier binaire, et ce qui les distingue
+subtitle: Comparaison d'un fichier texte et d'un fichier binaire
 jupytext:
   text_representation:
     extension: .md
@@ -12,31 +12,45 @@ kernelspec:
 
 # Images : texte et binaire
 
-Ce notebook compare un format texte et un format binaire sur des données qui
-ne sont pas du texte : des nombres, pas des phrases. Il prend pour cela des
-images au format PGM, qui existe dans les deux variantes.
+Ce notebook compare un fichier texte et un fichier binaire qui contiennent
+la même image. Les exemples utilisent le format d'image PGM, un format simple
+qui existe en deux variantes : texte et binaire.
 
-Un fichier PGM est une image en niveaux de gris : un en-tête de trois lignes
-(le nom du format, la largeur et la hauteur, la valeur du blanc), puis une
-valeur par pixel, 0 pour le noir, 255 pour le blanc. Dans la variante `P2`,
-chaque valeur est écrite en chiffres, séparée de la suivante par un espace ou
-un retour à la ligne ; dans la variante `P5`, chaque valeur occupe un octet,
-sans séparateur. L'en-tête est du texte dans les deux cas. La valeur du blanc
-peut aller jusqu'à 65535 : au-dessus de 255, un pixel prend deux octets en
-`P5`. Une image en noir et blanc pur, 0 ou 1, est un PBM (`P1`, `P4`) ; une
-image en couleur, trois valeurs par pixel, un PPM (`P3`, `P6`). Documentation :
+Un fichier PGM représente une image en niveaux de gris. Il contient :
+
+- un en-tête de trois lignes : le nom du format, la largeur et la hauteur,
+  la valeur du blanc ;
+- une valeur par pixel, de 0 pour le noir à la valeur du blanc, en général
+  255.
+
+Les deux variantes diffèrent par l'écriture des pixels :
+
+- en `P2` (texte), chaque valeur est écrite en chiffres, suivie d'un espace
+  ou d'un retour à la ligne ;
+- en `P5` (binaire), chaque valeur est écrite sur un octet, sans
+  séparateur. Si la valeur du blanc dépasse 255 (elle peut aller jusqu'à
+  65535), chaque pixel occupe deux octets.
+
+Dans les deux variantes, l'en-tête est écrit en texte.
+
+Le PGM fait partie d'une famille de formats : le PBM (`P1`, `P4`) pour les
+images en noir et blanc, avec des valeurs 0 ou 1, et le PPM (`P3`, `P6`) pour
+les images en couleur, avec trois valeurs par pixel. Documentation :
 [netpbm.sourceforge.net/doc/pgm.html](https://netpbm.sourceforge.net/doc/pgm.html).
-Pillow, livré avec Anaconda, lit et écrit les deux variantes, et tous les
-autres formats rencontrés ici.
 
-Les cellules s'exécutent pendant l'exposé, par `Maj` + `Entrée`. Celles qui
-ne contiennent qu'un commentaire sont à compléter avec ce que la diapositive
-montre. Ce que vous fabriquez va dans `travail/`.
+La bibliothèque Pillow, livrée avec Anaconda, lit et écrit les deux
+variantes, ainsi que les autres formats d'image utilisés dans ce notebook.
 
-## 1 · Un fichier texte qui est une image
+Les cellules s'exécutent pendant l'exposé avec `Maj` + `Entrée`. Les
+cellules qui ne contiennent qu'un commentaire sont à compléter à partir de la
+diapositive. Les fichiers créés par le notebook sont écrits dans `travail/`.
 
-`depart/motif.pgm` s'ouvre dans un éditeur de texte : trois lignes d'en-tête
-(le format, la taille, la valeur maximale), puis un nombre par pixel.
+## 1 · Une image au format texte : PGM `P2`
+
+Le fichier `depart/motif.pgm` est au format `P2` : il peut s'ouvrir dans un
+éditeur de texte. Il contient trois lignes d'en-tête (le format, la taille,
+la valeur maximale), puis un nombre par pixel. `read_text()` renvoie ce
+contenu sous forme de texte.
 
 ```{code-cell} ipython3
 from pathlib import Path
@@ -45,6 +59,10 @@ motif = Path("depart/motif.pgm")
 print(motif.read_text())
 ```
 
+La bibliothèque Pillow ouvre le même fichier comme une image. `size` donne
+la largeur et la hauteur en pixels, `mode` le type d'image : `'L'` pour les
+niveaux de gris.
+
 ```{code-cell} ipython3
 from PIL import Image
 
@@ -52,9 +70,11 @@ image = Image.open(motif)
 image.size, image.mode
 ```
 
-```{code-cell} ipython3
-:tags: [corrige]
+L'image ne fait que 4 × 4 pixels. La méthode `resize` renvoie une copie
+agrandie à 160 × 160 pixels. Avec `Image.NEAREST`, chaque pixel est recopié
+sans lissage : les seize pixels restent distincts.
 
+```{code-cell} ipython3
 # Agrandir l'image 40 fois, sans lisser, pour voir chaque pixel
 image.resize((160, 160), Image.NEAREST)
 ```
@@ -125,23 +145,40 @@ hexdump(TRAVAIL / "motif.pgm")
 hexdump(motif)
 ```
 
-Le fichier texte n'a que des caractères affichables ; le binaire en a onze,
-puis des octets que la colonne de droite remplace par un point.
+Dans la colonne de droite, `hexdump` affiche un point à la place de chaque
+octet qui ne correspond pas à un caractère affichable.
+
+- Dans le fichier texte, les seuls points sont les retours à la ligne
+  (`0a`) : tous les autres octets sont des caractères.
+- Dans le fichier binaire, les onze premiers octets sont l'en-tête, écrit en
+  texte. Les seize octets suivants sont les pixels, `00` et `ff` : ce ne
+  sont pas des caractères affichables, ils apparaissent donc tous comme des
+  points.
 
 ## 4 · Trois formats réels pour la même image
 
-BMP et PNG sont les formats que Windows ouvre par un double-clic. Chacun
-commence par une signature qui le nomme : `BM`, `‰PNG`. PGM commence par
-`P5`. Les premiers octets disent le format, l'extension ne fait que le
-rappeler.
+Sous Windows, les images aux formats BMP et PNG s'ouvrent par un
+double-clic. Chaque fichier commence par quelques octets fixes, appelés
+signature, qui identifient son format : `BM` pour BMP, `‰PNG` pour PNG, `P5`
+pour PGM binaire. `Image.open` reconnaît le format d'un fichier d'après sa
+signature, et non d'après l'extension de son nom.
+
+Le format du fichier écrit par `save` dépend de l'extension du nom de
+fichier, comme à la section 2 pour `motif.pgm`.
 
 ```{code-cell} ipython3
 :tags: [corrige]
 
-# Enregistrer le motif en BMP et en PNG dans travail/, puis la taille de chaque fichier motif.*
+# Enregistrer le motif dans travail/ en BMP (motif.bmp) et en PNG (motif.png)
 image.save(TRAVAIL / "motif.bmp")
 image.save(TRAVAIL / "motif.png")
+```
 
+`glob("motif.*")` renvoie les chemins du dossier dont le nom correspond au
+motif : `*` remplace n'importe quelle suite de caractères. `stat().st_size`
+renvoie la taille du fichier en octets.
+
+```{code-cell} ipython3
 for fichier in sorted(TRAVAIL.glob("motif.*")):
     print(f"{fichier.name:12} {fichier.stat().st_size:5} octets")
 ```
@@ -156,9 +193,10 @@ hexdump(TRAVAIL / "motif.png")
 
 ## 5 · Une vraie image, en quatre formats
 
-*La Grande Vague* de Hokusai, 2 000 pixels de large, en JPEG. Convertie en
-niveaux de gris, elle s'enregistre en PGM binaire, en PNG, en BMP, en JPEG,
-et en PGM texte, cette dernière par une boucle écrite ici.
+Le fichier `depart/vague.jpg` contient *La Grande Vague* de Hokusai, une
+image en couleur de 2 000 pixels de large, au format JPEG. Dans cette
+section, l'image est convertie en niveaux de gris, puis enregistrée dans
+cinq fichiers : PGM binaire, PNG, BMP, JPEG et PGM texte.
 
 ```{code-cell} ipython3
 vague = Image.open("depart/vague.jpg")
@@ -166,21 +204,43 @@ print(vague.size, vague.mode)
 vague.resize((600, 403))
 ```
 
+La méthode `convert("L")` renvoie une copie de l'image en niveaux de gris,
+un octet par pixel. `L` est le mode des images en niveaux de gris, déjà vu
+avec `image.mode` à la section 1. La copie est enregistrée en PGM binaire.
+
 ```{code-cell} ipython3
-:tags: [corrige]
-
-# En niveaux de gris, puis enregistrée dans travail/ en vague.pgm, vague.png, vague.bmp et vague.jpg (qualité 85)
 gris = vague.convert("L")
-
 gris.save(TRAVAIL / "vague.pgm")
-gris.save(TRAVAIL / "vague.png")
-gris.save(TRAVAIL / "vague.bmp")
-gris.save(TRAVAIL / "vague.jpg", quality=85)
 ```
 
 ```{code-cell} ipython3
 :tags: [corrige]
 
+# Enregistrer gris dans travail/ en PNG (vague.png) et en BMP (vague.bmp), sur le modèle de la cellule précédente
+gris.save(TRAVAIL / "vague.png")
+gris.save(TRAVAIL / "vague.bmp")
+```
+
+Pour le JPEG, l'argument `quality` règle la compression, de 1 à 95 : plus
+la valeur est basse, plus le fichier est petit et plus l'image perd de
+détails.
+
+```{code-cell} ipython3
+gris.save(TRAVAIL / "vague.jpg", quality=85)
+```
+
+Pillow n'écrit pas la variante texte `P2`. La cellule suivante l'écrit
+sans Pillow, à exécuter et à lire :
+
+- `gris.tobytes()` renvoie les pixels dans une suite d'octets, un octet par
+  pixel, ligne après ligne ;
+- la ligne de pixels numéro `i` va de l'octet `i * largeur` à l'octet
+  `(i + 1) * largeur` ;
+- chaque ligne de pixels devient une ligne de texte : les valeurs écrites en
+  chiffres, séparées par des espaces ;
+- le fichier contient l'en-tête, puis ces lignes.
+
+```{code-cell} ipython3
 # La version texte, vague_texte.pgm : l'en-tête P2, puis une ligne de nombres par ligne de pixels
 largeur, hauteur = gris.size
 donnees = gris.tobytes()          # un octet par pixel, ligne après ligne
@@ -208,11 +268,18 @@ ligne). Le BMP fait un octet par pixel, plus 1 078 octets d'en-tête et de
 palette. Le texte fait plus de trois octets par pixel : chaque valeur a un à
 trois chiffres, suivis d'un espace.
 
+L'en-tête du PGM binaire est du texte : chaque caractère occupe un octet,
+et `len(entete)` donne donc sa taille en octets.
+
+```{code-cell} ipython3
+entete = f"P5\n{largeur} {hauteur}\n255\n"
+print(repr(entete), len(entete), "octets")
+```
+
 ```{code-cell} ipython3
 :tags: [corrige]
 
-# La taille attendue du PGM binaire : les pixels, un octet chacun, plus l'en-tête ; à comparer à la taille réelle
-entete = f"P5\n{largeur} {hauteur}\n255\n"
+# Calculer la taille attendue du PGM binaire (un octet par pixel, plus l'en-tête), puis l'afficher avec la taille réelle de travail/vague.pgm
 attendu = largeur * hauteur * 1 + len(entete)
 print(attendu, "octets attendus,", (TRAVAIL / "vague.pgm").stat().st_size, "réels")
 ```
@@ -266,10 +333,9 @@ disque, et demandent un calcul pour retrouver les pixels.
 
 Un caractère est un nombre. Le code ASCII en définit 128, écrits sur un octet
 chacun : les lettres sans accent, les chiffres, la ponctuation, l'espace et le
-retour à la ligne. UTF-8 reprend ces 128 codes sur les mêmes octets, et écrit
-tous les autres caractères sur deux, trois ou quatre octets : `é` et `œ` en
-prennent deux, `😀` quatre. `len` compte les caractères ; `encode` donne les
-octets.
+retour à la ligne. 
+UTF-8 reprend ces 128 codes sur les mêmes octets, et écrit tous les autres caractères sur deux, trois ou quatre octets : `é` et `œ` en prennent deux, `😀` quatre. 
+`len` compte les caractères ; `encode` donne les octets.
 
 ```{code-cell} ipython3
 :tags: [corrige]
@@ -284,6 +350,68 @@ for texte in ("a", "é", "œ", "😀"):
 :tags: [raises-exception]
 
 "œ".encode("ascii")   # œ n'a pas de code ASCII
+```
+
+En UTF-8, le premier octet d'un caractère indique sur combien d'octets le
+caractère est écrit. Le nombre d'octets se lit sur les premiers bits de cet
+octet, écrit en binaire :
+
+| Premier octet, en binaire | En hexadécimal | Nombre d'octets du caractère |
+|---|---|---|
+| `0xxxxxxx` | `00` à `7f` | 1 : les 128 caractères ASCII |
+| `110xxxxx` | `c2` à `df` | 2 |
+| `1110xxxx` | `e0` à `ef` | 3 |
+| `11110xxx` | `f0` à `f4` | 4 |
+
+Les octets suivants du caractère commencent tous par `10` en binaire (`80` à
+`bf` en hexadécimal). Un premier octet ne commence jamais par `10` : un
+programme ne peut donc pas les confondre. Les bits notés `x`, mis bout à
+bout, forment le numéro du caractère.
+
+La cellule suivante affiche chaque octet en hexadécimal et en binaire.
+
+```{code-cell} ipython3
+# Chaque octet en hexadécimal, puis en binaire sur 8 bits
+for texte in ("a", "é", "œ", "😀"):
+    print(texte, " ".join(f"{octet:02x}={octet:08b}" for octet in texte.encode("utf-8")))
+```
+
+Pour `é`, le premier octet `c3` s'écrit `11000011` : il commence par `110`,
+le caractère occupe donc deux octets, `c3 a9`. Pour `😀`, le premier octet
+`f0` commence par `11110` : le caractère occupe quatre octets.
+
+Un programme qui lit un fichier en UTF-8 applique cette règle octet après
+octet. En pseudo-code :
+
+```text
+position ← 0
+texte ← chaîne vide
+tant que position < nombre d'octets du fichier :
+    premier ← octets[position]
+    si premier commence par 0 en binaire      : n ← 1
+    sinon si premier commence par 110         : n ← 2
+    sinon si premier commence par 1110        : n ← 3
+    sinon si premier commence par 11110       : n ← 4
+    sinon : erreur, le fichier n'est pas en UTF-8
+    vérifier que les n - 1 octets suivants commencent par 10,
+        sinon : erreur, le fichier n'est pas en UTF-8
+    caractère ← le caractère dont le numéro est formé par les bits x
+                des octets[position] à octets[position + n - 1]
+    ajouter caractère à la fin de texte
+    position ← position + n
+```
+
+C'est ce que fait Python quand un fichier est ouvert avec
+`encoding="utf-8"`, ou quand on appelle `octets.decode("utf-8")`. Si la
+règle n'est pas respectée, Python lève une erreur `UnicodeDecodeError`.
+
+Lus avec un autre encodage, les mêmes octets donnent d'autres caractères.
+En `cp1252`, chaque octet est un caractère : `c3 a9` se lit `Ã©` au lieu
+de `é`. C'est l'erreur montrée dans le notebook `fichiers`, section 3.
+
+```{code-cell} ipython3
+octets = "é".encode("utf-8")
+print(octets.decode("utf-8"), octets.decode("cp1252"))
 ```
 
 Le mot « œuf » a trois caractères et, en UTF-8, quatre octets ; « oeuf »,

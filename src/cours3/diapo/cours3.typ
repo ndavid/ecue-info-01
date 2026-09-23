@@ -4,8 +4,8 @@
 // TD, et ce fichier ne pose que les réglages globaux et l'ordre. Particularité
 // de cette séance : les deux premiers blocs d'exposé se jouent pendant que
 // les étudiants exécutent un notebook (un pour la partie 1, deux pour la
-// partie 2), et leurs diapositives portent le cartouche `cellule` qui
-// renvoie à la section du notebook. L'ouverture du TD (lancer JupyterLab,
+// partie 2 : TD 2a puis TD 2b), et leurs diapositives portent le cartouche
+// `cellule` qui renvoie à la section du notebook. L'ouverture du TD (lancer JupyterLab,
 // ouvrir le fichier) précède donc l'exposé qu'elle accompagne.
 //
 //   python outils/compiler_diapos.py --cours 3
@@ -23,7 +23,8 @@
 #let tds = sys.inputs.at("tds", default: "") != "false"
 
 #import "tds/1a_recette.typ": td as td-1a
-#import "tds/2a_images.typ": td as td-2a
+#import "tds/2a_fichiers.typ": td as td-2a
+#import "tds/2b_images.typ": td as td-2b
 #import "tds/3a_cli.typ": td as td-3a
 
 // Les parties 1 et 2 se jouent notebook ouvert : leur ouverture est commune
@@ -54,14 +55,22 @@
 
 #separateur-cours-td(
   partie-2.titre, annonce-partie: partie-2.annonce,
-  notebook: [fichiers.ipynb \ images.ipynb], ..td-2a,
+  notebook: "fichiers.ipynb", ..td-2a,
 )
 #if tds {
-  include "tds/2a_images.typ"
+  include "tds/2a_fichiers.typ"
 } else {
   sommaire-td(td-2a)
 }
-#include "parties/02_texte_binaire.typ"
+#include "parties/02a_fichiers.typ"
+
+// Seconde moitié de la partie 2 : le TD 2b fait ouvrir le notebook des images.
+#if tds {
+  include "tds/2b_images.typ"
+} else {
+  sommaire-td(td-2b)
+}
+#include "parties/02b_images.typ"
 
 #include "parties/03_cli.typ"
 #if tds {

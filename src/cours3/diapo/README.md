@@ -19,7 +19,8 @@ en brun, la couleur des TD, de la section du notebook à exécuter à ce
 moment ; l'ouverture est commune à la partie et au TD,
 `separateur-cours-td` dans `cours3.typ` (page partagée par une oblique, bleu
 de l'exposé à gauche, brun du TD à droite), et `cours3.typ` inclut les TD 1a
-et 2a avant les parties 1 et 2. Compilé seul en feuille de TD, le fichier du
+et 2a avant les parties 1 et 2, et le TD 2b entre les deux moitiés de la
+partie 2 (`02a_fichiers.typ`, `02b_images.typ`). Compilé seul en feuille de TD, le fichier du
 TD remet son ouverture brune (`feuille-seule`).
 
 `schemas.typ` porte trois gabarits propres à la séance : `pixels-gris` (une
