@@ -1,6 +1,6 @@
 # Note d'analyse — inversion partielle des cours 1 et 3
 
-> Décidée et appliquée dans le [syllabus v2](01_syllabus_v1.md). Ce document garde
+> Décidée et appliquée dans le [syllabus v1](01_syllabus_v1.md) (« v2 » dans cette note désigne le découpage après inversion, pas le fichier `02_syllabus_v2.md`). Ce document garde
 > la trace du *pourquoi*, des variantes écartées et des points à surveiller.
 
 ## Le déclencheur

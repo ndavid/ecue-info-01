@@ -1,17 +1,18 @@
-# Syllabus v2 — Introduction à l'informatique (bac+2, 14 h)
+# Syllabus v1 — Introduction à l'informatique (bac+2, 14 h)
 
 > Public : 1re année d'école d'ingénieurs (géomatique), profils variés (prépa littéraire ou scientifique).
-> Ce fichier est le document de référence (**vue d'ensemble**). Le détail par séance vit dans `cours/<n>_.../` (`contenu_detaille.md` + `exercices_complementaires.md`). Voir aussi [`README.md`](../README.md).
+> Ce fichier décrit le module **tel qu'il est joué en 2026-2027**. Les cours 1 à 5 sont décrits d'après leurs diapositives (`src/cours<n>/diapo/`), relevées le 24/09/2026 ; les cours 6 et 7 sont encore au stade de l'intention. Le détail par séance vit dans `cours/<n>_.../` (`contenu_detaille.md` + `exercices_complementaires.md`). Voir aussi [`README.md`](../README.md).
+> La refonte envisagée après les premières séances est dans [`02_syllabus_v2.md`](02_syllabus_v2.md).
 
 ## Tableau des séances
 
-| # | date | Séance (2 h) | type | Contenu |
-|---|------|--------------|------|---------|
-| 1 | 15/09 8h30-10h30 | CM | Logiciel, programmation & formats de fichier | logiciel/programmation (haut niveau) ; formats texte (`.txt`/`.odt`/`.html`/CSS), extensions ; IDE (dossier=projet) ; **env. conda** + notebooks (`.ipynb` vs MyST) |
-| 2 | 22/09 8h30-10h30 | CM | Ligne de commande & git local | `init/add/commit/log/diff`, `.gitignore`, `restore` ; **dépôt de notes** (commits guidés en séance) |
-| 3 | 29/09 8h30-10h30 | CM | Binaire, données & construction d'une CLI | **texte vs binaire, hexadécimal (PGM), ASCII/Unicode** ; `pathlib`, `subprocess`, `argparse` |
-| 4 | 6/10 8h30-10h30 | projet | Studio d'automatisation (animation vidéo) | CLI Python (ImageMagick + ffmpeg) ; git local appliqué (commits par étape, `.gitignore` du généré) |
-| 5 | 13/10 8h30-10h30 | CM | Matériel, réseau ; mots de passe, clés, secrets | ~1h matériel et réseau (ordres de grandeur, énergie, coûts) + ~1h mots de passe, deuxième facteur, `ssh-keygen`, secrets hors du dépôt |
+| # | date | type | Séance (2 h) | Contenu |
+|---|------|------|--------------|---------|
+| 1 | 15/09 8h30-10h30 | CM | Logiciel, programmation, formats de fichier, environnement | logiciel, système, chemins, extensions, texte et binaire ; compilé et interprété, VS Code ; Markdown et notebook ; bibliothèques et environnements conda (**partie non traitée**) |
+| 2 | 22/09 8h30-10h30 | CM | Ligne de commande et git local | terminal et bash, arborescence, fichiers cachés, `*` ; git : commit, `revert`, `tag`, branches, `merge`/`rebase`, conflits, `log`/`diff`/`status`, `.gitignore`, organisation main/develop/feature |
+| 3 | 29/09 8h30-10h30 | CM | Chemins, fichiers et ligne de commande, en Python | `pathlib`, `subprocess` (pandoc), `PATH` ; `open`, `with`, modes, CSV ; texte et binaire (PGM P2/P5, hexadécimal, signature, poids, compression, ASCII/UTF-8) ; `main`, `argparse`, un commit par étape |
+| 4 | 6/10 8h30-10h30 | projet | Une animation, du notebook au programme | environnement conda depuis `environment.yml`, JupyterLab ; script construit par fonctionnalités (une image, une série, la vidéo), une branche par fonctionnalité ; ImageMagick et ffmpeg |
+| 5 | 13/10 8h30-10h30 | CM | Matériel, réseau ; mots de passe, clés, secrets | matériel et ordres de grandeur, énergie, coûts ; réseau (client/serveur, débit, latence) ; mots de passe, deuxième facteur, `ssh-keygen`, secrets hors du dépôt |
 | 6 | 20/10 8h30-10h30 | CM | Forge & git en équipe ; outil « trajectoire » | remote/push/pull, branch/merge ; distance & vitesse (boucle vs numpy, texte vs binaire) ; intro numpy |
 | 7 | 03/11 8h30-10h30 | projet | Capstone : benchmark image + rapport (PR) | gris boucle vs numpy ; PR + conflit (branche pré-amorcée) + revue ; `RAPPORT.md` |
 
@@ -23,87 +24,110 @@ Rendre les étudiants à l'aise avec les **outils et concepts génériques** (en
 - **Format des séances** : chaque séance alterne explications et **TD sur machine** illustrant immédiatement la notion vue (jamais un magistral pur).
 - **Ancrage géomatique léger et sans prérequis** : les exemples peuvent se raccrocher à des notions géomatique (CSV de points = des coordonnées, distance = Pythagore) mais **n'exigent jamais une notion pas encore acquise**.
 - **Découpage indicatif** : chaque séance ≈ 120 min ; parties notées 🎓 *exposé* / ⌨️ *TD* avec une durée indicative. Dans une séance, les TD sont numérotés `1a`, `1b`, `2a`… (chiffre = bloc joué au même moment, lettre = ordre dans le bloc) ; ceux qui sont trop longs pour la séance sont marqués *facultatifs*.
+- **Archives** : une archive par séance (`info01-cours<n>.zip`), un dossier par TD, et dans chaque dossier `depart/` (fichiers fournis, jamais modifiés) et `travail/` (copies de l'étudiant).
 
 ---
 
-## Cours 1 — Logiciel, programmation & formats de fichier (CM)
+## Cours 1 — Logiciel, programmation, formats de fichier, environnement (CM)
 
-Objectif : comprendre ce qu'est un logiciel, pourquoi programmer revient à écrire du texte, et savoir manipuler des fichiers et son environnement de travail en confiance.
+Objectif : comprendre ce qu'est un logiciel et un fichier, écrire et lancer un programme dans un éditeur de code, écrire de la documentation en Markdown, et installer un projet Python dans un environnement.
 
-> **Changement v2 (inversion partielle avec le cours 3).** L'installation de l'**environnement conda** remonte ici (semaine 1) pour que les autres cours du programme disposent d'un Python fonctionnel dès le départ ; en échange, le bloc **binaire / hexadécimal / PGM** descend au cours 3, juste avant `numpy` et le traitement d'image. S'y ajoute un point neuf sur les **notebooks**. Analyse : [`syllabus/inversion_c1_c3.md`](inversion_c1_c3.md).
+> **Inversion avec le cours 3.** L'environnement conda est remonté ici pour que les autres cours du programme disposent d'un Python fonctionnel dès le départ, et le bloc binaire / hexadécimal / PGM est descendu au cours 3. Analyse : [`inversion_c1_c3.md`](inversion_c1_c3.md).
 
-- **🎓 12′ · Qu'est-ce qu'un logiciel** (haut niveau) : entrée → traitement → sortie ; un logiciel installé = des fichiers ; le fichier exécuté est binaire, mais il a été *produit* à partir de texte.
-- **🎓 10′ · Qu'est-ce que programmer** : un langage = du texte suivant des conventions ; interpréteur vs compilateur (sème le « Python vs C » des cours 6–7) ; d'où la question : *dans quoi écrit-on ce texte, et sous quelle forme le stocke-t-on ?*
-- **🎓 10′ · Formats & extensions** : texte vs formats riches (`docx`/`odt`/`pdf`/`zip`/`png`) ; l'extension est une **convention de nommage**, pas une nature ; fichiers et dossiers **cachés** (`.gitignore`, `.git/`) — prérequis du cours 2.
-- **⌨️ 30′ · Un texte, quatre formes** *(TD central)* : le même poème/chanson en `.txt` **sur une seule ligne** (à remettre en forme), en `.donnees` (mêmes octets, extension à corriger), en `.odt` (LibreOffice, puis renommé `.zip` → c'est une archive de XML), en `.html` **brut** ouvert dans le navigateur (`file://`), puis en `.html` + **`style.css`** (contenu ≠ présentation). Données générées par `data/cours1/make_data.py`.
-- **🎓 8′ · IDE (VSCode)** : *dossier = projet* (pas fichier isolé), explorateur, palette de commandes, terminal intégré, aperçu Markdown, extensions.
-- **⌨️ 25′ · Environnement Python (conda / conda-forge)** : `conda create -n base -c conda-forge python jupyterlab mystmd numpy pillow pandoc typst ffmpeg imagemagick` puis `conda activate` ; vérifier avec `sys.executable` (« le mauvais env actif » = l'erreur n°1 du semestre). L'env sert à *installer les outils*, pas à packager.
-- **🎓 10′ · Notebooks** : interface vs **noyau** (où tourne le code, pourquoi « Restart & Run All ») ; ordre d'exécution ≠ ordre d'affichage ; `.ipynb` (JSON, résultats inclus, `diff` illisible) vs **MyST** (Markdown, `diff` lisible) — *même contenu, deux formats*, ce qui reboucle sur le TD central.
-- **⌨️ 10′ · Débouché** : Markdown pour README et notes ; on ouvre le **dépôt de notes du cours** (fil rouge git à faible enjeu, rejoué chaque séance).
+> **Retour de séance (15/09).** Les parties 1 à 3 ont été jouées ; la partie 4 (bibliothèques et environnements, diapositives 90 à 122) n'a pas été traitée. La séance préparée compte 123 diapositives et dix TD, dont quatre facultatifs.
 
-*Détail & exercices : [`cours/1_formats_et_environnement/`](cours/1_formats_et_environnement/). Supports : [`src/cours1/`](../src/cours1/) (notebook MyST + diapos typst), données : [`data/cours1/`](../data/cours1/).*
+- **🎓 10′ · Ouverture du module** : objectif du cours, les trois compétences (éditer, versionner, structurer), les sept séances, les fichiers du cours (`depart/` et `travail/`).
+- **Partie 1 · Logiciels et formats de fichier (25′)**
+  - 🎓 logiciel (définition du _Journal officiel_, termes courants : application, app, webapp, OS, driver) ; le système d'exploitation entre le programme et le matériel ; entrées et sorties (fichier ou flux) ; où s'exécute une application web ; utilité d'un fichier ; chemins (quiz de vocabulaire, absolu et relatif, `\` et `/`) ; extension et type de fichier ; fichiers binaires et fichiers texte (octet, hexadécimal, ASCII, UTF-8) ; quiz « reconnaître un format à son extension ».
+  - ⌨️ **TD 1a · 20′ · Fichiers, formats et extensions** : afficher les extensions sous Windows ; copier et renommer à la souris ou au clavier ; exporter `raven.odt` sous deux autres formats ; renommer une extension et voir ce qui s'ouvre ; ouvrir une page HTML depuis le disque (`file://`) ; un espace dans un nom de fichier (`%20`) ; la table ASCII ; Bloc-notes et Notepad++ sur les mêmes fichiers.
+  - ⌨️ **TD 1b · 12′ · facultatif · Un `.odt` est une archive ZIP** : ouvrir l'archive, modifier `content.xml`, recompresser, rouvrir dans LibreOffice.
+- **Partie 2 · Programmation et éditeur de code (35′)**
+  - 🎓 programme et application ; compilé et interprété ; du code source aux instructions machine ; la place de l'interpréteur ; les fonctions d'un IDE ; l'édition de texte dans un IDE (syntaxe et coloration, chasse fixe, indentation en espaces ou tabulation).
+  - ⌨️ **TD 2a · 25′ · Configurer VS Code et lancer un programme** : lancer VS Code depuis Anaconda Navigator ; installer l'extension Python ; palette de commandes et réglages ; choisir l'interpréteur ; hors Anaconda, remplacer le terminal PowerShell par un profil Anaconda Prompt ; lancer `altitudes.py` ; Python en interactif ; en option, la même chose dans l'Anaconda Prompt seul ; débogueur pas à pas.
+  - ⌨️ **TD 2b · 10′ · Trois programmes fautifs** : afficher les caractères invisibles, corriger trois erreurs de nature différente.
+  - ⌨️ **TD 2c · 10′ · facultatif · Le même programme en C++** : extension C/C++, compilateur par conda-forge (`gxx`, erreur `crt2.o` de la dernière version), compiler puis lancer.
+- **Partie 3 · Markdown et notebook (30′)**
+  - 🎓 les fichiers texte d'un projet ; le format de la documentation ; l'intention de Markdown (Gruber, 2004) et sa syntaxe ; programmation littérale ; le bloc de texte en Markdown ; un notebook dans JupyterLab, lancé depuis Navigator.
+  - ⌨️ **TD 3a · 20′ · Une recette en Markdown** : aperçu dans VS Code, titre, tableau, liste numérotée, diagramme `mermaid`.
+  - ⌨️ **TD 3b · 12′ · Le notebook, ouvert de trois façons** : le programme du TD 2a découpé en cellules, ouvert dans le navigateur (jupyter.org/try-jupyter), dans VS Code et dans JupyterLab ; ce que le noyau retient d'une cellule à l'autre.
+- **Partie 4 · Bibliothèques et environnements Python (30′) — non traitée le 15/09**
+  - 🎓 bibliothèques et `import` ; exemple : le programme « recette » en neuf lignes ; dépendances et numéros de version ; l'environnement contre les conflits de dépendances ; outils (pip, conda, conda-forge, mamba, pixi, uv) ; dépôts (PyPI, conda-forge) ; créer un environnement et le décrire (`environment.yml`) ; ce que change l'activation (`PATH`) ; `pyproject.toml` ; le terminal de l'éditeur ; client et serveur d'un notebook, les trois emplacements du serveur, les clients.
+  - ⌨️ **TD 4a · 20′ · Installer un projet Python et décrire son installation** : projet `recette`, environnement d'essai, deux dépendances (publiée et locale), écrire `environment.yml` et la section d'installation du README, refaire l'environnement depuis le fichier.
+  - ⌨️ **TD 4b · 20′ · facultatif · Le client, le noyau, et où ils sont** : tout dans le même environnement, ou client et noyau séparés.
+  - ⌨️ **TD 4c · 15′ · facultatif · Installer un projet en lisant son README** : projet `trajet` (vidéo commentée du trajet gare-école, magick et ffmpeg).
+- **Clôture** : « À retenir » (logiciel, application, interface, extension, format, dépendance, environnement, notebook).
+
+*Détail & exercices : [`cours/1_formats_et_environnement/`](cours/1_formats_et_environnement/). Supports : [`src/cours1/`](../src/cours1/), données : [`data/cours1/`](../data/cours1/).*
 
 ## Cours 2 — Ligne de commande & git local (CM)
 
-Objectif : lancer des outils au terminal (sans dépendre de l'OS) et versionner son travail en local.
+Objectif : se repérer dans un terminal, et versionner un projet en local avec git, branches comprises.
 
-- **🎓 12′ · Modèle mental CLI** : une commande = un programme + des arguments + des options ; GUI vs CLI ; bonnes pratiques (`--help`, `--verbose`).
-- **🎓 5′ · Intérêt** : la CLI permet d'**enchaîner et d'automatiser** des étapes (motive le cours 3).
-- **⌨️ 13′ · Un outil utile tout de suite** : `pandoc fiche.md -o fiche.pdf --pdf-engine=typst` (conversion de document, sans LaTeX) ; éventuellement une conversion ImageMagick.
-- **🎓 20′ · Git local** : les 3 zones (working / staging / repo), `init`/`status`/`add`/`commit`/`log`/`diff`, `.gitignore`, annuler sans peur (`restore`).
-- **⌨️ 40′ · TD guidé** (chaque étudiant en parallèle du tableau) : (TODO : trouver idée de texte à ecrire/modifier)
-  1. `git init` dans `notes-info/` (un dépôt = un dossier suivi) ;
-  2. écrire les notes du jour en `.md` → `git add`/`commit` (staging → commit) ;
-  3. `git status`/`log`/`diff` pour *lire* ce que git dit (démystifier) ;
-  4. modifier, revoir le `diff`, re-committer (le diff sur du texte = intérêt des formats du cours 1) ;
-  5. `.gitignore` un fichier temporaire ; `restore` d'une modif ratée (moment anti-panique).
-- **But de fin de séance** : chaque étudiant a son dépôt de notes (≥3 commits) et a vu `status`/`log`/`diff`/`restore`. Rejoué chaque séance.
+> Support de Florent Geniet (Beamer du 17/09/2026), porté en typst page pour page ; il déroge à la structure *assertion-evidence* (listes qui se dévoilent). 74 pages, dont 17 de TD.
 
-## Cours 3 — Binaire, données & construction d'une CLI (CM)
+> **Retour de séance (22/09).** Séance jugée un peu trop ambitieuse (à préciser : ce qui a été joué).
 
-Objectif : voir ce qu'il y a *vraiment* dans un fichier binaire, puis écrire un petit outil Python qui **orchestre des commandes**.
+- **🎓 · Ligne de commande** (13 pages, sans TD) : le terminal et son invite (utilisateur, dossier courant) ; bash, `commande [-o] [--option] <arguments>`, `--help` ; commandes utiles (`ls`, `cd`, `cp`, `mv`, `rm`, `pwd`, `touch`, `mkdir`) ; arborescence, racine, chemin absolu et relatif, `..` ; fichiers cachés (`.git`, `.ssh`) ; le motif `*` (présenté comme « expressions régulières »).
+- **🎓 · Git local** : à quoi sert git (états du projet, travail à plusieurs), quand l'utiliser ; `init`, commit, fichiers suivis et non suivis, zone de préparation ; annuler un commit (`revert`) ; `tag`.
+- ⌨️ **TD 3a · 15′ · Un premier dépôt** : alias du graphe, `git init` de `projet_2`, `README.md`, premier commit.
+- **🎓 · Branches** : branche, `HEAD`, fusion par `merge` et par `rebase`, conflits et leur résolution.
+- ⌨️ **TD 4a · 30′ · Branches et fusions** : branches `develop`, `documentation`, `main_code`, `operations`, fusionnées dans `develop`.
+- ⌨️ **TD 4b · 15′ · Annuler et remettre à jour** : `revert`, puis `rebase` de `main_code` sur `develop`.
+- ⌨️ **TD 4c · 25′ · Créer et résoudre un conflit** : `main.py` modifié sur deux branches.
+- **🎓 · Informations et bonnes pratiques** : `log --graph`, `diff`, `status` ; `.gitignore` ; messages de commit, ne pas committer de code non fonctionnel, organisation main / develop / feature.
+- ⌨️ **TD 6a · 10′ · Publier une version** : fusionner `develop` dans `master`, taguer.
+- **Bilan horaire** : 95′ de TD annoncés, plus l'exposé ; la séance ne tient pas en 2 h.
 
-> **Changement v2** : reçoit le bloc **binaire / hexadécimal / PGM** venu du cours 1 (il prépare directement `numpy` et le projet image) ; l'installation de l'environnement conda est désormais faite en séance 1 — ici, simple **rappel d'activation** et ajout de dépendances.
+*Supports : [`src/cours2/`](../src/cours2/), données : [`data/cours2/`](../data/cours2/).*
 
-- **🎓 15′ · Binaire vs texte** : encodage, bit et puissances de 2, hexadécimal (code couleur), ASCII/Unicode ; nom des symboles de programmation (`| { [ #` …).
-- **⌨️ 20′ · Voir un fichier binaire** : ouvrir une petite image **PGM/PPM** (Netpbm) en **hexadécimal** — en-tête lisible + octets de pixels ; ASCII (`P2`/`P3`) vs binaire (`P5`/`P6`), *même image, deux encodages*. Rappel du cours 1 (« l'extension ne dit pas le contenu ») et préparation du TD7 (une image = un tableau de pixels).
-- **🎓 12′ · Fichiers en Python avec `pathlib`** : chemins portables (Windows inclus), lecture / écriture — c'est *ici* qu'on manipule les fichiers, pas au shell.
-- **🎓 13′ · Appel de commandes externes** : `subprocess.run([...], check=True)` (forme liste, codes de retour) ; enchaîner des étapes = automatisation. *(`data/cours1/make_data.py`, déjà utilisé en séance 1, en est un exemple à relire.)*
-- **🎓 15′ · Construire une CLI** : `argparse`, sous-commandes, options `--verbose`/`--help` ; point sur `args`/`kwargs` (relation list/dict).
-- **⌨️ 40′ · TD guidé — mini-pipeline** : construire ensemble un script qui (1) génère quelques frames (ex. 5 images d'un disque qui se déplace) en appelant ImageMagick via `subprocess` (Python calcule les coordonnées, `magick -draw` dessine), (2) les assemble en un court clip avec ffmpeg, (3) expose 1–2 options `argparse` (`--frames N`, `--out`).
-- **But** : *voir* concrètement l'automatisation d'un enchaînement d'outils. Sème le **projet de la séance 4**, qui en fait la version créative complète.
+## Cours 3 — Chemins, fichiers et ligne de commande, en Python (CM)
 
-## Projet (séance 4) — Studio d'automatisation (animation vidéo)
+Objectif : manipuler des chemins et lire des fichiers en Python, construire un programme en ligne de commande, et revoir côté code les notions des cours 1 et 2 (chemins, encodage, texte et binaire, lancer un programme au terminal).
 
-Objectif : appliquer `subprocess`/`argparse` (cours 3) et git local en produisant une **courte vidéo animée** — l'orchestration d'outils, pas de la programmation compliquée.
+> Trois notebooks, dont les deux premiers se font pendant l'exposé, puis un TD de construction. 57 diapositives.
 
-*Découpage ≈ 120 min : 🎓 ~15′ cadrage (démo du pipeline) + ⌨️ ~95′ réalisation + ~10′ mise en commun.*
+- **⌨️ 10′ · Préparation du poste** : copier l'archive depuis `formationTemp`, lancer JupyterLab (Navigator, ou `jupyter lab` dans l'Anaconda Prompt) ou VS Code ; Spyder en repli.
+- **Chemins (20′)**, ⌨️ **TD 1a · `recette.ipynb`** suivi pendant l'exposé : le programme « recette » avec ses chemins en dur (lire le CSV, adapter les quantités, insérer le tableau) ; `pathlib.Path` et `/` ; la racine lue automatiquement ; lister un dossier pour traiter plusieurs recettes ; les parties d'un chemin ; `pandoc` dans le terminal, puis depuis le notebook ; où le terminal trouve `pandoc` (`PATH`, `shutil.which`) ; `subprocess.run([...])`.
+- **Texte et binaire (45′)**
+  - ⌨️ **TD 2a · 20′ · `fichiers.ipynb`** : `open`, `read`, `close` ; `with` ; les modes ; lire ligne par ligne ; lire un CSV ; `read_text`, `write_text`, `read_bytes`.
+  - ⌨️ **TD 2b · 25′ · `images.ipynb`** : le format PGM ; P2 (texte) et P5 (binaire) ; lire octet par octet (`hexdump` en six lignes, `Format-Hex`, extension Hex Editor) ; la signature des formats ; le poids d'une image (P5, P2, BMP) ; la compression ; le temps de lecture ; ASCII et UTF-8 ; des noms de lieux hors ASCII.
+- **Ligne de commande (45′)**
+  - 🎓 du notebook au programme : le même code dans un fichier ; ce que l'interpréteur exécute ; une fonction `main` et `if __name__ == "__main__"` ; `argparse`.
+  - ⌨️ **TD 3a · 45′ · Une ligne de commande pour la recette** : dépôt git dans `travail/`, terminal Git Bash avec `conda init bash` ; étape 1 le code dans `recette.py`, étape 2 une fonction `main`, étape 3 les arguments sur une branche, étape 4 un README ; facultatif, étape 5 `src/` et `data/`, étape 6 `pyproject.toml` et `pip install -e .` ; un commit par étape.
+- **Clôture** : « À retenir » (chemin relatif, `Path(__file__)`, `encoding="utf-8"`, `subprocess.run`, `__main__`, binaire, signature, caractère, `argparse`).
 
-- **Réalisation** : une CLI Python qui anime un objet simple (forme qui tourne / se déplace, orbite, aiguille d'horloge…).
-- **Pipeline** : config keyframes → Python interpole/positionne → **ImageMagick** dessine les frames → **ffmpeg** assemble + incruste un texte.
-- **Maths mobilisées (optionnel selon profil)** : rotation 2D (matrice), interpolation `lerp = (1−t)·a + t·b` (= moyenne pondérée → pont vecteurs/stats).
-- **CLI** : `argparse` avec sous-commandes (`render`/`preview`/`clean`), `--verbose`.
-- **git appliqué** : commits par étape du pipeline ; `.gitignore` des frames et de la vidéo générées (on ne versionne pas les binaires).
-- **Différenciation** : *plancher* — câbler la chaîne, changer couleurs/texte/keyframes ; *plafond* — écrire soi-même la matrice de rotation, easing non-linéaire, 2ᵉ objet, stat incrustée.
-- **Livrable** : un court `.mp4` + le dépôt (CLI, config, README du pipeline) à l'historique propre.
-- **Pré-requis pratique** : env conda prêt + dépôt-squelette fourni (sinon l'installation mange la séance).
+*Supports : [`src/cours3/`](../src/cours3/), données : [`data/cours3/`](../data/cours3/).*
+
+## Projet (séance 4) — Une animation, du notebook au programme
+
+Objectif : écrire un projet Python qui fabrique une courte vidéo animée ; le rendu est un dossier versionné avec git, contenant un script appelable en ligne de commande.
+
+*Découpage ≈ 120 min : 🎓 10′ présentation + ⌨️ 35′ partie A + ⌨️ 70′ partie B + 5′ mise en commun.*
+
+- **Deux TD au choix, mêmes étapes** : ⌨️ **4a · La montre du Lapin blanc** (cadran dessiné, aiguilles calculées par `sin` et `cos`, une image par minute) ; ⌨️ **4b · La Vague en tourbillon** (_La Grande Vague_ tordue par `magick -swirl`, un angle par image, aller et retour).
+- **🎓 10′ · Présentation** : les deux TD, les outils en ligne de commande (`magick`, `ffmpeg`), le programme étape par étape.
+- **⌨️ 35′ · A · Exécuter le notebook** : dans VS Code avec un terminal Git Bash, rendre conda disponible, `conda env create -f environment.yml` (`magick` et `ffmpeg` ne sont pas dans `base`), `conda activate animation`, lancer JupyterLab depuis ce terminal, exécuter le notebook.
+- **⌨️ 70′ · B · Du notebook au programme** : B0 le projet et le dépôt ; B1 une image, sur la branche `une-image` (fonction `main` et `argparse` dès le départ) ; B2 une série d'images, sur la branche `serie` ; B3 la vidéo, avec un commit fait sur `master` entre-temps, donc un commit de fusion ; B4 le README ; B5 facultatif, commande installée.
+- **Livrable** : le dossier du projet avec son historique git (code, `environment.yml`, README), la vidéo, et le `git log` montré en fin de séance.
+- **Guides** : un guide A4 par TD (`src/cours4/notebook/td/<td>/guide.md`), avec le code à coller et la vérification de chaque commande.
 
 ## Cours 5 — Matériel, réseau ; mots de passe, clés, secrets (CM)
 
-Deux moitiés ; la seconde prépare directement la forge (cours 6). Déroulé diapositive par diapositive : [`cours/5_materiel_reseau_ssh/contenu_detaille.md`](cours/5_materiel_reseau_ssh/contenu_detaille.md).
+Deux moitiés ; la seconde prépare directement la forge (cours 6). Déroulé diapositive par diapositive : [`cours/5_materiel_reseau_ssh/contenu_detaille.md`](cours/5_materiel_reseau_ssh/contenu_detaille.md). 55 diapositives.
 
 **A. Matériel et réseau, ordres de grandeur (~1 h) — culture générale.**
 
-- **🎓 30′ · Le matériel** : composants (schéma, photo d'un boîtier ouvert, photo d'une carte mère), processeur, mémoire vive et disque, pyramide des mémoires, tailles, temps d'accès sur échelle log et « si la mémoire vive valait une seconde », processeur et carte graphique, trente ans de processeurs, puissance et consommation du téléphone à touches au superordinateur, électricité et coût des services en ligne.
-- **🎓 15′ · Le réseau** : local et distant, client et serveur, adresse, nom et port (rappel de SNT), débit et latence, la distance, les liens, le sans-fil, commit et push.
-- **⌨️ 15′ · TD 1a** : les caractéristiques du poste dans le gestionnaire des tâches, puis `mesures.py` : additions, copie en mémoire, écriture et relecture sur le disque, aller-retour et téléchargement.
+- **🎓 30′ · Le matériel** : composants (schéma, photo d'un boîtier ouvert, photo d'une carte mère), processeur, température du processeur (question à la salle), mémoire vive et disque, le chemin d'une donnée, tailles, temps d'accès sur échelle log et « si la mémoire vive valait une seconde », processeur et carte graphique, trente ans de processeurs, puissance de calcul et consommation, électricité et coût des services en ligne.
+- **🎓 15′ · Le réseau** : local et distant, client et serveur, adresse, nom et port (rappel de SNT), débit et latence, la distance, le lien le plus lent, le sans-fil, commit et push.
+- **⌨️ 15′ · TD 1a** : les caractéristiques du poste dans le gestionnaire des tâches, puis `mesures.py` dans l'Anaconda Prompt : additions, copie en mémoire, écriture et relecture sur le disque, aller-retour et téléchargement.
 
 **B. Prouver qui l'on est, et les secrets des programmes (~1 h).**
 
-- **🎓 20′ · Prouver qui l'on est** : identifiant et mot de passe (le serveur garde une empreinte) ; les quatre façons de perdre un mot de passe, chiffrées (deviné, volé sur le serveur, volé chez vous, intercepté) ; combien de temps pour le deviner ; hameçonnage ; une parade par menace (longueur et hasard, un mot de passe par service, deuxième facteur, chiffrement) ; le deuxième facteur et ses formes ; la clé à la place du mot de passe, la connexion SSH, les deux fichiers.
-- **⌨️ 20′ · TD 2a** : `ssh-keygen`, la clé publique sur le compte GitHub, `ssh -T git@github.com`.
+- **🎓 20′ · Prouver qui l'on est** : identifiant et mot de passe (le serveur garde une empreinte) ; les quatre façons de perdre un mot de passe (deviné, volé sur le serveur, volé chez vous, intercepté) ; combien de temps pour le deviner ; hameçonnage ; une parade par menace ; le deuxième facteur ; la clé à la place du mot de passe, la connexion SSH, les deux fichiers.
+- **⌨️ 20′ · TD 2a** : dans l'Anaconda Prompt, `ssh-keygen`, la clé publique sur le compte GitHub, `ssh -T git@github.com`.
 - **🎓 15′ · Les secrets de vos programmes** : ce qui est un secret, un secret dans un dépôt y reste (`git log -p`), séparer le code et les secrets (`.gitignore`, fichier modèle), si un secret a fui, mises à jour et sauvegardes.
 - **⌨️ TD 3a, facultatif** : un secret dans l'historique, rejoué sur un dépôt neuf.
+- **Clôture** : « Vers le cours 6 » (compte, clé SSH, deuxième facteur, secret ignoré ; le cours 6 commence par `git clone`).
 
 ## Cours 6 — Forge & git en équipe ; outil « trajectoire » (CM)
 
