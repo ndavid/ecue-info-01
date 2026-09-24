@@ -4,7 +4,7 @@
 
 #separateur(
   "Les secrets de vos programmes",
-  annonce: "Un jeton d'API est un mot de passe pour programme : les mêmes menaces, et une parade de plus, le tenir hors du dépôt.",
+  annonce: "Un jeton d'API, token en anglais, est un mot de passe utilisé par un programme. Il se perd des mêmes façons qu'un mot de passe, et aussi par le dépôt git.",
 )
 
 // --------------------------------------------
@@ -22,7 +22,7 @@
         [Quoi], [Donne accès à],
         [#text(fill: brun, weight: demi-gras)[clé privée SSH]], [vos comptes, vos serveurs],
         [#text(fill: brun, weight: demi-gras)[mot de passe]], [un compte],
-        [#text(fill: brun, weight: demi-gras)[jeton d'API]], [un service payant ou limité : clé IGN, clé d'un service d'IA],
+        [#text(fill: brun, weight: demi-gras)[jeton d'API (#emph[token])]], [un service payant ou limité, de cartographie ou d'IA],
         [#text(fill: brun, weight: demi-gras)[fichier `.env`, `config.py`]], [là où sont rangés les trois précédents],
       )
     ],
@@ -32,20 +32,20 @@
         align: (left + horizon, left + horizon),
         [Quoi], [Pourquoi],
         [#text(fill: attention, weight: demi-gras)[clé publique SSH]], [ne sert à rien sans la privée],
-        [#text(fill: attention, weight: demi-gras)[le code]], [c'est ce qu'on rend],
-        [#text(fill: attention, weight: demi-gras)[README, `environment.yml`]], [c'est ce qui permet de le relancer],
+        [#text(fill: attention, weight: demi-gras)[le code]], [le travail rendu],
+        [#text(fill: attention, weight: demi-gras)[README, `environment.yml`]], [ils permettent de relancer le code],
         [#text(fill: attention, weight: demi-gras)[données publiques]], [orthophotos, BD TOPO],
       )
     ],
   )
 
   #notes[
-    Un jeton d'API est une chaîne que le script envoie au service pour
-    s'identifier. Les services de l'IGN, de cartographie ou d'IA en donnent
-    un par compte ; la facture ou le quota va sur ce compte.
+    Jeton d'API : une chaîne que le script envoie au service pour s'identifier.
+    Les documentations disent *token*, ou « clé d'API ». Le quota ou la facture
+    va sur le compte du jeton.
 
-    Les données personnelles des autres (un CSV de noms et d'adresses) sont
-    un cas à part, régi par le RGPD : pas dans un dépôt public non plus.
+    Les données personnelles d'autres personnes (noms, adresses) relèvent du
+    RGPD : jamais dans un dépôt public.
   ]
 ]
 
@@ -57,13 +57,13 @@
   ]
 
   #terminal("Anaconda Prompt", "> git log --oneline
-449f325 Supprime la clé du dépôt
-856b116 Premier script de carte
+b638a2d Supprime la clé du dépôt
+9cb1911 Premier script de carte
 > git log -p -- config.py
-commit 449f325  Supprime la clé du dépôt
-    -CLE_IGN = \"d7f3a9c1e5b24086\"
-commit 856b116  Premier script de carte
-    +CLE_IGN = \"d7f3a9c1e5b24086\"")
+commit b638a2d  Supprime la clé du dépôt
+    -CLE_API = \"d7f3a9c1e5b24086\"
+commit 9cb1911  Premier script de carte
+    +CLE_API = \"d7f3a9c1e5b24086\"")
 
   #legende[
     Sortie réelle, abrégée. En 2025, 28,65 millions de secrets ont été
@@ -72,12 +72,10 @@ commit 856b116  Premier script de carte
   ]
 
   #notes[
-    Un secret poussé sur une forge publique est copié avant d'être
-    supprimé : des programmes lisent les commits publics en continu et
-    testent les clés qu'ils y trouvent.
+    Des programmes lisent les commits publics en continu et testent les clés
+    trouvées : un secret poussé est copié avant d'être supprimé.
 
-    Le TD 3a rejoue cette sortie. Il est facultatif : la diapositive suffit à
-    le montrer.
+    Le TD 3a rejoue cette sortie ; il est facultatif.
   ]
 ]
 
@@ -93,8 +91,8 @@ commit 856b116  Premier script de carte
       #block(width: 100%, inset: (x: 12pt, y: 10pt), fill: gris)[
         #set text(size: 17pt)
         #raw(block: true, "carte.py            import config
-                    cle = config.CLE_IGN
-config.example.py   CLE_IGN = \"à remplir\"
+                    cle = config.CLE_API
+config.example.py   CLE_API = \"à remplir\"
 .gitignore          config.py
 README.md")
       ]
@@ -102,7 +100,7 @@ README.md")
     panneau("Sur votre poste seulement")[
       #block(width: 100%, inset: (x: 12pt, y: 10pt), stroke: 1.2pt + brun)[
         #set text(size: 17pt)
-        #raw(block: true, "config.py           CLE_IGN = \"d7f3a9c1e5b24086\"")
+        #raw(block: true, "config.py           CLE_API = \"d7f3a9c1e5b24086\"")
       ]
       #v(0.5em)
       #text(size: 15pt, fill: estompe)[
@@ -113,12 +111,11 @@ README.md")
   )
 
   #notes[
-    C'est le `.gitignore` du cours 2. Le fichier ignoré peut aussi être un
-    `.env` lu par le programme ; le principe est le même.
+    C'est le `.gitignore` du cours 2. Un fichier `.env` lu par le programme suit
+    le même principe.
 
-    Vérifier avant de committer : `git status` ne doit pas lister le fichier
-    du secret. Les forges détectent une partie des jetons poussés et
-    préviennent ; ne pas compter dessus.
+    Avant de committer : `git status` ne doit pas lister le fichier du secret.
+    Les forges détectent une partie des jetons poussés ; ne pas compter dessus.
   ]
 ]
 
@@ -138,25 +135,24 @@ README.md")
   )
 
   #legende[
-    La première étape passe avant les autres : l'historique a déjà été copié.
+    Révoquer d'abord : l'historique a peut-être déjà été copié.
   ]
 
   #notes[
-    Réécrire un historique se fait avec `git filter-repo` ; hors programme.
-    Sur un petit projet, recréer le dépôt sans le commit fautif est plus
-    simple.
+    Réécrire l'historique : `git filter-repo`, hors programme. Sur un petit
+    projet, recréer le dépôt est plus simple.
 
-    Pour un mot de passe personnel qui a fui, la démarche est la même :
-    le changer, d'abord sur le site concerné, puis partout où il était
-    réutilisé.
+    Mot de passe personnel qui a fui : le changer sur le site concerné, puis
+    partout où il était réutilisé.
   ]
 ]
 
 // --------------------------------------------
 #d("Mises à jour et sauvegardes")[
   #annonce[
-    Une mise à jour ferme une faille connue et publiée. Une sauvegarde
-    rend un poste perdu, volé ou chiffré sans conséquence.
+    Une mise à jour corrige une faille connue et publiée. Une sauvegarde
+    permet de retrouver ses fichiers après la perte, le vol ou le chiffrement
+    d'un poste.
   ]
 
   #tableau(
@@ -166,19 +162,18 @@ README.md")
     [Quoi], [système, navigateur, Anaconda, les applications du téléphone], [ce qui ne se refait pas : documents, données, photos],
     [Quand], [dès qu'elles sont proposées], [régulièrement, en automatique],
     [Règle], [redémarrer quand c'est demandé], [3-2-1 : trois copies, deux supports, une hors du poste],
-    [Et le code ?], [`conda update`, de temps en temps], [un dépôt poussé sur la forge est une copie du code ; les données ignorées par git sont à sauvegarder à part],
+    [Pour le code], [`conda update`, de temps en temps], [un dépôt poussé sur la forge est une copie du code ; les données ignorées par git sont à sauvegarder à part],
   )
 
   #notes[
-    Une faille publiée est exploitée dans les jours qui suivent ; une mise à
-    jour repoussée laisse la faille ouverte pendant ce temps.
+    Une faille publiée est exploitée dans les jours qui suivent.
 
-    Pour un étudiant : le dépôt sur la forge sauve le code et le rapport ;
-    les données, si elles sont lourdes, sont dans `.gitignore` et donc
-    ailleurs. Un disque externe ou l'espace de stockage de l'école suffit.
+    Pour un étudiant : la forge garde le code et le rapport. Les données
+    lourdes, ignorées par git, vont sur un disque externe ou l'espace de
+    stockage de l'école.
 
-    Les autres mesures de cybermalveillance.gouv.fr, non traitées ici :
-    antivirus (celui de Windows suffit), applications depuis les magasins
-    officiels, Wi-Fi public, séparer usage personnel et professionnel.
+    Mesures de cybermalveillance.gouv.fr non traitées : antivirus (celui de
+    Windows suffit), applications des magasins officiels, Wi-Fi public,
+    séparation des usages personnels et professionnels.
   ]
 ]

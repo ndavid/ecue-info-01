@@ -11,7 +11,7 @@ Depuis `cours5/3a_secret_historique/`, dans Anaconda Prompt :
 ```bash
 git init travail
 cd travail
-echo CLE_IGN = "d7f3a9c1e5b24086" > config.py
+echo CLE_API = "d7f3a9c1e5b24086" > config.py
 git add config.py
 git commit -m "Premier script de carte"
 git rm config.py
@@ -20,15 +20,15 @@ git log -p -- config.py
 ```
 
 `config.py` n'est plus dans le dossier ; `git log -p` affiche pourtant la
-ligne `+CLE_IGN = "d7f3a9c1e5b24086"` du premier commit. Toute personne qui
+ligne `+CLE_API = "d7f3a9c1e5b24086"` du premier commit. Toute personne qui
 clone le dépôt reçoit les deux commits, et la clé avec.
 
 ## Tenir le secret à l'écart
 
 ```bash
-echo CLE_IGN = "à remplir" > config.example.py
+echo CLE_API = "à remplir" > config.example.py
 echo config.py > .gitignore
-echo CLE_IGN = "d7f3a9c1e5b24086" > config.py
+echo CLE_API = "d7f3a9c1e5b24086" > config.py
 git add .
 git status
 git commit -m "Modèle de configuration, secret ignoré"

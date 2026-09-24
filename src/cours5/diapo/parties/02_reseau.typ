@@ -10,20 +10,19 @@
 // --------------------------------------------
 #d("Local et distant")[
   #annonce[
-    Entre votre poste et un serveur, une suite de liens. Chaque lien ajoute
-    du temps, et la distance en ajoute le plus.
+    Entre votre poste et un serveur, les données traversent une suite de
+    liens. Chaque lien ajoute du temps ; la distance en ajoute le plus.
   ]
 
   #align(center, schema-local-distant())
 
   #notes[
-    Le réseau local est celui de l'école : tout ce qui est avant le pare-feu.
-    Au-delà, les réseaux des opérateurs, et le serveur, qui peut être
-    n'importe où. GitHub est aux États-Unis, avec des relais en Europe.
+    Réseau local : celui de l'école, jusqu'au pare-feu. Au-delà : les réseaux
+    des opérateurs, puis le serveur. GitHub est aux États-Unis, avec des relais
+    en Europe.
 
-    Les temps sont ceux d'un aller-retour. Ils s'additionnent : la salle
-    coûte moins d'une milliseconde, la distance jusqu'au serveur des
-    dizaines.
+    Les temps sont des allers-retours et s'additionnent : moins de 1 ms dans la
+    salle, des dizaines de millisecondes jusqu'au serveur.
   ]
 ]
 
@@ -40,16 +39,17 @@
   #tableau(
     columns: (1fr, 1fr, 1.4fr),
     align: left + horizon,
-    [Client], [Serveur], [La requête],
-    [le navigateur], [le site web], [« donne-moi cette page »],
-    [`git push`], [la forge], [« voici mes nouveaux commits »],
-    [`ssh`], [un serveur de calcul], [« ouvre-moi un terminal chez toi »],
+    [Client], [Serveur], [Contenu de la requête],
+    [le navigateur], [le site web], [l'adresse de la page demandée],
+    [`git push`], [la forge], [les nouveaux commits],
+    [`ssh`], [un serveur de calcul], [l'ouverture d'un terminal],
   )
 
   #notes[
-    Client et serveur ont été vus au cours 1 avec le notebook : le client
-    affiche, le serveur exécute. Le cours 6 ajoute `git pull`, la requête
-    dans l'autre sens.
+    Déjà vu au cours 1 avec le notebook : le navigateur affiche, le serveur
+    Jupyter exécute.
+
+    Le cours 6 ajoute `git pull`, qui demande à la forge les commits des autres.
   ]
 ]
 
@@ -65,9 +65,9 @@
     align: (left + horizon, left + horizon, left + horizon),
     [Élément], [Exemple], [Rôle],
     [adresse IP], [`140.82.121.4`], [le numéro de la machine sur le réseau],
-    [nom de domaine], [`github.com`], [le nom qu'on retient ; le DNS le traduit en adresse],
+    [nom de domaine], [`github.com`], [le nom lisible par une personne ; le DNS le traduit en adresse IP],
     [port], [`443`, `22`], [le service visé sur la machine : le web, SSH],
-    [protocole], [`https`, `ssh`], [la langue parlée sur ce port],
+    [protocole], [`https`, `ssh`], [les règles d'échange sur ce port],
   )
 
   #v(0.5em)
@@ -82,18 +82,16 @@
       #text(fill: estompe)[ssh alice\@]#text(fill: brun, weight: demi-gras)[calcul.ecole.fr]
     ],
   )
-  #legende[Le nom de domaine, en brun : c'est lui qui dit à qui l'on parle.]
+  #legende[En brun, le nom de domaine : il identifie le serveur.]
 
   #notes[
-    Le DNS est un annuaire : la question « quelle est l'adresse de
-    github.com ? » est elle-même une requête réseau, faite une fois puis
+    Le DNS est un annuaire. La requête DNS est faite une fois ; la réponse est
     gardée en mémoire.
 
-    Le port 443 est celui du web chiffré, le 22 celui de SSH. Un pare-feu
-    d'école peut fermer le 22 en sortie : c'est à vérifier avant le TD 2a.
+    Port 443 : web chiffré (HTTPS). Port 22 : SSH. Le pare-feu de l'école peut
+    fermer le port 22 en sortie : à vérifier avant le TD 2a.
 
-    Le nom de domaine est ce qu'on lit dans une adresse pour savoir à qui on
-    parle : la partie 4 y revient, sur l'hameçonnage.
+    Lire le nom de domaine sert contre l'hameçonnage (partie 3).
   ]
 ]
 
@@ -115,12 +113,12 @@
   )
 
   #notes[
-    Un petit message ne coûte que la latence ; un gros fichier ne coûte que
-    le débit. Un `git push` ordinaire est du premier cas : quelques Ko, et
-    l'attente est celle des allers-retours.
+    Petit message : seule la latence compte. Gros fichier : seul le débit
+    compte. Un `git push` ordinaire envoie quelques Ko ; l'attente vient des
+    allers-retours.
 
-    Le débit se compte en bits par seconde, la taille des fichiers en octets :
-    la diapositive suivante.
+    Débit en bits par seconde, taille en octets : voir « Le débit dépend du
+    lien ».
   ]
 ]
 
@@ -150,13 +148,11 @@
   ]
 
   #notes[
-    Aucune amélioration matérielle ne fera passer Paris–Sydney sous
-    170 ms, le temps de la lumière sur l'aller-retour. Ce qui se gagne
-    encore est dans les détours des câbles et les équipements traversés,
-    d'où la dernière colonne.
+    Paris–Sydney ne descendra pas sous 170 ms, le temps de la lumière dans la
+    fibre sur l'aller-retour. Les gains possibles portent sur les détours des
+    câbles et les équipements traversés (dernière colonne).
 
-    Conséquence pour les services : les gros sites ont des serveurs sur
-    chaque continent.
+    Les grands services ont des serveurs sur chaque continent pour cette raison.
   ]
 ]
 
@@ -184,11 +180,10 @@
   ]
 
   #notes[
-    Le facteur 8 est l'erreur la plus fréquente sur ces calculs. Les débits
-    des opérateurs sont toujours donnés en bits par seconde.
+    Le facteur 8 entre bits et octets est l'erreur la plus fréquente. Les
+    opérateurs donnent les débits en bits par seconde.
 
-    Les débits du tableau sont ceux qu'on observe en pratique. Le TD 1a en
-    mesure un depuis la salle.
+    Débits observés en pratique. Le TD 1a en mesure un depuis la salle.
   ]
 ]
 
@@ -217,21 +212,20 @@
   ]
 
   #notes[
-    Débits et latences observés en pratique. Le Wi-Fi de la
-    salle donne moins que le câble, et d'autant moins qu'il y a de postes
-    connectés : c'est pourquoi les postes de la salle sont câblés.
+    Débits et latences observés en pratique.
 
-    Le GNSS reçoit seulement : le récepteur écoute les satellites et calcule
-    sa position ; il n'envoie rien. Les 50 bit/s sont le message de
-    navigation, d'où les 30 secondes de la première position à froid. Les
-    corrections RTK, elles, arrivent par la 4G.
+    Le Wi-Fi se partage entre les postes connectés ; les postes de la salle sont
+    câblés pour cette raison.
 
-    LoRa est le lien des capteurs : un relevé par heure, une pile qui dure
-    cinq ans.
+    GNSS : le récepteur écoute les satellites et calcule sa position ; il
+    n'émet rien. Le message de navigation passe à 50 bit/s : une première
+    position à froid prend 30 s. Les corrections RTK arrivent par la 4G.
 
-    Le chiffrement du Wi-Fi protège de qui est à portée ; celui de HTTPS et
-    de SSH protège sur tout le trajet, y compris chez l'opérateur. La partie
-    3 y revient, parmi les quatre façons de perdre un mot de passe.
+    LoRa : un relevé par heure, une pile qui dure cinq ans.
+
+    Le chiffrement du Wi-Fi (WPA) protège contre qui est à portée. HTTPS et SSH
+    chiffrent sur tout le trajet, opérateur compris. La partie 3 y revient
+    (interception, façon 3).
   ]
 ]
 
@@ -245,10 +239,9 @@
   #align(center, schema-commit-push())
 
   #notes[
-    Un outil qui enregistrerait directement sur le serveur attendrait le
-    réseau à chaque enregistrement, et ne fonctionnerait pas sans réseau.
+    Un outil qui enregistrerait directement sur le serveur attendrait le réseau
+    à chaque enregistrement et ne fonctionnerait pas hors ligne.
 
-    Le cours 6 le met en pratique : `push`, puis `pull` pour recevoir ce que
-    d'autres ont poussé.
+    Cours 6 : `push`, puis `pull` pour recevoir les commits des autres.
   ]
 ]

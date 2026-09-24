@@ -34,11 +34,11 @@
   ]
 
   #notes[
-    Deux minutes. Les valeurs du corrigé sont supposées ; les relever sur
-    une VM de la salle avant la séance.
+    Deux minutes. Les valeurs du corrigé sont supposées : les relever sur une VM
+    de la salle avant la séance.
 
-    Comparer avec la diapositive « Mémoire vive et disque » : les postes sont
-    dans les fourchettes données.
+    Les valeurs relevées sont dans les fourchettes de « Mémoire vive et
+    disque ».
   ]
 ]
 
@@ -52,28 +52,26 @@
     columns: (auto, 110pt, 1fr),
     align: (left + horizon, left + horizon, left + horizon),
     [Mesure], [Sur votre poste], [Ce que vous constatez],
-    [10 millions d'additions], [], reponse[30 à 100 ns l'addition : cent cycles du processeur],
+    [10 millions d'additions], [], reponse[30 à 100 ns par addition],
     [copier 100 Mo en mémoire], [], reponse[quelques Go/s],
     [écrire 100 Mo sur le disque], [], reponse[100 à 500 Mo/s : dix fois moins que la mémoire],
-    [relire les mêmes 100 Mo], [], reponse[plus rapide : le système en a gardé une copie en RAM],
+    [relire les mêmes 100 Mo], [], reponse[plus rapide : copie gardée en mémoire vive],
     [un aller-retour vers github.com], [], reponse[10 à 80 ms : Europe ou États-Unis],
     [télécharger 10 Mo], [], reponse[quelques centaines de Mbit/s],
   )
 
   #notes[
-    Le script est court : `time.perf_counter()` avant et après chaque
-    opération, comme le chronomètre du projet 7.
+    Le script mesure chaque opération avec `time.perf_counter()` avant et après,
+    comme au projet 7.
 
-    Sortie sur un poste Linux, septembre 2026 : 39 ns par addition ;
-    1,4 Go/s en mémoire ; 90 Mo/s en écriture ; 1 300 Mo/s en relecture ;
-    22 ms d'aller-retour ; 412 Mbit/s. Les valeurs des VM seront différentes,
-    les rapports non.
+    Sortie sur un poste Linux (septembre 2026) : 39 ns par addition ; 1,4 Go/s
+    en mémoire ; 90 Mo/s en écriture ; 1 300 Mo/s en relecture ; 22 ms
+    d'aller-retour ; 412 Mbit/s. Sur les VM, les valeurs seront différentes et
+    les rapports entre elles semblables.
 
-    La relecture plus rapide que l'écriture est l'observation à commenter :
-    c'est le cache du système, l'étage mémoire vive de la pyramide de la
-    partie 1.
+    À commenter : la relecture est plus rapide que l'écriture, parce que le
+    système garde une copie du fichier en mémoire vive.
 
-    Si le réseau ne répond pas, le script l'écrit et s'arrête là ; le reste
-    des mesures est fait.
+    Sans réseau, le script l'affiche et s'arrête après les mesures locales.
   ]
 ]

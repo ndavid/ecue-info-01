@@ -16,7 +16,8 @@
 
 #d("Fabriquer la paire de clés")[
   #annonce[
-    Dans Anaconda Prompt. Entrée à chacune des trois questions.
+    Taper la commande dans Anaconda Prompt, puis Entrée à chacune des trois
+    questions.
   ]
 
   #terminal("Anaconda Prompt", "> ssh-keygen -t ed25519 -C \"prenom.nom@etu.ecole.fr\"
@@ -38,19 +39,19 @@ Your public key has been saved in C:\\Users\\vous\\.ssh\\id_ed25519.pub", taille
   )
 
   #notes[
-    Remplacer l'adresse par la sienne : ce n'est qu'une étiquette, mais elle
-    dit à qui est la clé quand on en a plusieurs sur un compte.
+    L'adresse est une étiquette : elle identifie la clé quand un compte en a
+    plusieurs. Chacun met la sienne.
 
-    `ssh-keygen` est installé d'origine sous Windows 10 et 11. Si la
-    commande est introuvable, le dire : `C:\Windows\System32\OpenSSH\`
-    manque au `PATH`, et Git Bash a la sienne.
+    `ssh-keygen` est installé avec Windows 10 et 11. Si la commande est
+    introuvable, `C:\Windows\System32\OpenSSH\` manque au `PATH` ; Git Bash
+    fournit aussi `ssh-keygen`.
   ]
 ]
 
 #d("Coller la clé publique sur GitHub")[
   #annonce[
-    Afficher la clé publique, copier la ligne entière, la coller dans le
-    compte. Le fichier qui se termine par `.pub`, et lui seul.
+    Afficher la clé publique, copier la ligne entière et la coller dans le
+    compte. Seul le fichier qui se termine par `.pub` se copie.
   ]
 
   #terminal("Anaconda Prompt", "> type %USERPROFILE%\\.ssh\\id_ed25519.pub
@@ -68,13 +69,12 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFKIay24YXuydFOmWVIyBfd3aAkOOtGncHYAqvz+ZW75
 
 
   #notes[
-    Erreur fréquente : coller le contenu de `id_ed25519` (sans extension),
-    la clé privée. GitHub le refuse, mais la clé a été copiée dans le
-    presse-papier et peut finir dans un message. Vérifier que la ligne
-    commence par `ssh-ed25519`.
+    Erreur fréquente : coller le contenu de `id_ed25519`, la clé privée. GitHub
+    la rejette, mais elle est passée par le presse-papier. Vérifier que la
+    ligne commence par `ssh-ed25519`.
 
-    GitHub peut demander le mot de passe du compte ou le second facteur à
-    l'ajout de la clé.
+    GitHub peut demander le mot de passe ou le deuxième facteur à l'ajout de la
+    clé.
   ]
 ]
 
@@ -98,12 +98,10 @@ Hi alice-martin! You've successfully authenticated, but GitHub does not provide 
 
   #notes[
     L'empreinte affichée est celle de la clé ED25519 de GitHub, publiée sur
-    docs.github.com (« GitHub's SSH key fingerprints »). La comparer à la
-    page est la vérification prévue. L'empreinte est ensuite gardée dans
-    `.ssh/known_hosts` et n'est plus demandée.
+    docs.github.com (« GitHub's SSH key fingerprints ») : la comparer. Elle est
+    ensuite enregistrée dans `.ssh/known_hosts`.
 
-    Si le port 22 est fermé par le pare-feu de l'école, GitHub écoute aussi
-    en SSH sur le port 443 : le fichier `config` fourni dans le dossier du TD
-    se copie dans `.ssh/`, et la commande est la même.
+    Port 22 fermé : GitHub accepte aussi SSH sur le port 443. Copier le fichier
+    `config` du dossier du TD dans `.ssh/` ; la commande ne change pas.
   ]
 ]

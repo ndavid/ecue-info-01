@@ -17,12 +17,13 @@
 
 #d("Committer, supprimer, relire")[
   #annonce[
-    Un dépôt neuf dans `travail/`, un fichier avec une clé inventée, deux commits.
+    Committer un fichier qui contient une clé inventée, puis le supprimer
+    dans un second commit.
   ]
 
   #terminal("Anaconda Prompt", "> git init travail
 > cd travail
-> echo CLE_IGN = \"d7f3a9c1e5b24086\" > config.py
+> echo CLE_API = \"d7f3a9c1e5b24086\" > config.py
 > git add config.py
 > git commit -m \"Premier script de carte\"
 > git rm config.py
@@ -34,25 +35,25 @@
     columns: (auto, 1fr),
     align: (left + horizon, left + horizon),
     [Question], [Ce que vous constatez],
-    [`config.py` est-il encore dans le dossier ?], reponse[non : `git rm` l'a supprimé du dossier et de l'index],
-    [La clé est-elle encore dans le dépôt ?], reponse[oui : `git log -p` affiche la ligne `+CLE_IGN = …` du premier commit],
+    [`config.py` est-il encore dans le dossier ?], reponse[non : `git rm` l'a supprimé],
+    [La clé est-elle encore dans le dépôt ?], reponse[oui : ligne `+CLE_API = …` du premier commit],
   )
 
   #notes[
-    Le fichier a disparu du dossier de travail. L'historique le contient
-    toujours, et toute personne qui clone le dépôt reçoit les deux commits.
+    Le fichier n'est plus dans le dossier de travail. L'historique le contient
+    toujours, et un clone reçoit les deux commits.
   ]
 ]
 
 #d("Tenir le secret à l'écart")[
   #annonce[
-    Le dépôt reçoit un modèle et une règle d'exclusion ; le fichier avec la
-    vraie valeur reste hors de portée de `git add`.
+    Le dépôt contient un modèle et une règle d'exclusion. `git add` ignore le
+    fichier qui contient la vraie valeur.
   ]
 
-  #terminal("Anaconda Prompt", "> echo CLE_IGN = \"à remplir\" > config.example.py
+  #terminal("Anaconda Prompt", "> echo CLE_API = \"à remplir\" > config.example.py
 > echo config.py > .gitignore
-> echo CLE_IGN = \"d7f3a9c1e5b24086\" > config.py
+> echo CLE_API = \"d7f3a9c1e5b24086\" > config.py
 > git add .
 > git status
 > git commit -m \"Modèle de configuration, secret ignoré\"", taille: 12pt)
@@ -67,9 +68,10 @@
   )
 
   #notes[
-    `git add .` est la commande qui fait entrer les secrets par erreur : c'est
-    pourquoi le `.gitignore` s'écrit avant. Sur ce dépôt, la première clé
-    reste dans les deux premiers commits : la seule façon de l'en sortir est
-    de recréer le dépôt, ce que la feuille du TD propose en dernière étape.
+    `git add .` est la commande qui ajoute un secret par erreur : écrire le
+    `.gitignore` avant.
+
+    La première clé reste dans les deux premiers commits. La feuille du TD
+    recrée le dépôt en dernière étape.
   ]
 ]

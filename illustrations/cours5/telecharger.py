@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Récupère les photos du cours 5 sur Wikimedia Commons, à la taille utile.
+"""Récupère les illustrations du cours 5 : les photos sur Wikimedia Commons, à
+la taille utile, et le dessin xkcd n° 936.
 
     python illustrations/cours5/telecharger.py
 
@@ -33,6 +34,12 @@ LARGEUR = 1400
 PHOTOS = {
     "boitier_ouvert.jpg": ("File:Bluechip-PC; Mitte der 2010er 20240827 HOF8538-HDR RAW-Export.png", 0),
     "carte_mere.jpg": ("File:Gigabyte B550 UD AC-Y1 - Front.png", -90),
+}
+
+# Le dessin de Randall Munroe sur la force des mots de passe (CC BY-NC 2.5),
+# en double résolution, tel quel.
+XKCD = {
+    "xkcd_936.png": "https://imgs.xkcd.com/comics/password_strength_2x.png",
 }
 
 
@@ -70,6 +77,12 @@ def main() -> int:
         print(f"{nom:20} {image.width}x{image.height}  {taille} Ko  "
               f"{meta.get('LicenseShortName', '?')}")
         time.sleep(1.5)
+    for nom, url in XKCD.items():
+        requete = urllib.request.Request(url, headers={"User-Agent": UA})
+        with urllib.request.urlopen(requete, timeout=60) as reponse:
+            (ICI / nom).write_bytes(reponse.read())
+        taille = (ICI / nom).stat().st_size // 1000
+        print(f"{nom:20} {taille} Ko  CC BY-NC 2.5")
     return 0
 
 

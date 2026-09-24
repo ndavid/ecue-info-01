@@ -542,7 +542,7 @@
 
   _fleche((4.0, y + 0.5), (20.8, y + 0.5), couleur: alerte, epaisseur: 2pt)
   content((12.4, y + 0.7), anchor: "south", text(size: 16pt, fill: alerte, weight: demi-gras)[
-    requête : « donne-moi cette page »
+    requête : l'adresse de la page demandée
   ])
   _fleche((20.8, y - 0.5), (4.0, y - 0.5), couleur: accent, epaisseur: 1.6pt)
   content((12.4, y - 0.7), anchor: "north", text(size: 16pt, fill: accent)[
@@ -595,6 +595,81 @@
 })
 
 // ---------------------------------------------------------------------------
+// La connexion à un site : le poste, le réseau, le serveur, sa table
+//
+// Le même schéma sert à plusieurs diapositives de la partie 3 : seule la
+// table change (en clair, avec une empreinte, avec un sel), avec le calcul
+// fait par le serveur. `reperes: true` numérote les quatre endroits où l'on
+// obtient le mot de passe d'un autre : la table, le formulaire, le réseau,
+// le poste.
+//
+//   schema-connexion(
+//     entetes: ("identifiant", "mot de passe"),
+//     lignes: (("alice", "Marseille2024!"), ("bob", "123456")),
+//     calcul: "SHA-256",
+//   )
+
+// Un numéro dans un cercle, posé sur un schéma ou sur une photo.
+#let repere(n, taille: 21pt) = box(
+  width: taille, height: taille,
+  fill: white, stroke: 1.6pt + accent, radius: taille / 2,
+  std.align(center + horizon, text(size: 12.5pt, weight: demi-gras, fill: accent)[#n]),
+)
+
+#let schema-connexion(entetes: (), lignes: (), calcul: none, reperes: false, zoom: 115%) = std.scale(zoom, reflow: true, cetz.canvas(length: 1cm, {
+  set-style(stroke: 0.9pt + _trait)
+  let y = 0
+
+  // le poste : le formulaire rempli
+  content((2.0, y), box(
+    width: 4.2cm, inset: 6pt, stroke: 1.4pt + accent, radius: 4pt, fill: white,
+  )[
+    #set text(size: 13pt)
+    #set par(leading: 0.4em)
+    #text(fill: estompe)[identifiant] \
+    #text(font: police-code)[alice] \
+    #text(fill: estompe)[mot de passe] \
+    #text(font: police-code)[Marseille2024!]
+  ])
+  _etiquette((2.0, y - 1.35), "Votre poste", none, largeur: 4cm)
+
+  // le réseau
+  _fleche((4.6, y), (10.7, y), epaisseur: 1.6pt)
+  content((7.65, y + 0.15), anchor: "south",
+          text(size: 13pt, font: police-code, fill: accent)[alice, Marseille2024!])
+  content((7.65, y - 0.15), anchor: "north", text(size: 14pt, fill: estompe)[le réseau])
+
+  // le serveur, et le calcul qu'il fait avant de comparer
+  _serveur(11.8, y)
+  _etiquette((11.8, y - 1.4), "Le serveur", none, largeur: 3.5cm)
+  _fleche((12.9, y), (15.9, y), epaisseur: 1.4pt)
+  content((14.4, y + 0.15), anchor: "south", box(width: 3.2cm, align(center,
+    text(size: 13pt, fill: accent)[#if calcul == none [compare] else [#calcul \ puis compare]])))
+
+  // la table des comptes
+  content((16.1, y), anchor: "west", box[
+    #text(size: 14pt, fill: estompe)[la table des comptes]
+    #v(-0.5em)
+    #table(
+      columns: entetes.len(),
+      inset: (x: 6pt, y: 4pt),
+      stroke: 0.6pt + accent.lighten(40%),
+      fill: (x, y) => if y == 0 { gris.lighten(45%) },
+      ..entetes.map(e => text(size: 13pt, weight: demi-gras)[#e]),
+      ..lignes.flatten().map(v => text(size: 13pt, font: police-code)[#v]),
+    )
+  ])
+
+  if reperes {
+    let r(pos, n) = content(pos, repere(n))
+    r((16.1, y + 1.85), 1)
+    r((11.8, y + 1.6), 2)
+    r((5.2, y - 0.5), 3)
+    r((-0.2, y + 1.25), 4)
+  }
+}))
+
+// ---------------------------------------------------------------------------
 // Une paire de clés : le cadenas et la clé
 
 #let _cadenas(x, y, couleur, echelle: 1) = {
@@ -627,9 +702,9 @@
     #align(center)[
       #text(size: 19pt, weight: demi-gras, fill: attention)[clé publique]
       #linebreak()
-      #text(size: 15pt, fill: accent)[ferme ; on la distribue]
+      #text(size: 15pt, fill: accent)[sert à fermer ; elle est distribuée]
       #linebreak()
-      #text(size: 13.5pt, fill: estompe)[`id_ed25519.pub`, à coller sur la forge, sur les serveurs]
+      #text(size: 13.5pt, fill: estompe)[`id_ed25519.pub`, collée sur la forge et les serveurs]
     ]
   ])
   // la clé privée, à droite, et où elle reste
@@ -638,16 +713,16 @@
     #align(center)[
       #text(size: 19pt, weight: demi-gras, fill: brun)[clé privée]
       #linebreak()
-      #text(size: 15pt, fill: accent)[ouvre ; elle ne quitte pas votre poste]
+      #text(size: 15pt, fill: accent)[sert à ouvrir ; elle reste sur votre poste]
       #linebreak()
-      #text(size: 13.5pt, fill: estompe)[`id_ed25519`, jamais copié, jamais envoyé]
+      #text(size: 13.5pt, fill: estompe)[le fichier `id_ed25519` n'est jamais copié ni envoyé]
     ]
   ])
   // ce qui les lie
   line((7.0, 4.3), (14.4, 4.3), stroke: (paint: estompe, thickness: 1pt, dash: "dashed"))
-  content((10.7, 4.5), anchor: "south", box(width: 7cm)[
+  content((10.7, 4.5), anchor: "south", box(width: 9.4cm)[
     #align(center)[
-      #text(size: 14pt, fill: estompe)[fabriquées ensemble par `ssh-keygen` : ce que l'une ferme, seule l'autre l'ouvre]
+      #text(size: 14pt, fill: estompe)[Les deux clés sont créées ensemble par `ssh-keygen`. Un message fermé avec la clé publique ne peut être ouvert qu'avec la clé privée.]
     ]
   ])
 })
@@ -760,11 +835,7 @@
 //   #photo-reperee("/illustrations/cours5/carte_mere.jpg", 1400 / 933,
 //                  ((0.66, 0.52), (0.66, 0.80)), hauteur: 300pt)
 
-#let repere(n, taille: 21pt) = box(
-  width: taille, height: taille,
-  fill: white, stroke: 1.6pt + accent, radius: taille / 2,
-  std.align(center + horizon, text(size: 12.5pt, weight: demi-gras, fill: accent)[#n]),
-)
+// `repere` est défini plus haut, avec le schéma de la connexion.
 
 // La légende des repères : un numéro, un libellé, en corps réduit pour
 // tenir à côté de la photo sans repli.

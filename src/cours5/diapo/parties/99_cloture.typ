@@ -3,7 +3,8 @@
 
 #d("Vers le cours 6")[
   #annonce[
-    Ce qui est en place aujourd'hui, et ce que la séance suivante en fait.
+    Le cours 6 utilise le compte, la clé et le deuxième facteur mis en place
+    aujourd'hui.
   ]
 
   #tableau(
@@ -14,15 +15,16 @@
     [une clé SSH sur ce compte], [`git clone`, `git push`, `git pull` sans mot de passe],
     [un deuxième facteur sur le compte], [demandé par GitHub à la première connexion],
     [le secret dans un fichier ignoré], [le `.gitignore` du dépôt de chacun],
-    [commit local, push réseau], [travailler à plusieurs sur le même dépôt : branches, fusion],
+    [le commit en local, le push sur le réseau], [travailler à plusieurs sur le même dépôt : branches, fusion],
   )
 
   #legende[
-    Le cours 6 commence par `git clone` : la clé doit marcher avant.
+    Le cours 6 commence par `git clone` : la clé doit fonctionner avant la
+    séance.
   ]
 
   #notes[
-    Quiconque n'a pas fini le TD 2a le finit avant le cours 6, seul, avec la
-    feuille du TD : elle est dans `cours5/2a_cle_ssh/`.
+    Un TD 2a non terminé se termine avant le cours 6, seul, avec la feuille du
+    TD dans `cours5/2a_cle_ssh/`.
   ]
 ]

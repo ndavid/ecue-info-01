@@ -12,16 +12,17 @@
   #align(center, schema-composants())
 
   #notes[
-    Six composants, un rôle chacun. La suite de la partie détaille les
-    trois premiers : processeur, mémoire vive, disque.
+    La suite de la partie détaille le processeur, la mémoire vive et le disque.
 
-    La carte graphique servait d'abord à calculer l'image envoyée à l'écran, pour décharger le processeur de ce calcul. 
-    Elle sert aujourd'hui au calcul massivement parallèle : la même opération sur chacun des millions de pixels, ou des éléments d'un tenseur, d'où ses milliers de cœurs. Elle revient en fin de partie. 
-    La carte réseau relie le poste au réseau, par câble ou par Wi-Fi ; elle ouvre la partie 2.
+    Carte graphique : conçue pour calculer l'image affichée, utilisée aujourd'hui
+    pour le calcul parallèle (diapositives « Processeur et carte graphique »).
 
-    L'alimentation convertit le 230 V du secteur en basses tensions (12 V, 5 V, 3,3 V) pour les autres composants.
+    Carte réseau : câble ou Wi-Fi ; sujet de la partie 2.
 
-    Un portable contient les mêmes composants, soudés sur une seule carte. Un téléphone aussi.
+    Alimentation : convertit le 230 V du secteur en 12 V, 5 V et 3,3 V.
+
+    Un portable et un téléphone ont les mêmes composants, soudés sur une seule
+    carte.
   ]
 ]
 
@@ -52,13 +53,10 @@ d("Un boîtier ouvert")[
   ]
 
   #notes[
-    Le processeur ne se voit pas : il est sous le ventilateur, qui évacue sa chaleur.
+    Le processeur est sous le ventilateur.
 
-    Ce poste n'a pas de carte graphique : l'affichage est fait par le
-    processeur, ce qui suffit à un poste de bureau. 
-    Les emplacements vides sont là pour en ajouter une.
-
-    Un portable contient les mêmes éléments, soudés sur une seule carte, sans emplacement libre.
+    Ce poste n'a pas de carte graphique séparée : le processeur gère
+    l'affichage. Les emplacements vides permettent d'en ajouter une.
   ]
 ]
 
@@ -73,7 +71,7 @@ d("La carte mère")[
       [le processeur, sous son ventilateur],
       [la mémoire vive : quatre emplacements, deux occupés],
       [les emplacements pour cartes ; le long reçoit la carte graphique],
-      [un emplacement pour un SSD, de la taille d'une barrette de chewing-gum],
+      [un emplacement pour un SSD au format M.2, 22 × 80 mm],
       [le jeu de puces, qui relie le reste au processeur],
       [les connecteurs arrière : USB, réseau, écran, son],
       [l'arrivée de l'alimentation, et les prises des disques],
@@ -86,12 +84,11 @@ d("La carte mère")[
   ]
 
   #notes[
-    La carte mère ne calcule pas : elle relie. Chaque piste de cuivre est un
-    fil, et un ensemble de fils entre deux composants s'appelle un bus.
+    La carte mère relie les composants par des pistes de cuivre. Un ensemble de
+    pistes entre deux composants s'appelle un bus.
 
-    Ce qui se remplace sans changer de carte : la mémoire, les cartes, les
-    disques. Ce qui impose la carte : le processeur, dont l'emplacement change
-    avec la génération.
+    Se remplacent sans changer de carte : la mémoire, les cartes, les disques.
+    Un processeur d'une autre génération demande en général une autre carte.
   ]
 ]
 }
@@ -112,12 +109,12 @@ d("La carte mère")[
   ]
 
   #notes[
-    Une instruction est une opération élémentaire : lire une valeur en
-    mémoire, additionner, comparer, sauter à une autre instruction. Une ligne
-    de Python en vaut des dizaines à des centaines.
+    Une instruction : lire une valeur en mémoire, additionner, comparer, sauter
+    à une autre instruction. Une ligne de Python correspond à des dizaines ou
+    des centaines d'instructions.
 
-    Les postes de la salle ont 4 cœurs (à relever au TD 1a) ; un portable en
-    a 4 à 8, un serveur de calcul 32 à 128.
+    Cœurs : 4 sur les postes de la salle (relevé au TD 1a), 4 à 8 sur un
+    portable, 32 à 128 sur un serveur de calcul.
   ]
 ]
 
@@ -137,9 +134,10 @@ d("La carte mère")[
   )
 
   #notes[
-    Faire voter à main levée avant de passer à la diapositive suivante. Les
-    réponses se partagent en général entre 40 et 60 °C : on juge d'après la
-    tiédeur du boîtier, pas d'après la puce.
+    Faire voter à main levée, puis passer aux réponses.
+
+    Les réponses se partagent souvent entre 40 et 60 °C, la température
+    ressentie du boîtier.
   ]
 ]
 
@@ -168,20 +166,17 @@ d("La carte mère")[
   ]
 
   #notes[
-    La chaleur vient de la puissance : 65 à 250 W sur une puce de 1 à
-    2,5 cm², soit 50 à 100 W par cm². Une plaque de cuisson en fait moins de
-    10. D'où le radiateur, le ventilateur, et leur bruit quand un calcul
-    dure.
+    Puissance : 65 à 250 W sur 1 à 2,5 cm², soit 50 à 100 W par cm². Une plaque
+    de cuisson : moins de 10 W par cm².
 
-    C'est la même limite qui a arrêté la montée en fréquence vers 2005
-    (« Trente ans de processeurs », plus loin). Un portable qui ralentit
-    pendant un long calcul est souvent un portable qui chauffe : la
-    fréquence baisse pour rester sous la limite.
+    Cette limite a arrêté la montée en fréquence vers 2005 (« Trente ans de
+    processeurs »). Un portable qui ralentit pendant un long calcul baisse sa
+    fréquence pour rester sous la limite.
 
-    AMD a dit en 2022 que 95 °C en charge est le fonctionnement prévu des
-    Ryzen 7000, pas une anomalie. La température se lit avec un outil du
-    fabricant ; le gestionnaire des tâches de Windows ne l'affiche pas pour
-    le processeur.
+    AMD (2022) : 95 °C en charge est le fonctionnement prévu des Ryzen 7000.
+
+    Le gestionnaire des tâches de Windows n'affiche pas la température du
+    processeur ; il faut l'outil du fabricant.
   ]
 ]
 
@@ -208,13 +203,12 @@ d("La carte mère")[
   ]
 
   #notes[
-    Ouvrir un fichier, c'est le copier du disque vers la mémoire vive ;
-    l'enregistrer, c'est le recopier dans l'autre sens. Un travail non
-    enregistré n'existe qu'en mémoire vive.
+    Ouvrir un fichier le copie du disque vers la mémoire vive ; l'enregistrer le
+    recopie sur le disque. Un travail non enregistré n'est qu'en mémoire vive.
 
-    SSD et disque dur : le premier est de la mémoire flash sans pièce mobile,
-    le second un plateau qui tourne, cent fois plus lent à l'accès. Les
-    postes de la salle ont un SSD (à relever au TD 1a).
+    SSD : mémoire flash, sans pièce mobile. Disque dur : plateau tournant, cent
+    fois plus lent à l'accès. Les postes de la salle ont un SSD (relevé au
+    TD 1a).
   ]
 ]
 
@@ -228,20 +222,18 @@ d("La carte mère")[
   #align(center, pyramide-memoire())
 
   #notes[
-    Le cache est une petite mémoire dans le processeur, qui garde ce qui vient
-    d'être lu en mémoire vive. Il n'est pas visible du programmeur, mais il
-    explique qu'une boucle qui lit des valeurs voisines aille plus vite qu'une
-    boucle qui saute d'un bout à l'autre d'un tableau (projet 7).
+    Le cache est une petite mémoire dans le processeur ; il garde les dernières
+    données lues en mémoire vive. Une boucle sur des valeurs voisines est donc
+    plus rapide qu'une boucle qui saute dans un tableau (projet 7).
 
-    Le réseau est un étage de plus : un fichier sur un serveur est plus loin
-    encore que le disque.
+    Le réseau est un étage de plus, au-delà du disque.
   ]
 ]
 
 // --------------------------------------------
 #d("Ordres de grandeur : tailles")[
   #annonce[
-    Un facteur mille entre chaque unité.
+    Chaque unité vaut mille fois la précédente.
   ]
 
   #tableau(
@@ -257,15 +249,14 @@ d("La carte mère")[
   )
 
   #notes[
-    Ko, Mo, Go, To : kilo, méga, giga, téra, comme pour les mètres.
+    Kilo, méga, giga, téra : les mêmes préfixes que pour les mètres.
 
-    Kio, Mio, Gio (1 024, 1 024², 1 024³) sont les puissances de deux.
-    L'explorateur Windows affiche des Kio en les appelant « Ko » : un disque
-    vendu 1 To y apparaît à 931 « Go ». Ne pas s'y attarder.
+    Kio, Mio, Gio valent 1 024, 1 024², 1 024³ octets. L'explorateur Windows
+    affiche des Kio sous le nom « Ko » : un disque de 1 To y fait 931 « Go ».
+    Le signaler sans s'y attarder.
 
-    La dalle d'orthophoto : 25 millions de pixels, trois octets par pixel
-    (rouge, vert, bleu), sans compression. Le cours 3 compare la taille
-    d'une même image dans plusieurs formats.
+    Dalle d'orthophoto : 25 millions de pixels × 3 octets (rouge, vert, bleu),
+    sans compression. Le cours 3 compare les formats d'image.
   ]
 ]
 
@@ -293,19 +284,18 @@ d("La carte mère")[
   ]
 
   #notes[
-    Lire la diapositive de haut en bas : chaque barre est mille fois plus
-    longue que celle qui précède, à peu près. Le réseau, en bleu clair, part
-    au niveau du disque dur et va bien au-delà.
+    Chaque barre est environ mille fois plus longue que la précédente. Les temps
+    réseau, en bleu clair, commencent au niveau du disque dur.
 
-    Ce sont des temps d'accès : le temps pour obtenir le premier octet.
-    Les débits sont traités en partie 2.
+    Ce sont des temps d'accès, jusqu'au premier octet. Le débit est traité en
+    partie 2.
   ]
 ]
 
 // --------------------------------------------
 #d("Si la mémoire vive valait une seconde")[
   #annonce[
-    La même échelle, tout multiplié par dix millions.
+    Les temps de la diapositive précédente, multipliés par dix millions.
   ]
 
   #tableau(
@@ -322,20 +312,20 @@ d("La carte mère")[
   )
 
   #notes[
-    Diapositive à retenir. Pendant qu'un programme attend une lecture sur
-    le disque dur, le processeur aurait pu faire une journée d'accès à la
-    mémoire ; pendant qu'il attend un serveur à New York, une semaine.
+    Pendant une lecture sur le disque dur, le processeur pourrait faire
+    l'équivalent d'une journée d'accès à la mémoire ; pendant un aller-retour
+    vers New York, une semaine.
 
-    Même construction chez Brendan Gregg, *Systems Performance*, avec le
-    cycle du processeur pour unité : la mémoire vive y vaut 6 minutes, le
-    disque dur des mois, un aller-retour intercontinental des années.
+    Construction reprise de Brendan Gregg, *Systems Performance*, avec le cycle
+    du processeur pour unité.
 
-    Conséquences pour un programme, à dire : lire un fichier une fois et
-    garder son contenu en mémoire, au lieu de le rouvrir à chaque tour de
-    boucle ; du binaire pour des nombres, comme les images P5 du cours 3 ;
-    numpy à la place d'une boucle Python (cours 6) ; `commit` en local et
-    `push` quand on veut (partie 2). On mesure avant de changer ; le
-    projet 7 mesure.
+    Conséquences pour un programme, à dire :
+    - lire un fichier une fois et garder son contenu en mémoire ;
+    - écrire des nombres en binaire (images P5, cours 3) ;
+    - numpy plutôt qu'une boucle Python (cours 6) ;
+    - `commit` en local, `push` sur le réseau (partie 2).
+
+    Mesurer avant de modifier : c'est l'objet du projet 7.
   ]
 ]
 
@@ -354,21 +344,16 @@ d("La carte mère")[
   ]
 
   #notes[
-    Le processeur enchaîne vite des instructions variées ; la carte graphique
-    fait exécuter la même instruction à des milliers d'unités simples.
+    Contrôle : lecture des instructions, prévision des sauts, réordonnancement.
+    Il rend un cœur rapide sur un programme quelconque et occupe de la surface.
+    Sur la carte graphique, un contrôle pilote une rangée d'unités, qui
+    exécutent toutes la même instruction.
 
-    Le contrôle lit les instructions, prévoit les sauts, réordonne ce qui
-    peut l'être : c'est ce qui rend un cœur de processeur rapide sur un
-    programme quelconque, et c'est ce qui prend de la place. Sur la carte
-    graphique, un seul contrôle pilote toute une rangée d'unités, qui font
-    donc toutes la même chose au même moment.
+    Cache : il évite d'attendre la mémoire vive. La carte graphique en a peu ;
+    pendant qu'une rangée attend ses données, une autre calcule.
 
-    Le cache sert à ne pas attendre la mémoire vive (diapositive « Le chemin
-    d'une donnée »). La carte graphique en a peu : pendant qu'une rangée
-    attend ses données, une autre calcule.
-
-    Les rangées dessinées sont 10 de 22 unités ; une carte courante a 3 000
-    à 16 000 unités de calcul, que les fabricants appellent des cœurs.
+    Le schéma montre 10 rangées de 22 unités. Une carte courante a 3 000 à
+    16 000 unités, que les fabricants appellent des cœurs.
   ]
 ]
 
@@ -383,24 +368,18 @@ d("La carte mère")[
   #align(center, schema-pixels())
 
   #notes[
-    Même raisonnement sur une dalle d'orthophoto de 5 000 × 5 000 pixels :
-    25 millions de pixels, 3 millions d'étapes sur 8 cœurs, 1 500 sur une
-    carte de 16 000 cœurs. L'écart réel est plus faible : un cœur de
-    processeur est plus rapide, traite plusieurs valeurs par instruction, et
-    l'image doit d'abord être copiée dans la mémoire de la carte.
+    Dalle de 5 000 × 5 000 pixels : 25 millions de pixels, 3 millions d'étapes
+    sur 8 cœurs, 1 500 sur 16 000 cœurs. L'écart réel est plus faible : un cœur
+    de processeur est plus rapide, traite plusieurs valeurs par instruction, et
+    l'image doit être copiée dans la mémoire de la carte.
 
-    La carte graphique ne sert que pour ce genre de calcul : la même
-    opération sur beaucoup de données. Un programme qui enchaîne des
-    décisions différentes n'y gagne rien.
+    La carte graphique n'accélère que la même opération sur beaucoup de données.
 
-    Pour le module : numpy (cours 6) fait sur le processeur le même genre
-    d'opération, la même sur tout un tableau. Ce qui va sur une carte
-    graphique est l'affaire des cours de traitement d'image et
-    d'apprentissage, plus tard dans le cursus.
+    Dans le module : numpy (cours 6) applique une opération à tout un tableau,
+    sur le processeur. Le calcul sur carte graphique relève des cours de
+    traitement d'image et d'apprentissage.
 
-    Si le temps le permet : la démonstration des MythBusters pour NVIDIA
-    (2008, 1 min 30), un robot qui peint point par point puis 1 100 tubes
-    qui peignent la Joconde en 80 ms.
+    Vidéo facultative : MythBusters pour NVIDIA, 2008, 1 min 30.
     https://www.youtube.com/watch?v=fKK933KK6Gg
   ]
 ]
@@ -420,15 +399,16 @@ d("La carte mère")[
   ]
 
   #notes[
-    Le nombre de transistors double tous les deux ans environ depuis 1970 :
-    c'est la loi de Moore, encore à peu près vérifiée. La fréquence plafonne
-    vers 3 GHz depuis 2005, parce que la puissance, donc la chaleur à
-    évacuer, plafonne à 100 W. Depuis, le gain vient du nombre de cœurs : un
-    programme qui n'en occupe qu'un gagne peu d'une génération à l'autre.
+    Loi de Moore : le nombre de transistors double environ tous les deux ans
+    depuis 1970.
 
-    Le reste de la machine sur la même période, en ordre de grandeur :
-    mémoire vive 8 Mo en 1995, 16 Go en 2025 ; disque 1 Go, 1 To ; prix du
-    Go de disque 1 000 \$, 2 centimes ; modem 28,8 kbit/s, fibre 1 Gbit/s.
+    La fréquence plafonne vers 3 GHz depuis 2005, parce que la puissance à
+    évacuer plafonne vers 100 W. Le gain vient depuis du nombre de cœurs ; un
+    programme qui n'en utilise qu'un gagne peu d'une génération à l'autre.
+
+    De 1995 à 2025 : mémoire vive de 8 Mo à 16 Go ; disque de 1 Go à 1 To ; prix
+    du Go de disque de 1 000 \$ à 2 centimes ; modem à 28,8 kbit/s, fibre à
+    1 Gbit/s.
   ]
 ]
 
@@ -458,18 +438,15 @@ d("La carte mère")[
   ]
 
   #notes[
-    L'électricité par an suppose l'usage courant : le téléphone à touches se
-    recharge une fois par semaine (batterie de 3 Wh), le smartphone tous les
-    jours (15 Wh), le portable sert huit heures par jour, le serveur ne
-    s'arrête jamais.
+    Hypothèses de la dernière colonne : téléphone à touches rechargé une fois
+    par semaine (batterie de 3 Wh), smartphone chaque jour (15 Wh), portable
+    8 h par jour, serveur en continu.
 
-    Le téléphone à touches calcule cent mille fois moins qu'un smartphone ;
-    sa batterie tient dix jours parce que sa puissance est de quelques
-    dizaines de milliwatts.
+    Le téléphone à touches consomme quelques dizaines de milliwatts : sa
+    batterie tient dix jours.
 
-    Le smartphone est un ordinateur complet : les mêmes composants que le
-    boîtier, sur une puce de deux centimètres, avec une puissance limitée à
-    5 W par la batterie et l'absence de ventilateur.
+    Un smartphone a les composants d'un PC sur une puce de 2 cm, limités à 5 W
+    par la batterie et l'absence de ventilateur.
   ]
 ]
 
@@ -497,34 +474,29 @@ d("La carte mère")[
   ]
 
   #notes[
-    Les chiffres d'une question à un assistant varient de un à cent selon
-    qui mesure et ce qu'il compte. Google annonce 0,24 Wh pour une question
-    médiane à Gemini (2025) : c'est le chiffre le plus bas publié, donné par
-    le fournisseur, et il compte les serveurs, leur refroidissement et les
-    machines en attente, mais ni l'entraînement du modèle, ni la fabrication
-    du matériel, ni le réseau, ni l'appareil de l'utilisateur. Jegham et al.
-    (université de Rhode Island, 2025) estiment 0,4 Wh pour une question
-    courte à GPT-4o, 1,8 Wh pour une longue, et plus de 30 Wh pour o3 ou
-    DeepSeek-R1, qui produisent un long raisonnement avant de répondre.
+    Les estimations pour une question à un assistant d'IA varient d'un facteur
+    100 selon la source et le périmètre :
+    - Google (2025) : 0,24 Wh pour une question médiane à Gemini ; chiffre du
+      fournisseur ; serveurs et refroidissement, sans entraînement, fabrication,
+      réseau ni appareil de l'utilisateur ;
+    - Jegham et al. (université de Rhode Island, 2025) : GPT-4o, 0,4 Wh pour une
+      question courte, 1,8 Wh pour une longue ; o3 et DeepSeek-R1, plus de
+      30 Wh ;
+    - Mistral AI, analyse de cycle de vie (Carbone 4, ADEME, 2025), commandée
+      par le fournisseur : 1,14 g de CO₂e et 45 mL d'eau pour une réponse de
+      400 tokens, fabrication et entraînement compris ;
+    - une image générée coûte environ 60 fois plus qu'un texte (Luccioni et
+      al., 2024).
 
-    Seule une analyse de cycle de vie compte tout. Celle de Mistral AI
-    (Carbone 4, avec l'ADEME, relue par Resilio et Hubblo, 2025) donne, pour
-    une réponse de 400 mots-unités (tokens) de Le Chat, 1,14 g de CO₂e et
-    45 mL d'eau, fabrication et entraînement compris ; elle est aussi
-    commandée par le fournisseur. Générer une image coûte environ soixante
-    fois plus que générer du texte (Luccioni et al., 2024).
+    La consommation vient du volume : des milliards de questions par jour. L'IEA
+    prévoit le doublement de la consommation des centres de données d'ici 2030,
+    surtout à cause de l'IA.
 
-    Ce qui pèse est le volume : une question coûte peu, des milliards par
-    jour, de plus en plus longues, font la prévision de l'IEA.
+    Ligne du disque : 5 W × 8 760 h = 44 kWh par an, deux ou trois copies, plus
+    le refroidissement.
 
-    La ligne du disque est un calcul : un disque dur qui
-    tourne consomme 5 W, soit 44 kWh par an, et un centre de données garde
-    deux ou trois copies de chaque fichier, plus le refroidissement.
-
-    L'IEA prévoit le doublement de la consommation des centres de données
-    d'ici 2030, surtout par l'IA. Ce qu'un étudiant peut faire : ne pas
-    garder en ligne ce qui ne sert plus ; les données lourdes d'un projet
-    restent sur un disque local.
+    À dire : supprimer en ligne ce qui ne sert plus ; garder les données lourdes
+    d'un projet sur un disque local.
   ]
 ]
 
@@ -553,12 +525,13 @@ d("La carte mère")[
 
   #notes[
     Trois ordres de grandeur entre un site personnel et OpenStreetMap, cinq
-    entre OpenStreetMap et Meta. OpenStreetMap fonctionne avec deux salles
-    parce que le rendu des tuiles est réparti entre plusieurs
-    organisations et que la diffusion est offerte. La plus grande part des
-    dépenses de Wikimedia est le personnel.
+    entre OpenStreetMap et Meta.
 
-    Un site personnel sur GitHub Pages coûte le nom de domaine, s'il en a
-    un. La forge du cours 6 le permet.
+    OpenStreetMap fonctionne avec deux salles : le rendu des tuiles est réparti
+    entre plusieurs organisations, et leur diffusion est offerte.
+
+    Le personnel est la plus grande dépense de Wikimedia.
+
+    Un site sur GitHub Pages ne coûte que son nom de domaine, s'il en a un.
   ]
 ]

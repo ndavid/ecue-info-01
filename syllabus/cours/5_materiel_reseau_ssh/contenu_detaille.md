@@ -145,7 +145,7 @@ Ce que le TD fait constater : le fichier `.pub` est une seule ligne ; le fichier
 Ce qui est retenu, et pourquoi. Les dix mesures de cybermalveillance.gouv.fr et le guide d'hygiène de l'ANSSI listent plus que ce qu'une séance peut porter. La partie 3 a pris les mots de passe, le deuxième facteur et l'hameçonnage. Celle-ci prend ce qui est propre à des étudiants qui écrivent du code et le publient, les secrets hors du dépôt, et ferme sur les mises à jour et les sauvegardes. Antivirus, achats en ligne, réseaux sociaux et Wi-Fi public sont laissés aux notes.
 
 31. Séparateur. Annonce : un jeton d'API est un mot de passe pour programme, mêmes menaces, une parade de plus.
-32. **Ce qui est un secret.** Tableau à garder / à partager : clé privée, mot de passe, jeton d'API (clé IGN, clé d'un service d'IA), fichier `.env` ; contre clé publique, code, README, données publiques.
+32. **Ce qui est un secret.** Tableau à garder / à partager : clé privée, mot de passe, jeton d'API ou *token* (service de cartographie, service d'IA), fichier `.env` ; contre clé publique, code, README, données publiques.
 33. **Un secret dans un dépôt y reste.** Sortie réelle de `git log -p` : le commit qui supprime `config.py` n'efface pas celui qui l'a ajouté. Légende : 28,65 millions de secrets ajoutés sur GitHub public en 2025, 64 % de ceux de 2022 encore valides en 2026 (GitGuardian, *State of Secrets Sprawl 2026*).
 34. **Séparer le code et les secrets.** Dans le dépôt `carte.py`, `config.example.py`, `.gitignore` ; hors dépôt `config.py`.
 35. **Si un secret a fui.** Chaîne : révoquer, remplacer, nettoyer, prévenir. La première étape passe avant tout, parce que l'historique a déjà été copié.
