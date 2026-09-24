@@ -1,22 +1,36 @@
-# Données — Cours 4 : Studio d'automatisation (animation vidéo)
+# Données — Cours 4 : une animation, du notebook au programme
 
-_(vide pour l'instant)_
+Deux TD au choix, construits sur les mêmes étapes : chaque élève en fait un.
 
-Modèle : [`data/cours1/`](../cours1/) — le dépôt versionne un `make_data.py`
-qui **génère** les fichiers de l'exercice, pas les fichiers eux-mêmes
-(cf. `.gitignore` à la racine).
+| Dossier | Ce que c'est |
+|---|---|
+| `4a_montre/` | la montre du Lapin blanc : un cadran dessiné par ImageMagick, les aiguilles placées par Python, une vidéo par ffmpeg |
+| `4b_tourbillon/` | *La Grande Vague* en tourbillon : l'image tordue par ImageMagick (`-swirl`), un angle par image, une vidéo par ffmpeg |
+| `corriges/` | le programme de chaque TD à la fin de chaque étape (`<td>/b1/` … `b5/`), versionné ici pour ne pas partir dans l'archive |
+| `generer_corriges.py` | écrit les programmes des corrigés (B1, B2, B3 et B5), un morceau de code par commit, avec les mêmes morceaux pour les deux TD |
+| `generer_guides.py` | écrit les deux guides `src/cours4/notebook/td/<td>/guide.md`, sur le même plan, avec le code des corrigés |
+| `propositions/` | les notebooks d'essai du 20/09/2026, exécutés (non versionnés) |
 
-Besoins pressentis, d'après le [syllabus](../../syllabus/01_syllabus_v1.md) :
+Les deux TD ont le même déroulé :
 
-Objectif : appliquer `subprocess`/`argparse` (cours 3) et git local en produisant une **courte vidéo animée** — l'orchestration d'outils, pas de la programmation compliquée.
+- partie A : créer l'environnement `animation` depuis `environment.yml`,
+  lancer JupyterLab depuis cet environnement, exécuter le notebook ;
+- partie B : construire le programme `montre.py` ou `tourbillon.py`
+  fonctionnalité par fonctionnalité, une branche git par fonctionnalité :
+  B1 une image, B2 une série d'images, B3 la vidéo (avec un commit sur
+  `master` pendant la branche, donc un commit de fusion), B4 le README ; en
+  facultatif, B5 : `src/`, `pyproject.toml` et une commande installée.
 
-*Découpage ≈ 120 min : 🎓 ~15′ cadrage (démo du pipeline) + ⌨️ ~95′ réalisation + ~10′ mise en commun.*
+```bash
+conda activate info01
+python ../cours3/make_data.py build   # vague.jpg, reprise par le TD 4b
+python generer_corriges.py            # si le code des programmes a changé
+python generer_guides.py              # si le texte des guides a changé
+python make_data.py build             # produit/ des deux TD
+python ../../outils/construire_notebooks.py
+python ../../outils/compiler_guides.py --cours 4
+```
 
-- **Réalisation** : une CLI Python qui anime un objet simple (forme qui tourne / se déplace, orbite, aiguille d'horloge…).
-- **Pipeline** : config keyframes → Python interpole/positionne → **ImageMagick** dessine les frames → **ffmpeg** assemble + incruste un texte.
-- **Maths mobilisées (optionnel selon profil)** : rotation 2D (matrice), interpolation `lerp = (1−t)·a + t·b` (= moyenne pondérée → pont vecteurs/stats).
-- **CLI** : `argparse` avec sous-commandes (`render`/`preview`/`clean`), `--verbose`.
-- **git appliqué** : commits par étape du pipeline ; `.gitignore` des frames et de la vidéo générées (on ne versionne pas les binaires).
-- **Différenciation** : *plancher* — câbler la chaîne, changer couleurs/texte/keyframes ; *plafond* — écrire soi-même la matrice de rotation, easing non-linéaire, 2ᵉ objet, stat incrustée.
-- **Livrable** : un court `.mp4` + le dépôt (CLI, config, README du pipeline) à l'historique propre.
-- **Pré-requis pratique** : env conda prêt + dépôt-squelette fourni (sinon l'installation mange la séance).
+Le guide détaillé de chaque TD est écrit dans
+`src/cours4/notebook/td/<td>/guide.md` ; `outils/compiler_guides.py` en fait
+un PDF A4 et une page HTML déposés dans le dossier du TD.

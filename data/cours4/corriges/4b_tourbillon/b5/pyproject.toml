@@ -1,0 +1,19 @@
+# La fiche d'identité du projet, lue par pip : `pip install -e .` installe la
+# commande `tourbillon`, qui appelle la fonction main du fichier src/tourbillon.py.
+
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tourbillon"
+version = "0.1"
+description = "Fabrique la vidéo d'une image en tourbillon."
+requires-python = ">=3.9"
+
+[project.scripts]
+tourbillon = "tourbillon:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+py-modules = ["tourbillon"]

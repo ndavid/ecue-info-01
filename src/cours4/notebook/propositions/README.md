@@ -23,7 +23,7 @@ cd data/cours4/propositions && jupyter nbconvert --to notebook --execute --inpla
 ```
 
 Les fichiers produits vont dans `data/cours4/propositions/produit/<nom>/`
-(hors dépôt). Le notebook de la Vague lit `data/cours3/2a_images/produit/depart/vague.jpg`,
+(hors dépôt). Le notebook de la Vague lit `data/cours3/2b_images/produit/depart/vague.jpg`,
 fabriqué par `data/cours3/make_data.py build`.
 
 Sur les postes de la salle : `MAGICK` doit désigner `magick.exe` (portable ou

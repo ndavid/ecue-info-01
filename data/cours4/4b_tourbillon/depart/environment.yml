@@ -1,0 +1,13 @@
+# L'environnement des TD 4a et 4b : Python, JupyterLab pour exécuter le
+# notebook, ImageMagick pour dessiner les images, ffmpeg pour la vidéo.
+#
+#   conda env create -f environment.yml
+#   conda activate animation
+name: animation
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - jupyterlab
+  - imagemagick
+  - ffmpeg

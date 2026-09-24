@@ -1,0 +1,19 @@
+# La fiche d'identité du projet, lue par pip : `pip install -e .` installe la
+# commande `montre`, qui appelle la fonction main du fichier src/montre.py.
+
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "montre"
+version = "0.1"
+description = "(à compléter : une phrase)"
+requires-python = ">=3.9"
+
+[project.scripts]
+montre = "montre:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+py-modules = ["montre"]

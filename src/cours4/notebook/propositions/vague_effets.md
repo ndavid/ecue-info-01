@@ -37,7 +37,7 @@ from IPython.display import Image, Video
 MAGICK = "magick"        # sur les postes de la salle : le chemin de magick.exe
 FFMPEG = "ffmpeg"
 
-VAGUE = Path("../../cours3/2a_images/produit/depart/vague.jpg")   # 2 000 × 1 344 pixels
+VAGUE = Path("../../cours3/2b_images/produit/depart/vague.jpg")   # 2 000 × 1 344 pixels
 PRODUIT = Path("produit") / "vague"
 IMAGES = PRODUIT / "images"
 IMAGES.mkdir(parents=True, exist_ok=True)
