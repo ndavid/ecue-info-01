@@ -1,10 +1,10 @@
 // Cours 5, partie 1 — le matériel. Incluse par `cours5.typ`.
 #import "../../../commun/prelude.typ": *
-#import "../schemas.typ": schema-composants, schema-coeurs, pyramide-memoire, barres-temps, photo-reperee, legende-reperes, graphe-tendances
+#import "../schemas.typ": schema-composants, schema-coeurs, pyramide-memoire, barres-temps, photo-reperee, legende-reperes, graphe-tendances, schema-puces, schema-pixels
 
 #separateur(
   "Le matériel",
-  annonce: "Les composants d'un ordinateur, ce que chacun fait, et à quelle vitesse.",
+  annonce: "Les composants d'un ordinateur, le rôle de chacun et les ordres de grandeur associés.",
 )
 
 // --------------------------------------------
@@ -12,14 +12,16 @@
   #align(center, schema-composants())
 
   #notes[
-    Cinq composants, un rôle chacun. La suite de la partie détaille les
+    Six composants, un rôle chacun. La suite de la partie détaille les
     trois premiers : processeur, mémoire vive, disque.
 
-    La carte graphique revient en fin de partie. La carte réseau ouvre la
-    partie 2.
+    La carte graphique servait d'abord à calculer l'image envoyée à l'écran, pour décharger le processeur de ce calcul. 
+    Elle sert aujourd'hui au calcul massivement parallèle : la même opération sur chacun des millions de pixels, ou des éléments d'un tenseur, d'où ses milliers de cœurs. Elle revient en fin de partie. 
+    La carte réseau relie le poste au réseau, par câble ou par Wi-Fi ; elle ouvre la partie 2.
 
-    Un portable contient les mêmes composants, soudés sur une seule carte.
-    Un téléphone aussi.
+    L'alimentation convertit le 230 V du secteur en basses tensions (12 V, 5 V, 3,3 V) pour les autres composants.
+
+    Un portable contient les mêmes composants, soudés sur une seule carte. Un téléphone aussi.
   ]
 ]
 
@@ -50,16 +52,13 @@ d("Un boîtier ouvert")[
   ]
 
   #notes[
-    Faire retrouver les cinq composants du schéma précédent avant de lire la
-    légende. Le processeur ne se voit pas : il est sous le ventilateur, qui
-    évacue sa chaleur.
+    Le processeur ne se voit pas : il est sous le ventilateur, qui évacue sa chaleur.
 
     Ce poste n'a pas de carte graphique : l'affichage est fait par le
-    processeur, ce qui suffit à un poste de bureau. Les emplacements vides
-    sont là pour en ajouter une.
+    processeur, ce qui suffit à un poste de bureau. 
+    Les emplacements vides sont là pour en ajouter une.
 
-    Un portable contient les mêmes éléments, soudés sur une seule carte, sans
-    emplacement libre.
+    Un portable contient les mêmes éléments, soudés sur une seule carte, sans emplacement libre.
   ]
 ]
 
@@ -119,6 +118,70 @@ d("La carte mère")[
 
     Les postes de la salle ont 4 cœurs (à relever au TD 1a) ; un portable en
     a 4 à 8, un serveur de calcul 32 à 128.
+  ]
+]
+
+// --------------------------------------------
+#d("Température du processeur")[
+  #v(1em)
+  #question("?")[
+    Quelle température atteint un processeur qui calcule sans arrêt, par
+    exemple pendant un traitement d'image de plusieurs minutes ?
+  ]
+
+  #v(1.5em)
+  #grid(
+    columns: (1fr, 1fr, 1fr, 1fr),
+    gutter: 14pt,
+    etiquette("40 °C"), etiquette("60 °C"), etiquette("90 °C"), etiquette("150 °C"),
+  )
+
+  #notes[
+    Faire voter à main levée avant de passer à la diapositive suivante. Les
+    réponses se partagent en général entre 40 et 60 °C : on juge d'après la
+    tiédeur du boîtier, pas d'après la puce.
+  ]
+]
+
+// --------------------------------------------
+#d("Température du processeur — réponses")[
+  #annonce[
+    En charge, un processeur travaille entre 60 et 100 °C. À la limite fixée
+    par le fabricant, il baisse de lui-même sa fréquence pour ne pas
+    s'abîmer.
+  ]
+
+  #tableau(
+    columns: (1fr, auto),
+    align: (left + horizon, right + horizon),
+    [Situation], [Température de la puce],
+    [au repos, bureautique], [30 à 50 °C],
+    [en charge, poste de bureau], [60 à 90 °C],
+    [en charge, portable fin], [80 à 100 °C],
+    [limite du fabricant, où la fréquence baisse], [95 °C (AMD), 100 °C (Intel)],
+    [sans radiateur ni ventilateur], [la limite en quelques secondes],
+  )
+
+  #legende[
+    Ordres de grandeur ; limites des Ryzen 7000 et des Core de 13#super[e]
+    génération, données par les fabricants.
+  ]
+
+  #notes[
+    La chaleur vient de la puissance : 65 à 250 W sur une puce de 1 à
+    2,5 cm², soit 50 à 100 W par cm². Une plaque de cuisson en fait moins de
+    10. D'où le radiateur, le ventilateur, et leur bruit quand un calcul
+    dure.
+
+    C'est la même limite qui a arrêté la montée en fréquence vers 2005
+    (« Trente ans de processeurs », plus loin). Un portable qui ralentit
+    pendant un long calcul est souvent un portable qui chauffe : la
+    fréquence baisse pour rester sous la limite.
+
+    AMD a dit en 2022 que 95 °C en charge est le fonctionnement prévu des
+    Ryzen 7000, pas une anomalie. La température se lit avec un outil du
+    fabricant ; le gestionnaire des tâches de Windows ne l'affiche pas pour
+    le processeur.
   ]
 ]
 
@@ -209,8 +272,8 @@ d("La carte mère")[
 // --------------------------------------------
 #d("Ordres de grandeur : temps d'accès")[
   #annonce[
-    De la nanoseconde à la demi-seconde. Chaque graduation vaut dix fois la
-    précédente.
+    De la nanoseconde à la demi-seconde, sur une échelle logarithmique :
+    chaque graduation vaut dix fois la précédente.
   ]
 
   #barres-temps((
@@ -277,49 +340,68 @@ d("La carte mère")[
 ]
 
 // --------------------------------------------
-#d("Processeur et carte graphique")[
+#d("Processeur et carte graphique : la puce")[
   #annonce[
-    Quelques cœurs rapides d'un côté, des milliers de cœurs simples de
-    l'autre : la carte graphique sert quand la même opération s'applique à
-    des millions de valeurs.
+    Le processeur consacre sa surface au contrôle et au cache, la carte
+    graphique au calcul.
   ]
 
-  #face-a-face(
-    panneau("Processeur : 4 à 8 cœurs")[
-      #align(center)[
-        #grid(
-          columns: (1fr,) * 4, gutter: 8pt,
-          ..range(8).map(_ => rect(width: 100%, height: 34pt, fill: accent.lighten(80%), stroke: 1pt + accent)),
-        )
-      ]
-      #v(0.4em)
-      #text(size: 15pt, fill: estompe)[
-        n'importe quel programme ; une instruction différente à chaque cycle
-      ]
-    ],
-    panneau("Carte graphique : des milliers de cœurs")[
-      #align(center)[
-        #grid(
-          columns: (1fr,) * 24, gutter: 2.5pt,
-          ..range(24 * 8).map(_ => rect(width: 100%, height: 7.5pt, fill: accent.lighten(80%), stroke: 0.5pt + accent)),
-        )
-      ]
-      #v(0.4em)
-      #text(size: 15pt, fill: estompe)[
-        la même instruction sur tous les pixels d'une image, tous les
-        éléments d'un tableau, tous les poids d'un réseau de neurones
-      ]
-    ],
-  )
+  #align(center, schema-puces())
+
+  #legende[
+    D'après NVIDIA, *CUDA C++ Programming Guide*, figure 1 ; proportions
+    indicatives.
+  ]
 
   #notes[
-    Les cœurs dessinés à droite sont 192 ; une carte courante en a 3 000 à
-    16 000.
+    Le processeur enchaîne vite des instructions variées ; la carte graphique
+    fait exécuter la même instruction à des milliers d'unités simples.
+
+    Le contrôle lit les instructions, prévoit les sauts, réordonne ce qui
+    peut l'être : c'est ce qui rend un cœur de processeur rapide sur un
+    programme quelconque, et c'est ce qui prend de la place. Sur la carte
+    graphique, un seul contrôle pilote toute une rangée d'unités, qui font
+    donc toutes la même chose au même moment.
+
+    Le cache sert à ne pas attendre la mémoire vive (diapositive « Le chemin
+    d'une donnée »). La carte graphique en a peu : pendant qu'une rangée
+    attend ses données, une autre calcule.
+
+    Les rangées dessinées sont 10 de 22 unités ; une carte courante a 3 000
+    à 16 000 unités de calcul, que les fabricants appellent des cœurs.
+  ]
+]
+
+// --------------------------------------------
+#d("Processeur et carte graphique : une image")[
+  #annonce[
+    Éclaircir une image applique la même multiplication à chaque pixel. Le
+    processeur traite les pixels quatre par quatre, la carte graphique tous à
+    la fois.
+  ]
+
+  #align(center, schema-pixels())
+
+  #notes[
+    Même raisonnement sur une dalle d'orthophoto de 5 000 × 5 000 pixels :
+    25 millions de pixels, 3 millions d'étapes sur 8 cœurs, 1 500 sur une
+    carte de 16 000 cœurs. L'écart réel est plus faible : un cœur de
+    processeur est plus rapide, traite plusieurs valeurs par instruction, et
+    l'image doit d'abord être copiée dans la mémoire de la carte.
+
+    La carte graphique ne sert que pour ce genre de calcul : la même
+    opération sur beaucoup de données. Un programme qui enchaîne des
+    décisions différentes n'y gagne rien.
 
     Pour le module : numpy (cours 6) fait sur le processeur le même genre
     d'opération, la même sur tout un tableau. Ce qui va sur une carte
     graphique est l'affaire des cours de traitement d'image et
     d'apprentissage, plus tard dans le cursus.
+
+    Si le temps le permet : la démonstration des MythBusters pour NVIDIA
+    (2008, 1 min 30), un robot qui peint point par point puis 1 100 tubes
+    qui peignent la Joconde en 80 ms.
+    https://www.youtube.com/watch?v=fKK933KK6Gg
   ]
 ]
 
@@ -401,19 +483,40 @@ d("La carte mère")[
     columns: (1fr, auto, 1fr),
     align: (left + horizon, right + horizon, left + horizon),
     [Quoi], [Électricité], [Équivalent],
-    [une question à un assistant d'IA], [0,24 Wh], [neuf secondes de télévision],
-    [une heure de vidéo en streaming], [80 Wh], [une ampoule LED de 10 W, huit heures],
-    [garder 1 To en ligne pendant un an], [40 à 150 kWh], [un disque qui tourne sans arrêt, fois les copies],
-    [le même To sur un disque dans un tiroir], [0], [],
-    [les centres de données du monde, 2024], [415 TWh], [1,5 % de l'électricité mondiale, celle de la France],
+    [une question à un assistant d'IA], [0,3 à 2 Wh], [10 s à 1 min de télévision],
+    [la même, modèle « qui raisonne »], [7 à 33 Wh], [4 à 20 min de télévision],
+    [une heure de vidéo en streaming], [80 Wh], [une ampoule LED de 10 W, 8 h],
+    [garder 1 To en ligne pendant un an], [40 à 150 kWh], [1 à 3 disques toujours allumés],
+    [le même To dans un tiroir], [0], [],
+    [centres de données du monde, 2024], [415 TWh], [1,5 % du mondial, la France entière],
   )
 
   #legende[
-    Google, requêtes Gemini, 2025 ; IEA, streaming 2020, *Energy and AI* 2025 ;
-    disque : 5 W × 8 760 h × 1 à 3 copies ; France : 450 TWh (RTE, 2024).
+    IA : Jegham et al. 2025, serveurs seuls ; IEA 2020 et 2025 ; disque :
+    5 W × 8 760 h × 1 à 3 copies ; France : RTE 2024 ; télévision : 100 W.
   ]
 
   #notes[
+    Les chiffres d'une question à un assistant varient de un à cent selon
+    qui mesure et ce qu'il compte. Google annonce 0,24 Wh pour une question
+    médiane à Gemini (2025) : c'est le chiffre le plus bas publié, donné par
+    le fournisseur, et il compte les serveurs, leur refroidissement et les
+    machines en attente, mais ni l'entraînement du modèle, ni la fabrication
+    du matériel, ni le réseau, ni l'appareil de l'utilisateur. Jegham et al.
+    (université de Rhode Island, 2025) estiment 0,4 Wh pour une question
+    courte à GPT-4o, 1,8 Wh pour une longue, et plus de 30 Wh pour o3 ou
+    DeepSeek-R1, qui produisent un long raisonnement avant de répondre.
+
+    Seule une analyse de cycle de vie compte tout. Celle de Mistral AI
+    (Carbone 4, avec l'ADEME, relue par Resilio et Hubblo, 2025) donne, pour
+    une réponse de 400 mots-unités (tokens) de Le Chat, 1,14 g de CO₂e et
+    45 mL d'eau, fabrication et entraînement compris ; elle est aussi
+    commandée par le fournisseur. Générer une image coûte environ soixante
+    fois plus que générer du texte (Luccioni et al., 2024).
+
+    Ce qui pèse est le volume : une question coûte peu, des milliards par
+    jour, de plus en plus longues, font la prévision de l'IEA.
+
     La ligne du disque est un calcul : un disque dur qui
     tourne consomme 5 W, soit 44 kWh par an, et un centre de données garde
     deux ou trois copies de chaque fichier, plus le refroidissement.

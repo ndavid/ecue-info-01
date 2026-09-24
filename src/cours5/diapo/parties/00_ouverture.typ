@@ -12,8 +12,8 @@
 // --------------------------------------------
 #d("Contenu de la séance")[
   #annonce[
-    Les ordres de grandeur du matériel et du réseau, puis les mots de passe,
-    les clés et les secrets, avant la forge du cours 6.
+    Les ordres de grandeur du matériel et du réseau, puis les mots de passe, les clés et les secrets.
+    Ces derniers serviront pour le prochain cours sur les forges logicielles (GitHub)
   ]
 
   #tableau(
@@ -32,11 +32,10 @@
   ]
 
   #notes[
-    La séance a moins de TD que les précédentes : la première moitié est de
-    la culture générale, la seconde prépare le cours 6.
+    La séance a moins de TD que les précédentes : la première moitié est de la culture générale, la seconde prépare le cours 6.
 
     Le TD 2a est le seul indispensable : le cours 6 commence par
-    `git clone`, qui demande la clé. Il faut un compte GitHub créé avant la
-    séance (page « Avant les séances » du book).
+    `git clone`, qui demande la clé. 
+    Il faut un compte GitHub créé avant la séance (page « Avant les séances » du book).
   ]
 ]

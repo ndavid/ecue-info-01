@@ -41,7 +41,7 @@
 // ---------------------------------------------------------------------------
 // Les composants d'un ordinateur
 //
-// Le boîtier, avec les cinq composants dont la séance parle, et à l'extérieur
+// Le boîtier, avec les six composants dont la séance parle, et à l'extérieur
 // ce que l'utilisateur touche. Chaque composant porte son nom et son rôle.
 
 #let _processeur(x, y) = {
@@ -104,6 +104,22 @@
   }
 }
 
+#let _alimentation(x, y) = {
+  rect((x - 1.0, y - 0.7), (x + 1.0, y + 0.7), radius: 0.08, fill: gris,
+       stroke: 1.2pt + accent)
+  circle((x - 0.3, y), radius: 0.5, fill: white, stroke: 1pt + accent)
+  for k in range(6) {
+    line((x - 0.3, y), (rel: (0.45 * calc.cos(k * 60deg), 0.45 * calc.sin(k * 60deg))),
+         stroke: 0.9pt + _trait)
+  }
+  circle((x - 0.3, y), radius: 0.1, fill: accent, stroke: none)
+  // la prise secteur
+  rect((x + 0.4, y - 0.3), (x + 0.8, y + 0.3), fill: white, stroke: 1pt + accent)
+  for d in (-0.12, 0.12) {
+    circle((x + 0.6, y + d), radius: 0.05, fill: accent, stroke: none)
+  }
+}
+
 #let _ecran(x, y) = {
   rect((x - 1.4, y - 0.1), (x + 1.4, y + 1.7), radius: 0.08, fill: white,
        stroke: 1.4pt + accent, name: "ecran")
@@ -129,25 +145,32 @@
   set-style(stroke: 0.9pt + _trait)
 
   // le boîtier
-  rect((0, 0), (16.6, 10.2), radius: 0.15, stroke: 1.6pt + accent, name: "boitier")
+  rect((0, -0.7), (16.6, 10.2), radius: 0.15, stroke: 1.6pt + accent, name: "boitier")
   content((0.35, 9.9), anchor: "north-west",
           text(size: 13pt, fill: estompe)[#petites-capitales("le boîtier")])
 
-  // les cinq composants, sur deux rangées
+  // les six composants, sur deux rangées
   _processeur(3.2, 7.6)
-  _etiquette((3.2, 6.3), "Processeur", "exécute les instructions")
+  _etiquette((3.2, 6.3), "Processeur", "exécution des instructions", largeur: 4.8cm)
 
   _memoire(8.3, 7.6)
-  _etiquette((8.3, 6.3), "Mémoire vive", "les données en cours de traitement")
+  _etiquette((8.3, 6.3), "Mémoire vive", "stockage temporaire des données", largeur: 4.8cm)
 
   _disque(13.4, 7.6)
-  _etiquette((13.4, 6.3), "Disque", "les fichiers, qui restent")
+  _etiquette((13.4, 6.3), "Disque", "stockage pérenne des données", largeur: 4.8cm)
 
-  _carte-graphique(5.2, 3.0)
-  _etiquette((5.2, 2.1), "Carte graphique", "des milliers de petits calculs à la fois", largeur: 5cm)
+  // la flèche dit l'évolution de la carte graphique, de l'affichage vers
+  // le calcul
+  _carte-graphique(3.3, 3.0)
+  _etiquette((3.3, 2.1), "Carte graphique",
+             [calcul de l'image affichée \ #sym.arrow.r calcul parallèle],
+             largeur: 6.2cm)
 
-  _carte-reseau(11.6, 3.0)
-  _etiquette((11.6, 2.1), "Carte réseau", "vers les autres machines")
+  _carte-reseau(8.9, 3.0)
+  _etiquette((8.9, 2.1), "Carte réseau", "connexion au réseau : câble, Wi-Fi", largeur: 4.4cm)
+
+  _alimentation(13.4, 3.0)
+  _etiquette((13.4, 2.1), "Alimentation", "conversion du 230 V", largeur: 4.4cm)
 
   // ce que l'utilisateur touche
   _ecran(21.0, 6.4)
@@ -190,6 +213,124 @@
   }
   content((n * (l + ecart) - ecart, 6.75), anchor: "south-east",
           text(size: 13pt, fill: estompe)[instructions du programme, dans l'ordre])
+})
+
+// ---------------------------------------------------------------------------
+// Processeur et carte graphique : la surface de la puce
+//
+// D'après la figure 1 du CUDA C++ Programming Guide de NVIDIA : deux puces de
+// même taille, l'une surtout faite de contrôle et de cache, l'autre surtout
+// d'unités de calcul. Trois couleurs, reprises par la légende : le calcul en
+// `accent`, le contrôle en `accent` éclairci, le cache en `gris`.
+
+#let _c-calcul = accent
+#let _c-controle = accent.lighten(62%)
+#let _c-cache = gris.darken(4%)
+
+#let _pave(a, b, couleur) = rect(a, b, fill: couleur, stroke: none)
+
+#let schema-puces() = cetz.canvas(length: 0.82cm, {
+  // le processeur : huit cœurs sur deux rangées, puis le cache partagé
+  rect((0, 1.2), (10.4, 7.2), radius: 0.1, stroke: 1.4pt + accent)
+  for r in range(2) {
+    for i in range(4) {
+      let x0 = 0.2 + i * 2.567
+      let y0 = 5.7 - r * 1.6
+      rect((x0, y0), (x0 + 2.3, y0 + 1.4), stroke: 0.6pt + _trait)
+      _pave((x0 + 0.1, y0 + 0.36), (x0 + 1.3, y0 + 1.3), _c-controle)
+      for (dx, dy) in ((0, 0), (0.42, 0), (0, 0.49), (0.42, 0.49)) {
+        _pave((x0 + 1.4 + dx, y0 + 0.36 + dy), (x0 + 1.76 + dx, y0 + 0.81 + dy), _c-calcul)
+      }
+      _pave((x0 + 0.1, y0 + 0.08), (x0 + 2.2, y0 + 0.28), _c-cache)
+    }
+  }
+  _pave((0.2, 1.4), (10.2, 3.9), _c-cache)
+  content((5.2, 2.65), text(size: 13pt, fill: accent)[cache partagé])
+  content((0, 7.45), anchor: "south-west",
+          text(size: 15pt, weight: demi-gras, fill: estompe, bottom-edge: "baseline")[Processeur : 8 cœurs])
+
+  // la carte graphique : des rangées d'unités de calcul, un contrôle et un
+  // petit cache par rangée
+  let x0 = 12.6
+  rect((x0, 1.2), (x0 + 10.4, 7.2), radius: 0.1, stroke: 1.4pt + accent)
+  for r in range(10) {
+    let yh = 7.0 - r * 0.5
+    let yb = yh - 0.42
+    _pave((x0 + 0.2, yb), (x0 + 0.6, yh), _c-controle)
+    _pave((x0 + 0.65, yb), (x0 + 0.95, yh), _c-cache)
+    for k in range(22) {
+      let xa = x0 + 1.05 + k * 0.4
+      _pave((xa, yb), (xa + 0.34, yh), _c-calcul)
+    }
+  }
+  _pave((x0 + 0.2, 1.4), (x0 + 10.2, 2.0), _c-cache)
+  content((x0 + 5.2, 1.7), text(size: 11pt, fill: accent)[cache])
+  content((x0, 7.45), anchor: "south-west",
+          text(size: 15pt, weight: demi-gras, fill: estompe, bottom-edge: "baseline")[Carte graphique : des milliers d'unités])
+
+  // la légende
+  let entrees = (
+    (_c-calcul, [calcul]),
+    (_c-controle, [contrôle des instructions]),
+    (_c-cache, [cache]),
+  )
+  let xs = (3.5, 7.5, 16.0)
+  for ((couleur, nom), x) in entrees.zip(xs) {
+    _pave((x, 0.1), (x + 0.45, 0.55), couleur)
+    content((x + 0.65, 0.325), anchor: "west", text(size: 13pt, fill: accent)[#nom])
+  }
+})
+
+// ---------------------------------------------------------------------------
+// Processeur et carte graphique : le traitement d'une image
+//
+// Une image de 16 × 8 pixels à éclaircir, la même opération sur chaque pixel.
+// À gauche, quatre cœurs se partagent l'image par bandes et avancent d'un
+// pixel par étape : l'état après trois étapes. À droite, un cœur par pixel :
+// tout est fait en une étape. Pixel à traiter sombre, pixel traité clair.
+
+#let _image(x0, fait) = {
+  let (nc, nl, p) = (16, 8, 0.6)
+  for l in range(nl) {
+    for c in range(nc) {
+      let niveau = calc.rem(c * 7 + l * 3 + calc.quo(c * l, 5), 5)
+      // l'image est sombre ; un pixel traité est éclairci
+      let couleur = if fait(l, c) { gris.darken(3% * niveau) } else {
+        accent.lighten(18% + 6% * niveau)
+      }
+      rect((x0 + c * p, (nl - 1 - l) * p), (x0 + (c + 1) * p, (nl - l) * p),
+           fill: couleur, stroke: 0.4pt + white)
+    }
+  }
+}
+
+#let schema-pixels() = cetz.canvas(length: 1cm, {
+  let p = 0.6
+  // le processeur : quatre bandes de deux lignes, trois pixels faits par bande
+  let x0 = 1.9
+  _image(x0, (l, c) => calc.rem(l, 2) == 0 and c < 3)
+  for b in range(4) {
+    let yh = (8 - 2 * b) * p
+    if b > 0 {
+      line((x0, yh), (x0 + 16 * p, yh), stroke: 3pt + white)
+    }
+    content((x0 - 0.2, yh - p), anchor: "east",
+            text(size: 13pt, fill: accent)[cœur #(b + 1)])
+    _fleche((x0 + 3.2 * p, yh - p / 2), (x0 + 5.2 * p, yh - p / 2), couleur: white,
+            epaisseur: 1.6pt)
+  }
+  content((x0, 8 * p + 0.3), anchor: "south-west",
+          text(size: 15pt, weight: demi-gras, fill: estompe, bottom-edge: "baseline")[Processeur, 4 cœurs : après 3 étapes])
+  content((x0 + 8 * p, -0.35), anchor: "north",
+          text(size: 14pt, fill: accent)[4 pixels par étape : 32 étapes])
+
+  // la carte graphique : un cœur par pixel, tout est fait
+  let x1 = 13.6
+  _image(x1, (l, c) => true)
+  content((x1, 8 * p + 0.3), anchor: "south-west",
+          text(size: 15pt, weight: demi-gras, fill: estompe, bottom-edge: "baseline")[Carte graphique, 128 cœurs : après 1 étape])
+  content((x1 + 8 * p, -0.35), anchor: "north",
+          text(size: 14pt, fill: accent)[128 pixels par étape : 1 étape])
 })
 
 // ---------------------------------------------------------------------------
