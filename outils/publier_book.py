@@ -7,7 +7,8 @@
 
 Trois étapes, depuis la racine du dépôt :
 
-    1. `sphinx-build -b html src _build/html` ;
+    1. `sphinx-build -E -b html src _build/html`, `-E` pour que toutes les
+       pages soient réécrites avec le menu à jour ;
     2. les fichiers donnés sont copiés dans `_build/html/telechargements/`,
        vidé au préalable, avec un `index.html` qui les liste — GitHub Pages
        n'affiche pas le contenu d'un dossier ;
@@ -48,7 +49,7 @@ def taille_lisible(octets: int) -> str:
 
 def construire() -> None:
     subprocess.run(
-        ["sphinx-build", "-b", "html", "src", str(SORTIE.relative_to(RACINE))],
+        ["sphinx-build", "-E", "-b", "html", "src", str(SORTIE.relative_to(RACINE))],
         cwd=RACINE, check=True,
     )
 

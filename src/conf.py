@@ -2,13 +2,15 @@
 
 Construction (depuis la racine du dépôt) :
 
-    sphinx-build -b html src _build/html      # site statique
+    sphinx-build -E -b html src _build/html   # site statique
     sphinx-autobuild src _build/html          # aperçu live pendant la rédaction
 
 Le HTML produit utilise des **chemins relatifs** et n'appelle aucune ressource
 externe : `_build/html/index.html` s'ouvre par double-clic, sans serveur et sans
 connexion — c'est la contrainte de distribution aux étudiants.
 """
+
+from pathlib import Path
 
 project = "Introduction à l'informatique"
 author = "1re année géomatique"
@@ -64,9 +66,24 @@ exclude_patterns = [
     "_build",
     "**/diapo/**",
     "**/notebook/*.ipynb",
-    "**/notebook/td/**",
+    "**/notebook/td/**/*.ipynb",
     "**/propositions/**",
     "Thumbs.db",
     ".DS_Store",
 ]
+
+# `notebook/td/` contient les notebooks livrés avec les TD, écrits pour être
+# exécutés depuis le dossier du TD : ils restent hors du book. Le guide détaillé
+# d'un TD, `guide.md`, n'a pas de cellule de code ; pour les cours de
+# `GUIDES_DANS_LE_BOOK`, il est aussi une page du book, sous le titre « TD … ».
+# Les guides des autres cours ne sont pas encore relus pour le book (leurs
+# images sont cherchées dans `data/`, depuis `produit/`).
+GUIDES_DANS_LE_BOOK = {"cours1"}
+_SRC = Path(__file__).resolve().parent
+exclude_patterns += sorted(
+    source.relative_to(_SRC).as_posix()
+    for source in _SRC.glob("cours*/notebook/td/**/*.md")
+    if not (source.name == "guide.md"
+            and source.relative_to(_SRC).parts[0] in GUIDES_DANS_LE_BOOK)
+)
 language = "fr"

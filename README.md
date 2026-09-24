@@ -41,7 +41,7 @@ Pour **recompiler** les supports, il faut en plus la chaîne documentaire :
 ```bash
 conda env create -f environment-supports.yml && conda activate info01
 python outils/compiler_diapos.py                               # diapositives → PDF
-sphinx-build -b html src _build/html                           # book → _build/html/index.html
+sphinx-build -E -b html src _build/html                        # book → _build/html/index.html
 python outils/publier_book.py livraison/*.zip                  # book + archives → https://ndavid.github.io/ecue-info-01/
 ```
 

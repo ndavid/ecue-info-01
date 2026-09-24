@@ -344,12 +344,22 @@ Toutes les commandes se lancent depuis la **racine du dépôt**.
 
 ```bash
 conda activate info01
-sphinx-build -b html src _build/html
+sphinx-build -E -b html src _build/html
 ```
 
 Sortie dans `_build/html/`. Durée observée : **~6 s** en repartant de zéro,
 exécution des notebooks comprise. `nb_execution_mode = "cache"` ne réexécute
 ensuite que les pages modifiées.
+
+Les schémas des pages de cours sont des SVG versionnés, tirés des dessins des
+diapositives (`src/cours<n>/notebook/figures/<nom>.typ`). Après avoir modifié
+l'un d'eux, ou le dessin de diapositive qu'il reprend, les recompiler avant de
+construire : `python outils/compiler_figures.py`.
+
+`-E` fait relire toutes les sources. Sans lui, Sphinx ne réécrit que les pages
+dont la source a changé : après une modification d'un sommaire (`toctree`),
+les autres pages gardent l'ancien menu de gauche. Le cache d'exécution des
+notebooks n'est pas concerné, et la construction reste de quelques secondes.
 
 ### Consulter le résultat
 
@@ -384,10 +394,13 @@ rm -rf _build
 
 ### Prérequis d'exécution
 
-Les cellules de `src/cours1/notebook/02_formats_de_fichier.md` lisent les fichiers
-de `data/cours1/1a_formats/produit/depart/` : **générer les données avant de construire**
-(section 2), sinon la build échoue (`nb_execution_raise_on_error = True` — une
-cellule cassée doit se voir).
+Des cellules des pages du cours 1 lisent des fichiers de TD versionnés :
+`04_bibliotheques_environnements.md` le projet
+`data/cours1/4a_recette/depart/recette/`, et `05_comparer_versions.md`
+`data/cours1/3a_markdown/depart/recette.md`. Une page qui lirait un fichier fabriqué, dans
+`data/cours<n>/<td>/produit/`, demanderait de **générer les données avant de
+construire** (section 2), sinon la build échoue
+(`nb_execution_raise_on_error = True` : une cellule cassée doit se voir).
 
 La page localise la racine du dépôt en remontant l'arborescence : elle fonctionne
 aussi bien depuis JupyterLab, VSCode que `sphinx-build`.
