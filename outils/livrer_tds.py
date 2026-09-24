@@ -17,12 +17,20 @@ reçoit :
     - le contenu de `produit/`, mis à plat dans le dossier, sans `_corrige/`,
       dossiers vides compris (le `travail/` du TD 1a attend les copies de
       l'étudiant) ;
-    - la feuille de TD, `td_<td>.pdf`, compilée par `outils/compiler_tds.py`.
+    - la feuille de TD, `td_<td>.pdf`, compilée par `outils/compiler_tds.py`
+      depuis `src/cours<n>/diapo/tds/<td>.typ`, quand elle existe ;
+    - le guide détaillé, `guide_<td>.pdf`, `.html` et `guide.ipynb`, tiré de
+      `src/cours<n>/notebook/td/<td>/guide.md`, quand il existe (il passe par
+      `produit/`, comme les notebooks).
+
+Un TD a l'une ou l'autre de ces deux feuilles, ou les deux : la feuille typst
+donne les étapes en résumé, le guide les détaille.
 
 Avant d'assembler, le script refait ce qui se dérive des sources : les données
 (`data/cours<n>/make_data.py build`, qui repart d'un `produit/` vide), les
 feuilles de TD (`outils/compiler_tds.py`) et les notebooks
-(`outils/construire_notebooks.py`). L'archive ne part donc ni avec une version
+(`outils/construire_notebooks.py`), et les guides détaillés
+(`outils/compiler_guides.py`). L'archive ne part donc ni avec une version
 en retard sur le dépôt, ni avec ce qu'un essai — un TD joué depuis `data/`, la
 construction du book — a laissé dans `produit/`.
 
@@ -116,10 +124,19 @@ def a_livrer(td: Path) -> list[tuple[Path, Path]]:
 
 
 def description(cours: int, td: Path) -> dict[str, str]:
-    """Le dictionnaire `td` du fichier typst de même nom, lu à la regex."""
+    """Le dictionnaire `td` du fichier typst de même nom, lu à la regex.
+
+    Sans fichier typst, le titre vient de l'en-tête du guide, s'il existe.
+    """
     source = RACINE / f"src/cours{cours}/diapo/tds/{td.name}.typ"
     if not source.exists():
-        return {"numero": td.name.split("_")[0], "titre": td.name, "facultatif": "false"}
+        titre = td.name
+        guide = RACINE / f"src/cours{cours}/notebook/td/{td.name}/guide.md"
+        if guide.exists():
+            trouve = re.search(r'^title:\s*"?(.+?)"?\s*$', guide.read_text(encoding="utf-8"), re.M)
+            if trouve:
+                titre = re.sub(r"^TD \w+ — ", "", trouve.group(1))
+        return {"numero": td.name.split("_")[0], "titre": titre, "facultatif": "false"}
     texte = source.read_text(encoding="utf-8")
     champs = dict(re.findall(r'^\s*(\w+):\s*"([^"]*)"', texte, re.M))
     champs["facultatif"] = "true" if re.search(r"facultatif:\s*true", texte) else "false"
@@ -131,7 +148,8 @@ def readme(cours: int, tds: list[Path]) -> str:
         f"# Cours {cours} — travaux dirigés",
         "",
         "Un dossier par TD, dans l'ordre de la séance : le chiffre est le bloc,",
-        "la lettre l'ordre dans le bloc. La feuille du TD est le PDF de son dossier.",
+        "la lettre l'ordre dans le bloc. La feuille du TD (`td_<dossier>.pdf`) et,",
+        "quand il existe, le guide détaillé (`guide_<dossier>.pdf`) sont dans son dossier.",
         "",
         "| TD | Titre | Dossier | |",
         "|----|-------|---------|-|",
@@ -153,6 +171,7 @@ def fabriquer(cours: int) -> int:
     etapes += [
         (RACINE / "outils" / "compiler_tds.py", ["--cours", str(cours)], RACINE),
         (RACINE / "outils" / "construire_notebooks.py", [], RACINE),
+        (RACINE / "outils" / "compiler_guides.py", ["--cours", str(cours)], RACINE),
     ]
     for script, arguments, dossier in etapes:
         code = subprocess.run(
@@ -179,8 +198,11 @@ def livrer(cours: int, lister: bool) -> int:
     total = 0
     for td in tds:
         couples = a_livrer(td)
-        if not any(rel.name.startswith("td_") and rel.suffix == ".pdf" for _, rel in couples):
-            print(f"  {td.name} : pas de feuille de TD (td_{td.name}.pdf)", file=sys.stderr)
+        feuilles = [rel.name for _, rel in couples
+                    if rel.suffix == ".pdf" and rel.name in (f"td_{td.name}.pdf", f"guide_{td.name}.pdf")]
+        if not feuilles:
+            print(f"  {td.name} : ni feuille de TD (td_{td.name}.pdf) ni guide (guide_{td.name}.pdf)",
+                  file=sys.stderr)
         print(f"{td.name}/ : {len(couples)} fichier(s)")
         for source, relatif in couples:
             total += 1

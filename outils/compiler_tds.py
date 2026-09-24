@@ -18,6 +18,10 @@ Ce champ est le chemin vu par l'étudiant, `cours1/2c_hello_cpp/` ; dans le
 dépôt, il est sous `data/`. Le PDF s'appelle `td_<dossier>.pdf`, soit
 `td_2c_hello_cpp.pdf`, et n'est pas versionné.
 
+Un cours sans dossier `tds/` n'est pas une erreur : ses TD peuvent n'avoir
+qu'un guide en Markdown, compilé par `outils/compiler_guides.py`. Un TD peut
+aussi avoir les deux, la feuille typst en résumé et le guide en détail.
+
 Ce script écrit un fichier d'assemblage temporaire à côté de `cours<n>.typ` :
 `typst` n'accepte que des chemins littéraux dans `include`, on ne peut donc pas
 lui passer le TD à inclure en argument.
@@ -109,8 +113,10 @@ def main() -> int:
     assemblage = diapo / f"cours{options.cours}.typ"
     tds = sorted((diapo / "tds").glob("*.typ"))
     if not tds:
-        print(f"{diapo}/tds : aucun TD", file=sys.stderr)
-        return 1
+        # Un cours peut n'avoir que des guides en Markdown
+        # (`outils/compiler_guides.py`) : rien à compiler ici, et pas d'erreur.
+        print(f"{diapo.relative_to(RACINE)}/tds : aucune feuille de TD en typst")
+        return 0
 
     if options.lister:
         for td in tds:
