@@ -3,18 +3,19 @@ title: "TD 4c — Installer un projet en lisant son README (facultatif)"
 subtitle: Guide détaillé, étape par étape
 ---
 
-Le projet `trajet` fabrique une vidéo commentée du chemin de la gare de
-Noisy-Champs à l'école, à partir d'un fond de carte et d'un fichier
+Le projet `trajet` produit une vidéo commentée du trajet à pied entre la
+gare de Noisy-Champs et l'école, à partir d'un fond de carte et d'un fichier
 d'étapes. Le TD consiste à installer ce projet, qu'on n'a pas écrit, et à le
-lancer, en suivant sa seule documentation, puis à lire les fichiers que la
-commande produit l'un après l'autre. Il dure un quart d'heure, et il est
-facultatif : il se fait en séance si le temps le permet, ou seul ensuite.
+lancer, en suivant uniquement sa documentation, puis à lire l'un après
+l'autre les fichiers que la commande produit. Le TD dure un quart d'heure,
+et il est facultatif : il se fait en séance si le temps le permet, ou seul
+ensuite.
 
-Il demande l'Anaconda Prompt, où se tapent les commandes, un éditeur de texte
-(VSCode ou Notepad++) et un lecteur vidéo. L'installation télécharge Python,
-ffmpeg et ImageMagick, et demande la session réseau ouverte. Le guide suit la
-section « Installation » du `README` du projet ; l'exercice est de la suivre
-soi-même, et le guide sert en cas de blocage.
+Le TD nécessite l'Anaconda Prompt, où se tapent les commandes, un éditeur de
+texte (VSCode ou Notepad++) et un lecteur vidéo. L'installation télécharge
+Python, ffmpeg et ImageMagick, et nécessite une session réseau ouverte. Le
+guide suit la section « Installation » du `README` du projet ; le TD demande
+de suivre cette section soi-même, et le guide ne sert qu'en cas de blocage.
 
 | Étape | Ce qu'on fait |
 |---|---|
@@ -46,7 +47,7 @@ Ouvrir `info01\cours1\4c_trajet\`. Le dossier contient :
 │   └── trajet\                 le projet, tel qu'il est fourni
 │       ├── README.md               sa documentation
 │       ├── pyproject.toml          ce qu'est le projet, et ce dont il dépend
-│       ├── environment.yml         l'environnement conda dans lequel il tourne
+│       ├── environment.yml         l'environnement conda dans lequel il s'exécute
 │       ├── data\
 │       │   ├── carte.png           le fond de carte
 │       │   ├── carte.json          l'emprise et la taille de la carte
@@ -80,7 +81,7 @@ taper quoi que ce soit : il décrit le projet, les fichiers qu'il produit,
 puis son installation et son utilisation.
 
 **À noter** : le nombre de commandes de la section « Installation », et ce
-qu'elle dit de `ffmpeg` et d'ImageMagick.
+qu'elle indique sur `ffmpeg` et ImageMagick.
 
 ## 2 · Installer le projet
 
@@ -100,8 +101,9 @@ cd C:\Users\eleve\Desktop\info01\cours1\4c_trajet\travail\trajet
 dir
 ```
 
-`dir` doit lister `environment.yml` et `pyproject.toml` : les deux premières
-commandes les lisent dans le dossier courant.
+`dir` doit lister `environment.yml` et `pyproject.toml` : la première
+commande lit `environment.yml`, et la troisième `pyproject.toml`, dans le
+dossier courant.
 
 ### Les trois commandes
 
@@ -119,8 +121,8 @@ python -m pip install -e .
    `(trajet_ensg)`.
 3. `python -m pip install -e .` installe le projet lui-même. Le point
    désigne le dossier courant, `travail\trajet`, et `-e` installe le projet
-   là où il est, sans le copier : une modification de ses fichiers vaut
-   sans réinstaller.
+   là où il est, sans le copier : une modification de ses fichiers prend
+   effet sans réinstallation.
 
 Ouvrir `environment.yml` et `pyproject.toml` dans l'éditeur pendant que la
 première commande s'exécute. Les deux fichiers commencent par un
@@ -146,8 +148,8 @@ commande du projet : `--carte`, `--etapes` et `--sortie`.
 **Vérification** : chacune des trois commandes affiche du texte, et aucune ne
 répond « n'est pas reconnu ».
 
-**À noter** : pour `magick` et `ffmpeg`, ce qu'ils sont, et où ils ont été
-déclarés au projet.
+**À noter** : pour `magick` et `ffmpeg`, ce qu'ils sont, et dans quel
+fichier du projet ils sont déclarés.
 
 ### En cas d'erreur
 
@@ -155,7 +157,7 @@ déclarés au projet.
   commande a été tapée dans un `cmd` ou un PowerShell ordinaire. La taper
   dans l'Anaconda Prompt.
 - `EnvironmentFileNotFound` ou un fichier introuvable à la première
-  commande : l'invite n'est pas dans `travail\trajet`. Refaire le `cd`.
+  commande : le dossier courant n'est pas `travail\trajet`. Refaire le `cd`.
 - `CondaToSNonInteractiveError: Terms of Service have not been accepted`, ou
   une question `Do you accept the Terms of Service (ToS) …
   [(a)ccept/(r)eject/(v)iew]` : répondre `a`.
@@ -168,8 +170,8 @@ déclarés au projet.
 - `'magick' n'est pas reconnu` ou `'ffmpeg' n'est pas reconnu`, alors que
   l'installation a réussi : l'environnement n'est pas actif dans cette
   fenêtre. Taper `conda activate trajet_ensg`.
-- `'trajet' n'est pas reconnu` : la troisième commande n'a pas été passée, ou
-  pas dans `trajet_ensg`. Activer l'environnement, se placer dans
+- `'trajet' n'est pas reconnu` : la troisième commande n'a pas été tapée, ou
+  pas avec `trajet_ensg` actif. Activer l'environnement, se placer dans
   `travail\trajet`, et la taper.
 
 ## 3 · Lancer la commande, et lire ce qu'elle produit
@@ -189,7 +191,7 @@ actif :
 trajet
 ```
 
-La commande travaille quelques secondes, puis affiche une ligne qui donne le
+La commande s'exécute pendant quelques secondes, puis affiche une ligne qui donne le
 chemin de la vidéo, le nombre d'étapes, la durée en secondes et la taille en
 octets. Ouvrir `travail\trajet\trajet.mp4` par double-clic, dans le lecteur
 vidéo du poste.
@@ -218,11 +220,12 @@ Relever, pour chaque étape du traitement, le fichier lu et le fichier écrit :
 | montage | `montage.py`, par `ffmpeg` | les images et le `.srt` | |
 
 Les modules sont dans `src\trajet\`, et `__main__.py` les appelle dans cet
-ordre : sa fonction `main` tient en une trentaine de lignes, et se lit.
+ordre : sa fonction `main` compte une trentaine de lignes, et se lit sans
+difficulté.
 
 **À noter** : la colonne « Sortie » ; la forme des lignes de `trajet.srt` et
-de `montage.txt`, et le rapport entre leurs nombres et la colonne `duree`
-d'`etapes.csv`.
+de `montage.txt`, et le rapport entre les nombres qu'elles contiennent et la
+colonne `duree` d'`etapes.csv`.
 
 ### Changer un texte, et relancer
 
@@ -248,15 +251,15 @@ montage à la souris.
 > produite par `ffmpeg`, affichées sous les cellules qui les ont produites.
 
 Le notebook `outils_video.ipynb` reprend les commandes `magick` et `ffmpeg` du
-projet, isolées, avec leur résultat affiché sous chacune. Il ne tourne pas
+projet, isolées, avec leur résultat affiché sous chacune. Il ne s'exécute pas
 dans le navigateur, avec JupyterLite : il lance des programmes par
 `subprocess`, ce qu'un onglet de navigateur ne peut pas faire.
 
 ### Ouvrir le notebook
 
 `trajet_ensg` ne contient ni client ni noyau Jupyter : son `environment.yml`
-n'installe que Python, ffmpeg et ImageMagick. Deux façons de faire, celles du
-TD 4b :
+n'installe que Python, ffmpeg et ImageMagick. Le notebook peut recevoir un
+noyau de deux façons, celles du TD 4b :
 
 - dans VSCode : ouvrir `cours1\4c_trajet\outils_video.ipynb` (menu File,
   Open File…), « Select Kernel »,
@@ -294,14 +297,14 @@ pas.
 
 Exécuter les cellules une à une (`Maj` + `Entrée`). La fonction `lancer`
 affiche chaque commande, précédée de `$`, avant de la lancer ; les images et
-la vidéo produites vont dans un dossier `essai\`, que la première cellule
-crée à côté du notebook.
+la vidéo produites sont enregistrées dans un dossier `essai\`, que la
+première cellule crée à côté du notebook.
 
 | Ce que le notebook montre | Ce qu'on y voit |
 |---|---|
 | `subprocess.run` | la commande donnée en liste, un élément par argument |
-| `magick identify`, `-resize`, `-draw` | l'image produite, affichée dans la cellule qui l'a faite |
-| `ffprobe`, puis `ffmpeg -f concat` | la liste de montage écrite à la main, et la vidéo qu'elle donne |
+| `magick identify`, `-resize`, `-draw` | l'image produite, affichée dans la cellule qui l'a produite |
+| `ffprobe`, puis `ffmpeg -f concat` | la liste de montage écrite à la main, et la vidéo qu'elle produit |
 
 La dernière cellule lance la commande `trajet` elle-même, avec les options
 `--carte` et `--sortie`. Taper `trajet --help` dans l'Anaconda Prompt pour
@@ -325,24 +328,25 @@ Cette section se lit après avoir fait les étapes.
 | 4 | `trajet`, puis ouvrir `trajet.mp4` | cinq étapes, vingt et une secondes, sous-titres incrustés |
 
 Trois commandes et trois vérifications suffisent à installer le projet,
-parce que quelqu'un les a écrites et essayées. C'est ce que le TD 4a a fait
-écrire pour le projet `recette`, et ce TD en montre l'usage : un projet
-qu'on n'a pas écrit s'installe par sa documentation.
+parce que quelqu'un les a écrites et essayées. Le TD 4a a fait écrire ce
+type de documentation pour le projet `recette` ; ce TD en montre l'usage, en
+installant, à partir de sa seule documentation, un projet écrit par
+quelqu'un d'autre.
 
 `pyproject.toml` déclare une liste de dépendances vide,
-`dependencies = []`, et un commentaire dit que ce n'est pas un oubli : le
-code n'importe que la bibliothèque standard de Python. Le projet ne tourne
-pourtant pas sans `environment.yml`, qui installe `ffmpeg` et `imagemagick`.
-Ce sont des programmes, que le code lance par `subprocess` comme on les
-lancerait au terminal, et pas des paquets Python : `pip` ne sait pas les
-installer, `conda` si. Les deux fichiers ne décrivent donc pas la même
-chose : `pyproject.toml` décrit le projet Python, `environment.yml`
-l'environnement complet dans lequel il tourne. Le code appelant les
-programmes depuis Python, le projet fonctionne sous Windows, macOS et
-Linux.
+`dependencies = []`, et un commentaire précise que ce n'est pas un oubli :
+le code n'importe que la bibliothèque standard de Python. Le projet ne
+fonctionne pourtant pas sans `environment.yml`, qui installe `ffmpeg` et
+`imagemagick`. Ce sont des programmes, que le code lance par `subprocess`
+comme on les lancerait au terminal, et non des paquets Python : `pip` ne
+sait pas les installer, alors que `conda` le peut. Les deux fichiers ne
+décrivent donc pas la même chose : `pyproject.toml` décrit le projet Python,
+`environment.yml` l'environnement complet dans lequel il s'exécute. Comme
+les programmes sont appelés depuis le code Python, et non depuis un script
+propre à un système, le projet fonctionne sous Windows, macOS et Linux.
 
 La troisième commande, `python -m pip install -e .`, est celle du TD 4a : le
-code étant sous `src\`, `import trajet` ne trouve rien tant que le projet
+code étant sous `src\`, `import trajet` échoue tant que le projet
 n'est pas installé. Elle crée aussi la commande `trajet`, que
 `pyproject.toml` déclare dans sa section `[project.scripts]` ;
 `python -m trajet` fait la même chose.
@@ -371,22 +375,23 @@ un autre, et restent lisibles dans un éditeur. `etapes.csv` est du texte de
 la même façon, comme le `content.xml` d'un `.odt` au TD 1b : le contenu utile
 de ces fichiers est du texte, que deux programmes s'échangent.
 
-Changer un texte d'étape a demandé de modifier une ligne d'`etapes.csv` et de
-relancer une commande. La même vidéo montée à la souris, dans un logiciel
-de montage, serait à refaire en entier. La ligne de commande coûte plus
-cher à la première exécution, et presque rien aux suivantes.
+Changer un texte d'étape a nécessité de modifier une ligne d'`etapes.csv` et
+de relancer une commande. La même vidéo montée à la souris, dans un logiciel
+de montage, serait à refaire en entier. La ligne de commande demande plus de
+travail pour produire la première vidéo, et presque aucun pour les
+suivantes.
 
 Le fond de carte, `carte.png`, est livré avec le projet. Le serveur de tuiles
 d'OpenStreetMap est un service bénévole, dont les conditions d'usage
-interdisent qu'une promotion entière le sollicite en même temps : `carte.py`
-l'a téléchargé une fois, avant la séance. La mention « © les contributeurs
+interdisent qu'une promotion entière lui envoie des requêtes en même temps :
+`carte.py` a téléchargé le fond de carte une fois, avant la séance. La mention « © les contributeurs
 d'OpenStreetMap », incrustée en bas de l'image, est exigée par la licence
 des données, l'ODbL.
 
 ### Étape 4 : les commandes dans un notebook
 
 `subprocess.run` reçoit la commande sous forme de liste, un élément par
-argument : rien n'est découpé aux espaces, et un nom de fichier qui contient
+argument : Python ne découpe pas la commande aux espaces, et un nom de fichier qui contient
 un espace n'a pas à être protégé par des guillemets. L'instruction de dessin
 `line 398,248 410,360`, qui contient des espaces, est un seul argument de
 `-draw`. Dans la cellule `-draw`, `CARTE` est l'image d'entrée, `-fill`,
@@ -395,8 +400,10 @@ chaque `-draw` trace un segment, et le dernier élément est l'image de sortie.
 `images.py` construit la même liste dans sa fonction `_commande`, un `-draw`
 par segment du trajet.
 
-Le notebook ne tourne pas dans JupyterLite : un onglet de navigateur ne peut
-pas lancer de programme. C'est la contrepartie de ce qui rend JupyterLite
-commode au TD 3b, où rien n'est à installer. Une bibliothèque Python pure s'y
-installe par `%pip install` ; un programme comme ffmpeg, non. Les outils du
-notebook sont ceux du projet de la séance 4.
+Le notebook ne s'exécute pas dans JupyterLite : un onglet de navigateur ne
+peut pas lancer de programme. Cette limite est la contrepartie de
+l'exécution dans l'onglet, qui rendait JupyterLite commode au TD 3b, où rien
+n'était à installer. Une bibliothèque écrite uniquement en Python s'y
+installe par `%pip install`, mais pas un programme comme ffmpeg. Les outils du
+notebook, ImageMagick et ffmpeg, sont aussi ceux du projet de la séance 4,
+le studio d'animation.

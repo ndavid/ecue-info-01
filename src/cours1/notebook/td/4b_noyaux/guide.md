@@ -227,8 +227,8 @@ jupyter kernelspec list
 ```
 
 La commande `jupyter` est ici celle de l'environnement `recette`, installée
-à l'étape 4. Elle
-affiche un nom de noyau par ligne, suivi du dossier de sa déclaration.
+à l'étape 4. `jupyter kernelspec list` affiche un nom de noyau par ligne,
+suivi du dossier de sa déclaration.
 
 Ouvrir ce dossier pour le noyau `altitudes`, dans l'explorateur de fichiers
 (coller le chemin dans la barre d'adresse), puis ouvrir `kernel.json` dans

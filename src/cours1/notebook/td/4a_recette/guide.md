@@ -338,7 +338,7 @@ les étapes de la préparation.
 **À noter** : l'adresse de la page dans le navigateur, et ce qui change,
 dans la page et dans `recette.html`, quand on modifie `style.css`.
 
-Sur un poste sans réseau, les étapes 2, 4 et 6 échouent. Passer alors à
+Sur un poste sans réseau, les opérations 1, 4 et 6, qui téléchargent des paquets, échouent. Passer alors à
 l'étape 4 du guide, qui ne demande que d'écrire des fichiers.
 
 ## 4 · Écrire ce qui manque
@@ -472,24 +472,24 @@ personne(s), en unités SI`, et la page s'ouvre comme à l'étape 3.
 
 **À noter** : le nombre de commandes qu'il a fallu pour refaire
 l'environnement, comparé aux étapes 2 et 3, et d'où conda a pris le nom
-`recette` à l'étape 9. Si une commande a manqué, l'ajouter au `README` :
+`recette` à l'opération 9. Si une commande a manqué, l'ajouter au `README` :
 une commande qu'il a fallu ajouter ici manque aussi à la documentation du
 projet.
 
-Erreurs fréquentes à l'étape 9 :
+Erreurs fréquentes à l'opération 9 :
 
 - `EnvironmentFileNotFound` : le terminal n'est pas dans le dossier du
   projet, ou le fichier n'a pas été enregistré sous le nom
   `environment.yml`. Vérifier avec `dir` que le fichier est dans la liste.
-- `CondaValueError: prefix already exists` : l'étape 8 n'a pas été faite,
-  ou n'a pas abouti. Refaire l'étape 8.
+- `CondaValueError: prefix already exists` : l'opération 8 n'a pas été faite,
+  ou n'a pas abouti. Refaire l'opération 8.
 - une erreur qui cite une ligne du fichier, avec le mot `yaml` : une
   indentation fausse ou une tabulation dans `environment.yml`. Comparer le
   fichier au modèle de l'étape 4.
 
 ### Pour aller plus loin
 
-- Depuis l'étape 10, la commande `recette` existe dans l'environnement.
+- Depuis l'opération 10, la commande `recette` existe dans l'environnement.
   Taper `recette --help`, puis `recette --personnes 12 --unites US`, et
   recharger la page. `python -m recette` fait la même chose.
 - Le `README` du projet demande aussi de documenter
@@ -584,24 +584,24 @@ fait pas la liste de ce qui manque.
 | 6 | `python -m pip install -e .` | le projet s'installe, ses dépendances étant déjà installées |
 | 7 | `python recette_a_la_main.py`, puis ouvrir `recette.html` | la recette mise en page, sans serveur ni réseau |
 
-À l'étape 4, `markdown` a lui-même des dépendances, `importlib-metadata` et
+À l'opération 4, `markdown` a lui-même des dépendances, `importlib-metadata` et
 `zipp`, que conda installe avec lui : ce sont des dépendances transitives
 du projet. Dans l'environnement `base`, la même commande en installerait
 moins, les autres y étant déjà.
 
-Les messages des étapes 3 et 5 ont la même forme, et leurs causes
+Les messages des opérations 3 et 5 ont la même forme, et leurs causes
 diffèrent. `markdown` manquait à l'environnement, et conda l'a installé.
 `recette` est le code du projet, pourtant présent dans `src\recette\` :
 Python ne le trouve pas, parce qu'il cherche les modules dans le dossier du
 programme lancé et dans ceux de l'environnement, et que `src\` n'est ni
 l'un ni l'autre tant que le projet n'est pas installé.
 
-À l'étape 6, pip lit `pyproject.toml`, constate que `markdown` et
+À l'opération 6, pip lit `pyproject.toml`, constate que `markdown` et
 `tabulate` sont déjà installés (`Requirement already satisfied`), et ne
 les télécharge pas. Il crée `src\recette.egg-info\`, qui décrit le projet
 installé ; ce dossier n'est pas versionné.
 
-À l'étape 7, on retrouve trois notions vues pendant la séance. Le `recette.md` du
+À l'opération 7, on retrouve trois notions vues pendant la séance. Le `recette.md` du
 projet ressemble à celui écrit au TD 3a. La page sépare le contenu, dans
 `recette.html`, de la présentation, dans `data\style.css`, comme les deux
 pages du poème au TD 1a : modifier la feuille de style change la page, et
@@ -632,7 +632,7 @@ n'est pas du Python, comme Python lui-même.
 | 10 | `conda activate recette`, puis `python -m pip install -e .` | le projet à nouveau importable |
 | 11 | `python recette_a_la_main.py` | la même page, sur un environnement refait de zéro |
 
-La suppression de l'étape 8 est nécessaire : le fichier porte
+La suppression de l'opération 8 est nécessaire : le fichier porte
 `name: recette`, et `conda env create` refuse de créer un environnement
 dont le nom existe déjà. Recréer l'environnement à partir de rien vérifie
 que le fichier décrit l'environnement entier, et pas seulement ce qui
@@ -640,15 +640,15 @@ manquait à l'ancien. conda
 refuse aussi de supprimer l'environnement actif, d'où le
 `conda deactivate` qui précède.
 
-À l'étape 9, une seule commande remplace les deux des étapes 2 et 4, et le
+À l'opération 9, une seule commande remplace les opérations 1 et 4, et le
 nom de l'environnement n'est plus tapé : conda le lit dans la ligne `name`
-du fichier. Les étapes 9 et 10 sont les commandes de la section
+du fichier. Les opérations 9 et 10 sont les commandes de la section
 « Installation » : une documentation d'installation n'est vérifiée qu'une
 fois suivie par quelqu'un, sur un environnement qui ne contient rien.
 
 ### Pour aller plus loin : la commande `recette`
 
-La commande `recette` existe depuis l'étape 10, parce que la section
+La commande `recette` existe depuis l'opération 10, parce que la section
 `[project.scripts]` de `pyproject.toml` la déclare ; le cours 3 y revient.
 Elle équivaut à `python -m recette`, et accepte `--personnes`, `--unites`
 et `--sortie`. Une chaîne de documentation possible pour
