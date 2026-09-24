@@ -45,7 +45,7 @@
     columns: (auto, auto, 1fr, auto),
     align: (left + horizon, left + horizon, left + horizon, center + horizon),
     [Partie], [Fichier], [Contenu], [Durée],
-    [Fichiers et outils], [], [récupérer l'archive, lancer JupyterLab ou VS~Code], [10 min],
+    [Préparation du poste de travail], [], [récupérer l'archive, lancer JupyterLab ou VS~Code], [10 min],
     [Chemins], [`recette.ipynb`], [le programme « recette » du cours 1 : chemins, appel d'une commande depuis Python], [20 min],
     [Texte et binaire], [`fichiers.ipynb` #linebreak() `images.ipynb`], [ouvrir, lire et écrire un fichier ; texte et binaire : poids et temps de lecture, encodages du texte], [45 min],
     [Ligne de commande], [`recette.py`], [un outil en ligne de commande : `main`, `argparse` ; un commit par étape], [45 min],

@@ -171,19 +171,22 @@
   ]
 
   #tableau(
-    columns: (auto, 1fr, auto),
+    columns: (auto, auto, 1fr, auto),
     align: left + horizon,
-    [Premiers octets], [Format], [Vu au cours],
-    [`50 35` · `P5`], [PGM binaire ; `P2` en texte, `P3` et `P6` en couleur], [aujourd'hui],
-    [`42 4d` · `BM`], [BMP, l'image de Windows, un octet par valeur], [aujourd'hui],
-    [`89 50 4e 47` · `.PNG`], [PNG, compressé sans perte], [aujourd'hui],
-    [`ff d8 ff`], [JPEG, compressé avec perte], [aujourd'hui],
-    [`50 4b 03 04` · `PK`], [ZIP, donc aussi `.odt`, `.docx`, `.xlsx`], [TD 1b],
-    [`25 50 44 46` · `%PDF`], [PDF], [cours 1],
-    [`4d 5a` · `MZ`], [un exécutable Windows, `python.exe` compris], [cours 1],
+    [Hexadécimal], [ASCII], [Format], [Vu au cours],
+    [`50 35`], [`P5`], [PGM binaire ; `P2` en texte, `P3` et `P6` en couleur], [aujourd'hui],
+    [`42 4d`], [`BM`], [BMP, l'image de Windows, un octet par valeur], [aujourd'hui],
+    [`89 50 4e 47`], [`.PNG`], [PNG, compressé sans perte], [aujourd'hui],
+    [`ff d8 ff`], [`...`], [JPEG, compressé avec perte], [aujourd'hui],
+    [`50 4b 03 04`], [`PK..`], [ZIP, donc aussi `.odt`, `.docx`, `.xlsx`], [TD 1b],
+    [`25 50 44 46`], [`%PDF`], [PDF], [cours 1],
+    [`4d 5a`], [`MZ`], [un exécutable Windows, `python.exe` compris], [cours 1],
   )
 
   #notes[
+    Dans la colonne ASCII, un point remplace un octet qui n'est pas un
+    caractère affichable, comme dans la fonction `hexdump`.
+
     Section 4 : les élèves écrivent les deux `save` (BMP, PNG) sur le
     modèle de la section 2. La boucle `glob` qui affiche les tailles est
     donnée, puis `hexdump` sur chaque fichier. Les deux signatures sont sur
@@ -308,11 +311,11 @@
   #tableau(
     columns: (auto, auto, 1fr),
     align: (left + horizon, right + horizon, left + horizon),
-    [Fichier], [`Image.open(…).load()`], [Ce que le programme fait],
-    [`vague_texte.pgm`], [1 270 ms], [reconnaître et convertir 2,7 millions de nombres écrits en chiffres],
-    [`vague.pgm`], [0,4 ms], [copier 2,7 millions d'octets : chacun est déjà la valeur],
-    [`vague.png`], [31 ms], [décompresser],
-    [`vague.jpg`], [11 ms], [décompresser, avec un calcul différent],
+    [Fichier], [`Image.open(…).load()`], [Ce que Pillow fait pour lire les pixels],
+    [`vague_texte.pgm`], [1 270 ms], [lire 2,7 millions de nombres écrits en chiffres et les convertir en entiers],
+    [`vague.pgm`], [0,4 ms], [copier 2,7 millions d'octets : chaque octet est la valeur d'un pixel, sans conversion],
+    [`vague.png`], [31 ms], [décompresser les pixels (algorithme deflate, sans perte)],
+    [`vague.jpg`], [11 ms], [décompresser les pixels (algorithme JPEG, avec perte)],
   )
 
   #legende[
@@ -322,12 +325,13 @@
   ]
 
   #notes[
-    Quatre cellules `%timeit -r 3 -n 1`, une par fichier. Le texte prend
-    plus d'une seconde, sensible à l'œil ; le binaire est instantané.
+    Quatre cellules `%timeit -r 3 -n 1`, une par fichier. La lecture du
+    texte prend plus d'une seconde ; celle du binaire, moins d'une
+    milliseconde.
 
-    L'explication tient en une phrase par ligne, celle de la troisième
-    colonne. En texte, `255` est trois caractères à lire, à reconnaître
-    comme un nombre, à convertir ; en binaire, `ff` est déjà le nombre.
+    En texte, la valeur 255 est écrite avec trois caractères, `2`, `5` et
+    `5`, que Pillow lit puis convertit en entier. En binaire, elle est
+    écrite dans un seul octet, `ff`, qui est directement l'entier 255.
 
     PNG et JPEG : plus petits sur le disque, plus longs à relire que le
     binaire brut, parce qu'il faut calculer les pixels. Le choix d'un format

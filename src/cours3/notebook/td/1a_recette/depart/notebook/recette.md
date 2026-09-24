@@ -245,7 +245,8 @@ Les chemins à écrire, à partir de `RACINE` :
 │       └── crepes/              ← RECETTE
 │           ├── ingredients.csv  ← FICHIER_INGREDIENTS
 │           └── recette.md       ← FICHIER_RECETTE
-└── travail/
+└── travail/                     ← dossier courant
+    ├── recette.ipynb            ← le notebook
     └── crepes.md                ← FICHIER_SORTIE
 ```
 
@@ -353,7 +354,8 @@ Le dossier `depart/recettes/` contient quatre dossiers, un par recette, tous aya
 │       └── salade_lentilles/
 │           ├── ingredients.csv
 │           └── recette.md
-└── travail/
+└── travail/                     ← dossier courant
+    ├── recette.ipynb            ← le notebook
     ├── crepes.md
     ├── …
     └── salade_lentilles.md
@@ -375,23 +377,23 @@ for dossier in RECETTES.iterdir():
 Ensuite on teste si l'élement du dossier est un sous-dosssier (est lui même un dossier) avec la fonction `is_dir()` et on extrait son nom avec `name`
 
 ```{code-cell} ipython3
-# sorted() les trie ; is_dir() garde les dossiers ; name est le dernier morceau du chemin
+# sorted() les trie ; is_dir() garde les dossiers ; name est le nom du dossier
 for dossier in sorted(RECETTES.iterdir()):
     if dossier.is_dir():
         print(dossier.name)
 ```
 
-`name` n'est qu'une des parties d'un chemin que `pathlib` sait extraire. Sur le fichier de la recette des crêpes :
+`name` est l'une des parties d'un chemin que `pathlib` renvoie. Les exemples suivants utilisent le fichier de la recette des crêpes :
 
 ```{code-cell} ipython3
 chemin = RECETTES / "crepes" / "recette.md"
 
-print(chemin.name)                     # le dernier morceau : recette.md
+print(chemin.name)                     # le nom du fichier : recette.md
 print(chemin.stem)                     # le nom sans l'extension : recette
 print(chemin.suffix)                   # l'extension, point compris : .md
 print(chemin.parent)                   # le dossier qui le contient
 print(chemin.parent.name)              # le nom de ce dossier : crepes
-print(chemin.parts)                    # tous les morceaux, dans un tuple
+print(chemin.parts)                    # toutes les parties du chemin, dans un tuple
 print(chemin.relative_to(RACINE))      # le chemin à partir de RACINE
 print(chemin.with_suffix(".html"))     # le même chemin, extension changée
 print(chemin.with_name("ingredients.csv"))  # le même dossier, autre nom de fichier

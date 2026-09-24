@@ -14,9 +14,8 @@
 // --------------------------------------------
 #d("Le code brut, chemins en dur", cellule: "1 et 2")[
   #annonce[
-    Le programme de création de recette "chemin en dur". (contre) exemple de code : non portable et difficile à adapter. 
-    Les fonctions utiles du bloc 1 seront vu plus tard en détail.
-    Pour l'instant on va se concentrer sur comment améliorer la gestion de chemins de fichier.
+    Le programme de création de recette "chemin en dur". version **très** améliorable : non portable et difficile à adapter.\
+    REM : pour cette partie on utilisera les fonctions utiles du bloc 1 sans chercher à comprendre leur code (vu plus tard).
   ]
 
   #code-commente(
@@ -44,23 +43,117 @@
 ]
 
 // --------------------------------------------
-#d("pathlib pour déclarer des chemins", cellule: "3.1 et 3.2")[
+#d("Lire le fichier CSV")[
+  #annonce[
+    `ingredients.csv` donne les quantités pour une personne, une ligne par
+    ingrédient. `lire_ingredients` lit le fichier et renvoie une liste
+    Python : un tuple (nom, quantité, unité) par ligne.
+  ]
+
+  #face-a-face(
+    panneau("recettes/crepes/ingredients.csv")[
+      #sortie("ingredient,quantite,unite\nFarine,60,g\nLait,125,ml\nŒufs,1,\nSel,1,g\nBeurre fondu,12,g", taille: 12pt)
+    ],
+    panneau("lire_ingredients(…) renvoie")[
+      #sortie("[('Farine', 60.0, 'g'),\n ('Lait', 125.0, 'ml'),\n ('Œufs', 1.0, ''),\n ('Sel', 1.0, 'g'),\n ('Beurre fondu', 12.0, 'g')]", taille: 12pt)
+    ],
+  )
+
+  #legende[
+    La première ligne du fichier, le nom des colonnes, n'est pas dans la
+    liste. `float` convertit chaque quantité, lue comme du texte, en nombre.
+  ]
+]
+
+// --------------------------------------------
+#d("Adapter les quantités, écrire le tableau")[
+  #annonce[
+    `adapter` multiplie chaque quantité par le nombre de personnes ; en
+    unités US, il convertit les grammes en onces et les millilitres en
+    tasses. `tableau` écrit la liste sous forme de tableau Markdown.
+  ]
+
+  #face-a-face(
+    panneau("adapter(ingredients, 4, \"US\") renvoie")[
+      #sortie("[('Farine', 8.4657…, 'oz'),\n ('Lait', 2.1133…, 'cup'),\n ('Œufs', 4.0, ''),\n ('Sel', 0.1410…, 'oz'),\n ('Beurre fondu', 1.6931…, 'oz')]", taille: 12pt)
+    ],
+    panneau("tableau(…) renvoie")[
+      #sortie("| Ingrédient | Quantité |\n|---|---|\n| Farine | 8.47 oz |\n| Lait | 2.11 cup |\n| Œufs | 4 |\n| Sel | 0.141 oz |\n| Beurre fondu | 1.69 oz |", taille: 12pt)
+    ],
+  )
+
+  #legende[
+    En unités SI, pour quatre personnes : 240 g de farine, 500 ml de lait.
+    `tableau` écrit chaque quantité avec trois chiffres significatifs.
+  ]
+
+  #notes[
+    Les facteurs de conversion sont dans le dictionnaire `FACTEURS` :
+    28,3495 g pour une once, 236,588 ml pour une tasse (cup). Les œufs,
+    sans unité, ne sont pas convertis.
+  ]
+]
+
+// --------------------------------------------
+#d("Insérer le tableau dans la recette")[
+  #annonce[
+    Dans `recette.md`, le titre `## Ingrédients` n'est suivi d'aucune ligne.
+    `replace` le remplace par le même titre suivi du tableau. Le texte obtenu
+    est écrit dans `travail/crepes.md`.
+  ]
+
+  #grid(
+    columns: (1fr, auto, 1fr, auto, 1.1fr),
+    column-gutter: 8pt,
+    align: top,
+    panneau("recette.md")[
+      #sortie("# Crêpes\n\n## Ingrédients\n\n## Préparation", taille: 10.5pt)
+    ],
+    pad(top: 58pt, text(size: 20pt, fill: accent)[+]),
+    panneau("tableau(…)")[
+      #sortie("| Ingrédient | Quantité |\n|---|---|\n| Farine | 240 g |\n| Lait | 500 ml |\n| …", taille: 10.5pt)
+    ],
+    pad(top: 58pt, text(size: 20pt, fill: accent)[→]),
+    panneau("travail/crepes.md")[
+      #sortie("# Crêpes\n\n## Ingrédients\n\n| Ingrédient | Quantité |\n|---|---|\n| Farine | 240 g |\n| …\n\n## Préparation", taille: 10.5pt)
+    ],
+  )
+
+  #v(0.2em)
+  #code-commente(
+    taille-code: 11.5pt, taille-texte: 11.5pt,
+    ("complete = source.replace(\"## Ingrédients\", \"## Ingrédients\\n\\n\" + tableau(ingredients))", "le titre, une ligne vide, le tableau"),
+  )
+]
+
+// --------------------------------------------
+#d("Les chemins à déclarer", cellule: "3.1 et 3.2")[
   #annonce[
     Le code s'améliore en deux étapes : 
       + utiliser des variables pour les chemins de fichier (python pur). 
       + déduire l'ensemble des chemins à partir d'une seule variable : dossier racine avec `pathlib`.
   ]
 
+  #sortie("1a_recette/                      ← RACINE\n├── depart/\n│   └── recettes/\n│       └── crepes/              ← RECETTE\n│           ├── ingredients.csv  ← FICHIER_INGREDIENTS\n│           └── recette.md       ← FICHIER_RECETTE\n└── travail/                     ← dossier courant\n    ├── recette.ipynb            ← le notebook\n    └── crepes.md                ← FICHIER_SORTIE", taille: 12.5pt)
+
+  #legende[
+    Seule la racine est écrite en dur ; les quatre autres chemins sont
+    construits à partir d'elle, en suivant l'arborescence.
+  ]
+]
+
+// --------------------------------------------
+#d("pathlib pour déclarer des chemins", cellule: "3.2")[
   #code-commente(
-    ("from pathlib import Path", "importe `Path`, la classe qui représente un chemin"),
+    ("from pathlib import Path", "importe `Path`, la classe des chemins"),
     ("", ""),
-    ("RACINE = Path(\"C:/Users/alice/…/1a_recette\")", "déclare la racine : la seule valeur restante écrite en dur"),
-    ("RECETTE = RACINE / \"depart\" / \"recettes\" / \"crepes\"", "`/` ajoute un dossier ou un fichier au chemin"),
+    ("RACINE = Path(\"C:/Users/alice/…/1a_recette\")", "la racine, seule valeur écrite en dur"),
+    ("RECETTE = RACINE / \"depart\" / \"recettes\" / \"crepes\"", "`/` ajoute un dossier au chemin"),
     ("FICHIER_INGREDIENTS = RECETTE / \"ingredients.csv\"", "le CSV"),
     ("FICHIER_RECETTE = RECETTE / \"recette.md\"", "la recette"),
     ("FICHIER_SORTIE = RACINE / \"travail\" / \"crepes.md\"", "le fichier produit"),
     ("", ""),
-    ("ingredients = lire_ingredients(FICHIER_INGREDIENTS)", "le code, avec les variables à la place des chemins"),
+    ("ingredients = lire_ingredients(FICHIER_INGREDIENTS)", "le code utilise les variables"),
   )
 
   #legende[
@@ -114,18 +207,22 @@
 // --------------------------------------------
 #d("Plusieurs recettes : lister un dossier", cellule: "3.4")[
   #annonce[
-    Le code traite `crepes`. `depart/recettes/` contient quatre dossiers
-    construits de façon identique : le programme les parcourt, et nomme chaque sortie
-    d'après le dossier.
+    Le code actuel ne traite qu'une recette : `crepes`.\
+    `depart/recettes/` contient quatre dossiers de recette construits de façon identique : le programme les parcourt, et nomme chaque sortie d'après le nom du dossier.
   ]
 
+  #sortie("1a_recette/                      ← RACINE\n├── depart/\n│   └── recettes/                ← RECETTES\n│       ├── crepes/              ← dossier, à la première itération\n│       │   ├── ingredients.csv\n│       │   └── recette.md\n│       ├── …\n│       └── salade_lentilles/    ← dossier, à la dernière itération\n│           ├── ingredients.csv\n│           └── recette.md\n└── travail/                     ← dossier courant\n    ├── recette.ipynb            ← le notebook\n    ├── crepes.md                ← fichier produit à la première itération\n    ├── …\n    └── salade_lentilles.md      ← fichier produit à la dernière itération", taille: 11pt)
+]
+
+// --------------------------------------------
+#d("Plusieurs recettes : lister un dossier", cellule: "3.4")[
   #code-commente(
     ("RECETTES = RACINE / \"depart\" / \"recettes\"", "le dossier des recettes"),
     ("for dossier in sorted(RECETTES.iterdir()):", "chaque entrée du dossier, triée"),
     ("    if dossier.is_dir():", "seulement les dossiers"),
     ("        dossier.name", "le nom seul : `crepes`"),
     ("        dossier / \"ingredients.csv\"", "le CSV de cette recette"),
-    ("        (RACINE / \"travail\" / dossier.name).with_suffix(\".md\")", "le fichier produit, nommé d'après le dossier"),
+    ("        (RACINE / \"travail\" / dossier.name).with_suffix(\".md\")", "le fichier produit : `crepes.md`"),
     ("        (dossier / \"ingredients.csv\").exists()", "`True` si le fichier est là"),
   )
 
@@ -142,17 +239,18 @@
 // --------------------------------------------
 #d("Les parties d'un chemin", cellule: "3.4")[
   #annonce[
-    Un `Path` donne ses morceaux sans découper de chaîne. Exemple sur
+    Les attributs d'un objet `Path` renvoient les parties du chemin : le
+    nom du fichier, son extension, le dossier qui le contient. Exemples avec
     `chemin = RECETTES / "crepes" / "recette.md"`.
   ]
 
   #code-commente(
-    ("chemin.name", "le dernier morceau : `recette.md`"),
+    ("chemin.name", "le nom du fichier : `recette.md`"),
     ("chemin.stem", "le nom sans l'extension : `recette`"),
     ("chemin.suffix", "l'extension, point compris : `.md`"),
     ("chemin.parent", "le dossier qui le contient : `…/recettes/crepes`"),
     ("chemin.parent.name", "le nom de ce dossier : `crepes`"),
-    ("chemin.parts", "tous les morceaux, dans un tuple"),
+    ("chemin.parts", "toutes les parties du chemin, dans un tuple"),
     ("chemin.relative_to(RACINE)", "le chemin à partir de la racine : `depart/recettes/crepes/recette.md`"),
     ("", ""),
     ("chemin.with_suffix(\".html\")", "même chemin, autre extension : `…/crepes/recette.html`"),

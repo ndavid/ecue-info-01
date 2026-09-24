@@ -15,7 +15,10 @@ commande avec `pyproject.toml`.
 | `travail/` | vide : les données copiées, le code écrit, et le dépôt git |
 
 Copier `depart/recettes/` et `depart/style.css` dans `travail/`, ouvrir
-`travail/` dans l'éditeur, et suivre la feuille du TD.
+`travail/` dans l'éditeur, et suivre la feuille du TD. Le guide détaillé,
+`guide_3a_cli.pdf` (aussi en `.html` et en notebook `guide.ipynb`), donne pour
+chaque étape le dossier où se placer, le code à coller, les commandes et la
+façon de vérifier le résultat.
 
 ## Les étapes
 

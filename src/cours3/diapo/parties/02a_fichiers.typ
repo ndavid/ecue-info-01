@@ -102,8 +102,10 @@
 // --------------------------------------------
 #d("Lire ligne par ligne", cellule: 4, fichier: "fichiers.ipynb")[
   #annonce[
-    `read()` et `readlines()` lisent tout le fichier d'un coup. 
-    Avec `for`, une ligne est lue à chaque tour de boucle ; Poru de gros fichier cela évite de tout charger en mémoire.
+    `read()` et `readlines()` lisent tout le fichier en une fois. On peut
+    aussi lire le fichier ligne par ligne avec une boucle `for` : une ligne
+    est lue à chaque itération. Pour un gros fichier, cela évite de
+    charger tout le contenu en mémoire.
   ]
 
   #code-commente(
@@ -135,6 +137,16 @@
     main ou avec la bibliothèque `csv`.
   ]
 
+  #face-a-face(
+    panneau("recettes/crepes/ingredients.csv")[
+      #sortie("ingredient,quantite,unite\nFarine,60,g\nLait,125,ml\nŒufs,1,\nSel,1,g\nBeurre fondu,12,g", taille: 11pt)
+    ],
+    panneau("La deuxième ligne, avant et après split")[
+      #sortie("'Farine,60,g\\n'\n\n['Farine', '60', 'g']", taille: 11pt)
+    ],
+  )
+
+  #v(0.3em)
   #code-commente(
     ("ligne.strip().split(\",\")", "sans le `\\n`, coupée aux virgules : une liste de trois chaînes"),
     ("", ""),

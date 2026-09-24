@@ -21,6 +21,69 @@
 )
 #separateur-td(..td)
 
+// --------------------------------------------
+#d("Les étapes du TD")[
+  #annonce[
+    Le code du notebook devient un programme `recette.py`, lancé depuis un
+    terminal. Chaque étape se termine par un commit.
+  ]
+
+  #tableau(
+    columns: (auto, 1fr, auto),
+    align: (left + horizon, left + horizon, center + horizon),
+    [Étape], [Ce qu'on fait], [Commits],
+    [0], [préparer le dossier `travail/` et créer le dépôt git], [0],
+    [1], [écrire `recette.py` avec le code du notebook], [1],
+    [2], [mettre le programme dans une fonction `main`], [2],
+    [3], [les trois valeurs sur la ligne de commande, sur une branche], [5],
+    [4], [écrire un `README.md`], [6],
+    [5 (facultative)], [ranger le code dans `src/` et les données dans `data/`], [7],
+    [6 (facultative)], [installer le programme comme une commande], [8],
+  )
+
+  #legende[
+    Le guide `guide_3a_cli.pdf`, dans le dossier `3a_cli/`, détaille chaque
+    étape : le dossier où se placer, le code à écrire, les commandes et la
+    façon de vérifier le résultat.
+  ]
+]
+
+// --------------------------------------------
+#d("Une étape, un commit")[
+  #annonce[
+    Chaque étape se termine par un commit, avec les commandes du cours 2.
+    L'étape 3 se fait sur une branche, fusionnée ensuite dans `master`.
+  ]
+
+  #tableau(
+    entete: false,
+    columns: (auto, 1fr),
+    align: left + horizon,
+    [`git status`], [les fichiers modifiés depuis le dernier commit],
+    [`git diff`], [les lignes modifiées dans `recette.py`],
+    [`git add recette.py`], [ajoute le fichier au prochain commit],
+    [`git commit -m "Une fonction main"`], [enregistre l'état ; le message nomme l'étape],
+    [`git checkout -b arguments`], [crée la branche et s'y place],
+    [`git checkout master`, `git merge arguments`], [revient sur master, y ramène les commits de la branche],
+    [`git log --oneline --graph`], [un commit par ligne, les branches dessinées],
+  )
+
+  #legende[
+    `sortie/` est dans `.gitignore` : les fichiers produits par le programme
+    ne sont pas versionnés, le programme les reproduit.
+  ]
+
+  #notes[
+    Les commandes sont celles du cours 2. Un commit à la fin de chaque
+    étape ; si une étape échoue, `git restore recette.py` remet le fichier à
+    l'état du dernier commit.
+
+    `master` : le nom que `git init` donne à la première branche sur les
+    postes ; `main` si le poste est réglé autrement.
+  ]
+]
+
+
 #d("Étape 0 : le dossier de travail et le dépôt")[
   #annonce[
     `travail/` reçoit les données et devient un dépôt git. Le code n'y est
@@ -31,12 +94,12 @@
     columns: (auto, 1.4fr, 1fr),
     align: left + horizon,
     [], [Ce qu'il faut faire], [Ce que vous constatez],
-    [1], [copier `depart/recettes/` et `depart/style.css` dans `travail/` ; dans l'éditeur, Fichier #sym.arrow.r Ouvrir le dossier `travail/`],
-      reponse[`recettes/` et `style.css` dans l'explorateur de l'éditeur ; le terminal s'ouvre dans `travail/`],
-    [2], [dans le terminal : `git init`],
-      reponse[`Dépôt Git vide initialisé` ; `git status` liste `recettes/` et `style.css` non suivis],
-    [3], [créer un fichier `.gitignore` contenant la ligne `sortie/`],
-      reponse[`git status` liste aussi `.gitignore`],
+    [1], [copier `depart/recettes/` et `depart/style.css` dans `travail/` ; dans VS Code, Fichier #sym.arrow.r Ouvrir le dossier `travail/` ; ouvrir un terminal Git Bash],
+      reponse[`recettes/` et `style.css` dans l'explorateur ; `pwd` se termine par `travail`],
+    [2], [une fois par poste : `source /c/ProgramData/anaconda3/etc/profile.d/conda.sh`, puis `conda init bash`, et un nouveau terminal],
+      reponse[l'invite commence par `(base)` ; `which python` : le Python d'Anaconda],
+    [3], [`git init` ; `echo "sortie/" > .gitignore`],
+      reponse[`git status` liste `recettes/`, `style.css` et `.gitignore` non suivis],
   )
 
   #legende[

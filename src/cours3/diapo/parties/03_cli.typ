@@ -1,23 +1,24 @@
 // Partie 3 du cours 3 — du notebook au programme en ligne de commande.
 //
 // Incluse par `cours3.typ`. Contrairement aux parties 1 et 2, l'exposé et le
-// TD sont séparés : cinq diapositives d'exposé (ce que change le passage en
-// fichier, ce que l'interpréteur exécute, `main`, `argparse`, le rappel des
-// commandes git), puis le TD 3a, pas à pas. Un fichier inclus n'hérite pas
-// des imports de son appelant.
+// TD sont séparés : quatre diapositives d'exposé (ce que change le passage en
+// fichier, ce que l'interpréteur exécute, `main`, `argparse`), puis le TD 3a
+// (`tds/3a_cli.typ`), qui porte la liste des étapes et le rappel git.
+// Un fichier inclus n'hérite pas des imports de son appelant.
 #import "../../../commun/prelude.typ": *
 #import "../schemas.typ": *
 
 #separateur(
   "Du notebook au programme",
-  annonce: "Le code du notebook dans un fichier .py, lancé au terminal ; ses trois valeurs passées sur la ligne de commande",
+  annonce: "Le code du notebook dans un fichier .py, lancé depuis un terminal ; ses trois paramètres passées via la ligne de commande",
 )
 
 // --------------------------------------------
 #d("Le même code, dans un fichier")[
   #annonce[
-    Un script est un fichier `.py` qui contient le code des cellules, dans
-    leur ordre. `python recette.py` l'exécute en entier.
+    Copier dans un script python, fichier `recette.py`, le code des cellules, dans
+    leur ordre (dernièere version). 
+    `python recette.py` l'exécute en entier.
   ]
 
   #tableau(
@@ -29,11 +30,6 @@
     [Les valeurs (recette, personnes, unités)], [modifiées dans la cellule, puis la cellule relancée], [passées sur la ligne de commande],
   )
 
-  #legende[
-    Le TD 3a construit `recette.py` à partir des cellules du notebook du
-    TD 1a, dans `travail/`, en cinq étapes et autant de commits.
-  ]
-
   #notes[
     Première ligne : dans un script, une expression seule n'affiche rien ;
     `print` partout où le notebook affichait.
@@ -43,8 +39,8 @@
     `recettes/`, et `RACINE = Path.cwd()`.
 
     Troisième ligne : les valeurs en tête de fichier obligent à ouvrir le
-    fichier pour les changer. `argparse` les met sur la ligne de commande,
-    étape 3 du TD.
+    fichier pour les changer. `argparse` permet de les passer sur la ligne
+    de commande.
   ]
 ]
 
@@ -88,37 +84,40 @@
 // --------------------------------------------
 #d("Une fonction main")[
   #annonce[
-    Le programme, les lignes du bas, passe dans une fonction `main`. La
-    dernière ligne du fichier l'appelle quand le fichier est lancé par
-    `python` ; un `import` du fichier ne l'appelle pas.
+    Les lignes du programme sont placées dans une fonction `main`. La fin du
+    fichier appelle `main` seulement si le fichier est lancé avec
+    `python recette.py`.
   ]
 
   #code-commente(
     taille-code: 13pt, taille-texte: 12.5pt,
-    ("def lire_ingredients(chemin):", "les fonctions utiles, inchangées"),
-    ("    ...", ""),
+    ("def lire_ingredients(chemin):", "les fonctions utiles, sans changement"),
     ("", ""),
-    ("def main():", "le programme devient une fonction"),
-    ("    ingredients = lire_ingredients(RECETTES / NOM / \"ingredients.csv\")", "les mêmes lignes, indentées"),
-    ("    ...", ""),
-    ("    subprocess.run([\"pandoc\", ...], check=True)", ""),
+    ("def main():", "le programme, dans une fonction"),
+    ("    ingredients = lire_ingredients(...)", "les lignes du programme, indentées"),
     ("", ""),
-    ("if __name__ == \"__main__\":", "vrai dans le fichier lancé par `python`, faux dans un fichier importé"),
-    ("    main()", "l'appel : le programme s'exécute"),
+    ("if __name__ == \"__main__\":", "vrai si le fichier est lancé avec `python`"),
+    ("    main()", "exécute le programme"),
   )
 
-  #legende[
-    `travail/recette.py`, étape 2 du TD. Le résultat ne change pas ; le
-    fichier devient importable.
-  ]
+  #tableau(
+    columns: (1fr, auto, auto),
+    align: left + horizon,
+    [Utilisation du fichier], [`__name__` vaut], [`main()` exécutée],
+    [`python recette.py`, dans le terminal], [`"__main__"`], [oui],
+    [`import recette`, dans un autre fichier Python], [`"recette"`], [non],
+  )
 
   #notes[
-    `__name__` est une variable que Python remplit : `"__main__"` dans le
-    fichier lancé, le nom du module (`"recette"`) dans un fichier importé.
+    Le résultat de `python recette.py` est le même qu'avant le passage dans
+    `main`.
 
-    Au projet 4, ce fichier est importé par un autre pour ses fonctions ;
-    sans le `if`, l'import exécuterait le programme. Un test peut aussi
-    appeler `main` directement.
+    `__name__` est une variable que Python définit dans chaque fichier. Avec
+    le test, un autre fichier peut importer les fonctions de `recette.py`
+    sans exécuter le programme.
+
+    Une commande installée avec `pyproject.toml` appelle aussi `main` :
+    `recette = "recette:main"`.
   ]
 ]
 
@@ -140,7 +139,7 @@
   )
 
   #legende[
-    `travail/recette.py`, dans `main`, étape 3 du TD ; docs.python.org/fr/3/library/argparse.html.
+    Documentation : docs.python.org/fr/3/library/argparse.html.
   ]
 
   #tableau(
@@ -159,42 +158,7 @@
     liste des recettes vient de `iterdir()` sur `recettes/`, comme à la
     section 3.4 du notebook.
 
-    Étape 3 du TD, un argument par commit. Faire lire `--help` : l'aide est
-    produite depuis les `add_argument`, sans rien écrire d'autre.
-  ]
-]
-
-// --------------------------------------------
-#d("Une étape, un commit")[
-  #annonce[
-    À chaque étape du TD, un commit avec les commandes du cours 2. L'étape 3
-    se fait sur une branche, fusionnée ensuite.
-  ]
-
-  #tableau(
-    entete: false,
-    columns: (auto, 1fr),
-    align: left + horizon,
-    [`git status`], [les fichiers modifiés depuis le dernier commit],
-    [`git diff`], [les lignes modifiées dans `recette.py`],
-    [`git add recette.py`], [ajoute le fichier au prochain commit],
-    [`git commit -m "Une fonction main"`], [enregistre l'état ; le message nomme l'étape],
-    [`git checkout -b arguments`], [crée la branche et s'y place],
-    [`git checkout master`, `git merge arguments`], [revient sur master, y ramène les commits de la branche],
-    [`git log --oneline --graph`], [un commit par ligne, les branches dessinées],
-  )
-
-  #legende[
-    `sortie/` est dans `.gitignore` : les fichiers produits par le programme
-    ne sont pas versionnés, le programme les reproduit.
-  ]
-
-  #notes[
-    Les commandes sont celles du cours 2. Un commit à la fin de chaque
-    étape ; si une étape échoue, `git restore recette.py` remet le fichier à
-    l'état du dernier commit.
-
-    `master` : le nom que `git init` donne à la première branche sur les
-    postes ; `main` si le poste est réglé autrement.
+    Faire lire `--help` : l'aide est produite à partir des `add_argument`,
+    sans rien écrire d'autre.
   ]
 ]

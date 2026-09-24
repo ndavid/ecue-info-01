@@ -27,7 +27,7 @@ portent le numéro de la section à exécuter à ce moment.
 * - Partie
   - Ce qu'on y fait
   - Durée
-* - Fichiers et outils
+* - Préparation du poste de travail
   - récupérer l'archive du dossier partagé sur le Bureau ; vérifier que JupyterLab et l'éditeur se lancent
   - 10 min
 * - Chemins
