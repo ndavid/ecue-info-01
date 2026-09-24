@@ -32,7 +32,7 @@ Conséquences pour la séance :
 
 - **Partie 1 (matériel)** : nouvelle pour presque tous, sauf les anciens NSI, qui ont vu le vocabulaire (processeur, mémoire, bus) sans les ordres de grandeur ni la consommation. Aucune diapositive n'est une redite pour la majorité.
 - **Partie 2 (réseau)** : adresse IP et DNS ont été vus en seconde par tous, quatre ans plus tôt, en 1 h 30 par semaine. La diapositive « Adresse, nom et port » se joue comme un rappel, en demandant à la salle ce qu'est le DNS avant de le dire. Débit et latence, la distance, le sans-fil : nouveaux.
-- **Partie 3 (prouver qui l'on est)** : les gestes (identifiant, mot de passe, hameçonnage) sont connus de tous par la vie courante ; ce qui est nouveau est le chiffrage des menaces, le hachage, et la cryptographie asymétrique, vue seulement en terminale NSI.
+- **Partie 3 (prouver qui l'on est)** : les pratiques (identifiant, mot de passe, hameçonnage) sont connues de tous par la vie courante ; ce qui est nouveau est le chiffrage des menaces, le hachage, et la cryptographie asymétrique, vue seulement en terminale NSI.
 - **Partie 4 (secrets)** : nouvelle pour tous.
 
 Sources : programme de SNT, arrêté du 17 janvier 2019 (BO spécial n° 1 du 22 janvier 2019) ; programmes de NSI de première et de terminale, mêmes arrêtés ; programme d'informatique commune des CPGE scientifiques, 2021.
@@ -65,19 +65,22 @@ Total : 120′, dont 35′ de TD.
 ## Partie 1 — Le matériel (🎓 30′, 15 pages)
 
 3. Séparateur.
-4. **Les composants d'un ordinateur.** Schéma dessiné : le boîtier avec processeur, mémoire vive, disque, carte graphique et carte réseau ; l'écran et le clavier à l'extérieur. Un rôle en quelques mots sous chaque composant.
+4. **Les composants d'un ordinateur.** Schéma dessiné : le boîtier avec processeur, mémoire vive, disque, carte graphique (flèche : de l'image affichée au calcul parallèle), carte réseau et alimentation ; l'écran et le clavier à l'extérieur. Un rôle en quelques mots sous chaque composant.
 4b. **Un boîtier ouvert.** Photo d'un PC de bureau des années 2010 (Wikimedia Commons, CC BY 4.0), sept repères numérotés : alimentation, carte mère, processeur sous son ventilateur, mémoire vive, disque, emplacements vides, connecteurs arrière. Notes : pas de carte graphique séparée sur un poste de bureau.
 4c. **La carte mère.** Photo d'une carte ATX de 2020 (CC0), sept repères : processeur, emplacements mémoire, emplacements pour cartes, emplacement SSD M.2, jeu de puces, connecteurs arrière, alimentation et prises des disques. Ces deux diapositives ne sont produites que si les photos sont en place (`illustrations/cours5/telecharger.py`).
 5. **Le processeur.** Quatre cœurs, chacun avec sa file d'instructions ; cadence 3 GHz = 3 milliards de cycles par seconde. Notes : un programme Python ordinaire n'occupe qu'un cœur.
+5b. **Température du processeur.** Question à la salle, vote à main levée : 40, 60, 90 ou 150 °C pour un processeur qui calcule sans arrêt.
+5c. **Température du processeur — réponses.** Tableau : 30 à 50 °C au repos, 60 à 90 °C en charge sur un poste de bureau, 80 à 100 °C sur un portable fin ; à la limite du fabricant (95 °C AMD, 100 °C Intel), la fréquence baisse. Notes : 50 à 100 W par cm² de puce, et le lien avec la fréquence plafonnée de « Trente ans de processeurs ».
 6. **Mémoire vive et disque.** Tableau : taille, temps d'accès, à l'extinction, ce qu'on y trouve. Le lien avec le cours 1 : les variables d'un programme sont en mémoire vive, un fichier est sur le disque, et c'est pour cela qu'il reste.
 7. **Le chemin d'une donnée.** Pyramide cache / mémoire vive / disque / réseau, avec taille et temps d'accès à chaque étage. Une donnée traitée par le processeur passe par tous les étages.
 8. **Ordres de grandeur : tailles.** Tableau octet, Ko, Mo, Go, To avec un exemple chacun, dont une dalle d'orthophoto (5 000 × 5 000 pixels × 3 octets = 75 Mo). Notes : Ko = 1 000 octets, Kio = 1 024 ; Windows affiche des Kio en les appelant Ko.
 9. **Ordres de grandeur : temps d'accès.** Barres sur échelle logarithmique, de la nanoseconde à la seconde : cache, mémoire vive, SSD, disque dur, réseau local, Paris–Marseille, Paris–New York, Paris–Sydney.
 10. **Si la mémoire vive valait une seconde.** La même échelle, tableau : mémoire vive 1 s, SSD un quart d'heure, disque dur une journée, Paris–New York une semaine, Paris–Sydney un mois. C'est la diapositive à retenir de la partie.
-11. **Processeur et carte graphique.** Huit cœurs rapides contre des milliers de cœurs simples : le GPU sert quand la même opération s'applique à des millions de valeurs (image, tableau, réseau de neurones).
+11. **Processeur et carte graphique : la puce.** Deux puces de même taille, d'après la figure 1 du *CUDA C++ Programming Guide* (NVIDIA) : le processeur, huit cœurs faits surtout de contrôle, et un grand cache ; la carte graphique, des rangées d'unités de calcul avec un contrôle par rangée.
+11b. **Processeur et carte graphique : une image.** Une image de 16 × 8 pixels à éclaircir : quatre cœurs par bandes, 32 étapes ; un cœur par pixel, une étape. Notes : les chiffres pour une dalle d'orthophoto, et la démonstration des MythBusters pour NVIDIA.
 12. **Trente ans de processeurs.** Nuage de points 1990-2022, échelle log : transistors, fréquence, puissance, cœurs (données de Karl Rupp, CC BY 4.0, générées dans `donnees/tendances.typ`). La fréquence plafonne vers 2005 à 3 GHz, la puissance à 100 W ; les cœurs prennent le relais. Notes : mémoire, disque, prix du Go et modem sur la même période.
 13. **Puissance de calcul et consommation.** Tableau du téléphone à touches au superordinateur ASCI Red (1997, 1,3 TFLOPS, 850 kW) : opérations par seconde, puissance, électricité par an. Un smartphone égale ASCI Red pour cent mille fois moins d'électricité.
-14. **L'électricité des services en ligne.** Tableau : une requête à un assistant d'IA (0,24 Wh, Google 2025), une heure de streaming (80 Wh, IEA), 1 To gardé en ligne un an (40 à 150 kWh, calcul), le même To dans un tiroir (0), les centres de données du monde (415 TWh en 2024, 1,5 % de l'électricité mondiale, l'ordre de grandeur de la France).
+14. **L'électricité des services en ligne.** Tableau : une question à un assistant d'IA (0,3 à 2 Wh, et 7 à 33 Wh pour un modèle qui raisonne, Jegham et al. 2025), une heure de streaming (80 Wh, IEA), 1 To gardé en ligne un an (40 à 150 kWh, calcul), le même To dans un tiroir (0), les centres de données du monde (415 TWh en 2024, 1,5 % de l'électricité mondiale, l'ordre de grandeur de la France). Notes : l'écart des estimations selon le périmètre ; les 0,24 Wh de Google (serveurs seuls, chiffre du fournisseur) ; l'analyse de cycle de vie de Mistral AI (Carbone 4, ADEME, 2025) : 1,14 g CO₂e et 45 mL d'eau par réponse, fabrication et entraînement compris.
 15. **Ce que coûte un service en ligne.** Tableau : site personnel (0 à 60 €/an), OpenStreetMap (100 000 à 170 000 €, plan 2023 de l'OSMF), Wikipédia (3,4 M$ d'hébergement, exercice 2024-2025), Meta (72 milliards de $ d'investissement en 2025).
 
 Passé en notes de la diapositive 10 : ce que cela change pour un programme (lire un fichier une fois, binaire plutôt que texte, numpy, commit local et push réseau).
@@ -98,7 +101,7 @@ Sources : Brendan Gregg, *Systems Performance* (2020), table 2.2 des latences ; 
 
 ### ⌨️ TD 1a — Les ordres de grandeur de votre poste (15′)
 
-Dossier `cours5/1a_mesures/`. Deux gestes :
+Dossier `cours5/1a_mesures/`. Deux étapes :
 
 1. Gestionnaire des tâches (`Ctrl` + `Maj` + `Échap`), onglet Performance : relever le nombre de cœurs, la cadence, la taille de la mémoire vive, le type et la taille du disque.
 2. `python mesures.py` : quatre mesures (10 millions d'additions, copier 100 Mo en mémoire, écrire puis relire 100 Mo sur le disque, un aller-retour vers `github.com` et un téléchargement de 10 Mo). Remplir le tableau, comparer à l'échelle de la diapositive 9.

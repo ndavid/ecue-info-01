@@ -148,7 +148,7 @@
     Justification du choix : ce qui est reproché aux étudiants dans les autres
     cours n'est pas toujours l'algorithmique. C'est un chemin de fichier faux,
     un environnement mal installé, un code qui ne s'installe pas sur une autre
-    machine. Ces gestes ne sont enseignés nulle part ailleurs.
+    machine. Ce qui évite ces erreurs n'est enseigné nulle part ailleurs.
   ]
 ]
 // ================================ Séance 1 ==================================

@@ -156,7 +156,7 @@
     terminal déjà ouvert garde le sien. D'où la règle : après avoir changé
     d'interpréteur, ouvrir un nouveau terminal.
 
-    C'est le geste du TD 2a, revu ici sur un environnement qu'ils ont
+    C'est l'étape du TD 2a, revue ici sur un environnement qu'ils ont
     fabriqué eux-mêmes. Faire lire l'invite et la barre d'état ensemble :
     quand les deux ne disent pas la même chose, c'est presque toujours
     l'explication du `ModuleNotFoundError` qui suit.
@@ -278,7 +278,7 @@ python -m pip install -e .
 
     Les deux fichiers ne se remplacent pas et ne disent pas la même chose.
     `environment.yml` liste ce qu'il faut poser ; le `README` donne l'ordre
-    des gestes, y compris celui que le fichier ne peut pas porter,
+    des étapes, y compris celle que le fichier ne peut pas porter,
     l'installation du projet lui-même.
 
     Rien n'est fourni : les sept lignes du YAML s'écrivent, l'indentation

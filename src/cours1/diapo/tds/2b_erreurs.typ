@@ -24,7 +24,7 @@
   #tableau(
     columns: (auto, 1fr),
     align: left + horizon,
-    [Le geste], [Ce qu'il donne],
+    [L'action], [Ce qu'elle donne],
     [`View` #sym.arrow.r `Render Whitespace` #sym.arrow.r `All`],
       [un point médian par espace, une flèche par tabulation],
     [`Spaces: 4`, dans la barre d'état],
@@ -42,7 +42,7 @@
 
   #notes[
     Le faire faire, machine ouverte, avant de projeter la diapositive suivante :
-    c'est un geste, pas une explication.
+    c'est à faire, pas à expliquer.
 
     À laisser activé toute l'année. C'est le seul moyen de voir qu'une
     indentation mélange espaces et tabulations, et cela reviendra au cours 2

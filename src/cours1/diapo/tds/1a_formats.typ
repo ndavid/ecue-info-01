@@ -22,7 +22,7 @@
   ]
 
   #avertissement[
-    Premier geste : afficher les extensions, que Windows masque par défaut.
+    Première étape : afficher les extensions, que Windows masque par défaut.
     Explorateur #sym.arrow.r Affichage #sym.arrow.r Afficher #sym.arrow.r
     Extensions de noms de fichiers.
   ]

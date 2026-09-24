@@ -85,7 +85,7 @@
   ]
 
   #notes[
-    `Ctrl` + `F` est le geste qui fait tenir le TD dans le temps : sans lui,
+    `Ctrl` + `F` est le raccourci qui fait tenir le TD dans le temps : sans lui,
     ils lisent 1 300 caractères de balises pour trouver un mot. Le faire
     faire une fois sur `Text_20_body`, puis sur `The Raven` ; la recherche
     resservira dans l'éditeur de code, avec le même raccourci.
@@ -147,7 +147,7 @@
     sélectionner (`Ctrl` + `A`), clic droit, Compresser dans un fichier ZIP.
 
     Un format ouvert et documenté se manipule avec des outils quelconques.
-    C'est l'argument à retenir, plus que le geste lui-même.
+    C'est l'argument à retenir, plus que la technique elle-même.
   ]
 ]
 

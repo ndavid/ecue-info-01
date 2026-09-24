@@ -46,7 +46,7 @@ lance de deux façons, et ce n'est pas indifférent :
   Anaconda : changer de terminal » et dans l'issue
   [vscode-python #2559](https://github.com/microsoft/vscode-python/issues/2559).
 
-## Déroulé, geste par geste
+## Déroulé, étape par étape
 
 1. **Fichier → Ouvrir le dossier**, puis choisir `cours1/2a_vscode_python/`.
    On ouvre le dossier, pas un fichier : c'est lui qui devient le projet.
@@ -73,7 +73,7 @@ faisait à votre place.
 ## Ce que le TD montre
 
 La palette de commandes (`Ctrl` + `Maj` + `P`) et les réglages (`Ctrl` + `,`)
-sont les deux gestes qui rendent l'éditeur apprenable : on tape ce qu'on
+sont les deux outils qui rendent l'éditeur apprenable : on tape ce qu'on
 cherche. Les réglages sont un fichier texte, `settings.json`, à deux niveaux :
 User, pour soi sur ce poste, et Workspace, rangé avec le projet dans
 `.vscode/settings.json`.

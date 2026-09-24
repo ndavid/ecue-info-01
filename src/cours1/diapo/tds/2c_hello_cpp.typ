@@ -24,7 +24,7 @@
   #tableau(
     columns: (auto, 1fr),
     align: left + horizon,
-    [Le geste], [Ce qu'il donne],
+    [L'action], [Ce qu'elle donne],
     [`Ctrl` + `Maj` + `X`, chercher « C/C++ »],
       [l'extension publiée par Microsoft, à installer],
     [Ouvrir `cours1/2c_hello_cpp/`, puis `bonjour.cpp`],
@@ -38,7 +38,7 @@
 
   #notes[
     C'est l'exemple qui généralise : un éditeur générique se configure langage
-    par langage, et le geste est le même que pour Python.
+    par langage, et la démarche est la même que pour Python.
 
     L'avertissement est écrit dans la documentation de VSCode : « The C/C++
     extension doesn't include a C++ compiler or debugger, since VS Code as an
@@ -82,7 +82,7 @@
     installer MinGW-w64 par MSYS2, puis ajouter `C:\msys64\ucrt64\bin` au
     `PATH` de Windows. Il fonctionne, mais il modifie la machine et demande une
     installation de plus ; le module préfère l'environnement conda, déjà
-    présent et supprimable d'un seul geste. Le dire si la question vient, et
+    présent et supprimable d'une seule commande. Le dire si la question vient, et
     surtout si un étudiant arrive avec MSYS2 déjà installé : dans ce cas la
     commande est `g++`, comme sous Linux.
 

@@ -47,7 +47,7 @@
     Anaconda, un portable personnel a souvent Miniforge, et le même TD 3b s'y
     comporte autrement.
 
-    La leçon est le geste, pas la réponse : on vérifie ce qu'un environnement
+    La leçon est la démarche, pas la réponse : on vérifie ce qu'un environnement
     contient, on ne le suppose pas. `conda list` accepte des motifs, donc
     pas besoin de `grep`, qui n'existe pas sous Windows.
 
@@ -97,7 +97,7 @@
     jour. Cela ne gêne personne sur un poste de TP, et devient pesant en
     stage : d'où la diapositive suivante.
 
-    Étape 5 : Navigator faisait ces deux gestes à votre place, en choisissant
+    Étape 5 : Navigator faisait ces deux étapes à votre place, en choisissant
     l'environnement affiché en haut de sa page d'accueil. Le terminal
     l'expose, la fiche le cachait.
 
@@ -201,7 +201,7 @@
     cellules plus bas, et la cause serait à chercher ailleurs qu'où elle est.
 
     Étape 14, à faire remarquer : redémarrer le noyau efface tout ce qu'il
-    retenait. C'est le geste qui départage « mon programme marche » de « ma
+    retenait. C'est ce qui départage « mon programme marche » de « ma
     page marche dans l'ordre où elle est écrite ».
 
     Toutes les fonctions sont dans le notebook, aucune n'est importée : il

@@ -497,7 +497,7 @@
     peut être écrit autrement.
 
     Ne pas montrer ici comment afficher les blancs : le TD 2b s'en
-    charge, et c'est un geste qui se fait, pas qui se regarde.
+    charge, et cela s'apprend en le faisant, pas en le regardant.
 
     Fins de ligne, à dire en passant : Windows en met deux (`CRLF`), Linux et
     macOS un seul (`LF`). Un même fichier n'a donc pas la même taille selon la

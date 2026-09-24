@@ -1,6 +1,6 @@
 # Les ordres de grandeur de votre poste — TD 1a, cours 5
 
-Deux gestes : lire les caractéristiques du poste dans le gestionnaire des
+Deux étapes : lire les caractéristiques du poste dans le gestionnaire des
 tâches, puis mesurer quatre temps avec un script fourni.
 
 ## Le poste

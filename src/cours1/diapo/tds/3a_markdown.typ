@@ -23,7 +23,7 @@
   #tableau(
     columns: (auto, 1fr, 1fr),
     align: left + horizon,
-    [Le geste], [Ce qu'il ouvre], [Quand s'en servir],
+    [L'action], [Ce qu'elle ouvre], [Quand s'en servir],
     [`Ctrl` + `K` puis `V`],
       [l'aperçu à droite, l'éditeur reste à gauche],
       [pendant qu'on écrit : le rendu suit la frappe],
@@ -38,7 +38,7 @@
   ]
 
   #notes[
-    Le geste le plus employé de l'année : l'installer maintenant, et écrire
+    Le raccourci le plus employé de l'année : en prendre l'habitude maintenant, et écrire
     le fichier de notes du jour avec l'aperçu ouvert.
 
     Le montrer en direct plutôt que le décrire. Faire remarquer que
@@ -83,7 +83,7 @@
     est un titre et ce qui est une étape — la mise en forme est une
     lecture du contenu.
 
-    Geste à installer, l'aperçu côte à côte : `Ctrl` + `K` puis `V`. On
+    Habitude à prendre, l'aperçu côte à côte : `Ctrl` + `K` puis `V`. On
     écrit à gauche, on voit à droite, sans rien lancer.
 
     Étape 5 : le tableau se tape à la main, ou se produit depuis le CSV

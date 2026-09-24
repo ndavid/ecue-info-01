@@ -72,7 +72,7 @@ qui fait retravailler les chemins relatifs de la partie 1.
 
 ## La comparaison de deux versions
 
-TD d'annexe, qui prépare le cours 2. Le point de départ est un geste déjà fait
+TD d'annexe, qui prépare le cours 2. Il part de ce qui a déjà été fait
 à la partie 3 : modifier un fichier sous un autre nom. Les commandes
 ci-dessous se lancent depuis `cours1/3a_markdown/`.
 
@@ -132,7 +132,7 @@ le contenu est compressé, donc redistribué. C'est la réponse complète à
 
 ### Ce que le TD prépare
 
-Comparer deux versions et transmettre leur différence sont deux des gestes que
+Comparer deux versions et transmettre leur différence sont deux des opérations que
 git automatise. Ce qui manque encore, et qui est le sujet du cours 2 :
 l'historique, les auteurs, et le fait de n'avoir plus à inventer un nom de
 fichier par version.

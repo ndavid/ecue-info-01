@@ -130,7 +130,7 @@ Les trois qui font débat : `.svg` (une image, mais du texte XML), `.csv` (du te
 
 ### ⌨️ 20′ — TD 1a : fichiers, formats et extensions, puis TD 1b : l'archive `.odt` *(facultatif)*
 
-Fichiers de départ dans `cours1/1a_formats/depart/`, produits dans le dépôt par `python make_data.py fetch && python make_data.py build`. Le TD ouvre sur **deux dossiers** : `depart/`, ce qui est donné et ne se modifie pas, et `travail/`, livré vide, où vont toutes les copies. La première diapositive écrit les deux chemins en entier, `C:\Users\alice\Documents\cours1\1a_formats\depart\raven.odt` et sa copie renommée dans `travail\`, pour que le vocabulaire des chemins serve tout de suite ; les suivantes abrègent à partir de `cours1/`. Une diapositive montre ensuite le geste de copie-renommage deux fois, dans l'explorateur (`Ctrl`+`C`, `Ctrl`+`V`, `F2`) et dans un terminal `cmd` (`copy depart\raven.odt travail\raven_odt.pdf`) : le terminal est pour ceux qui le connaissent déjà, aucune étape ne l'exige.
+Fichiers de départ dans `cours1/1a_formats/depart/`, produits dans le dépôt par `python make_data.py fetch && python make_data.py build`. Le TD ouvre sur **deux dossiers** : `depart/`, ce qui est donné et ne se modifie pas, et `travail/`, livré vide, où vont toutes les copies. La première diapositive écrit les deux chemins en entier, `C:\Users\alice\Documents\cours1\1a_formats\depart\raven.odt` et sa copie renommée dans `travail\`, pour que le vocabulaire des chemins serve tout de suite ; les suivantes abrègent à partir de `cours1/`. Une diapositive montre ensuite deux fois la copie avec renommage, dans l'explorateur (`Ctrl`+`C`, `Ctrl`+`V`, `F2`) et dans un terminal `cmd` (`copy depart\raven.odt travail\raven_odt.pdf`) : le terminal est pour ceux qui le connaissent déjà, aucune étape ne l'exige.
 
 Depuis septembre 2026, la partie « un `.odt` est une archive ZIP » — les étapes 3 et 4 ci-dessous — est un TD à part, **1b, facultatif**, dans `cours1/1b_archive_odt/` (même `raven.odt`, mêmes `depart/` et `travail/`), pour ceux qui vont vite. Le TD 1a garde l'export LibreOffice (étape 1), le renommage (2), la page HTML (5), la table ASCII et le Bloc-notes, plus la diapositive sur l'adresse `file:///`, venue de l'exposé.
 
@@ -155,7 +155,7 @@ L'export en image se trouve sous *Fichier > Exporter*, pas sous *Enregistrer sou
 
 La quatrième ligne est la plus instructive et n'est pas intuitive : avec une extension **inventée**, le système n'a plus de convention à appliquer. **Vérifié sous Windows 11** : il n'ouvre rien et ne regarde pas le contenu, il propose une liste de logiciels ; cocher « Toujours » associe l'extension au logiciel choisi, et le double-clic suivant ouvre directement. Sous Linux (GNOME), le système lit les premiers octets et propose LibreOffice de lui-même. La conclusion sur la diapositive : le système ne regarde que le nom. Laisser la salle inventer l'extension. Le message de la visionneuse nomme lui-même les octets lus, `0x50 0x4b`, soit « PK ».
 
-> **Prérequis, vérifié en 2026** : Windows 11 masque toujours les extensions des types connus **par défaut**. Le réglage est dans *Explorateur > Affichage > Afficher > Extensions de noms de fichiers* ; sous macOS, *Finder > Réglages > Avancé > « Afficher tous les suffixes de fichiers »*. Sans cela, `F2` ne montre pas ce qu'on renomme et tout le TD tombe à plat. C'est le premier geste de la séance, et il est rappelé sur la diapositive elle-même.
+> **Prérequis, vérifié en 2026** : Windows 11 masque toujours les extensions des types connus **par défaut**. Le réglage est dans *Explorateur > Affichage > Afficher > Extensions de noms de fichiers* ; sous macOS, *Finder > Réglages > Avancé > « Afficher tous les suffixes de fichiers »*. Sans cela, `F2` ne montre pas ce qu'on renomme et tout le TD tombe à plat. C'est la première étape de la séance, et il est rappelé sur la diapositive elle-même.
 
 **3. Un `.odt` est une archive** *(TD 1b)*. Copier dans `travail/` sous le nom `raven.zip`, ouvrir avec le gestionnaire d'archives : six fichiers, dont `mimetype`, `content.xml` (le texte) et `styles.xml` (la mise en forme). Ouvrir `content.xml` dans l'éditeur : le poème est en clair. C'est aussi la réponse à « pourquoi un `.odt` se versionne mal ».
 
@@ -247,7 +247,7 @@ L'installation demande du réseau et quelques minutes : la lancer avant la séan
 
 `conda` n'est pas disponible dans n'importe quel terminal, et c'est la première cause de « la commande n'existe pas ».
 
-| Où | Le geste | Ce qui le prouve |
+| Où | L'action | Ce qui la prouve |
 |---|---|---|
 | Windows, hors éditeur | menu Démarrer, chercher « Anaconda Prompt » | l'invite commence par `(base)` |
 | Linux, macOS | un terminal ordinaire suffit | l'invite commence par `(base)` |
@@ -269,7 +269,7 @@ Le TD a été renommé et étoffé en septembre 2026, après des essais sur les 
 6. **Lancer le programme**, puis les trois façons d'exécuter `altitudes.py`, dont le pas à pas détaillé sur deux diapositives (poser l'arrêt et lancer, avec le choix « Python Debugger › Python File » au premier `F5` ; puis avancer avec `F10` en prédisant `total`, la barre de boutons et ses touches).
 7. **En option, sans VS Code** : refaire lancement et session interactive depuis l'Anaconda Prompt (`conda activate base`, `cd` en glissant le dossier dans la fenêtre), pour voir ce que l'éditeur faisait à leur place.
 
-**Les gestes sont écrits un par un et projetés tels quels** — l'objectif seul ne suffit pas à cette séance, une étape sous-entendue est une étape où la moitié de la salle s'arrête sans le dire.
+**Les étapes sont écrites une par une et projetées telles quelles** — l'objectif seul ne suffit pas à cette séance, une étape sous-entendue est une étape où la moitié de la salle s'arrête sans le dire.
 
 1. **Fichier → Ouvrir le dossier**, puis choisir `cours1/2a_vscode_python/` — le dossier, pas un fichier.
 2. **`Ctrl`+`Maj`+`P`**, taper « Python: Select Interpreter », choisir `base`. Rien ne se passe visiblement, et c'est normal : le réglage sert au terminal qu'on ouvre juste après. Sans lui, `python` peut être un autre que celui du module.
@@ -379,7 +379,7 @@ Trois commandes pour tout le semestre :
 Suivent **deux diapositives seulement**, le minimum pour lire ces lignes :
 
 1. **Ligne de commande et interface graphique** — la comparaison sur cinq points, dont « ce qui en reste », qui prépare git au cours 2 et les scripts au cours 3. Aucune des deux ne remplace l'autre : on clique pour chercher, on tape pour répéter.
-2. **Anatomie d'une commande** — le programme, l'option, l'argument, sur `soffice --convert-to pdf raven.odt`, avec le geste équivalent à la souris. Le lien est direct avec la première partie, où ils ont exporté `raven.odt` en PDF en cliquant : `soffice` n'est pas un autre outil, c'est le même appelé par son nom.
+2. **Anatomie d'une commande** — le programme, l'option, l'argument, sur `soffice --convert-to pdf raven.odt`, avec son équivalent à la souris. Le lien est direct avec la première partie, où ils ont exporté `raven.odt` en PDF en cliquant : `soffice` n'est pas un autre outil, c'est le même appelé par son nom.
 
 > **Ce qui a été retiré d'ici**, et qui reste en annexe du deck : la démonstration chiffrée `*.odt` (vingt fichiers en 2,1 s contre 1,4 s pour un seul), le tableau de décision « quand l'une, quand l'autre », les critères d'expérience utilisateur, le terminal sur les trois systèmes et la façon de l'ouvrir, et le TD de conversion LibreOffice / navigateur. **Le cours 2 traite la ligne de commande pour elle-même** : ces diapositives y sont reprises. Le dire à la salle en une phrase, pour que le survol ne passe pas pour de l'escamotage.
 
@@ -387,7 +387,7 @@ Suivent **deux diapositives seulement**, le minimum pour lire ces lignes :
 
 Ils s'en sont déjà servis sans qu'on le nomme, au TD 2a, « hello world » : c'est le moment d'y revenir. Le terminal intégré n'est pas un autre terminal, c'est le même programme affiché dans la fenêtre de l'éditeur — le dire, parce que la question vient.
 
-| Le geste | Ce qu'il règle |
+| L'action | Ce qu'elle règle |
 |---|---|
 | Terminal → Nouveau terminal | un terminal dans le dossier ouvert |
 | le sélecteur, à droite du panneau | l'interpréteur de commandes : PowerShell, bash, zsh |
@@ -424,7 +424,7 @@ Trois diapositives courtes, insérées après « L'outil qui installe un environ
 2. **D'où viennent les paquets** — PyPI, 886 022 projets, publication immédiate et sans relecture ; conda-forge, 29 411 paquets, chacun avec une recette relue par des humains. Ni bon ni mauvais dépôt : un paquet conda-forge est le plus souvent construit à partir des mêmes sources que le paquet PyPI, quelques jours plus tard. Ce qui change est la porte d'entrée.
 3. **Ce qu'une installation exécute** — `requests` contre `reqeusts`, en grand, côte à côte. Installer un paquet exécute du code écrit par quelqu'un d'autre, avec les droits de celui qui a tapé la commande. Le typosquattage n'a rien de théorique : des campagnes de plusieurs centaines de faux paquets ont été relevées sur PyPI, calqués sur les noms les plus téléchargés.
 
-> **Le réflexe, et c'est la seule chose à retenir** : le nom d'un paquet se copie depuis la documentation du projet, il ne se tape pas de mémoire. Ne pas transformer cela en peur de tout installer — la conclusion est un geste, pas une abstention. Chiffres relevés le 8 septembre 2026 (index de PyPI, API de GitHub) ; 454 600 nouveaux paquets malveillants recensés en 2025, tous dépôts confondus, *State of the Software Supply Chain*, Sonatype, 2026.
+> **Le réflexe, et c'est la seule chose à retenir** : le nom d'un paquet se copie depuis la documentation du projet, il ne se tape pas de mémoire. Ne pas transformer cela en peur de tout installer — la conclusion est une action, pas une abstention. Chiffres relevés le 8 septembre 2026 (index de PyPI, API de GitHub) ; 454 600 nouveaux paquets malveillants recensés en 2025, tous dépôts confondus, *State of the Software Supply Chain*, Sonatype, 2026.
 
 > **Sur le canal `defaults` d'Anaconda**, si la question vient : le module emploie Miniforge, qui n'installe que depuis conda-forge, parce que les conditions d'utilisation du dépôt d'Anaconda demandent une licence payante aux organisations au-delà d'une certaine taille. La raison est dans [`INSTALLATION.md`](../../../INSTALLATION.md) et n'a pas à être développée en séance.
 
@@ -436,7 +436,7 @@ C'est le seul TD de la partie, et il en est la conclusion : la partie a dit ce q
 
 **On repart d'un environnement neuf**, et non de `base` : c'est ce qui permet de voir ce qu'un environnement contient d'origine, ce qui manque, et ce qu'une installation ajoute.
 
-| # | Le geste | Ce qu'ils constatent |
+| # | L'action | Ce qu'ils constatent |
 |---|---|---|
 | 1 | Ouvrir le dossier `data/cours1/environnement/` | l'arborescence d'un projet, pas un script isolé |
 | 2 | Lire la ligne `dependencies` de `pyproject.toml` | le projet annonce avoir besoin de `markdown` |
@@ -458,7 +458,7 @@ C'est le seul TD de la partie, et il en est la conclusion : la partie a dit ce q
 
 Trois choses de la séance se referment à l'étape 8, et elles se nomment une par une : le `recette.md` est celui qu'ils ont écrit une demi-heure plus tôt ; la page sépare le contenu de la présentation, comme les deux pages du poème de la partie 1 ; elle s'ouvre par une adresse `file:///`, sans serveur.
 
-**Les étapes 10 et 11 sont la conclusion de la partie**, et elles démontrent enfin ce que la deuxième diapositive annonçait : une installation n'est pas reproductible parce qu'on se souvient de ce qu'on a tapé, elle l'est parce qu'un fichier la décrit. Faire le geste devant eux — une ligne ajoutée, quatre caractères d'indentation.
+**Les étapes 10 et 11 sont la conclusion de la partie**, et elles démontrent enfin ce que la deuxième diapositive annonçait : une installation n'est pas reproductible parce qu'on se souvient de ce qu'on a tapé, elle l'est parce qu'un fichier la décrit. Le faire devant eux — une ligne ajoutée, quatre caractères d'indentation.
 
 **La question à poser avant de répondre** : pourquoi le diagramme n'est-il pas dessiné ? Le bloc `mermaid` arrive dans la page sous la forme de ses six lignes de texte. Mermaid est un service de l'aperçu de l'éditeur, pas du HTML. C'est la distinction tenue toute la séance entre ce qu'un fichier contient et ce qu'un logiciel en affiche, déjà rencontrée avec la coloration syntaxique et avec la chasse fixe.
 
@@ -466,7 +466,7 @@ Trois choses de la séance se referment à l'étape 8, et elles se nomment une p
 
 > **Mesuré sur la machine de préparation**, sous Linux, avec le solveur `libmamba` de conda 24.7 : création de l'environnement en 10 s (index en cache), 28 paquets ; `conda install markdown` en 7 s et 3 paquets dans l'environnement neuf, contre 1 paquet de 85 ko et 1 min 52 s à froid dans `base`. Trente postes en même temps iront moins vite. Commenter la sortie de `conda install` pendant qu'elle tourne plutôt que d'attendre en silence. Les libellés de menu de l'éditeur n'ont pas été vérifiés sur un poste Windows. Poste sans réseau : les étapes 3 et 6 échouent ; projeter le résultat, et faire quand même les étapes 10 et 11, qui ne demandent que d'éditer un fichier.
 
-> **Pourquoi `markdown` et pas `jinja2`.** L'idée d'un `.odt` produit depuis un modèle, par substitution dans `content.xml`, a été écartée pour une raison mesurée : `jinja2` **est déjà installé** dans `base`, tiré comme dépendance de Sphinx et de JupyterLab, et `conda install jinja2` n'installerait rien. `markdown` est absent des deux environnements, et il est l'exemple « tout en Python » de la diapositive « Ce qu'une bibliothèque contient vraiment » : l'installation la vérifie. Il n'est **pas** ajouté à l'`environment.yml` du module, le geste du TD 3b étant d'ajouter une bibliothèque à un environnement qui existe déjà.
+> **Pourquoi `markdown` et pas `jinja2`.** L'idée d'un `.odt` produit depuis un modèle, par substitution dans `content.xml`, a été écartée pour une raison mesurée : `jinja2` **est déjà installé** dans `base`, tiré comme dépendance de Sphinx et de JupyterLab, et `conda install jinja2` n'installerait rien. `markdown` est absent des deux environnements, et il est l'exemple « tout en Python » de la diapositive « Ce qu'une bibliothèque contient vraiment » : l'installation la vérifie. Il n'est **pas** ajouté à l'`environment.yml` du module, l'objet du TD 3b étant d'ajouter une bibliothèque à un environnement qui existe déjà.
 ### 🎓 4′ — Python en interactif
 
 Taper `python` sans nom de fichier ouvre une session interactive : chaque ligne est lue, exécutée, et son résultat affiché aussitôt, sans `print`. La trace projetée est une session réelle, dans `data/cours1/formats/`, qui réimporte le script des octets de tête.
@@ -522,7 +522,7 @@ Support : deux notebooks écrits pour le TD, `src/cours1/notebook/td/4a_notebook
 
 Ouvrir un `.ipynb` dans VSCode demande l'extension `ms-toolsai.jupyter`, la troisième et dernière du module : l'éditeur la propose à la première ouverture.
 
-| | Le geste | Ce qu'on observe |
+| | L'action | Ce qu'on observe |
 |---|---|---|
 | Dans le navigateur | ouvrir [jupyter.org/try-jupyter](https://jupyter.org/try-jupyter/lab/), y déposer le fichier | aucun compte, aucune installation, et le calcul se fait chez vous |
 | Dans l'éditeur | ouvrir le `.ipynb`, installer l'extension proposée, choisir le noyau `base` | les cellules s'exécutent par `Maj`+`Entrée` |
@@ -546,7 +546,7 @@ Ce qui relève de l'édition du code est passé à la partie 2, dont il prolonge
 
 ### 🎓 4′ — Programmation et édition de texte *(ouverture de la partie)*
 
-Tout ce qui sera produit cette année passe par l'édition d'un fichier texte : le programme, ses réglages, sa documentation, jusqu'à ce que git doit ignorer. Ce n'est donc pas un détail d'outillage, c'est le geste de base — et c'est ce que la partie outille.
+Tout ce qui sera produit cette année passe par l'édition d'un fichier texte : le programme, ses réglages, sa documentation, jusqu'à ce que git doit ignorer. Ce n'est donc pas un détail d'outillage, c'est l'opération de base — et c'est ce que la partie outille.
 
 La preuve visuelle est un face-à-face de ce que coûte l'édition sans outil adapté : une faute qui se découvre à l'exécution plutôt que soulignée à la frappe, un fichier cherché dans l'explorateur plutôt que dans l'arborescence, un programme relancé dans une autre fenêtre, une indentation fausse qui ne se voit pas. La colonne de droite annonce le plan de la partie.
 
@@ -694,7 +694,7 @@ Six lignes dans un bloc `mermaid`, et l'aperçu dessine les boîtes et les flèc
 Données : `cours1/1a_formats/`, produites dans le dépôt par `python make_data.py fetch && python make_data.py build`.
 Textes du domaine public : **The Raven** (Poe, 1845) et **Auld Lang Syne** (Burns, 1788).
 
-| Étape | Fichier | Geste | Constat attendu |
+| Étape | Fichier | Action | Constat attendu |
 |-------|---------|-------|------------------|
 | 1 | `*_brut.html` | ouvrir dans le **navigateur** (double-clic) | adresse en `file://` — **aucun serveur** ; le navigateur ignore les sauts de ligne : la structure se **déclare** (`<p>`, `<br>`) |
 | 2 | `*_style.html` + `style.css` | ouvrir, puis éditer le CSS et recharger (`F5`) | **contenu ≠ présentation** : deux fichiers, on change l'apparence sans toucher au texte |
@@ -745,12 +745,12 @@ Ce bloc était la partie 3 de la séance jusqu'en septembre 2026. Il en reste de
 Trois diapositives, dans cet ordre, et c'est la deuxième qui porte l'argument :
 
 1. **Ligne de commande et interface graphique** — la comparaison sur cinq points, dont « ce qui en reste », qui prépare git au cours 2 et les scripts au cours 3.
-2. **Désigner un fichier, ou les décrire tous** — la démonstration chiffrée. La même commande convertit un fichier en 1,4 s et vingt en 2,1 s, parce que le programme ne démarre qu'une fois ; seul le dernier mot change, `raven.odt` devenant `*.odt`. À la souris, les quatre gestes du menu deviennent quatre-vingts. Mesuré sur les fichiers du cours.
+2. **Désigner un fichier, ou les décrire tous** — la démonstration chiffrée. La même commande convertit un fichier en 1,4 s et vingt en 2,1 s, parce que le programme ne démarre qu'une fois ; seul le dernier mot change, `raven.odt` devenant `*.odt`. À la souris, les quatre clics du menu deviennent quatre-vingts. Mesuré sur les fichiers du cours.
 3. **Quand l'une, quand l'autre** — le tableau de décision. À résumer en une phrase : on clique pour chercher, on tape pour répéter.
 
 La différence de fond, à énoncer sur la deuxième : à la souris on *montre* des objets déjà à l'écran, au clavier on *décrit* un ensemble, y compris des fichiers qu'on ne voit pas. C'est la distinction classique en ergonomie entre reconnaissance et rappel, chiffrée deux diapositives plus loin avec les critères de Nielsen.
 
-- **La différence, en tableau** : au clic on désigne ce que l'on voit, au clavier on nomme ce que l'on veut ; les menus proposent ce qu'ils contiennent, la commande accepte tout ce que le programme sait faire ; pour dix fichiers, dix fois les mêmes gestes contre une ligne ; et surtout, **ce qui en reste** — rien d'un côté, la commande de l'autre. Aucune des deux n'est meilleure : elles ne rendent pas le même service.
+- **La différence, en tableau** : au clic on désigne ce que l'on voit, au clavier on nomme ce que l'on veut ; les menus proposent ce qu'ils contiennent, la commande accepte tout ce que le programme sait faire ; pour dix fichiers, dix fois les mêmes clics contre une ligne ; et surtout, **ce qui en reste** — rien d'un côté, la commande de l'autre. Aucune des deux n'est meilleure : elles ne rendent pas le même service.
 - **Expérience utilisateur** : les perceptions et réactions qui résultent de l'usage d'un produit (norme ISO 9241-210). Critères d'après Jakob Nielsen, plus un cinquième ajouté ici, la trace laissée.
 - **Le terminal** : une fenêtre où l'on tape des commandes et où le programme répond par du texte. Une commande se lit toujours pareil — le programme, ce qu'on lui demande, ce sur quoi il travaille.
 
@@ -762,7 +762,7 @@ La différence de fond, à énoncer sur la deuxième : à la souris on *montre* 
 
 Sous Windows 11, **Terminal est l'application par défaut** et ouvre PowerShell ; l'Invite de commandes reste disponible dans le même onglet déroulant. Ne pas développer la différence, elle est au cours 2. Insister en revanche sur le fait que le terminal s'ouvre **dans un dossier** : c'est le dossier courant des chemins relatifs, et la source de la moitié des erreurs de début de semestre.
 
-#### TD : le même geste, à la souris et au clavier
+#### TD : la même opération, à la souris et au clavier
 
 **1. Convertir des deux façons.** *Fichier > Exporter au format PDF* d'un côté, la commande de l'autre. Le fichier produit est identique ; la commande, elle, se recopie et se relance sur trois cents documents.
 
@@ -796,7 +796,7 @@ Deux détails avant de lancer en séance : sans `--no-pdf-header-footer`, Chromi
 
 #### Les octets de tête au terminal, PowerShell et Unix
 
-Faire ouvrir un terminal à toute la salle avant de commencer : c'est le premier usage réel de ce qui vient d'être présenté, et le geste sert ensuite toute l'année.
+Faire ouvrir un terminal à toute la salle avant de commencer : c'est le premier usage réel de ce qui vient d'être présenté, et cela sert ensuite toute l'année.
 
 La diapositive principale est en **PowerShell**, puisque c'est ce que la majorité de la promotion a sous la main. Les octets à relever sont laissés vides à la projection et remplis dans la compilation `--input corrige=true` : `50 4B 03 04` (`PK`, une archive ZIP, donc un `.odt`) et `25 50 44 46` (`%PDF`). La diapositive suivante, `head`/`xxd`/`file` sous Linux et macOS, est **facultative** ; elle vaut surtout pour `file`, dont Windows n'a pas d'équivalent.
 

@@ -248,7 +248,7 @@
     Un outil qui enregistrerait directement sur le serveur attendrait le
     réseau à chaque enregistrement, et ne fonctionnerait pas sans réseau.
 
-    Le cours 6 fait le geste : `push`, puis `pull` pour recevoir ce que
+    Le cours 6 le met en pratique : `push`, puis `pull` pour recevoir ce que
     d'autres ont poussé.
   ]
 ]

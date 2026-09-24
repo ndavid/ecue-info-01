@@ -557,7 +557,7 @@
     qu'un fichier la décrit, non parce qu'on se souvient de ce qu'on a
     tapé. C'est aussi ce qui est demandé au rendu.
 
-    Deux gestes, un seul outil. À gauche, on tape ; à droite, on lit un
+    Deux façons de faire, un seul outil. À gauche, on tape ; à droite, on lit un
     fichier que quelqu'un a écrit, le plus souvent soi-même la semaine
     d'avant. Le résultat est le même environnement.
 
@@ -703,7 +703,7 @@
   #tableau(
     columns: (1.1fr, 1fr),
     align: left + horizon,
-    [Le geste], [Ce qu'il règle],
+    [L'action], [Ce qu'elle règle],
     [Terminal #sym.arrow.r Nouveau terminal], [un terminal dans le dossier ouvert],
     [le sélecteur, à droite du panneau], [l'interpréteur de commandes : PowerShell, bash, zsh],
     [`Ctrl` + `Maj` + `P`, `Python: Select Interpreter`], [l'environnement activé dans chaque nouveau terminal],
@@ -754,7 +754,7 @@
     adresse de site.
 
     Le noyau est le processus Python qui exécute et qui retient. La
-    démonstration en trois gestes : `x = 10`, puis `print(x * 2)` → 20 ;
+    démonstration en trois temps : `x = 10`, puis `print(x * 2)` → 20 ;
     modifier la première cellule en `x = 3` sans l'exécuter, la seconde
     affiche toujours 20 ; puis Restart & Run All. Réflexe avant tout
     partage.

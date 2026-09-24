@@ -46,7 +46,7 @@ Puis `Hi <compte>! You've successfully authenticated` : la clé est reconnue.
 | rien, puis `Connection timed out` | le port 22 est fermé en sortie | section « port 443 » |
 | `'ssh-keygen' n'est pas reconnu` | le client OpenSSH de Windows n'est pas dans le `PATH` | `C:\Windows\System32\OpenSSH\ssh-keygen.exe`, ou Git Bash |
 
-Le geste à ne pas faire : coller le contenu de `id_ed25519` (sans extension),
+L'erreur à éviter : coller le contenu de `id_ed25519` (sans extension),
 la clé privée. Elle ne quitte jamais le poste.
 
 ## Port 443

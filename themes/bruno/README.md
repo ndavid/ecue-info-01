@@ -41,7 +41,7 @@ l'allure du thème :
 
 - **Le gras n'est pas du gras.** `\setsansfont[BoldFont={* Medium}]{Fira Sans}`
   redirige `\bfseries` vers la graisse *Medium*. Les titres paraissent donc
-  affirmés sans être lourds, ce qui est le geste caractéristique de Metropolis.
+  affirmés sans être lourds, ce qui est le trait caractéristique de Metropolis.
 - **Le texte n'est pas noir.** `normal text` est fixé à `brunoblue`, un bleu
   très sombre. Sur un vidéoprojecteur, le contraste est moins dur que le noir.
 

@@ -239,7 +239,7 @@
   ]
 
   #notes[
-    Le geste vaut pour tout langage nouveau : ouvrir le panneau, taper
+    La démarche vaut pour tout langage nouveau : ouvrir le panneau, taper
     l'identifiant, installer. C'est le motif à retenir, et il se refera tel
     quel à chaque langage ajouté.
 
@@ -291,7 +291,7 @@
   ]
 
   #notes[
-    La palette est le geste qui rend l'éditeur apprenable : on n'a pas à
+    La palette est ce qui rend l'éditeur apprenable : on n'a pas à
     savoir où est un menu, on tape ce qu'on veut. Toutes les consignes du
     module passent par elle, à commencer par le choix de l'interpréteur.
 
@@ -357,7 +357,7 @@
     nom ; sur un poste où un autre Python est installé, c'est là que la
     confusion se joue. Faire lire le chemin, pas seulement le nom.
 
-    Ce geste évite le `ModuleNotFoundError` de fin de séance, le terminal
+    Ce choix évite le `ModuleNotFoundError` de fin de séance, le terminal
     pouvant ouvrir un autre Python. Il ne coûte rien aujourd'hui, aucune
     bibliothèque n'étant importée.
 

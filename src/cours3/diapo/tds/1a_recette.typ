@@ -40,7 +40,7 @@
   ]
 
   #notes[
-    La copie est le premier geste, et il compte : le notebook lit `depart/`
+    La copie est la première étape, et elle compte : le notebook lit `depart/`
     par un chemin qui remonte d'un cran, `..`, ce qui suppose qu'il est dans
     `travail/`. Ouvert depuis `depart/notebook/`, il ne trouverait rien.
 
