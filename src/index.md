@@ -7,8 +7,8 @@ géomatique). Les pages contiennent le texte du cours, les TD à faire en
 séance, et le code exécuté pour produire les résultats affichés.
 
 Commencez par l'[introduction](introduction.md), qui décrit l'objectif du module
-et son articulation avec les autres cours, puis par les vérifications à faire
-[avant les séances](avant/verifications.md). Les annexes détaillent la configuration
+et son articulation avec les autres cours, puis par les [premiers tests du poste](avant/poste.md),
+avant la séance 1. Les annexes détaillent la configuration
 de JupyterLab et de VS Code, et les problèmes rencontrés en séance.
 
 Les fichiers des TD, une archive par séance, sont dans
@@ -24,15 +24,13 @@ introduction
 :maxdepth: 1
 :caption: Avant les séances
 
-avant/verifications
-avant/reseau
-avant/bureautique
-avant/anaconda
+avant/poste
 avant/donnees
+avant/python
 ```
 
 ```{toctree}
-:maxdepth: 2
+:maxdepth: 1
 :caption: Séances
 
 cours1/index
@@ -45,7 +43,7 @@ cours7/index
 ```
 
 ```{toctree}
-:maxdepth: 3
+:maxdepth: 1
 :titlesonly:
 :caption: Annexes
 
@@ -55,9 +53,3 @@ annexes/notions/index
 annexes/faq
 annexes/plus_loin/index
 ```
-
----
-
-Les diapositives projetées en séance sont dans `src/cours<n>/diapo/`, les jeux de
-données dans `data/`, et le déroulé destiné à l'enseignant dans `syllabus/`.
-La construction des supports est décrite dans `INSTALLATION.md`.

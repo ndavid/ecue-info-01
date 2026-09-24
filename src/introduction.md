@@ -1,53 +1,55 @@
 ---
 title: Introduction
-subtitle: Ce que ce module vous apporte, et ce qu'il ne traite pas
+subtitle: Objectif, contenu et organisation du module
 ---
 
-## À quoi sert ce module
+## Objectif du module
 
-Plusieurs cours de votre formation supposent que vous savez déjà installer un
-environnement Python, ouvrir un projet dans un éditeur, lancer un script et
-récupérer un fichier de résultats. Ces gestes sont rarement enseignés : ils sont
-attendus.
+Plusieurs cours de la formation demandent d'installer un environnement
+Python, d'ouvrir un projet dans un éditeur, de lancer un script et de
+récupérer un fichier de résultats. Ces cours supposent ces opérations
+acquises, et aucun ne les enseigne.
 
-Ce module les enseigne. Son objectif est que vous arriviez dans les cours de
-programmation, et dans les TD qui utilisent Python, sans perdre de temps sur
-l'outillage. Ce que vous y apprendrez ne sert pas qu'ici : ce sont les mêmes
-gestes dans tous les cours où l'informatique intervient comme moyen et non comme
-objet d'étude.
+Ce module les enseigne, pour que vous arriviez dans les cours de
+programmation et dans les TD qui emploient Python sans perdre de temps sur
+l'outillage. Les mêmes opérations reviennent dans tous les cours où
+l'informatique sert d'outil de travail.
 
-## Ce que le module couvre
+## Contenu du module
 
-**Les outils de la programmation.** En premier lieu l'édition de texte. Écrire
-du code demande un éditeur adapté, qui n'est pas un traitement de texte. Vous
-verrez ce qui les distingue, et pourquoi un fichier de code ne se manipule pas
-comme un rapport.
+Le module couvre quatre domaines.
 
-**Le versionnement avec git.** Une initiation, pas une maîtrise complète :
-enregistrer l'état de son travail, revenir en arrière sans crainte, et travailler
-à plusieurs sur les mêmes fichiers. Git revient à chaque séance, sur des
-exercices sans enjeu, jusqu'à devenir un réflexe.
+Les outils de la programmation
+: D'abord l'édition de texte. Écrire du code demande un éditeur de code ;
+  le module montre ce qui le distingue d'un traitement de texte, et ce que
+  cela change pour les fichiers qu'on écrit.
 
-**La forme d'un projet informatique.** Comment structurer un projet pour qu'il
-soit repris par quelqu'un d'autre, ou par vous dans six mois. En pratique :
-initialiser un projet avec un `README`, décrire son environnement pour qu'il
-s'installe ailleurs, manipuler les fichiers avec les bibliothèques Python
-prévues pour cela, et écrire un outil en ligne de commande dont les paramètres
-se passent en argument plutôt qu'en modifiant le code.
+Le versionnement avec git
+: Une initiation : enregistrer l'état de son travail, revenir à une
+  version antérieure, et travailler à plusieurs sur les mêmes fichiers. Git
+  est introduit à la séance 2, puis repris dans les séances suivantes sur
+  des exercices courts.
 
-**Des notions générales d'informatique.** Réparties en apartés au fil des
-séances : ordres de grandeur (mémoire, temps de calcul, débit réseau), notions
-de sécurité (clés, secrets, ce qu'on ne publie pas), et outils en ligne de
-commande. Ces apartés expliquent *pourquoi* certaines façons de faire sont plus
-rapides ou plus sûres que d'autres.
+L'organisation d'un projet
+: Structurer un projet pour qu'une autre personne puisse le reprendre : un
+  `README` qui le présente, un fichier qui décrit son environnement pour
+  l'installer sur une autre machine, la manipulation des fichiers avec les
+  bibliothèques Python prévues pour cela, et un outil en ligne de commande
+  dont les paramètres se passent en argument, sans modifier le code.
 
-## Ce que le module ne couvre pas
+Des notions générales d'informatique
+: Les ordres de grandeur (mémoire, temps de calcul, débit réseau), la
+  sécurité (clés, secrets, ce qu'on ne publie pas) et les outils en ligne
+  de commande. Ces notions sont réparties au fil des séances ; elles
+  expliquent pourquoi une façon de faire est plus rapide ou plus sûre
+  qu'une autre.
 
-Ce cours ne traite pas d'algorithmique. Écrire un algorithme, choisir une
-structure de données, raisonner sur la complexité : c'est l'objet du cours de
-programmation qui se déroule en parallèle.
+## Hors du module
 
-La distinction se résume ainsi :
+L'algorithmique n'est pas traitée ici. Écrire un algorithme, choisir une
+structure de données et raisonner sur la complexité relèvent du cours de
+programmation, qui a lieu en parallèle. Le tableau donne des exemples de
+questions, et le cours qui les traite.
 
 ```{list-table}
 :header-rows: 1
@@ -72,14 +74,15 @@ La distinction se résume ainsi :
   -
 ```
 
-Les deux cours sont complémentaires. Un algorithme correct dans un projet
-inexploitable ne sert à personne, et l'inverse est vrai aussi.
+Les deux cours se complètent : le cours de programmation porte sur le code
+lui-même, ce module sur les fichiers, les outils et l'environnement qui le
+font fonctionner.
 
 ## Organisation
 
-Sept séances de deux heures. Chaque séance alterne des explications courtes et
-des TD faits en direct sur votre machine. Aucune séance n'est un exposé
-continu.
+Le module compte sept séances de deux heures. Chaque séance alterne des
+explications courtes et des TD faits sur machine. Les séances 4 et 7 sont
+des projets, qui se terminent par un livrable.
 
 ```{list-table}
 :header-rows: 1
@@ -94,13 +97,13 @@ continu.
   - Ligne de commande et git local
   - cours
 * - 3
-  - Binaire, données et construction d'une CLI
+  - Chemins, fichiers, images et ligne de commande
   - cours
 * - 4
   - Studio d'automatisation (animation vidéo)
   - projet
 * - 5
-  - Matériel, réseau, SSH et secrets
+  - Matériel, réseau, mots de passe, clés SSH et secrets
   - cours
 * - 6
   - Forge, git en équipe, outil « trajectoire »
@@ -110,17 +113,19 @@ continu.
   - projet
 ```
 
-Les exemples empruntent parfois au domaine de la géomatique (des coordonnées,
-une distance, une trajectoire), mais aucun ne suppose une notion qui n'a pas
-encore été vue.
+Certains exemples viennent de la géomatique (des coordonnées, une distance,
+une trajectoire). Aucun ne suppose une notion qui n'a pas encore été vue.
 
-## Ce que vous saurez faire à la fin
+## Compétences visées
 
-- Ouvrir un projet dans un éditeur de code et vous y retrouver.
-- Reconnaître ce que contient un fichier, indépendamment de son extension.
-- Installer un environnement Python et le décrire pour qu'un autre l'installe.
-- Enregistrer votre travail avec git, revenir en arrière, et contribuer à un
-  dépôt partagé.
-- Écrire un script Python qui lit des fichiers, en produit d'autres, et accepte
-  ses paramètres en ligne de commande.
-- Estimer si une opération va prendre une seconde ou une heure, et pourquoi.
+À la fin du module, vous savez :
+
+- ouvrir un projet dans un éditeur de code et vous y retrouver ;
+- reconnaître ce que contient un fichier, indépendamment de son extension ;
+- installer un environnement Python, et le décrire pour qu'une autre personne
+  l'installe ;
+- enregistrer votre travail avec git, revenir à une version antérieure, et
+  contribuer à un dépôt partagé ;
+- écrire un script Python qui lit des fichiers, en produit d'autres, et reçoit
+  ses paramètres en ligne de commande ;
+- estimer l'ordre de grandeur de la durée d'une opération, et l'expliquer.

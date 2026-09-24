@@ -23,7 +23,7 @@ salle de trois façons, sans droits d'administrateur.
 | Il faut le réseau | non | oui, à la création | non |
 
 Les trois contiennent le même git, le même bash et les mêmes commandes
-unix. Cmder s'emploie s'il est là ; sinon, git par conda est le geste du
+unix. Cmder s'emploie s'il est là ; sinon, git par conda reprend ce que fait le
 TD 4a, et l'archive portable évite le réseau.
 
 Pour savoir si le Cmder d'un poste est l'édition complète : le dossier
@@ -153,7 +153,9 @@ profil s'écrit à la main :
 ```
 
 Menu Terminal, New Terminal, puis la flèche à côté du `+` pour choisir
-« Git Bash ». VS Code ne connaît aucune commande de bash : il lance
+« Git Bash », et vérifier dans la liste des terminaux que c'est lui qui
+est affiché ({ref}`VS Code, section Choisir le terminal à ouvrir
+<vscode-terminal-choisir>`). VS Code ne connaît aucune commande de bash : il lance
 `bash.exe`, et bash trouve `git`, `ls` et les autres tout seul
 ([Git Bash : une fenêtre, bash et des programmes](../notions/git_bash.md)).
 

@@ -12,7 +12,7 @@ utilisateurs, dans `C:\ProgramData\anaconda3`.
 Anaconda se lance de deux façons : par une interface graphique, Anaconda
 Navigator, ou en ligne de commande, l'Anaconda Prompt. Les deux donnent
 accès aux mêmes applications et au même Python. Le test des deux est dans
-[Tester Anaconda](../../avant/anaconda.md).
+[Anaconda, JupyterLab et VS Code](../../avant/python.md).
 
 ## Lancer Anaconda Navigator
 

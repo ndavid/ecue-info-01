@@ -16,7 +16,7 @@ lancer avec les options proposées par défaut. Sous Windows, choisir
 sans droits d'administrateur.
 
 Vérifier ensuite comme sur les postes de la salle
-([Tester Anaconda](../avant/anaconda.md)) : sous Windows, dans l'Anaconda
+([Anaconda, JupyterLab et VS Code](../avant/python.md)) : sous Windows, dans l'Anaconda
 Prompt ; sous macOS et Linux, dans le Terminal, où l'invite commence par
 `(base)` dès l'installation.
 

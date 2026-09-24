@@ -3,7 +3,7 @@ title: Problèmes de réseau et de compte
 subtitle: Session réseau, proxy, droits du compte
 ---
 
-Le test du réseau est dans [Tester le réseau](../../avant/reseau.md).
+Le test du réseau est dans [Premiers tests du poste](../../avant/poste.md).
 
 (dep-reseau)=
 ## Problèmes
@@ -20,12 +20,12 @@ Ce qu'on voit
 
 Cause
 : La session réseau n'est pas ouverte, ou elle a expiré
-  ([Tester le réseau](../../avant/reseau.md)).
+  ([Premiers tests du poste](../../avant/poste.md)).
 
 Vérifier
 : Ouvrir <https://code.visualstudio.com> dans Firefox. Dans un `cmd`,
   `curl.exe -sS -I -m 10 https://repo.anaconda.com` doit répondre par une
-  ligne `HTTP/… 200` ([exemple](../../avant/reseau.md)).
+  ligne `HTTP/… 200`.
 
 Remède
 : Lancer le raccourci d'authentification du bureau [à compléter : nom

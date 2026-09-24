@@ -30,23 +30,17 @@ c'est le sujet du TD 3b.
 
 ## Tester JupyterLab
 
-Ce test vérifie que Python exécute du code sur le poste, sans rien
-configurer. Il se fait après avoir [testé Anaconda](../../avant/anaconda.md).
-
-| Ce qu'on fait | Ce qu'on doit voir | Sinon |
-|---|---|---|
-| Dans Anaconda Navigator, fiche JupyterLab, bouton Launch | une fenêtre noire, puis un onglet de Firefox à une adresse qui commence par `localhost:8888/lab` | {ref}`J5 <dep-j5>` |
-| Dans l'onglet, sous « Notebook », cliquer « Python 3 » | un notebook vide, avec une cellule | {ref}`J1 <dep-j1>` |
-| Taper `import sys; print(sys.executable)` dans la cellule, puis `Maj` + `Entrée` | le chemin d'Anaconda, le même que dans l'Anaconda Prompt | {ref}`J4 <dep-j4>` |
-| Menu File, Shut Down, puis fermer l'onglet | la fenêtre noire se ferme | |
+Le test, qui vérifie que Python exécute du code sur le poste sans rien
+configurer, est dans [Anaconda, JupyterLab et VS
+Code](../../avant/python.md), après celui d'Anaconda.
 
 ## Lancer JupyterLab depuis l'Anaconda Prompt
 
-Navigator fait deux gestes quand on clique Launch : il active
+Navigator fait deux choses quand on clique Launch : il active
 l'environnement affiché en haut de sa page, puis il lance `jupyter lab`.
-Les mêmes gestes se font dans l'Anaconda Prompt, ou dans le terminal
+Les deux mêmes commandes se tapent dans l'Anaconda Prompt, ou dans le terminal
 « Anaconda Prompt » de VS Code ([Python et environnement conda](vscode_python.md)),
-et ils montrent ce que la fiche cache.
+et elles montrent ce que la fiche cache.
 
 `jupyter lab` n'est pas une commande de Windows : c'est un programme de
 l'environnement actif, celui que l'invite affiche entre parenthèses.

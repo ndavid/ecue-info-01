@@ -7,8 +7,7 @@ Spyder est un éditeur de code pour Python, livré avec Anaconda et installé
 sur les postes de la salle, dans l'environnement `base`. Le module ne
 l'emploie pas en séance (VS Code et JupyterLab), mais d'autres cours
 l'emploient. Cette page dit comment Spyder exécute du code, quel Python il
-utilise, et ce qu'il fait d'un notebook. Son test est dans [Tester
-Anaconda](../../avant/anaconda.md) ; le choix entre les trois outils, dans
+utilise, et ce qu'il fait d'un notebook. Son test est en fin de page ; le choix entre les trois outils, dans
 [Choisir entre JupyterLab, Spyder et VS Code](outils.md).
 
 Spyder se lance depuis le menu Démarrer (taper `spyder`), depuis la fiche
@@ -114,7 +113,7 @@ Elles se tapent dans l'Anaconda Prompt.
 
 Spyder édite des fichiers `.py`. Un fichier `.ipynb` ouvert dans son éditeur
 s'affiche tel qu'il est écrit sur le disque : du JSON, le format interne du
-notebook, montré dans le [cours 1](../../cours1/notebook/03_environnement_python.md).
+notebook, montré dans le [cours 1](../../cours1/notebook/03_markdown_notebook.md).
 Pour l'exécuter, deux possibilités.
 
 ### Convertir le notebook en fichier Python

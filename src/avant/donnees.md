@@ -5,11 +5,24 @@ subtitle: Le dossier partagé formationTemp, la copie dans Desktop\info01, la d�
 
 Les fichiers des TD d'une séance (textes, images, notebooks, feuilles de TD
 en PDF) sont dans une archive `.zip`, un fichier par séance :
-`info01-cours1.zip` pour le cours 1, `info01-cours3.zip` pour le cours 3.
+
+- `info01-cours1.zip` pour le cours 1 ;
+- `info01-cours3.zip` pour le cours 3.
+
 Avant la séance, l'archive est déposée dans le dossier partagé
 `formationTemp`, sur un serveur de l'école. Il faut la copier sur le poste,
-puis la décompresser, avant d'ouvrir le premier fichier. Ces deux étapes
-prennent une minute.
+puis la décompresser, avant d'ouvrir le premier fichier :
+
+1. copier l'archive : sur le Bureau, ouvrir le raccourci `formationTemp`,
+   et copier l'archive de la séance dans le dossier `info01` du Bureau,
+   `C:\Users\eleve\Desktop\info01`, à créer la première fois ;
+2. décompresser l'archive : clic droit sur l'archive copiée, « Extraire
+   tout… », puis effacer la fin du dossier proposé pour garder
+   `C:\Users\eleve\Desktop\info01`. Le dossier de la séance, `cours1`
+   pour le cours 1, apparaît à côté de l'archive.
+
+Chaque étape est détaillée plus bas, dans les {ref}`instructions
+détaillées <instructions-detaillees>`.
 
 :::{warning}
 **Ne pas travailler dans le dossier partagé.**
@@ -24,7 +37,10 @@ elle doit commencer par `C:\Users\eleve\Desktop\info01`. Si elle commence
 par `\\` ou par une autre lettre que `C:`, on est dans le dossier partagé.
 :::
 
-## Ouvrir le dossier partagé
+(instructions-detaillees)=
+## Instructions détaillées
+
+### Ouvrir le dossier partagé
 
 1. Sur le Bureau, double-cliquer sur le raccourci `formationTemp`.
 2. Windows demande un nom d'utilisateur et un mot de passe : entrer ses
@@ -33,7 +49,7 @@ par `\\` ou par une autre lettre que `C:`, on est dans le dossier partagé.
 3. Le dossier s'ouvre dans l'explorateur de fichiers. Il contient l'archive
    de la séance, `info01-cours1.zip` pour le cours 1.
 
-## Copier l'archive dans un dossier du Bureau
+### Copier l'archive dans un dossier du Bureau
 
 L'archive se copie dans un dossier `info01`, sur le Bureau du poste. Le
 Bureau se retrouve sans chercher et son chemin est court ; le dossier
@@ -55,7 +71,7 @@ L'explorateur affiche le Bureau sous le nom « Bureau ». Son nom réel,
 celui qu'on lit dans un chemin ou dans un terminal, est `Desktop`.
 :::
 
-## Décompresser l'archive
+### Décompresser l'archive
 
 Un fichier `.zip` est un seul fichier, qui contient des dossiers et des
 fichiers compressés. L'explorateur de Windows l'affiche comme un dossier :

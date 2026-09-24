@@ -3,8 +3,8 @@ title: Problèmes avec les logiciels de texte et de bureautique
 subtitle: Bloc-notes, Notepad++, explorateur de fichiers
 ---
 
-Le test de ces logiciels est dans [Tester les logiciels de texte et de
-bureautique](../../avant/bureautique.md).
+Le test de ces logiciels est dans [Premiers tests du
+poste](../../avant/poste.md).
 
 (dep-bureautique)=
 ## Problèmes

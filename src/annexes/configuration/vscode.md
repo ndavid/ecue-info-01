@@ -1,6 +1,6 @@
 ---
 title: VS Code
-subtitle: L'éditeur de code du module, et ses gestes de base
+subtitle: L'éditeur de code du module ; ouvrir un dossier, la palette, les extensions, les réglages
 ---
 
 VS Code est l'éditeur de code du module. Seul, il ne sait pas exécuter du
@@ -57,7 +57,7 @@ clique Install.
 :::{warning}
 Installer une extension demande une connexion réseau qui fonctionne : les
 extensions sont téléchargées depuis un serveur. Sur les postes de la
-salle, ouvrir la session réseau avant ([Tester le réseau](../../avant/reseau.md)).
+salle, ouvrir la session réseau avant ([Premiers tests du poste](../../avant/poste.md)).
 Sans réseau, le panneau reste vide ou l'installation ne finit pas
 ({ref}`V3 <dep-v3>`).
 :::
@@ -137,6 +137,50 @@ dépend du clavier, {ref}`V9 <dep-v9>`). Par défaut, c'est un PowerShell.
 Sur les postes de la salle, il faut lui substituer un `cmd`, que
 l'extension Python sait activer : c'est le réglage décrit dans [Python et
 environnement conda](vscode_python.md).
+
+(vscode-terminal-choisir)=
+### Choisir le terminal à ouvrir
+
+En haut à droite du panneau du terminal, le bouton `+` ouvre un nouveau
+terminal, du type par défaut. La petite flèche juste à sa droite ouvre la
+liste des types de terminal que VS Code connaît, ses profils :
+PowerShell, Command Prompt (le `cmd`), Git Bash quand il est installé
+([Git et Git Bash](git.md)). Cliquer sur un nom ouvre un nouveau terminal
+de ce type.
+
+```{figure} captures/vscode_terminal_choisir.png
+:alt: Le panneau du terminal ; le bouton plus et sa flèche sont encadrés en haut à droite, et la liste ouverte propose PowerShell, Git Bash, Command Prompt et d'autres profils
+:width: 100%
+
+La flèche à côté du `+`, et la liste des profils (documentation VS Code,
+CC BY 3.0 US).
+```
+
+En bas de la même liste, « Select Default Profile » change le type ouvert
+par le `+` et par le menu Terminal, New Terminal.
+
+### Voir les terminaux ouverts
+
+Ouvrir un terminal ne ferme pas le précédent. Avec un seul terminal
+ouvert, son nom est écrit en haut à droite du panneau, à gauche du `+`
+(« powershell » dans la capture précédente). À partir de deux, une liste
+apparaît sur la droite du panneau, une ligne par terminal, avec l'icône et
+le nom de son type. La ligne surlignée est le terminal affiché, celui qui
+reçoit ce qu'on tape ; cliquer sur une autre ligne affiche l'autre
+terminal. L'icône de corbeille, au survol d'une ligne, ferme ce terminal.
+
+```{figure} captures/vscode_terminal_liste.png
+:alt: Le panneau du terminal avec, à droite, la liste des terminaux ouverts : debian, ubuntu, pwsh surligné, cmd, JavaScript Debug Terminal ; pwsh et cmd sont affichés côte à côte
+:width: 100%
+
+La liste des terminaux ouverts, à droite du panneau. Ici, `pwsh`
+(PowerShell) et `cmd` sont affichés côte à côte, ce que le trait qui les
+relie dans la liste indique (documentation VS Code, CC BY 3.0 US).
+```
+
+L'invite dit aussi dans quel terminal on se trouve : celle de PowerShell
+commence par `PS`, celle du `cmd` se termine par `>`, et celle de Git Bash
+par `$`.
 
 ## Fichiers utiles
 

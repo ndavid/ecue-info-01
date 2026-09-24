@@ -17,7 +17,7 @@ les suivantes décrivent chaque logiciel, dans l'ordre où on s'en sert :
 - [Spyder](spyder.md), employé dans d'autres cours
 
 Les vérifications à faire avant les séances sont dans
-[Vérifier les postes](../../avant/verifications.md) ; l'installation chez
+[Premiers tests du poste](../../avant/poste.md) ; l'installation chez
 soi, dans [Installation sur un ordinateur personnel](../poste_personnel.md) ;
 les problèmes rencontrés en séance, dans la [FAQ](../faq.md) ; ce que sont
 un terminal et une variable d'environnement, dans [Notions](../notions/index.md).
