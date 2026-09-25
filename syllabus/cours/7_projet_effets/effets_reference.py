@@ -1,4 +1,8 @@
-"""Projet 7 — les quatre effets, en boucle et avec numpy : implémentation de référence.
+"""Projet 7 — les effets, en boucle et avec numpy : implémentation de référence.
+
+Les quatre effets communs aux TD 4a, 4b et 4c, puis deux effets écrits pour le
+TD 4c (la fenêtre du train) : `poteaux`, qui s'applique aussi aux deux autres
+TD, et `parallaxe`, qui demande le décor du TD 4c.
 
 Sert à préparer le guide et le corrigé, et à mesurer les temps. Chaque effet
 prend une image (tableau numpy de forme (hauteur, largeur, 3), type uint8) et
@@ -145,19 +149,107 @@ def vieux_numpy(image, numero):
     return resultat
 
 
+# ---- Poteaux (TD 4c, mais s'applique aux trois TD) -----------------------------
+# Des bandes verticales assombries, qui avancent très vite vers la droite :
+# l'ombre des poteaux le long de la voie. La colonne x est dans une bande si
+# (x - VITESSE_POTEAUX × numero) modulo ECART_POTEAUX est plus petit que
+# LARGEUR_POTEAU ; chaque valeur y est multipliée par 6/10.
+
+ECART_POTEAUX = 400
+LARGEUR_POTEAU = 24
+VITESSE_POTEAUX = 90
+
+
+def poteaux_boucle(image, numero):
+    hauteur, largeur, _ = image.shape
+    resultat = image.copy()
+    for y in range(hauteur):
+        for x in range(largeur):
+            if (x - VITESSE_POTEAUX * numero) % ECART_POTEAUX < LARGEUR_POTEAU:
+                for c in range(3):
+                    resultat[y, x, c] = int(image[y, x, c]) * 6 // 10
+    return resultat
+
+
+def poteaux_numpy(image, numero):
+    largeur = image.shape[1]
+    colonnes = (np.arange(largeur) - VITESSE_POTEAUX * numero) % ECART_POTEAUX < LARGEUR_POTEAU
+    resultat = image.copy()
+    # En uint8, 200 * 6 dépasse 255 et le résultat est faux : calcul en uint16.
+    resultat[:, colonnes] = image[:, colonnes].astype(np.uint16) * 6 // 10
+    return resultat
+
+
+# ---- Parallaxe (TD 4c seulement) ----------------------------------------------
+# Un second plan, la plage orange (bande RGBA de 1 920 pixels), décalé de
+# VITESSE_PLAGE × numero pixels vers la droite, plus vite que le plan du TD 4c.
+# Le pixel (y, x) prend la couleur du pixel (y, (x - d) modulo 1 920) de la
+# plage si ce pixel est opaque et si (y, x) est dans la vitre de la fenêtre.
+# DONNEES["plage"] : la bande (hauteur, 1 920, 4) ; DONNEES["vitre"] : un
+# tableau de booléens (hauteur, largeur), vrai dans la vitre.
+
+VITESSE_PLAGE = 16
+DONNEES = {}
+
+
+def parallaxe_boucle(image, numero):
+    hauteur, largeur, _ = image.shape
+    plage = DONNEES["plage"]
+    vitre = DONNEES["vitre"]
+    largeur_plage = plage.shape[1]
+    d = VITESSE_PLAGE * numero
+    resultat = image.copy()
+    for y in range(hauteur):
+        for x in range(largeur):
+            xp = (x - d) % largeur_plage
+            if vitre[y, x] and plage[y, xp, 3] > 0:
+                resultat[y, x] = plage[y, xp, :3]
+    return resultat
+
+
+def parallaxe_numpy(image, numero):
+    largeur = image.shape[1]
+    decalee = np.roll(DONNEES["plage"], VITESSE_PLAGE * numero, axis=1)[:, :largeur]
+    masque = DONNEES["vitre"] & (decalee[:, :, 3] > 0)
+    resultat = image.copy()
+    resultat[masque] = decalee[:, :, :3][masque]
+    return resultat
+
+
+def donnees_parallaxe_essai():
+    """Une plage et une vitre au hasard, pour le test : alpha 0 ou 255, vitre à bords droits."""
+    hasard = np.random.default_rng(1)
+    plage = hasard.integers(0, 256, size=(480, 1920, 4), dtype=np.uint8)
+    plage[:, :, 3] = np.where(plage[:, :, 3] > 127, 255, 0)
+    vitre = np.zeros((480, 640), dtype=bool)
+    vitre[30:450, 40:600] = True
+    return plage, vitre
+
+
 EFFETS = {
     "thermique": (thermique_boucle, thermique_numpy),
     "glitch": (glitch_boucle, glitch_numpy),
     "pixel": (pixel_boucle, pixel_numpy),
     "vieux": (vieux_boucle, vieux_numpy),
+    "poteaux": (poteaux_boucle, poteaux_numpy),
+    "parallaxe": (parallaxe_boucle, parallaxe_numpy),
 }
 
 
 if __name__ == "__main__":
     image = np.random.default_rng(0).integers(0, 256, size=(480, 640, 3), dtype=np.uint8)
-    petite = image[:48, :64].copy()
+    DONNEES["plage"], DONNEES["vitre"] = donnees_parallaxe_essai()
     for nom, (boucle, avec_numpy) in EFFETS.items():
-        egal = np.array_equal(boucle(petite, 3), avec_numpy(petite, 3))
+        # Une petite image pour l'égalité ; pleine largeur pour les poteaux
+        # (bandes espacées de 400 pixels), pleine taille pour la parallaxe
+        # (la vitre et la plage font 480 pixels de haut).
+        if nom == "parallaxe":
+            petite = image
+        elif nom == "poteaux":
+            petite = image[:48].copy()
+        else:
+            petite = image[:48, :64].copy()
+        egal = all(np.array_equal(boucle(petite, n), avec_numpy(petite, n)) for n in (1, 3, 50))
         debut = time.perf_counter()
         boucle(image, 3)
         milieu = time.perf_counter()

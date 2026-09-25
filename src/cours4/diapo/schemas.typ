@@ -85,6 +85,20 @@
   hauteur-vignette: hauteur-vignette,
 )
 
+#let programme-train(hauteur-vignette: auto) = programme(
+  (
+    ("1", "Lire les options", "Python", [`argparse` : le nombre d'images, la cadence, le dossier du décor]),
+    ("2", "Calculer les décalages", "Python", [0, 8, 16 … pixels : un décalage par image]),
+    ("3", "Décaler le plan", "ImageMagick", [`-roll` : la bande de 1 920 pixels revient au début]),
+    ("4", "Composer chaque image", "ImageMagick", [`-composite` : le fond, le plan décalé, la fenêtre]),
+    ("5", "Assembler la vidéo", "ffmpeg", [120 images, 12 par seconde : 10 secondes]),
+  ),
+  range(1, 6).map(i => "/illustrations/cours4/train_" + str(i) + ".jpg"),
+  ("0 px", "240 px", "480 px", "720 px", "952 px"),
+  [`train.mp4`],
+  hauteur-vignette: hauteur-vignette,
+)
+
 // ---------------------------------------------------------------------------
 // Les étapes des TD 4a et 4b, en résumé : une diapositive par groupe
 // d'étapes, « ce qu'il faut faire » et « ce que vous devez obtenir ». Le

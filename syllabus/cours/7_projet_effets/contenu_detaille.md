@@ -54,6 +54,10 @@ Tous les calculs sont en entiers : la version boucle et la version numpy donnent
 
 Chaque fonction d'effet a la même forme : elle prend l'image (tableau numpy) et le numéro de l'image dans la série, et renvoie une nouvelle image de même forme. Le numéro ne sert qu'au glitch.
 
+## Variante pour le TD 4c (la fenêtre du train)
+
+Les élèves du TD 4c ont deux effets propres, `poteaux` puis `parallaxe`, avec leur notebook et leur guide (TD 7b) : voir [variante_train.md](variante_train.md). `poteaux` ne dépend pas du décor et peut s'ajouter aux quatre effets ci-dessus comme cinquième choix pour les trois TD ; son implémentation de référence est dans [`effets_reference.py`](effets_reference.py).
+
 ## Le code ajouté au programme du projet 4
 
 Fourni tel quel dans le guide (la « plomberie »), testé le 24/09 sur des images PNG 640 × 480 :

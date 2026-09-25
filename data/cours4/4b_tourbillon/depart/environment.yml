@@ -1,4 +1,4 @@
-# L'environnement des TD 4a et 4b : Python, JupyterLab pour exécuter le
+# L'environnement des TD 4a, 4b et 4c : Python, JupyterLab pour exécuter le
 # notebook, ImageMagick pour dessiner les images, ffmpeg pour la vidéo.
 #
 #   conda env create -f environment.yml

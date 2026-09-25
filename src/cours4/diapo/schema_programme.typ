@@ -6,14 +6,17 @@
 //
 // Appelé par `data/cours4/make_data.py build`.
 #import "../../commun/prelude.typ": *
-#import "schemas.typ": programme-montre, programme-tourbillon
+#import "schemas.typ": programme-montre, programme-tourbillon, programme-train
 
 #set page(width: 27cm, height: auto, margin: 10pt, fill: white)
 #set text(font: police-texte, size: 13pt, fill: accent, lang: "fr")
 #show raw: set text(font: police-code)
 
-#if sys.inputs.at("td", default: "montre") == "tourbillon" {
+#let td = sys.inputs.at("td", default: "montre")
+#if td == "tourbillon" {
   programme-tourbillon()
+} else if td == "train" {
+  programme-train()
 } else {
   programme-montre()
 }

@@ -1,4 +1,4 @@
-"""Écrit les corrigés par étape des TD 4a (montre) et 4b (tourbillon).
+"""Écrit les corrigés par étape des TD 4a (montre), 4b (tourbillon) et 4c (train).
 
 Le programme de chaque TD grandit par fonctionnalités, une branche git par
 fonctionnalité :
@@ -7,7 +7,7 @@ fonctionnalité :
     B2  une série d'images une image par valeur du paramètre, dans sortie/images/
     B3  la vidéo           ffmpeg assemble la série ; --nettoyer supprime les images
 
-Le code est écrit ici en morceaux, un par commit, et les deux TD ont les
+Le code est écrit ici en morceaux, un par commit, et les trois TD ont les
 mêmes morceaux : leurs étapes restent identiques, seules les fonctions de
 dessin et les options changent. `version(nom, etat)` assemble le fichier tel
 qu'il est après un commit donné ; `generer_guides.py` importe ce module pour
@@ -483,8 +483,148 @@ T["main-b3"] = (_T_DEBUT_MAIN + '''    analyseur.add_argument("-m", "--maximum",
                 print("images intermédiaires supprimées")
 ''')
 
-PIECES = {"montre": M, "tourbillon": T}
-TD = {"montre": "4a_montre", "tourbillon": "4b_tourbillon"}
+# ======================================================================== train
+
+F = {}
+F["doc"] = '''"""La fenêtre du train : une image, une série d'images ou une vidéo.
+
+Le décalage du paysage est calculé par Python, chaque image composée par
+ImageMagick, la vidéo assemblée par ffmpeg.
+
+    python train.py --decalage 200
+    python train.py --images 120
+    python train.py --images 120 --video --cadence 12 --nettoyer
+    python train.py --help
+
+À lancer dans l'environnement `animation` ; le décor est lu dans `decor/`,
+les fichiers sont écrits dans `sortie/`, dans le dossier du terminal.
+"""
+'''
+F["imports"] = '''import argparse
+import subprocess
+from pathlib import Path
+'''
+# Pas de texte sur les images : pas de police.
+F["outils"] = '''
+# Les programmes
+MAGICK = "magick"
+FFMPEG = "ffmpeg"
+
+# Les fichiers produits vont dans sortie/, dans le dossier du terminal
+SORTIE = Path.cwd() / "sortie"
+IMAGES = SORTIE / "images"
+'''
+F["dessin"] = '''
+
+# ---- Une image (sections 2 à 4 du notebook) ---------------------------------
+''' + LANCER + '''
+
+def image(fichier, decor, decalage):
+    """Une image 640 × 480 : le fond, le plan décalé de `decalage` pixels vers la droite, puis la fenêtre."""
+    commande = [MAGICK, str(decor / "fond.png"),
+                "(", str(decor / "plan.png"), "-roll", "+" + str(decalage) + "+0",
+                "-crop", "640x480+0+0", "+repage", ")", "-composite",
+                str(decor / "fenetre.png"), "-composite"]
+    commande.append(str(fichier))
+    lancer(commande)
+'''
+F["options"] = ""
+F["serie"] = '''
+
+# ---- Une série d'images (sections 5 et 6 du notebook) -----------------------
+
+VITESSE = 8           # le décalage de plus à chaque image, en pixels
+
+
+def decalages(nombre, vitesse):
+    """Le décalage de chaque image : 0, puis `vitesse` pixels de plus à chaque image."""
+    liste = []
+    for numero in range(nombre):
+        liste.append(numero * vitesse)
+    return liste
+
+
+def serie(decor, nombre):
+    """`nombre` images, le plan un peu plus décalé à chaque image, dans IMAGES ; renvoie le nombre d'images."""
+    IMAGES.mkdir(parents=True, exist_ok=True)
+    for ancienne in IMAGES.glob("img_*.png"):
+        ancienne.unlink()
+    liste = decalages(nombre, VITESSE)
+    numero = 0
+    for decalage in liste:
+        numero = numero + 1
+        fichier = IMAGES / ("img_" + str(numero).zfill(4) + ".png")
+        image(fichier, decor, decalage)
+    return len(liste)
+'''
+F["nettoyer"] = '''
+
+def nettoyer():
+    """Supprime les fichiers intermédiaires : le dossier des images de la série."""
+    shutil.rmtree(IMAGES)
+'''
+_F_DEBUT_MAIN = '''
+
+# ---- Le programme ------------------------------------------------------------
+
+def main():
+    analyseur = argparse.ArgumentParser(description="La fenêtre du train : une image, une série d'images ou une vidéo.")
+    analyseur.add_argument("-d", "--decalage", type=int, default=0, help="le décalage du paysage d'une image seule, en pixels (défaut : 0)")
+    analyseur.add_argument("--decor", default="decor", help="le dossier des images du décor (défaut : decor)")
+'''
+_F_SERIE = '''    analyseur.add_argument("-n", "--images", type=int, help="une série : ce nombre d'images, le paysage décalé de 8 pixels de plus à chaque image")
+'''
+_F_DECOR = '''    decor = Path(options.decor)
+    if not (decor / "plan.png").exists():
+        analyseur.error("décor introuvable : " + options.decor)
+    SORTIE.mkdir(exist_ok=True)
+'''
+_F_UNE_IMAGE = '''fichier = SORTIE / ("train_" + str(options.decalage).zfill(4) + ".png")
+image(fichier, decor, options.decalage)
+print(fichier)
+'''
+_F_VIDEO_OPTIONS = '''    analyseur.add_argument("--video", action="store_true", help="assemble la série en vidéo (avec --images)")
+    analyseur.add_argument("-c", "--cadence", type=int, default=12, help="images par seconde de la vidéo (défaut : 12)")
+'''
+_F_VIDEO_ERREUR = '''    if options.video and options.images is None:
+        analyseur.error("--video demande une série : ajouter --images")
+'''
+_F_SI_SERIE = '''
+    if options.images is None:
+        # Une image
+''' + _indenter(_F_UNE_IMAGE, 2) + '''    else:
+        # Une série d'images
+        nombre = serie(decor, options.images)
+        print(nombre, "images dans", IMAGES)
+'''
+
+F["main-b1"] = (_F_DEBUT_MAIN + '''    options = analyseur.parse_args()
+''' + _F_DECOR + '''
+    # Une image
+''' + _indenter(_F_UNE_IMAGE))
+F["main-b2"] = (_F_DEBUT_MAIN + _F_SERIE + '''    options = analyseur.parse_args()
+''' + _F_DECOR + _F_SI_SERIE)
+F["main-b3-video"] = (_F_DEBUT_MAIN + _F_SERIE + _F_VIDEO_OPTIONS + '''    options = analyseur.parse_args()
+''' + _F_VIDEO_ERREUR + _F_DECOR + _F_SI_SERIE + '''        # La vidéo
+        if options.video:
+            video = SORTIE / "train.mp4"
+            assembler(video, options.cadence)
+            print(video, ":", nombre, "images à", options.cadence, "images par seconde")
+''')
+F["main-b3"] = (_F_DEBUT_MAIN + _F_SERIE + _F_VIDEO_OPTIONS + '''    analyseur.add_argument("--nettoyer", action="store_true", help="supprime les images de la série une fois la vidéo écrite")
+    options = analyseur.parse_args()
+''' + _F_VIDEO_ERREUR + _F_DECOR + _F_SI_SERIE + '''        # La vidéo, puis les fichiers intermédiaires supprimés si demandé
+        if options.video:
+            video = SORTIE / "train.mp4"
+            assembler(video, options.cadence)
+            print(video, ":", nombre, "images à", options.cadence, "images par seconde")
+            if options.nettoyer:
+                nettoyer()
+                print("images intermédiaires supprimées")
+''')
+
+PIECES = {"montre": M, "tourbillon": T, "train": F}
+TD = {"montre": "4a_montre", "tourbillon": "4b_tourbillon", "train": "4c_train"}
 
 
 def version(nom, etat):
@@ -494,7 +634,7 @@ def version(nom, etat):
     imports = p["imports"]
     if rang >= ETATS.index("b3"):
         imports = imports.replace("import subprocess\n", "import shutil\nimport subprocess\n")
-    texte = p["doc"] + "\n" + imports + OUTILS + p["dessin"]
+    texte = p["doc"] + "\n" + imports + p.get("outils", OUTILS) + p["dessin"]
     if rang >= ETATS.index("b1"):
         texte += p["options"]
     if rang >= ETATS.index("b2-fonctions"):

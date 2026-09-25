@@ -1,6 +1,21 @@
 # Données — Cours 7 : Recap tout : benchmark image + rapport (PR)
 
-_(vide pour l'instant)_
+| Dossier | Ce que c'est |
+|---|---|
+| `7b_train/` | le TD 7b, deux effets pour le programme du TD 4c (la fenêtre du train) : `poteaux`, puis `parallaxe` ; conception dans `syllabus/cours/7_projet_effets/variante_train.md` |
+| `corriges/7b_train/` | le programme `train.py` avec les deux effets, le test et le chronométrage, testés |
+| `make_data.py` | `build` remplit `7b_train/produit/depart/` (une image de la série du TD 4c, deux images du décor) |
+
+```bash
+conda activate info01
+python make_data.py build
+python ../../outils/construire_notebooks.py
+python ../../outils/compiler_guides.py --cours 7
+```
+
+Le TD 7a (les quatre effets communs aux TD 4a, 4b et 4c) n'est pas encore
+écrit : voir `syllabus/cours/7_projet_effets/contenu_detaille.md`. La suite
+de ce fichier décrit le projet 7 du syllabus v1.
 
 Modèle : [`data/cours1/`](../cours1/) — le dépôt versionne un `make_data.py`
 qui **génère** les fichiers de l'exercice, pas les fichiers eux-mêmes

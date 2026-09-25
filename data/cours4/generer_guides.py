@@ -1,6 +1,6 @@
-"""Écrit les guides détaillés des TD 4a et 4b, sur un même plan, avec le code des corrigés.
+"""Écrit les guides détaillés des TD 4a, 4b et 4c, sur un même plan, avec le code des corrigés.
 
-Les deux guides, `src/cours4/notebook/td/<td>/guide.md`, sont produits par ce
+Les trois guides, `src/cours4/notebook/td/<td>/guide.md`, sont produits par ce
 script à partir d'un même texte : leurs étapes restent identiques, seuls le
 nom du programme, les données, les fonctions et les options changent. Le
 code à coller vient de `generer_corriges.py`, importé ici : les guides et les
@@ -48,6 +48,7 @@ TDS = [
         "schema": "depart/illustrations/programme_montre.png",
         "arbre_depart_extra": "",
         "arbre_projet_donnees": "",
+        "cp_extra": "", "ls_extra": "", "copie": "",
         "sortie_notebook": "`montre.mp4`, 120 images, 10 secondes",
         "sections_b1": "2 à 5",
         "sections_b2": "la première cellule de la section 6",
@@ -87,6 +88,7 @@ TDS = [
         "schema": "depart/illustrations/programme_tourbillon.png",
         "arbre_depart_extra": "│   ├── vague.jpg\n│   ├── CREDITS.md\n",
         "arbre_projet_donnees": "├── vague.jpg\n",
+        "cp_extra": "cp depart/vague.jpg travail/tourbillon/\n", "ls_extra": " et `vague.jpg`", "copie": " et `vague.jpg`",
         "sortie_notebook": "`tourbillon.mp4`, 49 images, 4 secondes",
         "sections_b1": "2 à 4 (avec la fonction `texte_angle` de la section 5)",
         "sections_b2": "la fonction `angles` de la section 5 et la première cellule de la section 6",
@@ -117,13 +119,53 @@ TDS = [
         "b5_cmd": "tourbillon tourbillon/vague.jpg --angle 90",
         "b5_attendu": "l'image est écrite dans `travail/sortie/tourbillon_090.png`",
     },
+    {
+        "td": "4c_train", "numero": "4c", "p": "train", "titre_court": "Train",
+        "titre": "La fenêtre du train",
+        "objet": "la mer vue de la fenêtre d'un train, les voiles et la plage qui défilent derrière la vitre, d'après la scène de la mer du clip « Moon » de Kid Francescoli",
+        "calcul": "la fonction `decalages` calcule de combien de pixels le paysage est décalé sur chaque image ; pour chaque décalage, la fonction `image` construit la commande qui compose l'image",
+        "dessin": "compose chaque image : le fond fixe, le plan décalé, puis la fenêtre par-dessus",
+        "schema": "depart/illustrations/programme_train.png",
+        "arbre_depart_extra": "│   ├── decor/\n│   │   ├── fond.png\n│   │   ├── plan.png\n│   │   ├── fenetre.png\n│   │   └── plage.png\n│   ├── CREDITS.md\n",
+        "arbre_projet_donnees": "├── decor/               (les quatre images du décor)\n",
+        "cp_extra": "cp -r depart/decor travail/train/\n", "ls_extra": " et `decor`", "copie": " et le dossier `decor/`",
+        "sortie_notebook": "`train.mp4`, 120 images, 10 secondes",
+        "sections_b1": "2 à 4",
+        "sections_b2": "la fonction `decalages` de la section 5 et la première cellule de la section 6",
+        "b1_cmd": "python train.py --decalage 200",
+        "b1_fichier": "sortie/train_0200.png",
+        "b1_explication": "L'option `--decor` donne le dossier des images du décor ; sa valeur par défaut, `decor`, est le dossier copié à l'étape B0. Si ce dossier ne contient pas `plan.png`, `analyseur.error` affiche un message et arrête le programme.",
+        "b1_verifs": [
+            ("python train.py --decalage 200", "le chemin de `sortie/train_0200.png` ; l'ouvrir par un double-clic"),
+            ("python train.py", "`sortie/train_0000.png` : le décalage par défaut"),
+            ("python train.py --decalage 2120", "`sortie/train_2120.png`, identique à `train_0200.png` : la bande fait 1 920 pixels"),
+            ("python train.py --decor absent", "`error: décor introuvable : absent`"),
+        ],
+        "serie_unite": "décalage", "serie_option": "--images", "serie_attribut": "images",
+        "b2_titre_fonctions": "Les fonctions `decalages` et `serie`", "b2_commit1": "les fonctions decalages et serie",
+        "b2_cmd": "python train.py --images 120",
+        "b2_verifs": [
+            ("python train.py --images 24", "`24 images dans …/sortie/images`"),
+            ("python train.py --decalage 100", "une image seule, comme en B1"),
+            ("python train.py --help", "l'option `--images` en plus"),
+        ],
+        "b3_cmd": "python train.py --images 120 --video",
+        "b3_verifs": [
+            ("python train.py --images 24 --video --cadence 6", "`24 images dans …`, puis `…/sortie/train.mp4 : 24 images à 6 images par seconde`"),
+            ("python train.py --video", "`error: --video demande une série : ajouter --images`"),
+        ],
+        "b3_cmd_nettoyer": "python train.py --images 24 --video --nettoyer",
+        "readme_b3": "# Train\n\nUne image : `python train.py --decalage 200`.\n\nUne série d'images, le paysage décalé de 8 pixels de plus à chaque image : `python train.py --images 120`.",
+        "b5_cmd": "train --decor train/decor --decalage 200",
+        "b5_attendu": "l'image est écrite dans `travail/sortie/train_0200.png`",
+    },
 ]
 
 
 def guide(t):
     p = t["p"]
     pieces = corriges.PIECES[p]
-    entete = pieces["doc"] + "\n" + pieces["imports"] + corriges.OUTILS
+    entete = pieces["doc"] + "\n" + pieces["imports"] + pieces.get("outils", corriges.OUTILS)
     dessin = pieces["dessin"]
     main_b1 = pieces["options"] + pieces["main-b1"] + corriges.APPEL
     serie = pieces["serie"]
@@ -132,8 +174,8 @@ def guide(t):
     main_b3v = sans_titre(pieces["main-b3-video"])
     nettoyer = pieces["nettoyer"]
     main_b3 = sans_titre(pieces["main-b3"])
-    cp_extra = "cp depart/vague.jpg travail/tourbillon/\n" if p == "tourbillon" else ""
-    ls_extra = " et `vague.jpg`" if p == "tourbillon" else ""
+    cp_extra = t["cp_extra"]
+    ls_extra = t["ls_extra"]
     L = []
     w = L.append
 
@@ -929,7 +971,7 @@ RESUMES = {
 
 def inserer_resumes(texte, t):
     """Un encadré en tête de chaque étape : ce qu'il faut faire, ce qu'il faut obtenir."""
-    copie = " et `vague.jpg`" if t["p"] == "tourbillon" else ""
+    copie = t["copie"]
     lignes = texte.splitlines(keepends=True)
     sortie = []
     for ligne in lignes:
