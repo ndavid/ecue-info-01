@@ -173,6 +173,14 @@ liste des fonctions à écrire et devient `neg()` ; le motif de l'expression
 régulière passe en chaîne brute ; le `README` demandé en markdown prend son
 extension. Le détail est dans les README de `data/cours2/`.
 
+Quatre autres, relevées en rejouant les TD le 24 septembre 2026 : la
+question 14 fait créer `src/`, absent de la branche `operations` ; la
+question 7 fait écrire la ligne d'image du logo, que l'archive ne fournit
+pas ; les questions 19 et 25 signalent l'éditeur vim, comme la question 17 ;
+la question 20 ajoute un commit sur `main_code` avant le rebase. Sans ce
+commit, `main_code` ne contenait que des commits déjà dans `develop`, et le
+rebase ne refaisait rien : aucun identifiant ne changeait.
+
 ## Compiler
 
 ```bash

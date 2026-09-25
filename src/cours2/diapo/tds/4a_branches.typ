@@ -25,8 +25,8 @@
 
   #v(0.5em)
   #question(7)[
-    Écrivez une description rapide du projet dans le `README.md`, et ajoutez
-    le logo de l'école à la fin. Faites un commit.
+    Écrivez une description rapide du projet dans le `README.md`, puis, à la
+    fin, la ligne `![Logo de l'école](logo.png)`. Faites un commit.
   ]
 
   #v(0.5em)
@@ -74,7 +74,8 @@
 
   #v(0.4em)
   #question(14)[
-    Dans `src`, créez `operations.py` et ouvrez-le.
+    Créez le dossier `src`, absent de cette branche, puis
+    `src/operations.py`, et ouvrez-le.
   ]
 
   #v(0.4em)

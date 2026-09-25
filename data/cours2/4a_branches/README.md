@@ -20,7 +20,16 @@ On travaille dans le projet créé au TD 3a,
 | `main_code` | `develop` | `src/main.py`, l'affichage du titre |
 | `operations` | `develop` | `src/operations.py`, les quatre fonctions |
 
-Les quatre fonctions de `operations.py` : `add(a,b)` rend la somme,
+La branche `operations` part de `develop`, qui ne contient pas encore
+`src/main.py` : le dossier `src` n'existe pas sur cette branche, et il faut le
+créer avant d'y écrire `operations.py` (question 14).
+
+Le sujet d'origine demande d'ajouter le logo de l'école à la fin du
+`README.md` ; l'archive ne fournit pas l'image. La question 7 fait écrire la
+ligne Markdown de l'image, `![Logo de l'école](logo.png)`, qui montre la
+syntaxe ; l'image ne s'affiche pas.
+
+Les quatre fonctions de `operations.py` : `add(a,b)` renvoie la somme,
 `mult(a,b)` le produit, `neg(a)` l'opposé, `inv(a)` l'inverse.
 
 ## Les deux fusions de la question 17

@@ -42,6 +42,7 @@ git merge main_code         # celui-ci s'arrête
 #    éditer src/main.py, enlever les marqueurs
 git add src/main.py
 git merge --continue
+#    git ouvre vim avec le message de fusion : taper :wq puis Entrée
 ```
 
 ## Les marqueurs
@@ -64,7 +65,7 @@ provoquent une `SyntaxError`. Supprimer les trois, puis lancer
 
 Le sujet livré appelle une fonction `sub()` qui ne figure pas dans la liste
 des fonctions à écrire (question 15) : `add(x, sub(y))` devient ici
-`add(x, neg(y))`, `neg` étant la fonction qui rend l'opposé. Sans cela, la
+`add(x, neg(y))`, `neg` étant la fonction qui renvoie l'opposé. Sans cela, la
 soustraction lève un `NameError`.
 
 Le motif de l'expression régulière est aussi écrit en chaîne brute,

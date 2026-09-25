@@ -72,7 +72,8 @@ import operations as op
   #v(0.6em)
   #question(25)[
     Réglez les conflits en choisissant le code à garder, puis poursuivez le
-    merge.
+    merge. Git ouvre l'éditeur avec le message de fusion : tapez `:wq` puis
+    `Entrée`.
   ]
 
   #v(0.8em)

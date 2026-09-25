@@ -21,50 +21,55 @@
   ]
   #question(18)[
     On simule une fausse manœuvre. Supprimez le code présent dans `main.py`
-    et dans `operations.py`, puis faites un commit.
-
-    #v(0.3em)
-    Comment revenir en arrière ?
+    et dans `operations.py`, puis faites un commit. Comment revenir en
+    arrière ?
   ]
 
-  #v(0.6em)
+  #v(0.4em)
   #question(19)[
-    `git revert` crée un nouveau commit qui annule les modifications du
-    commit visé.
-
-    #v(0.3em)
-    Repérez d'abord le commit avec `git log`, puis annulez-le avec
-    `git revert`. Affichez le graphe.
+    `git revert` crée un nouveau commit qui annule le commit visé. Repérez le
+    commit avec `git log`, annulez-le avec `git revert` (dans l'éditeur :
+    `:wq` puis `Entrée`), puis affichez le graphe.
   ]
 
-]
-
-#d("TD 4b — remettre une branche à jour")[
+  #v(0.4em)
   #tableau(
     columns: (1.4fr, 1fr),
     align: left + horizon,
     [Question], [Réponse],
-    [Le commit créé par `git revert` porte-t-il le même identifiant que celui
-     que vous aviez repéré ?],
-    reponse[non : `revert` a créé un nouveau commit, avec son propre
-     identifiant ; le projet est revenu au contenu d'avant la suppression],
+    [Le commit créé par `git revert` a-t-il l'identifiant du commit
+     repéré ?],
+    reponse[non : c'est un nouveau commit],
+  )
+]
+
+#d("TD 4b — remettre une branche à jour")[
+  #question(20)[
+    Revenez sur la branche *main_code*. Ajoutez en première ligne de
+    `src/main.py` le commentaire
+    `# Point d'entrée de la calculatrice : affiche le titre.`, puis faites un
+    commit. Affichez le graphe avec `git llog --all`, mettez la branche à jour
+    avec `git rebase develop`, puis affichez de nouveau le graphe.
+  ]
+
+  #v(0.4em)
+  #tableau(
+    columns: (1.4fr, 1fr),
+    align: left + horizon,
+    [Question], [Réponse],
+    [Le commit du commentaire a-t-il le même identifiant avant et après le
+     rebase ?],
+    reponse[non : le rebase l'a refait au bout de *develop* ; son parent a
+     changé, et donc son identifiant],
   )
 
-  #v(0.7em)
-  #question(20)[
-    Revenez sur la branche *main_code*. Mettez-la à jour en utilisant un
-    `rebase`.
-  ]
-
-  #v(0.6em)
-  #legende[
-    Le rebase réécrit l'historique de la branche : ses commits changent
-    d'identifiant. Une branche que quelqu'un d'autre a déjà récupérée ne se
-    rebase pas ; ici, personne ne l'a récupérée.
-  ]
-
   #notes[
-    Faire afficher `git llog` avant et après le rebase : les commits de
-    main_code ont changé d'identifiant, comme les « bis » de la diapositive.
+    Une branche que quelqu'un d'autre a déjà récupérée ne se rebase pas ;
+    ici, personne ne l'a récupérée.
+
+    Avant le rebase, le commit du commentaire part de `affichage du titre` ;
+    après, il est au sommet de develop, avec un autre identifiant, comme les
+    « bis » de la diapositive. Sans ce commit, main_code n'aurait rien à
+    refaire : le rebase ne ferait qu'avancer la branche.
   ]
 ]
