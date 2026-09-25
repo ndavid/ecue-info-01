@@ -1,6 +1,10 @@
 // Cours 5, partie 2 — le réseau. Incluse par `cours5.typ`.
 #import "../../../commun/prelude.typ": *
 #import "../schemas.typ": schema-local-distant, schema-client-serveur, schema-tuyau, schema-commit-push
+// Les schémas du notebook, dessinés pour la partie 4 du cours 1, non jouée en
+// 2026 : le client et le serveur sur le même poste, et les trois emplacements
+// du serveur.
+#import "../../../cours1/diapo/schemas_notebooks.typ": schema-client-serveur as schema-notebook-local, schema-trois-serveurs
 
 #separateur(
   "Le réseau",
@@ -46,10 +50,69 @@
   )
 
   #notes[
-    Déjà vu au cours 1 avec le notebook : le navigateur affiche, le serveur
-    Jupyter exécute.
-
     Le cours 6 ajoute `git pull`, qui demande à la forge les commits des autres.
+  ]
+]
+
+// --------------------------------------------
+#d("Client et serveur sur le même poste")[
+  #annonce[
+    Client et serveur sont deux programmes. Ils peuvent tourner sur le même
+    poste : c'est le cas de JupyterLab.
+  ]
+
+  #align(center, scale(80%, reflow: true, schema-notebook-local()))
+
+  #legende[
+    `jupyter lab`, lancé dans un terminal, démarre le serveur. Le navigateur
+    est le client : il se connecte à l'adresse `localhost:8888`, qui désigne
+    le poste lui-même.
+  ]
+
+  #notes[
+    Démonstration, deux minutes, dans Git Bash ou l'Anaconda Prompt :
+    - `jupyter lab` : le terminal affiche l'adresse `http://localhost:8888/lab?token=…`
+      et reste occupé, c'est le serveur ;
+    - le navigateur s'ouvre sur cette adresse ; exécuter une cellule : le
+      terminal affiche une ligne à chaque requête ;
+    - fermer le terminal, puis exécuter une cellule : le navigateur signale
+      que le serveur ne répond plus. Le client est toujours ouvert, le
+      serveur est arrêté.
+
+    `localhost` est le nom du poste pour lui-même (adresse `127.0.0.1`) ;
+    8888 est le port du serveur. Rien ne sort du poste.
+
+    Le jeton de l'adresse est un mot de passe à usage unique : un autre poste
+    du réseau ne peut pas exécuter de code sur ce serveur sans lui. Lien avec
+    la partie 3.
+
+    Schéma de la partie 4 du cours 1, non jouée en 2026.
+  ]
+]
+
+// --------------------------------------------
+#d("Trois emplacements pour le serveur")[
+  #annonce[
+    Le serveur d'un notebook peut être sur un autre ordinateur, sur votre
+    poste, ou dans le navigateur lui-même.
+  ]
+
+  #align(center, scale(80%, reflow: true, schema-trois-serveurs()))
+
+  #legende[
+    Dans le premier cas seulement, le code et les données sortent du poste.
+  ]
+
+  #notes[
+    Premier cas : Colab, un serveur de calcul du laboratoire. Le code et les
+    données partent sur une machine qu'on ne gère pas ; Colab demande un
+    compte.
+
+    Deuxième cas : celui des séances, `jupyter lab` sur le poste.
+
+    Troisième cas : JupyterLite (jupyter.org/try-jupyter, vu au cours 1).
+    Le noyau Python est exécuté par le navigateur ; tous les paquets n'y
+    sont pas.
   ]
 ]
 
