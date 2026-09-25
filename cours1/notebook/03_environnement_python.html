@@ -1,0 +1,1062 @@
+
+<!DOCTYPE html>
+
+
+<html lang="fr" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Environnement Python et notebooks &#8212; Introduction à l&#39;informatique</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=4418a689" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+
+    <script src="../../_static/documentation_options.js?v=72dce1d2"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script src="../../_static/translations.js?v=e6b791cb"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'cours1/notebook/03_environnement_python';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Recherche" href="../../search.html" />
+    <link rel="next" title="Annexe — Comparer deux versions d’un fichier" href="05_comparer_versions.html" />
+    <link rel="prev" title="Formats de fichier" href="02_formats_de_fichier.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="fr"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Passer au contenu principal</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Haut de page</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Alerte de version"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Navigation dans le site">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Recherche</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Recherche</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="Sur cette page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction à l'informatique</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Recherche</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Introduction à l’informatique
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Avant les séances</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../avant/verifications.html">Vérifier les postes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../avant/reseau.html">Tester le réseau</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../avant/bureautique.html">Tester les logiciels de texte et de bureautique</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../avant/anaconda.html">Tester Anaconda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../avant/donnees.html">Récupérer les fichiers d’une séance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Séances</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Séance 1 — Logiciel, programmation et formats de fichier</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01_programmes_et_outils.html">Programmes, applications et outils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_formats_de_fichier.html">Formats de fichier</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Environnement Python et notebooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_comparer_versions.html">Annexe — Comparer deux versions d’un fichier</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cours2/index.html">Séance 2 — Ligne de commande et git local</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cours3/index.html">Séance 3 — Chemins, fichiers, images et ligne de commande</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cours4/index.html">Séance 4 — Studio d’automatisation (animation vidéo)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cours5/index.html">Séance 5 — Matériel, réseau, SSH et secrets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cours6/index.html">Séance 6 — Forge, git en équipe et outil « trajectoire »</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cours7/index.html">Séance 7 — Benchmark image et rapport</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Annexes</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../annexes/configuration/index.html">Configuration des postes de la salle</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/configuration/outils.html">Choisir entre JupyterLab, Spyder et VS Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/configuration/anaconda.html">Anaconda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/configuration/jupyterlab.html">JupyterLab</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../annexes/configuration/vscode.html">VS Code</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../annexes/configuration/vscode_python.html">Python et environnement conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../annexes/configuration/vscode_notebooks.html">Notebooks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../annexes/configuration/vscode_reglages.html">Fichiers de réglages</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/configuration/git.html">Git et Git Bash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/configuration/spyder.html">Spyder</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../annexes/poste_personnel.html">Installation sur un ordinateur personnel</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../annexes/notions/index.html">Notions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/notions/terminaux.html">Les terminaux en ligne de commande</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/notions/variables_environnement.html">Variables d’environnement et recherche des programmes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/notions/environnements.html">Les environnements conda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/notions/vscode_environnements.html">Comment VS Code gère les environnements Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/notions/git_bash.html">Git Bash : une fenêtre, bash et des programmes</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../annexes/faq.html">FAQ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/problemes/reseau.html">Problèmes de réseau et de compte</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/problemes/bureautique.html">Problèmes avec les logiciels de texte et de bureautique</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/problemes/anaconda.html">Problèmes avec Anaconda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/problemes/jupyterlab.html">Problèmes avec JupyterLab et les notebooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/problemes/vscode.html">Problèmes avec VS Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/problemes/git.html">Problèmes avec git</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../annexes/plus_loin/index.html">Pour aller plus loin</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/plus_loin/venv_uv.html">venv et uv</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Mode plein écran"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Thème">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Thème" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Clair"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Sombre"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="Paramètres système"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>Paramètres système</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Clair</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Sombre</button></li>
+  </ul>
+</div>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Environnement Python et notebooks</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenu </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#l-environnement-de-developpement">L’environnement de développement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-ou-viennent-les-paquets-et-par-quel-outil">D’où viennent les paquets, et par quel outil</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dependances-directes-et-dependances-transitives">Dépendances directes et dépendances transitives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ajouter-une-bibliotheque-a-un-environnement">Ajouter une bibliothèque à un environnement</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yaml-et-toml">YAML et TOML</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trois-facons-d-executer-du-python">Trois façons d’exécuter du Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interface-et-noyau">Interface et noyau</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deux-formats-de-notebook">Deux formats de notebook</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bilan-de-la-seance">Bilan de la séance</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="environnement-python-et-notebooks">
+<h1>Environnement Python et notebooks<a class="headerlink" href="#environnement-python-et-notebooks" title="Lien vers cette rubrique">#</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Cette partie était prévue en séance 3. Elle a été avancée pour que les autres
+cours du programme disposent d’un environnement Python fonctionnel dès la
+première semaine. Le bloc « binaire, hexadécimal, PGM » qu’elle remplace a
+rejoint le cours 3, où il précède l’introduction de <code class="docutils literal notranslate"><span class="pre">numpy</span></code> et le traitement
+d’image.</p>
+</div>
+<section id="l-environnement-de-developpement">
+<h2>L’environnement de développement<a class="headerlink" href="#l-environnement-de-developpement" title="Lien vers cette rubrique">#</a></h2>
+<p>Vous allez installer Python, puis <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, puis <code class="docutils literal notranslate"><span class="pre">ffmpeg</span></code>, puis <code class="docutils literal notranslate"><span class="pre">pandoc</span></code>, sur un
+poste de laboratoire, sur votre portable, peut-être sous un autre système
+d’exploitation. Sans méthode, chaque poste diverge et le travail cesse d’être
+reproductible.</p>
+<p>Un <em>environnement</em> est un dossier isolé contenant une version précise de Python
+et les outils choisis. Il se décrit dans un fichier, se recrée à l’identique
+ailleurs, et se supprime sans conséquence sur le reste de la machine.</p>
+<p>Nous utilisons <code class="docutils literal notranslate"><span class="pre">conda</span></code> avec le canal <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>, qui installe aussi bien des
+bibliothèques Python (<code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">Pillow</span></code>) que des programmes complets (<code class="docutils literal notranslate"><span class="pre">ffmpeg</span></code>,
+<code class="docutils literal notranslate"><span class="pre">imagemagick</span></code>, <code class="docutils literal notranslate"><span class="pre">pandoc</span></code>, <code class="docutils literal notranslate"><span class="pre">typst</span></code>), sur les trois systèmes. L’objectif est
+d’installer des outils de façon reproductible, pas de distribuer un projet.</p>
+<p>La liste complète est dans <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code>, à la racine du dépôt, et c’est ce
+fichier qu’on distribue : <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">create</span> <span class="pre">-f</span> <span class="pre">environment.yml</span></code> recrée
+l’environnement à l’identique. La commande ci-dessous en est le résumé
+projetable en séance.</p>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Lien vers cette rubrique">#</a></h2>
+<p>Installez Miniforge, une distribution conda préconfigurée sur conda-forge :
+<a class="reference external" href="https://conda-forge.org/download/">https://conda-forge.org/download/</a>. Puis, dans un terminal :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>recette<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.12<span class="w"> </span>markdown<span class="w"> </span>tabulate
+
+conda<span class="w"> </span>activate<span class="w"> </span>recette
+</pre></div>
+</div>
+<p>Le prompt affiche alors <code class="docutils literal notranslate"><span class="pre">(recette)</span></code>. Vérifiez ensuite que les outils répondent :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>--version
+pandoc<span class="w"> </span>--version
+ffmpeg<span class="w"> </span>-version
+</pre></div>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">À faire 1 — vérifier quel Python s’exécute</p>
+<p>Exécutez la cellule suivante. Elle affiche le chemin de l’interpréteur qui
+exécute réellement ce notebook. Ce chemin doit contenir le nom de
+l’environnement actif.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">platform</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Python  :"</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Exécutable :"</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Système :"</span><span class="p">,</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">(),</span> <span class="n">platform</span><span class="o">.</span><span class="n">release</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Dossier courant :"</span><span class="p">,</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Python  : 3.12.14
+Exécutable : /home/ndavid/miniconda3/envs/info01/bin/python
+Système : Linux 6.8.0-139-generic
+Dossier courant : /home/ndavid/codes/tests_project/info01/src/cours1/notebook
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Avertissement</p>
+<p>Un message <code class="docutils literal notranslate"><span class="pre">ModuleNotFoundError:</span> <span class="pre">No</span> <span class="pre">module</span> <span class="pre">named</span> <span class="pre">'numpy'</span></code> alors que le paquet
+vient d’être installé signifie presque toujours que l’environnement actif n’est
+pas celui où l’installation a eu lieu. Vérifiez <code class="docutils literal notranslate"><span class="pre">sys.executable</span></code> avant toute
+autre hypothèse.</p>
+</div>
+</section>
+<section id="d-ou-viennent-les-paquets-et-par-quel-outil">
+<h2>D’où viennent les paquets, et par quel outil<a class="headerlink" href="#d-ou-viennent-les-paquets-et-par-quel-outil" title="Lien vers cette rubrique">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">conda</span></code> n’est ni le seul ni le premier outil d’installation, et aucun n’a fait
+disparaître les précédents. <code class="docutils literal notranslate"><span class="pre">pip</span></code> paraît en 2008 et installe des bibliothèques
+Python, et rien d’autre : il ne sait pas installer <code class="docutils literal notranslate"><span class="pre">ffmpeg</span></code> ni un compilateur
+C++, qui ne sont pas du Python. <code class="docutils literal notranslate"><span class="pre">conda</span></code> paraît en 2012 et fait les deux, ce qui
+est la raison du choix de ce module. <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>, le dépôt communautaire d’où
+viennent nos paquets, ouvre en 2015. Depuis, <code class="docutils literal notranslate"><span class="pre">mamba</span></code> (2019) a réécrit le
+solveur de conda au point de devenir le sien, et deux outils récents, <code class="docutils literal notranslate"><span class="pre">pixi</span></code>
+(2023) et <code class="docutils literal notranslate"><span class="pre">uv</span></code> (2024), reprennent l’un l’écosystème conda et l’autre celui de
+pip. Ils sont excellents et hors programme : un seul outil suffit ici.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pyenv</span></code>, né la même année que conda, n’installe aucun paquet : il choisit la
+version de Python active. Son nom le fait souvent confondre avec les autres.</p>
+<p>Une commande d’installation va chercher le paquet dans un <strong>dépôt</strong>. Les deux
+que vous croiserez n’y laissent pas entrer la même chose.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Dépôt</p></th>
+<th class="head"><p>Taille</p></th>
+<th class="head"><p>Comment on y entre</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>PyPI, ce que <code class="docutils literal notranslate"><span class="pre">pip</span></code> installe</p></td>
+<td><p>886 022 projets</p></td>
+<td><p>publication immédiate, par qui veut, sans relecture</p></td>
+</tr>
+<tr class="row-odd"><td><p>conda-forge, ce que <code class="docutils literal notranslate"><span class="pre">conda</span></code> installe ici</p></td>
+<td><p>29 411 paquets</p></td>
+<td><p>une recette, relue par des humains, puis construite pour les trois systèmes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Aucun des deux n’est le bon ou le mauvais : un paquet conda-forge est le plus
+souvent construit à partir des mêmes sources que le paquet PyPI, quelques jours
+plus tard. Ce qui change est la porte d’entrée.</p>
+<div class="admonition warning">
+<p class="admonition-title">Avertissement</p>
+<p><strong>Installer un paquet exécute du code écrit par quelqu’un d’autre</strong>, tout de
+suite, avec vos droits et sur vos fichiers. Le nom que vous tapez est la seule
+chose que vous contrôlez, et c’est par là que passent les attaques : quelqu’un
+publie <code class="docutils literal notranslate"><span class="pre">reqeusts</span></code> à côté de <code class="docutils literal notranslate"><span class="pre">requests</span></code>, la commande passe, rien ne se voit.
+Des campagnes de plusieurs centaines de faux paquets ont été relevées sur PyPI.</p>
+<p>Le réflexe tient en une phrase : <strong>le nom d’un paquet se copie depuis la
+documentation du projet, il ne se tape pas de mémoire.</strong></p>
+</div>
+<p>Chiffres relevés le 8 septembre 2026 dans l’index de PyPI et par l’API de
+GitHub. Sonatype a recensé plus de 454 600 nouveaux paquets malveillants en
+2025, tous dépôts confondus (<em>State of the Software Supply Chain</em>, 2026).</p>
+</section>
+<section id="dependances-directes-et-dependances-transitives">
+<h2>Dépendances directes et dépendances transitives<a class="headerlink" href="#dependances-directes-et-dependances-transitives" title="Lien vers cette rubrique">#</a></h2>
+<p>Un programme ne contient pas tout le code qu’il exécute. Ses lignes <code class="docutils literal notranslate"><span class="pre">import</span></code>
+désignent du code publié par d’autres, réutilisé au lieu d’être réécrit. Ce
+qu’on y gagne n’est pas du temps de frappe : une bibliothèque diffusée a été
+relue, corrigée et éprouvée par plus de gens qu’un programme écrit dans la
+semaine. Une bibliothèque dont un programme a besoin pour s’exécuter est une
+<strong>dépendance</strong> de ce programme.</p>
+<p>La relation est récursive : une dépendance déclare à son tour les siennes, qui
+déclarent les leurs. Les paquets écrits dans le fichier d’un projet sont ses
+dépendances <strong>directes</strong> ; celles qu’ils entraînent sont <strong>transitives</strong>, et
+calculer l’ensemble à partir du fichier s’appelle <strong>résoudre</strong> les dépendances.
+C’est le travail de <code class="docutils literal notranslate"><span class="pre">conda</span></code>, et ce n’est pas un simple parcours : deux paquets
+peuvent exiger deux versions incompatibles d’un troisième, et l’outil doit
+trouver un jeu de versions qui convienne à tous.</p>
+<p>L’ordre de grandeur se mesure sur l’environnement du module. <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code>
+déclare sept paquets ; <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span> <span class="pre">--dry-run</span></code> en installe 293. Entre les deux,
+<code class="docutils literal notranslate"><span class="pre">pillow</span></code> déclare 14 dépendances, <code class="docutils literal notranslate"><span class="pre">ffmpeg</span></code> 53, et elles se recouvrent largement —
+le dernier nombre n’est la somme d’aucun des précédents. Personne ne tient cette
+liste à la main, et c’est ce qui justifie l’outil.</p>
+</section>
+<section id="ajouter-une-bibliotheque-a-un-environnement">
+<h2>Ajouter une bibliothèque à un environnement<a class="headerlink" href="#ajouter-une-bibliotheque-a-un-environnement" title="Lien vers cette rubrique">#</a></h2>
+<p>Quand une dépendance n’est pas présente dans l’environnement actif, l’exécution
+s’arrête avant la première ligne utile.</p>
+<p>Le dossier <code class="docutils literal notranslate"><span class="pre">cours1/4a_recette/depart/recette/</span></code> contient un petit projet Python écrit
+comme ceux que vous ouvrirez cette année : un <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> qui dit ce qu’est
+le projet et ce dont il dépend, un <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> qui décrit l’environnement,
+un <code class="docutils literal notranslate"><span class="pre">README.md</span></code>, et le paquet <code class="docutils literal notranslate"><span class="pre">recette/</span></code>. Le programme convertit en page HTML
+le <code class="docutils literal notranslate"><span class="pre">recette.md</span></code> que vous avez écrit au TD 3a, avec la
+bibliothèque <code class="docutils literal notranslate"><span class="pre">markdown</span></code>.</p>
+<p>Les deux fichiers de description ne font pas le même travail, et aucun des deux
+n’installe quoi que ce soit — ils disent ce qu’il faut installer.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fichier</p></th>
+<th class="head"><p>Décrit</p></th>
+<th class="head"><p>Employé par</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">environment.yml</span></code></p></td>
+<td><p>l’environnement : la version de Python, et tout ce qu’il faut sur la machine, y compris ce qui n’est pas du Python</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">conda</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code></p></td>
+<td><p>le projet : son nom, sa version, les bibliothèques que le code importe, la commande qu’il installe</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span></code>, et les outils de construction</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="yaml-et-toml">
+<h3>YAML et TOML<a class="headerlink" href="#yaml-et-toml" title="Lien vers cette rubrique">#</a></h3>
+<p>Ces deux fichiers sont écrits dans deux formats de texte faits pour décrire et
+non pour calculer : des données structurées, écrites par un humain, relues par
+un programme. En <strong>YAML</strong>, l’indentation porte la structure et le tiret marque
+un élément de liste ; en <strong>TOML</strong>, des sections entre crochets contiennent une
+valeur par nom. Comme <code class="docutils literal notranslate"><span class="pre">.json</span></code>, ils décrivent des données ; contrairement à lui,
+ils acceptent des commentaires, ce qui explique qu’un humain les écrive. On les
+retrouve bien au-delà de Python : réglages d’un outil, description d’une chaîne
+d’intégration, composition de conteneurs.</p>
+<p>Un piège de YAML mérite d’être connu avant de taper le fichier : l’indentation
+se fait avec des espaces, jamais avec une tabulation. C’est la question des
+caractères invisibles, rencontrée à la partie précédente.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> ne porte pas que les dépendances. Le même fichier déclare le
+nom du projet, sa version, sa description, les versions de Python acceptées, la
+commande que l’installation doit créer (<code class="docutils literal notranslate"><span class="pre">[project.scripts]</span></code>) et l’outil qui sait
+fabriquer le paquet (<code class="docutils literal notranslate"><span class="pre">[build-system]</span></code>).</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project]</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"page-html"</span>
+<span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"0.1.0"</span>
+<span class="n">requires-python</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"&gt;=3.10"</span>
+<span class="n">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"markdown&gt;=3.5"</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>C’est ce fichier que lisent les outils de construction et les dépôts. Vous le
+lisez aujourd’hui pour installer ; l’écrire est ce qui rend un code installable
+par quelqu’un d’autre, c’est-à-dire distribuable. La fabrication d’un paquet est
+le sujet du cours 3 : le code que vous réutilisez depuis le début de cette page
+est disponible parce que quelqu’un a écrit un fichier de cette forme.</p>
+<div class="tip admonition">
+<p class="admonition-title">À faire 2 — un environnement neuf, et ce qu’il faut y ajouter</p>
+<p>On repart d’un environnement vide plutôt que de celui d’Anaconda, pour voir ce qu’un
+environnement contient d’origine.</p>
+<ol class="arabic">
+<li><p>Ouvrez <code class="docutils literal notranslate"><span class="pre">cours1/4a_recette/depart/recette/</span></code> dans l’éditeur, et lisez la ligne
+<code class="docutils literal notranslate"><span class="pre">dependencies</span></code> de <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> : le projet annonce avoir besoin de
+<code class="docutils literal notranslate"><span class="pre">markdown</span></code>.</p></li>
+<li><p>Créez l’environnement décrit par le fichier voisin, et activez-le :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment.yml
+conda<span class="w"> </span>activate<span class="w"> </span>recette
+</pre></div>
+</div>
+</li>
+<li><p>Regardez ce qu’il contient : <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">list</span></code> affiche <strong>28 paquets</strong>, dont
+<code class="docutils literal notranslate"><span class="pre">pip</span></code>, <code class="docutils literal notranslate"><span class="pre">setuptools</span></code>, et une douzaine de bibliothèques C sans lesquelles
+l’interpréteur ne démarre pas. Aucun ne s’appelle <code class="docutils literal notranslate"><span class="pre">markdown</span></code>.</p></li>
+<li><p>Lancez <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">recette</span></code>. Le programme s’arrête sur
+<code class="docutils literal notranslate"><span class="pre">ModuleNotFoundError:</span> <span class="pre">No</span> <span class="pre">module</span> <span class="pre">named</span> <span class="pre">'markdown'</span></code>. Le paquet est là et sa
+syntaxe est correcte ; c’est la dépendance qui manque. (<code class="docutils literal notranslate"><span class="pre">-m</span></code>
+exécute un paquet plutôt qu’un fichier.)</p></li>
+<li><p>Installez la bibliothèque, puis relancez la même commande :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>markdown
+python<span class="w"> </span>-m<span class="w"> </span>recette
+</pre></div>
+</div>
+</li>
+<li><p>Ouvrez <code class="docutils literal notranslate"><span class="pre">recette.html</span></code> par l’adresse <code class="docutils literal notranslate"><span class="pre">file:///</span></code> que le programme affiche.
+Changez une couleur dans <code class="docutils literal notranslate"><span class="pre">style.css</span></code>, enregistrez, rechargez la page.</p></li>
+<li><p>Ajoutez enfin <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">markdown</span></code> sous <code class="docutils literal notranslate"><span class="pre">dependencies</span></code> dans <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code>, puis
+<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">update</span> <span class="pre">-f</span> <span class="pre">environment.yml</span></code>. Rien ne s’installe, puisque c’est
+déjà fait — mais sur une machine neuve, <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">create</span></code> installera
+désormais les deux d’un coup.</p></li>
+</ol>
+</div>
+<p>L’étape 5 installe <strong>trois</strong> paquets : <code class="docutils literal notranslate"><span class="pre">markdown</span></code>, et deux qu’il réclame,
+<code class="docutils literal notranslate"><span class="pre">importlib-metadata</span></code> et <code class="docutils literal notranslate"><span class="pre">zipp</span></code>. La même commande dans <code class="docutils literal notranslate"><span class="pre">base</span></code> n’en installe
+qu”<strong>un seul</strong>, de 85 ko, parce que les deux autres y avaient déjà été tirés
+par autre chose. Ce qui est déjà là ne se réinstalle pas.</p>
+<p>L’étape 7 est la conclusion de la partie. Une installation faite à la main ne
+se retrouve pas ; notée dans le fichier qui décrit l’environnement, elle
+redevient reproductible. C’est la différence entre se souvenir de ce qu’on a
+tapé et l’avoir écrit.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">dossier_seance</span><span class="p">(</span><span class="n">depart</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Le dossier de la séance, celui qui contient `1a_formats/`.</span>
+
+<span class="sd">    Le notebook s'ouvre depuis l'archive du cours, depuis le dépôt ou pendant</span>
+<span class="sd">    la construction du book, et le dossier courant change à chaque fois : on</span>
+<span class="sd">    remonte donc jusqu'à le trouver.</span>
+<span class="sd">    """</span>
+    <span class="k">for</span> <span class="n">dossier</span> <span class="ow">in</span> <span class="p">[</span><span class="n">depart</span><span class="p">,</span> <span class="o">*</span><span class="n">depart</span><span class="o">.</span><span class="n">parents</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">candidat</span> <span class="ow">in</span> <span class="p">(</span><span class="n">dossier</span><span class="p">,</span> <span class="n">dossier</span> <span class="o">/</span> <span class="s2">"data"</span> <span class="o">/</span> <span class="s2">"cours1"</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">candidat</span> <span class="o">/</span> <span class="s2">"1a_formats"</span><span class="p">)</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">candidat</span>
+    <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s2">"dossier de la séance introuvable depuis "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">depart</span><span class="p">))</span>
+
+<span class="n">source</span> <span class="o">=</span> <span class="n">dossier_seance</span><span class="p">()</span> <span class="o">/</span> <span class="s2">"3a_markdown"</span> <span class="o">/</span> <span class="s2">"depart"</span> <span class="o">/</span> <span class="s2">"recette.md"</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">markdown</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"markdown n'est pas installé : conda install -c conda-forge markdown"</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">html</span> <span class="o">=</span> <span class="n">markdown</span><span class="o">.</span><span class="n">markdown</span><span class="p">(</span>
+        <span class="n">source</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">),</span>
+        <span class="n">extensions</span><span class="o">=</span><span class="p">[</span><span class="s2">"tables"</span><span class="p">,</span> <span class="s2">"fenced_code"</span><span class="p">],</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">html</span><span class="p">[:</span><span class="mi">180</span><span class="p">],</span> <span class="s2">"…"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;h1&gt;Crêpes&lt;/h1&gt;
+&lt;p&gt;&lt;em&gt;Pour 12 crêpes — 10 minutes de préparation, 1 heure de repos.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Une crêpe qui cuit, une minute par face." src="crepes.jpg" /&gt;&lt;/p&gt;
+&lt;h2&gt;Ing …
+</pre></div>
+</div>
+</div>
+</div>
+<p>Les tableaux et les blocs de code ne font pas partie du Markdown publié par John
+Gruber en 2004 : la bibliothèque sait les traduire, mais il faut le demander,
+d’où le second argument.</p>
+<p>Le bloc <code class="docutils literal notranslate"><span class="pre">mermaid</span></code> de la recette arrive dans la page sous la forme de ses six
+lignes de texte, et non sous la forme d’un dessin. Mermaid est un service de
+l’aperçu de l’éditeur, pas du HTML : le navigateur reçoit du texte et affiche du
+texte. C’est la même distinction que pour la coloration syntaxique, qui n’est
+pas non plus dans le fichier.</p>
+</section>
+</section>
+<section id="trois-facons-d-executer-du-python">
+<h2>Trois façons d’exécuter du Python<a class="headerlink" href="#trois-facons-d-executer-du-python" title="Lien vers cette rubrique">#</a></h2>
+<svg viewBox="0 0 720 182" width="100%" style="max-width:720px;height:auto;display:block;margin:1.2rem auto;font-family:inherit" role="img">
+  <defs><marker id="fl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7"
+     markerHeight="7" orient="auto-start-reverse">
+     <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+  <rect x="255" y="8" width="200" height="46" rx="6" fill="rgba(31,111,139,.10)"
+     stroke="currentColor" stroke-width="1.5" opacity=".85"/>
+  <text x="355.0" y="36" text-anchor="middle" fill="currentColor"
+     font-size="14" font-weight="600" opacity="1">Du texte Python</text>
+  <line x1="355" y1="54" x2="120" y2="96" stroke="currentColor"
+     stroke-width="1.5" marker-end="url(#fl)" opacity=".8"/>
+  <line x1="355" y1="54" x2="355" y2="96" stroke="currentColor"
+     stroke-width="1.5" marker-end="url(#fl)" opacity=".8"/>
+  <line x1="355" y1="54" x2="590" y2="96" stroke="currentColor"
+     stroke-width="1.5" marker-end="url(#fl)" opacity=".8"/>
+  <rect x="10" y="100" width="220" height="70" rx="6" fill="none"
+     stroke="currentColor" stroke-width="1.5" opacity=".85"/>
+  <text x="120.0" y="132" text-anchor="middle" fill="currentColor"
+     font-size="14" font-weight="600" opacity="1">Interpréteur interactif</text>
+  <text x="120.0" y="148" text-anchor="middle" fill="currentColor"
+     font-size="12.5" font-weight="400" opacity=".75">tape → réponse immédiate</text>
+  <rect x="245" y="100" width="220" height="70" rx="6" fill="none"
+     stroke="currentColor" stroke-width="1.5" opacity=".85"/>
+  <text x="355.0" y="132" text-anchor="middle" fill="currentColor"
+     font-size="14" font-weight="600" opacity="1">Script .py</text>
+  <text x="355.0" y="148" text-anchor="middle" fill="currentColor"
+     font-size="12.5" font-weight="400" opacity=".75">python script.py</text>
+  <rect x="480" y="100" width="230" height="70" rx="6" fill="none"
+     stroke="currentColor" stroke-width="1.5" opacity=".85"/>
+  <text x="595.0" y="132" text-anchor="middle" fill="currentColor"
+     font-size="14" font-weight="600" opacity="1">Notebook</text>
+  <text x="595.0" y="148" text-anchor="middle" fill="currentColor"
+     font-size="12.5" font-weight="400" opacity=".75">cellules + résultats conservés</text>
+
+</svg><div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Forme</p></th>
+<th class="head"><p>Convient pour</p></th>
+<th class="head"><p>Limite</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Interpréteur (<code class="docutils literal notranslate"><span class="pre">python</span></code>)</p></td>
+<td><p>essayer une ligne, faire un calcul</p></td>
+<td><p>rien n’est conservé</p></td>
+</tr>
+<tr class="row-odd"><td><p>Script (<code class="docutils literal notranslate"><span class="pre">.py</span></code>)</p></td>
+<td><p>un outil qu’on relance et qu’on versionne</p></td>
+<td><p>les résultats intermédiaires ne sont pas visibles</p></td>
+</tr>
+<tr class="row-even"><td><p>Notebook (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>)</p></td>
+<td><p>explorer, documenter, enseigner</p></td>
+<td><p>fichier lourd, difficile à versionner</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">largeur</span><span class="p">,</span> <span class="n">hauteur</span> <span class="o">=</span> <span class="mi">1920</span><span class="p">,</span> <span class="mi">1080</span>
+<span class="n">pixels</span> <span class="o">=</span> <span class="n">largeur</span> <span class="o">*</span> <span class="n">hauteur</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">pixels</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> pixels"</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">","</span><span class="p">,</span> <span class="s2">" "</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"En couleur, non compressée : </span><span class="si">{</span><span class="n">pixels</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1_000_000</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> Mo"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2 073 600 pixels
+En couleur, non compressée : 6.2 Mo
+</pre></div>
+</div>
+</div>
+</div>
+<p>Le second chiffre resservira au cours 5, consacré aux ordres de grandeur, et au
+TD 7 : une image est un tableau de nombres, et sa taille se calcule.</p>
+</section>
+<section id="interface-et-noyau">
+<h2>Interface et noyau<a class="headerlink" href="#interface-et-noyau" title="Lien vers cette rubrique">#</a></h2>
+<p>Un notebook n’exécute rien par lui-même. Deux composants se répartissent le
+travail.</p>
+<svg viewBox="0 0 720 140" width="100%" style="max-width:720px;height:auto;display:block;margin:1.2rem auto;font-family:inherit" role="img">
+  <defs><marker id="fl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7"
+     markerHeight="7" orient="auto-start-reverse">
+     <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+  <rect x="20" y="34" width="265" height="76" rx="6" fill="none"
+     stroke="currentColor" stroke-width="1.5" opacity=".85"/>
+  <text x="152.5" y="68" text-anchor="middle" fill="currentColor"
+     font-size="14" font-weight="600" opacity="1">Interface</text>
+  <text x="152.5" y="86" text-anchor="middle" fill="currentColor"
+     font-size="12.5" font-weight="400" opacity=".75">navigateur ou VSCode</text>
+  <line x1="295" y1="58" x2="425" y2="58" stroke="currentColor"
+     stroke-width="1.5" marker-end="url(#fl)" opacity=".8"/>
+  <text x="360.0" y="51.0" text-anchor="middle"
+     fill="currentColor" font-size="12" opacity=".7">code</text>
+  <line x1="425" y1="92" x2="295" y2="92" stroke="currentColor"
+     stroke-width="1.5" marker-end="url(#fl)" opacity=".8"/>
+  <text x="360.0" y="85.0" text-anchor="middle"
+     fill="currentColor" font-size="12" opacity=".7">résultats</text>
+  <rect x="435" y="34" width="265" height="76" rx="6" fill="rgba(31,111,139,.10)"
+     stroke="currentColor" stroke-width="1.5" opacity=".85"/>
+  <text x="567.5" y="68" text-anchor="middle" fill="currentColor"
+     font-size="14" font-weight="600" opacity="1">Noyau (kernel)</text>
+  <text x="567.5" y="86" text-anchor="middle" fill="currentColor"
+     font-size="12.5" font-weight="400" opacity=".75">un processus Python</text>
+
+</svg><p>L’interface affiche le texte et les résultats. Le <em>noyau</em> est un processus
+Python : il exécute le code et garde les variables en mémoire. Cette séparation
+explique deux comportements qui déroutent souvent.</p>
+<p>Redémarrer le noyau efface toutes les variables. Le texte des cellules reste à
+l’écran, mais son effet a disparu.</p>
+<p>L’ordre d’exécution ne suit pas nécessairement l’ordre d’affichage. Les
+compteurs <code class="docutils literal notranslate"><span class="pre">[1]</span></code>, <code class="docutils literal notranslate"><span class="pre">[2]</span></code> indiquent l’ordre réel. Un notebook qui fonctionne chez
+vous peut échouer chez quelqu’un d’autre s’il n’a jamais été relancé depuis le
+début.</p>
+<div class="tip admonition">
+<p class="admonition-title">À faire 3 — provoquer puis réparer l’incohérence</p>
+<ol class="arabic simple">
+<li><p>Lancez <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">lab</span></code> depuis le terminal, avec l’environnement d’Anaconda actif.</p></li>
+<li><p>Créez un notebook <code class="docutils literal notranslate"><span class="pre">essai.ipynb</span></code>. Première cellule : <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">10</span></code>. Seconde
+cellule : <code class="docutils literal notranslate"><span class="pre">print(x</span> <span class="pre">*</span> <span class="pre">2)</span></code>. Exécutez dans l’ordre, vous obtenez <code class="docutils literal notranslate"><span class="pre">20</span></code>.</p></li>
+<li><p>Remplacez le contenu de la première cellule par <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">3</span></code>, mais n’exécutez que
+la seconde. Elle affiche toujours <code class="docutils literal notranslate"><span class="pre">20</span></code> : le noyau ignore ce que vous n’avez
+pas exécuté.</p></li>
+<li><p>Choisissez <em>Kernel → Restart Kernel and Run All Cells</em>. Vous obtenez <code class="docutils literal notranslate"><span class="pre">6</span></code>.</p></li>
+</ol>
+<p>Prenez l’habitude de relancer un notebook depuis le début avant de le partager.</p>
+</div>
+</section>
+<section id="deux-formats-de-notebook">
+<h2>Deux formats de notebook<a class="headerlink" href="#deux-formats-de-notebook" title="Lien vers cette rubrique">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Un .ipynb est un fichier JSON : du texte, mais du texte destiné à un programme.</span>
+<span class="n">exemple</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"cells"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">"cell_type"</span><span class="p">:</span> <span class="s2">"code"</span><span class="p">,</span>
+         <span class="s2">"execution_count"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+         <span class="s2">"metadata"</span><span class="p">:</span> <span class="p">{},</span>
+         <span class="s2">"source"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"print('bonjour')"</span><span class="p">],</span>
+         <span class="s2">"outputs"</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"output_type"</span><span class="p">:</span> <span class="s2">"stream"</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"stdout"</span><span class="p">,</span>
+                      <span class="s2">"text"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"bonjour</span><span class="se">\n</span><span class="s2">"</span><span class="p">]}]},</span>
+    <span class="p">],</span>
+    <span class="s2">"metadata"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"kernelspec"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"python3"</span><span class="p">}},</span>
+    <span class="s2">"nbformat"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">"nbformat_minor"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">exemple</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">1</span><span class="p">)[:</span><span class="mi">420</span><span class="p">],</span> <span class="s2">"…"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "source": [
+    "print('bonjour')"
+   ],
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "bonjour\n"
+     ]
+    }
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "name": "python3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+} …
+</pre></div>
+</div>
+</div>
+</div>
+<p>Un <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> réunit dans un même fichier le code, les résultats (y compris les
+images, encodées en base64) et des métadonnées. Il s’échange facilement, mais se
+relit et se compare mal : deux exécutions du même notebook produisent des
+différences considérables.</p>
+<p>MyST Markdown est l’autre possibilité. Le contenu est écrit en Markdown, les
+cellules de code sont des blocs <code class="docutils literal notranslate"><span class="pre">```{code-cell}</span></code>, et les résultats sont
+recalculés à la construction plutôt que stockés. Cette page est écrite ainsi.</p>
+<p>Sur la page que vous lisez, remplacer <code class="docutils literal notranslate"><span class="pre">1920</span></code> par <code class="docutils literal notranslate"><span class="pre">3840</span></code> produit une différence
+de 2 lignes au format MyST, contre 23 lignes au format <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>, dont les
+résultats enregistrés. Mesuré sur cette page, le <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> ayant été exécuté :
+c’est là que sont les résultats qui gonflent la différence.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">.ipynb</span></code></p></th>
+<th class="head"><p>MyST (<code class="docutils literal notranslate"><span class="pre">.md</span></code>)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Nature</p></td>
+<td><p>JSON produit par l’outil</p></td>
+<td><p>Markdown écrit par un humain</p></td>
+</tr>
+<tr class="row-odd"><td><p>Résultats</p></td>
+<td><p>stockés dans le fichier</p></td>
+<td><p>recalculés à la construction</p></td>
+</tr>
+<tr class="row-even"><td><p>Comparaison de versions</p></td>
+<td><p>difficile</p></td>
+<td><p>ligne à ligne</p></td>
+</tr>
+<tr class="row-odd"><td><p>Édition</p></td>
+<td><p>JupyterLab, VSCode</p></td>
+<td><p>n’importe quel éditeur</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">À faire 4 — convertir dans les deux sens</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupytext<span class="w"> </span>--to<span class="w"> </span>ipynb<span class="w"> </span>03_environnement_python.md
+jupytext<span class="w"> </span>--to<span class="w"> </span>myst<span class="w"> </span>essai.ipynb
+</pre></div>
+</div>
+<p>Ouvrez les deux résultats dans VSCode, comparez leur taille et leur lisibilité,
+puis répondez en trois lignes : lequel choisiriez-vous pour rédiger un cours ?
+pour envoyer un résultat par courriel ?</p>
+</div>
+</section>
+<section id="bilan-de-la-seance">
+<h2>Bilan de la séance<a class="headerlink" href="#bilan-de-la-seance" title="Lien vers cette rubrique">#</a></h2>
+<p>Un logiciel transforme une entrée en sortie, et son traitement part d’un texte
+écrit par un humain. Une extension nomme un fichier sans dire ce qu’il contient.
+Le contenu et la présentation se séparent, en HTML comme ailleurs. Un
+environnement rend l’outillage reproductible d’un poste à l’autre. Un notebook
+s’exécute dans un noyau, qui conserve l’état entre les cellules.</p>
+<p>Le choix d’un format décide de ce que l’on pourra en faire : le relire, le
+comparer, le versionner. C’est le sujet du cours 2, consacré à la ligne de
+commande et à git. L’annexe « Comparer deux versions d’un fichier » en donne
+l’avant-goût, et se fait seul.</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="02_formats_de_fichier.html"
+       title="page précédente">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">précédent</p>
+        <p class="prev-next-title">Formats de fichier</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="05_comparer_versions.html"
+       title="page suivante">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">suivant</p>
+        <p class="prev-next-title">Annexe — Comparer deux versions d’un fichier</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenu
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#l-environnement-de-developpement">L’environnement de développement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-ou-viennent-les-paquets-et-par-quel-outil">D’où viennent les paquets, et par quel outil</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dependances-directes-et-dependances-transitives">Dépendances directes et dépendances transitives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ajouter-une-bibliotheque-a-un-environnement">Ajouter une bibliothèque à un environnement</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yaml-et-toml">YAML et TOML</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trois-facons-d-executer-du-python">Trois façons d’exécuter du Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interface-et-noyau">Interface et noyau</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deux-formats-de-notebook">Deux formats de notebook</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bilan-de-la-seance">Bilan de la séance</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Par 1re année géomatique
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, module info01 — CC-BY-4.0.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

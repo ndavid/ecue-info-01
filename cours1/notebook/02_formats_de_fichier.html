@@ -1,0 +1,781 @@
+
+<!DOCTYPE html>
+
+
+<html lang="fr" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Formats de fichier &#8212; Introduction à l&#39;informatique</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=4418a689" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+
+    <script src="../../_static/documentation_options.js?v=72dce1d2"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script src="../../_static/translations.js?v=e6b791cb"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'cours1/notebook/02_formats_de_fichier';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Recherche" href="../../search.html" />
+    <link rel="next" title="Environnement Python et notebooks" href="03_environnement_python.html" />
+    <link rel="prev" title="Programmes, applications et outils" href="01_programmes_et_outils.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="fr"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Passer au contenu principal</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Haut de page</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Alerte de version"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Navigation dans le site">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Recherche</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Recherche</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="Sur cette page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction à l'informatique</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Recherche</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Introduction à l’informatique
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Avant les séances</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../avant/verifications.html">Vérifier les postes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../avant/reseau.html">Tester le réseau</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../avant/bureautique.html">Tester les logiciels de texte et de bureautique</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../avant/anaconda.html">Tester Anaconda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../avant/donnees.html">Récupérer les fichiers d’une séance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Séances</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Séance 1 — Logiciel, programmation et formats de fichier</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01_programmes_et_outils.html">Programmes, applications et outils</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Formats de fichier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_environnement_python.html">Environnement Python et notebooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_comparer_versions.html">Annexe — Comparer deux versions d’un fichier</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cours2/index.html">Séance 2 — Ligne de commande et git local</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cours3/index.html">Séance 3 — Chemins, fichiers, images et ligne de commande</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cours4/index.html">Séance 4 — Studio d’automatisation (animation vidéo)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cours5/index.html">Séance 5 — Matériel, réseau, SSH et secrets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cours6/index.html">Séance 6 — Forge, git en équipe et outil « trajectoire »</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cours7/index.html">Séance 7 — Benchmark image et rapport</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Annexes</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../annexes/configuration/index.html">Configuration des postes de la salle</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/configuration/outils.html">Choisir entre JupyterLab, Spyder et VS Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/configuration/anaconda.html">Anaconda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/configuration/jupyterlab.html">JupyterLab</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../annexes/configuration/vscode.html">VS Code</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../annexes/configuration/vscode_python.html">Python et environnement conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../annexes/configuration/vscode_notebooks.html">Notebooks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../annexes/configuration/vscode_reglages.html">Fichiers de réglages</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/configuration/git.html">Git et Git Bash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/configuration/spyder.html">Spyder</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../annexes/poste_personnel.html">Installation sur un ordinateur personnel</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../annexes/notions/index.html">Notions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/notions/terminaux.html">Les terminaux en ligne de commande</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/notions/variables_environnement.html">Variables d’environnement et recherche des programmes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/notions/environnements.html">Les environnements conda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/notions/vscode_environnements.html">Comment VS Code gère les environnements Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/notions/git_bash.html">Git Bash : une fenêtre, bash et des programmes</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../annexes/faq.html">FAQ</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/problemes/reseau.html">Problèmes de réseau et de compte</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/problemes/bureautique.html">Problèmes avec les logiciels de texte et de bureautique</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/problemes/anaconda.html">Problèmes avec Anaconda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/problemes/jupyterlab.html">Problèmes avec JupyterLab et les notebooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/problemes/vscode.html">Problèmes avec VS Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/problemes/git.html">Problèmes avec git</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../annexes/plus_loin/index.html">Pour aller plus loin</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../annexes/plus_loin/venv_uv.html">venv et uv</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Mode plein écran"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Thème">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Thème" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Clair"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Sombre"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="Paramètres système"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>Paramètres système</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Clair</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Sombre</button></li>
+  </ul>
+</div>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Formats de fichier</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenu </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparation">Préparation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ce-que-contient-un-fichier-texte">Ce que contient un fichier texte</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extension-et-contenu">Extension et contenu</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structure-d-un-fichier-odt">Structure d’un fichier <code class="docutils literal notranslate"><span class="pre">.odt</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contenu-et-presentation-en-html">Contenu et présentation en HTML</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bilan">Bilan</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="formats-de-fichier">
+<h1>Formats de fichier<a class="headerlink" href="#formats-de-fichier" title="Lien vers cette rubrique">#</a></h1>
+<section id="preparation">
+<h2>Préparation<a class="headerlink" href="#preparation" title="Lien vers cette rubrique">#</a></h2>
+<p>Les fichiers de cette page sont ceux du TD 1a, dans <code class="docutils literal notranslate"><span class="pre">cours1/1a_formats/depart/</span></code>.
+Ils sont fabriqués à partir de textes du domaine public, et livrés avec le cours.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">dossier_seance</span><span class="p">(</span><span class="n">depart</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Le dossier de la séance, celui qui contient `1a_formats/`.</span>
+
+<span class="sd">    Le notebook s'ouvre depuis l'archive du cours, depuis le dépôt ou pendant</span>
+<span class="sd">    la construction du book, et le dossier courant change à chaque fois : on</span>
+<span class="sd">    remonte donc jusqu'à le trouver.</span>
+<span class="sd">    """</span>
+    <span class="k">for</span> <span class="n">dossier</span> <span class="ow">in</span> <span class="p">[</span><span class="n">depart</span><span class="p">,</span> <span class="o">*</span><span class="n">depart</span><span class="o">.</span><span class="n">parents</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">candidat</span> <span class="ow">in</span> <span class="p">(</span><span class="n">dossier</span><span class="p">,</span> <span class="n">dossier</span> <span class="o">/</span> <span class="s2">"data"</span> <span class="o">/</span> <span class="s2">"cours1"</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">candidat</span> <span class="o">/</span> <span class="s2">"1a_formats"</span><span class="p">)</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">candidat</span>
+    <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s2">"dossier de la séance introuvable depuis "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">depart</span><span class="p">))</span>
+
+<span class="c1"># Dans le dépôt du cours, les fichiers fabriqués sont rangés dans produit/.</span>
+<span class="n">DONNEES</span> <span class="o">=</span> <span class="n">dossier_seance</span><span class="p">()</span> <span class="o">/</span> <span class="s2">"1a_formats"</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">DONNEES</span> <span class="o">/</span> <span class="s2">"produit"</span><span class="p">)</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+    <span class="n">DONNEES</span> <span class="o">=</span> <span class="n">DONNEES</span> <span class="o">/</span> <span class="s2">"produit"</span>
+<span class="n">DONNEES</span> <span class="o">=</span> <span class="n">DONNEES</span> <span class="o">/</span> <span class="s2">"depart"</span>
+
+<span class="k">for</span> <span class="n">fichier</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">DONNEES</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()):</span>
+    <span class="k">if</span> <span class="n">fichier</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">fichier</span><span class="o">.</span><span class="n">name</span><span class="si">:</span><span class="s2">&lt;34</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">fichier</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span><span class="si">:</span><span class="s2">&gt;6</span><span class="si">}</span><span class="s2"> octets"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>auld_lang_syne.odt                   7654 octets
+auld_lang_syne_brut.html              752 octets
+auld_lang_syne_style.html            1009 octets
+auld_lang_syne_une_ligne.donnees      514 octets
+auld_lang_syne_une_ligne.txt          514 octets
+raven.odt                            8100 octets
+raven_brut.html                      1616 octets
+raven_style.html                     1939 octets
+raven_une_ligne.donnees              1385 octets
+raven_une_ligne.txt                  1385 octets
+style.css                             584 octets
+</pre></div>
+</div>
+</div>
+</div>
+<p>Deux textes sont disponibles : <em>The Raven</em> d’Edgar Allan Poe (1845) et
+<em>Auld Lang Syne</em> de Robert Burns (1788). La suite prend le poème ; refaites
+ensuite les mêmes opérations avec la chanson.</p>
+</section>
+<section id="ce-que-contient-un-fichier-texte">
+<h2>Ce que contient un fichier texte<a class="headerlink" href="#ce-que-contient-un-fichier-texte" title="Lien vers cette rubrique">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">brut</span> <span class="o">=</span> <span class="p">(</span><span class="n">DONNEES</span> <span class="o">/</span> <span class="s2">"raven_une_ligne.txt"</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">brut</span><span class="p">)</span><span class="si">}</span><span class="s2"> caractères, </span><span class="si">{</span><span class="n">brut</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span><span class="si">}</span><span class="s2"> saut de ligne"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">brut</span><span class="p">[:</span><span class="mi">180</span><span class="p">],</span> <span class="s2">"…"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1341 caractères, 1 saut de ligne
+Once upon a midnight dreary, while I pondered, weak and weary, Over many a quaint and curious volume of forgotten lore— While I nodded, nearly napping, suddenly there came a tappin …
+</pre></div>
+</div>
+</div>
+</div>
+<p>Le poème entier tient sur une seule ligne. Un fichier texte ne contient pas des
+lignes : il contient des caractères, dont l’un, noté <code class="docutils literal notranslate"><span class="pre">\n</span></code>, signifie « saut de
+ligne ». En l’absence de ce caractère, le texte n’est pas découpé.</p>
+<div class="tip admonition">
+<p class="admonition-title">À faire 1 — remettre le texte en forme</p>
+<p>Copiez <code class="docutils literal notranslate"><span class="pre">depart/raven_une_ligne.txt</span></code> dans <code class="docutils literal notranslate"><span class="pre">travail/</span></code>, ouvrez la copie dans
+VSCode et rendez-la lisible : un vers par ligne, une ligne vide entre les strophes. La ponctuation (<code class="docutils literal notranslate"><span class="pre">,</span></code> <code class="docutils literal notranslate"><span class="pre">—</span></code> <code class="docutils literal notranslate"><span class="pre">?</span></code>) et les
+majuscules en début de vers vous servent de repères.</p>
+<p>Comparez ensuite votre résultat avec le corrigé, distribué après la séance.</p>
+<p>En ajoutant ces sauts de ligne, vous avez ajouté au fichier une information
+qu’il ne contenait pas : sa structure. Elle n’était pas déductible
+automatiquement.</p>
+</div>
+</section>
+<section id="extension-et-contenu">
+<h2>Extension et contenu<a class="headerlink" href="#extension-et-contenu" title="Lien vers cette rubrique">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">DONNEES</span> <span class="o">/</span> <span class="s2">"raven_une_ligne.txt"</span><span class="p">)</span><span class="o">.</span><span class="n">read_bytes</span><span class="p">()</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="n">DONNEES</span> <span class="o">/</span> <span class="s2">"raven_une_ligne.donnees"</span><span class="p">)</span><span class="o">.</span><span class="n">read_bytes</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Contenus identiques :"</span><span class="p">,</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Contenus identiques : True
+</pre></div>
+</div>
+</div>
+</div>
+<p>Ces deux fichiers portent des extensions différentes et contiennent exactement
+les mêmes octets. L’extension n’agit pas sur le contenu : elle indique au
+système quel logiciel proposer par défaut.</p>
+<div class="tip admonition">
+<p class="admonition-title">À faire 2 — renommer une extension</p>
+<ol class="arabic simple">
+<li><p>Affichez les extensions dans votre explorateur de fichiers. Elles sont
+masquées par défaut sous Windows et macOS ; activez-les une fois, vous en
+aurez besoin tout le semestre.</p></li>
+<li><p>Copiez <code class="docutils literal notranslate"><span class="pre">raven_une_ligne.donnees</span></code> dans <code class="docutils literal notranslate"><span class="pre">travail/</span></code> et double-cliquez sur la
+copie. Le système ne sait pas quoi en faire.</p></li>
+<li><p>Renommez-la en <code class="docutils literal notranslate"><span class="pre">.txt</span></code> : il s’ouvre dans un éditeur. Renommez-le en <code class="docutils literal notranslate"><span class="pre">.html</span></code> :
+le navigateur l’ouvre. Le fichier lui-même n’a pas changé.</p></li>
+</ol>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Avertissement</p>
+<p>Une extension peut donc être trompeuse, par erreur ou volontairement. Un fichier
+reçu en <code class="docutils literal notranslate"><span class="pre">.pdf</span></code> peut contenir autre chose. Le seul moyen de savoir ce qu’un
+fichier contient est de regarder ses octets, ce que nous ferons au cours 3 avec
+un éditeur hexadécimal.</p>
+</div>
+</section>
+<section id="structure-d-un-fichier-odt">
+<h2>Structure d’un fichier <code class="docutils literal notranslate"><span class="pre">.odt</span></code><a class="headerlink" href="#structure-d-un-fichier-odt" title="Lien vers cette rubrique">#</a></h2>
+<p>Un <code class="docutils literal notranslate"><span class="pre">.txt</span></code> ne contient que des caractères ; il n’a aucun endroit où noter qu’un
+mot est en gras. Un <code class="docutils literal notranslate"><span class="pre">.odt</span></code>, le format de LibreOffice Writer, le peut. La cellule
+suivante montre comment.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">zipfile</span>
+
+<span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">DONNEES</span> <span class="o">/</span> <span class="s2">"raven.odt"</span><span class="p">)</span> <span class="k">as</span> <span class="n">archive</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">membre</span> <span class="ow">in</span> <span class="n">archive</span><span class="o">.</span><span class="n">namelist</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">membre</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mimetype
+meta.xml
+META-INF/manifest.xml
+content.xml
+manifest.rdf
+styles.xml
+</pre></div>
+</div>
+</div>
+</div>
+<p>Un <code class="docutils literal notranslate"><span class="pre">.odt</span></code> est une archive ZIP contenant des fichiers XML. Le texte est dans
+<code class="docutils literal notranslate"><span class="pre">content.xml</span></code>, entouré de balises qui décrivent la mise en forme. Les formats
+<code class="docutils literal notranslate"><span class="pre">.docx</span></code>, <code class="docutils literal notranslate"><span class="pre">.xlsx</span></code> et <code class="docutils literal notranslate"><span class="pre">.epub</span></code> sont construits de la même façon.</p>
+<p>Les noms de style qu’on y lit surprennent : <code class="docutils literal notranslate"><span class="pre">Text_20_body</span></code>, <code class="docutils literal notranslate"><span class="pre">Heading_20_1</span></code>. Ce
+ne sont pas des noms en plusieurs morceaux. Un nom de style est un nom XML, où
+l’espace est interdit ; ODF encode donc chaque caractère interdit par son code
+hexadécimal entouré de tirets bas, et l’espace vaut <code class="docutils literal notranslate"><span class="pre">20</span></code> en hexadécimal. Il
+faut donc lire « Text body » et « Heading 1 ». C’est le même principe que le
+<code class="docutils literal notranslate"><span class="pre">%20</span></code> des adresses web, où l’espace est interdit pour la même raison.</p>
+<p>Le nom lisible existe aussi dans le fichier : il est rangé dans l’attribut
+<code class="docutils literal notranslate"><span class="pre">style:display-name</span></code>, et c’est lui que LibreOffice montre dans son panneau des
+styles. La règle est fixée par la spécification OpenDocument, partie 3, aux
+sections sur <a class="reference external" href="https://docs.oasis-open.org/office/OpenDocument/v1.3/OpenDocument-v1.3-part3-schema.html"><code class="docutils literal notranslate"><span class="pre">style:name</span></code> et
+<code class="docutils literal notranslate"><span class="pre">style:display-name</span></code></a>.</p>
+<div class="tip admonition">
+<p class="admonition-title">À faire 3 — ouvrir l’ODT, puis l’ouvrir autrement</p>
+<p>Ouvrez <code class="docutils literal notranslate"><span class="pre">raven.odt</span></code> avec LibreOffice Writer et observez la mise en page.</p>
+<p>Copiez-le ensuite dans <code class="docutils literal notranslate"><span class="pre">travail/</span></code> sous le nom <code class="docutils literal notranslate"><span class="pre">raven.zip</span></code>, ouvrez-le comme une
+archive, et lisez <code class="docutils literal notranslate"><span class="pre">content.xml</span></code> dans VSCode. C’est le TD 1b, facultatif,
+dans <code class="docutils literal notranslate"><span class="pre">cours1/1b_archive_odt/</span></code>.</p>
+</div>
+</section>
+<section id="contenu-et-presentation-en-html">
+<h2>Contenu et présentation en HTML<a class="headerlink" href="#contenu-et-presentation-en-html" title="Lien vers cette rubrique">#</a></h2>
+<p>En HTML, le contenu porte des balises qui décrivent sa structure. La
+présentation est décrite ailleurs, dans une feuille de style CSS.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">((</span><span class="n">DONNEES</span> <span class="o">/</span> <span class="s2">"raven_brut.html"</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)[:</span><span class="mi">400</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;The Raven&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;article&gt;
+    &lt;h1&gt;The Raven&lt;/h1&gt;
+    &lt;p class="auteur"&gt;Edgar Allan Poe (1845)&lt;/p&gt;
+    &lt;p&gt;Once upon a midnight dreary, while I pondered, weak and weary, Over many a quaint and curious volume of forgotten lore— While I nodded, nearly napping, suddenly there came a tapping, As of some one gent
+</pre></div>
+</div>
+</div>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">À faire 4 — comparer deux rendus</p>
+<ol class="arabic simple">
+<li><p>Ouvrez <code class="docutils literal notranslate"><span class="pre">raven_brut.html</span></code> dans votre navigateur, par double-clic ou par
+glisser-déposer. L’adresse commence par <code class="docutils literal notranslate"><span class="pre">file://</span></code> : le navigateur lit un
+fichier local, sans serveur ni réseau.</p></li>
+<li><p>Le poème s’affiche en un seul bloc. Les sauts de ligne présents dans le
+fichier ne sont pas rendus : en HTML, la structure se déclare avec des
+balises comme <code class="docutils literal notranslate"><span class="pre">&lt;p&gt;</span></code> et <code class="docutils literal notranslate"><span class="pre">&lt;br&gt;</span></code>.</p></li>
+<li><p>Ouvrez <code class="docutils literal notranslate"><span class="pre">raven_style.html</span></code>. Le contenu est le même ; l’en-tête contient une
+ligne de plus, <code class="docutils literal notranslate"><span class="pre">&lt;link</span> <span class="pre">rel=&quot;stylesheet&quot;</span> <span class="pre">href=&quot;style.css&quot;&gt;</span></code>.</p></li>
+<li><p>Modifiez <code class="docutils literal notranslate"><span class="pre">style.css</span></code> dans VSCode (<code class="docutils literal notranslate"><span class="pre">background</span></code>, <code class="docutils literal notranslate"><span class="pre">font-family</span></code>, <code class="docutils literal notranslate"><span class="pre">max-width</span></code>)
+et rechargez la page avec <code class="docutils literal notranslate"><span class="pre">F5</span></code>.</p></li>
+</ol>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">((</span><span class="n">DONNEES</span> <span class="o">/</span> <span class="s2">"style.css"</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)[:</span><span class="mi">300</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/* Feuille de style d'exemple — cours 1.
+   Même contenu HTML, rendu différent : le fond (données) et la forme (style)
+   sont dans deux fichiers séparés. */
+
+body {
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.6;
+  color: #2b2b2b;
+  background: #faf8f4;
+  margin: 0;
+  padding:
+</pre></div>
+</div>
+</div>
+</div>
+<p>Le fichier de contenu et le fichier de style sont séparés : l’apparence change
+sans que le texte soit touché. On retrouvera ce principe dans le Markdown d’un
+<code class="docutils literal notranslate"><span class="pre">README</span></code>, et plus généralement dans la séparation entre un programme et sa
+configuration.</p>
+</section>
+<section id="bilan">
+<h2>Bilan<a class="headerlink" href="#bilan" title="Lien vers cette rubrique">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Format</p></th>
+<th class="head"><p>Contient</p></th>
+<th class="head"><p>S’ouvre avec</p></th>
+<th class="head"><p>Se versionne bien</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.txt</span></code></p></td>
+<td><p>des caractères</p></td>
+<td><p>n’importe quel éditeur</p></td>
+<td><p>oui</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.md</span></code></p></td>
+<td><p>des caractères et un balisage léger</p></td>
+<td><p>un éditeur, l’aperçu VSCode</p></td>
+<td><p>oui</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.html</span></code> et <code class="docutils literal notranslate"><span class="pre">.css</span></code></p></td>
+<td><p>des caractères, de la structure, du style</p></td>
+<td><p>un éditeur et un navigateur</p></td>
+<td><p>oui</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.odt</span></code>, <code class="docutils literal notranslate"><span class="pre">.docx</span></code></p></td>
+<td><p>une archive ZIP de fichiers XML</p></td>
+<td><p>LibreOffice, Word</p></td>
+<td><p>non</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>La dernière colonne annonce le cours 2. Un format texte se relit, se compare
+ligne à ligne et se versionne ; une archive compressée, non.</p>
+<div class="admonition seealso">
+<p class="admonition-title">Voir aussi</p>
+<p>Suite : <a class="reference internal" href="03_environnement_python.html"><span class="std std-doc">Environnement Python et notebooks</span></a>.</p>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_programmes_et_outils.html"
+       title="page précédente">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">précédent</p>
+        <p class="prev-next-title">Programmes, applications et outils</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03_environnement_python.html"
+       title="page suivante">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">suivant</p>
+        <p class="prev-next-title">Environnement Python et notebooks</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenu
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparation">Préparation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ce-que-contient-un-fichier-texte">Ce que contient un fichier texte</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extension-et-contenu">Extension et contenu</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structure-d-un-fichier-odt">Structure d’un fichier <code class="docutils literal notranslate"><span class="pre">.odt</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contenu-et-presentation-en-html">Contenu et présentation en HTML</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bilan">Bilan</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Par 1re année géomatique
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, module info01 — CC-BY-4.0.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
