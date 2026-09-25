@@ -3,6 +3,7 @@
 > Public : 1re année d'école d'ingénieurs (géomatique), profils variés (prépa littéraire ou scientifique).
 > Ce fichier décrit le module **tel qu'il est joué en 2026-2027**. Les cours 1 à 5 sont décrits d'après leurs diapositives (`src/cours<n>/diapo/`), relevées le 24/09/2026 ; les cours 6 et 7 sont encore au stade de l'intention. Le détail par séance vit dans `cours/<n>_.../` (`contenu_detaille.md` + `exercices_complementaires.md`). Voir aussi [`README.md`](../README.md).
 > La refonte envisagée après les premières séances est dans [`02_syllabus_v2.md`](02_syllabus_v2.md).
+> Les séances 3 à 7 de 2026-2027 suivent le [syllabus v1.5](03_syllabus_v1_5.md), qui reprend une partie du v2.
 
 ## Tableau des séances
 
