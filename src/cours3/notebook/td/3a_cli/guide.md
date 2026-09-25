@@ -35,8 +35,8 @@ la détaille. Chaque page commence par un encadré qui résume l'étape.
 | [2](#étape-2-une-fonction-main) | mettre le programme dans une fonction `main` | 2 |
 | [3](#étape-3-les-arguments-sur-une-branche) | lire la recette, le nombre de personnes et les unités sur la ligne de commande, sur une branche | 5 |
 | [4](#étape-4-un-readme) | écrire un `README.md` | 6 |
-| [5](#étape-5-facultative-le-code-dans-src-les-données-dans-data) (facultatif) | ranger le code dans `src/` et les données dans `data/` | 7 |
-| [6](#étape-6-facultative-une-commande-installée) (facultatif) | installer le programme comme une commande | 8 |
+| [5](#étape-5-facultative-le-code-dans-src-les-données-dans-data) (facultatif, après la séance) | ranger le code dans `src/` et les données dans `data/` | 7 |
+| [6](#étape-6-facultative-une-commande-installée) (facultatif, après la séance) | installer le programme comme une commande | 8 |
 
 ## Rappels avant de commencer
 

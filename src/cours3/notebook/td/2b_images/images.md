@@ -121,6 +121,8 @@ print(motif.read_bytes()[:23].hex(" "))   # les 23 premiers octets du fichier te
 
 ## 3 · Lire n'importe quel fichier octet par octet
 
+*Les sections 3 à 6 se lisent et s'exécutent après la séance. En séance, passer à la section 7.*
+
 Un éditeur hexadécimal affiche ce que la cellule précédente montre, avec la
 position de chaque octet et le caractère correspondant. Une fonction de six
 lignes fait la même chose, pour n'importe quel fichier.

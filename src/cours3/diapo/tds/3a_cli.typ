@@ -7,7 +7,7 @@
 //
 // Le programme se construit pas à pas depuis les cellules du notebook du
 // TD 1a : un fichier, `main`, `argparse` sur une branche, un README ; puis,
-// en facultatif, `src/` et `data/`, et `pyproject.toml`. Chaque étape a son
+// dans le guide seulement, `src/` et `data/`, et `pyproject.toml`. Chaque étape a son
 // corrigé dans `data/cours3/corriges/3a_cli/etape<n>/`.
 #import "../../../commun/prelude.typ": *
 #import "../schemas.typ": *
@@ -37,14 +37,14 @@
     [2], [mettre le programme dans une fonction `main`], [2],
     [3], [les trois valeurs sur la ligne de commande, sur une branche], [5],
     [4], [écrire un `README.md`], [6],
-    [5 (facultative)], [ranger le code dans `src/` et les données dans `data/`], [7],
-    [6 (facultative)], [installer le programme comme une commande], [8],
   )
 
   #legende[
     Le guide `guide_3a_cli.pdf`, dans le dossier `3a_cli/`, détaille chaque
     étape : le dossier où se placer, le code à écrire, les commandes et la
-    façon de vérifier le résultat.
+    façon de vérifier le résultat. Il contient aussi deux étapes à faire
+    après la séance : ranger le code dans `src/` et les données dans
+    `data/`, puis installer le programme comme une commande.
   ]
 ]
 
@@ -248,84 +248,12 @@
     remplir. Ce qui compte : les commandes du README s'exécutent telles
     quelles, depuis le dossier du projet.
 
-    Fin du TD obligatoire : quatre étapes, six commits. Les deux étapes
-    suivantes sont pour qui a le temps.
+    Fin du TD : quatre étapes, six commits. Les étapes 5 et 6 sont dans le
+    guide, à faire après la séance.
   ]
 ]
 
-#d("Étape 5, facultative : src et data")[
-  #annonce[
-    Le code va dans `src/`, les données dans `data/`. Les chemins des données
-    partent alors du dossier du script, `__file__`, et non du terminal : le
-    programme se lance depuis n'importe quel dossier.
-  ]
-
-  #code-commente(
-    taille-code: 12.5pt, taille-texte: 12pt,
-    ("ICI = Path(__file__).resolve().parent", "le dossier du script, `src/` : `__file__` en absolu, puis son parent"),
-    ("RACINE = ICI.parent", "le dossier du projet"),
-    ("RECETTES = RACINE / \"data\" / \"recettes\"", "les données, à côté de `src/`"),
-    ("STYLE = RACINE / \"data\" / \"style.css\"", ""),
-    ("SORTIE = Path.cwd() / \"sortie\"", "la sortie reste dans le dossier du terminal"),
-  )
-
-  #tableau(
-    columns: (auto, 1.4fr, 1fr),
-    align: left + horizon,
-    [], [Ce qu'il faut faire], [Ce que vous constatez],
-    [1], [`git mv recette.py src/recette.py` (après `mkdir src`), `git mv recettes data/recettes`, `git mv style.css data/style.css`],
-      reponse[`git status` : trois renommages],
-    [2], [remplacer les quatre lignes de chemins par celles ci-dessus ; `python src/recette.py crepes`, puis `cd ..` et `python travail/src/recette.py crepes`],
-      reponse[la page est écrite dans `sortie/` du dossier courant, dans les deux cas],
-    [3], [`git commit -am "src/ et data/"`],
-      reponse[sept commits],
-  )
-
-  #notes[
-    `__file__` n'existe pas dans un notebook : aucun fichier `.py` n'est en
-    cours d'exécution. `resolve()` avant `parent` : `__file__` peut être un
-    chemin relatif, `src/recette.py`.
-
-    Corrigé : `corriges/3a_cli/etape5/src/recette.py`.
-  ]
-]
-
-#d("Étape 6, facultative : une commande installée")[
-  #annonce[
-    Un fichier `pyproject.toml` décrit le projet ; `pip install -e .` en fait
-    une commande, `recette`, disponible dans tous les dossiers, sans écrire
-    `python` ni le chemin du script.
-  ]
-
-  #tableau(
-    columns: (auto, 1.4fr, 1fr),
-    align: left + horizon,
-    [], [Ce qu'il faut faire], [Ce que vous constatez],
-    [1], [copier `depart/modeles/pyproject.toml` dans `travail/` ; compléter `description`],
-      reponse[`[project.scripts]` : `recette = "recette:main"`, la commande et la fonction qu'elle appelle],
-    [2], [dans le terminal, dans `travail/` : `pip install -e .`],
-      reponse[`Successfully installed recette-0.1`],
-    [3], [`cd ..`, puis `recette crepes -p 2` ; `recette --help`],
-      reponse[la page dans `sortie/` du dossier courant ; l'aide, sans `python`],
-    [4], [mettre le README à jour (la commande remplace `python recette.py`) ; `git add .`, `git commit -m "pyproject.toml : la commande recette"`],
-      reponse[huit commits],
-  )
-
-  #legende[
-    `-e` : installation « éditable », la commande exécute le fichier de
-    `src/` ; une modification du code est prise en compte sans réinstaller.
-    `pip uninstall recette` la retire.
-  ]
-
-  #notes[
-    `pyproject.toml` est le format standard des projets Python (PEP 621) ;
-    le projet 4 y revient avec les dépendances et l'environnement. Ici, une
-    seule chose à lire : `[project.scripts]`.
-
-    Si `pip install -e .` échoue faute de réseau (il télécharge `setuptools`
-    pour construire le paquet) : `pip install -e . --no-build-isolation`.
-
-    Corrigé : `corriges/3a_cli/etape5/`, avec `pyproject.toml` et le README
-    mis à jour.
-  ]
-]
+// Les étapes 5 (`src/` et `data/`) et 6 (`pyproject.toml`) ne sont plus
+// projetées (syllabus v1.5, 24/09/2026) : elles restent dans le guide, pour
+// qui veut les faire après la séance. Les diapositives sont dans
+// l'historique git.

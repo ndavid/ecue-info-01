@@ -203,6 +203,8 @@ with open(FICHIER_RECETTE, encoding="utf-8") as fichier_ouvert:
 
 ## 5 · Le CSV
 
+*Les sections 5 et 6 se lisent et s'exécutent après la séance.*
+
 Une ligne du CSV est une chaîne : `strip()` enlève son `\n`, `split(",")` la
 coupe aux virgules, en une liste de trois string.
 

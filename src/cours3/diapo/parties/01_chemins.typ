@@ -14,18 +14,19 @@
 // --------------------------------------------
 #d("Le code brut, chemins en dur", cellule: "1 et 2")[
   #annonce[
-    Le programme de création de recette "chemin en dur". version **très** améliorable : non portable et difficile à adapter.\
-    REM : pour cette partie on utilisera les fonctions utiles du bloc 1 sans chercher à comprendre leur code (vu plus tard).
+    Le programme de création de recette, avec des chemins écrits en dur : il
+    ne fonctionne que sur un poste. Les fonctions utiles du bloc 1 sont
+    utilisées sans détailler leur code, vu dans le second notebook.
   ]
 
   #code-commente(
-    taille-code: 12.5pt,
+    taille-code: 12pt, taille-texte: 12pt,
     ("ingredients = lire_ingredients(\"C:/Users/alice/…/ingredients.csv\")", "lit le CSV"),
-    ("ingredients = adapter(ingredients, 4, \"SI\")", "quatre personnes, unités SI"),
+    ("ingredients = adapter(ingredients, 4, \"SI\")", "4 personnes, SI"),
     ("with open(\"C:/Users/alice/…/recette.md\", encoding=\"utf-8\") as fichier:", "ouvre la recette"),
     ("    source = fichier.read()", "tout son texte"),
     ("complete = source.replace(\"## Ingrédients\",\n    \"## Ingrédients\\n\\n\" + tableau(ingredients))", "insère le tableau"),
-    ("with open(\"C:/Users/alice/…/crepes.md\", \"w\", encoding=\"utf-8\") as fichier:", "ouvre la sortie, en écriture"),
+    ("with open(\"C:/Users/alice/…/crepes.md\", \"w\", encoding=\"utf-8\") as fichier:", "ouvre la sortie"),
     ("    fichier.write(complete)", "l'écrit"),
   )
 
@@ -35,7 +36,7 @@
   ]
 
   #notes[
-    Faire exécuter le prmeier bloc du notebook : on doit obtenir une erreur `FileNotFoundError` sur le premier chemin. 
+    Faire exécuter le premier bloc du notebook : on doit obtenir une erreur `FileNotFoundError` sur le premier chemin. 
     Puis faire modifier le deuxième bloc (identique au premier), où chacun adapte avec les chemins de son poste. 
     Ceux-ci sont lus dans la barre d'adresse de l'explorateur, mais il faut remplacer les `\` des chemins windows avec des `/` pour respecter les conventions de python. 
     Le code doit fonctionner (ne pas envoyer d'erreur), mais ne fonctionne toujours que sur un poste.

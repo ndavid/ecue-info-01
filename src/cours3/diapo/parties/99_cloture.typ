@@ -16,6 +16,7 @@
     [Une signature], [les premiers octets identifient le format ; l'extension le rappelle],
     [Un caractère], [un nombre ; ASCII en a 128, sur un octet ; UTF-8 écrit les autres sur deux à quatre],
     [`argparse`], [les valeurs sur la ligne de commande, vérifiées, et l'aide de `--help`],
+    [Un environnement conda], [un Python et ses paquets ; `conda install` ajoute un paquet à l'environnement actif (TD 0a, selon les groupes)],
   )
 
   #notes[

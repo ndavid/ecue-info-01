@@ -14,7 +14,7 @@
   titre: "Texte et binaire : les images PGM",
   annonce: "Ouvrir images.ipynb ; le notebook se fait pendant l'exposé, section par section",
   dossier: "cours3/2b_images/",
-  duree: "25′",
+  duree: "15′",
 )
 #separateur-td(..td)
 

@@ -22,6 +22,7 @@
 
 #let tds = sys.inputs.at("tds", default: "") != "false"
 
+#import "tds/0a_environnement.typ": td as td-0a
 #import "tds/1a_recette.typ": td as td-1a
 #import "tds/2a_fichiers.typ": td as td-2a
 #import "tds/2b_images.typ": td as td-2b
@@ -39,6 +40,14 @@
 )
 
 #include "parties/00_ouverture.typ"
+
+// TD d'environnement, selon les groupes (syllabus v1.5) : la partie 4 du
+// cours 1 n'a pas été jouée en 2026.
+#if tds {
+  include "tds/0a_environnement.typ"
+} else {
+  sommaire-td(td-0a)
+}
 
 // L'ouverture commune vaut aussi sans les TD : l'exposé se suit notebook
 // ouvert, et la page dit lequel.

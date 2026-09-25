@@ -131,66 +131,35 @@
 ]
 
 // --------------------------------------------
-#d("Lire un fichier CSV", cellule: 5, fichier: "fichiers.ipynb")[
+// Les sections 5 (CSV) et 6 (raccourcis de pathlib) du notebook se lisent
+// après la séance : une seule diapositive en donne le contenu. Les deux
+// diapositives qui les détaillaient sont dans l'historique git
+// (syllabus v1.5, 24/09/2026).
+#d("À lire après la séance : § 5 et 6")[
   #annonce[
-    Une ligne du CSV est une chaîne : elle se découpe aux virgules, à la
-    main ou avec la bibliothèque `csv`.
+    Les deux dernières sections de `fichiers.ipynb` se lisent et s'exécutent
+    après la séance. `images.ipynb` et le TD 3a emploient les méthodes de la
+    section 6.
   ]
 
-  #face-a-face(
-    panneau("recettes/crepes/ingredients.csv")[
-      #sortie("ingredient,quantite,unite\nFarine,60,g\nLait,125,ml\nŒufs,1,\nSel,1,g\nBeurre fondu,12,g", taille: 11pt)
-    ],
-    panneau("La deuxième ligne, avant et après split")[
-      #sortie("'Farine,60,g\\n'\n\n['Farine', '60', 'g']", taille: 11pt)
-    ],
+  #tableau(
+    columns: (auto, 1fr, 1fr),
+    align: left + horizon,
+    [Section], [Contenu], [Ce qui sert ensuite],
+    [§ 5 · Le CSV], [découper une ligne aux virgules avec `split`, puis avec la bibliothèque `csv`], [`lire_ingredients` de la recette],
+    [§ 6 · Les raccourcis de `pathlib`], [`read_text`, `write_text`, `read_bytes` : ouvrir, lire ou écrire tout le fichier, fermer, en une ligne], [`images.ipynb` (§ 1 et 2) ; le TD 3a],
   )
 
   #v(0.3em)
   #code-commente(
-    ("ligne.strip().split(\",\")", "sans le `\\n`, coupée aux virgules : une liste de trois chaînes"),
-    ("", ""),
-    ("lecteur = csv.reader(fichier_ouvert)", "le découpage fait par la bibliothèque, guillemets compris"),
-    ("next(lecteur)", "la ligne d'en-tête, laissée de côté"),
-    ("for nom, quantite, unite in lecteur:", "chaque ligne, déjà découpée en trois variables"),
+    ("texte = chemin.read_text(encoding=\"utf-8\")", "le même résultat que `with open(...)` puis `read()`"),
+    ("octets = chemin.read_bytes()", "les octets du fichier, sans décodage"),
   )
 
-  #legende[
-    C'est `lire_ingredients`, ligne à ligne. Documentation :
-    docs.python.org/fr/3/library/csv.html.
-  ]
-
   #notes[
-    `split` suffit ici ; `csv` traite en plus une virgule entre guillemets,
-    ce qui arrive dès qu'un champ est du texte libre.
-  ]
-]
-
-// --------------------------------------------
-#d("Les raccourcis de pathlib", cellule: 6, fichier: "fichiers.ipynb")[
-  #annonce[
-    Les méthodes `read_text`, `write_text` et `read_bytes` d'un `Path`
-    ouvrent le fichier, lisent ou écrivent tout son contenu, puis le
-    ferment, en une seule ligne.
-  ]
-
-  #tableau(
-    columns: (1fr, 1fr),
-    align: left + horizon,
-    [Avec `open`], [Avec `pathlib`],
-    [`with open(chemin, encoding="utf-8") as fichier_ouvert:` #linebreak() `texte = fichier_ouvert.read()`], [`texte = chemin.read_text(encoding="utf-8")`],
-    [`with open(chemin, "w", encoding="utf-8") as fichier_ouvert:` #linebreak() `fichier_ouvert.write(texte)`], [`chemin.write_text(texte, encoding="utf-8")`],
-    [`with open(chemin, "rb") as fichier_ouvert:` #linebreak() `octets = fichier_ouvert.read()`], [`octets = chemin.read_bytes()`],
-  )
-
-  #legende[
-    Pour un fichier trop gros pour la mémoire, ou pour arrêter la lecture
-    avant la fin, on utilise `for ligne in fichier_ouvert`.
-  ]
-
-  #notes[
-    La dernière cellule réécrit le programme de la recette avec `read_text`
-    et `write_text` : deux lignes à la place de deux blocs `with`. C'est la
-    forme du TD 3a.
+    Allègement de 2026 (syllabus v1.5) : ces deux sections ne sont plus
+    exécutées pendant l'exposé.
+    `read_text` et `read_bytes` apparaissent dès la section 1 d'`images.ipynb` :
+    montrer ces deux lignes avant de passer au TD 2b.
   ]
 ]

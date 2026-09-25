@@ -130,216 +130,30 @@
 ]
 
 // --------------------------------------------
-#d("Lire un fichier octet par octet", cellule: 3)[
+// Les sections 3 à 6 du notebook se lisent après la séance : une seule
+// diapositive en donne le contenu. Les cinq diapositives qui les
+// détaillaient sont dans l'historique git (syllabus v1.5, 24/09/2026) ; les
+// sections 5 et 6 sont reprises au projet 7.
+#d("À lire après la séance : § 3 à 6")[
   #annonce[
-    Un éditeur hexadécimal affiche trois colonnes : la position, les octets,
-    et le caractère quand il y en a un. Six lignes de Python font la même
-    chose.
-  ]
-
-  ```python
-  def hexdump(chemin, n=32, largeur=16):
-      donnees = Path(chemin).read_bytes()[:n]
-      for debut in range(0, len(donnees), largeur):
-          tranche = donnees[debut:debut + largeur]
-          texte = "".join(chr(o) if 32 <= o < 127 else "." for o in tranche)
-          print(f"{debut:04x}  {tranche.hex(' '):<{largeur * 3}} {texte}")
-  ```
-
-  #sortie("0000  50 35 0a 34 20 34 0a 32 35 35 0a 00 ff 00 ff ff  P5.4 4.255......\n0010  00 ff 00 00 ff 00 ff ff 00 ff 00                 ...........", taille: 12.5pt)
-
-  #legende[
-    Sans Python : `Format-Hex fichier` dans PowerShell ; l'extension
-    « Hex Editor » de VS Code.
-  ]
-
-  #notes[
-    La fonction est à écrire, ligne à ligne, depuis la diapositive. 
-
-    `32 <= o < 127` : les codes ASCII affichables. 
-
-    Section 3, seconde cellule : `hexdump(motif)` sur la version texte. Tout
-    est affichable, à droite on relit le fichier.
-  ]
-]
-
-// --------------------------------------------
-#d("Les premiers octets identifient le format", cellule: 4)[
-  #annonce[
-    Chaque format commence par une signature. L'extension la rappelle ; le
-    programme qui ouvre le fichier lit la signature.
+    Les sections 3 à 6 d'`images.ipynb` se lisent et s'exécutent après la
+    séance. La séance reprend à la section 7.
   ]
 
   #tableau(
-    columns: (auto, auto, 1fr, auto),
+    columns: (auto, 1fr),
     align: left + horizon,
-    [Hexadécimal], [ASCII], [Format], [Vu au cours],
-    [`50 35`], [`P5`], [PGM binaire ; `P2` en texte, `P3` et `P6` en couleur], [aujourd'hui],
-    [`42 4d`], [`BM`], [BMP, l'image de Windows, un octet par valeur], [aujourd'hui],
-    [`89 50 4e 47`], [`.PNG`], [PNG, compressé sans perte], [aujourd'hui],
-    [`ff d8 ff`], [`...`], [JPEG, compressé avec perte], [aujourd'hui],
-    [`50 4b 03 04`], [`PK..`], [ZIP, donc aussi `.odt`, `.docx`, `.xlsx`], [TD 1b],
-    [`25 50 44 46`], [`%PDF`], [PDF], [cours 1],
-    [`4d 5a`], [`MZ`], [un exécutable Windows, `python.exe` compris], [cours 1],
+    [Section], [Contenu],
+    [§ 3 · Lire un fichier octet par octet], [une fonction `hexdump` de six lignes : position, octets en hexadécimal, caractère],
+    [§ 4 · Trois formats réels pour la même image], [les premiers octets d'un fichier (la signature) indiquent son format : `P5`, `BM`, `\x89PNG`],
+    [§ 5 · Une vraie image, en quatre formats], [la taille d'une image non compressée se calcule (largeur × hauteur × octets par valeur) ; PNG et JPEG compressent],
+    [§ 6 · Le temps de lecture], [lire les pixels depuis le fichier `P2` prend beaucoup plus longtemps que depuis le fichier `P5`],
   )
 
   #notes[
-    Dans la colonne ASCII, un point remplace un octet qui n'est pas un
-    caractère affichable, comme dans la fonction `hexdump`.
-
-    Section 4 : les élèves écrivent les deux `save` (BMP, PNG) sur le
-    modèle de la section 2. La boucle `glob` qui affiche les tailles est
-    donnée, puis `hexdump` sur chaque fichier. Les deux signatures sont sur
-    la première ligne.
-
-    La ligne ZIP : `.odt` était l'archive du TD 1b, `.docx` en est une
-    aussi. Le `.ipynb` n'en est pas une, c'est du JSON, du texte ; le dire si
-    quelqu'un le teste.
-
-    `MZ` : `Path(sys.executable).read_bytes()[:2]` le montre, pour qui a le
-    temps. Le fichier exécuté est binaire, disait le cours 1 ; le voici.
-  ]
-]
-
-// --------------------------------------------
-#d("Le poids d'une image PGM", cellule: 5)[
-  #annonce[
-    *La Grande Vague*, 2 000 × 1 344 pixels en niveaux de gris, enregistrée
-    en `P5`, en `P2` et en BMP. La taille d'un fichier non compressé se
-    calcule : largeur × hauteur × octets par valeur, plus l'en-tête.
-  ]
-
-  #tableau(
-    columns: (auto, 1fr, auto, auto),
-    align: (left + horizon, left + horizon, right + horizon, right + horizon),
-    [Fichier], [Calcul], [Octets], [Par pixel],
-    [`vague.pgm`, `P5`], [2 000 × 1 344 × 1 octet + 17 octets d'en-tête], [2 688 017], [1,00],
-    [`vague.bmp`], [2 000 × 1 344 × 1 octet + 1 078 octets d'en-tête et de palette], [2 689 078], [1,00],
-    [`vague_texte.pgm`, `P2`], [un pixel = 1 à 3 chiffres + 1 séparateur = 2 à 4 octets], [10 249 573], [3,81],
-  )
-
-  #legende[
-    Une image en couleur a trois valeurs par pixel : trois octets par pixel
-    en binaire. Les tailles varient d'un poste à l'autre pour le JPEG de
-    départ, pas les rapports.
-  ]
-
-  #notes[
-    Section 5 : `convert("L")` et le premier `save` sont donnés ; les
-    élèves écrivent les `save` en PNG et en BMP sur ce modèle. Le JPEG
-    (`quality=85`) est donné. La cellule qui écrit la version texte est
-    donnée, à exécuter et à lire : c'est la seule qui écrive un fichier
-    d'image sans Pillow.
-
-    La ligne `entete = …` est donnée. Les élèves écrivent le calcul
-    `largeur * hauteur * 1 + len(entete)` et le comparent à
-    `stat().st_size`.
-
-    3,81 octets par pixel en texte : la moyenne des valeurs a trois chiffres,
-    plus l'espace. Un pixel à 7 en prendrait deux.
-  ]
-]
-
-// --------------------------------------------
-#d("La compression", cellule: 5)[
-  #annonce[
-    Compresser, c'est écrire une répétition une fois, avec le nombre de fois,
-    au lieu de répéter la valeur. PNG compresse sans perte : les pixels relus
-    sont ceux de départ. JPEG compresse avec perte.
-  ]
-
-  #face-a-face(
-    panneau("Seize pixels, seize valeurs")[
-      #grid(
-        columns: (auto, 1fr), column-gutter: 14pt, align: horizon,
-        pixels-gris((
-          (0, 0, 0, 0),
-          (0, 255, 255, 0),
-          (0, 255, 255, 0),
-          (0, 0, 0, 0),
-        ), cote: 16pt),
-        [
-          #set text(size: 13pt)
-          `0 0 0 0 0 255 255 0 0 255 255 0 0 0 0 0`
-
-          #v(0.3em)
-          Compressé, dix nombres :\
-          `5×0  2×255  2×0  2×255  5×0`
-
-          #v(0.3em)
-          Ou, la ligne 3 recopiant la ligne 2 :\
-          `5×0  2×255  2×0  « les 4 d'avant »  4×0`
-        ],
-      )
-    ],
-    panneau("La Vague, 2 688 000 pixels")[
-      #tableau(
-        columns: (auto, auto, 1fr),
-        align: (left + horizon, right + horizon, left + horizon),
-        [Fichier], [Octets], [],
-        [`vague.pgm`], [2 688 017], [brut],
-        [`vague.png`], [1 840 096], [sans perte],
-        [`vague.jpg`], [779 252], [avec perte, qualité 85],
-      )
-    ],
-  )
-
-  #legende[
-    PNG emploie l'algorithme des fichiers ZIP, deflate ; `zlib.compress` sur
-    les pixels bruts donne 2 199 594 octets. PNG fait moins parce qu'il écrit
-    d'abord chaque ligne en différences avec la voisine.
-  ]
-
-  #notes[
-    La cellule `zlib.compress(donnees)` est dans la section 5, après le
-    calcul de taille. Le principe à faire passer : une valeur répétée, ou
-    une suite déjà vue, s'écrit une fois. Le nom deflate et LZ77 ne sont pas
-    à retenir.
-
-    JPEG : le taux dépend de l'image et de la qualité demandée, 85 ici. Ce
-    chiffre bouge d'une image à l'autre ; les autres, non.
-  ]
-]
-
-// --------------------------------------------
-#d("Le temps de lecture", cellule: 6)[
-  #annonce[
-    `%timeit` chronomètre une cellule. Lire les pixels depuis le fichier
-    texte prend mille fois plus longtemps que depuis le binaire.
-  ]
-
-  #tableau(
-    columns: (auto, auto, 1fr),
-    align: (left + horizon, right + horizon, left + horizon),
-    [Fichier], [`Image.open(…).load()`], [Ce que Pillow fait pour lire les pixels],
-    [`vague_texte.pgm`], [1 270 ms], [lire 2,7 millions de nombres écrits en chiffres et les convertir en entiers],
-    [`vague.pgm`], [0,4 ms], [copier 2,7 millions d'octets : chaque octet est la valeur d'un pixel, sans conversion],
-    [`vague.png`], [31 ms], [décompresser les pixels (algorithme deflate, sans perte)],
-    [`vague.jpg`], [11 ms], [décompresser les pixels (algorithme JPEG, avec perte)],
-  )
-
-  #legende[
-    Mesures sur un poste ; sur un autre les valeurs changent, pas leurs
-    rapports. Relancer la même cellule donne un temps plus court : le
-    système garde en mémoire ce qu'il vient de lire.
-  ]
-
-  #notes[
-    Quatre cellules `%timeit -r 3 -n 1`, une par fichier. La lecture du
-    texte prend plus d'une seconde ; celle du binaire, moins d'une
-    milliseconde.
-
-    En texte, la valeur 255 est écrite avec trois caractères, `2`, `5` et
-    `5`, que Pillow lit puis convertit en entier. En binaire, elle est
-    écrite dans un seul octet, `ff`, qui est directement l'entier 255.
-
-    PNG et JPEG : plus petits sur le disque, plus longs à relire que le
-    binaire brut, parce qu'il faut calculer les pixels. Le choix d'un format
-    est un compromis entre place et temps ; le cours 5 y revient avec les
-    ordres de grandeur.
-
-    Le cache, en légende : à mentionner, pas à développer. Le premier
-    `%timeit` lit sur le disque, les suivants en mémoire.
+    Allègement de 2026 (syllabus v1.5). Les sections 5 et 6 (poids,
+    compression, temps de lecture) sont reprises au projet 7, sur les
+    images de l'animation.
   ]
 ]
 

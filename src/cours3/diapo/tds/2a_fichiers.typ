@@ -14,7 +14,7 @@
   titre: "Lire et écrire des fichiers texte",
   annonce: "Ouvrir fichiers.ipynb ; le notebook se fait pendant l'exposé, section par section",
   dossier: "cours3/2a_fichiers/",
-  duree: "20′",
+  duree: "15′",
 )
 // Dans le cours, l'ouverture est commune à la partie (`separateur-cours-td`,
 // dans `cours3.typ`) ; seule la feuille de TD remet celle-ci.

@@ -45,10 +45,11 @@
     columns: (auto, auto, 1fr, auto),
     align: (left + horizon, left + horizon, left + horizon, center + horizon),
     [Partie], [Fichier], [Contenu], [Durée],
-    [Préparation du poste de travail], [], [récupérer l'archive, lancer JupyterLab ou VS~Code], [10 min],
-    [Chemins], [`recette.ipynb`], [le programme « recette » du cours 1 : chemins, appel d'une commande depuis Python], [20 min],
-    [Texte et binaire], [`fichiers.ipynb` #linebreak() `images.ipynb`], [ouvrir, lire et écrire un fichier ; texte et binaire : poids et temps de lecture, encodages du texte], [45 min],
-    [Ligne de commande], [`recette.py`], [un outil en ligne de commande : `main`, `argparse` ; un commit par étape], [45 min],
+    [Préparation du poste de travail], [], [récupérer l'archive, lancer JupyterLab], [10 min],
+    [Environnement (selon les groupes)], [TD 0a], [`cours3`, avec pandoc et Pillow], [+15 min],
+    [Chemins], [`recette.ipynb`], [chemins ; appeler une commande depuis Python], [20 min],
+    [Texte et binaire], [`fichiers.ipynb` #linebreak() `images.ipynb`], [lire et écrire un fichier ; texte et binaire ; UTF-8], [30 min],
+    [Ligne de commande], [`recette.py`], [`main`, `argparse` ; un commit par étape], [45 min],
   )
 
   #notes[
@@ -116,6 +117,9 @@
   ]
 
   #notes[
+    Groupes qui font le TD 0a : ne vérifier ici que l'Anaconda Prompt ;
+    JupyterLab se lance à la fin du TD 0a, depuis l'environnement `cours3`.
+
     Dix minutes, pas plus. 
     Navigator a été lent ou muet sur les VM à la séance 1 : donner la commande `jupyter lab` tout de suite à ceux qui n'ont rien au bout de trente secondes.
 
